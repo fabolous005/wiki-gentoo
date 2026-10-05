@@ -1,0 +1,269 @@
+<!-- source: https://wiki.gentoo.org/wiki/Future_EAPI/Alternate_EAPI_mechanisms | group: Gentoo Wiki (Main) | wiki-title: Future EAPI/Alternate EAPI mechanisms -->
+---
+title: Future EAPI/Alternate EAPI mechanisms
+url: https://wiki.gentoo.org/wiki/Future_EAPI/Alternate_EAPI_mechanisms
+hostname: gentoo.org
+sitename: wiki.gentoo.org
+date: "2025-06-14"
+fingerprint: a6ab987f7ea1b7e8
+license: CC BY-SA 4.0
+---
+
+# Future EAPI/Alternate EAPI mechanisms
+
+[Jump to:navigation](https://wiki.gentoo.org#mw-head)
+
+[Jump to:search](https://wiki.gentoo.org#searchInput)
+
+This is a working page that was used for collecting the different proposals on how the EAPI should be specified. See also previous discussions: [\[1\]](https://public-inbox.gentoo.org/gentoo-dev/49A472E3.1010204@gentoo.org/) [\[2\]](https://public-inbox.gentoo.org/gentoo-dev/20311.51166.725757.212932@a1i15.kph.uni-mainz.de/).
+
+## Parse the EAPI assignment statement
+
+This first proposal would require that the syntax of the EAPI assignment statement in ebuilds matches a well defined regular expression. A scan of the Portage tree shows that the statement only occurs in the following variations (using EAPI 4 as example):
+
+EAPI=4
+
+EAPI="4"
+
+EAPI='4'
+
+Sometimes this is followed by whitespace or a comment (starting with a # sign). Also, with very few exceptions the EAPI assignment occurs within the first few lines of the ebuild. For the vast majority of ebuilds it is in line 5.
+
+Written in a more formal way, appropriate for a specification:
+
+- Ebuilds must contain at most one EAPI assignment statement.
+- It must ~~occur within the first N lines of the ebuild (N=10 and N=30 have been suggested)~~ not be preceded by any lines other than blank lines or those that start with optional whitespace followed by a # character.
+- The statement must match the following regular expression (extended regexp syntax): ^\[ \t\]\*EAPI=(\['"\]?)(\[A-Za-z0-9+\_.-\]\*)\1\[ \t\]\*(\[ \t\]#.\*)?$
+
+Note: The first and the third point are already fulfilled by all ebuilds in the Portage tree. The second point will require very few ebuilds to be changed (~~9 packages for N=10, or 2 packages for N=30~~ 66 packages, already fixed).
+
+The package manager would determine the EAPI by parsing the assignment with above regular expression. Additionally, a post metadata-sourcing check would be leveled to ensure that the EAPI value from sourcing the ebuild matches what was parsed. The package manager must treat an ebuild as invalid if the probed EAPI is not identical to the one that's obtained from bash.
+
+### Upgrade path
+
+- For a transition period, new ebuilds must still be parseable by old package managers. Changes of global scope behaviour must account for this.
+
+### Pros
+
+- No modifications to the tree required.
+- Uniform style of assignment throughout all EAPIs.
+- Once the transition period is past and this is the required method, it allows deploying new bash version requirements, changes in default bash shopt settings, etc.
+- Keeps the well established .ebuild file extension.
+
+### Cons
+
+- Cannot be used in other languages than bash (unless they allow for multiline comments).
+- Bash allows a double assign of the EAPI var; this requires this mechanism to thus specify search rules (for instance, last EAPI that matches is whats used), and requires each PM to do a sanity check after sourcing that the bash level EAPI setting matches the parsed setting. Definite potential for implementation bugs, and divergent behaviour between the three PMs in this case.
+- File/libmagic would have to rely on duplicating the bash regex to pull EAPI out of the content to identify this as an ebuild. Not the simplest thing, and definite potential for bugs.
+- Backwards incompatible modifications to version specification cannot be deployed via this.
+
+## EAPI in header comment
+
+A different approach would be to specify the EAPI in a specially formatted comment in the first line of the ebuild's header. The syntax could be one of the following:
+
+- The word "ebuild", followed by whitespace, followed by the EAPI, followed by end-of-line or whitespace. Corresponding regexp: \\\<ebuild\[ \t\](\[A-Za-z0-9+\_.-\]\*)($|\[ \t\]) For example, the following would be a valid first line: \# ebuild 5
+- The word "EAPI", followed by an equals sign ("="), followed by the EAPI, followed by end-of-line or whitespace. Corresponding regexp: \\\<EAPI=(\[A-Za-z0-9+\_.-\]\*)($|\[ \t\]) For example, the following would be a valid first line: \# EAPI=5
+
+Note that the regexp doesn't require a # sign as comment introducer. This is intentional to allow for other languages with different comment syntax.
+
+### Variant: No change of file extension
+
+#### Upgrade path
+
+- The usual EAPI assignment statement in the ebuild would be still required for a transition period. A sanity check similar to the one [mentioned above](https://wiki.gentoo.org#Parse_the_EAPI_assignment_statement) would be added.
+- Alternatively, the EAPI variable could be made read-only immediately, if a statement like one of the following was added to ebuilds:`: ${EAPI=5}``[[ ${EAPI} ]] || { EAPI=-1; return; }`
+
+#### Pros
+
+- As a versioning mechanism, it's usable for any textual format that allows a comment in the first line of the file. This precludes very few languages (if any).
+- New atom syntax can be deployed.
+- Once the transition period is past and this is the required method, it allows deploying new bash version requirements, changes in default bash shopt settings, etc.
+- File/libmagic would be able to reliably look for the header marker to identify the content as an ebuild.
+- Keeps the well established .ebuild file extension.
+- Option to later [change the file extension](https://wiki.gentoo.org#EAPI_in_header_comment_and_one-time_change_of_file_extension) if a future EAPI should require it.
+
+#### Cons
+
+- Duplicate EAPI specification (header comment and bash assignment) in ebuilds during a transition period.
+- Current-day PMs can invalidly process this and assume they know the EAPI- under current rules, lack of an EAPI assignment means EAPI=0. After the transition period of duplicate assignments is over, this will break any older PMs that try processing ebuilds using just an EAPI header comment.
+- It may be counter intuitive to developers if the comment isn't appropriately formated, that messing with the EAPI line can break things.
+- Backwards incompatible modifications to version specification cannot be deployed via this.
+
+### Variant: One-time change of file extension
+
+[As before](https://wiki.gentoo.org#EAPI_in_header_comment), but combined with a one time change of the file extension, like .ebuild → .eb.
+
+The EAPI variable could be made read-only in bash before sourcing the ebuild.
+
+(Note: It was pointed out that "eb" should be avoided because of its [meaning in Russian](https://en.wiktionary.org/wiki/%D1%91%D0%B1). Alternative file extensions [have been suggested](https://public-inbox.gentoo.org/gentoo-dev/pan.2012.03.13.07.11.43@cox.net/): .ebld .ebd .bld .dliube .dlbe .be)
+
+#### Pros
+
+- As a versioning mechanism, it's usable for any textual format that allows a comment in the first line of the file. This precludes very few languages (if any).
+- New atom syntax can be deployed.
+- Allows deploying new bash version requirements, changes in default bash shopt settings, etc.
+- File/libmagic would be able to reliably look for the header marker to identify the content as an ebuild.
+
+#### Cons
+
+- Two different file extensions for ebuilds. After a lengthy transition period, the old .ebuild extension could be phased out reducing it to just one.
+- Per the same as [previous form](https://wiki.gentoo.org#Variant:_No_change_of_file_extension), it may be counter intuitive to a developer that modifying a comment (if not appropriately structured) can break things.
+
+### Variant: Subdirectory
+
+Another variant would keep the .ebuild extension, but [move new ebuilds into a subdirectory](https://public-inbox.gentoo.org/gentoo-dev/20120318082343.4d74340b@sera-17.lan).
+
+#### Pros
+
+- All of the pros of [as before](https://wiki.gentoo.org#Variant:_Variant:_One-time_change_of_file_extension).
+
+#### Cons
+
+- Ebuilds of the same package are kept in two different directories. After a lengthy transition period, the old location could be phased out reducing it to just one.
+- Per the same as [previous form](https://wiki.gentoo.org#Variant:_No_change_of_file_extension), it may be counter intuitive to a developer that modifying a comment (if not appropriately structured) can break things.
+
+## EAPI specified by a function
+
+For new eapis (5 and up) the syntax used is
+
+eapi 5 || die
+
+For existing EAPIs, we leave it as is, or require them to convert over after a couple of years if we truly care.
+
+### Upgrade Pathway
+
+For existing EAPIs, no modification is required. Longer term we may wish to convert them over, but it's not strictly required.
+
+For getting this deployed/usable, the '|| die' snippet ensures that current-day PMs won't invalidly use EAPIs that use this mechanism. For portage for example, this results in user visible warnings thrown due to the die- uglyness, but portage ultimately will mask that ebuild thus behaving correctly.
+
+For future versions of PMs, prior to EAPI5, they should deploy the eapi function so that the PM exits cleanly from sourcing thus precluding the warnings. Not required to convert to this form, but is advisable.
+
+### Pros
+
+- Uses standard bash syntax.
+- For PMs that support the eapi function, the manager can exit out quietly w/out issue if they don't support that EAPI.
+- If the PM does support that EAPI (the common path), no extra work was expended since it's checked during metadata regeneration (which already requires sourcing the ebuild).
+- Current-day package managers will properly skip over this when they see it- there is no required transition period, nor potential for older PMs to see it and invalidly think they know the EAPI.
+- New atom syntax can be deployed.
+- Bash shopt settings, new bash version requirements, etc, can be deployed w/out a transition period as long as that functionality is used \*after\* the eapi function invocation.
+
+### Cons
+
+- While current-day package managers will properly handle this and mask the ebuild, it does induce [ugly warnings](https://wiki.gentoo.org#Appendix).  Not required, but it would be advisable to deploy the eapi function before eapi5 to minimize people seeing those warnings.
+- Backwards incompatible modifications to raw version specification cannot be deployed via this.
+- If a developer uses latest-bash version syntax prior to the eapi invocation, the syntax complaints can be visible to users.  Addressable via enabling 'set -e' till the *eapi* function has been called (although this solution requires discussion/commentary from the community at large).
+- File/libmagic would have to look for the bash invocation '^ \*eapi \[^\n \]( \*|| \*die \*$)' to flag this as an ebuild. Not the simplest check.
+- Not a usable versioning mechanism for anything other than shell based formats.
+
+## GLEP 55 / EAPI in filename
+
+The relevant specification is [GLEP 55](https://www.gentoo.org/glep/glep-0055.html).  For the sake of accuracy, this is included since it is a technically viable alternative.
+
+Summarizing, the proposal is that EAPI be folded into the file name.  Rather than *portage-2.2.ebuild* with an internal variable assign of *EAPI=3*, we would instead name the file *portage-2.2.ebuild-3*.
+
+### Upgrade Pathway
+
+Assuming auditing of portages manifest verification doesn't turn up anything, this is immediately deployable.
+
+For PM versions that have not yet been updated with this support, they will no longer be able to report that an ebuild is masked due to EAPI- they won't be able to 'see' the ebuild. This is pretty minor, but is the only known issue in converting to it.
+
+### Pros
+
+- While an audit is required to verify past portage behaviour for manifest validation, this should be deployable for users immediately.
+- New atom syntax can be deployed.
+- New versioning specifications can be deployed; for example, having '-r1' be allowed to be '-r1.0'.
+- New bash version requirements, changes in default bash shopt settings, etc, can be immediately deployed in an EAPI.
+- Paludis/exherbo have been using a variation of this for \~3 years (they use a *.exheres* prefix rather than *.ebuild*).  The basics have been deployed for paludis for a long while.
+- Usable versioning mechanism for any format- whether xml, json, or whatever insanity people come up with.
+
+### Cons
+
+- Breaks current-day repoman manifest support. Fixable, but there is a flag day there. Audit required to verify this (specifically introducing new files into $PN directory) doesn't break older versions of portage doing verification.
+- *ebuild* is a well known extension.
+- Was already [rejected by a previous council](https://www.gentoo.org/proj/en/council/meeting-logs/20100823-summary.txt).
+- Subjectively speaking, there is no agreement as to whether or not EAPI in a filename is 'correct' or not. Best summed up as a heated difference of subjective design views.
+- While this has been proposed for 5 years, discussion is fairly heated and divided on this proposal to this day. Achieving a community level agreement for this is exceedingly unlikely- this mechanism is likely to be agreed to in gentoo only via council decree.
+- Existing PMs that are able to report "unable to use ebuild xyz due to eapi" no longer would report it; more generally, current-day PMs wouldn't even know the ebuild is there. There may be unknown implications to this lingering in the implementations of the 3 main PMs.
+- File/libmagic would have to look for metadata vars other to identify this as an ebuild. Doable, but it would make the patterns sensitive to our variable naming and has the potential for bugs due to it relying on regex'ing bash source.
+- While paludis has supported for this a long while, it's worth noting that exherbo actually has only one version- exheres-0, which they've modified rather than cutting new versions (akin to the pre-EAPI days for portage where new functionality was deployed unversioned). Real world usage and implications of this is likely limited (paludis/exherbo devs should expand this section as appropriate).
+- The EAPI string would have to be limited so that the filename can be parsed, so e.g. "." and "-" would have to be excluded. Not a huge con, but it's a reduction from existing behaviour (and some user may have EAPI="my.eapi.for.ebuild" in use).
+- May lead to unwieldy filenames for EAPIs that aren't entirely numeric, like kdelibs-4.7.4-r12.ebuild-kdebuild-1 or paludis-0.72.2.ebuild-paludis-1.
+
+## EAPI in external metadata file
+
+**metadata.xml** already exists as a file external to an ebuild, containing metadata associated with it. The EAPI could be stored either in metadata.xml, with a modified DTD, based on a definition in the [Package Manager Specification](https://wiki.gentoo.org/wiki/Package_Manager_Specification). The EAPI entry would need cover:
+
+- Global EAPI assignment across all ebuilds for ${PN}
+
+\<eapi>6\</eapi>
+
+- Per version, with less-then, greater-than (and potentiallly globbing)
+
+\<eapi version="=1.2.\*">4\</eapi>
+\<eapi version="<1.2">3\</eapi>
+
+The package manager would need to pre-parse the metadata file to determine the set of ebuilds which contain supported EAPIs. As discussed in the Disadvantages section, this approach may also prompt a move away from xml, towards a format which python can read without external libraries (such as JSON).
+
+Discussion:
+
+- [https://bugs.gentoo.org/402167#c4](https://bugs.gentoo.org/402167#c4)
+- [https://public-inbox.gentoo.org/gentoo-dev/CA+hid6GeGFvzg2puFKVq00YVj38=4fTX6-tnDsfTWGpMZBCN7Q@mail.gmail.com/](https://public-inbox.gentoo.org/gentoo-dev/CA+hid6GeGFvzg2puFKVq00YVj38=4fTX6-tnDsfTWGpMZBCN7Q@mail.gmail.com/)
+
+### Upgrade Path
+
+- Define the change in an EAPI (for example; 6, but it may make more sense to use a sentinel value, like 9999)
+- Preparatory
+  - Pre-EAPI=6 ebuilds retain their EAPI line, all EAPI-undefined ebuilds have their EAPI made explicit in-file.
+  - Metadata files built, with per-version EAPI for all existing ebuilds.
+- Transition period (6-12 months?):
+  - All new ebuilds have EAPI=6 inserted pre-commit (this is a little hack-ish).
+  - Package managers which support EAPI=6 parse metadata.xml, ignore 'EAPI=FOO' in all ebuilds.
+  - Package managers which do not yet support EAPI=6 halt at that line, with the usual error.
+  - repoman enforces EAPI definition in metadata.xml, confirms that the metadata.xml information matches that defined in-file.
+- Post-transition
+  - All EAPI lines stripped from ebuilds. Managers not supporting metadata.xml EAPI, treat all old ebuilds as EAPI=0;
+
+### Pros
+
+- Allows global scope changes.
+- Allows versioning scheme changes.
+- Allows free form EAPI syntax; spaces, odd characters, etc.
+
+### Cons
+
+- Managers don't strictly require xml support currently; they now would have to.
+- Managers do not parse metadata.xml during resolution/cache regeneration, they now would have to thus slowing it down (note from ferringb: while stats haven't been gathered, this will be a significant slow down).
+- Pre-existing cache formats aren't compatible with this- they do not store checksum information for metadata.xml. This would have to be changed- cache interoperability is permanently broken between current-day PM and PMs using this scheme.
+- Several fringe package managers (embedded primarily; qmerge for example) explicitly ignore metadata.xml; they would be broken, and heavily impacted via the xml dep requirement.
+- Defined Manifest [rules](https://www.gentoo.org/glep/glep-0060.html) explicitly mark metadata.xml as 'MISC', meaning it's not required to exist- this spec would have to be changed, along w/ security/validation rules checking that.
+- Post transition period, current-day managers would interpret all ebuilds as EAPI=0, breaking them.
+- Ebuilds are not self-contained - users downloading individual ebuilds (e.g. from bugzilla) would need to also download the corresponding metadata.xml.
+
+## Appendix
+
+Example Portage session, demonstrating the behaviour of present-day Portage (2.1.10.49) with a new ebuild of the "[#EAPI specified by a function](https://wiki.gentoo.org#EAPI_specified_by_a_function)" type.
+
+foo-1.ebuild is a regular EAPI 4 ebuild, foo-2.ebuild is a ebuild in a hypothetical EAPI 5. Note that Portage correctly masks foo-2. However, it outputs noisy error messages.
+
+$ emerge -av foo
+These are the packages that would be merged, in order:
+Calculating dependencies  /usr/portage/local/ulm/app-misc/foo/foo-2.ebuild: line 5: eapi: command not found
+ \* ERROR: app-misc/foo-2 failed (depend phase):
+ \*   (no error message)
+ \* 
+ \* Call stack:
+ \*      ebuild.sh, line 521:  Called source '/usr/portage/local/ulm/app-misc/foo/foo-2.ebuild'
+ \*   foo-2.ebuild, line   5:  Called die
+ \* The specific snippet of code:
+ \*   eapi 5 || die
+ \* 
+ \* If you need support, post the output of 'emerge --info =app-misc/foo-2',
+ \* the complete build log and the output of 'emerge -pqv =app-misc/foo-2'.
+ \* This ebuild is from a repository named 'ulm'
+ \* S: '/var/tmp/portage/app-misc/foo-2/work/foo-2'
+. ... done!
+\[ebuild  N     \] app-misc/foo-1::ulm  0 kB
+Total: 1 package (1 new), Size of downloads: 0 kB
+Would you like to merge these packages? \[Yes/No\] n
+Quitting.
+$

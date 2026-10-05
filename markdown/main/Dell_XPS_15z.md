@@ -1,0 +1,423 @@
+<!-- source: https://wiki.gentoo.org/wiki/Dell_XPS_15z | group: Gentoo Wiki (Main) | wiki-title: Dell XPS 15z -->
+---
+title: Dell XPS 15z
+url: https://wiki.gentoo.org/wiki/Dell_XPS_15z
+hostname: gentoo.org
+sitename: wiki.gentoo.org
+date: "2024-12-20"
+fingerprint: "6f56172dc3aa786a"
+license: CC BY-SA 4.0
+---
+
+# Dell XPS 15z
+
+[Jump to:navigation](https://wiki.gentoo.org#mw-head)
+
+[Jump to:search](https://wiki.gentoo.org#searchInput)
+
+This guide will lead you to the most important configuration to have a working box on your **Dell XPS 15z**. This article was highly based on [Alienware M11xR3](http://en.gentoo-wiki.com/wiki/Alienware_M11xR3), thanks to *Philipp Leonhardt*.
+
+## Hardware
+
+| Hardware | Manufacturer | Model | Specification | 
+|---|---|---|---|
+| Processor | Intel | Core i7 2640M (Sandy Bridge) | 2,8 GHz (3,5 GHz Turbo Mode) | 
+| Mainboard Chipset | Intel | HM67 Chipset |  | 
+| RAM | by selection on Dell Shop |  |  | 
+| Graphics Card #1 | Intel | HD Graphics 3000 (on Sandy Bridge CPU) |  | 
+| Graphics Card #2 | nVidia | GeForce GT 540M (GF108) |  | 
+| Harddisk | by selection on Dell Shop |  |  | 
+| Display | AU Optronics | B156HW3 | 15.6" WLED Glossy 16:9 1080p (1920x1080) | 
+| Sound Card | Intel | ALC269VB | 5.1-Channel HDA, 16/20/24-bit PCM, 44.1k/48k/96k192kHz, S/PDIF | 
+| Network (LAN) | Atheros | AR8151 | PCI-E Gigabit Ethernet 10/100/1000 Mbit/s | 
+| Network (Wireless) | Killer (by selection on Dell shop) | Wireless-N 1103 (based on Atheros AR9300) | 2.4GHz, 5GHz, 3-Stream MIMO, 802.11a/b/g/n, up to 450 Mbps | 
+| USB 3.0 Host Controller | NEC Corporation | uPD720200 |  | 
+| FireWire 1394 | N/A | N/A |  | 
+| Card Reader | N/A | N/A | SD/MMC/xD/MemoryStick(MS)/MS Duo/MS-HG | 
+
+`user $``lspci -nn`
+00:00.0 Host bridge \[0600\]: Intel Corporation 2nd Generation Core Processor Family DRAM Controller \[8086:0104\] (rev 09)
+00:01.0 PCI bridge \[0604\]: Intel Corporation Xeon E3-1200/2nd Generation Core Processor Family PCI Express Root Port \[8086:0101\] (rev 09)
+00:02.0 VGA compatible controller \[0300\]: Intel Corporation 2nd Generation Core Processor Family Integrated Graphics Controller \[8086:0126\] (rev 09)
+00:16.0 Communication controller \[0780\]: Intel Corporation 6 Series/C200 Series Chipset Family MEI Controller #1 \[8086:1c3a\] (rev 04)
+00:1a.0 USB controller \[0c03\]: Intel Corporation 6 Series/C200 Series Chipset Family USB Enhanced Host Controller #2 \[8086:1c2d\] (rev 05)
+00:1b.0 Audio device \[0403\]: Intel Corporation 6 Series/C200 Series Chipset Family High Definition Audio Controller \[8086:1c20\] (rev 05)
+00:1c.0 PCI bridge \[0604\]: Intel Corporation 6 Series/C200 Series Chipset Family PCI Express Root Port 1 \[8086:1c10\] (rev b5)
+00:1c.1 PCI bridge \[0604\]: Intel Corporation 6 Series/C200 Series Chipset Family PCI Express Root Port 2 \[8086:1c12\] (rev b5)
+00:1c.3 PCI bridge \[0604\]: Intel Corporation 6 Series/C200 Series Chipset Family PCI Express Root Port 4 \[8086:1c16\] (rev b5)
+00:1c.4 PCI bridge \[0604\]: Intel Corporation 6 Series/C200 Series Chipset Family PCI Express Root Port 5 \[8086:1c18\] (rev b5)
+00:1c.5 PCI bridge \[0604\]: Intel Corporation 6 Series/C200 Series Chipset Family PCI Express Root Port 6 \[8086:1c1a\] (rev b5)
+00:1d.0 USB controller \[0c03\]: Intel Corporation 6 Series/C200 Series Chipset Family USB Enhanced Host Controller #1 \[8086:1c26\] (rev 05)
+00:1f.0 ISA bridge \[0601\]: Intel Corporation HM67 Express Chipset Family LPC Controller \[8086:1c4b\] (rev 05)
+00:1f.2 SATA controller \[0106\]: Intel Corporation 6 Series/C200 Series Chipset Family 6 port SATA AHCI Controller \[8086:1c03\] (rev 05)
+00:1f.3 SMBus \[0c05\]: Intel Corporation 6 Series/C200 Series Chipset Family SMBus Controller \[8086:1c22\] (rev 05)
+01:00.0 VGA compatible controller \[0300\]: nVidia Corporation GF108 \[GeForce GT 540M\] \[10de:0df5\] (rev a1)
+03:00.0 Network controller \[0280\]: Intel Corporation Centrino Advanced-N 6230 \[8086:0091\] (rev 34)
+04:00.0 USB controller \[0c03\]: NEC Corporation uPD720200 USB 3.0 Host Controller \[1033:0194\] (rev 04)
+06:00.0 Ethernet controller \[0200\]: Atheros Communications Inc. AR8151 v2.0 Gigabit Ethernet \[1969:1083\] (rev c0)
+
+`user $``lsusb -nn`
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+Bus 001 Device 002: ID 8087:0024 Intel Corp. Integrated Rate Matching Hub
+Bus 002 Device 002: ID 8087:0024 Intel Corp. Integrated Rate Matching Hub
+Bus 001 Device 003: ID 0c45:642a Microdia 
+Bus 002 Device 003: ID 8086:0189 Intel Corp.
+
+`user $``cat /proc/cpuinfo`
+processor       : 0
+vendor\_id       : GenuineIntel
+cpu family      : 6
+model           : 42
+model name      : Intel(R) Core(TM) i7-2640M CPU @ 2.80GHz
+stepping        : 7
+microcode       : 0x25
+cpu MHz         : 800.000
+cache size      : 4096 KB
+physical id     : 0
+siblings        : 4
+core id         : 0
+cpu cores       : 2
+apicid          : 0
+initial apicid  : 0
+fpu             : yes
+fpu\_exception   : yes
+cpuid level     : 13
+wp              : yes
+flags           : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx rdtscp lm constant\_tsc arch\_perfmon pebs bts nopl xtopology nonstop\_tsc aperfmperf pni pclmulqdq dtes64 monitor ds\_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid sse4\_1 sse4\_2 x2apic popcnt tsc\_deadline\_timer aes xsave avx lahf\_lm ida arat epb xsaveopt pln pts dts tpr\_shadow vnmi flexpriority ept vpid
+bogomips        : 5587.06
+clflush size    : 64
+cache\_alignment : 64
+address sizes   : 36 bits physical, 48 bits virtual
+power management:
+processor       : 1
+vendor\_id       : GenuineIntel
+cpu family      : 6
+model           : 42
+model name      : Intel(R) Core(TM) i7-2640M CPU @ 2.80GHz
+stepping        : 7
+microcode       : 0x25
+cpu MHz         : 800.000
+cache size      : 4096 KB
+physical id     : 0
+siblings        : 4
+core id         : 0
+cpu cores       : 2
+apicid          : 1
+initial apicid  : 1
+fpu             : yes
+fpu\_exception   : yes
+cpuid level     : 13
+wp              : yes
+flags           : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx rdtscp lm constant\_tsc arch\_perfmon pebs bts nopl xtopology nonstop\_tsc aperfmperf pni pclmulqdq dtes64 monitor ds\_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid sse4\_1 sse4\_2 x2apic popcnt tsc\_deadline\_timer aes xsave avx lahf\_lm ida arat epb xsaveopt pln pts dts tpr\_shadow vnmi flexpriority ept vpid
+bogomips        : 5587.06
+clflush size    : 64
+cache\_alignment : 64
+address sizes   : 36 bits physical, 48 bits virtual
+power management:
+processor       : 2
+vendor\_id       : GenuineIntel
+cpu family      : 6
+model           : 42
+model name      : Intel(R) Core(TM) i7-2640M CPU @ 2.80GHz
+stepping        : 7
+microcode       : 0x25
+cpu MHz         : 800.000
+cache size      : 4096 KB
+physical id     : 0
+siblings        : 4
+core id         : 1
+cpu cores       : 2
+apicid          : 2
+initial apicid  : 2
+fpu             : yes
+fpu\_exception   : yes
+cpuid level     : 13
+wp              : yes
+flags           : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx rdtscp lm constant\_tsc arch\_perfmon pebs bts nopl xtopology nonstop\_tsc aperfmperf pni pclmulqdq dtes64 monitor ds\_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid sse4\_1 sse4\_2 x2apic popcnt tsc\_deadline\_timer aes xsave avx lahf\_lm ida arat epb xsaveopt pln pts dts tpr\_shadow vnmi flexpriority ept vpid
+bogomips        : 5587.06
+clflush size    : 64
+cache\_alignment : 64
+address sizes   : 36 bits physical, 48 bits virtual
+power management:
+processor       : 3
+vendor\_id       : GenuineIntel
+cpu family      : 6
+model           : 42
+model name      : Intel(R) Core(TM) i7-2640M CPU @ 2.80GHz
+stepping        : 7
+microcode       : 0x25
+cpu MHz         : 800.000
+cache size      : 4096 KB
+physical id     : 0
+siblings        : 4
+core id         : 1
+cpu cores       : 2
+apicid          : 3
+initial apicid  : 3
+fpu             : yes
+fpu\_exception   : yes
+cpuid level     : 13
+wp              : yes
+flags           : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx rdtscp lm constant\_tsc arch\_perfmon pebs bts nopl xtopology nonstop\_tsc aperfmperf pni pclmulqdq dtes64 monitor ds\_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid sse4\_1 sse4\_2 x2apic popcnt tsc\_deadline\_timer aes xsave avx lahf\_lm ida arat epb xsaveopt pln pts dts tpr\_shadow vnmi flexpriority ept vpid
+bogomips        : 5587.06
+clflush size    : 64
+cache\_alignment : 64
+address sizes   : 36 bits physical, 48 bits virtual
+power management:
+
+## make.conf
+
+**`/etc/portage/make.conf`**
+
+```
+CFLAGS="-march=native -O2 -pipe"
+CXXFLAGS="${CFLAGS}"
+CHOST="x86_64-pc-linux-gnu"
+MAKEOPTS="-j4"
+...
+NOTUSE="-hal"
+NOTEBOOK="laptop dell ieee1394 lcdfilter lm-sensors"
+SYSTEM="nvidia opengl threads acpi ssse3 sse4_1 sse4_2 v4l v4l2"
+USE="${NOTUSE} ${SYSTEM} ${NOTEBOOK} ..."
+```
+**`/etc/portage/package.use/00input`**
+
+```
+ INPUT_DEVICES: evdev synaptics mouse keyboard v4l
+```
+**`/etc/portage/package.use/00video`**
+
+```
+ VIDEO_CARDS: -* intel nvidia
+```
+## GCC CFLAGS and -march=native
+
+### Analyzing CLFAGS
+
+GCC Versions before 4.6 will not detect the right CFLAGS for a new Core i7 2nd Gen (Sandy Bridge) CPU with `-march=native`.
+
+`root #``gcc-4.5.3 -march=native -E -v - </dev/null 2>&1 | grep cc1`
+/usr/libexec/gcc/x86\_64-pc-linux-gnu/4.5.3/cc1 -E -quiet -v - -D\_FORTIFY\_SOURCE=2 -march=core2 -mcx16 -msahf -maes -mpclmul -mpopcnt -mavx --param l1-cache-size=32 --param l1-cache-line-size=64 --param l2-cache-size=4096 -mtune=generic
+
+`root #``gcc-4.6.2 -march=native -E -v - </dev/null 2>&1 | grep cc1`
+/usr/libexec/gcc/x86\_64-pc-linux-gnu/4.6.2/cc1 -E -quiet -v - -march=corei7-avx -mcx16 -msahf -mno-movbe -maes -mpclmul -mpopcnt -mno-abm -mno-lwp -mno-fma -mno-fma4 -mno-xop -mno-bmi -mno-tbm -mavx -msse4.2 -msse4.1 --param l1-cache-size=32 --param l1-cache-line-size=64 --param l2-cache-size=4096 -mtune=corei7-avx
+
+### Upgrading GCC
+
+There is no stable version of GCC 4.6, so hopefully soon you will have full core i7 support in your CFLAGS.
+
+## Kernel Configuration
+
+### Processor Settings
+
+This changes was made under Linux/x86 3.3.3-gentoo-sources, using Genkernel.
+
+**Processor**
+
+### Power Management
+
+**Power Management**
+
+### PCI Bus Driver
+
+**PCI Bus Options**
+
+### LAN and Wireless Networking
+
+**Networking drivers**
+
+### SATA Controller
+
+**AHCI Controller driver**
+
+### FireWire (IEEE 1394)
+
+**Firewire driver**
+
+### I2C / SMBus
+
+**I2C SMBus driver**
+
+### Graphics Card
+
+**Graphic driver**
+
+### Sound Card
+
+**ALSA Sound Card drivers**
+
+### USB Controller
+
+**USB Controller driver**
+
+### Card Reader
+
+**SD Card driver**
+
+To proper provide SD Card reader automount option you must create the following file.
+
+**`/etc/local.d/20-sdcard.start`**
+
+```
+echo 1 > /sys/bus/pci/rescan
+```
+You must also make it runnable with
+
+`root #``chmod a+x /etc/local.d/20-sdcard.start`
+### Webcam
+
+**Webcam driver**
+
+Test it using mplayer:
+
+`root #``mplayer tv:// -tv driver=v4l2:width=640:height=480:device=/dev/video0 -fps 15 -vf screenshot`
+## GRUB Bootloader Config
+
+For GRUB the Sandy Bridge needs some more special kernel parameters to reach the optimal performance and save some battery power. Add this to your kernel command line:
+
+**`/boot/grub/grub.conf`**
+
+If you enabled Intel IOMMU support in your kernel config you also need to add this to your kernel command line:
+
+**`/boot/grub/grub.conf`**
+
+Otherwise bumblebee produces IOMMU Errors on loading the nvidia driver.
+
+## Power Management Tweaks
+
+### PCI/USB Autosuspend, CPU Scheduler, Intel HDA Powersave
+
+Create in local initscript to turn on all available powersaving options. Edit it to your preferences.
+
+**`/etc/local.d/10-powermanagement.start`**
+
+```
+#############################
+# Power Aware CPU Scheduler #
+#############################
+echo 1 > /sys/devices/system/cpu/sched_mc_power_savings
+###############################
+# Autosuspend for USB devices #
+###############################
+### Laptop_Integrated_Webcam_2M [CN04MYKF724871AHN1G1A01]
+echo auto > /sys/bus/usb/devices/1-1.4/power/control
+###############################
+# Autosuspend for PCI devices #
+###############################
+### Host bridge: Intel Corporation 2nd Generation Core Processor Family DRAM Controller (rev 09)
+echo auto > /sys/bus/pci/devices/0000\:00\:00.0/power/control
+### PCI bridge: Intel Corporation Xeon E3-1200/2nd Generation Core Processor Family PCI Express Root Port (rev 09)
+echo auto > /sys/bus/pci/devices/0000\:00\:01.0/power/control
+### VGA compatible controller: Intel Corporation 2nd Generation Core Processor Family Integrated Graphics Controller (rev 09)
+echo auto > /sys/bus/pci/devices/0000\:00\:02.0/power/control
+### Communication controller: Intel Corporation 6 Series/C200 Series Chipset Family MEI Controller #1 (rev 04)
+echo auto > /sys/bus/pci/devices/0000\:00\:16.0/power/control
+### USB controller: Intel Corporation 6 Series/C200 Series Chipset Family USB Enhanced Host Controller #2 (rev 05)
+echo auto > /sys/bus/pci/devices/0000\:00\:1a.0/power/control
+### Audio device: Intel Corporation 6 Series/C200 Series Chipset Family High Definition Audio Controller (rev 05)
+echo auto > /sys/bus/pci/devices/0000\:00\:1b.0/power/control
+### PCI bridge: Intel Corporation 6 Series/C200 Series Chipset Family PCI Express Root Port 1 (rev b5)
+echo auto > /sys/bus/pci/devices/0000\:00\:1c.0/power/control
+### PCI bridge: Intel Corporation 6 Series/C200 Series Chipset Family PCI Express Root Port 2 (rev b5)
+echo auto > /sys/bus/pci/devices/0000\:00\:1c.1/power/control
+### PCI bridge: Intel Corporation 6 Series/C200 Series Chipset Family PCI Express Root Port 4 (rev b5)
+echo auto > /sys/bus/pci/devices/0000\:00\:1c.3/power/control
+### PCI bridge: Intel Corporation 6 Series/C200 Series Chipset Family PCI Express Root Port 5 (rev b5)
+echo auto > /sys/bus/pci/devices/0000\:00\:1c.4/power/control
+### PCI bridge: Intel Corporation 6 Series/C200 Series Chipset Family PCI Express Root Port 6 (rev b5)
+echo auto > /sys/bus/pci/devices/0000\:00\:1c.5/power/control
+### USB controller: Intel Corporation 6 Series/C200 Series Chipset Family USB Enhanced Host Controller #1 (rev 05)
+echo auto > /sys/bus/pci/devices/0000\:00\:1d.0/power/control
+### ISA bridge: Intel Corporation HM67 Express Chipset Family LPC Controller (rev 05)
+echo auto > /sys/bus/pci/devices/0000\:00\:1f.0/power/control
+### SATA controller: Intel Corporation 6 Series/C200 Series Chipset Family 6 port SATA AHCI Controller (rev 05)
+echo auto > /sys/bus/pci/devices/0000\:00\:1f.2/power/control
+### SMBus: Intel Corporation 6 Series/C200 Series Chipset Family SMBus Controller (rev 05)
+echo auto > /sys/bus/pci/devices/0000\:00\:1f.3/power/control
+### VGA compatible controller: nVidia Corporation GF108 [GeForce GT 540M] (rev a1)
+echo auto > /sys/bus/pci/devices/0000\:01\:00.0/power/control
+### Network controller: Intel Corporation Centrino Advanced-N 6230 (rev 34)
+echo auto > /sys/bus/pci/devices/0000\:03\:00.0/power/control
+### USB controller: NEC Corporation uPD720200 USB 3.0 Host Controller (rev 04)
+echo auto > /sys/bus/pci/devices/0000\:04\:00.0/power/control
+### Ethernet controller: Atheros Communications AR8151 v2.0 Gigabit Ethernet (rev c0)
+echo auto > /sys/bus/pci/devices/0000\:06\:00.0/power/control
+##########################################
+# Intel HDA Audio Codec Power Management #
+##########################################
+echo 1 > /sys/module/snd_hda_intel/parameters/power_save
+##############################
+# AHCI Link Power Management #
+##############################
+echo min_power > /sys/class/scsi_host/host0/link_power_management_policy
+```
+After adding the script don't forget to make it executable to run on boot.
+
+`root #``chmod a+x /etc/local.d/10-powermanagement.start`
+### Hybrid graphics
+
+See [Hybrid\_graphics](https://wiki.gentoo.org/wiki/Hybrid_graphics)
+
+### Nvidia Graphics Driver
+
+**2020-03-07**, the information in this section is probably
+
+**outdated**. You can help the Gentoo community by verifying and
+
+[updating this section](https://wiki.gentoo.org/index.php?title=Dell_XPS_15z&action=edit).
+
+The Nvidia graphics driver should already be installed after setting `VIDEO_CARDS="intel nvidia"` in make.conf. Just be sure to setup the OpenGL extension to work with the Intel driver:
+
+`root #``eselect opengl list`
+Available OpenGL implementations:
+ \[1\] nvidia
+ \[2\] xorg-x11 \*
+
+Take the correct option for Intel driver
+
+`root #``eselect opengl set 2`
+### Installing bbswitch module
+
+`root #``emerge --ask bbswitch`
+After that you can test the module by loading it and look into your syslog
+
+`root #````
+modprobe bbswitch
+```
+`root #````
+cat /var/log/messages | grep bbswitch
+```
+bbswitch: Found integrated VGA device 0000:00:02.0: \\\_SB\_.PCI0.GFX0
+bbswitch: Found discrete VGA device 0000:01:00.0: \\\_SB\_.PCI0.PEG0.PEGP
+bbswitch: detected an Optimus \_DSM function
+...
+bbswitch: Succesfully loaded. Discrete card 0000:01:00.0 is on
+
+Get the status of the nvidia card
+
+`root #````
+cat /proc/acpi/bbswitch
+```
+`root #````
+0000:01:00.0 ON
+```
+Turn the card off, respectively on:
+
+`root #````
+echo OFF > /proc/acpi/bbswitch
+```
+`root #````
+echo ON > /proc/acpi/bbswitch
+```
+You can put this on the initial script created before, to make this change on every bootup.
+
+### Running Optimus
+
+Optimus still give us headakes to configure. I'm still working out to make a fully working box, and Optimus is one of my threads. I know that [Asus UL30Jt](http://en.gentoo-wiki.com/wiki/Asus_UL30Jt) also has support for Optmus, but I have to make some testes before post it here. I've aready followed the [nVidia Optimus](http://en.gentoo-wiki.com/wiki/X.Org/nVidia_Optimus) guide, but it seems that still there is a missing part of the puzzle.
+
+### VGA Switching
+
+I have being trying a lot of solutions to make this thing work on Dell XPS 15z, but none of then was successfuly. There is a guide to [VGA Switchroo](http://en.gentoo-wiki.com/wiki/Vga_switcheroo), but it seems that I can't do this or the hardware of Dell XPS 15z does not suport this resource. After keep looking and googled a lot I found a solution based on synergy and bumblebee with the optimus server. Note that, right now, there is no suppor for VGA switching and this is a workaround that works prety well for those who wants to try the NVIDIA power on their laptops.

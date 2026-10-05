@@ -1,0 +1,450 @@
+<!-- source: https://wiki.gentoo.org/wiki/S390/Install | group: Gentoo Wiki (Main) | wiki-title: S390/Install -->
+---
+title: S390/Install
+url: https://wiki.gentoo.org/wiki/S390/Install
+hostname: gentoo.org
+sitename: wiki.gentoo.org
+date: "2020-03-12"
+fingerprint: "309ff81addaf5987"
+license: CC BY-SA 4.0
+---
+
+# S390/Install
+
+[Jump to:navigation](https://wiki.gentoo.org#mw-head)
+
+[Jump to:search](https://wiki.gentoo.org#searchInput)
+
+## Overview
+
+Installing Gentoo on a IBM z/VM instance is more or less like on another architecture, except in booting the install environment and the networking setup. Patience is needed to understand how everything works.
+
+I won't go in too much detail because if you have access to a z/VM and want to install Gentoo on it, you should have some experience.
+
+### Environment
+
+This guide supposes you simply got access to a z/VM instance. You can also install Gentoo using another distribution, skipping the 'x3270' part.
+
+## Requirements
+
+To be able to install Gentoo, you'll need the following:
+
+- Access to a z/VM instance
+- A 3270 emulator(We'll be using the graphical part of net-misc/suite3270)
+- A network connection
+
+## Setting up the z/VM environment for installing
+
+### Overview
+
+For installing Gentoo, we're going to need to download some files for the installation environment. Once we boot into the installation environment, we'll be able to install Gentoo.
+
+Keep reading.
+
+### Choosing the userland
+
+Before going further with the process, we have to choose which userland we want to install.
+
+In Gentoo we provide two userlands: a 31-bit one, which in the Linux on zSeries is named as ***s390*** and a 64-bit one, which in the Linux on zSeries is called ***s390x***.
+
+### Downloading the installation images
+
+Once you've made up your choice of userland, you can now download the needed files from the mirrors. In the s390 autobuilds directory, this means releases/s390/autobuilds/, inside the directory with the last date, there should be two files: **netboot-ARCH-kernel-DATE** and **netboot-ARCH-initramfs-DATE**.
+
+**ARCH** should be either **s390** or **s390x**, and **DATE** should be the date of the build. So choose if you want to download **s390** or **s390x**, select one of them depending in the choice you made in the previous step, whether you want 31bit or 64bit. In the example we'll use s390x. Once you've made your choice, download the files.
+
+Create a file called **gentoo.parmfile** with the following content:
+
+
+
+**`gentoo.parmfile`**
+
+**Example**
+
+If your DASD has the 0150 ID, then you need to put dasd=0150. If you have more than one DASD you can append the IDs of them to the dasd parameter, like dasd=0150,0151,0152, etc. That will translate, in the Linux environment, the 0150 DASD as /dev/dasda, 0151 as /dev/dasdb and so on...
+
+Create a file called **gentoo.exec** with the following content:
+
+**`gentoo.exec`**
+
+**Example**
+
+### Installing a 3270 emulator
+
+For connecting to the console of the z/VM, you need a 3270 terminal emulator. On a Gentoo system, emerge net-misc/suite3270 with X support.
+
+`root #````
+emerge net-misc/suite3270
+```
+
+
+### Copy the install images
+
+For copying the install images to the z/VM instance, we'll use x3270's functionality.
+
+Connect to your z/VM instance using x3270, then find which CMS disk is writable for your z/VM account executing **Q DISK** at the x3270 terminal and look for a "R/W" in the STAT column.
+Once it's clear what is your writeable disk, select File -> File Transfer. Mark **Send to host** and **Host is VM/CMS**.
+
+First we're going to send the **gentoo.exec** and **gentoo.params** files. Select **Transfer ASCII file** and **Record Format** as **Variable**. Make sure **Add/remove CR at end of line** and **Remap ASCII characters** is marked as well.
+In **Local File Name** type the full path to the **gentoo.exec** file, and in **Host File Name** type **GENTOO EXEC A1**, replacing **A1** with the disk you have write access to. Do the same with the **gentoo.parmfile** file, adjusting **Local File Name** accordingly and **Host File Name** to **GENTOO PARMFILE A1**.
+
+Next, we're going to send the binary files **netboot-ARCH-kernel-DATE**, which is the kernel, and **netboot-ARCH-initramfs-DATE** which is the initramfs. Select **Transfer binary file** and **Record Format** as **Fixed** and type **80** in **LRECL**.
+Same as before, in **Local File Name**, type the full path to the **gentoo** file and in **Host File Name** type **GENTOO KERNEL A1**. For the **gentoo.igz** file, type **GENTOO INITRD A1**.
+
+Here's a table of how you should transfer files:
+
+| Local File Name | Host File Name | Type | Record Format | LRECL | 
+|---|---|---|---|---|
+| gentoo.exec | GENTOO EXEC A1 | ASCII | Variable | Empty | 
+| gentoo.params | GENTOO PARMFILE A1 | ASCII | Variable | Empty | 
+| netboot-ARCH-kernel-DATE | GENTOO KERNEL A1 | Binary | Fixed | 80 | 
+| netboot-ARCH-initramfs-DATE | GENTOO INITRD A1 | Binary | Fixed | 80 | 
+
+### Boot the install environment
+
+Now, to boot into the install environment, type:
+
+IPL CMS
+GENTOO
+
+This should boot into the busybox-based install environment.
+
+## Installing Gentoo
+
+### Overview
+
+We now have an installation environment where we can prepare our Gentoo s390 system.
+
+What we'll have to do to setup our installation is:
+
+1. Setup the network in the install environment
+2. Initialize and format the DASD disks and mount them
+3. Download a stage3 and a portage snapshot
+4. Setup fstab
+5. Setup root password
+6. Configure hostname and networking (optional, but recommended)
+7. Enable SSH access (optional, but recommended)
+8. Enable serial console access
+
+
+
+### Setup the network in the install environment
+
+In this guide we'll document the configuration of the network using the ***qeth*** module.
+
+For using qeth, you need to know the read, write and data bus ID of your virtual network card. In this guide we'll use 0.0.600, 0.0.601 and 0.0.602.
+
+`root #````
+modprobe qeth_l3
+```
+`root #````
+echo 0.0.0600,0.0.0601,0.0.0602 > /sys/bus/ccwgroup/drivers/qeth/group
+```
+`root #````
+echo 0 > /sys/bus/ccwgroup/drivers/qeth/0.0.0600/layer2
+```
+`root #````
+echo 1 > /sys/bus/ccwgroup/drivers/qeth/0.0.0600/online
+```
+Now you should have the ***eth0*** interface ready to be setup.
+
+#### Static networking
+
+For configuring the static networking, use **net-setup**:
+
+In this example, I have a 192.168.1.1/24 IP and my gateway is 192.168.1.254:
+
+`root #````
+net-setup 192.168.1.1/24 192.168.1.254
+```
+#### Dynamic networking
+
+`root #````
+net-setup dhcp
+```
+#### Networking for something else than eth0
+
+Unfortunately **net-setup** only wants to touch eth0 (Will try to fix that), so if your network ends up being anything else than **eth0**, this is what net-setup does:
+
+##### Static
+
+`root #````
+/sbin/ifconfig eth0 192.168.1.1 broadcast 192.168.1.255 netmask 255.255.255.0
+```
+`root #````
+ /sbin/route add -net default gw 192.168.1.254 netmask 0.0.0.0 metric 1 
+```
+##### Dynamic
+
+`root #````
+udhcpc -i eth0 -q
+```
+##### Loopback
+
+`root #````
+/sbin/ifconfig lo 127.0.0.1 
+```
+`root #````
+/sbin/route add -net 127.0.0.0 netmask 255.0.0.0 gw 127.0.0.1 dev lo 
+```
+
+
+### Initializing and formatting the DASD disks
+
+If you haven't formatted yet your DASD disks outside of Linux, you can do that now. Here are some informations:
+
+- You need to use **dasdfmt** before you can use your DASD
+- Swap Partitions cannot exceed 4GiB
+- A maximum of three partitions can be created on a physical volume
+- No gaps should be left between partitions
+- There is no tool for moving or resizing partitions
+- Before creating any partitions, you need to initialize the disks. You can do that with dasdfmt.
+
+We initialize the first partition
+
+`root #````
+dasdfmt -f /dev/dasda --label=gentoo
+```
+For creating partitions, we'll use **fdasd**. There are several different modes to run **fdasd** in. The first mode is an interactive mode. You can simply do that by running **fdasd /dev/dasda**.
+
+There is also a mode that will automatically create one partition on the disk. To keep the setup simple, we'll do that.
+
+`root #````
+fdasd -a /dev/dasda -a -l gentoo
+```
+Now we'll have one partition, **/dev/dasda1**, which we can format with the known Linux filesystems. In our case, we'll format this partition with **ext4**.
+
+`root #````
+mkfs.ext4 /dev/dasda1
+```
+Now let's mount this partition on /mnt/gentoo.
+
+`root #````
+mount /dev/dasda1 /mnt/gentoo
+```
+And let's change to the mounted directory
+
+`root #````
+cd /mnt/gentoo
+```
+### Downloading a stage3
+
+Remember the choice you made before between 31-bit **s390** and 64-bit **s390x**? You have to download a stage3 for the choice you've made before from your favorite mirror.
+
+### Extracting a stage3
+
+`root #````
+tar xjpf stage3-s390x-latest.tar.bz2 -C /mnt/gentoo
+```
+### Extracting a portage snapshot
+
+`root #````
+tar xjpf portage-latest.tar.bz2 -C /mnt/gentoo/usr
+```
+### Chrooting into your new system
+
+To chroot into the real system we need to mount some directories.
+
+`root #````
+mount -t proc none /mnt/gentoo/proc
+```
+`root #````
+mount --rbind /sys /mnt/gentoo/sys
+```
+`root #````
+mount --rbind /dev /mnt/gentoo/dev
+```
+Copy the **/etc/resolv.conf** file to the new system
+
+`root #````
+cp -L /etc/resolv.conf /mnt/gentoo/etc
+```
+Finally, let's chroot into the new system
+
+`root #````
+chroot /mnt/gentoo /bin/bash
+```
+`root #````
+source /etc/profile
+```
+`root #````
+env-update
+```
+### Fix permissions
+
+Unfortunately, the permission in some character devices are wrong, so we need to fix them before we run emerge.
+
+`root #````
+chmod 0666 /dev/null /dev/urandom
+```
+### Setup fstab
+
+Edit the **/etc/fstab** file to look like this:
+
+**`/etc/fstab`**
+
+**Example**
+
+### Setting the default root password
+
+This is the most important part of the installation. As without the root password we won't be able to login!
+
+For setting the password, simply run passwd
+
+`root #``passwd`
+### Setup hostname and networking
+
+Edit the **/etc/conf.d/hostname** file to adjust the hostname:
+
+**`/etc/conf.d/hostname`**
+
+**Example**
+
+Edit the **/etc/conf.d/net** file like this, to fit our example:
+
+**`/etc/conf.d/net`**
+
+**Example**
+
+Let's create some symlinks to start the network at boot
+
+`root #````
+ln -sf /etc/init.d/net.lo /etc/init.d/net.eth0
+```
+`root #````
+rc-update add net.eth0 default
+```
+### Adjust inittab
+
+You have to adjust the following lines in the **/etc/inittab**:
+
+**`/etc/inittab`**
+
+**Example**
+
+In other words, you have to comment the tty1-6 lines.
+
+### Enabling SSH access
+
+We add sshd to the startup of our system so we can access our system using ssh.
+
+`root #````
+rc-update add sshd default
+```
+### Remove errors from boot process
+
+There are two init scripts that in our s390 machine aren't going to work: **termencoding** and **keymaps**. The failures will show up as a failures in the console.
+
+To avoid the useless messages, because they aren't going to work in our machine, let's remove them from the boot process:
+
+`root #````
+rc-update del termencoding boot
+```
+`root #````
+rc-update del keymaps boot
+```
+### Kernel
+
+We have to build a kernel first. Let's emerge a kernel source.
+
+Unfortunately s390 is nowadays an unstable arch in Gentoo, so this means that some packages aren't stable. One of those packages is gentoo-sources. So before we emerge **gentoo-sources**, we have to do:
+
+`root #````
+echo 'sys-kernel/gentoo-sources' > /etc/portage/package.accept_keywords
+```
+Once you've done that, we'll do:
+
+`root #````
+emerge gentoo-sources
+```
+Once that is done, we should have in /usr/src/linux the kernel sources, so let's cd into that directory.
+
+`root #````
+cd /usr/src/linux
+```
+We need a kernel configuration file. To make sure we are able to boot our Hercules VM we'll use the kernel configuration from the installation environment.
+
+`root #````
+zcat /proc/config.gz > .config
+```
+Now let's compile it and its modules
+
+`root #````
+make && make modules && make modules_install
+```
+Once that is done, copy the kernel file to the **/boot** directory:
+
+`root #````
+cp arch/s390/boot/image /boot/image
+```
+### Bootloader
+
+Edit the **/etc/zipl.conf** file like this, to fit our example:
+
+**`/etc/zipl.conf`**
+
+**Example**
+
+Create the /boot/zipl directory
+
+`root #````
+mkdir -p /boot/zipl
+```
+Now let's run **zipl**:
+
+`root #````
+zipl
+```
+If everything went fine it should output something like this:
+
+Using config file '/etc/zipl.conf'
+Building bootmap in '/boot/zipl'
+Building menu 'menu'
+Adding #1: IPL section 'Gentoo' (default)
+Preparing boot device: dasda (0120).
+Done.
+
+## Finishing the installation
+
+Great, we're done. Let's exit from the chroot and umount the filesystem
+
+`root #````
+exit
+```
+`root #````
+cd
+```
+`root #````
+umount /mnt/gentoo/sys /mnt/gentoo/proc /mnt/gentoo/dev/shm /mnt/gentoo/dev/pts /mnt/gentoo/dev /mnt/gentoo
+```
+
+And let's power off the machine:
+
+`root #````
+poweroff -f
+```
+## Boot our installed system
+
+Now, to boot our new installed system, we have to type into z/VM:
+
+```
+ipl 150
+```
+If everything went successfully, we should see the kernel booting and after a few minutes, the login prompt.
+
+If we configured SSH properly, we should be able to SSH into it.
+
+## Finish
+
+This should get you a working Gentoo in z/VM. Enjoy!
+
+
+
+## References
+
+- [http://debblog.philkern.de/2011/11/how-to-install-debian-within-zvm-with.html](http://debblog.philkern.de/2011/11/how-to-install-debian-within-zvm-with.html)
+- [http://dev.gentoo.org/\~vapier/s390/](http://dev.gentoo.org/~vapier/s390/)
+
+## Thanks
+
+- Dave Jones @ V/Soft Software([http://www.vsoft-software.com/](http://www.vsoft-software.com/)) for providing us access to a z/VM system to document this procedure and his help.

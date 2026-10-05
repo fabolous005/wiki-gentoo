@@ -1,0 +1,88 @@
+Fetching Main namespace (NS 0) via API (allpages, nonredirects)...
+    [Gentoo Wiki (Main)] fetched 500 titles so far...
+    [Gentoo Wiki (Main)] fetched 1000 titles so far...
+    [Gentoo Wiki (Main)] fetched 1500 titles so far...
+    [Gentoo Wiki (Main)] fetched 2000 titles so far...
+    [Gentoo Wiki (Main)] fetched 2500 titles so far...
+    [Gentoo Wiki (Main)] fetched 3000 titles so far...
+    [Gentoo Wiki (Main)] fetched 3500 titles so far...
+    [Gentoo Wiki (Main)] fetched 4000 titles so far...
+    [Gentoo Wiki (Main)] fetched 4500 titles so far...
+    [Gentoo Wiki (Main)] fetched 4843 titles so far...
+  API returned 4843 non-redirect titles in NS 0
+  kept 2778, dropped 2065 (trailing lang code)
+
+Fetching sitemap index for NS 500 / 520 / 560: https://wiki.gentoo.org/sitemap/sitemap-index-gentoowiki.xml
+  NS_500 (https://wiki.gentoo.org/sitemap/sitemap-gentoowiki-NS_500-0.xml.gz): 52 urls
+    kept 44, dropped 8 (trailing lang code) -- NOTE: may still include redirects
+  NS_520 (https://wiki.gentoo.org/sitemap/sitemap-gentoowiki-NS_520-0.xml.gz): 4 urls
+    kept 4, dropped 0 (trailing lang code) -- NOTE: may still include redirects
+  NS_560 (https://wiki.gentoo.org/sitemap/sitemap-gentoowiki-NS_560-0.xml.gz): 5901 urls
+
+Wrote 2830 URLs to /var/lib/wiki-gentoo/links/all_target_links.tsv / /var/lib/wiki-gentoo/links/all_target_links.txt
+  Gentoo Wiki (Main): 2778 pages
+  Gentoo Knowledge: 44 pages
+  Gentoo Overlay: 4 pages
+  Gentoo Handbook: 4 pages
+
+Downloading 2830 pages with 12 worker(s)...
+  ...50/2830 processed (ok=40 skipped=0 failed=10)
+  ...100/2830 processed (ok=88 skipped=0 failed=12)
+  ...150/2830 processed (ok=137 skipped=0 failed=13)
+  ...200/2830 processed (ok=185 skipped=0 failed=15)
+  ...250/2830 processed (ok=235 skipped=0 failed=15)
+  ...300/2830 processed (ok=284 skipped=0 failed=16)
+  ...350/2830 processed (ok=334 skipped=0 failed=16)
+  ...400/2830 processed (ok=383 skipped=0 failed=17)
+  ...450/2830 processed (ok=433 skipped=0 failed=17)
+  ...500/2830 processed (ok=482 skipped=0 failed=18)
+  ...550/2830 processed (ok=530 skipped=0 failed=20)
+  ...600/2830 processed (ok=579 skipped=0 failed=21)
+  ...650/2830 processed (ok=629 skipped=0 failed=21)
+  ...700/2830 processed (ok=671 skipped=0 failed=29)
+  ...750/2830 processed (ok=721 skipped=0 failed=29)
+  ...800/2830 processed (ok=771 skipped=0 failed=29)
+  ...850/2830 processed (ok=821 skipped=0 failed=29)
+  ...900/2830 processed (ok=871 skipped=0 failed=29)
+  ...950/2830 processed (ok=921 skipped=0 failed=29)
+  ...1000/2830 processed (ok=971 skipped=0 failed=29)
+  ...1050/2830 processed (ok=1018 skipped=0 failed=32)
+  ...1100/2830 processed (ok=1065 skipped=0 failed=35)
+  ...1150/2830 processed (ok=1110 skipped=0 failed=40)
+  ...1200/2830 processed (ok=1154 skipped=0 failed=46)
+  ...1250/2830 processed (ok=1203 skipped=0 failed=47)
+  ...1300/2830 processed (ok=1251 skipped=0 failed=49)
+  ...1350/2830 processed (ok=1301 skipped=0 failed=49)
+  ...1400/2830 processed (ok=1351 skipped=0 failed=49)
+  ...1450/2830 processed (ok=1401 skipped=0 failed=49)
+  ...1500/2830 processed (ok=1449 skipped=0 failed=51)
+  ...1550/2830 processed (ok=1498 skipped=0 failed=52)
+  ...1600/2830 processed (ok=1548 skipped=0 failed=52)
+  ...1650/2830 processed (ok=1598 skipped=0 failed=52)
+  ...1700/2830 processed (ok=1647 skipped=0 failed=53)
+  ...1750/2830 processed (ok=1696 skipped=0 failed=54)
+  ...1800/2830 processed (ok=1744 skipped=0 failed=56)
+  ...1850/2830 processed (ok=1793 skipped=0 failed=57)
+  ...1900/2830 processed (ok=1843 skipped=0 failed=57)
+  ...1950/2830 processed (ok=1890 skipped=0 failed=60)
+  ...2000/2830 processed (ok=1939 skipped=0 failed=61)
+  ...2050/2830 processed (ok=1989 skipped=0 failed=61)
+  ...2100/2830 processed (ok=2038 skipped=0 failed=62)
+  ...2150/2830 processed (ok=2086 skipped=0 failed=64)
+  ...2200/2830 processed (ok=2135 skipped=0 failed=65)
+  ...2250/2830 processed (ok=2185 skipped=0 failed=65)
+  ...2300/2830 processed (ok=2235 skipped=0 failed=65)
+  ...2350/2830 processed (ok=2284 skipped=0 failed=66)
+  ...2400/2830 processed (ok=2333 skipped=0 failed=67)
+  ...2450/2830 processed (ok=2379 skipped=0 failed=71)
+  ...2500/2830 processed (ok=2428 skipped=0 failed=72)
+  ...2550/2830 processed (ok=2478 skipped=0 failed=72)
+  ...2600/2830 processed (ok=2528 skipped=0 failed=72)
+  ...2650/2830 processed (ok=2578 skipped=0 failed=72)
+  ...2700/2830 processed (ok=2628 skipped=0 failed=72)
+  ...2750/2830 processed (ok=2678 skipped=0 failed=72)
+  ...2800/2830 processed (ok=2726 skipped=0 failed=74)
+  ...2830/2830 processed (ok=2751 skipped=4 failed=75)
+
+Done: ok=2751 skipped=4 failed=75
+Failed URLs logged to /var/lib/wiki-gentoo/state/failed_urls.txt

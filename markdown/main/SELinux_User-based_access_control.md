@@ -1,0 +1,38 @@
+<!-- source: https://wiki.gentoo.org/wiki/SELinux/User-based_access_control | group: Gentoo Wiki (Main) | wiki-title: SELinux/User-based access control -->
+---
+title: SELinux/User-based access control
+url: https://wiki.gentoo.org/wiki/SELinux/User-based_access_control
+hostname: gentoo.org
+sitename: wiki.gentoo.org
+date: "2015-01-13"
+fingerprint: d4ff1d99053e43c4
+license: CC BY-SA 4.0
+---
+
+# SELinux/User-based access control
+
+[Jump to:navigation](https://wiki.gentoo.org#mw-head)
+
+[Jump to:search](https://wiki.gentoo.org#searchInput)
+
+User-based access control (UBAC) is not a generic security concept by itself. However, in the SELinux context, UBAC is an addition to the type enforcement and role-based access control meant to support additional mandatory segregation that cannot be enforced otherwise.
+
+## Problem
+
+Sometimes administrators would like to enforce restrictions on users accessing each other's files, rather than depending on regular Linux DAC permissions which can be opened up by a naive user running `chmod 777`. As SELinux is primarily a [type enforcement](https://wiki.gentoo.org/wiki/SELinux/Type_enforcement) implementation, it does not normally lend itself to creating this sort of rule to override insecure DAC settings on files in home directories.
+
+For instance, having read access to a user file is provided by the following SELinux rule:
+
+Sadly, this doesn't take into account that there are different users. All regular users are given the `user_r` role which ends up running processes in the same `user_t` domain, so they are all allowed to read files with the `user_home_t` label assigned, regardless of which user actually owns the files.
+
+The alternative of creating a separate role and type for every single user account, so that each user is only granted access to their own specific type of home directory, is not very practical; admins should not have to update the system policy just to add a new user account.
+
+## Using the SELinux user bit
+
+As a solution, SELinux supports more than just type enforcement. Additional constraints can be set based on the role and SELinux user part.
+
+One of the constraints that is enabled (optionally) is the UBAC constraint, which roughly translates to "Interaction between a domain and a resource is only allowed if the SELinux user of both match, one of them is the `system_u` SELinux user or one of them does not have the `ubac_constrained_type` attribute set."
+
+In our example, this means that we are able now to restrict access between users *if* the users are separate SELinux users. So even though two users both assigned the `user_u` SELinux user can, policy-wise, still read each others' resources (if allowed by the DAC rules of course), separate SELinux users cannot do this anymore.
+
+And as creating SELinux users is a matter of system administration, it is possible to create separate SELinux users for every Linux user. However, know that UBAC cannot be exempted on a user-basis. Instead, exemption is done based on user domain level. For instance, the `sysadm_t` domain has exemptions for file, file descriptor and processes.

@@ -1,0 +1,93 @@
+<!-- source: https://wiki.gentoo.org/wiki/SELinux/Tutorials/Using_SELinux_booleans | group: Gentoo Wiki (Main) | wiki-title: SELinux/Tutorials/Using SELinux booleans -->
+---
+title: SELinux/Tutorials/Using SELinux booleans
+url: https://wiki.gentoo.org/wiki/SELinux/Tutorials/Using_SELinux_booleans
+hostname: gentoo.org
+sitename: wiki.gentoo.org
+date: "2022-06-23"
+fingerprint: b67858ce0a010b4b
+license: CC BY-SA 4.0
+---
+
+# SELinux/Tutorials/Using SELinux booleans
+
+[Jump to:navigation](https://wiki.gentoo.org#mw-head)
+
+[Jump to:search](https://wiki.gentoo.org#searchInput)
+
+## Using SELinux booleans
+
+We talked about AVC denials for file accesses, and when you work a bit with SELinux, you will notice that some activities are being denied whereas there is a perfectly logical reason to allow them. When this reason depends on certain factors (or choices), SELinux policy writers are encouraged to make the policy optional. And optional in SELinux world means that allowing the access should be triggered through an *SELinux boolean*.
+
+An *SELinux boolean* is a single string (hopefully sufficiently interpretable) that changes how SELinux reacts. With **getsebool** you can get a list of booleans and their current value.
+
+`root #``getsebool -a`
+abrt\_anon\_write --> off
+abrt\_handle\_event --> off
+allow\_console\_login --> on
+allow\_cvs\_read\_shadow --> off
+...
+
+The output above has been filtered a lot, as a system where the complete SELinux policy is loaded (non-Gentoo systems usually load in the entire policy for all applications) can easily reach 200 different booleans. Booleans allow changes in policy behavior to be toggled by the administrator.
+
+### Getting boolean information
+
+Not all booleans are named in a way that you know what they mean. With **semanage boolean -l** you can get the description of a boolean.
+
+`root #``semanage boolean -l | grep abrt_anon_write````
+abrt_anon_write                (off  ,  off)  Allow ABRT to modify public files
+                                              used for public file transfer services.
+```
+The boolean status too is displayed in this output, but you can also get it from **getsebool** or even from reading the pseudo-file in the SELinux file system at /sys/fs/selinux/booleans.
+
+### What does a boolean change?
+
+When you toggle a boolean, it changes the active policy rules on a system. As we searched and displayed existing policy rules with **sesearch** before, you will probably not be surprised to learn that this tool can display the effects of an *SELinux boolean* as well.
+
+By passing the boolean name itself (through **--bool** or **-b**) together with the **---show\_cond** (or **-C**) option, **sesearch** can show you what rules are influenced. For instance, to get the *allow* statements that are triggered with a change of the *abrt\_anon\_write* boolean:
+
+`root #``sesearch -b abrt_anon_write -AC````
+Found 3 semantic av rules:
+DT allow abrt_t public_content_rw_t : file { ioctl read write ... } ; [ abrt_anon_write ]
+DT allow abrt_t public_content_rw_t : dir { ioctl read write ... } ; [ abrt_anon_write ]
+DT allow abrt_t public_content_rw_t : lnk_file { ioctl read write ... } ; [ abrt_anon_write ]
+```
+The output of the command shows that, right now, the boolean is disabled (**D** at the beginning of the rules) and that the rule itself will become active if the boolean becomes true (**T** as second letter). If the boolean is enabled, it would be **ET** or, if a statement would become active if the boolean was false, the second letter would be **F**.
+
+Because of booleans, we suggest that you always add in the **-C** operand to a **sesearch** command so that you can notice if something would be triggered through a boolean and, if so, what this boolean is. In many cases, toggling a boolean is sufficient for a system to continue working.
+
+For instance, if you notice that the firefox browser is not able to read in user files, and you get a denial saying that *mozilla\_t* is denied read access on *user\_home\_t* files, then the following **sesearch** command helps you by telling you there is a boolean called *mozilla\_read\_content* that allows the browser to read user files.
+
+`user $``sesearch -s mozilla_t -t user_home_t -AC````
+Found 4 semantic av rules:
+   allow application_domain_type user_home_t : file { getattr append } ;
+DT allow mozilla_t user_home_t : file { ioctl read getattr lock open } ; [ mozilla_read_content ]
+DT allow mozilla_t user_home_t : dir { ioctl read getattr lock search open } ; [ mozilla_read_content ]
+DT allow mozilla_t user_home_t : lnk_file { read getattr } ; [ mozilla_read_content ]
+```
+### Changing boolean status
+
+Changing SELinux booleans can be done through **setsebool** (where you add the desired state of the boolean, such as *on* or *off*) or **togglesebool** (which flips the current value of a boolean).
+
+`root #````
+setsebool abrt_anon_write on
+```
+`root #``togglesebool abrt_anon_write`
+When you do this, the changed value will take effect immediately but only for the duration that the current loaded policy is active. That means, if the system reboots, you loose the changes. Or when you explicitly would reload the SELinux policy, you loose the changes. On the other hand, switching booleans this way is fast and helps you to debug problems.
+
+Some booleans are also only meant to assist during debugging. For instance, the *allow\_ptrace* boolean, when set, allows administrative domains to *ptrace* processes (for instance using the **strace** command), something administrators do to debug problems in applications. Since you only need this capability during the debugging session, it doesn't make sense to have this persisted across reboots.
+
+### Persisting boolean changes
+
+Of course, when you *do* want to persist the changes across reboots, you don't want to have to run the necessary commands over and over again. With the SELinux management utilities, you can persist such changes using the **-P** option.
+
+`root #``setsebool -P abrt_anon_write on`
+This command will take a while to complete, as the SELinux policy itself is rebuilt and stored, and the requested value for the boolean is registered as well. However, once completed, the boolean value remains active even across reboots.
+
+### What you need to remember
+
+What you should remember from this tutorial is that
+
+- SELinux supports booleans to dynamically update the run-time policy
+- the values of these booleans can be persisted across reboots
+- you can use **sesearch** to display the consequences of a boolean or to see if a boolean is available to allow certain statements

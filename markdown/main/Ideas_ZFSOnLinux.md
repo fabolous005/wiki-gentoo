@@ -1,0 +1,52 @@
+<!-- source: https://wiki.gentoo.org/wiki/Ideas/ZFSOnLinux | group: Gentoo Wiki (Main) | wiki-title: Ideas/ZFSOnLinux -->
+---
+title: Ideas/ZFSOnLinux
+url: https://wiki.gentoo.org/wiki/Ideas/ZFSOnLinux
+hostname: gentoo.org
+sitename: wiki.gentoo.org
+date: "2012-08-07"
+fingerprint: bf9bc82f743f8b31
+license: CC BY-SA 4.0
+---
+
+# Ideas/ZFSOnLinux
+
+[Jump to:navigation](https://wiki.gentoo.org#mw-head)
+
+[Jump to:search](https://wiki.gentoo.org#searchInput)
+
+ZFS is a filesystem originally designed by Sun Microsystems that focuses on data integrity, performance and scalability. It includes RAID capabilities, logical volume management, data compression and all of the other capabilities one would expect from a filesystem. Notable features include its Copy-On-Write design which enables it to withstand system failures without a journal and its implementation of the Adaptive Replacement Cache algorithm, which provides excellent read performance on non-sequential workloads.
+
+ZFS support in Gentoo will improve system reliability. Power outages will no longer require a fsck, backups will be easier to do via the transmission of snapshots and accidental damage to the filesystem can be reversed through snapshots. An additional benefit will be greater performance and scalability. People will be able to use system memory and SSDs in place of expensive RAID hardware and obtain greater levels of performance in both random IO and sequential performance.
+
+## Development team
+
+Owner: ryao \<ryao at gentoo.org>
+
+Team:
+
+- None
+
+## Current Status
+
+Last updated: 06082012
+
+Target date (approximate): DDMMYYYY
+
+Percentage of completion: XX\[X\]%
+
+## Description
+
+See [summary](https://wiki.gentoo.org#top)
+
+## Dependencies
+
+None known
+
+## Contingency plan
+
+None needed. Users can continue using other filesystems
+
+## Documentation
+
+Handbook should be modified to include mention of ZFS

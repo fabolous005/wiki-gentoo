@@ -1,0 +1,471 @@
+<!-- source: https://wiki.gentoo.org/wiki/GCC/ICE_Reporting_Guide | group: Gentoo Wiki (Main) | wiki-title: GCC/ICE Reporting Guide -->
+---
+title: GCC/ICE Reporting Guide
+url: https://wiki.gentoo.org/wiki/GCC/ICE_Reporting_Guide
+hostname: gentoo.org
+sitename: wiki.gentoo.org
+date: "2026-01-29"
+fingerprint: "464fe1964239d01"
+license: CC BY-SA 4.0
+---
+
+# GCC/ICE Reporting Guide
+
+[Jump to:navigation](https://wiki.gentoo.org#mw-head)
+
+[Jump to:search](https://wiki.gentoo.org#searchInput)
+
+A guide to debugging **GCC Internal Compiler Errors** (ICEs).
+
+This page helps with diagnosing [GCC](https://wiki.gentoo.org/wiki/GCC) crashes with `internal compiler error: Segmentation fault` when building a Gentoo package (or any software).
+
+Extracting useful information from a crash to report a bug requires a few steps. This article lists the steps and provides a few real-world debugging sessions.
+
+## Quick guide
+
+### Tl;DR
+
+1. Extract self-contained preprocessed file (extracted with `-save-temps`)
+2. Verify gcc still crashes when ran on preprocessed file
+3. Expand `-march=native` to flags not dependent on the local machine
+4. File a bug on [https://bugs.gentoo.org](https://bugs.gentoo.org) with the following details:
+  1. Provide a preprocessed file (or a minimized file)
+  2. Provide `gcc -v` output
+  3. Provide `emerge --info`
+  4. Provide `-march=native` expansion
+5. \[optional\] Minimize amount of flags needed to trigger the error
+6. \[optional\] Minimize self-contained example
+7. \[optional\] File a bug on [https://gcc.gnu.org/bugzilla](https://gcc.gnu.org/bugzilla)
+
+This resume will probably not suffice for most readers, read on to the detailed guide below!
+
+## Detailed guide
+
+### Steps to track an ICE (internal compiler errors) down
+
+#### Rebuilding GCC and glibc with debugging symbols (optional)
+
+To get more detailed GCC crash reports it is suggested to rebuild it with debugging symbols and keeping the full sources. As GCC and glibc are tightly coupled, it is also suggested to do the same for the latter to have more readable traces:
+
+- Create the following files in the directory /etc/portage/env:
+
+**`/etc/portage/env/debugsyms`**
+
+**`/etc/portage/env/installsources`**
+
+**`/etc/portage/env/no-builtin-strlen`**
+
+- The next step is to activate those settings for [sys-devel/gcc](https://packages.gentoo.org/packages/sys-devel/gcc), create the following file in /etc/portage/packages.env:
+
+**`/etc/portage/package.env/gcc`**
+
+- Do the same for [sys-libs/glibc](https://packages.gentoo.org/packages/sys-libs/glibc), however that latter case depends on if Valgrind is used or not. So create **one** of the following files according to the current use case:
+
+**`/etc/portage/package.env/glibc`**
+
+**(package.env settings for sys-libs/glibc for systems using Valgrind)**
+
+**`/etc/portage/package.env/glibc`**
+
+**(package.env settings for sys-libs/glibc for systems without Valgrind)**
+
+- Finally emerge [sys-libs/glibc](https://packages.gentoo.org/packages/sys-libs/glibc) and [sys-devel/gcc](https://packages.gentoo.org/packages/sys-devel/gcc) again:
+
+`root #``emerge --ask -1 sys-libs/glibc sys-devel/gcc`
+#### Check if an ICE is reproducible
+
+Sometimes GCC crashes due to external reasons not directly related to GCC:
+
+- Out-of-memory condition (check dmesg)
+- Bad RAM modules ([sys-apps/memtest86+](https://packages.gentoo.org/packages/sys-apps/memtest86+))
+- Unstable overclock of CPU or RAM
+
+Make sure to not be in any of the above cases!
+
+Look at build.log with the ICE and try to resume the build to see if the same command causes the same ICE. Usually the command looks something like `make --jobs=8 --load-average=8 CPPFLAGS= CFLAGS= LDFLAGS=`.
+
+Go to the `Working directory` (specified in build.log as well) and rerun the build command.
+
+The exact command and the failure should be seen.
+
+Our running example will be an ICE on `dev-lang/python-3.6.5`:
+
+`user $``cd '/var/tmp/portage/dev-lang/python-3.6.5/work/Python-3.6.5'``user $``LANG=C make`
+running build
+running build\_ext
+INFO: Can't locate Tcl/Tk libs and/or headers
+building 'cmath' extension
+gcc-7.3.0 -pthread -fPIC -Wno-unused-result -Wsign-compare -DNDEBUG -march=prescott -mfpmath=sse -O2 -pipe -fomit-frame-pointer -fwrapv -std=c99 -Wextra -Wno-unused-result -Wno-unused-parameter -Wno-missing-field-initializers -I./Include -I. -I/var/tmp/portage/dev-lang/python-3.6.5/work/Python-3.6.5/Include -I/var/tmp/portage/dev-lang/python-3.6.5/work/Python-3.6.5 -c /var/tmp/portage/dev-lang/python-3.6.5/work/Python-3.6.5/Modules/cmathmodule.c -o build/temp.linux-i686-3.6/var/tmp/portage/dev-lang/python-3.6.5/work/Python-3.6.5/Modules/cmathmodule.o
+In file included from /var/tmp/portage/dev-lang/python-3.6.5/work/Python-3.6.5/Modules/cmathmodule.c:11:0:
+/var/tmp/portage/dev-lang/python-3.6.5/work/Python-3.6.5/Modules/clinic/cmathmodule.c.h: In function 'cmath\_acos':
+/var/tmp/portage/dev-lang/python-3.6.5/work/Python-3.6.5/Modules/clinic/cmathmodule.c.h:45:1: internal compiler error: Segmentation fault
+ }
+ ^
+Please submit a full bug report,
+with preprocessed source if appropriate.
+See \<https://bugs.gentoo.org/> for instructions.
+
+The build fails every time `LANG=C make` is rerun. Yay!
+
+#### Extract exact command
+
+If the build system already prints exact command, just re-execute it (make sure to be are in the correct directory). If the build system does not print the command, use other methods of getting the command like running `strace` or passing verbose flags manually.
+
+In the case of Python, the command is printed as-is:
+
+`user $``LANG=C gcc-7.3.0 -pthread -fPIC -Wno-unused-result -Wsign-compare -DNDEBUG -march=prescott -mfpmath=sse -O2 -pipe -fomit-frame-pointer -fwrapv -std=c99 -Wextra -Wno-unused-result -Wno-unused-parameter -Wno-missing-field-initializers -I./Include -I. -I/var/tmp/portage/dev-lang/python-3.6.5/work/Python-3.6.5/Include -I/var/tmp/portage/dev-lang/python-3.6.5/work/Python-3.6.5 -c /var/tmp/portage/dev-lang/python-3.6.5/work/Python-3.6.5/Modules/cmathmodule.c -o build/temp.linux-i686-3.6/var/tmp/portage/dev-lang/python-3.6.5/work/Python-3.6.5/Modules/cmathmodule.o`
+In file included from /var/tmp/portage/dev-lang/python-3.6.5/work/Python-3.6.5/Modules/cmathmodule.c:11:0:
+/var/tmp/portage/dev-lang/python-3.6.5/work/Python-3.6.5/Modules/clinic/cmathmodule.c.h: In function 'cmath\_acos':
+/var/tmp/portage/dev-lang/python-3.6.5/work/Python-3.6.5/Modules/clinic/cmathmodule.c.h:45:1: internal compiler error: Segmentation fault
+ }
+ ^
+Please submit a full bug report,
+with preprocessed source if appropriate.
+See \<https://bugs.gentoo.org/> for instructions.
+
+#### Extract self-contained source (use -save-temps)
+
+Add `-save-temps` to the gcc command on the previous step to extract a preprocessed sample.
+`foo.c` will create `foo.i` (or `foo.ii` for `c++`).
+
+Obligatory Python example:
+
+`user $``LANG=C gcc-7.3.0 -pthread -fPIC -Wno-unused-result -Wsign-compare -DNDEBUG -march=prescott -mfpmath=sse -O2 -pipe -fomit-frame-pointer -fwrapv -std=c99 -Wextra -Wno-unused-result -Wno-unused-parameter -Wno-missing-field-initializers -I./Include -I. -I/var/tmp/portage/dev-lang/python-3.6.5/work/Python-3.6.5/Include -I/var/tmp/portage/dev-lang/python-3.6.5/work/Python-3.6.5 -c /var/tmp/portage/dev-lang/python-3.6.5/work/Python-3.6.5/Modules/cmathmodule.c -o build/temp.linux-i686-3.6/var/tmp/portage/dev-lang/python-3.6.5/work/Python-3.6.5/Modules/cmathmodule.o -save-temps`
+... same failure ...
+
+The preprocessed file is in `cmathmodule.i` now. Get more tips at [https://gcc.gnu.org/bugs/](https://gcc.gnu.org/bugs/).
+
+#### Expand -march=native, exact gcc version and other system-specific options
+
+Some compiler options like `-march=native` are dependent on the environment. They must be resolved into exact options. One way to do it is to query gcc for expansion.
+
+Comparing with the default -march gives:
+
+`user $``for t in param target optimize optimizer; do cmd="gcc -Q --help=$t"; diff -U0 <(LANG=C $cmd) <(LANG=C $cmd -march=native); done`
+--- /dev/fd/63	2020-06-10 22:26:45.832792880 +0100
++++ /dev/fd/62	2020-06-10 22:26:45.832792880 +0100
+@@ -70,3 +70,3 @@
+-  --param=l1-cache-line-size= 		32
+-  --param=l1-cache-size=      		64
+-  --param=l2-cache-size=      		512
++  --param=l1-cache-line-size= 		64
++  --param=l1-cache-size=      		32
++  --param=l2-cache-size=      		8192
+--- /dev/fd/61	2020-06-10 22:26:45.856792856 +0100
++++ /dev/fd/60	2020-06-10 22:26:45.856792856 +0100
+@@ -16 +16 @@
+-  -maes                       		\[disabled\]
++  -maes                       		\[enabled\]
+@@ -26 +26 @@
+-  -mavx                       		\[disabled\]
++  -mavx                       		\[enabled\]
+...
+
+The diff can be minimized to reduce noise if a common arch baseline like x86-64-v2 is used:
+
+`user $``march=x86-64-v2; for t in param target optimize optimizer; do cmd="gcc -Q --help=$t"; diff -U0 <(LANG=C $cmd) <(LANG=C $cmd -march=native); done`
+--- /dev/fd/63  2023-12-18 23:10:40.048490713 +0000
++++ /dev/fd/62  2023-12-18 23:10:40.049490723 +0000
+@@ -26 +26 @@
+-  --param=avoid-fma-max-bits=\<0,512>           0
++  --param=avoid-fma-max-bits=\<0,512>           512
+@@ -241 +241 @@
+-  --param=simultaneous-prefetches=     6
++  --param=simultaneous-prefetches=     100
+--- /dev/fd/63  2023-12-18 23:10:40.062490859 +0000
++++ /dev/fd/62  2023-12-18 23:10:40.063490870 +0000
+@@ -13 +13 @@
+-  -mabm                                \[disabled\]
++  -mabm                                \[enabled\]
+@@ -16,2 +16,2 @@
+-  -madx                                \[disabled\]
+-  -maes                                \[disabled\]
++  -madx                                \[enabled\]
++  -maes                                \[enabled\]
+@@ -33 +33 @@
+-  -march=                              x86-64-v4
++  -march=                              znver2
+\[...\]
+
+
+Here `-march=native` is substituted for `-march=x86-64-v2 --param=avoid-fma-max-bits=512 -mabm ...`.
+
+Make sure bug is reproducible after substitution as well!
+
+#### Report bug on bugs.gentoo.org
+
+File a bug at [https://bugs.gentoo.org/](https://bugs.gentoo.org/) against toolchain@gentoo.org
+and provide a few details:
+
+- `gcc -v` output
+- Attach `.i` reproducer
+
+#### \[bonus\] minimize needed flags to reproduce failure
+
+It is possible to do similar expansion for optimizer options as well:
+`LANG=C gcc -O2 -Q --help=optimizers`
+
+To expand `-O3` into `-O2 + extra`, one option is to use
+`diff -U0 <(LANG=C gcc -O2 -Q --help=optimizers) <(LANG=C gcc -O3 -Q --help=optimizers)`
+
+Try to find minimal set of flags needed to trigger the crash by removing some expanded options.
+
+#### \[bonus\] minimize self-contained source using cvise
+
+Now to the fun part! Let's shrink `.i` down to a manageable size with help of [dev-util/cvise](https://packages.gentoo.org/packages/dev-util/cvise).
+
+1. `root #``emerge --ask dev-util/cvise`
+2. Write a test.sh tester: FILE**`test.sh`** LANG=C gcc-7.3.0 -pthread -fPIC -Wno-unused-result -Wsign-compare -DNDEBUG -march=prescott -mfpmath=sse -O2 -pipe -fomit-frame-pointer -fwrapv -std=c99 -Wextra -Wno-unused-result -Wno-unused-parameter -Wno-missing-field-initializers -I./Include -I. -I/var/tmp/portage/dev-lang/python-3.6.5/work/Python-3.6.5/Include -I/var/tmp/portage/dev-lang/python-3.6.5/work/Python-3.6.5 -c cmathmodule.i -o cmathmodule.o \ >gcc\_out.txt 2>&1 grep "internal compiler error" gcc\_out.txt >/dev/null 2>&1
+3. Validate tester `user $``./test.sh``user $``echo $?` 0
+4. Reduce!
+
+`user $``cvise test.sh cmathmodule.i````
+===< 2430 >===
+running 4 interestingness tests in parallel
+===< pass_includes :: 0 >===
+===< pass_unifdef :: 0 >===
+===< pass_comments :: 0 >===
+===< pass_blank :: 0 >===
+(1.2 %, 733906 bytes)
+(27.4 %, 539234 bytes)
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+(29.5 %, 523834 bytes)
+(30.2 %, 518466 bytes)
+(32.0 %, 505350 bytes)
+...
+          ******** cmathmodule.i ********
+typedef struct {
+  double a
+} b;
+b c;
+d, e, f;
+g() {
+  _setjmp();
+  b h;
+  if (e)
+    h.a = copysign(f, d);
+  c = h;
+}
+```
+Done!
+
+cmathmodule.i contains the same shrunk example.
+
+The tester command may also be passed directly to cvise without creating a shell script, e.g.:
+
+`user $``LANG=C cvise --commands "gcc-7.3.0 -pthread -fPIC -Wno-unused-result -Wsign-compare -DNDEBUG -march=prescott -mfpmath=sse -O2 -pipe -fomit-frame-pointer -fwrapv -std=c99 -Wextra -Wno-unused-result -Wno-unused-parameter -Wno-missing-field-initializers -I./Include -I. -I/var/tmp/portage/dev-lang/python-3.6.5/work/Python-3.6.5/Include -I/var/tmp/portage/dev-lang/python-3.6.5/work/Python-3.6.5 -c cmathmodule.i -o cmathmodule.o |& fgrep \"internal compiler error\"" cmathmodule.i`
+#### \[bonus\] Check if bug still exists on vanilla gcc master
+
+Building gcc locally could look like:
+
+`user $````
+git clone git://gcc.gnu.org/git/gcc.git
+```
+`user $````
+mkdir -p gcc-build && cd gcc-build
+```
+`user $````
+../gcc/configure --enable-languages=c,c++ --disable-bootstrap --prefix="$(pwd)/../gcc-installed" --disable-nls CFLAGS="-O1 -ggdb" CXXFLAGS="-O1 -ggdb"
+```
+`user $``make && make install`
+Look at configure options of Gentoo's gcc -v to get more options to add to defaults. Be careful: some configure options like `--enable-default-pie --enable-default-ssp` can change code generation enough to trigger or hide a bug.
+
+#### \[bonus\] Report bug on gcc.gnu.org/bugzilla
+
+File the bug at [https://gcc.gnu.org/bugzilla/](https://gcc.gnu.org/bugzilla/) with attached minimal reproducer
+and `gcc -v` detals.
+
+#### \[bonus\] Extract gcc backtrace
+
+Example session would be:
+
+`user $``gdb --quiet --args gcc-7.3.0 -fPIC -march=prescott -mfpmath=sse -O1 -c cmathmodule.c -o cmathmodule.o`
+(gdb) set follow-fork-mode child 
+(gdb) break internal\_error
+(gdb) run
+...
+Thread 2.1 "cc1" received signal SIGSEGV, Segmentation fault.
+\[Switching to process 17286\]
+0x085375d4 in lra\_eliminate\_reg\_if\_possible(rtx\_def\*\*) ()
+(gdb) bt
+#0  0x085375d4 in lra\_eliminate\_reg\_if\_possible(rtx\_def\*\*) ()
+...
+
+#### \[bonus\] Fix gcc bug
+
+By now a source tree and a command for how to build it will be available!
+
+A few starting points:
+
+- [https://gcc.gnu.org/contribute.html](https://gcc.gnu.org/contribute.html) for general notes on coding tips and guidelines
+- [https://gcc.gnu.org/onlinedocs/](https://gcc.gnu.org/onlinedocs/)
+
+Good luck!
+
+## LTO example
+
+LTO bugs are harder to track down because there's an extra step (a few) between the compiler and the final binary.
+
+GCC's [wiki](https://gcc.gnu.org/wiki/A_guide_to_testcase_reduction#Reducing_LTO_bugs) and [LinkTimeOptimization](https://gcc.gnu.org/wiki/LinkTimeOptimization) touches on this.
+
+[PR105600](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=105600) is an example of such a GCC bug.
+
+Tip: experiment with `-flto-partition=1to1`, `-flto-partition=none`, and `-flto-partition=one`. They can help with reduction depending on the failure.
+
+### Summary
+
+The following example is based on a real case ([bug #903868](https://bugs.gentoo.org/show_bug.cgi?id=903868)). The first part is to narrow things down to have a minimal set of files then in a second movement, investigate why the error condition is triggered.
+
+### Extract the exact compiler command
+
+Whenever the compilation fails with an LTO error, the very first step is to look at what the file build.log contains and search inside for the string `FAILED:` (typically, it just precedes the compiler crash dump):
+
+**`/var/tmp/portage/kde-plasma/xdg-desktop-portal-kde-5.27.4.1-r1/temp/build.log`**
+
+Pay attention to the two double ampersands (`&&`) that enclose the full command line. This is our point of interest, copy what is enclosed in-between and keep it somewhere - it will get used later in this section. For now, just change the working directory for the failed package's one somewhere under /var/tmp/portage. Here:
+
+`root #``cd /var/tmp/portage/kde-plasma/xdg-desktop-portal-kde-5.27.4.1-r1`
+From this vantage point of view:
+
+`root #``ls -l work`
+total 22
+drwxr-xr-x 8 portage portage 17 Apr 13 12:42 xdg-desktop-portal-kde-5.27.4.1
+drwxr-xr-x 8 portage portage 19 Apr 13 12:42 xdg-desktop-portal-kde-5.27.4.1\_build
+
+Now there are two subdirectories:
+
+- xdg-desktop-portal-kde-5.27.4.1 is where the package source files reside (notably)
+- xdg-desktop-portal-kde-5.27.4.1\_build is where the object files resulting from the compilation process are put (plus some other things we ignore for the moment).
+
+So from the above GCC command line perspective:
+
+- All .cpp files relative paths are relative to xdg-desktop-portal-kde-5.27.4.1
+- All .cpp.o files relative paths are relative to xdg-desktop-portal-kde-5.27.4.1\_build
+- All .a files relative paths are relative to xdg-desktop-portal-kde-5.27.4.1\_build
+
+On closer look at the above command line, it can be decomposed in three consecutive parts:
+
+- Part A => spans from `-O3` to `-lpthread` this is the various options that governs the GCC's behavior
+- Part B => spans from `src/CMakeFiles/xdg-desktop-portal-kde.dir/xdg-desktop-portal-kde_autogen/mocs_compilation.cpp.o` to `src/CMakeFiles/xdg-desktop-portal-kde.dir/fdo_application_interface.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/xdg-desktop-portal-kde_autogen/EWIEGA46WW/qrc_resources.cpp.o` this big list is all of the object files previouly produced by GCC (we are at the final compilation stage... optimize and link with all other needed objects files and librairies)
+- Part C => spans from `-o bin/xdg-desktop-portal-kde` to `/usr/lib64/libQt5Core.so.5.15.8` which is the list of the libraries/shared object files GCC will link against with.
+
+Notice the presence of a relative path in the middle of part C which is  lib/libKirigamiFilepicker.a. This file is produced by some previous building steps of the package [kde-plasma/xdg-desktop-portal-kde](https://packages.gentoo.org/packages/kde-plasma/xdg-desktop-portal-kde) itself, it will be taken care of a bit later.
+
+### Minimize responsible objects
+
+The failure is in lto1 which by its nature is considering multiple objects. To narrow down the failure, the full command being passed must be considered.
+
+Let's focus on part B (the big list of `.cpp.o` files) of the GCC command-line. The goal is to transform all of those relative paths of this list to their absolute path counterparts. Remember the directory structure mentioned in the previous section herebefore? All of those `.cpp.o` files are residing under xdg-desktop-portal-kde-5.27.4.1\_build, thus their path must be prepended with that latter one. As xdg-desktop-portal-kde-5.27.4.1\_build resides itself under /var/tmp/portage/kde-plasma/xdg-desktop-portal-kde-5.27.4.1-r1/work, **the full path to prepend with is:  /var/tmp/portage/kde-plasma/xdg-desktop-portal-kde-5.27.4.1-r1/work/xdg-desktop-portal-kde-5.27.4.1\_build**.
+
+Now, create a file (here named full\_objects\_list) which contains the whole list of those `.cpp.o` files (*do not reformat it!* just copy/paste the whole list as is). The result should be like:
+
+**`'full_objects_list'`**
+
+Now transform full\_objects\_list to not only convert relative paths to absolute paths but also put one item of the list per line. Here is tr comes at the rescue (don't forget the final slash in the sed directive!):
+
+`root #``cat full_objects_list | tr ' ' '\n' | sed -e "s:^:/var/tmp/portage/kde-plasma/xdg-desktop-portal-kde-5.27.4.1-r1/work/xdg-desktop-portal-kde-5.27.4.1_build/:" > full_objects_list_fixed` The file full\_objects\_list\_fixed should look like this (one file per line):
+
+**`'full_objects_list'`**
+
+Now create a copy of the full\_objects\_list\_fixed and name it bad (the original contents will be needed later):
+
+`root #``cp full_objects_list_fixed bad`
+The crunchy part is to use cvise-delta (Package [dev-util/cvise](https://packages.gentoo.org/packages/dev-util/cvise)) to reduce the contents of the list stored in the file bad to the bare minimum. The only missing piece of that puzzle is to write a small shell-script (here named check.sh) that will be used by cvise-delta and this where the "part A" and the "part B" (respectively the set of options controlling the compiler's behaviour and the set of libraries to link with) as talked about in the previous section appears in the landscape.
+
+While "part A" can be kept as is (after all the very same options set to reproduce the crash are wanted), however, "part B" needs to be changed a little bit. So this:
+
+```
+-o bin/xdg-desktop-portal-kde  /usr/lib64/libKF5Declarative.so.5.105.0  /usr/lib64/libKF5Notifications.so.5.105.0  /usr/lib64/libKF5WaylandClient.so.5.105.0  /var/tmp/portage/kde-plasma/xdg-desktop-portal-kde-5.27.4.1-r1/work/xdg-desktop-portal-kde-5.27.4.1_build/lib/libKirigamiFilepicker.a  /usr/lib64/libwayland-client.so  /usr/lib64/libQt5QuickWidgets.so.5.15.8  /usr/lib64/libKF5Package.so.5.105.0  /usr/lib64/libKF5KIOFileWidgets.so.5.105.0  /usr/lib64/libKF5KIOWidgets.so.5.105.0  /usr/lib64/libKF5KIOGui.so.5.105.0  /usr/lib64/libKF5WindowSystem.so.5.105.0  /usr/lib64/libX11.so  /usr/lib64/libKF5JobWidgets.so.5.105.0  /usr/lib64/libKF5Completion.so.5.105.0  /usr/lib64/libKF5Bookmarks.so.5.105.0  /usr/lib64/libKF5XmlGui.so.5.105.0  /usr/lib64/libKF5GlobalAccel.so.5.105.0  /usr/lib64/libKF5IconThemes.so.5.105.0  /usr/lib64/libQt5PrintSupport.so.5.15.8  /usr/lib64/libKF5ItemViews.so.5.105.0  /usr/lib64/libKF5ConfigWidgets.so.5.105.0  /usr/lib64/libKF5GuiAddons.so.5.105.0  /usr/lib64/libQt5WaylandClient.so.5.15.8  /usr/lib64/libKF5WidgetsAddons.so.5.105.0  /usr/lib64/libKF5ConfigGui.so.5.105.0  /usr/lib64/libKF5Codecs.so.5.105.0  /usr/lib64/libKF5Auth.so.5.105.0  /usr/lib64/libQt5Widgets.so.5.15.8  /usr/lib64/libKF5Solid.so.5.105.0  /usr/lib64/libQt5Quick.so.5.15.8  /usr/lib64/libQt5QmlModels.so.5.15.8  /usr/lib64/libQt5Qml.so.5.15.8  /usr/lib64/libKF5KIOCore.so.5.105.0  /usr/lib64/libKF5Service.so.5.105.0  /usr/lib64/libKF5ConfigCore.so.5.105.0  /usr/lib64/libKF5I18n.so.5.105.0  /usr/lib64/libQt5Concurrent.so.5.15.8  /usr/lib64/libQt5Network.so.5.15.8  /usr/lib64/libQt5Xml.so.5.15.8  /usr/lib64/libKF5AuthCore.so.5.105.0  /usr/lib64/libKF5CoreAddons.so.5.105.0  /usr/lib64/libQt5DBus.so.5.15.8  /usr/lib64/libQt5XkbCommonSupport.a  /usr/lib64//libQt5Gui.so  /usr/lib64//libQt5Core.so  /usr/lib64/libxkbcommon.so  /usr/lib64/libGL.so  /usr/lib64/libQt5Gui.so.5.15.8  /usr/lib64/libQt5Core.so.5.15.8
+```
+
+Becomes that:
+
+```
+@bad -o /dev/null  /usr/lib64/libKF5Declarative.so.5.105.0  /usr/lib64/libKF5Notifications.so.5.105.0  /usr/lib64/libKF5WaylandClient.so.5.105.0  lib/libKirigamiFilepicker.a  /usr/lib64/libwayland-client.so  /usr/lib64/libQt5QuickWidgets.so.5.15.8  /usr/lib64/libKF5Package.so.5.105.0  /usr/lib64/libKF5KIOFileWidgets.so.5.105.0  /usr/lib64/libKF5KIOWidgets.so.5.105.0  /usr/lib64/libKF5KIOGui.so.5.105.0  /usr/lib64/libKF5WindowSystem.so.5.105.0  /usr/lib64/libX11.so  /usr/lib64/libKF5JobWidgets.so.5.105.0  /usr/lib64/libKF5Completion.so.5.105.0  /usr/lib64/libKF5Bookmarks.so.5.105.0  /usr/lib64/libKF5XmlGui.so.5.105.0  /usr/lib64/libKF5GlobalAccel.so.5.105.0  /usr/lib64/libKF5IconThemes.so.5.105.0  /usr/lib64/libQt5PrintSupport.so.5.15.8  /usr/lib64/libKF5ItemViews.so.5.105.0  /usr/lib64/libKF5ConfigWidgets.so.5.105.0  /usr/lib64/libKF5GuiAddons.so.5.105.0  /usr/lib64/libQt5WaylandClient.so.5.15.8  /usr/lib64/libKF5WidgetsAddons.so.5.105.0  /usr/lib64/libKF5ConfigGui.so.5.105.0  /usr/lib64/libKF5Codecs.so.5.105.0  /usr/lib64/libKF5Auth.so.5.105.0  /usr/lib64/libQt5Widgets.so.5.15.8  /usr/lib64/libKF5Solid.so.5.105.0  /usr/lib64/libQt5Quick.so.5.15.8  /usr/lib64/libQt5QmlModels.so.5.15.8  /usr/lib64/libQt5Qml.so.5.15.8  /usr/lib64/libKF5KIOCore.so.5.105.0  /usr/lib64/libKF5Service.so.5.105.0  /usr/lib64/libKF5ConfigCore.so.5.105.0  /usr/lib64/libKF5I18n.so.5.105.0  /usr/lib64/libQt5Concurrent.so.5.15.8  /usr/lib64/libQt5Network.so.5.15.8  /usr/lib64/libQt5Xml.so.5.15.8  /usr/lib64/libKF5AuthCore.so.5.105.0  /usr/lib64/libKF5CoreAddons.so.5.105.0  /usr/lib64/libQt5DBus.so.5.15.8  /usr/lib64/libQt5XkbCommonSupport.a  /usr/lib64//libQt5Gui.so  /usr/lib64//libQt5Core.so  /usr/lib64/libxkbcommon.so  /usr/lib64/libGL.so  /usr/lib64/libQt5Gui.so.5.15.8  /usr/lib64/libQt5Core.so.5.15.8 2>&1 | grep -q "internal compiler error"
+```
+
+The three brought-in changes are:
+
+- Replacing the original `-o bin/xdg-desktop-portal-kde` by `@bad -o /dev/null` to make GCC consider the object list stored in the file bad (rather than the original full-fledged list) and  make GCC output the result to /dev/null.
+- Substituting the relative path of libKirigamiFilepicker.a for its absolute one counterpart (this is an archive produced by the package itself, not something external)
+- Appending `2>&1 | grep -q "internal compiler error"` at the very end
+
+Putting all pieces together, the test script check.sh is this one:
+
+**`check.sh`**
+
+```
+#!/bin/bash
+# Reproduces the ICE by calling g++ on object files (within @bad)
+/usr/bin/x86_64-pc-linux-gnu-g++ -O3 -pipe -march=native -fomit-frame-pointer -fopt-info-vec -fcf-protection=return -flto=auto -ffat-lto-objects -fno-operator-names -fno-exceptions -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wnon-virtual-dtor -Woverloaded-virtual -Werror=return-type -Werror=init-self -Wvla -Wdate-time -Wsuggest-override -Wlogical-op -fdiagnostics-color=always -Wl,--enable-new-dtags -flto=auto -pthread @bad -o /dev/null /usr/lib64/libKF5Declarative.so.5.105.0  /usr/lib64/libKF5Notifications.so.5.105.0  /usr/lib64/libKF5WaylandClient.so.5.105.0 /var/tmp/portage/kde-plasma/xdg-desktop-portal-kde-5.27.4.1-r1/work/xdg-desktop-portal-kde-5.27.4.1_build/lib/libKirigamiFilepicker.a  /usr/lib64/libwayland-client.so  /usr/lib64/libQt5QuickWidgets.so.5.15.8  /usr/lib64/libKF5Package.so.5.105.0  /usr/lib64/libKF5KIOFileWidgets.so.5.105.0  /usr/lib64/libKF5KIOWidgets.so.5.105.0  /usr/lib64/libKF5KIOGui.so.5.105.0  /usr/lib64/libKF5WindowSystem.so.5.105.0  /usr/lib64/libX11.so  /usr/lib64/libKF5JobWidgets.so.5.105.0  /usr/lib64/libKF5Completion.so.5.105.0  /usr/lib64/libKF5Bookmarks.so.5.105.0  /usr/lib64/libKF5XmlGui.so.5.105.0  /usr/lib64/libKF5GlobalAccel.so.5.105.0  /usr/lib64/libKF5IconThemes.so.5.105.0  /usr/lib64/libQt5PrintSupport.so.5.15.8  /usr/lib64/libKF5ItemViews.so.5.105.0  /usr/lib64/libKF5ConfigWidgets.so.5.105.0  /usr/lib64/libKF5GuiAddons.so.5.105.0  /usr/lib64/libQt5WaylandClient.so.5.15.8  /usr/lib64/libKF5WidgetsAddons.so.5.105.0  /usr/lib64/libKF5ConfigGui.so.5.105.0  /usr/lib64/libKF5Codecs.so.5.105.0  /usr/lib64/libKF5Auth.so.5.105.0  /usr/lib64/libQt5Widgets.so.5.15.8  /usr/lib64/libKF5Solid.so.5.105.0  /usr/lib64/libQt5Quick.so.5.15.8  /usr/lib64/libQt5QmlModels.so.5.15.8  /usr/lib64/libQt5Qml.so.5.15.8  /usr/lib64/libKF5KIOCore.so.5.105.0  /usr/lib64/libKF5Service.so.5.105.0  /usr/lib64/libKF5ConfigCore.so.5.105.0  /usr/lib64/libKF5I18n.so.5.105.0  /usr/lib64/libQt5Concurrent.so.5.15.8  /usr/lib64/libQt5Network.so.5.15.8  /usr/lib64/libQt5Xml.so.5.15.8  /usr/lib64/libKF5AuthCore.so.5.105.0  /usr/lib64/libKF5CoreAddons.so.5.105.0  /usr/lib64/libQt5DBus.so.5.15.8  /usr/lib64/libQt5XkbCommonSupport.a  /usr/lib64//libQt5Gui.so  /usr/lib64//libQt5Core.so  /usr/lib64/libxkbcommon.so  /usr/lib64/libGL.so  /usr/lib64/libQt5Gui.so.5.15.8  /usr/lib64/libQt5Core.so.5.15.8 2>&1 | grep -q 'internal compiler error'
+```
+Now unleash the power of cvise-delta:
+
+`root #``chmod +x check.sh``root #``cvise-delta ./check.sh bad`
+00:00:01 INFO ===\< 20595 >===
+00:00:01 INFO running 16 interestingness tests in parallel
+00:00:01 INFO INITIAL PASSES
+00:00:01 INFO ===\< LinesPass::None >===
+00:00:02 INFO ===\< LinesPass::None >===
+00:00:02 INFO cache hit for /var/tmp/portage/kde-plasma/xdg-desktop-portal-kde-5.27.4.1-r1/temp/bad
+00:00:02 INFO ===\< LinesPass::None >===
+00:00:02 INFO cache hit for /var/tmp/portage/kde-plasma/xdg-desktop-portal-kde-5.27.4.1-r1/temp/bad
+00:00:02 INFO ===\< LinesPass::None >===
+00:00:02 INFO cache hit for /var/tmp/portage/kde-plasma/xdg-desktop-portal-kde-5.27.4.1-r1/temp/bad
+00:00:02 INFO ===\< LinesPass::None >===
+00:00:02 INFO cache hit for /var/tmp/portage/kde-plasma/xdg-desktop-portal-kde-5.27.4.1-r1/temp/bad
+00:00:02 INFO ===\< LinesPass::None >===
+00:00:02 INFO cache hit for /var/tmp/portage/kde-plasma/xdg-desktop-portal-kde-5.27.4.1-r1/temp/bad
+00:00:02 INFO ===\< LinesPass::None >===
+00:00:02 INFO cache hit for /var/tmp/portage/kde-plasma/xdg-desktop-portal-kde-5.27.4.1-r1/temp/bad
+00:00:02 INFO ===\< LinesPass::None >===
+00:00:02 INFO cache hit for /var/tmp/portage/kde-plasma/xdg-desktop-portal-kde-5.27.4.1-r1/temp/bad
+00:00:02 INFO MAIN PASSES
+00:00:02 INFO Termination check: size was 166; now 166
+00:00:02 INFO CLEANUP PASSES
+00:00:02 INFO ===================== done ====================
+===\< PASS statistics >===
+  pass name                                              time (s) time (%)   worked   failed  total executed
+  LinesPass::None                                            0.34    12.15        0        0               1
+Runtime: 3 seconds
+Reduced test-cases:
+--- /var/tmp/portage/kde-plasma/xdg-desktop-portal-kde-5.27.4.1-r1/temp/bad ---
+/var/tmp/portage/kde-plasma/xdg-desktop-portal-kde-5.27.4.1-r1/work/xdg-desktop-portal-kde-5.27.4.1\_build/src/CMakeFiles/xdg-desktop-portal-kde.dir/xdgshortcut.cpp.o
+
+Now the file bad should contain only a small number of problematic object files:
+
+`root #``cat bad`
+/var/tmp/portage/kde-plasma/xdg-desktop-portal-kde-5.27.4.1-r1/work/xdg-desktop-portal-kde-5.27.4.1\_build/src/CMakeFiles/xdg-desktop-portal-kde.dir/xdgshortcut.cpp.o
+
+Manually invoke the g++ command as it is in check.sh from the command-line with that reduced subset should trigger a compiler crash :
+
+`root #``/usr/bin/x86_64-pc-linux-gnu-g++ -O3 -pipe -march=native -fomit-frame-pointer -fopt-info-vec -fcf-protection=return -flto=auto -ffat-lto-objects -fno-operator-names -fno-exceptions -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wnon-virtual-dtor -Woverloaded-virtual -Werror=return-type -Werror=init-self -Wvla -Wdate-time -Wsuggest-override -Wlogical-op -fdiagnostics-color=always -Wl,--enable-new-dtags -flto=auto  -pthread  @bad -o /dev/null /usr/lib64/libKF5Declarative.so.5.105.0  /usr/lib64/libKF5Notifications.so.5.105.0  /usr/lib64/libKF5WaylandClient.so.5.105.0 /var/tmp/portage/kde-plasma/xdg-desktop-portal-kde-5.27.4.1-r1/work/xdg-desktop-portal-kde-5.27.4.1_build/lib/libKirigamiFilepicker.a  /usr/lib64/libwayland-client.so  /usr/lib64/libQt5QuickWidgets.so.5.15.8  /usr/lib64/libKF5Package.so.5.105.0  /usr/lib64/libKF5KIOFileWidgets.so.5.105.0  /usr/lib64/libKF5KIOWidgets.so.5.105.0  /usr/lib64/libKF5KIOGui.so.5.105.0  /usr/lib64/libKF5WindowSystem.so.5.105.0  /usr/lib64/libX11.so  /usr/lib64/libKF5JobWidgets.so.5.105.0  /usr/lib64/libKF5Completion.so.5.105.0  /usr/lib64/libKF5Bookmarks.so.5.105.0  /usr/lib64/libKF5XmlGui.so.5.105.0  /usr/lib64/libKF5GlobalAccel.so.5.105.0  /usr/lib64/libKF5IconThemes.so.5.105.0  /usr/lib64/libQt5PrintSupport.so.5.15.8  /usr/lib64/libKF5ItemViews.so.5.105.0  /usr/lib64/libKF5ConfigWidgets.so.5.105.0  /usr/lib64/libKF5GuiAddons.so.5.105.0  /usr/lib64/libQt5WaylandClient.so.5.15.8  /usr/lib64/libKF5WidgetsAddons.so.5.105.0  /usr/lib64/libKF5ConfigGui.so.5.105.0  /usr/lib64/libKF5Codecs.so.5.105.0  /usr/lib64/libKF5Auth.so.5.105.0  /usr/lib64/libQt5Widgets.so.5.15.8  /usr/lib64/libKF5Solid.so.5.105.0  /usr/lib64/libQt5Quick.so.5.15.8  /usr/lib64/libQt5QmlModels.so.5.15.8  /usr/lib64/libQt5Qml.so.5.15.8  /usr/lib64/libKF5KIOCore.so.5.105.0  /usr/lib64/libKF5Service.so.5.105.0  /usr/lib64/libKF5ConfigCore.so.5.105.0  /usr/lib64/libKF5I18n.so.5.105.0  /usr/lib64/libQt5Concurrent.so.5.15.8  /usr/lib64/libQt5Network.so.5.15.8  /usr/lib64/libQt5Xml.so.5.15.8  /usr/lib64/libKF5AuthCore.so.5.105.0  /usr/lib64/libKF5CoreAddons.so.5.105.0  /usr/lib64/libQt5DBus.so.5.15.8  /usr/lib64/libQt5XkbCommonSupport.a  /usr/lib64//libQt5Gui.so  /usr/lib64//libQt5Core.so  /usr/lib64/libxkbcommon.so  /usr/lib64/libGL.so  /usr/lib64/libQt5Gui.so.5.15.8  /usr/lib64/libQt5Core.so.5.15.8`
+/var/tmp/portage/kde-plasma/xdg-desktop-portal-kde-5.27.4.1-r1/work/xdg-desktop-portal-kde-5.27.4.1\_build/src/CMakeFiles/xdg-desktop-portal-kde.dir/xdgshortcut.cpp.o
+
+The point being: the same failure now occurs with far fewer arguments because cvise-delta reduced the list down to those responsible.
+
+Now just keep aside:
+
+- The files xdgshortcut.cpp.o and libKirigamiFilepicker.a
+- the g++ command-line to use
+
+
+Perfect! There now is a lean work basis. Next step: debug the compiler.
+
+#### Debugging the compiler
+
+Invoke GDB by passing the whole problematic command-line after `--args`:
+
+`root #``gdb --quiet --args /usr/bin/x86_64-pc-linux-gnu-g++ -O3  -pipe -march=native -fomit-frame-pointer -fopt-info-vec -fcf-protection=return -flto=auto -ffat-lto-objects -fno-operator-names -fno-exceptions -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wnon-virtual-dtor -Woverloaded-virtual -Werror=return-type -Werror=init-self -Wvla -Wdate-time -Wsuggest-override -Wlogical-op -fdiagnostics-color=always -Wl,--enable-new-dtags -flto=auto -pthread @bad -o /dev/null /usr/lib64/libKF5Declarative.so.5.105.0 /usr/lib64/libKF5Notifications.so.5.105.0 /usr/lib64/libKF5WaylandClient.so.5.105.0 /var/tmp/portage/kde-plasma/xdg-desktop-portal-kde-5.27.4.1-r1/work/xdg-desktop-portal-kde-5.27.4.1_build/lib/libKirigamiFilepicker.a /usr/lib64/libwayland-client.so /usr/lib64/libQt5QuickWidgets.so.5.15.8 /usr/lib64/libKF5Package.so.5.105.0 /usr/lib64/libKF5KIOFileWidgets.so.5.105.0 /usr/lib64/libKF5KIOWidgets.so.5.105.0 /usr/lib64/libKF5KIOGui.so.5.105.0 /usr/lib64/libKF5WindowSystem.so.5.105.0 /usr/lib64/libX11.so /usr/lib64/libKF5JobWidgets.so.5.105.0 /usr/lib64/libKF5Completion.so.5.105.0 /usr/lib64/libKF5Bookmarks.so.5.105.0 /usr/lib64/libKF5XmlGui.so.5.105.0 /usr/lib64/libKF5GlobalAccel.so.5.105.0 /usr/lib64/libKF5IconThemes.so.5.105.0 /usr/lib64/libQt5PrintSupport.so.5.15.8 /usr/lib64/libKF5ItemViews.so.5.105.0 /usr/lib64/libKF5ConfigWidgets.so.5.105.0 /usr/lib64/libKF5GuiAddons.so.5.105.0 /usr/lib64/libQt5WaylandClient.so.5.15.8 /usr/lib64/libKF5WidgetsAddons.so.5.105.0 /usr/lib64/libKF5ConfigGui.so.5.105.0 /usr/lib64/libKF5Codecs.so.5.105.0 /usr/lib64/libKF5Auth.so.5.105.0 /usr/lib64/libQt5Widgets.so.5.15.8 /usr/lib64/libKF5Solid.so.5.105.0 /usr/lib64/libQt5Quick.so.5.15.8 /usr/lib64/libQt5QmlModels.so.5.15.8 /usr/lib64/libQt5Qml.so.5.15.8 /usr/lib64/libKF5KIOCore.so.5.105.0 /usr/lib64/libKF5Service.so.5.105.0 /usr/lib64/libKF5ConfigCore.so.5.105.0 /usr/lib64/libKF5I18n.so.5.105.0 /usr/lib64/libQt5Concurrent.so.5.15.8 /usr/lib64/libQt5Network.so.5.15.8 /usr/lib64/libQt5Xml.so.5.15.8 /usr/lib64/libKF5AuthCore.so.5.105.0 /usr/lib64/libKF5CoreAddons.so.5.105.0 /usr/lib64/libQt5DBus.so.5.15.8 /usr/lib64/libQt5XkbCommonSupport.a /usr/lib64//libQt5Gui.so /usr/lib64//libQt5Core.so /usr/lib64/libxkbcommon.so /usr/lib64/libGL.so /usr/lib64/libQt5Gui.so.5.15.8 /usr/lib64/libQt5Core.so.5.15.8`
+Reading symbols from /usr/bin/x86\_64-pc-linux-gnu-g++...
+Reading symbols from /usr/lib/debug//usr/x86\_64-pc-linux-gnu/gcc-bin/13/x86\_64-pc-linux-gnu-g++.debug...
+(gdb)
+
+Set the variable `follow-fork-mode` to `child` (`set follow-fork-mode child`).
+
+## See also
+
+- [C-Vise](https://wiki.gentoo.org/wiki/C-Vise) — a super-parallel Python port of the C-Reduce. The port is fully compatible to the C-Reduce and uses the same efficient LLVM-based C/C++ reduction tool named clang\_delta.
+- [Bisecting\_with\_live\_ebuilds#GCC\_example](https://wiki.gentoo.org/wiki/Bisecting_with_live_ebuilds#GCC_example)
+- [Bugzilla/Bug\_report\_guide](https://wiki.gentoo.org/wiki/Bugzilla/Bug_report_guide) — explains how to report bugs using Gentoo's Bugzilla instance, which may be lightly customized to collect specific details for each Gentoo project area
+- [Bugzilla/Guide](https://wiki.gentoo.org/wiki/Bugzilla/Guide) — covers the recommended method of forensically reporting *specific details* of bugs within Gentoo.

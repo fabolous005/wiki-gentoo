@@ -1,0 +1,30 @@
+<!-- source: https://wiki.gentoo.org/wiki/SELinux/Reference_policy | group: Gentoo Wiki (Main) | wiki-title: SELinux/Reference policy -->
+---
+title: SELinux/Reference policy
+url: https://wiki.gentoo.org/wiki/SELinux/Reference_policy
+hostname: gentoo.org
+sitename: wiki.gentoo.org
+date: "2026-05-27"
+fingerprint: dfaced6a4cd66f59
+license: CC BY-SA 4.0
+---
+
+# SELinux/Reference policy
+
+[Jump to:navigation](https://wiki.gentoo.org#mw-head)
+
+[Jump to:search](https://wiki.gentoo.org#searchInput)
+
+The [reference policy](https://github.com/SELinuxProject/refpolicy) is a project managed by the SELinux community which maintains a working SELinux policy for the Linux operating system and applications. The project tries to keep a very close eye on any additions (i.e. more allow rules) so that the policy doesn't become too bloated and permissive.
+
+## Gentoo and refpolicy
+
+Like many other distributions, Gentoo bases its policy upon the reference policy.
+
+The [hardened-refpolicy](https://gitweb.gentoo.org/proj/hardened-refpolicy.git/) repository, which contains the SELinux policy rules for the Gentoo Linux distribution, tries to stay a close follower of the reference policy project. Patches from Gentoo are regularly sent for review to the reference policy project and eventually added. This not only benefits Gentoo (as the additional policy patches do not need to be maintained and the quality of the patches has been "approved" by an independent third party) but also other distributions which use the reference policy as their base policy (which is the case for the majority of other Linux distributions).
+
+### Enhancing policy for Gentoo
+
+If a policy module is enhanced with a Gentoo specific part, it is usually done at the very end of the policy so that upstream patches and evolution can be easily added to the repository (through `git am` invocations).
+
+Only when the Gentoo patch isn't only an addition (for instance when handling user content, where Gentoo supports XDG content types) is the main content of a policy module modified.

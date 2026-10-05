@@ -1,0 +1,70 @@
+<!-- source: https://wiki.gentoo.org/wiki/SELinux/Role-based_access_control | group: Gentoo Wiki (Main) | wiki-title: SELinux/Role-based access control -->
+---
+title: SELinux/Role-based access control
+url: https://wiki.gentoo.org/wiki/SELinux/Role-based_access_control
+hostname: gentoo.org
+sitename: wiki.gentoo.org
+date: "2015-01-13"
+fingerprint: bfb92dd92c0623c0
+license: CC BY-SA 4.0
+---
+
+# SELinux/Role-based access control
+
+[Jump to:navigation](https://wiki.gentoo.org#mw-head)
+
+[Jump to:search](https://wiki.gentoo.org#searchInput)
+
+To provide segregation of duties and privileges based on the *least privilege* model, many organizations use a role-based implementation for security and privileges. Some roles are not allowed to perform tasks of another role (segregation of duties), and adding privileges to roles is handled with care to make sure people who are assigned the role do not get too many privileges.
+
+## Introduction
+
+In a true RBAC situation, people are assigned one or more roles which grant or deny particular access.
+
+In an RBAC model, there are a couple of important aspects to have in an implementation.
+
+- Permissions are always granted through roles - no direct assignation to users
+- Users must be explicitly granted roles - no role, no rights
+
+RBAC by itself is not all that hard to implement. On a Linux system, one can make most, if not all of its behavior based on role assignment done through group membership and group privileges.
+
+## RBAC in SELinux
+
+The implementation of *Role Based Access Control (RBAC)* in SELinux is as follows.
+
+![SELinux users.png](https://wiki.gentoo.org/images/a/a0/SELinux_users.png)
+
+
+1. A user is mapped to a SELinux user, which (amongst some other things) defines the maximum clearance of that user
+2. The SELinux user is allowed one or more roles, effectively restricting which roles a particular user can participate in (segregation of duties)
+3. Roles are allowed certain domains, run-time privileges for one or more applications
+
+It is through the domain permissions that the privileges of a user are controlled. Consider the privileges to administer the web server. A role that isn't allowed a domain with these privileges will not have the ability to run the necessary applications, effectively restricting the ability of the user to administer the web server.
+
+### Assigning roles to users
+
+Because a role depends on the SELinux user, and a Linux user is mapped to a SELinux user, assigning roles begins with mapping a Linux user to a SELinux user. As SELinux users are immutable, it is important to differentiate based on role requirements: if two users have different role requirements (user1 needs roleA and roleB, and user2 needs roleB and roleC) then they should *not* be mapped to the same SELinux user, as this would meant that those users can access a role they are not allowed to.
+
+### Assigning permissions to roles and domains
+
+In order to assign a domain (or multiple domains) to a role, the SELinux policy needs to be updated to reflect this. For instance, to allow a role `oper_r` to manage the Zabbix monitoring infrastructure, the following policy would be defined:
+
+This simple call allows the `oper_t` user domain (the default domain that users in the `oper_r` have as their logon or runtime domain) to administer the Zabbix environment, as well as stop/start/restart the service and edit the Zabbix infrastructure resources.
+
+### Permissions or domain transitions
+
+Depending on the purpose and the policy design, either the permissions of a user domain are enhanced (such as with the `zabbix_admin` example), or the role is allowed to transition to another domain. The latter is in use more when applications are granted (in which case a domain transition is allowed towards the application domain).
+
+## Default roles
+
+By default, SELinux offers the following roles:
+
+| Role | Description | 
+|---|---|
+| user\_r | End user role meant to be assigned to users with interactive logon privileges to the system, but without additional role requirements | 
+| staff\_r | End user role meant to be assigned to users who also need to transition to other roles. The staff\_r role by itself isn't much more privileged than `user_r` except that it is allowed to do role transitions | 
+| sysadm\_r | Powerful role for generic system administration | 
+| system\_r | System role meant for daemons and system services | 
+| object\_r | Unassignable role meant for resources rather than domains | 
+
+Additional roles can be created through policies.

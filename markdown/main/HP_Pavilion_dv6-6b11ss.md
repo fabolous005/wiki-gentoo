@@ -1,0 +1,160 @@
+<!-- source: https://wiki.gentoo.org/wiki/HP_Pavilion_dv6-6b11ss | group: Gentoo Wiki (Main) | wiki-title: HP Pavilion dv6-6b11ss -->
+---
+title: HP Pavilion dv6-6b11ss
+url: https://wiki.gentoo.org/wiki/HP_Pavilion_dv6-6b11ss
+hostname: gentoo.org
+sitename: wiki.gentoo.org
+date: "2025-05-31"
+fingerprint: "7f158f1ddfeed6ee"
+license: CC BY-SA 4.0
+---
+
+# HP Pavilion dv6-6b11ss
+
+[Jump to:navigation](https://wiki.gentoo.org#mw-head)
+
+[Jump to:search](https://wiki.gentoo.org#searchInput)
+
+#### Hardware:
+
+Printout of lspci:
+
+`root #``lspci`
+00:00.0 Host bridge: Intel Corporation 2nd Generation Core Processor Family DRAM Controller (rev 09)
+00:01.0 PCI bridge: Intel Corporation Xeon E3-1200/2nd Generation Core Processor Family PCI Express Root Port (rev 09)
+00:02.0 VGA compatible controller: Intel Corporation 2nd Generation Core Processor Family Integrated Graphics Controller (rev 09)
+00:16.0 Communication controller: Intel Corporation 6 Series/C200 Series Chipset Family MEI Controller #1 (rev 04)
+00:1a.0 USB controller: Intel Corporation 6 Series/C200 Series Chipset Family USB Enhanced Host Controller #2 (rev 05)
+00:1b.0 Audio device: Intel Corporation 6 Series/C200 Series Chipset Family High Definition Audio Controller (rev 05)
+00:1c.0 PCI bridge: Intel Corporation 6 Series/C200 Series Chipset Family PCI Express Root Port 1 (rev b5)
+00:1c.1 PCI bridge: Intel Corporation 6 Series/C200 Series Chipset Family PCI Express Root Port 2 (rev b5)
+00:1c.2 PCI bridge: Intel Corporation 6 Series/C200 Series Chipset Family PCI Express Root Port 3 (rev b5)
+00:1c.3 PCI bridge: Intel Corporation 6 Series/C200 Series Chipset Family PCI Express Root Port 4 (rev b5)
+00:1d.0 USB controller: Intel Corporation 6 Series/C200 Series Chipset Family USB Enhanced Host Controller #1 (rev 05)
+00:1f.0 ISA bridge: Intel Corporation HM65 Express Chipset Family LPC Controller (rev 05)
+00:1f.2 SATA controller: Intel Corporation 6 Series/C200 Series Chipset Family 6 port SATA AHCI Controller (rev 05)
+00:1f.3 SMBus: Intel Corporation 6 Series/C200 Series Chipset Family SMBus Controller (rev 05)
+01:00.0 VGA compatible controller: Advanced Micro Devices \[AMD\] nee ATI Caicos \[Radeon HD 6400M/7400M Series\]
+07:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL8111/8168 PCI Express Gigabit Ethernet controller (rev 06)
+0d:00.0 Network controller: Broadcom Corporation BCM4313 802.11b/g/n Wireless LAN Controller (rev 01)
+13:00.0 Unassigned class \[ff00\]: Realtek Semiconductor Co., Ltd. RTS5209 PCI Express Card Reader (rev 01)
+13:00.1 SD Host controller: Realtek Semiconductor Co., Ltd. RTS5209 PCI Express Card Reader (rev 01)
+19:00.0 USB controller: NEC Corporation uPD720200 USB 3.0 Host Controller (rev 04)
+
+Main specifications ([full specs of the laptop](http://support.hp.com/us-en/product/HP-Pavilion-dv6-6b00-Entertainment-Notebook-PC-series/5145688/model/5189114/document/c03083240/)) :
+
+- **CPU**: 2.4 GHz Intel Core i5-2430M
+- **Main memory**: 6 GB DDR3
+- **Video Graphics (I)**:	AMD Radeon HD 6490M (1 GB DDR5 dedicated)
+- **Video Graphics (II)**:	Intel Sandy Bridge GPU
+- **Hard disk**: 500 GB SATA (5400 rpm)
+
+##### Wi-Fi drivers:
+
+Compile and install [brcmsmac driver](http://linuxwireless.org/en/users/Drivers/brcm80211) from Linux kernel.
+
+And install the ebuild [sys-kernel/linux-firmware](https://packages.gentoo.org/packages/sys-kernel/linux-firmware) to get the required firmware.
+
+##### SD card reader:
+
+To make sure the integrated SD card reader works fine, your kernel should have:
+
+##### ACPI:
+
+To setup [laptop-mode-tools](https://wiki.gentoo.org/wiki/Power_management/Guide) is recommended. Edit the /etc/default/grub file and add this string:
+
+**`/etc/default/grub`**
+
+Next, run `grub2-mkconfig` to update your configuration from that file.
+
+##### HP and camera drivers:
+
+You can enable the following kernel options (as module o built-in):
+
+Check the webcam module is loaded:
+
+`user $``dmesg | grep uvc`
+uvcvideo: Found UVC 1.00 device USB2.0 UVC HP TrueVision HD (064e:d281)
+
+Check the accelerometer sensor driver for hard disk is loaded:
+
+`user $``dmesg | grep Accelerometer`
+input: ST LIS3LV02DL Accelerometer as /devices/platform/lis3lv02d/input/input17
+
+You can test the sensor by moving your laptop and checking the output of this command:
+
+watch -n 1 'cat /sys/devices/platform/lis3lv02d/position'
+
+See [HPfall](https://wiki.gentoo.org/wiki/HPfall) for more information about hard disk protection.
+
+#### Portage:
+
+Some values to config portage for this laptop:
+
+**`/etc/portage/make.conf`**
+
+**`/etc/portage/package.use/00grub`**
+
+```
+ GRUB_PLATFORMS: pc
+```
+**`/etc/portage/package.use/00video`**
+
+```
+ VIDEO_CARDS: -* intel i915 radeon
+```
+**`/etc/portage/package.use/00cpu-flags`**
+
+```
+ CPU_FLAGS_X86: mmx mmxext sse sse2 sse3 ssse3 sse4 sse4a sse4_1 sse4_2
+```
+#### Graphics and video decoding:
+
+The laptop includes an [Intel Sandy Bridge integrated GPU](https://wiki.gentoo.org/wiki/Intel) that supports VA API and works with intel opensource driver and AMD 6490M discrete GPU that works with [radeon](https://wiki.gentoo.org/wiki/Radeon). Sadly, VA API standard is not recognize for many applications, but you can install the great [libvdpau-va-gl library](https://github.com/i-rinat/libvdpau-va-gl) from [several overlays](http://gpo.zugaina.org/x11-libs/libvdpau-va-gl) to get the video decoding by hardware works for VDPAU, a standard more extended. Currently (end-2013) [Mozilla Firefox doesn't support](https://support.mozilla.org/en-US/questions/971722) a way to configure its gstreamer-backend to use VA API. See this blog entry: [VA API Backend for VDPAU](http://davidrosca.blogspot.com.es/2013/05/va-api-backend-for-vdpau.html)
+
+For basic usage, intel driver works fine. Portage configuration:
+
+**`/etc/portage/package.use/00video`**
+
+```
+ VIDEO_CARDS: intel i915
+```
+Useful links:
+
+#### Touchpad and keyboard layout config:
+
+Make a /etc/X11/xorg.conf.d/20-input.conf to config the synaptics touchpad and keyboard layout (in my case, Spanish)
+
+**`/etc/X11/xorg.conf.d/20-input.conf`**
+
+```
+# Xorg configuration: mouse
+Section "InputClass"
+    Identifier   "MyTouchpad"
+    MatchIsTouchpad   "on"
+    MatchDevicePath   "/dev/input/event*"
+    Driver      "synaptics"
+        Option      "TapButton1" "1"
+        Option      "VertEdgeScroll" "true"
+        Option      "HorizEdgeScroll" "true"
+        Option      "RTCornerButton" "3"
+        Option      "RBCornerButton" "2"
+        Option      "MaxTapMove" "131"
+        Option      "EmulateTwoFingerMinZ" "24"
+        option      "EmulateTwoFingerMinW" "9"
+        Option      "VertTwoFingerScroll" "on"
+EndSection
+Section "InputClass"
+    Identifier "mykeyboard"
+    Driver "evdev"
+    Option "XkbLayout" "es"
+    MatchIsKeyboard "on"
+EndSection
+Section "InputClass"
+  Identifier "touchpad catchall"
+  MatchIsTouchpad "on"
+      Option "TapButton1" "1"
+      Option "TapButton2" "2"
+      Option "TapButton3" "3" 
+EndSection
+```

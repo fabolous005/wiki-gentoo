@@ -1,0 +1,113 @@
+<!-- source: https://wiki.gentoo.org/wiki/Dual-boot_Gentoo_and_Windows_7_with_BIOS-powered_software_raid | group: Gentoo Wiki (Main) | wiki-title: Dual-boot Gentoo and Windows 7 with BIOS-powered software raid -->
+---
+title: Dual-boot Gentoo and Windows 7 with BIOS-powered software raid
+url: https://wiki.gentoo.org/wiki/Dual-boot_Gentoo_and_Windows_7_with_BIOS-powered_software_raid
+hostname: gentoo.org
+sitename: wiki.gentoo.org
+date: "2022-08-24"
+fingerprint: "9d1f695bcfadb49f"
+license: CC BY-SA 4.0
+---
+
+# Dual-boot Gentoo and Windows 7 with BIOS-powered software raid
+
+[Jump to:navigation](https://wiki.gentoo.org#mw-head)
+
+[Jump to:search](https://wiki.gentoo.org#searchInput)
+
+So you have Gentoo and Windows 7 installed on your box. You come across this [BIOS](https://wiki.gentoo.org/wiki/BIOS) setting about RAID and you wonder, what difference it makes. And after searching around for a while on the web, you now know, that this BIOS RAID thing is not a hardware RAID, but instead a software solution implemented in BIOS and device drivers.
+
+## Preparing the change
+
+To prepare the switch to RAID in BIOS, you have to make a backup of every valuable data on the box. This is the most time consuming part. And if the BIOS lets you only switch the first 4 SATA ports as a unit from AHCI to RAID, you have to use external USB drives for backup.
+
+You don't want to install Gentoo from scratch, so you make one of the USB Disk bootable. Have a look at [GRUB](https://wiki.gentoo.org/wiki/GRUB) to get an idea. Now you boot the USB disk, mount your Gentoo on /mnt/gentoo and make a system backup with
+
+
+`user $````
+cd /mnt/gentoo
+```
+`user $``tar -c [a-k]* lib* [m-z]*` `user $````
+gzip -9 > /mnt/part3/gentoo.tar.gz
+```
+`user $````
+cd
+```
+`user $````
+umount /mnt/gentoo
+```
+The term *\[a-k\]\* lib\* \[m-z\]\** is used to exclude lost+found. You have everything you need to setup the box again.
+
+If you want to give dmraid a try, which has support for BIOS powered software RAID, then you should zero out the disks with
+
+`user $````
+dd if=/dev/zero of=/dev/sda bs=4k
+```
+`user $````
+dd if=/dev/zero of=/dev/sdb bs=4k
+```
+`user $````
+dd if=/dev/zero of=/dev/sdc bs=4k
+```
+I assume, you have 3 internal drives. Start this in 3 terminals at the same time. I did notice a perfomance penalty using a smaller blocksize, but using a bigger one doesn't make a difference on my box. With 3 2TB consumer disks this runs about 6 hours.
+
+You do this, to give dmraid a better chance to identify the metadata written by this BIOS RAID. dmraid searches the disks and if there is other metadata (maybe from using software RAID some time ago), it can get confused.
+
+## Switch to RAID and create the logical drives
+
+Now reboot your box, go into the BIOS, and switch the sata ahci setting to RAID. If you have a DVD writer on sata port 5 or 6, maybe you have to set these ports to IDE. *Save changes and exit* lets the box reboot again and this time some RAID screen shows up. You can enter the RAID setup by pressing the advertized key combination. Create a 4TB logical disk with RAID 0 and then a 2TB logical disk with RAID 0, which you label *windows*. Now delete the 4 TB logical drive. It was only created to get the Windows disk on the last part of the physical disks. Now create from the first 2 drives a RAID 1 logical drive and label it *linux*. Save it, go to the BIOS setup and choose Windows as the boot disk.
+
+- Why put the Windows disk at the end?
+- Because your BIOS RAID may not be supported by dmraid, and then you need the starting of the physical disks to setup the partition tables for Linux.
+- Why make a logical disk for Linux?
+- Even if dmraid doesn't support your BIOS RAID, you need a logical drive for Linux, so that you can set it as a boot device in the BIOS.
+- Why choose a RAID 1 with two drives for the Linux disk?
+- You have to choose a RAID level, which is identical regarding size to non RAID, so that you can share the partition table accross Windows and Linux. And if you have to specify at least 2 drives for a RAID level, then RAID 1 is the only option.
+- Why not choose RAID 5 for Windows?
+- In fact this was my first choice for Windows. But i didn't notice a perfomance benefit regarding the non-RAID setup. And because it is software RAID, the data on the disks is accessible in non-RAID mode from Linux. This introduces a new kind of risk. Apart from the failing of one disk, which RAID 5 should handle (test it, don't just believe it does), it could be that no disk fails, but the data gets inconsistent. Meaning that the 2 data chunks and the checksum chunk don't fit together any more. This can't be handled by RAID 5, so it would give a false idea of security.
+- Which stripe size to choose?
+- If you have consumer disks, the part of postitioning the head of the disks is the most time consuming part to access the data. So choose the biggest size your RAID BIOS offers to minimize that. My RAID BIOS only let me choose betweeen 64K and 128K. My Linux runs on md software RAID with 512K, and it seems to me that it runs much faster.
+- Why not choose more the 2TB for Windows?
+- Windows 7 can only be installed on a disk with less than 2TiB. Yes the disk size matters, not the partition size. And even if it has support for data partitions on disks bigger than 2TiB, you should not use that either. I was not able to choose a data partition less than 2 TB on such a disk as a backup partition. The backup always canceled with an error code. GPT partition table didn't make a difference. So if you don't need the space, avoid disks bigger than 2 TiB for Windows.
+
+## Installation
+
+Put on the Windows DVD and install it. Since the Windows disk is setup as the boot disk after your DVD, there shouldn't be any kind of trouble. If you can't see any drives to install, get the support DVD of your motherboard and load the RAID driver. After finishing (including several reboots), create a partition on the Linux disk from Windows. It should contain the whole disk, leaving no free space. Don't format it, don't assign it a drive letter.
+
+Now plug in your bootable USB disk, reboot the computer and boot from it. If dmraid does not list any RAID devices, list one with a strange stripe size (this happens on my box) or you don't want to use it, then you can't see the Windows disk. You just see 3 internal disks, /dev/sda, /dev/sdb and /dev/sdc.
+
+Start fdisk on /dev/sda. Here you see the partion you created under Windows on the Linux disk. Copy the end sector of that partition to a text file or open another terminal where you execute a fdisk -l on the disk, to have it handy for later use. Now delete that partition and create new ones for your Linux. Only use primary partitions, no extended. If you use an extended, fdisk might complain about a partition 5 with an invalid signature and that it will correct it, when writing the partition table. Set the last sector of the last primary partition to the sector of the deleted partition. Make the partition you want to boot Linux from, active. Write it to disk and leave fdisk. Cat mbr.bin from the syslinux package to the disk. To make BIOS and Windows happy, just copy the MBR to the second disk afterwards.
+
+`root #````
+cat /usr/share/syslinux/mbr.bin > /dev/sda
+```
+`root #````
+dd if=/dev/sda of=/dev/sdb bs=512 count=1
+```
+Now you are allmost done. Issue a *partprobe* to inform the kernel about the new partition table on /dev/sdb. Create your preferred filesystem on the partition, mount it on /mnt/gentoo and restore your Gentoo with:
+
+`root #````
+cd /mnt/gentoo
+```
+`root #````
+zcat /mnt/part3/gentoo.tar.gz | tar -pvx
+```
+Adjust fstab and grub.conf and setup GRUB on the partition you marked active in fdisk. To chainload Windows, add the following lines to grub.conf:
+
+**`grub.conf`**
+
+Reboot, go into the BIOS and choose Linux as your boot device. That's it, you are done.
+
+Maybe now you want to setup Linux md software RAID for your Gentoo. You certanly want to setup a regular backup scheme for your data.
+
+## Conclusion
+
+It was fun to do it, but the performance gain for Windows wasn't worth it. The performance counter for the harddisk stays with 5.9 as it was before. The booting doesn't realy speed up a lot. And if you trigger I/O load by doing something like a complete virus scan, you can't observe the benefit, because the resource monitor now says *not responding*.
+
+In contrast, setting up md RAID 0 on Gentoo for the root partition does make a noticeable performance gain when booting.
+
+Some may say that choosing RAID 0 does introduce a greater risk for your data. I disagree. If you have 3 disks, you will use them. With or without RAID 0. If one of them fails, then the data on that disk is lost. The only way to prevent that, is to do regular backups. And if you have backups, then it doesn't matter, if the data on one or all three disks is lost.
+
+## See also
+
+- [BIOS](https://wiki.gentoo.org/wiki/BIOS) — the standard firmware of IBM-PC-compatible computers until it was phased out in 2020.

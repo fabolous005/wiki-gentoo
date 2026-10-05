@@ -1,0 +1,97 @@
+<!-- source: https://wiki.gentoo.org/wiki/Ideas/Split_boost | group: Gentoo Wiki (Main) | wiki-title: Ideas/Split boost -->
+---
+title: Ideas/Split boost
+url: https://wiki.gentoo.org/wiki/Ideas/Split_boost
+hostname: gentoo.org
+sitename: wiki.gentoo.org
+date: "2012-08-30"
+fingerprint: f4a953036fb02731
+license: CC BY-SA 4.0
+---
+
+# Ideas/Split boost
+
+[Jump to:navigation](https://wiki.gentoo.org#mw-head)
+
+[Jump to:search](https://wiki.gentoo.org#searchInput)
+
+Providing a split boost ebuilds will allow us to refine package dependencies and allow users to build and install only necessary parts of boost, effectively reducing build time and disk use.
+
+## Development team
+
+Owner: Tiziano Mueller \<dev-zero at gentoo.org>
+
+Team:
+
+- [Michał Górny](https://wiki.gentoo.org/wiki/User:MGorny) \<mgorny at gentoo.org>
+
+## Current Status
+
+Last updated: 2012-08-28
+
+Target date (approximate): ?
+
+Percentage of completion: 0%
+
+## Description
+
+Currently, boost in Gentoo is installed as a single [dev-libs/boost](https://packages.gentoo.org/packages/dev-libs/boost). This single package builds and installs all Boost libraries, in single- and multi-threaded variant. Additionally, if *USE=static-libs* is enabled static variants of all the libraries are built. This results in long compile times and high disk space use.
+
+For an example, shared build of boost on 2x1.6 GHz Pentium takes nearly one hour, and the installed files occupy 420 MiB. This may make boost unsuitable to be used on embedded systems, for example.
+
+Our intent is to split boost into smaller packages which could be built and installed independently. This way, users could avoid building and installing those parts of boost which they don't need, effectively reducing the disk space occupied and decreasing the build time (as long as not all components will be built).
+
+## Possible solutions
+
+### ryppl project
+
+One of the goals of the [ryppl](http://ryppl.org/) project is to provide a split boost libraries which could be used using CMake.
+
+Advantages:
+
+- semi-official support (at least one of boost developers participate),
+- complete, clean split,
+- some of the work has been done for us.
+
+Disadvantages:
+
+- the split is very incomplete -- as of 2012-08-29, there are 150 \[[open bugs](https://github.com/ryppl/boost-modularize/issues?state=open)\] about missing documentation and tests,
+- the split suffers a bit of svn mis-sync -- it is impossible to grab a release code,
+- the split is kept bleeding-edge -- the compatibility with old boost versions is removed,
+- the splitting tool requires git checkout to work on -- it doesn't work on release tarballs.
+
+If we decide to go this way, we will have to:
+
+- rework the scripts to support releases ourselves, or convince upstream to,
+- likely wait some time before the ryppl project is more complete and help with it.
+
+### custom split
+
+Alternatively, we could just do split in ebuilds, mostly through selective unpacking.
+
+Advantages:
+
+- can be done now,
+- bjam seems to be able to adjust itself to disappearing files.
+
+Disadvantages:
+
+- semi-custom (we could work on getting it similar to ryppl structure though),
+- all work needs to be done by us,
+- docs and maybe tests will probably have to stay in a single package pulling all others.
+
+If we decide to go this way, we will have to:
+
+- continue working on *boost.eclass*, and split ebuilds.
+
+## Dependencies
+
+n/a
+
+## Contingency plan
+
+n/a
+
+## Documentation
+
+XXX

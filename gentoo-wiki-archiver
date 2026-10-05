@@ -263,7 +263,7 @@ def download_one(group, title, url, out_path, force, retries=3):
                 include_tables=True,
                 include_images=True,
                 with_metadata=True,
-                favor_precision=True,
+                favor_precision=False,
                 prune_xpath=PRUNE_XPATH,
                 url=url,
             )
