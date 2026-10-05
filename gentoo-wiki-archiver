@@ -1,0 +1,385 @@
+#!/opt/gentoo-wiki-archiver/venv/bin/python3
+"""
+gentoo-wiki-archiver
+====================
+
+Build a link list of (and optionally download/convert to Markdown) a
+curated subset of the Gentoo Wiki:
+
+  - Gentoo Handbook   : the 4 "Full" AMD64 parts (Installation, Working,
+                         Portage, Networking) — Handbook namespace (NS 560)
+  - Gentoo Overlay    : every page in the Overlay namespace (NS 520)
+  - Gentoo Knowledge  : every page in the Knowledge Base namespace (NS 500)
+  - Gentoo Wiki (Main): every page in the Main namespace (NS 0)
+
+Main-namespace pages are enumerated via the MediaWiki API
+(action=query&list=allpages&apfilterredir=nonredirects) so redirect
+stubs are excluded at the source. Knowledge Base / Overlay are still
+enumerated from the sitemap (https://wiki.gentoo.org/sitemap/
+sitemap-index-gentoowiki.xml) and may still include a few redirects.
+
+Every list is filtered to drop pages whose last URL path segment is a
+trailing language code (translations), keeping only the bare/English
+page per title.
+
+Downloading (when not --list-only) uses trafilatura to fetch each page
+and extract clean Markdown, pruning MediaWiki chrome (language switcher,
+quick-nav boxes, edit-section links, footer/category links). Downloads
+run concurrently (default: one worker per CPU core), are resumable
+(existing output files are skipped unless --force), and retried on
+transient failure; permanently failed URLs are logged for an easy retry.
+
+Usage:
+  gentoo-wiki-archiver                      # build list + download everything
+  gentoo-wiki-archiver --list-only          # just (re)build the link list
+  gentoo-wiki-archiver --jobs 8             # override concurrency
+  gentoo-wiki-archiver --cache-dir DIR      # override cache location
+  gentoo-wiki-archiver --group "Gentoo Overlay"   # only this group
+  gentoo-wiki-archiver --limit 20           # cap total pages (testing)
+  gentoo-wiki-archiver --force              # redownload even if file exists
+"""
+import argparse
+import gzip
+import json
+import os
+import re
+import sys
+import time
+import xml.etree.ElementTree as ET
+from collections import Counter
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from urllib.parse import quote
+
+import requests
+import trafilatura
+
+SITEMAP_INDEX = "https://wiki.gentoo.org/sitemap/sitemap-index-gentoowiki.xml"
+API = "https://wiki.gentoo.org/api.php"
+UA = {"User-Agent": "Mozilla/5.0 (gentoo-wiki-archiver/1.0)"}
+NS_SM = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+
+DEFAULT_CACHE_DIR = "/var/lib/wiki-gentoo"
+
+SITEMAP_NAMESPACES = {
+    500: "Gentoo Knowledge",
+    520: "Gentoo Overlay",
+}
+MAIN_NS_ID = 0
+MAIN_GROUP = "Gentoo Wiki (Main)"
+
+HANDBOOK_FULL_TITLES = [
+    "Handbook:AMD64/Full/Installation",
+    "Handbook:AMD64/Full/Working",
+    "Handbook:AMD64/Full/Portage",
+    "Handbook:AMD64/Full/Networking",
+]
+HANDBOOK_GROUP = "Gentoo Handbook"
+
+GROUP_DIRS = {
+    MAIN_GROUP: "main",
+    "Gentoo Knowledge": "knowledge",
+    "Gentoo Overlay": "overlay",
+    HANDBOOK_GROUP: "handbook",
+}
+
+LANG_CODE_RE = re.compile(
+    r"^(ar|bg|ca|cs|da|de|el|en|en-gb|eo|es|fa|fi|fr|he|hr|hu|id|it|ja|ko|"
+    r"lt|nl|pl|pt|pt-br|rue|ro|ru|sk|sl|sr-ec|sv|ta|th|tr|uk|uz|vi|zh|"
+    r"zh-cn|zh-hans|zh-hant|zh-tw)$"
+)
+
+# MediaWiki chrome to prune out of the extracted article content.
+PRUNE_XPATH = [
+    "//div[contains(@class,'mw-pt-languages')]",
+    "//div[contains(@class,'gw-box')]",
+    "//div[contains(@class,'printfooter')]",
+    "//div[contains(@class,'catlinks')]",
+    "//span[contains(@class,'mw-editsection')]",
+    "//div[@id='toc']",
+    "//table[contains(@class,'toc')]",
+]
+
+
+# --------------------------------------------------------------------------
+# Link-list building
+# --------------------------------------------------------------------------
+
+def fetch(url: str) -> bytes:
+    r = requests.get(url, headers=UA, timeout=60)
+    r.raise_for_status()
+    return r.content
+
+
+def fetch_xml(url: str) -> ET.Element:
+    data = fetch(url)
+    if url.endswith(".gz"):
+        data = gzip.decompress(data)
+    return ET.fromstring(data)
+
+
+def get_sitemap_urls(index_url: str):
+    root = fetch_xml(index_url)
+    return [el.text.strip() for el in root.findall(".//sm:sitemap/sm:loc", NS_SM)]
+
+
+def get_page_urls(sitemap_url: str):
+    root = fetch_xml(sitemap_url)
+    return [el.text.strip() for el in root.findall(".//sm:url/sm:loc", NS_SM)]
+
+
+def title_from_url(u: str):
+    m = re.match(r"https://wiki\.gentoo\.org/wiki/(.+)$", u)
+    return m.group(1) if m else None
+
+
+def namespace_id_from_sitemap_url(su: str):
+    m = re.search(r"-NS_(\d+)-\d+\.xml\.gz$", su)
+    return int(m.group(1)) if m else None
+
+
+def has_trailing_lang_code(title: str) -> bool:
+    last_seg = title.rsplit("/", 1)[-1]
+    return bool(LANG_CODE_RE.match(last_seg))
+
+
+def title_to_url(title: str) -> str:
+    """Mimic MediaWiki's own URL encoding: spaces -> underscores, then
+    percent-encode everything except the characters MediaWiki leaves
+    literal in page URLs ( / : ( ) , ! * )."""
+    t = title.replace(" ", "_")
+    return "https://wiki.gentoo.org/wiki/" + quote(t, safe="/:()!,*")
+
+
+def get_allpages_nonredirect(ns_id: int, label: str):
+    """Enumerate all non-redirect page titles in a namespace via the
+    MediaWiki API (list=allpages, apfilterredir=nonredirects), paginated."""
+    titles = []
+    apcontinue = None
+    while True:
+        params = {
+            "action": "query",
+            "list": "allpages",
+            "apnamespace": ns_id,
+            "apfilterredir": "nonredirects",
+            "aplimit": 500,
+            "format": "json",
+        }
+        if apcontinue:
+            params["apcontinue"] = apcontinue
+        r = requests.get(API, params=params, headers=UA, timeout=60)
+        r.raise_for_status()
+        data = r.json()
+        page_batch = data.get("query", {}).get("allpages", [])
+        titles.extend(p["title"] for p in page_batch)
+        cont = data.get("continue", {}).get("apcontinue")
+        print(f"    [{label}] fetched {len(titles)} titles so far...", file=sys.stderr)
+        if not cont:
+            break
+        apcontinue = cont
+        time.sleep(0.2)
+    return titles
+
+
+def build_link_list():
+    rows = []  # (group, title, url)
+
+    print(f"Fetching Main namespace (NS {MAIN_NS_ID}) via API (allpages, nonredirects)...", file=sys.stderr)
+    main_titles = get_allpages_nonredirect(MAIN_NS_ID, MAIN_GROUP)
+    print(f"  API returned {len(main_titles)} non-redirect titles in NS 0", file=sys.stderr)
+    kept, dropped = 0, 0
+    for title in main_titles:
+        if has_trailing_lang_code(title):
+            dropped += 1
+            continue
+        rows.append((MAIN_GROUP, title, title_to_url(title)))
+        kept += 1
+    print(f"  kept {kept}, dropped {dropped} (trailing lang code)", file=sys.stderr)
+
+    print(f"\nFetching sitemap index for NS 500 / 520 / 560: {SITEMAP_INDEX}", file=sys.stderr)
+    sitemap_urls = get_sitemap_urls(SITEMAP_INDEX)
+
+    handbook_by_title = {}
+    for su in sitemap_urls:
+        ns_id = namespace_id_from_sitemap_url(su)
+        if ns_id not in SITEMAP_NAMESPACES and ns_id != 560:
+            continue
+        pages = get_page_urls(su)
+        print(f"  NS_{ns_id} ({su}): {len(pages)} urls", file=sys.stderr)
+
+        if ns_id == 560:
+            for u in pages:
+                t = title_from_url(u)
+                if t:
+                    handbook_by_title[t] = u
+            continue
+
+        group = SITEMAP_NAMESPACES[ns_id]
+        kept, dropped = 0, 0
+        for u in pages:
+            title = title_from_url(u)
+            if not title:
+                continue
+            if has_trailing_lang_code(title):
+                dropped += 1
+                continue
+            rows.append((group, title, u))
+            kept += 1
+        print(f"    kept {kept}, dropped {dropped} (trailing lang code) -- NOTE: may still include redirects", file=sys.stderr)
+
+    for title in HANDBOOK_FULL_TITLES:
+        u = handbook_by_title.get(title)
+        if u:
+            rows.append((HANDBOOK_GROUP, title, u))
+        else:
+            print(f"WARNING: handbook page missing: {title}", file=sys.stderr)
+
+    return rows
+
+
+def slugify(title: str) -> str:
+    s = title.replace(":", "_").replace("/", "_").replace(" ", "_")
+    s = re.sub(r"[^A-Za-z0-9_.-]+", "_", s)
+    return s.strip("_")
+
+
+# --------------------------------------------------------------------------
+# Download + Markdown conversion (trafilatura)
+# --------------------------------------------------------------------------
+
+def download_one(group, title, url, out_path, force, retries=3):
+    if os.path.exists(out_path) and not force:
+        return ("skipped", title, url, None)
+
+    last_err = None
+    for attempt in range(1, retries + 1):
+        try:
+            html = trafilatura.fetch_url(url)
+            if not html:
+                raise RuntimeError("empty response")
+            md = trafilatura.extract(
+                html,
+                output_format="markdown",
+                include_links=True,
+                include_tables=True,
+                include_images=True,
+                with_metadata=True,
+                favor_precision=True,
+                prune_xpath=PRUNE_XPATH,
+                url=url,
+            )
+            if not md:
+                raise RuntimeError("extraction produced nothing")
+
+            header = f"<!-- source: {url} | group: {group} | wiki-title: {title} -->\n"
+            tmp_path = out_path + ".tmp"
+            os.makedirs(os.path.dirname(out_path), exist_ok=True)
+            with open(tmp_path, "w") as f:
+                f.write(header)
+                f.write(md)
+                f.write("\n")
+            os.replace(tmp_path, out_path)
+            return ("ok", title, url, None)
+        except Exception as e:
+            last_err = str(e)
+            time.sleep(1.5 * attempt)
+
+    return ("failed", title, url, last_err)
+
+
+def run_downloads(rows, cache_dir, jobs, force, limit):
+    md_dir = os.path.join(cache_dir, "markdown")
+    state_dir = os.path.join(cache_dir, "state")
+    os.makedirs(state_dir, exist_ok=True)
+
+    if limit:
+        rows = rows[:limit]
+
+    tasks = []
+    for group, title, url in rows:
+        sub = GROUP_DIRS.get(group, slugify(group))
+        out_path = os.path.join(md_dir, sub, slugify(title) + ".md")
+        tasks.append((group, title, url, out_path))
+
+    print(f"\nDownloading {len(tasks)} pages with {jobs} worker(s)...", file=sys.stderr)
+    results = {"ok": [], "skipped": [], "failed": []}
+    with ThreadPoolExecutor(max_workers=jobs) as pool:
+        futures = {
+            pool.submit(download_one, g, t, u, p, force): (g, t, u)
+            for g, t, u, p in tasks
+        }
+        done = 0
+        for fut in as_completed(futures):
+            status, title, url, err = fut.result()
+            results[status].append((title, url, err))
+            done += 1
+            if done % 50 == 0 or done == len(tasks):
+                print(f"  ...{done}/{len(tasks)} processed "
+                      f"(ok={len(results['ok'])} skipped={len(results['skipped'])} "
+                      f"failed={len(results['failed'])})", file=sys.stderr)
+
+    with open(os.path.join(state_dir, "failed_urls.txt"), "w") as f:
+        for title, url, err in results["failed"]:
+            f.write(f"{url}\t{err}\n")
+
+    with open(os.path.join(state_dir, "run_summary.json"), "w") as f:
+        json.dump(
+            {
+                "ok": len(results["ok"]),
+                "skipped": len(results["skipped"]),
+                "failed": len(results["failed"]),
+                "failed_detail": [{"title": t, "url": u, "error": e} for t, u, e in results["failed"]],
+            },
+            f,
+            indent=2,
+        )
+
+    print(f"\nDone: ok={len(results['ok'])} skipped={len(results['skipped'])} "
+          f"failed={len(results['failed'])}", file=sys.stderr)
+    if results["failed"]:
+        print(f"Failed URLs logged to {state_dir}/failed_urls.txt", file=sys.stderr)
+
+
+# --------------------------------------------------------------------------
+# Main
+# --------------------------------------------------------------------------
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--cache-dir", default=DEFAULT_CACHE_DIR, help=f"default: {DEFAULT_CACHE_DIR}")
+    ap.add_argument("--list-only", action="store_true", help="only (re)build the link list, skip downloading")
+    ap.add_argument("--jobs", type=int, default=os.cpu_count() or 4, help="download concurrency (default: CPU core count)")
+    ap.add_argument("--group", action="append", help="restrict to this group (repeatable); default: all groups")
+    ap.add_argument("--limit", type=int, default=None, help="cap total number of pages (testing)")
+    ap.add_argument("--force", action="store_true", help="redownload even if output file already exists")
+    args = ap.parse_args()
+
+    links_dir = os.path.join(args.cache_dir, "links")
+    os.makedirs(links_dir, exist_ok=True)
+
+    rows = build_link_list()
+
+    tsv_path = os.path.join(links_dir, "all_target_links.tsv")
+    txt_path = os.path.join(links_dir, "all_target_links.txt")
+    with open(tsv_path, "w") as f:
+        for group, title, url in rows:
+            f.write(f"{group}\t{title}\t{url}\n")
+    with open(txt_path, "w") as f:
+        for group, title, url in rows:
+            f.write(url + "\n")
+
+    print(f"\nWrote {len(rows)} URLs to {tsv_path} / {txt_path}", file=sys.stderr)
+    counts = Counter(g for g, _, _ in rows)
+    for g, c in counts.items():
+        print(f"  {g}: {c} pages")
+
+    if args.list_only:
+        return
+
+    if args.group:
+        rows = [r for r in rows if r[0] in args.group]
+
+    run_downloads(rows, args.cache_dir, args.jobs, args.force, args.limit)
+
+
+if __name__ == "__main__":
+    main()
