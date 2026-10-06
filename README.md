@@ -114,6 +114,43 @@ provenance/version history alongside the data it produces.
   (Main + Knowledge Base + Handbook, ~2,826 more pages) has not been
   executed yet.
 
+## Incremental updates (lastmod diffing)
+
+Every sitemap entry carries a `<lastmod>` timestamp. The link list now
+carries it too (`links/all_target_links.tsv` has a 4th column: `group`,
+`title`, `url`, `lastmod`), and `state/last_fetched.json` records the
+`lastmod` that was in effect the last time each URL was *successfully*
+written to disk.
+
+On each run, a page is **skipped** (no network fetch) unless:
+- its output `.md` file doesn't exist yet (new page), or
+- it's tracked in `state/last_fetched.json` AND that recorded `lastmod`
+  differs from the current one (edited upstream since last run), or
+- `--force` is passed.
+
+A URL with no prior entry in `state/last_fetched.json` but an existing
+output file is trusted as-is (first run after the feature was added, or
+state file lost) — it will get a real diff check on the next run once
+its `lastmod` is recorded. Main-namespace `lastmod` values come from a
+dedicated fetch of the NS_0 sitemap (purely for timestamps — page
+enumeration itself still goes through the API, not the sitemap, per the
+redirect-exclusion reasoning above).
+
+Verified: a full run with a warm cache (nothing changed upstream) completes
+in ~14s with `ok=0 skipped=2830 failed=0`, vs. several minutes for a cold
+full fetch.
+
+## Daily cron job
+
+`/usr/local/bin/gentoo-wiki-cron.sh` (root crontab, `30 3 * * *`):
+1. Runs `gentoo-wiki-archiver` (list rebuild + incremental download, as above).
+2. `git add -A`; if `git status --porcelain` is non-empty, commits
+   (message includes the run's ok/skipped/failed counts via `jq`) and
+   pushes to `origin main`. No-op commit when nothing changed.
+
+Log: `/var/log/gentoo-wiki-archiver.log` (appended, not rotated — watch
+its size over time).
+
 ## Known caveats
 
 1. Knowledge Base (NS 500) and Overlay (NS 520) link lists are sitemap-based
