@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Dnsmasq
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-02-06"
-fingerprint: b628e3713a3799f9
+fingerprint: b628e3713a3799f1
 license: CC BY-SA 4.0
 ---
 
@@ -23,6 +23,11 @@ dnsmasq is a simple DHCP/DNS server which can be used in a local network of up t
 
 Make a proper USE flag selection:
 
+
+### USE flags for
+            [net-dns/dnsmasq](https://packages.gentoo.org/packages/net-dns/dnsmasq)
+            
+            Small forwarding DNS server
 
 | [+dhcp](https://packages.gentoo.org/useflags/+dhcp) | Enable support for acting as a DHCP server. | 
 | [+dumpfile](https://packages.gentoo.org/useflags/+dumpfile) | Include code to dump packets to a libpcap-format file for debugging | 

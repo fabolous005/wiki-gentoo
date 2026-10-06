@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Deluge
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-01-27"
-fingerprint: "3c8af95e790279b6"
+fingerprint: "3caaf95a79027936"
 license: CC BY-SA 4.0
 ---
 
@@ -23,6 +23,11 @@ From Gentoo Wiki
 
 ### USE flags
 
+
+### USE flags for
+            [net-p2p/deluge](https://packages.gentoo.org/packages/net-p2p/deluge)
+            
+            BitTorrent client with a client/server model
 
 | [appindicator](https://packages.gentoo.org/useflags/appindicator) | Build in support for notifications using the libindicate or libappindicator plugin | 
 | [console](https://packages.gentoo.org/useflags/console) | Enable default console UI | 

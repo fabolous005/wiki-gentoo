@@ -6,7 +6,7 @@ hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-03-05"
 categories: ['dev-build']
-fingerprint: a10cb21b5e45613d
+fingerprint: a10cb21b5e45693d
 license: CC BY-SA 4.0
 ---
 
@@ -15,6 +15,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 Build automation (generally referred to as 'Build systems' in the Gentoo world) is software that automates the compilation, clean up, and installation stages of the software creation process. Recently it has become more common for build automation to perform elements of software testing. Gentoo developers must have at least a general understanding of one or more build systems in order to start writing [ebuilds](https://wiki.gentoo.org/wiki/Ebuild). This article services as a type of meta article in defining a list of build systems in Gentoo Linux.
 

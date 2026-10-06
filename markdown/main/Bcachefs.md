@@ -18,6 +18,10 @@ license: CC BY-SA 4.0
 
 **Resources**
 
+[bcache](irc://irc.oftc.net/bcache)(on
+
+[irc://irc.oftc.net](irc://irc.oftc.net))
+
 **bcachefs** is a fully-featured [B-tree](https://en.wikipedia.org/wiki/B-tree) [filesystem](https://wiki.gentoo.org/wiki/Filesystem) based on [bcache](https://wiki.gentoo.org/wiki/Bcache). It includes features such as Copy-on-Write (CoW), compression, encryption, and erasure coding. Bcachefs is comparable to [Btrfs](https://wiki.gentoo.org/wiki/Btrfs) and [ZFS](https://wiki.gentoo.org/wiki/ZFS).
 
 A noteworthy feature is native tiered storage support, enabling use of one or more fast disk drives (such as flash-based [SSD](https://wiki.gentoo.org/wiki/SSD) or [NVMe](https://wiki.gentoo.org/wiki/NVMe) disks) to act as a cache for one or more slower disk drives in a pool while transparently managing *hot* and *cold* files based on activity.
@@ -28,6 +32,11 @@ The [modules](https://packages.gentoo.org/useflags/modules) [flag is enabled by 
 
 ### USE flags
 
+
+### USE flags for
+            [sys-fs/bcachefs-tools](https://packages.gentoo.org/packages/sys-fs/bcachefs-tools)
+            
+            Tools for bcachefs
 
 | [+initramfs](https://packages.gentoo.org/useflags/+initramfs) | Include kernel modules in the initramfs, and re-install the kernel (only effective for distribution kernels) | 
 | [+modules](https://packages.gentoo.org/useflags/+modules) | Build the kernel modules | 
@@ -150,12 +159,18 @@ To add it to the fstab:
 
 **`/etc/fstab`**
 
+```
+/dev/sdb /mnt bcachefs defaults 0 0
+```
 #### Multi-device bcachefs
 
 Systemd does currently not support multi-device fstab entries (see [https://github.com/systemd/systemd/issues/8234](https://github.com/systemd/systemd/issues/8234)). As workaround, you can use OLD\_BLK\_UUID
 
 **`/etc/fstab`**
 
+```
+OLD_BLKID_UUID=fc13390c-7e1a-4d64-8626-f3c1e2390856    /mnt   bcachefs defaults 0 0
+```
 The UUID could be obtained, for example, via
 
 `user $``lsblk -f`

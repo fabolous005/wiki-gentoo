@@ -5,11 +5,15 @@ url: https://wiki.gentoo.org/wiki/Docker/Compose
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-07-01"
-fingerprint: "78b736692da57999"
+fingerprint: "78b734692da57999"
 license: CC BY-SA 4.0
 ---
 
 # Docker/Compose
+
+From Gentoo Wiki
+
+\< [Docker](https://wiki.gentoo.org/wiki/Docker)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -23,6 +27,11 @@ A Compose file is used to define how one or more containers that make up how the
 
 ### USE flags
 
+
+### USE flags for
+            [app-containers/docker-compose](https://packages.gentoo.org/packages/app-containers/docker-compose)
+            
+            Multi-container orchestration for Docker
 
 ### Emerge
 

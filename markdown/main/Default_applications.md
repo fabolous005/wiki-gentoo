@@ -15,6 +15,8 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+**Resources**
+
 This article lists methods of setting default applications, particularly in Linux [desktop environments](https://wiki.gentoo.org/wiki/Desktop_environment) that follow [freedesktop.org](https://freedesktop.org/) standards and specifications. Note, however, that not all software and environments do so.
 
 [MIME types](https://en.wikipedia.org/wiki/MIME) describe the kind of content a file contains, such as `text/plain`, `image/gif`, and `audio/mp3`. These types are often used to determine which applications should be used to open particular files.
@@ -45,6 +47,10 @@ $XDG\_CONFIG\_HOME/mimeapps.list (previously, \~/.config/mimeapps.list and $XDG\
 
 **Set Qutebrowser as the default browser**
 
+```
+x-scheme-handler/http=org.qutebrowser.qutebrowser.desktop
+x-scheme-handler/https=org.qutebrowser.qutebrowser.desktop
+```
 A particular desktop environment (DE) might also support $XDG\_CONFIG\_HOME/$desktop-mimeapps.list, to allow associations to be set per-DE.
 
 ### Via the mailcap(5) file

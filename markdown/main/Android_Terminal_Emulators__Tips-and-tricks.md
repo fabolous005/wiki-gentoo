@@ -5,13 +5,15 @@ url: https://wiki.gentoo.org/wiki/Android/Terminal_Emulators_(Tips-and-tricks)
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-04-05"
-fingerprint: "379596ce45c377f6"
+fingerprint: "379db6cecdcb77fe"
 license: CC BY-SA 4.0
 ---
 
 # Android/Terminal Emulators (Tips-and-tricks)
 
 From Gentoo Wiki
+
+\< [Android](https://wiki.gentoo.org/wiki/Android)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

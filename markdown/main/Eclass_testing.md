@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Eclass_testing
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-01-22"
-fingerprint: fa8f9ad06d254a7e
+fingerprint: fa8fbad06da54a7e
 license: CC BY-SA 4.0
 ---
 
 # Eclass testing
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

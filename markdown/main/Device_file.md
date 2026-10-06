@@ -16,6 +16,8 @@ license: CC BY-SA 4.0
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
 
+**Resources**
+
 
 A **device file** is an interface for a device driver that appears in a [filesystem](https://wiki.gentoo.org/wiki/Filesystem) as if it were an ordinary file. Such files allow software to interact with a device driver. They are found in the [/dev](https://wiki.gentoo.org/wiki//dev) directory.
 

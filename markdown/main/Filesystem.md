@@ -15,6 +15,8 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+**Resources**
+
 
 A **filesystem** is a means to organize data to be retained after a program terminates. Filesystems provide procedures to store, retrieve, and update data, as well as to manage the available space on the device(s) which contain it.
 

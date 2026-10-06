@@ -11,6 +11,8 @@ license: CC BY-SA 4.0
 
 # GitLab/Pages
 
+[GitLab](https://wiki.gentoo.org/wiki/GitLab)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
@@ -48,6 +50,12 @@ listen-proxy or listen-http or listen-https
 
 **Gitlab-Pages**
 
+```
+pages:
+  enabled: true
+  ...
+  secret_file: /opt/gitlab/gitlab/.gitlab-pages-secret
+```
 ## Usage
 
 Gitlb-Pages may be invoked directly, as follows, but this is best left to the OpenRC/SystemD service file.

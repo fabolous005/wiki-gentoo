@@ -102,6 +102,11 @@ The following config options should be enabled in the kernel if using a manually
 ### USE flags
 
 
+### USE flags for
+            [net-firewall/firewalld](https://packages.gentoo.org/packages/net-firewall/firewalld)
+            
+            Firewall daemon with D-Bus interface providing a dynamic firewall
+
 | [gui](https://packages.gentoo.org/useflags/gui) | Enable support for a graphical user interface | 
 | [selinux](https://packages.gentoo.org/useflags/selinux) | !!internal use only!! Security Enhanced Linux support, this must be set by the selinux profile or breakage will occur | 
 | [test](https://packages.gentoo.org/useflags/test) | Enable dependencies and/or preparations necessary to run tests (usually controlled by FEATURES=test but can be toggled independently) | 

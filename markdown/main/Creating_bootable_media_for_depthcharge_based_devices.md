@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Creating_bootable_media_for_depthcharge_based_
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-11-16"
-fingerprint: "9f851f3f9ccbffe0"
+fingerprint: "1f851f3f94cbbfe0"
 license: CC BY-SA 4.0
 ---
 
@@ -128,7 +128,7 @@ Create the configuration file (gentoo.its) for the FIT image with the following 
 **`gentoo.its`**
 
 ```
-;
+/dts-v1/;
 / {
     description = "Linux kernel image with one or more FDT blobs";
     #address-cells = <1>;
@@ -205,3 +205,8 @@ Finally install required tools, [dev-embedded/u-boot-tools](https://packages.gen
 ## External resources
 
 - PDF: Additional information on depthcharge: Google, [Depthcharge - The ChromeOS bootloader (PDF)](https://www.chromium.org/chromium-os/2014-firmware-summit/ChromeOS%20firmware%20summit%20-%20Depthcharge.pdf), ChromeOS firmware summit, 2014. Retrieved on June 21st, 2019
+
+## References
+
+1. [↑](https://wiki.gentoo.org#cite_ref-1) [Depthcharge](https://www.chromium.org/chromium-os/developer-information-for-chrome-os-devices/custom-firmware#TOC-Depthcharge), [Developer Information for Chrome OS Devices](https://www.chromium.org/chromium-os/developer-information-for-chrome-os-devices). Retrieved on June 21st, 2019
+2. [↑](https://wiki.gentoo.org#cite_ref-2) [ARM architecture - Floating-point (VFP)](<https://en.wikipedia.org/wiki/ARM_architecture#Floating-point_(VFP)>), [Wikipedia](https://wikipedia.org). Retrieved February 26th, 2019

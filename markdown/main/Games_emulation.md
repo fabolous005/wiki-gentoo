@@ -12,6 +12,8 @@ license: CC BY-SA 4.0
 
 # Games/emulation
 
+[Games](https://wiki.gentoo.org/wiki/Games)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
@@ -127,6 +129,8 @@ View a YouTube demo [here](https://www.youtube.com/watch?v=l5JFTbVK2wI).
 ## ZSNES
 
 ![](https://wiki.gentoo.org/images/thumb/1/1c/Zsnes_screenshot1.png/150px-Zsnes_screenshot1.png)
+
+[more...](http://sourceforge.net/p/zsnes/wiki/Home/)
 
 ZSNES is a Super Nintendo emulator and is known for high compatibility with commercial games. Because it uses x86 assembly it does not use much resources and has decent performance even on old hardware. It's very configurable and runs known games such as *Secret of Mana* or *Final Fantasy 4*. You might also want to check out the [Top 100 SNES Games list](http://www.retro-sanctuary.com/Top-100-SNES-Games-Page-1.html).
 

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Dell_XPS_13-L321X_Ultrabook
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-29"
-fingerprint: "7f560d55c336396a"
+fingerprint: "7f060d5dd326396a"
 license: CC BY-SA 4.0
 ---
 
@@ -225,12 +225,24 @@ power management:
 
 **USB controller: Intel Corporation 7 Series/C210 Series Chipset Family USB Enhanced Host Controller #1 (rev 04)**
 
+```
+Device Drivers  --->
+    [*] USB support  --->
+        <M>   EHCI HCD (USB 2.0) support
+            [*]   Root Hub Transaction Translators
+            [*]   Improved Transaction Translators scheduling
+```
 #### USB 3.0 support
 
 Compile the xhci-hcd driver as module:
 
 **USB controller:*Fresco Logic Device 1009 (rev 02)* or *Intel Corporation 7 Series/C210 Series Chipset Family USB xHCI Host Controller (rev 04)*, 3.3.1-gentoo**
 
+```
+Device Drivers  --->
+    [*] USB support  --->
+        <M>   xHCI HCD (USB 3.0) support
+```
 Kernel version 3.3 at least is required for the USB 3 support.
 
 #### Drives and storage
@@ -239,10 +251,24 @@ Hard drive controller works using AHCI driver in the kernel:
 
 **Intel Corporation 6 Series/C200 Series Chipset Family 6 port SATA AHCI Controller, 3.3.1-gentoo**
 
+```
+Device Drivers  --->
+    <*> Serial ATA and Parallel ATA drivers  --->
+        <*>   AHCI SATA support
+```
 #### Graphics
 
 **Intel Corporation 2nd Generation Core Processor Family Integrated Graphics Controller, 3.3.1-gentoo**
 
+```
+Device Drivers  --->
+    Graphics support  --->
+        <*> /dev/agpgart (AGP Support)  --->
+            <*>   Intel 440LX/BX/GX, I8xx and E7x05 chipset support
+        <*> Direct Rendering Manager (XFree86 4.1.0 and higher DRI support)  --->
+            <*>   Intel 8xx/9xx/G3x/G4x/HD Graphics
+            [*]     Enable modesetting on intel by default
+```
 There is an issue with screen brightness which cannot be adjustable. There are two ways to work around this problem.
 
 The *permanent* way to fix this issue is to apply [this patch](https://bugzilla.kernel.org/attachment.cgi?id=97751) to the kernel sources. The patch is an attachment to [kernel bug #47941](https://bugzilla.kernel.org/show_bug.cgi?id=47941). To apply the patch execute the following commands (tested in kernel 3.9.2).
@@ -296,6 +322,15 @@ Both scripts need to be executable:
 
 **Intel Corporation Centrino Advanced-N 6230, 3.3.1-gentoo**
 
+```
+[*] Networking support  --->
+    [*]   Wireless  --->
+        <*>   Generic IEEE 802.11 Networking Stack (mac80211)
+Device Drivers  --->
+    [*] Network device support  --->
+        Wireless LAN  --->
+            <M>   Intel Wireless WiFi Next Gen AGN - Wireless-N/Advanced-N/Ultimate-N (iwlwifi)
+```
 The kernel will also need the firmware before the wireless card will operate. Emerge either of the following packages.
 
 `root #``emerge --ask sys-firmware/iwl6030-ucode`
@@ -306,20 +341,52 @@ Alternatively, install the full Linux firmware package:
 
 **CPU frequency scaling**
 
+```
+Power management and ACPI options  --->
+    CPU Frequency scaling  ---> 
+    [*] CPU Frequency scaling
+    <*>   ACPI Processor P-States driver
+```
 #### Sound
 
 **Sound device**
 
+```
+Device Drivers  --->
+    --- Sound card support  --->
+        <M>   Advanced Linux Sound Architecture  ---> 
+            [*]   PCI sound devices  --->
+                <M>   Intel HD Audio  --->
+```
 #### Touchpad
 
 The support for the Cypress touchpad was added in Kernel 3.9.0 thanks to the [Sputnik project](http://en.community.dell.com/techcenter/b/techcenter/archive/2012/05/07/developer-laptop-launches-project-sputnik.aspx).
 
+```
+Device Drivers  --->
+    Input device support --->
+        -*- Generic input layer (needed for keyboard, mouse, ...)
+        [*]   Mice  --->
+            <M>   PS/2 mouse
+            [*]      Cypress PS/2 mouse protocol extension
+```
 #### Webcam
 
 The webcam will work using the v4l2 driver (tested) and sunplus driver (untested):
 
 **Bus 001 Device 003: ID 1bcf:288f Sunplus Innovation Technology Inc.**
 
+```
+Device Drivers  --->
+    <M> Multimedia support  --->
+        <M>   Video For Linux
+        [*]   Video capture adapters  --->
+                [*]   V4L USB devices  --->
+                    <M>   USB Video Class (UVC)
+                    [*]     UVC input events device support
+                    <M>   GSPCA based webcams  --->
+                        <M>   SUNPLUS USB Camera Driver
+```
 Test it out with mplayer:
 
 `root #``mplayer tv:// -tv driver=v4l2:width=640:height=480:device=/dev/video0 -fps 15 -vf screenshot`
@@ -327,6 +394,16 @@ Test it out with mplayer:
 
 It is connected to the internal USB 2.0 port, so make sure to enable [USB 2.0 support](https://wiki.gentoo.org#USB_2.0_Support) and [PC-Card](https://wiki.gentoo.org/wiki/PC-Card) support, as they are prerequisites for Bluetooth operation. Finally, activate the following kernel options:
 
+```
+[*] Networking support  --->
+    <*> Bluetooth subsystem support  --->
+        
+        Select options for Bluetooth applications, see table below:
+        <*>   ...
+            Bluetooth device drivers  --->
+               Select a Bluetooth HCI driver, e.g.:
+               <*> HCI USB driver (btusb)
+```
 #### OpenRC service
 
 Bluetooth is now ready to start:
@@ -351,3 +428,7 @@ This firmware issue can be worked around by disabling 11n on the iwlwifi module.
 It works make the the change permanent:
 
 **`/etc/modprobe.d/iwlwifi.conf`**
+
+```
+options iwlwifi 11n_disable=1
+```

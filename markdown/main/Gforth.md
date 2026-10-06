@@ -26,6 +26,11 @@ Because it is designed to be portable, GNU's implementation of Forth, gforth, is
 ### USE flags
 
 
+### USE flags for
+            [dev-lang/gforth](https://packages.gentoo.org/packages/dev-lang/gforth)
+            
+            GNU Forth is a fast and portable implementation of the ANSI Forth language
+
 ### Emerge
 
 `root #``emerge --ask dev-lang/gforth`
@@ -99,6 +104,10 @@ The Gforth interpreter treats the shabang as a special type of comment and accep
 
 **A proper Gforth shabang line**
 
+```
+#! /usr/bin/env gforth
+\ Your Forth code here.
+```
 ### Defining new words uexpectedly results in an *undefined word* Error
 
 This is a very common mistake for those new to Forth. A space must exist between the : and the start of the word definition. Similarly, after the word definition ends there must be a space prior to the ; which ends the word. Thus, a valid word definition might look like this:

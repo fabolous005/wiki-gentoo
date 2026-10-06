@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Fcitx
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-02-18"
-fingerprint: ced1fe1a2c8738e6
+fingerprint: eed3ff1a2c8738e6
 license: CC BY-SA 4.0
 ---
 
@@ -21,6 +21,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [app-i18n/fcitx](https://packages.gentoo.org/packages/app-i18n/fcitx)
+            
+            Fcitx 5 is a generic input method framework
 
 | [+X](https://packages.gentoo.org/useflags/+X) | Add support for X11 | 
 | [+autostart](https://packages.gentoo.org/useflags/+autostart) | Enable XDG-compatible autostart of Fcitx | 

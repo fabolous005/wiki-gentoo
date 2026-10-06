@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Blackbox
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2021-07-26"
-fingerprint: e82c74e118ad2c4
+fingerprint: "2ec2474e138edac4"
 license: CC BY-SA 4.0
 ---
 
@@ -23,6 +23,11 @@ From Gentoo Wiki
 
 ### USE flags
 
+
+### USE flags for
+            [x11-wm/blackbox](https://packages.gentoo.org/packages/x11-wm/blackbox)
+            
+            A small, fast, full-featured window manager for X
 
 | [debug](https://packages.gentoo.org/useflags/debug) | Enable extra debug codepaths, like asserts and extra output. If you want to get meaningful backtraces see https://wiki.gentoo.org/wiki/Project:Quality\_Assurance/Backtraces | 
 | [nls](https://packages.gentoo.org/useflags/nls) | Add Native Language Support (using gettext - GNU locale utilities) | 

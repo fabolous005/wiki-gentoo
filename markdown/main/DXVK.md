@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/DXVK
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-12-22"
-fingerprint: "8f811b185dc739a6"
+fingerprint: "8f811b18cdc739a6"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 **DXVK** is a [Vulkan](https://wiki.gentoo.org/wiki/Vulkan)-based translation layer for [Direct3D](https://en.wikipedia.org/wiki/Direct3D) 9/10/11 which allows running 3D applications on Linux using [Wine](https://wiki.gentoo.org/wiki/Wine).
 
@@ -34,6 +36,11 @@ echo 'app-emulation/dxvk ABI_X86: 64 32' >> /etc/portage/package.use/dxvk
 `root #``emerge --ask app-emulation/dxvk`
 ### USE flags
 
+
+### USE flags for
+            [app-emulation/dxvk](https://packages.gentoo.org/packages/app-emulation/dxvk)
+            
+            Vulkan-based implementation of D3D9, D3D10 and D3D11 for Linux / Wine
 
 | [+d3d10](https://packages.gentoo.org/useflags/+d3d10) | Enable support for DirectX 10 (d3d10.dll) | 
 | [+d3d11](https://packages.gentoo.org/useflags/+d3d11) | Enable support for DirectX 11 (d3d11.dll) | 

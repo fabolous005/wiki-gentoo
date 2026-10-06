@@ -29,6 +29,7 @@ This article hosts a guide for forging Gentoo into a fully-fledged, network-debu
 `root #``emerge --ask net-misc/curl`
 simple HTTPS verification:
 
+`user $``curl -Is` [https://www.example.com](https://www.example.com)
 HTTP/2 200
 date: Mon, 08 Jan 2024 09:53:11 GMT
 server: Apache/2.4

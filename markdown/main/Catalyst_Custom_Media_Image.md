@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Catalyst/Custom_Media_Image
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-08-07"
-fingerprint: dc3d37db6eaa41f3
+fingerprint: dc3d379b0ea841f3
 license: CC BY-SA 4.0
 ---
 
 # Catalyst/Custom Media Image
+
+[Catalyst](https://wiki.gentoo.org/wiki/Catalyst)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -32,6 +34,7 @@ Install [dev-util/catalyst](https://packages.gentoo.org/packages/dev-util/cataly
 
 This build process is based on [RelEng](https://wiki.gentoo.org/wiki/Project:RelEng) config which is available by [git](https://wiki.gentoo.org/wiki/Git):
 
+`/home/larry/gitstuff $``git clone -o upstream` [https://github.com/gentoo/releng.git](https://github.com/gentoo/releng.git)
 ### Generating a Portage Snapshot
 
 From the Catalyst build directory, a new portage snapshot can be generated with:
@@ -61,6 +64,7 @@ Catalyst looks for seed files under /var/tmp/catalyst/builds/\<stage3>, a direct
 `root #``mkdir -p /var/tmp/catalyst/builds/23.0-default`
 A seed stage3 is needed to build the LiveCD, stage files can be found on the [downloads](https://www.gentoo.org/downloads) page or from [mirrors](https://www.gentoo.org/downloads/mirrors/):
 
+`/var/tmp/catalyst/builds/23.0-default #``wget` [https://gentoo.osuosl.org/releases/amd64/autobuilds/current-stage3-amd64-openrc/stage3-amd64-openrc-20240915T163400Z.tar.xz](https://gentoo.osuosl.org/releases/amd64/autobuilds/current-stage3-amd64-openrc/stage3-amd64-openrc-20240915T163400Z.tar.xz)
 ### Staging the LiveCD spec files
 
 Specs for the *stage 1* and *stage 2* are provided in the previously cloned git repo. 
@@ -104,10 +108,32 @@ When used manually, a few key fields must be edited to make RelEng provided spec
 
 **LiveCD stage 1 base template.**
 
+```
+subarch: amd64
+version_stamp: @TIMESTAMP@
+target: livecd-stage1
+rel_type: 23.0-default
+profile: default/linux/amd64/23.0/no-multilib
+snapshot_treeish: @TREEISH@
+source_subpath: 23.0-default/stage3-amd64-openrc-@TIMESTAMP@
+compression_mode: pixz
+portage_confdir: @REPO_DIR@/releases/portage/isos
+```
 **`/var/tmp/catalyst/installcd-stage1.spec`**
 
 **LiveCD stage 1 filled template.**
 
+```
+subarch: amd64
+version_stamp: custom_livecd
+target: livecd-stage1
+rel_type: 23.0-default
+profile: default/linux/amd64/23.0/no-multilib
+snapshot_treeish: 3e5f2241174dbb89608c4766ca949e77cdca7b70
+source_subpath: 23.0-default/stage3-amd64-openrc-20240915T163400Z
+compression_mode: pixz
+portage_confdir: /home/larry/gitstuff/releng/releases/portage/isos
+```
 ### Adding custom packages
 
 To add a package, such as [app-misc/neofetch](https://packages.gentoo.org/packages/app-misc/neofetch), it can be added to the `livecd/packages` list:
@@ -117,6 +143,7 @@ To add a package, such as [app-misc/neofetch](https://packages.gentoo.org/packag
 **Adding neofetch to the livecd**
 
 ```
+livecd/packages:
 	app-accessibility/brltty
 	app-accessibility/espeakup
 	app-admin/hddtemp
@@ -153,10 +180,50 @@ Similar to the *stage1*, several portions of the RelEng provided spec require ed
 
 **LiveCD stage 2 base template.**
 
+```
+subarch: amd64
+version_stamp: @TIMESTAMP@
+target: livecd-stage2
+rel_type: 23.0-default
+profile: default/linux/amd64/23.0/no-multilib
+snapshot_treeish: @TREEISH@
+source_subpath: 23.0-default/livecd-stage1-amd64-@TIMESTAMP@
+portage_confdir: @REPO_DIR@/releases/portage/isos
+livecd/bootargs: dokeymap
+livecd/fstype: squashfs
+livecd/iso: install-amd64-minimal-@TIMESTAMP@.iso
+livecd/type: gentoo-release-minimal
+livecd/volid: Gentoo-amd64-@DATESTAMP@
+boot/kernel: gentoo
+boot/kernel/gentoo/distkernel: yes
+boot/kernel/gentoo/dracut_args: --xz --no-hostonly -a dmsquash-live -a mdraid -o btrfs -o crypt -o i18n -o usrmount -o lunmask -o qemu -o qemu-net -o nvdimm -o multipath -i /lib/keymaps /lib/keymaps -I busybox
+boot/kernel/gentoo/config: @REPO_DIR@/releases/kconfig/amd64/dist-amd64-livecd.config
+boot/kernel/gentoo/packages: net-wireless/broadcom-sta
+```
 **`installcd-stage2-minimal.spec`**
 
 **LiveCD stage 2 filled template.**
 
+```
+subarch: amd64
+version_stamp: custom_livecd
+target: livecd-stage2
+rel_type: 23.0-default
+profile: default/linux/amd64/23.0/no-multilib
+snapshot_treeish: 3e5f2241174dbb89608c4766ca949e77cdca7b70
+source_subpath: 23.0-default/livecd-stage1-amd64-custom_livecd
+portage_confdir: /home/larry/gitstuff/releng/releases/portage/isos
+livecd/bootargs: dokeymap
+livecd/fstype: squashfs
+livecd/iso: install-amd64-minimal-custom_livecd.iso
+livecd/type: gentoo-release-minimal
+livecd/volid: Gentoo-amd64-custom_livecd
+boot/kernel: gentoo
+boot/kernel/gentoo/distkernel: yes
+boot/kernel/gentoo/dracut_args: --xz --no-hostonly -a dmsquash-live -a mdraid -o btrfs -o crypt -o i18n -o usrmount -o lunmask -o qemu -o qemu-net -o nvdimm -o multipath -i /lib/keymaps /lib/keymaps -I busybox
+boot/kernel/gentoo/config: /home/larry/gitstuff/releng/releases/kconfig/amd64/dist-amd64-livecd.config
+boot/kernel/gentoo/packages: net-wireless/broadcom-sta
+```
 ### Build Stage2
 
 The ISO can be built with:

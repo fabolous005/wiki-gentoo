@@ -121,7 +121,7 @@ Tags are passed to Go builds via `GOFLAGS` in ebuilds as `-tags=x`, e.g.
 **`foo-1.2.3.ebuild`**
 
 ```
-() {
+src_configure() {
     GOFLAGS+=" -tags=bar"
 }
 ```

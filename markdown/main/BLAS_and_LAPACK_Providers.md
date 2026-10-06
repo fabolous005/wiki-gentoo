@@ -37,10 +37,10 @@ This is incorrect behaviour and the packages in Gentoo should be amended so that
 
 | Package | **BLAS** | **CBLAS** | **LACPACK** | **LACPACKE** | 
 |---|---|---|---|---|
-| [sci-libs/lapack](https://packages.gentoo.org/packages/sci-libs/lapack) |  |  |  |  | 
-| [sci-libs/openblas](https://packages.gentoo.org/packages/sci-libs/openblas) |  |  |  |  | 
-| [sci-libs/mkl-rt](https://packages.gentoo.org/packages/sci-libs/mkl-rt) |  |  |  |  | 
-| [sci-libs/blis](https://packages.gentoo.org/packages/sci-libs/blis) |  |  |  |  | 
+| [sci-libs/lapack](https://packages.gentoo.org/packages/sci-libs/lapack) | Yes | Yes | Yes | Yes | 
+| [sci-libs/openblas](https://packages.gentoo.org/packages/sci-libs/openblas) | Yes | Yes | Yes | No | 
+| [sci-libs/mkl-rt](https://packages.gentoo.org/packages/sci-libs/mkl-rt) | Yes | Yes | Yes | Yes | 
+| [sci-libs/blis](https://packages.gentoo.org/packages/sci-libs/blis) | Yes | Yes | No | No | 
 
 ## GPU limitations
 

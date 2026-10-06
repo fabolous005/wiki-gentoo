@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Ext4
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-10-03"
-fingerprint: ad8909b4dab6cef0
+fingerprint: "2d8929b4dab6cfe0"
 license: CC BY-SA 4.0
 ---
 
@@ -50,26 +50,56 @@ Activate the following kernel options for ext3 driver:
 
 **Enabling ext3 support**
 
+```
+File systems  --->
+   <*> Ext3 journalling file system support
+```
 Support for optional ext3 features:
 
 **Enabling optional features for ext3**
 
+```
+File systems  --->
+   [*]   Default to 'data=ordered' in ext3 
+   [*]   Ext3 extended attributes
+   [*]     Ext3 POSIX Access Control Lists
+   [*]     Ext3 Security Labels
+```
 #### Ext2
 
 Activate the following kernel options for ext2 support using the original ext2 driver:
 
 **Enabling ext2 support**
 
+```
+File systems  --->
+   <*> Second extended fs support
+```
 Support for optional ext2 features:
 
 **Enabling optional features for ext2**
 
+```
+File systems  --->
+   [*]   Ext2 extended attributes
+   [*]     Ext2 POSIX Access Control Lists
+   [*]     Ext2 Security Labels
+```
 #### Large drive support
 
 **Enabling large drives for**x86** kernels**
 
+```
+-*- Enable the block layer  --->
+    [*]   Support for large (2TB+) block devices and files
+```
 ### USE flags
 
+
+### USE flags for
+            [sys-fs/e2fsprogs](https://packages.gentoo.org/packages/sys-fs/e2fsprogs)
+            
+            Standard EXT2/EXT3/EXT4 filesystem utilities
 
 | [+tools](https://packages.gentoo.org/useflags/+tools) | Build extfs tools (mke2fs, e2fsck, tune2fs, etc.) | 
 | [archive](https://packages.gentoo.org/useflags/archive) | Add support for mke2fs to read a tarball as input. This allows not needing privileges. Needs app-arch/libarchive. | 

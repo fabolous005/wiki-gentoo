@@ -5,15 +5,21 @@ url: https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2013/Ideas/webapp-config
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2018-11-09"
-fingerprint: d823902ddd36bd46
+fingerprint: d82b946cddb6a546
 license: CC BY-SA 4.0
 ---
 
 # Google Summer of Code/2013/Ideas/webapp-config
 
+From Gentoo Wiki
+
+\< [Google Summer of Code](https://wiki.gentoo.org/wiki/Google_Summer_of_Code) | [2013](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2013) | [Ideas](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2013/Ideas)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+## [webapp-config]
 
 #### Django and RoR support for webapp-config
 

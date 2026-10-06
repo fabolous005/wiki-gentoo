@@ -40,6 +40,8 @@ CONFIG_PROTECT="/var/bind"
 ```
 See also the [Environment variables](https://wiki.gentoo.org/wiki/Handbook:AMD64/Working/EnvVar) chapter in the Gentoo Handbook.
 
+## See also
+
 - [Configuration file management](https://wiki.gentoo.org/wiki/Configuration_file_management)
 - [CONFIG\_PROTECT\_MASK](https://wiki.gentoo.org/wiki/CONFIG_PROTECT_MASK) — contains a list of files or subdirectories which will be *excluded* from the overwrite protection offered by the `[CONFIG_PROTECT]` variable.
 - [savedconfig](https://wiki.gentoo.org/wiki/Savedconfig) — a USE flag that preserves the saved configuration files upon package updates.

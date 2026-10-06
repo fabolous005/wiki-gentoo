@@ -17,6 +17,8 @@ license: CC BY-SA 4.0
 
 
 
+**Deprecated article**
+
 This article is **deprecated (obsolete)**. Contents are <u>no longer relevant</u>, and are intended for historical reference only!
 
 TLDR:
@@ -66,6 +68,10 @@ Here is the relevant kernel option:
 
 **3.2.1-gentoo-r2**
 
+```
+Executable file formats / Emulations  --->
+ [*] Kernel support for MISC binaries
+```
 get that building if needed, and well turn to qemu-user.
 
 ### install static qemu-user

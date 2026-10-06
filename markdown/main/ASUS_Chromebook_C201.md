@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/ASUS_Chromebook_C201
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-06-03"
-fingerprint: be7be574cad9b54
+fingerprint: "1b67b8970ca79b54"
 license: CC BY-SA 4.0
 ---
 
@@ -32,22 +32,22 @@ The Asus Chromebook C201 is a Rockchip RK3288-C (ARMv7-A, Cortex-A17) based, exc
 
 | Component | Make/model | Status | Kernel driver(s) | Kernel version | Notes | 
 |---|---|---|---|---|---|
-| CPU | 4 x ARM Cortex-A17 |  |  | 4.15 | max @1,8GHz | 
-| GPU | Mali-T764 |  | Panfrost | 5.3 | OpenGL ES \<2.0 <sup>[\[3\]](https://wiki.gentoo.org#cite_note-3)</sup> | 
-| USB 2.0 |  |  |  | 4.15 | 2 \* USB-A | 
-| HDMI |  |  | dwhdmi |  |  | 
-| Analog Audio | Rockchip I2S |  | rockchip\_i2s | 5.2 | Required codecs: es8328\_i2c, es8328\_spi | 
-| HDMI Audio | Synopsis Designware HDMI I2S Audio |  | dw\_hdmi\_i2s\_audio | 5.15 | Required codecs: hdmi\_codec | 
+| CPU | 4 x ARM Cortex-A17 | Works |  | 4.15 | max @1,8GHz | 
+| GPU | Mali-T764 | Works | Panfrost | 5.3 | OpenGL ES \<2.0 <sup>[\[3\]](https://wiki.gentoo.org#cite_note-3)</sup> | 
+| USB 2.0 |  | Works |  | 4.15 | 2 \* USB-A | 
+| HDMI |  | ? | dwhdmi |  |  | 
+| Analog Audio | Rockchip I2S | Works | rockchip\_i2s | 5.2 | Required codecs: es8328\_i2c, es8328\_spi | 
+| HDMI Audio | Synopsis Designware HDMI I2S Audio | ? | dw\_hdmi\_i2s\_audio | 5.15 | Required codecs: hdmi\_codec | 
 
 ### Peripherals
 
 | Component | Make/model | Status | Kernel driver(s) | Kernel version | Notes | 
 |---|---|---|---|---|---|
-| Display | 11.6" @ 1366x768 |  |  | 4.15 | xorg-server via fbdev works | 
-| WiFi | Broadcom |  | brcmfmac | 4.15 | works with [proprietary blobs](https://wiki.gentoo.org#Built-in_wifi) | 
-| Touchpad | Elan I2C |  | elan\_i2c | 4.15 |  | 
-| Bluetooth |  |  |  |  |  | 
-| Embedded controller |  |  | cros\_ec | 4.15 |  | 
+| Display | 11.6" @ 1366x768 | Works |  | 4.15 | xorg-server via fbdev works | 
+| WiFi | Broadcom | Works | brcmfmac | 4.15 | works with [proprietary blobs](https://wiki.gentoo.org#Built-in_wifi) | 
+| Touchpad | Elan I2C | Works | elan\_i2c | 4.15 |  | 
+| Bluetooth |  | ? |  |  |  | 
+| Embedded controller |  | Works | cros\_ec | 4.15 |  | 
 
 ## GCC Optimization
 

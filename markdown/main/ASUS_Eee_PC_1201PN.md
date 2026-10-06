@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/ASUS_Eee_PC_1201PN
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-29"
-fingerprint: "6f1d0f2dfbaaf56c"
+fingerprint: "6f05893dd3aab56c"
 license: CC BY-SA 4.0
 ---
 
 # ASUS Eee PC 1201PN
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -19,14 +21,14 @@ license: CC BY-SA 4.0
 
 | Device | Works | Notes | 
 |---|---|---|
-| Intel Atom N450 |  |  | 
-| Nvidia ION |  |  | 
-| Intel HDA |  |  | 
-| Ethernet Atheros AR8132 |  |  | 
-| Wireless Atheros AR9285 |  |  | 
-| Bluetooth |  |  | 
-| Camera |  |  | 
-| Card Reader |  |  | 
+| Intel Atom N450 | Yes |  | 
+| Nvidia ION | Yes |  | 
+| Intel HDA | Yes |  | 
+| Ethernet Atheros AR8132 | Yes |  | 
+| Wireless Atheros AR9285 | Yes |  | 
+| Bluetooth | Yes |  | 
+| Camera | Yes |  | 
+| Card Reader | Yes |  | 
 
 ## Hardware
 
@@ -59,7 +61,7 @@ Bus 004 Device 002: ID 0b05:1789 ASUSTek Computer, Inc.
 
 ## CPU
 
-**`/etc/portage/make.conf`**
+FILE **`/etc/portage/make.conf`**
 
 ```
 CHOST="i686-pc-linux-gnu"
@@ -70,14 +72,30 @@ CXXFLAGS="${CFLAGS}"
 
 ### Kernel
 
-**nVidia**
+KERNEL **nVidia**
 
+```
+General setup --->
+ [*] System V IPC
+Loadable Module Support --->
+ [*] Enable Loadable Module Support
+Processor Type and Features --->
+ [*] MTRR (Memory Type Range Register) Support
+Device Drivers --->
+ Graphics support --->
+  [*] /dev/agpgart (AGP Support)
+Device Drivers --->
+ Graphics Support --->
+   Support for frame buffer devices --->
+  < >   nVidia Framebuffer Support
+  < >   nVidia Riva support
+```
 ### Install driver
 
 `root #``emerge --ask x11-drivers/nvidia-drivers`
 ### Xorg
 
-**`/etc/X11/xorg.conf`**
+FILE **`/etc/X11/xorg.conf`**
 
 ```
 Section "Files"
@@ -136,24 +154,86 @@ EndSection
 ```
 ## Sound
 
-**Intel HDA**
+KERNEL **Intel HDA**
 
+```
+Device Drivers  --->
+   Sound --->
+   <*> Sound card support
+   <*>   Advanced Linux Sound Architecture --->
+   [*]     PCI devices --->
+   <*>       Inetl HD Audio --->
+   [*]         Build Realtek HD-audio codec support
+   [*]         Build NVIDIA HDMI HD-audio codec support
+```
 ## Ethernet
 
-**AR8132**
+KERNEL **AR8132**
 
+```
+  Device Drivers --->
+     [*] Network device support --->
+     [*]   Ethernet (1000 Mbit) --->
+     <*>     Atheros L1C Gigabite Ethernet support
+```
 ## Wireless
 
-**AR9285**
+KERNEL **AR9285**
 
+```
+[*] Networking support --->
+     <*>   Wireless ---> 
+     <*>    cfg80211 - wireless configuration API
+     <*>    Generic IEEE 802.11 Networking Stack (mac80211)
+Device Drivers ---> 
+     [*]   Network device support --->
+     [*]    Wireless LAN --->
+     <*>     Atheros Wireless Cards --->
+     <*>      Atheros 802.11n wireless cards support
+```
 ## Bluetooth
 
-**Bluetooth**
+KERNEL **Bluetooth**
 
+```
+[*] Networking support --->
+     <*>   Bluetooth subsystem support --->
+     <*>     L2CAP protocol support
+     <*>     SCO links support
+     <*>     RFCOMM protocol support
+     [*]       RFCOMM tty support
+     <*>     BNEP protocol support
+     [*]       Multicast filter support
+     [*]       Protocol filter support
+     <*>     HIDP protocol support       
+             Bluetooth device drivers --->
+     <*>       HCI USB driver
+```
 ## Fn Keys
 
+KERNEL
+
+```
+Bus options (PCI etc.)  --->
+    <*> Support for PCI Hotplug  --->
+Device Drivers  --->
+    [*] X86 Platform Specific Device Drivers  --->
+        <*> ASUS WMI Driver
+        <*>    Eee PC WMI Driver
+        <*> WMI
+```
 ## Camera
 
+KERNEL
+
+```
+Device Drivers --->
+     Multimedia devices --->
+     [*]   Video capture adapters --->
+     [*]     V4L USB device --->
+     <*>       USB Video Class (UVC)
+     [*]         UVC input events device support
+```
 `user $``dmesg | grep EasyCamera`
 uvcvideo: Found UVC 1.00 device USB2.0 UVC VGA WebCam (13d3:5111)
 
@@ -163,6 +243,13 @@ uvcvideo: Found UVC 1.00 device USB2.0 UVC VGA WebCam (13d3:5111)
 **Bug**
 On new kernel (3.3.8) camera hangs the system, to avoid this, build driver as module.
 
+KERNEL
+
+```
+     Multimedia devices --->
+     <M>       USB Video Class (UVC)
+     [*]         UVC input events device support
+```
 And put below options to the module.
 
 `root #``echo "options uvcvideo nodrop=1" > /etc/modprobe.d/uvcvideo.conf`

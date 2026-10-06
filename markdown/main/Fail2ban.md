@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Fail2ban
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-09-26"
-fingerprint: f30af3f9fd8795c0
+fingerprint: f30af3f9dd8795c0
 license: CC BY-SA 4.0
 ---
 
@@ -25,6 +25,11 @@ Although the service supports many services out-of-the-box, it is very versatile
 
 ### USE flags
 
+
+### USE flags for
+            [net-analyzer/fail2ban](https://packages.gentoo.org/packages/net-analyzer/fail2ban)
+            
+            Scans log files and bans IPs that show malicious signs
 
 | [selinux](https://packages.gentoo.org/useflags/selinux) | !!internal use only!! Security Enhanced Linux support, this must be set by the selinux profile or breakage will occur | 
 | [systemd](https://packages.gentoo.org/useflags/systemd) | Enable use of systemd-specific libraries and features like socket activation or session tracking | 

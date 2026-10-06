@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki//etc/portage/patches
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-05-16"
-fingerprint: "9f992c3fb4e50328"
+fingerprint: "9f192c3fb4e50328"
 license: CC BY-SA 4.0
 ---
 
@@ -50,6 +50,15 @@ For applying the patch from upstream, the appropriate directory needs to be crea
 Next, an arbitrarily named file with suffix .patch or .diff has to be dropped here with the content provided from upstream:
 
 ```
+# index 8c2049a..876f7f3 100644 (file)
+# --- a/NEWS
+# +++ b/NEWS
+# @@ -1,3 +1,7 @@
+# +* Fixed potential access violation, use runtime user dir instead of tmp dir
+# +    for single instance socket.
+# +
+# +
+#  Changes on 1.2.5 since 1.2.4:
  
  * Removed options to Cut, Remove and Rename from context menu on mounted
 diff --git a/src/single-inst.c b/src/single-inst.c

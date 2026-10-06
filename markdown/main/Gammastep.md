@@ -24,6 +24,11 @@ Gammastep is an automatic color temperature adjustment to help reduce monitor ey
 ### USE flags
 
 
+### USE flags for
+            [x11-misc/gammastep](https://packages.gentoo.org/packages/x11-misc/gammastep)
+            
+            A screen color temperature adjusting software
+
 | [appindicator](https://packages.gentoo.org/useflags/appindicator) | Build in support for notifications using the libindicate or libappindicator plugin | 
 | [geoclue](https://packages.gentoo.org/useflags/geoclue) | Control dependency on app-misc/geoclue | 
 | [gtk](https://packages.gentoo.org/useflags/gtk) | Add support for x11-libs/gtk+ (The GIMP Toolkit) | 

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Complete_Virtual_Mail_Server/awstats
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-05-06"
-fingerprint: e645a8eb195e9bb7
+fingerprint: e655a9ea195e9ba7
 license: CC BY-SA 4.0
 ---
 
@@ -44,18 +44,29 @@ The following changes then need to be made:
 
 **Match Logformat to apache's.**
 
+```
+LogFormat = "%virtualname %host %other %logname %time1 %methodurl %code %bytesd %refererquot %uaquot"
+```
 Next, awstats needs to know about the domains and aliases to filter from the log file:
 
 **`/etc/awstats/awstats.example.com.conf`**
 
 **Make awstats listen to the domains**
 
+```
+SiteDomain="example.com"
+ 
+HostAliases="localhost 127.0.0.1 REGEX[example\.com$] REGEX[example\.(org|net)$]
+```
 Also, awstats needs to store its database somewhere. Gentoo has created /var/lib/awstats for this use, but it can be stored anywhere. Make sure the permissions are set so that the apache user can write to it:
 
 **`/etc/awstats/awstats.example.com.conf`**
 
 **AWStats database storage**
 
+```
+DirData="/var/lib/awstats"
+```
 Any other changes to the configuration file are optional, but interesting to look into:
 
 ### Logging
@@ -92,6 +103,10 @@ Awstats will process the log file every hour, but when logrotate rotates apache'
 **Diff of pre-init script**
 
 ```
+# Apache2 logrotate snipet for Gentoo Linux
+# Contributes by Chuck Short
+#
+/var/log/apache2/*log {
   missingok
   notifempty
   sharedscripts
@@ -111,6 +126,13 @@ For awstats to be used from apache, the webhost needs to properly setup. In the 
 
 **Aliases for awstats**
 
+```
+Alias /awstats/classes "/usr/share/awstats/wwwroot/classes"
+Alias /awstats/css "/usr/share/awstats/wwwroot/css"
+Alias /awstats/icon "/usr/share/awstats/wwwroot/icon"
+Alias /awstats/js "/usr/share/awstats/wwwroot/js"
+ScriptAlias /awstats/ "/usr/share/awstats/wwwroot/cgi-bin/"
+```
 Finally, awstats needs the correct permissions to be accessible:
 
 **`/etc/apache2/vhosts.d/stats.example.com`**
@@ -242,7 +264,7 @@ To scan the mail log every hour, the existing awstats script in cron.hourly can 
 **Add parsing of the mail log**
 
 ```
- -config=mail.example.com -update > /dev/null 2>&1
+awstats.pl -config=mail.example.com -update > /dev/null 2>&1
 ```
 Also syslog is getting rotated and thus awstats needs to parse the mail log file before the mail log is being rotated:
 
@@ -250,4 +272,17 @@ Also syslog is getting rotated and thus awstats needs to parse the mail log file
 
 **Modify mail log entry in syslog**
 
+```
+# Mail system
+/var/log/mail.log /var/log/mail.info /var/log/mail.err /var/log/mail.warn {
+    sharedscripts
+    missingok
+    prerotate
+        /etc/cron.hourly/awstats
+    endscript
+    postrotate
+        /etc/init.d/syslog-ng reload > /dev/null 2>&1 || true
+    endscript
+}
+```
 If logging of apache files is not desired, or webmail resides on a different server, the webserver log parsing can be removed from cron jobs.

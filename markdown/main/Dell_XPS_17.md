@@ -25,6 +25,8 @@ Author bought this laptop in hope of migrating from Macbook Pro. But unfortunate
 
 See below \`lspci\` output --- use it as comparison against your machine. Here is also link also into the web page with greater and useful details:
 
+[https://linux-hardware.org/?probe=597fae9cb6](https://linux-hardware.org/?probe=597fae9cb6)
+
 ```
  1z1-xps179710:/usr/src/linux # lspci  -k
  200:00.0 Host bridge: Intel Corporation 11th Gen Core Processor Host Bridge/DRAM Registers (rev 05)
@@ -142,7 +144,7 @@ from now on many pain like WiFi etc should be resolved by setting it in the loca
 Now boot from your Gentoo USB stick or if you completed installation and need to fix/re-configure kernel
 
 ```
- LSMOD=suselsmod LMC_KEEP="drivers/usb:drivers/gpu:fs" localmodconfig | sort -u
+make LSMOD=suselsmod LMC_KEEP="drivers/usb:drivers/gpu:fs" localmodconfig | sort -u
 # where `suselsmod` is suse installation kernel config, could be grabbed
 # from ubuntu as well
 # https://www.kernel.org/doc/html/latest/admin-guide/README.html?highlight=localmodconfig

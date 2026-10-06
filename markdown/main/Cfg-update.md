@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Cfg-update
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-01-27"
-fingerprint: "1556c00202a3d920"
+fingerprint: "1556c00202e3d921"
 license: CC BY-SA 4.0
 ---
 
@@ -22,6 +22,11 @@ cfg-update is a utility used on Gentoo to manage configuration file updates. It 
 
 ### USE flags
 
+
+### USE flags for
+            [app-portage/cfg-update](https://packages.gentoo.org/packages/app-portage/cfg-update)
+            
+            Easy to use GUI & CLI alternative for etc-update
 
 ### Emerge
 

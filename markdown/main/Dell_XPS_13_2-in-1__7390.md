@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Dell_XPS_13_2-in-1_(7390)
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-29"
-fingerprint: "9798fc57d3e791af"
+fingerprint: "9790dc57d1e791af"
 license: CC BY-SA 4.0
 ---
 
@@ -41,6 +41,14 @@ My personal system boots Gentoo as the only operating system (the included Windo
 
 **`/etc/portage/make.conf`**
 
+```
+COMMON_FLAGS="-O2 -pipe -march=icelake-client"
+CFLAGS="${COMMON_FLAGS}"
+CXXFLAGS="${COMMON_FLAGS}"
+FCFLAGS="${COMMON_FLAGS}"
+FFLAGS="${COMMON_FLAGS}"
+MICROCODE_SIGNATURES="-s 0x000706e5"
+```
 ## Wifi
 
 Model is Intel (Killer Wireless) AX1650i and requires firmware from [sys-kernel/linux-firmware](https://packages.gentoo.org/packages/sys-kernel/linux-firmware). Because of the firmware, build the driver as a module, or include the firmware in your kernel build.
@@ -48,10 +56,26 @@ Model is Intel (Killer Wireless) AX1650i and requires firmware from [sys-kernel/
 - Wifi firmware: `iwlwifi-Qu-c0-hr-b0-59.ucode`
 - Bluetooth firmware `intel/ibt-19-32-4.sfi`, `intel/ibt-19-32-4.ddc`
 
+```
+[*] Networking support  --->
+      [*] Wireless  --->
+        [*] cfg80211 - wireless configuration API
+        [*] Generic IEEE 802.11 Networking Stack (mac80211)
+    Device Drivers  --->
+      [*] Network device support  --->
+        [*] Wireless LAN  --->
+          [*] Intel devices
+            <M> Intel Wireless WiFi Next Gen AGN - Wireless-N/Advanced-N/Ultimate-N (iwlwifi)
+              <M> Intel Wireless WiFi MVM Firmware support
+```
 ## Display
 
 **`/etc/portage/make.conf`**
 
+```
+VIDEO_CARDS="i965 intel iris"
+USE="$USE vulkan"
+```
 You'll also need firmware from [sys-kernel/linux-firmware](https://packages.gentoo.org/packages/sys-kernel/linux-firmware) in order to use the GPU. It is not recommended to build the GPU firmware into the kernel.
 
 Firmware: `i915/icl_dmc_ver1_09.bin`
@@ -73,10 +97,30 @@ Need to enable CONFIG\_I2C\_HID\_ACPI, [CONFIG\_HID\_WACOM](https://wiki.gentoo.
 
 **Kernel 5.12 and later**
 
+```
+Device Drivers  --->
+  [*] Pin controllers  --->
+    <M> Intel Ice Lake PCH pinctrl and GPIO driver
+  HID support  --->
+    Special HID drivers  --->
+      <M> Wacom Intuos/Graphire tablet support (USB)
+    I2C HID support  --->
+      <M> HID over I2C transport layer ACPI driver
+```
 Before kernel 5.12, CONFIG\_I2C\_HID\_ACPI was called CONFIG\_I2C\_HID.
 
 **Kernel 5.11 and before**
 
+```
+Device Drivers  --->
+  [*] Pin controllers  --->
+    <M> Intel Ice Lake PCH pinctrl and GPIO driver
+  HID support  --->
+    Special HID drivers  --->
+      <M> Wacom Intuos/Graphire tablet support (USB)
+    I2C HID support  --->
+      <M> HID over I2C transport layer
+```
 If using Xorg, set `INPUT_DEVICES="wacom"` in `make.conf`. In wayland, the pen is handled by libinput.
 
 #### Bluetooth Buttons
@@ -116,12 +160,24 @@ Then set vaapi to use the intel-media-driver, instead of the regular intel-drive
 
 **`/etc/env.d/11libva-media-driver`**
 
+```
+LIBVA_DRIVER_NAME=iHD
+```
 Applications like mpv, vlc and ffmpeg can then use hardware acceleration via vaapi. Check that the GPU is being used for video with [x11-apps/igt-gpu-tools](https://packages.gentoo.org/packages/x11-apps/igt-gpu-tools)' `intel_gpu_top`. Firefox supports vaapi from version 78 on Wayland<sup>[\[1\]](https://wiki.gentoo.org#cite_note-1)</sup> and on X11 since release 80<sup>[\[2\]](https://wiki.gentoo.org#cite_note-2)</sup>.
 
 See [Wikipedia article](https://en.wikipedia.org/wiki/Video_Acceleration_API) for more information.
 
 ### Disable keyboard in tablet/tent/stand mode
 
+```
+Device Drivers  --->
+      HID support  --->
+        Intel ISH HID support  --->
+          <M> Intel Integrated Sensor Hub
+  <M> Industrial I/O support  --->
+    Accelerometers  --->
+      <M> HID Accelerometers 3D
+```
 Other sensors are available (e.g. Ambient Light Sensor, Gyroscope, Inclination and Rotation) in the system, they are not required to disable the keyboard in tablet mode.
 
 ### Automatic rotation
@@ -136,6 +192,10 @@ Add this to your sway config to fix touch (the pen/"tablet\_tool" has issues whe
 
 **`~/.config/sway/config`**
 
+```
+input type:touch map_to_output eDP-1
+# input type:tablet_tool map_to_output eDP-1 # has issues, see below
+```
 #### Issue: Wacom Pen jitter
 
 If the screen has been rotated 90 degrees, you cannot draw straight vertical or horizontal lines with a pen. There isn't a workaround yet.
@@ -152,6 +212,11 @@ Once your Secure Boot keys are in `/etc/efikeys`, pop the following into a dracu
 
 **`/etc/dracut.conf.d/uefi-secureboot.conf`**
 
+```
+uefi_stub="/usr/lib/systemd/boot/efi/linuxx64.efi.stub"
+uefi_secureboot_cert="/etc/efikeys/db.crt"
+uefi_secureboot_key="/etc/efikeys/db.key"
+```
 Then when updating your kernel, run (replace where necessary):
 
 `root #``make modules_install``root #``dracut --uefi --kernel-image arch/x86/boot/bzImage --kernel-cmdline "$cmdline" -f /path/to/output.efi $kernel_version`
@@ -168,6 +233,17 @@ The engine should not require further configuration, but if you need to you can 
 
 **`/etc/ssl/openssl.cnf`**
 
+```
+[default]
+openssl_conf = openssl_init
+[openssl_init]
+engines = engine_section
+[engine_section]
+tpm2tss = tpm2tss_section
+[tpm2tss_section]
+engine_id = tpm2tss
+dynamic_path = /usr/lib64/engines-1.1/libtpm2tss.so
+```
 ### TOTP measured boot
 
 `root #``emerge --ask app-crypt/tpm2-totp`
@@ -175,6 +251,9 @@ Add the tpm2-totp module to dracut's config files:
 
 **`/etc/dracut.conf.d/tpm2-totp.conf`**
 
+```
+add_dracutmodules+=" tpm2-totp "
+```
 By default tpm2-totp uses PCR banks 0, 2, 4 and 6. PCR4 contains a hash of the kernel binary you are running, which will change on every kernel update. If you update often, this will cause the TOTP to break each time. Check your PCR banks with [app-crypt/tpm2-tools](https://packages.gentoo.org/packages/app-crypt/tpm2-tools)' `tpm2_pcrlist`. Adjust which PCR banks are used with the `tpm2-totp generate -p` flag.
 
 | PCR bank | (Suspected) Use | 
@@ -201,21 +280,48 @@ Discover which sleep modes are available to the system:
 
 **`/sys/power/disk`**
 
+```
+[platform] shutdown reboot suspend test_resume
+```
 **`/sys/power/mem_sleep`**
 
+```
+[s2idle] deep
+```
 **`/sys/power/state`**
 
+```
+freeze mem disk
+```
 Check the defaults in [/etc/systemd/sleep.conf](https://www.freedesktop.org/software/systemd/man/systemd-sleep.conf.html).
 
 For instance, it's really easy to press the power button when holding in tablet mode, so I selected 's2idle'/'freeze' for the power key (I repurposed hybrid sleep for it). I then use S3 suspend-to-RAM (deep sleep) on lid close, after which a short timeout to suspend-to-disk (S4), to do a full resume through the bootloader:
 
 **`/etc/systemd/sleep.conf`**
 
+```
+[Sleep]
+HybridSleepState=freeze
+SuspendState=mem
+HibernateState=disk
+HibernateMode=platform
+HibernateDelaySec=5m
+```
 **`/etc/systemd/logind.conf`**
 
+```
+[Login]
+HandlePowerKey=hybrid-sleep
+HandleLidSwitch=suspend-then-hibernate
+```
 **`/etc/kernel/cmdline`**
 
+```
+... mem_sleep_default=deep
+```
 Note, when the power button is pressed and the system goes into s2idle, it still responds to the lid closing and going into suspend.
+
+[Read more about kernel sleep states](https://www.kernel.org/doc/html/v4.19/admin-guide/pm/sleep-states.html)
 
 ### LUKS/resume timeout
 
@@ -225,16 +331,34 @@ Add this to your kernel command line to power off the laptop at the 90 second ma
 
 **`/etc/kernel/cmdline`**
 
+```
+rd.emergency=poweroff rd.timeout=90 rd.shell=0
+```
 See also: [Bug report](https://bugzilla.redhat.com/show_bug.cgi?id=1705522) & [systemd-hibernate-resume pull request](https://github.com/systemd/systemd/pull/14241)
 
 ## USB-C PD charging
 
 Plugging in a USB-C PD battery may not do the right thing (i.e. the laptop charges the battery) without the Type-C UCSI driver.
 
+```
+Device Drivers  --->
+  [*] USB support  --->
+    <M> USB Type-C Support  --->
+      <M> USB Type-C Connector System Software Interface driver
+        <M> UCSI ACPI Interface Driver
+```
 The driver exposes `/sys/class/typec` which configures the ports to pull power, and it can be further configured as a power source or sink.
 
 ## Dell SMBios tools
 
+```
+Device Drivers  --->
+  [*] X86 Platform Specific Device Drivers  --->
+    <M> Dell Systems Management Base Driver
+    <M>   Dell SMBIOS driver
+    <M>    Dell SMBIOS driver WMI backend
+    <M>    Dell Laptop Extras
+```
 `root #``emerge libsmbios[python]`
 ### Fan Thermal Profile
 
@@ -305,10 +429,26 @@ All but the 'System Agent' can be undervolted. I experienced GPU glitches below 
 `root #``emerge --ask sys-power/intel-undervolt`
 **`/etc/intel-undervolt.conf`**
 
+```
+undervolt 0 'CPU' -80
+undervolt 1 'GPU' -40
+undervolt 2 'CPU Cache' -80
+undervolt 3 'System Agent' 0
+undervolt 4 'Analog I/O' -80
+power package 15/0.002:disabled 10/600
+tjoffset -40
+hwphint force load:multi:4.0 power balance_power
+```
 The intel-undervolt.service will re-apply itself after suspend and hibernation, but not on suspend-then-hibernate. Add this to your service override:
 
 **`/etc/systemd/system/intel-undervolt.service.d/override.conf`**
 
+```
+[Unit]
+After=suspend-then-hibernate.target
+[Install]
+WantedBy=suspend-then-hibernate.target
+```
 ## BIOS Recovery 3
 
 For more information, see Dell's [How to Recover the BIOS](https://www.dell.com/support/kbdoc/en-uk/000132453/how-to-recover-the-bios-on-a-dell-computer-or-tablet) page.

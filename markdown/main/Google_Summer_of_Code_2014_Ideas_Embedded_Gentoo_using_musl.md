@@ -5,15 +5,21 @@ url: https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2014/Ideas/Embedded_Gent
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-03-29"
-fingerprint: "14aaa7c80dbf33bb"
+fingerprint: "108aa7c80db733b9"
 license: CC BY-SA 4.0
 ---
 
 # Google Summer of Code/2014/Ideas/Embedded Gentoo using musl
 
+From Gentoo Wiki
+
+\< [Google Summer of Code](https://wiki.gentoo.org/wiki/Google_Summer_of_Code) | [2014](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2014) | [Ideas](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2014/Ideas)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+## [Embedded Gentoo using musl]
 
 This project involves integrating an alternative standard C library called musl into Gentoo, both for cross compiling and native compiling.  Musl aims to be "lightweight, fast, simple, free, and strives to be correct in the sense of standards-conformance and safety." [\[1\]](http://www.musl-libc.org)  So far, stage4 tarballs have been built for amd64 [\[2\]](http://distfiles.gentoo.org/experimental/amd64/musl), i686 [\[3\]](http://distfiles.gentoo.org/experimental/x86/musl) and armv7a-hardfloat-eabi [\[4\]](http://distfiles.gentoo.org/experimental/arm/musl). These were initially built using cross compiling toolchians which themselves were built using crossdev [\[5\]](http://www.gentoo.org/proj/en/base/embedded/handbook/cross-compiler.xml?style=printable), but then were rebuilt on native hardware using home grown scripts [\[6\]](http://git.overlays.gentoo.org/gitweb/?p=proj/releng.git;a=tree;f=tools-musl), and not catalyst [\[7\]](https://www.gentoo.org/proj/en/releng/catalyst). Picking up from here, the next steps in the project are:
 

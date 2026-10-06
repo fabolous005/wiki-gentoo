@@ -5,15 +5,19 @@ url: https://wiki.gentoo.org/wiki/Gentoo_OpenBSD
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2021-09-01"
-fingerprint: d0d599ea5fcb25fc
+fingerprint: d0f59bea5fcb25fc
 license: CC BY-SA 4.0
 ---
 
 # Gentoo OpenBSD
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Deprecated article**
 
 As of **April 20, 2017**, this article is **deprecated (obsolete)**. Contents are <u>no longer relevant</u>, and are intended for historical reference only!
 

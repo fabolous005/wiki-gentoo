@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Filesystem/Security
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-11-29"
-fingerprint: b604191a26078385
+fingerprint: b605191a26079385
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Article status**
 
 A well-designed [file system](https://wiki.gentoo.org/wiki/Filesystem) is one of the basic means to harden a system. While there are numerous file systems in existence, this guide tries to remain agnostic and focus more on the hierarchy itself rather than an individual implementation.
 
@@ -62,6 +64,21 @@ On Unix-like systems mount points are typically defined in [/etc/fstab](https://
 
 **`/etc/fstab`**
 
+```
+# <fs>                  <mountpoint>                   <type>          <opts>                                  <dump/pass>
+/dev/sda1               /boot                           ext4            noauto,nouser,noatime,ro                   1 2
+/dev/sda3               /                               ext4            noatime,nouser,ro                          0 1
+/dev/sda2               none                            swap            sw                                         0 0
+/dev/sda5               /usr                            ext4            nodev,nouser,noatime,ro                    0 3
+/dev/sda6               /opt                            ext4            nodev,nouser,noatime,ro                    0 3
+/dev/sda7               /var                            ext4            nodev,nouser,noexec                        0 3
+/dev/sda8               /tmp                            ext4            nodev,nouser,noatime,noexec                0 3
+/dev/sda9               /var/tmp                        ext4            nodev,nouser,noatime                       0 3
+/dev/sda10              /var/cache/distfiles            ext4            nodev,nouser,noatime                       0 3
+/dev/sda11              /var/cache/binpkgs              ext4            nodev,nouser,noatime,noexec                0 3
+/dev/sda12              /home                           ext4            nodev,nouser,noatime,noexec                0 3
+/dev/md0               /srv                             ext4            nodev,nouser,noatime,noexec                0 3
+```
 This is an example of a recently created /etc/fstab on a home server. In the fourth column, mount options are listed.
 
 The options we are currently focused on include:
@@ -123,6 +140,16 @@ First add kernel support for RAID systems:
 
 **.config 3.2.11-hardened**
 
+```
+Device Drivers --->
+    [*] Multiple devices driver support (RAID and LVM) --->
+        <*> RAID support
+        [*]   Autodetect RAID arrays during kernel boot
+        <*>   RAID-4/RAID-5/RAID-6 mode
+        <*> Device mapper support
+        <*>   Mirror target
+        <*> Zero target
+```
 Next the disks need to be partitioned, assume four disks exist: sda, sdb, sdc, and sdd. Use a favorite partitioning tool to format the drives and create empty partition tables on them. Then allocate all the space in to a single partition.
 
 Finally we actually create the RAID:

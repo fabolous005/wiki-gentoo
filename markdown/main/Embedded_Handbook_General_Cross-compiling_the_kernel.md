@@ -5,11 +5,15 @@ url: https://wiki.gentoo.org/wiki/Embedded_Handbook/General/Cross-compiling_the_
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-03-21"
-fingerprint: "56931b3284e83f26"
+fingerprint: "5693193284ea1f26"
 license: CC BY-SA 4.0
 ---
 
 # Embedded Handbook/General/Cross-compiling the kernel
+
+[Embedded Handbook](https://wiki.gentoo.org/wiki/Embedded_Handbook) |
+
+[General](https://wiki.gentoo.org/wiki/Embedded_Handbook/General)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

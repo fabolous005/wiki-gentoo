@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Ethernet
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-06-22"
-fingerprint: dc126a5d0aeebbd3
+fingerprint: dc02ea5d0beebbd3
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 This article describes the setup of an Ethernet network device.
 
@@ -30,6 +32,12 @@ The next step is to activate the kernel options appropriate to the Ethernet hard
 
 **Enable (`CONFIG_ETHERNET`)**
 
+```
+Device Drivers  --->
+    Networking support  --->
+        [*] Network device support --->
+            [*]   Ethernet driver support  --->
+```
 Scan the drivers carefully. Compare the results of the lspci command above with the available drivers in the list. Enable the feature(s) that match the installed Ethernet device(s).
 
 ## Configuration

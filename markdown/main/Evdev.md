@@ -5,15 +5,18 @@ url: https://wiki.gentoo.org/wiki/Evdev
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2019-01-09"
-fingerprint: "7e419c58119f3904"
+fingerprint: "7e208858d18f398c"
 license: CC BY-SA 4.0
 ---
 
 # evdev
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
 
 **evdev** is
 
@@ -27,19 +30,39 @@ license: CC BY-SA 4.0
 
 You need [USB](https://wiki.gentoo.org/wiki/USB) support, if you have an USB input device. Also you need to activate the following kernel options:
 
-**PS/2 keyboard/mouse support**
+KERNEL **PS/2 keyboard/mouse support**
 
-**USB input device support**
+```
+Device Drivers  --->
+    Input device support  --->
+        <*>   Event interface
+        [*]   Mice  --->
+              <*>   PS/2 mouse
+        -*-   Keyboards  --->
+              <*>   AT keyboard
+```
+KERNEL **USB input device support**
 
+```
+Device Drivers  --->
+    HID support  --->
+        <*> HID bus support
+        <*> Generic HID driver
+            USB HID support  --->
+                <*> USB HID transport layer
+```
 Some USB mice (e.g. Logitech G5 and Razer Naga 2014) additionally need the following option:
 
-**Improved transaction support**
+KERNEL **Improved transaction support**
 
+```
+Device Drivers  --->
+    [*] USB support  --->
+        [*]   Improved Transaction Translator scheduling
+```
 ### Driver
 
-**`/etc/portage/make.conf`**
-
-**Set`INPUT_DEVICES`**
+FILE **`/etc/portage/make.conf`****Set `INPUT_DEVICES`**
 
 ```
 INPUT_DEVICES="evdev"
@@ -56,7 +79,7 @@ After setting the `INPUT_DEVICES` variable remember to update the system using t
 To set the default layout copy the file 10-evdev.conf to /etc/X11/xorg.conf.d and edit the keyboard section, e.g. for a German layout:
 
 `root #``cp /usr/share/X11/xorg.conf.d/10-evdev.conf /etc/X11/xorg.conf.d/`
-**`/etc/X11/xorg.conf.d/10-evdev.conf`**
+FILE **`/etc/X11/xorg.conf.d/10-evdev.conf`**
 
 ```
 Section "InputClass"

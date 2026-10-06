@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Gigabyte_P27G_v2
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-28"
-fingerprint: "7f589f06dfa23168"
+fingerprint: "7f589f16dba23168"
 license: CC BY-SA 4.0
 ---
 
@@ -16,6 +16,8 @@ From Gentoo Wiki
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 ## Hardware
 
@@ -81,14 +83,65 @@ From Gentoo Wiki
 
 KERNEL **Enabling evdev in the kernel**
 
+```
+Device Drivers --->
+  Input device support --->
+  <*>  Event interface
+```
 KERNEL **Configuring framebuffers**
 
+```
+Device Drivers --->
+  Graphics support --->
+    Support for frame buffer devices --->
+    ## (Disable all drivers, including VGA, Intel, nVidia, and ATI)
+ 
+    ## (Further down, enable basic console support. KMS uses this.)
+    Console display driver support --->
+      <*>  Framebuffer Console Support
+```
 KERNEL **Intel settings**
 
+```
+Device Drivers --->
+  Graphics support --->
+    /dev/agpgart (AGP Support) --->
+    <*>  Intel 440LX/BX/GX, I8xx and E7x05 chipset support
+    Direct Rendering Manager (XFree86 4.1.0 and higher DRI support) --->
+    <*>  Intel 8xx/9xx/G3x/G4x/HD Graphics
+    [*]    Enable modesetting on intel by default
+```
 KERNEL
 
+```
+-*- Networking support  --->
+  ---Networking support
+    [*] Wireless  --->
+        <M>   cfg80211 - wireless configuration API
+        [ ]     nl80211 testmode command
+        [ ]     enable developer warnings
+        [ ]     cfg80211 regulatory debugging
+        [*]     enable powersave by default
+        [*]     cfg80211 wireless extensions compatibility
+        <M>   Generic IEEE 802.11 Networking Stack (mac80211)
+              Default rate control algorithm (Minstrel)  --->
+                  (x) Minstrel
+        [ ]   Enable mac80211 mesh networking (pre-802.11s) support
+        -*-   Enable LED triggers
+        [ ]   Trace all mac80211 debug messages
+        [ ]   Select mac80211 debugging features  ----
+```
 KERNEL
 
+```
+Device Drivers  --->
+    [*] Network device support  --->
+        [*] Wireless LAN  --->
+            Select the driver for your Wifi network device, e.g.:
+            <M> Realteck rtlwifi family of devices --->
+               <M> Realteck RTL8723BE PCIe Wireless Network Adapter
+               [*] Debugging output for rtlwifi driver family
+```
 External firmware is required for the wireless card:
 
 `root #``emerge --ask linux-firmware`

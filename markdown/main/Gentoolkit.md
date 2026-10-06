@@ -16,6 +16,8 @@ license: CC BY-SA 4.0
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
 
+*Not to be confused with[Genkernel](https://wiki.gentoo.org/wiki/Genkernel).*
+
 **gentoolkit** is a suite of tools to ease the administration of a Gentoo system, and [Portage](https://wiki.gentoo.org/wiki/Portage) in particular.
 
 Gentoo is a very unique distribution, with certain specifics that are not present in other systems. Several tools developed to help with Gentoo usage have been contributed, and are grouped in the [app-portage/gentoolkit](https://packages.gentoo.org/packages/app-portage/gentoolkit) package.
@@ -28,6 +30,13 @@ The gentoolkit commands have [man pages](https://wiki.gentoo.org/wiki/Man_page),
 
 ### USE flags
 
+
+### USE flags for
+            [app-portage/gentoolkit](https://packages.gentoo.org/packages/app-portage/gentoolkit)
+            
+            Collection of administration scripts for Gentoo
+
+| [test](https://packages.gentoo.org/useflags/test) | Enable dependencies and/or preparations necessary to run tests (usually controlled by FEATURES=test but can be toggled independently) | 
 
 ### Emerge
 

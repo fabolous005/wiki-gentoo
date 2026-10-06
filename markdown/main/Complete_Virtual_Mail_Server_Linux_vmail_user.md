@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Complete_Virtual_Mail_Server/Linux_vmail_user
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-07-16"
-fingerprint: fc9e0a1695b88d36
+fingerprint: fc9e0b1695bd8d36
 license: CC BY-SA 4.0
 ---
 
@@ -49,3 +49,12 @@ Postfix needs to know where and under what ownership to store mail.
 **`/etc/postfix/main.cf`**
 
 **Binding UID and GID's to postfix**
+
+```
+# Link the mailbox uid and gid to postfix.
+virtual_uid_maps = static:5000
+virtual_gid_maps = static:5000
+ 
+# Set the base address for all virtual mailboxes
+virtual_mailbox_base = /var/vmail
+```

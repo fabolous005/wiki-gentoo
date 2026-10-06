@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Benefits_of_Gentoo
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-09-24"
-fingerprint: d3b9be08cea3673c
+fingerprint: d3b9be08cea3633c
 license: CC BY-SA 4.0
 ---
 
 # Benefits of Gentoo
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

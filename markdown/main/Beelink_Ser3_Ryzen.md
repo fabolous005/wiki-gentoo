@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Beelink_Ser3_Ryzen
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-01-09"
-fingerprint: "9e46acc1a23a04ad"
+fingerprint: "9e46ac85823a05ac"
 license: CC BY-SA 4.0
 ---
 
 # Beelink Ser3 Ryzen
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -125,3 +127,18 @@ The device features AMD/Realtek HD audio.
         Kernel modules: snd_hda_intel
 ```
 Configure [ALSA](https://wiki.gentoo.org/wiki/ALSA) with the following driver settings:
+
+KERNEL
+
+```
+Device Drivers --->
+    <*> Sound card support
+        <*> Advanced Linux Sound Architecture --->
+            HD-Audio  --->
+                -*- Allow dynamic codec reconfiguration
+                [*] Support initialization patch loading for HD-audio
+                <*> Build Realtek HD-audio codec support
+                <*> Build HDMI/DisplayPort HD-audio codec support
+                -*- Enable generic HD-audio codec parser
+          (2048) Pre-allocated buffer size for HD-audio driver
+```

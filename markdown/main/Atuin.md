@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Atuin
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-02-13"
-fingerprint: e6585c5e3f8f58ec
+fingerprint: e0585c5abf8f58ec
 license: CC BY-SA 4.0
 ---
 
@@ -21,6 +21,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [app-shells/atuin](https://packages.gentoo.org/packages/app-shells/atuin)
+            
+            Shell history manager supporting encrypted synchronisation
 
 | [+client](https://packages.gentoo.org/useflags/+client) | Enable the autin client | 
 | [+daemon](https://packages.gentoo.org/useflags/+daemon) | Enable the autin background daemon on the client | 

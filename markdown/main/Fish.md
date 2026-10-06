@@ -25,6 +25,11 @@ Refer to the "[terminal emulator](https://wiki.gentoo.org/wiki/Terminal_emulator
 ### USE flags
 
 
+### USE flags for
+            [app-shells/fish](https://packages.gentoo.org/packages/app-shells/fish)
+            
+            Friendly Interactive SHell
+
 | [+doc](https://packages.gentoo.org/useflags/+doc) | Add extra documentation (API, Javadoc, etc). It is recommended to enable per package instead of globally | 
 | [debug](https://packages.gentoo.org/useflags/debug) | Enable extra debug codepaths, like asserts and extra output. If you want to get meaningful backtraces see https://wiki.gentoo.org/wiki/Project:Quality\_Assurance/Backtraces | 
 | [nls](https://packages.gentoo.org/useflags/nls) | Add Native Language Support (using gettext - GNU locale utilities) | 
@@ -44,6 +49,8 @@ fish can *not* read these files, as it is not POSIX-compatible. Thus it is *stro
 There is no reliable way to avoid this (see [bug #545830](https://bugs.gentoo.org/show_bug.cgi?id=545830)). However, there is a way to use fish by default, as explained in the next section.
 
 Those who nevertheless want to set fish as a login shell in /etc/passwd can jump down to "[setting the fish shell as the login shell](https://wiki.gentoo.org#Setting_the_fish_shell_as_the_login_shell)", though this is highly discouraged and can result in difficult issues.
+
+### fish as a default shell with Bash as the login shell
 
 The following allows the use of fish by default, upon login or on starting a terminal emulator. This solution uses \~/.bashrc as a wrapper to have fish inherit the environment from the login shell, which is left as [Bash](https://wiki.gentoo.org/wiki/Bash).
 
@@ -74,6 +81,7 @@ Move into or create a base directory for the bass repository, for example:
 `user $``cd ~/.local/opt`
 Clone the bass repository (requires [Git](https://wiki.gentoo.org/wiki/Git)), and move into the repository directory:
 
+`user ~/.local/opt $``git clone` [https://github.com/edc/bass](https://github.com/edc/bass); cd bass
 Install bass:
 
 `user ~/.local/opt/bass $``make install`
@@ -83,6 +91,9 @@ Add the following line to \~/.config/fish/config.fish, above any other commands 
 
 **`~/.config/fish/config.fish`**
 
+```
+bass source /etc/profile
+```
 Finally, restart fish if it is already running.
 
 This solution was suggested [by one of the fish developers](https://github.com/fish-shell/fish-shell/issues/3665#issuecomment-268527236) and the [Arch wiki](https://wiki.archlinux.org/index.php/Fish#Not_setting_fish_as_default_shell).

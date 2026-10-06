@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Asus_P5N32-E_SLI_Plus
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-22"
-fingerprint: ed84435c8cae597b
+fingerprint: "7f00015cd4a33969"
 license: CC BY-SA 4.0
 ---
 
 # Asus P5N32-E SLI Plus
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -40,24 +42,53 @@ The Asus P5N32-E SLI Plus is a motherboard with an Intel LGA775 socket, compatib
 
 Select "NVIDIA SATA support" module.
 
-**SATA on P5N32-E SLI Plus**
+KERNEL **SATA on P5N32-E SLI Plus**
 
+```
+Device Drivers --->
+  Serial ATA (prod) and Parallel ATA (experimental) drivers  --->
+   <*>   ATA SFF support
+    <*>   NVIDIA SATA support
+```
 ### Sound
 
 The soundchip works with the snd-hda-intel sound module. The corresponding kernel options are:
 
-**Soundchip on P5N32-E SLI Plus**
+KERNEL **Soundchip on P5N32-E SLI Plus**
 
+```
+Device Drivers --->
+  Sound --->
+   Advanced Linux Sound Architecture --->
+    PCI sound devices --->
+     <*> Intel HD Audio
+      <*> Build Analog Device HD-audio codec support
+```
 ### USB
 
-**USB on P5N32-E SLI Plus**
+KERNEL **USB on P5N32-E SLI Plus**
 
+```
+Device Drivers --->
+  USB support --->
+   <*> EHCI HCD (USB 2.0) support
+   <*> OHCI HCD support
+```
 ### Network
 
 The NIC is a NVIDIA Dual Gigabit MAC with external Marvell PHY.
 
-**NIC on P5N32-E SLI Plus**
+KERNEL **NIC on P5N32-E SLI Plus**
 
+```
+Device Drivers --->
+  [*] Network device support --->
+   [*] Ethernet (10 or 100Mbit)  --->  
+    <*> nForce Ethernet support
+     [*] Use Rx Polling
+   <*> PHY Device support and infrastructure  --->
+    <*>   Drivers for Marvell PHYs
+```
 ## Appendices
 
 ### Lspci Output

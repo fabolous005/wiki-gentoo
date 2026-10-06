@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Etckeeper
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-06-16"
-fingerprint: "9600746b0aa3fb93"
+fingerprint: "9600746b8aa3fb93"
 license: CC BY-SA 4.0
 ---
 
@@ -30,6 +30,11 @@ On installation, *etckeeper* places a hook in /etc/portage/conf-update.d/ so tha
 
 ### USE flags
 
+
+### USE flags for
+            [sys-apps/etckeeper](https://packages.gentoo.org/packages/sys-apps/etckeeper)
+            
+            A collection of tools to let /etc be stored in a repository
 
 ### Emerge
 
@@ -175,6 +180,7 @@ The cron job is enabled by **default** in the configuration. To disable the dail
 **`/etc/etckeeper/etckeeper.conf`**
 
 ```
+...
 AVOID_DAILY_AUTOCOMMITS=1
 ..
 ```

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Cubox-i
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-05-04"
-fingerprint: "9e9b901b81e633c6"
+fingerprint: "9e9b911b81e633c6"
 license: CC BY-SA 4.0
 ---
 
@@ -18,6 +18,8 @@ license: CC BY-SA 4.0
 **Resources**
 
 ![Image of Nerdboy's Cubox-i device.](https://wiki.gentoo.org/images/thumb/4/45/Cubox-i4-pro-1080.jpg/312px-Cubox-i4-pro-1080.jpg)
+
+[Steve Arnold (nerdboy)](https://wiki.gentoo.org/wiki/User:Nerdboy)'s Cubox-i device.
 
 This document describes how to install Gentoo on the [SolidRun](https://www.solid-run.com/) Cubox-i and HummingBoard.
 
@@ -79,7 +81,7 @@ cd u-boot
 `user $````
 git checkout v2019.04
 ```
-Mainline U-Boot has *no* uEnv.txt support, although it does have extlinux.conf support which is just as easy if not easier to use. If uEnv.txt support is still desired, apply the patch by [Steve Arnold (nerdboy)](https://wiki.gentoo.org/wiki/User:Nerdboy)
+Mainline U-Boot has *no* uEnv.txt support, although it does have extlinux.conf support which is just as easy if not easier to use. If uEnv.txt support is still desired, apply the patch by [Steve Arnold (nerdboy)](https://wiki.gentoo.org/wiki/User:Nerdboy) .
 
 `user $````
 git checkout v2017.11
@@ -156,6 +158,12 @@ The computer connecting to the Cubox-i will need to have the following kernel co
 
 **Enabling serial console support**
 
+```
+    Device Drivers --->
+      [*] USB support --->
+            <*>   USB Serial Converter support --->
+                    <*>   USB FTDI Single Port Serial Driver
+```
 Connecting to the serial console requires an application such as [app-misc/screen](https://packages.gentoo.org/packages/app-misc/screen) or [net-dialup/minicom](https://packages.gentoo.org/packages/net-dialup/minicom). For more information, please refer to the [SolidRun Knowledge Base](https://developer.solid-run.com/knowledge-base/serial-console-usb-uart/).
 
 ### Preparing the SD card
@@ -209,6 +217,10 @@ Add the following entries to the fstab file:
 
 **`/mnt/cubox/etc/fstab`**
 
+```
+/dev/mmcblk1p1          /boot           ext2            noauto,noatime  1 2
+/dev/mmcblk1p2          /               ext4            noatime         0 1
+```
 #### Setting a default root password
 
 To be able to login after booting, set a default root password by creating a password hash and adding it to the shadow file:
@@ -224,16 +236,25 @@ The default shadow entry for the root user will look like:
 
 **`/mnt/cubox/etc/shadow`**
 
+```
+root:*:10770:0:::::
+```
 Replace the `*` with the password hash from the openssl command above:
 
 **`/mnt/cubox/etc/shadow`**
 
+```
+root:$1$AK6NWKtp$U8EMq/wAGx0PT1vLOf9/u0:10770:0:::::
+```
 #### Enabling the serial console
 
 To have a serial console available after booting, change the `s0` line to the following:
 
 **`/mnt/cubox/etc/inittab`**
 
+```
+s0:12345:respawn:/sbin/agetty -L 115200 ttymxc0 vt100
+```
 ### Kernel
 
 The mainline kernel 3.19+ and [sys-kernel/gentoo-sources](https://packages.gentoo.org/packages/sys-kernel/gentoo-sources) has great support for Cubox-i devices, complete with working graphics and networking.
@@ -331,6 +352,14 @@ The following kernel configuration options are required for WiFi support. These 
 
 **Enabling WiFi support**
 
+```
+    Device Drivers --->
+      [*] Network device support --->
+            [*]   Wireless LAN --->
+                    [*]   Broadcom devices
+                    <*>     Broadcom FullMAC WLAN driver 
+                    [*]     SDIO bus interface support for FullMAC driver
+```
 The WiFi driver requires firmware to operate, which can be obtained directly from the Linux firmware [repository](https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/tree/brcm) or the [sys-kernel/linux-firmware](https://packages.gentoo.org/packages/sys-kernel/linux-firmware) package. The required firmware can be determined by examining the dmesg output of a running Cubox-i device:
 
 `root #``dmesg | grep -i brcm`
@@ -343,6 +372,9 @@ The firmware also requires NVRAM calibration data, which can be obtained from th
 
 **`brcmfmac4329-sdio.txt or brcmfmac4330-sdio.txt`**
 
+```
+ccode=US
+```
 The firmware and NVRAM calibration data need to be placed in the /lib/firmware/brcm directory.
 
 ### Bootloader
@@ -362,12 +394,26 @@ Create the following configuration and adjust accordingly:
 
 **`/mnt/cubox/boot/extlinux/extlinux.conf`**
 
+```
+PROMPT 1
+TIMEOUT 50
+DEFAULT linux
+LABEL linux
+KERNEL /vmlinuz-4.19.0
+FDTDIR /dtbs/4.19.0
+APPEND root=/dev/mmcblk1p2 rootfstype=ext4 video=mxcfb0:dev=hdmi,1920x1080M@60,if=RGB24,bpp=32 console=ttymxc0,115200n8 console=tty1 consoleblank=0
+```
 ##### uEnv.txt
 
 If the uEnv.txt patch was applied when building U-Boot, create uEnv.txt in the boot partition or directory:
 
 **`uEnv.txt`**
 
+```
+uname_r=4.10.5-armv7-x1
+cmdline=video=HDMI-A-1:1024x768 net.ifnames=0 cma=384M console=tty1
+fdtfile=imx6q-cubox-i.dtb
+```
 Adjust the video argument to match the display.
 
 #### SolidRun
@@ -378,6 +424,10 @@ If you use the SolidRun U-Boot from this wiki you can use the default settings a
 
 **`uEnv.txt`**
 
+```
+bootfile=zImage
+mmcargs=setenv bootargs root=/dev/mmcblk1p2 rootfstype=ext4 rootwait rootflags=compress console=ttymxc0,115200n8 video=1920x1080M@60 init=/sbin/init
+```
 These two lines should be enough to boot the kernel. The U-Boot from this wiki can boot a zImage directly (no conversion to uImage necessary). The zImage and the \*.dtb file have to reside in the root folder of this partition next to the uEnv.txt. The second line contains the kernel flags (for example the root).
 
 If you have no console output on your screen during boot, try `console=tty1`

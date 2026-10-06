@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Gentoo_developer_side-projects
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-02-08"
-fingerprint: "74afff425f932334"
+fingerprint: "70afbf425f932334"
 license: CC BY-SA 4.0
 ---
 
 # Gentoo developer side-projects
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

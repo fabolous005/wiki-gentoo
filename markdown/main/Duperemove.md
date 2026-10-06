@@ -5,15 +5,19 @@ url: https://wiki.gentoo.org/wiki/Duperemove
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-07-10"
-fingerprint: "87064af912a65761"
+fingerprint: "97062ef912a65761"
 license: CC BY-SA 4.0
 ---
 
 # Duperemove
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 Duperemove is a [btrfs](https://wiki.gentoo.org/wiki/Btrfs) and [XFS](https://wiki.gentoo.org/wiki/XFS) tool for finding duplicated extents and submitting them to the kernel for [deduplication](https://wiki.gentoo.org/wiki/Deduplication).
 

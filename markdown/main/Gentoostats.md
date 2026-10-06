@@ -15,11 +15,15 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+**Deprecated article**
+
 This article is **deprecated (obsolete)**. Contents are <u>no longer relevant</u>, and are intended for historical reference only!
 
 TLDR:
 
 **Do not use this article!**
+
+**Resources**
 
 [**gentoostats**](https://soc.dev.gentoo.org/gentoostats/static/about.html) can collect several statistics from Gentoo machines. It was a [Google Summer of Code 2011 project](https://www.google-melange.com/gsoc/project/google/gsoc2011/vh4x0r/26001).
 

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Chrony_with_hardware_timestamping
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2020-08-23"
-fingerprint: c6820d5c51060f76
+fingerprint: c6800d5cd1060f76
 license: CC BY-SA 4.0
 ---
 
@@ -37,6 +37,13 @@ When dealing with hardware clocks, it is necessary to enable support for them in
 
 In addition to the PTP-clock support itself, check the configuration options available for the system's NIC drivers - for some (e.g. Cadence MACB/GEM, *macb*) hardware timestamping has to be explicitly enabled, for some others (e.g. Intel PRO/1000 PCIe, *e1000e*) there are switches for additional timestamping-related features. Alternatively, when building a kernel for a KVM guest, enable CONFIG\_PTP\_1588\_CLOCK\_KVM. Last but not least, set up network PHY device support for the line of adapters if not yet completed.
 
+```
+PTP Clock Support
+  PTP Clock Support
+  KVM virtual PTP clock
+Network device support
+  PHY Device support and infrastructure
+```
 After rebooting to the new kernel verify access to the NIC clocks by emerging [sys-apps/ethtool](https://packages.gentoo.org/packages/sys-apps/ethtool) and running ethtool -T. Example for an interface with all the required features:
 
 `root #``ethtool -T eth2````

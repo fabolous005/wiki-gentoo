@@ -5,15 +5,19 @@ url: https://wiki.gentoo.org/wiki/Gold
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-04-14"
-fingerprint: b955bd9813a33f0f
+fingerprint: "9955bd9853a37f0f"
 license: CC BY-SA 4.0
 ---
 
 # Gold
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 GNU **gold** is a linker intended as a replacement for the ld.bfd linker.
 
@@ -23,7 +27,7 @@ The two installed linkers are available directly as ld.bfd and ld.gold respectiv
 
 Gold can be enabled by setting the `gold` USE flag for [sys-devel/binutils](https://packages.gentoo.org/packages/sys-devel/binutils). Additionally, setting `default-gold` will make ld.gold the default linker.
 
-**`/etc/portage/package.use/gold`**
+FILE **`/etc/portage/package.use/gold`**
 
 ```
 # enable gold and set it as default

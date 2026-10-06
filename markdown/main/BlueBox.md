@@ -124,6 +124,7 @@ Install BlueBox git source into top level root of web server:
 `root #````
 cd /var/www/localhost/htdocs
 ```
+`root #``git clone` [https://github.com/2600hz/bluebox.git](https://github.com/2600hz/bluebox.git)
 `root #````
 chown -R freeswitch:freeswitch /var/www/localhost/htdocs/bluebox
 ```

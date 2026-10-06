@@ -321,17 +321,17 @@ CHOST="armv7a-hardfloat-linux-gnueabi"
 **`/etc/portage/package.use/00input`**
 
 ```
- INPUT_DEVICES: evdev keyboard
+*/* INPUT_DEVICES: evdev keyboard
 ```
 **`/etc/portage/package.use/00video`**
 
 ```
- VIDEO_CARDS: -* v4l
+*/* VIDEO_CARDS: -* v4l
 ```
 **`/etc/portage/package.use/00local`**
 
 ```
-  LINGAS: en
+*/*  LINGAS: en
 ```
 
 I have enabled ccache to speed up build times and help the microSD. Since we have a quad-core i have set the -j4 to speed up make. I had to disable sandbox because some packages will not build on ARM. The various useflags are just an example, adapt to your needs. Of course, you need to *emerge ccache* and enable it too. 

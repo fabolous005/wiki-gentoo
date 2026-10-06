@@ -5,15 +5,21 @@ url: https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2013/Ideas/Gentoolkit
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2018-11-09"
-fingerprint: f6d191e44ab515f9
+fingerprint: f6c991e44ab515f9
 license: CC BY-SA 4.0
 ---
 
 # Google Summer of Code/2013/Ideas/Gentoolkit
 
+From Gentoo Wiki
+
+\< [Google Summer of Code](https://wiki.gentoo.org/wiki/Google_Summer_of_Code) | [2013](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2013) | [Ideas](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2013/Ideas)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+## [Gentoolkit]
 
 #### Improvements to gentoolkit
 

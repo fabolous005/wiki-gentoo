@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Complete_Virtual_Mail_Server/Courier-IMAP_to_D
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-05-06"
-fingerprint: a601291a778431f7
+fingerprint: a601291a7f8433f5
 license: CC BY-SA 4.0
 ---
 
@@ -25,6 +25,11 @@ To use POP3, which is explicitly discouraged, see [Complete Virtual Mail Server/
 
 [net-mail/courier-imap](https://packages.gentoo.org/packages/net-mail/courier-imap) has a few USE flags that need to be examined. [net-libs/courier-authlib](https://packages.gentoo.org/packages/net-libs/courier-authlib) is an important dependency as it is responsible for how users authenticate, so it's USE flags are examined as well.
 
+
+### USE flags for
+            [net-libs/courier-authlib](https://packages.gentoo.org/packages/net-libs/courier-authlib)
+            
+            Courier authentication library
 
 | [berkdb](https://packages.gentoo.org/useflags/berkdb) | Add support for sys-libs/db (Berkeley DB) | 
 | [debug](https://packages.gentoo.org/useflags/debug) | Enable extra debug codepaths, like asserts and extra output. If you want to get meaningful backtraces see https://wiki.gentoo.org/wiki/Project:Quality\_Assurance/Backtraces | 
@@ -53,6 +58,47 @@ Courier-authlib runs as root, so access to the socket will be permitted by defau
 
 **Obtain access to the database**
 
+```
+##NAME: LOCATION:0
+# PGSQL_HOST		pgsql.example.com
+PGSQL_PORT		5432
+PGSQL_USERNAME		postfix
+PGSQL_PASSWORD		$password
+ 
+##NAME: PGSQL_DATABASE:0
+PGSQL_DATABASE		postfix
+ 
+##NAME: PGSQL_USER_TABLE:0
+PGSQL_USER_TABLE	mailbox
+ 
+##NAME: PGSQL_CRYPT_PWFIELD:0
+PGSQL_CRYPT_PWFIELD	password
+ 
+##NAME: PGSQL_UID_FIELD:0
+PGSQL_UID_FIELD		'5000'
+ 
+##NAME: PGSQL_GID_FIELD:0
+PGSQL_GID_FIELD		'5000'
+ 
+##NAME: PGSQL_LOGIN_FIELD:0
+PGSQL_LOGIN_FIELD	local_part
+ 
+##NAME: PGSQL_HOME_FIELD:0
+PGSQL_HOME_FIELD	'/var/vmail/'
+ 
+##NAME: PGSQL_NAME_FIELD:0
+PGSQL_NAME_FIELD	name
+ 
+##NAME: PGSQL_MAILDIR_FIELD:0
+PGSQL_MAILDIR_FIELD	maildir
+ 
+##NAME: PGSQL_QUOTA_FIELD:0
+# PGSQL_QUOTA_FIELD	quota
+ 
+##NAME: PGSQL_WHERE_CLAUSE:0
+# Deal only with active mail accounts.
+PGSQL_WHERE_CLAUSE      active='1'
+```
 If logins are used in the syntax of `user@domain.com` instead of `username`, the value of `PGSQL_LOGIN_FIELD` needs to be changed from `local_part` to `username`.
 
 To use more advanced authentication, SQL statements the `PGSQL_SELECT_CLAUSE` can be used. Courier-authlib will ignore any of the previous set parameters for SELECT statements, but will use them for counting the number of accounts or for changing the password and thus when changing the password the username field is still used. If authentication is done against username remember that usernames need to be unique:
@@ -61,6 +107,12 @@ To use more advanced authentication, SQL statements the `PGSQL_SELECT_CLAUSE` ca
 
 **Obtain custom access to the database**
 
+```
+PGSQL_SELECT_CLAUSE	SELECT local_part, password, '', '5000', '5000',	\
+			'/var/vmail/', maildir, quota, name, ''		 	\
+			FROM mailbox WHERE local_part='$(local_part)'	 	\
+			AND active='1'
+```
 #### MySQL
 
 Next, reconfigure the authentication to use the mailsql database in courier-imap and postfix. In all of the following examples, replace `$password` with the password set for the mailsql mysql user:
@@ -69,6 +121,22 @@ Next, reconfigure the authentication to use the mailsql database in courier-imap
 
 **Configuring authentication**
 
+```
+MYSQL_SERVER            localhost
+MYSQL_USERNAME       mailsql
+MYSQL_PASSWORD      $password
+MYSQL_DATABASE          mailsql
+MYSQL_USER_TABLE        users
+## (Make sure the following line is commented out since we're storing plaintext.)
+#MYSQL_CRYPT_PWFIELD    crypt
+MYSQL_CLEAR_PWFIELD     clear
+MYSQL_UID_FIELD         uid
+MYSQL_GID_FIELD         gid
+MYSQL_LOGIN_FIELD       email
+MYSQL_HOME_FIELD        homedir
+MYSQL_NAME_FIELD        name
+MYSQL_MAILDIR_FIELD     maildir
+```
 Reload the necessary services:
 
 `root #````
@@ -85,12 +153,26 @@ Authdaemon is actually responsible for doing the authentication. Here authdaemon
 
 **Verify authentication modules**
 
+```
+##NAME: authmodulelist:2
+authmodulelist="authpgsql "
+ 
+##NAME: DEBUG_LOGIN:0
+DEBUG_LOGIN=1
+```
 #### MySQL
 
 **`/etc/courier/authlib/authdaemonrc`**
 
 **Verify authentication modules**
 
+```
+##NAME: authmodulelist:2
+authmodulelist="authmysql authpam"
+ 
+##NAME: DEBUG_LOGIN:0
+DEBUG_LOGIN=1
+```
 ### Access permissions
 
 Permissions must be set correctly, as the files can contain sensitive password information:
@@ -127,6 +209,26 @@ IMAP has a few *capabilities* that can be enabled:
 
 **Enable imapd and some options**
 
+```
+##NAME: IMAP_CAPABILITY:1
+IMAP_CAPABILITY="IMAP4rev1 UIDPLUS CHILDREN NAMESPACE THREAD=ORDEREDSUBJECT THREAD=REFERENCES SORT QUOTA IDLE"
+ 
+##NAME: IMAP_CHECK_ALL_FOLDERS:0
+IMAP_CHECK_ALL_FOLDERS=1
+ 
+##NAME: IMAP_ENHANCEDIDLE:0
+IMAP_ENHANCEDIDLE=1
+ 
+##NAME: IMAP_EMPTYTRASH:0
+IMAP_EMPTYTRASH=Trash:40,Junk:7
+ 
+##NAME: IMAPDSTART:0
+IMAPDSTART=YES
+ 
+##NAME: MAILDIRPATH:0
+MAILDIR=.maildir
+MAILDIRPATH=.maildir
+```
 Some clients need a minimum DH parameter length of 2048 bits (such as those using >=dev-libs/nss-3.19.1). Generate one with:
 
 `root #``DH_BITS=2048 mkdhparams`
@@ -136,6 +238,9 @@ Next ensure Courier is using it:
 
 **Ensure Courier is using our dhparams.pem**
 
+```
+TLS_DHPARAMS=/usr/share/dhparams.pem
+```
 ## Testing IMAP
 
 Courier-imapd should be started:
@@ -165,3 +270,8 @@ Turn off debugging if this stage works properly.
 **`/etc/courier/authlib/authdaemonrc`**
 
 **Disable debugging**
+
+```
+##NAME: DEBUG_LOGIN:0
+DEBUG_LOGIN=0
+```

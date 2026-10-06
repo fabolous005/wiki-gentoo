@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Gentoo_Alt/Contributor%27s_Guide
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2017-04-20"
-fingerprint: "91bdded3fab2636f"
+fingerprint: "113ddff3da92636f"
 license: CC BY-SA 4.0
 ---
 
@@ -16,6 +16,8 @@ From Gentoo Wiki
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Deprecated article**
 
 As of **April 20, 2017**, this article is **deprecated (obsolete)**. Contents are <u>no longer relevant</u>, and are intended for historical reference only!
 

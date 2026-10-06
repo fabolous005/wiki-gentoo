@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/7-Zip
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-07-19"
-fingerprint: d59f3a0a6501d9e1
+fingerprint: d59f3aca6581d9e1
 license: CC BY-SA 4.0
 ---
 
 # 7-Zip
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -21,6 +23,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [app-arch/7zip](https://packages.gentoo.org/packages/app-arch/7zip)
+            
+            Free file archiver for extremely high compression
 
 ### Emerge
 

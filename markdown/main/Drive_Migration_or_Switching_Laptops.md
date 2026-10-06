@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Drive_Migration_or_Switching_Laptops
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-10-01"
-fingerprint: "3d951fb244df9dce"
+fingerprint: "7d951fb244df9dce"
 license: CC BY-SA 4.0
 ---
 
 # Drive Migration or Switching Laptops
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -31,7 +33,7 @@ eselect profile list
 
 Set these in /etc/portage/make.conf:
 
-**`/etc/portage/make.conf`**
+FILE **`/etc/portage/make.conf`**
 
 ```
 # Architecture level — override per target

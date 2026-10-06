@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/FAQ
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-02-28"
-fingerprint: "90819a5a45a3b30c"
+fingerprint: "9481ba5a45a3330e"
 license: CC BY-SA 4.0
 ---
 
@@ -15,15 +15,25 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+**outdated**. You can help the Gentoo community by verifying and
+
+[updating this article](https://wiki.gentoo.org/index.php?title=FAQ&action=edit).
+
 This **FAQ** is a collection of common questions about Gentoo, along with their corresponding answers.
 
 Please note that this document is just a quick reference for some common questions - many of these questions are answered more fully in the official [Gentoo documentation](https://wiki.gentoo.org/wiki/Main_Page#Documentation_topics), on this wiki.
 
 These questions are often collected from the [gentoo-dev](https://archives.gentoo.org/gentoo-dev/) mailing list and from [Gentoo channels](https://www.gentoo.org/get-involved/irc-channels/all-channels.html) on [Internet Relay Chat (IRC)](https://wiki.gentoo.org/wiki/IRC).
 
+## About Gentoo
+
+### How is Gentoo pronounced, and what does it mean?
+
 *Gentoo* ([/ˈdʒɛntuː/](https://en.wikipedia.org/wiki/Help:IPA/English)) is pronounced "gen-too" (the "g" in "Gentoo" is a soft "g", as in "gentle").
 
 The Gentoo Linux distribution takes it's name from the [Gentoo penguin](https://en.wikipedia.org/wiki/Gentoo_penguin), who's scientific name is *Pygoscelis papua*. The name *Gentoo* was given to the penguin by the inhabitants of the [Falkland Islands](https://en.wikipedia.org/wiki/Falkland_Islands).
+
+### What makes Gentoo different?
 
 Gentoo uses a [BSD ports](https://en.wikipedia.org/wiki/Ports_collection)-like system called [Portage](https://wiki.gentoo.org/wiki/Project:Portage) - a package management system that allows **great flexibility** installing, maintaining, and updating software. Portage provides **compile-time option support** via [USE flags](https://wiki.gentoo.org/wiki/Handbook:AMD64/Working/USE), conditional dependencies, safe installation of software through sandboxing, use-case adaptable defaults thanks to [system profiles](<https://wiki.gentoo.org/wiki/Profile_(Portage)>), and [configuration file protection](https://wiki.gentoo.org/wiki/Handbook:AMD64/Portage/Variables#Configuration_file_protection) - amongst many other [features](https://wiki.gentoo.org/wiki/Handbook:AMD64/Working/Features). All this functionality comes together to make Gentoo a very adaptable operating system, that can conveniently be tailored to any specific usage when needed, but when left in the default configuration will yield a simple, "sane default", environment.
 
@@ -35,6 +45,10 @@ Gentoo strives to do things in the simplest possible way, and core Gentoo princi
 
 Gentoo is very actively maintained, and the entire distribution uses a rapidly-paced development and distribution method, termed **[rolling release](https://wiki.gentoo.org/wiki/FAQ#Can_I_upgrade_Gentoo_from_one_release_to_another_without_reinstalling.3F)**: new and updated packages are frequently added to the [Gentoo ebuild repository](https://wiki.gentoo.org/wiki/Ebuild_repository#The_Gentoo_ebuild_repository), relevant patches are rapidly applied, documentation is updated on a daily basis, and Portage features are added frequently. The fast turnaround cycle does not compromise on quality: packages start life in the [testing branch](https://wiki.gentoo.org/wiki/Handbook:AMD64/Portage/Branches#Testing) and are only moved into [stable](https://wiki.gentoo.org/wiki/Handbook:AMD64/Portage/Branches#Stable) once proved to be reliable; generally the transition time target is a 30 days or less.
 
+## Installation
+
+### Things are really unstable when using '-O9 -ffast-math -fomit-frame-pointer' optimizations. What gives?
+
 While Portage optimizes compilation to a specific processor according to the `CFLAGS`/`CXXFLAGS` setting, anything other than the defaults for a given processor risk issues and even performance *loss*. The goal of the Gentoo project has never specifically been to permit low level optimization, even if its architecture does lend itself to this.
 
 Any required `CFLAGS` should be set on a per-package basis, system-wide optimization above defaults is not recommended.
@@ -45,7 +59,11 @@ Please try to compile using `-O2 -march=native` with `CFLAGS`/`CXXFLAGS` before 
 
 See the [GCC optimization](https://wiki.gentoo.org/wiki/GCC_optimization) article for more details.
 
+### How do I change the root (or any other user's) password?
+
 Use the passwd command to change the password for the user that is logged in. The root user can change another user's password by issuing the command passwd username. For extra options and settings, see passwd's manual page ([passwd(1)](https://man.archlinux.org/man/passwd.1.en)[).](https://wiki.gentoo.org/wiki/Special:MyLanguage/man_page)
+
+### How do I add a normal user?
 
 The command useradd larry will add a user called "larry". However, this method does not give the user many of the rights needed to work properly on the system, so the following command is preferred:
 
@@ -56,14 +74,20 @@ This will add a user called "larry". The `-m` option creates a home directory. T
 - `audio` which allows the user to access sound devices
 - `wheel` which allows the user to execute the su command to gain root privileges (if they know the root password)
 
+### Why can't a user su to root?
+
 For security reasons, users may only su to root if they belong to the wheel group. To add larry to the wheel group, issue the following command as root:
 
 `root #``gpasswd -a larry wheel`
+### Can I upgrade Gentoo from one release to another without reinstalling?
+
 There are no Gentoo releases, packages are updated continually: it is a **[rolling release](https://en.wikipedia.org/wiki/rolling_release)** distribution (not to be confused with "*bleeding edge*" - Gentoo is stable by default).
 
 Gentoo packages get updates every day, and though important core packages will be updated from time to time, and new profiles created, there are no specific events that could be termed *versions, releases, editions, variants* etc. Each time the system is [upgraded](https://wiki.gentoo.org/wiki/Upgrading_Gentoo), everything will be "up to date".
 
 A well-maintained, regularly-updated, installation should never need reinstalling.
+
+### My kernel does not boot, what should I do now?
 
 It isn't obligatory to redo every step of the installation. However, investigating the kernel and all associated steps is necessary. Suppose that Gentoo is installed to the following partition scheme /dev/sda1 being /boot, /dev/sda3 being rootfs (/), and /dev/sda2 being swap space.
 
@@ -139,6 +163,8 @@ Please see [this article](https://wiki.gentoo.org/wiki/Knowledge_Base:Recovering
 
 If, on the other hand, the problem lies with the bootloader configuration, follow the same steps, but instead of configuring and compiling the kernel, reconfigure the bootloader (recompilation of the bootloader is usually not necessary).
 
+### My proxy requires authentication, what do I have to do?
+
 To have Portage automatically use this scheme, define it in /etc/portage/make.conf:
 
 **`/etc/portage/make.conf`**
@@ -151,6 +177,8 @@ ftp_proxy="ftp://username:password@yourproxybox.org:portnumber"
 RSYNC_PROXY="rsync://username:password@yourproxybox.server:portnumber"
 ```
 Keep in mind that the proxy server must support the `CONNECT` method for the rsync port(s).
+
+### How do I burn an ISO file?
 
 ISO files must be burned to an optical disk in raw mode - this means the image should **not** just be "placed" on the disk as a file, but interpreted as the entire disk, with the aid of specialized ISO burning software. Most CD/DVD writing software will be capable of mastering an ISO file to a disk. Use whatever is at hand on systems available to burn a disk, and consult the documentation relevant to that software.
 
@@ -166,6 +194,8 @@ There are lots of optical media burning tools available to make a disk from an I
 
 - With Mac OS X Panther, and later, launch [Disk Utility](https://en.wikipedia.org/wiki/Disk_Utility) from Applications/Utilities, select Open from the Images menu, select the mounted disk image in the main window and select Burn in the Images menu.
 
+### What ISO or stage file should I use for my CPU?
+
 First find out what CPU is in the system Gentoo is to be installed on (for instance a Pentium-M). Next find out what CPU type it is compatible with (instruction-wise) to find a proper match with Gentoo's ISO or [stages](https://wiki.gentoo.org/wiki/Stage_file). Consulting the CPU's vendor website for this information usually works, although querying a search engine of choice is usually more efficient.
 
 When uncertain, take a "lower" ISO or stage file, for instance a i686 or even generic x86 (or the equivalent in the system's arch). This will ensure that the system will work, but may not be as fast as further optimizations.
@@ -173,6 +203,8 @@ When uncertain, take a "lower" ISO or stage file, for instance a i686 or even ge
 Please note that many more options exist than those for which Gentoo builds binary stages. Please see the [GCC guide](https://gcc.gnu.org/onlinedocs/gcc-12.1.0/gcc/x86-Options.html) for setting the `-march` flag.
 
 The Handbook has further information on [selecting the correct stage file](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/Stage#Choosing_a_stage_file) and [choosing the right installation medium](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/Media#Gentoo_Linux_installation_media).
+
+### The Internet does not work after rebooting. What is wrong?
 
 First follow standard troubleshooting practices (cables, routers working etc.).
 
@@ -186,7 +218,11 @@ Information on how to rescue the system using the installation CD is available [
 
 The Handbook contains information on [network setup](https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Networking), while the wiki has information on [Ethernet](https://wiki.gentoo.org/wiki/Ethernet), [WiFi](https://wiki.gentoo.org/wiki/Wifi), and [network management](https://wiki.gentoo.org/wiki/Network_management).
 
+### Can I dual boot with Windows or other operating systems?
+
 Yes! Probably the fastest way to do so is to install GRUB with [sys-boot/os-prober](https://packages.gentoo.org/packages/sys-boot/os-prober). Read about it in the [GRUB article](https://wiki.gentoo.org/wiki/GRUB) and specifically about dual booting with GRUB [here](https://wiki.gentoo.org/wiki/GRUB#Additional_software).
+
+### Attempting to boot Windows from GRUB Legacy or LILO only shows a black screen. What should I do?
 
 This is a known problem and only applies to older bootloaders such as [GRUB Legacy](https://wiki.gentoo.org/wiki/GRUB_Legacy) and [LILO](https://wiki.gentoo.org/wiki/LILO). Windows refuses to boot when it is not installed on the first hard drive and shows a black/blank screen. To handle this, it is necessary to "fool" Windows into believing that it is installed on the first hard drive with a little tweak in the boot loader configuration. Please note that in the below example, Gentoo is installed on /dev/sda (first disk) and Windows on /dev/sdb (second disk). Adjust the configuration as needed:
 
@@ -194,11 +230,29 @@ This is a known problem and only applies to older bootloaders such as [GRUB Lega
 
 **Example dual boot entry for Windows in grub.conf**
 
+```
+title Windows XP
+     map (hd1) (hd0)
+     map (hd0) (hd1)
+     rootnoverify (hd1,0)
+     chainloader +1
+```
 **`/etc/lilo.conf`**
 
 **Example dual boot entry for Windows in lilo.conf**
 
+```
+other=/dev/sdb1
+     label=WindowsXP
+     table=/dev/sdb
+     map-drive = 0x80
+     to = 0x81
+     map-drive = 0x81
+     to = 0x80
+```
 This will make Windows believe it is installed on the first hard drive and boot without problems. More information can be found in official [GRUB documentation](https://www.gnu.org/software/grub/) and in man lilo.conf.
+
+### How do I install Gentoo using a stage1 or stage2 file?
 
 The Gentoo Handbook only describes a Gentoo installation using a [stage3 file](https://wiki.gentoo.org/wiki/Stage_file#Stage_3). Stage1 and stage2 files are for development purposes only (the [Release Engineering](https://wiki.gentoo.org/wiki/Project:RelEng) team starts from a stage1 file to obtain a stage3) and should not be used by users. A stage3 file can very well be used to bootstrap the system. A working Internet connection is a requirement.
 
@@ -216,25 +270,43 @@ Next, rebuild all core system packages with the newly built toolchain. We need t
 `root #``emerge -e @system`
 Now continue with *Configuring the Kernel*.
 
+## Package management
+
+### In what form are the packages stored?
+
 Packages are not "stored" per se. Instead, Gentoo provides a set of scripts which can resolve dependencies, fetch source code, and compile a version of the package tailored to the user's needs. Generally Gentoo only builds binaries for releases and snapshots. The [Gentoo Developer Manual](https://devmanual.gentoo.org/ebuild-writing/index.html) covers the contents of an ebuild script in detail.
 
 For full ISO releases, a full suite of binary packages will be created using an enhanced .tbz2 format, which is .tar.bz2 compatible with meta-information attached to the end of the file. These can be used to install a working (though not fully optimized) version of the package quickly and efficiently.
 
 It is possible to create RPMs (Red Hat package manager files) using Gentoo's Portage, but it is not currently possible to use existing RPMs to install packages.
 
+### I want to perform the ./configure step myself. Can I?
+
 Yes, but it is not trivial, nor is it recommended. Since the method to do this requires a good understanding of Portage internals and commands, it is instead recommended that the ebuild is patched to do whatever it is that the user wants and place it in a Portage overlay (that is why overlays exist). This is *much* better for maintainability, and usually easier. See the [Gentoo Developer Manual](https://devmanual.gentoo.org/ebuild-writing/index.html) for more information.
 
+### What if rsync does not work for me?
+
 When behind a firewall that does not permit rsync traffic through port 873, the emerge-webrsync command can be used to fetch and install a Portage snapshot through regular HTTP. See [this section](https://wiki.gentoo.org/wiki/FAQ#My_proxy_requires_authentication.2C_what_do_I_have_to_do.3F) for information on downloading source files and Portage snapshots via a proxy.
+
+### I have a slow (or no) Internet connection at home. Can I download sources somewhere else and add them to my system?
 
 It is *possible* to download packages manually and copy them to an appropriate location to be used for installation, however this can be a very tedious process.
 
 Run emerge --pretend package/atom to see what programs are going to be installed. To find out the sources for those packages, and where to download the sources from, run emerge -fp package/atom. Download sources and bring them on any media home. Put the sources into the /var/cache/distfiles/ folder and then simply run emerge package/atom.
 
+### Source distfiles are collecting in /var/cache/distfiles/. Is it safe to delete these files?
+
 Deleting these files will have no negative impact on day-to-day performance. However, it might be wise to keep the most recent version of the files; often several ebuilds will be released for the same version of a specific piece of software. If the archive is deleted and the software is upgraded or rebuilt it will be necessary to download them from the Internet again.
 
 Use the [eclean](https://wiki.gentoo.org/wiki/Eclean) script from [app-portage/gentoolkit](https://packages.gentoo.org/packages/app-portage/gentoolkit) to manage the contents of /var/cache/distfiles/ and a few other locations. Please read [eclean(1)](https://man.archlinux.org/man/eclean.1.en) [man-page to learn more about its usage, as well as the](https://wiki.gentoo.org/wiki/Special:MyLanguage/man_page) [Gentoolkit article](https://wiki.gentoo.org/wiki/Gentoolkit).
 
+### What is in /var/tmp/portage? Is it safe to delete the files and directories in /var/tmp/portage?
+
 During compilation, Gentoo saves the sources of the package in /var/tmp/portage (or in $PORTAGE\_TMPDIR/portage if the default is changed). These files and folder are usually deleted upon a successful emerge, but this sometimes fails. It is safe to clean out all contents of this directory *if* the emerge command is not running. Be sure to always pgrep emerge before cleaning out this directory.
+
+## Usage
+
+### How do I set up an International keyboard layout?
 
 Edit the `keymap` variable in /etc/conf.d/keymaps. To have console working correctly with extended characters in the keymap, it might be necessary to set the `consolefont` and `consoletranslation` variables  in the /etc/conf.d/consolefont file (for further information on localizing the environment, refer to the [localization guide](https://wiki.gentoo.org/wiki/Localization/Guide)). Then, issue a reboot, or restart the keymaps and consolefont scripts:
 
@@ -246,14 +318,20 @@ Edit the `keymap` variable in /etc/conf.d/keymaps. To have console working corre
 ```
 See [keyboard layout switching](https://wiki.gentoo.org/wiki/Keyboard_layout_switching) for more information.
 
+### DNS name resolution works for root only
+
 /etc/resolv.conf has the wrong permissions; fix it as follows:
 
 `root #``chmod 0644 /etc/resolv.conf`
 See also [resolv.conf](https://wiki.gentoo.org/wiki/Resolv.conf).
 
+### Why can't my user use their own crontab?
+
 Add that user to the cron group:
 
 `root #``gpasswd -a <username> cron`
+### How do I get numlock to start on boot?
+
 The following command will add the numlock service to the default runlevel, enabling numlock at boot:
 
 `root #````
@@ -262,19 +340,29 @@ rc-update add numlock default
 `root #``/etc/init.d/numlock start`
 Each GUI provides different tools for this sort of thing; please check the help section or online manuals for the GUI of choice for further assistance.
 
+### How do I have my terminal cleared when I log out?
+
 To have the terminal cleared, add the clear command to the user's \~/.bash\_logout script:
 
 `user $``echo clear >> ~/.bash_logout`
 To have this happen automatically when adding a new user, do the same for the /etc/skel/.bash\_logout file:
 
 `root #``echo clear >> /etc/skel/.bash_logout`
+## Development
+
+### Where can I report bugs?
+
 Use the [Bugzilla](https://bugs.gentoo.org) site to report bugs. Visit [#gentoo](ircs://irc.libera.chat/#gentoo) ([webchat](https://web.libera.chat/#gentoo)) on the Libera.Chat IRC network and ask around if it is unclear whether an issue is really a bug or not.
 
 There are a couple of guides for reporting bugs on the wiki: [Bugzilla/Bug report guide](https://wiki.gentoo.org/wiki/Bugzilla/Bug_report_guide) and [Bugzilla/Guide](https://wiki.gentoo.org/wiki/Bugzilla/Guide). See also the [support](https://wiki.gentoo.org/wiki/Support) article.
 
+### How often are new releases made?
+
 Gentoo's packages are usually updated shortly after the upstream authors release new code, see [this section](https://wiki.gentoo.org/wiki/FAQ#Can_I_upgrade_Gentoo_from_one_release_to_another_without_reinstalling.3F) for more information.
 
 The [Release Engineering Project](https://wiki.gentoo.org/wiki/Project:RelEng) page, the [gentoo-announce](https://archives.gentoo.org/gentoo-announce/) mailing list, and the [Gentoo ebuild repository news items](https://www.gentoo.org/support/news-items/) provide information on important changes to Gentoo Linux.
+
+### My speaker beeps like crazy. How do I disable console beeps?
 
 Console beeps can be turned off using setterm, like this:
 
@@ -286,13 +374,23 @@ Replace /dev/vc/1 with the terminal for which console beeps need to be disabled.
 
 See [this article](https://wiki.gentoo.org/wiki/PC_speaker#How_do_I_mute_the_PC_speaker.3F) for more details.
 
+## Trivia
+
+### Why is the letter 'e' in the name of many Gentoo-specific tools and functions?
+
 The 'e' became a thing because Gentoo originally started as Enoch Linux. Many of Gentoo's tools and function names maintained the prefix 'e' for this reason.
 
 Here's a quote from  [Daniel Robbins (Daniel Robbins)](https://wiki.gentoo.org/wiki/User:Daniel_Robbins) : "I think the 'e' likely came from enoch, and was picked as a single-character prefix in the vein of the 'iMac', which was initially released in August 1998. Enoch began in early 1999. (see [https://www.funtoo.org/Funtoo\_Linux\_History](https://www.funtoo.org/Funtoo_Linux_History))."
 
+## Resources
+
+### Can I buy a CD or DVD release of Gentoo Linux?
+
 Most stores have stopped offering CDs and DVDs. With the short window between Gentoo ISO releases and technological advancements (especially higher internet bandwidth for the masses) these forms of installation media are now artifacts of history. Bootable media are readily available on the mirrors and accessible via [the downloads page](https://www.gentoo.org/downloads/).
 
 Licensed stores for official merchandise of other types are listed on the [stores page](https://www.gentoo.org/inside-gentoo/stores/).
+
+### This FAQ has not answered my question. What do I do now?
 
 A good first step is to browse through the relevant [documentation](https://www.gentoo.org/support/documentation/), on the [Gentoo wiki](https://wiki.gentoo.org/wiki/Main_Page), in [man pages](https://wiki.gentoo.org/wiki/Man_page), [Info](https://wiki.gentoo.org/wiki/Info), [/usr/share/doc/](https://wiki.gentoo.org/wiki//usr/share/doc/), etc. Many commands also support the --help or -h switches.
 

@@ -15,6 +15,8 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+**Resources**
+
 This article provides a list of desktop environments available in Gentoo.
 
 A **desktop environment** is a [complete ecosystem of software and resources](https://en.wikipedia.org/wiki/Desktop_environment) providing a homogeneous graphical user experience. Generally based on specific [graphical widgets](https://en.wikipedia.org/wiki/Graphical_widget), configuration system, [root window](https://en.wikipedia.org/wiki/Root_window) with desktop background, [taskbar](https://en.wikipedia.org/wiki/Taskbar) with window list and menu, icons, [window manager](https://wiki.gentoo.org/wiki/Window_manager) etc. It provides a coherent visual metaphor for a user to interact with the computer.
@@ -54,4 +56,4 @@ These packages are available from third party repositories, they are not officia
 ## See also
 
 - [Display manager](https://wiki.gentoo.org/wiki/Display_manager) — presents the user with a graphical login screen to start a GUI session, either [X](https://wiki.gentoo.org/wiki/Xorg) or [Wayland](https://wiki.gentoo.org/wiki/Wayland).
-- [Window manager](https://wiki.gentoo.org/wiki/Window_manager) — manages the creation, manipulation, and destruction of on-screen windows and window decorations in [Xorg](https://wiki.gentoo.org/wiki/Xorg).
+- [Window manager](https://wiki.gentoo.org/wiki/Window_manager) — manages the creation, manipulation, and destruction of on-screen windows and window decorations in a GUI environment.

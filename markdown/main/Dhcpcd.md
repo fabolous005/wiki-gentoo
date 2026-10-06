@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Dhcpcd
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-03-02"
-fingerprint: "9a5b691d199a89cd"
+fingerprint: "9afb695d1d9a89cd"
 license: CC BY-SA 4.0
 ---
 
@@ -22,6 +22,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [net-misc/dhcpcd](https://packages.gentoo.org/packages/net-misc/dhcpcd)
+            
+            A fully featured, yet light weight RFC2131 compliant DHCP client
 
 | [+embedded](https://packages.gentoo.org/useflags/+embedded) | Embed the definitions of dhcp options in the dhcpcd executable | 
 | [+udev](https://packages.gentoo.org/useflags/+udev) | Enable virtual/udev integration (device discovery, power and storage device support, etc) | 
@@ -47,16 +52,40 @@ In case the network interface card should be configured with a [static IP addres
 
 **`/etc/dhcpcd.conf`**
 
+```
+static ip_address=192.168.0.10/24
+static routers=192.168.0.1
+static domain_name_servers=192.168.0.1
+```
 ### Static values for domain/search in resolv.conf
 
 **`/etc/dhcpcd.conf`**
 
+```
+static domain_name=mynetwork
+static domain_search=mynetwork
+```
 ### IPv6 Prefix Request
 
 **`/etc/dhcpcd.conf`**
 
 **Request a prefix for*eth0.lan* and *eth0.management* to be routed publicly with *eth0.wan*.**
 
+```
+# Disable router solicitations for all interfaces, enable only for selected ones
+noipv6rs
+ 
+# Interface configuration for the wan vlan on the eth0 interface
+interface eth0.wan
+  # Enable router solicitation for this interface
+  ipv6rs
+  # Request a normal address using iaid 1 for interface eth0.wan
+  ia_na 1
+  # Request a prefix using iaid 2 and assign it to the eth0.lan interface using sla_id 0 and prefix size of 64
+  ia_pd 2 eth0.lan/0/64
+  # Request a prefix using iaid 3 and assign it to the eth0.management interface using sla_id 0 and prefix size of 64
+  ia_pd 3 eth0.management/0/64
+```
 ## Usage
 
 ### Invocation
@@ -123,3 +152,5 @@ To release a lease on enp1s0, **--release** or **-k** can be used:
 - [RFC 2131 - Dynamic Host Configuration Protocol](https://tools.ietf.org/html/rfc2131)
 
 ## References
+
+1. ↑ <sup>[1.0](https://wiki.gentoo.org#cite_ref-manpage_1-0)</sup> <sup>[1.1](https://wiki.gentoo.org#cite_ref-manpage_1-1)</sup> [DHCPCD.CONF(5)](https://linux.die.net/man/5/dhcpd.conf), [Roy Marples's personal blog](https://roy.marples.name/blog/), March 9th, 2015. Retrieved on May 07th, 2015.

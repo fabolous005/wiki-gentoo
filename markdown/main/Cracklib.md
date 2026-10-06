@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Cracklib
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-12-19"
-fingerprint: fdb4c7596ed2685d
+fingerprint: bdb4c7596ed2685d
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Deprecated article**
 
 This article is **deprecated (obsolete)**. Contents are <u>no longer relevant</u>, and are intended for historical reference only!
 
@@ -32,6 +34,7 @@ Add the `cracklib` **USE** flag to /etc/portage/make.conf and re-emerge world to
 `root #``emerge --changed-use @world`
 Verify these two packages are installed:
 
+`root #``emerge --changed-use` [sys-libs/cracklib](https://packages.gentoo.org/packages/sys-libs/cracklib) [sys-apps/cracklib-words](https://packages.gentoo.org/packages/sys-apps/cracklib-words)
 Now create a database:
 
 `root #``create-cracklib-dict /usr/share/dict/*`
@@ -101,6 +104,9 @@ Edit Samba's configuration file:
 
 **Samba's configuration**
 
+```
+check password script = /usr/local/sbin/crackcheck -s -d /usr/lib/cracklib-dict
+```
 Reload samba configuration:
 
 `root #``/etc/init.d/samba reload`

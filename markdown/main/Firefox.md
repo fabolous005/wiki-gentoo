@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Firefox
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-10-01"
-fingerprint: ee5cd0553883eb67
+fingerprint: ee5cd0573883eb67
 license: CC BY-SA 4.0
 ---
 
@@ -27,6 +27,11 @@ Firefox has decades-old roots in [Netscape](https://en.wikipedia.org/wiki/Firefo
 
 #### www-client/firefox
 
+
+### USE flags for
+            [www-client/firefox](https://packages.gentoo.org/packages/www-client/firefox)
+            
+            Firefox Web Browser
 
 | [+X](https://packages.gentoo.org/useflags/+X) | Add support for X11 | 
 | [+clang](https://packages.gentoo.org/useflags/+clang) | Use Clang compiler instead of GCC | 
@@ -72,6 +77,11 @@ Note that `USE="-pulseaudio"` will select the ALSA audio back-end.
 #### www-client/firefox-bin
 
 
+### USE flags for
+            [www-client/firefox-bin](https://packages.gentoo.org/packages/www-client/firefox-bin)
+            
+            Firefox Web Browser
+
 | [+gmp-autoupdate](https://packages.gentoo.org/useflags/+gmp-autoupdate) | Allow Gecko Media Plugins (binary blobs) to be automatically downloaded and kept up-to-date in user profiles | 
 | [selinux](https://packages.gentoo.org/useflags/selinux) | !!internal use only!! Security Enhanced Linux support, this must be set by the selinux profile or breakage will occur | 
 | [wayland](https://packages.gentoo.org/useflags/wayland) | Enable dev-libs/wayland backend | 
@@ -87,11 +97,15 @@ To install Firefox from source:
 `root #``emerge --ask www-client/firefox`
 This will install Firefox Extended Support Release (ESR) on a stable branch Gentoo system (or Firefox "Rapid release" if \~amd64 keyword is selected).
 
+#### www-client/firefox-bin
+
 [www-client/firefox-bin](https://packages.gentoo.org/packages/www-client/firefox-bin) provides an optimized binary build of Firefox, by Mozilla. This will install much quicker than [www-client/firefox](https://packages.gentoo.org/packages/www-client/firefox) but offers less compile-time configuration options.
 
 To emerge [www-client/firefox-bin](https://packages.gentoo.org/packages/www-client/firefox-bin):
 
 `root #``emerge --ask www-client/firefox-bin`
+#### Specify a slot
+
 This will explain how to select a Firefox package from a specific slot.
 
 To select a release irrespective of keywords, subscribe to a slot:

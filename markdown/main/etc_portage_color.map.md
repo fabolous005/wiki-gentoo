@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki//etc/portage/color.map
 hostname: gentoo.org
 sitename: "/etc/portage/color.map"
 date: "2022-05-12"
-fingerprint: "4621563e2499d22f"
+fingerprint: "4621d63e2499d22f"
 license: CC BY-SA 4.0
 ---
 
 # /etc/portage/color.map
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Exim
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-06-18"
-fingerprint: fc8f895a08a2b0cc
+fingerprint: fc8f895b28a2b0cc
 license: CC BY-SA 4.0
 ---
 
@@ -26,6 +26,11 @@ As only one MTA can be installed at the same time on a system, it might be requi
 
 ### USE flags
 
+
+### USE flags for
+            [mail-mta/exim](https://packages.gentoo.org/packages/mail-mta/exim)
+            
+            A highly configurable, drop-in replacement for sendmail
 
 | [+dane](https://packages.gentoo.org/useflags/+dane) | Adds support for DNS-based Authentication of Named Entities | 
 | [+dkim](https://packages.gentoo.org/useflags/+dkim) | Adds support for DomainKeys Identified Mail (DKIM) | 
@@ -74,14 +79,23 @@ For a typical install, install [mail-mta/exim](https://packages.gentoo.org/packa
 
 **`/etc/portage/package.use/exim`**
 
+```
+mail-mta/exim dkim exiscan-acl maildir prdr spf ssl syslog
+```
 To use dovecot as your POP/IMAP server and want to make exim use dovecot's authentication services, add a use flag for dovecot-sasl.
 
 **`/etc/portage/package.use/exim`**
 
+```
+mail-mta/exim dovecot-sasl dkim exiscan-acl maildir prdr spf ssl syslog
+```
 To use a database to manage what mailboxes and what aliases exist, add a use flag for the database to use, e.g. postgres, sqlite, etc.
 
 **`/etc/portage/package.use/exim`**
 
+```
+mail-mta/exim dkim exiscan-acl maildir prdr spf sqlite ssl syslog
+```
 ### Emerge
 
 Finally, install exim with:
@@ -761,3 +775,6 @@ Now we must be able to test how exim will route some addresses
 Finally we can do the bunny test
 
 `root #``echo "test" | sendmail bunnyfoofoo@gmail.com`
+## References
+
+1. [↑](https://wiki.gentoo.org#cite_ref-MX_Survey_of_March_1st.2C_2019_on_SecuritySpace_1-0) [Mail (MX) Server Survey](http://www.securityspace.com/s_survey/data/man.201902/mxsurvey.html), as stated in part of the Internet Research Reports by Canadian consulting firm E-Soft Inc., retrieved March 22, 2019

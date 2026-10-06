@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Corsair_Strafe_RGB
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2018-08-24"
-fingerprint: "14245d5647131bce"
+fingerprint: "56245556571319ce"
 license: CC BY-SA 4.0
 ---
 
@@ -29,6 +29,12 @@ The ckb daemon (installed in the step below) requires user level driver support 
 
 **Enabling`CONFIG_INPUT_UINPUT` support**
 
+```
+Device Drivers -->
+   Input Device Support -->
+      Miscellaneous devices -->
+         <*> User level driver support
+```
 ### Emerge
 
 A daemon is required in order to send configuration instructions and firmware updates to the keyboard.

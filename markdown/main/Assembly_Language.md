@@ -85,7 +85,11 @@ This list comprises two sections: the first contains CPU architectures which are
 
 [Acorn Computers](https://en.wikipedia.org/wiki/Acorn_Computers) developed the ARM1 circa 1983 for the [Acorn Archimedes](https://en.wikipedia.org/wiki/Acorn_Archimedes) and as a 32-bit expansion module for the [BBC Micro](https://en.wikipedia.org/wiki/BBC_Micro) line of 8-bit home computers. Famously the ARM1 CPU was designed in a few short weeks and prioritized low power consumption above nearly everything else in order to prevent thermal overload of the CPU package. (Details on the ARM's deign history are well covered in the YouTube documentary: [*How Amateurs created the world´s most popular Processor*](https://www.youtube.com/watch?v=nIwdhPOVOUk).) Today the 32-bit and 64-bit descendants of the original ARM1 processor run in thousands of mobile devices. It is perhaps best known as the heart of the [Raspberry Pi](https://wiki.gentoo.org/wiki/Raspberry_Pi) line of single board computers. Knowledge of ARM assembly language is a sought after skill for firmware, embedded, and mobile developers.
 
+#### [ARM](https://wiki.gentoo.org/wiki/Project:ARM)
+
 - [*ARM Developer Suite Assembler Guide*](https://developer.arm.com/documentation/dui0068/b/ARM-Instruction-Reference) — the official assembly language programming guide for the ARM family of processors.
+
+#### [ARM 64](https://wiki.gentoo.org/wiki/Project:ARM64)
 
 - [ARMv8 A64 Quick Reference](https://courses.cs.washington.edu/courses/cse469/19wi/arm64.pdf) (PDF) — a three page printable cheat sheet for ARM64 instructions.
 
@@ -98,6 +102,8 @@ At present PowerPC CPUs are most commonly used as high end embedded devices. Man
 Gentoo's PowerPC Project remains active, but **Gentoo's PowerPC project would welcome new contributors**. Even for a system as old as the [Mac Mini G4](<https://wiki.gentoo.org/wiki/Mac_Mini_(PowerPC_G4)>), Gentoo remains a viable installation target for those old systems. It should be noted however that [high end Power ISA servers exist](https://www.raptorcs.com/) and are equally valid Gentoo Linux installation targets. Those seeking to learn PowerPC and PowerPC 64 assembly language run the gamut from those interested in retro Mac development to embedded development in the automotive or aerospace industries.
 
 The PowerPC's endianness choices — technically bi-endian, but historically big endian by default — have a reputation for revealing certain kinds of programming. Such errors tend to happen when a programmer assumes all build targets are little endian like Intel and ARM CPU's. Endianness issues tend to be subtle, so developers are encouraged to compile their code against the PowerPC *Big Endian* and run appropriate unit tests. PowerPC(64) Big Endian can be emulated with [qemu and chroot](https://wiki.gentoo.org/wiki/Embedded_Handbook/General/Compiling_with_qemu_user_chroot).
+
+#### [PowerPC](https://wiki.gentoo.org/wiki/Project:PowerPC)
 
 - [WiiBrew Assembler Tutorial](https://wiibrew.org/wiki/Assembler_Tutorial) — a good general introduction to 32-bit PowerPC assembly language, albeit with a focus on some of the specifics of the [Nintendo Wii](https://en.wikipedia.org/wiki/Wii).
 - [*Programming Environments Manual for 32-Bit Implementations of the PowerPC Architecture*](https://www.nxp.com/files-static/product/doc/MPCFPE32B.pdf) — NXP's manual for 32-bit variants of the Power ISA.
@@ -112,6 +118,8 @@ The Alpha was a 64-bit RISC processor developed by [Digital Equipment Corporatio
 
 Alpha's design choices have a reputation for making certain kinds of programming errors much more obvious. Potentially dangerous memory access bugs that would go unnoticed on other architectures cause programs to segfault on this architecture. This is detailed in the [Gentoo's Alpha Porting Guide](https://wiki.gentoo.org/wiki/Project:Alpha/Porting_guide). **Gentoo's Alpha project would welcome new contributors.** Developers are encouraged to compile their code against the Alpha — which can be emulated with [qemu and chroot](https://wiki.gentoo.org/wiki/Embedded_Handbook/General/Compiling_with_qemu_user_chroot) — as a means of bug-hunting.
 
+#### [Alpha](https://wiki.gentoo.org/wiki/Project:Alpha)
+
 - *Alpha RISC Architecture for Programmers* by James S. Evans and Richard H. Eckhouse — highly detailed academic text on writing DEC Alpha assembly language.
 - *Alpha Architecture Handbook* by Digital Equipment Corporation — the official Alpha handbook, freely available on the Digital.com website [circa 1998](https://web.archive.org/web/19981202111437/http://ftp.digital.com/pub/Digital/info/semiconductor/literature/dsc-library.html) shortly after its acquisition by Compaq. Site preserved by [Archive.org](https://archive.org).
 - *Alpha Architecture Reference Manual* edited by Richard L. Sites  — an official Alpha manual from DEC.
@@ -123,6 +131,8 @@ Alpha's design choices have a reputation for making certain kinds of programming
 ### Hewlett-Packard
 
 [Hewlett-Packard](https://en.wikipedia.org/wiki/Hewlett-Packard) introduced the Hewlett Packard Precision Architecture (HPPA) in 1986. Its original incarnation has a mix of 32-bit and 64-bit registers, in 1996 its ISA was extended to a pure 64-bit design. It was intended for high end HP servers and workstations of its era. The HPPA line was discontinued in 2008 as it was displaced in its role by the Intel's Itanium before that architecture was also discontinued. Today there are older but functional HPPA workstations and servers that continue to see use past their end-of-life. Some owners of legacy HPPA hardware choose to run Gentoo Linux. Those who learn HPPA assembly language typically do so out of historical interest.
+
+#### [HPPA PA-RISC](https://wiki.gentoo.org/wiki/Project:HPPA)
 
 - [OpenPA.Net](https://www.openpa.net/) — a site dedicated to the history of the HPPA processor architecture. The site became the basis of the [*OpenPA: The book of PA-RISC*](https://www.openpa.net/print.html) by Bonn Weissmann.
 - [PA-RISC 1.1 Architecture and Instruction Set Reference Manual](https://web.archive.org/web/19970709184455/http://www.hp.com/nsa/main.html) — HP's official reference manual from [HP.com](https://hp.com) circa 1998, courtesy of [Archive.org](https://archive.org).
@@ -143,9 +153,15 @@ Two main types of syntax:
 
 Knowledge of Intel assembly language is useful for a great many things, but especially compiler optimization, vulnerability analysis, and malware reverse engineering. All of these skills are in high demand.
 
+#### [x86](https://wiki.gentoo.org/wiki/Project:X86)
+
 - [Learn x86 Assembly Language](https://asmtutor.com/) — a lengthy series of articles on x86 assembly divided into many small lessons.
 - [Wikibooks: x86 Assembly](https://en.wikibooks.org/wiki/X86_Assembly) — a semi-complete free Wikibook on x86 assembly with detailed instructions on [making Linux system calls](https://en.wikibooks.org/wiki/X86_Assembly/Interfacing_with_Linux) from within assembly language programs.
 - [Rosetta Code: x86 Assembly](https://rosettacode.org/wiki/Category:X86_Assembly) — links to articles on how to perform various programming tasks and build common data structures on that architecture.
+
+#### [AMD64](https://wiki.gentoo.org/wiki/Project:AMD64)
+
+#### [Itanium](https://wiki.gentoo.org/wiki/Project:IA64)
 
 - [Intel Itanium Processor 9500 Series: Reference Manual](https://web.archive.org/web/20150525163055/http://www.intel.com/content/www/us/en/processors/itanium/itanium-9500-reference-manual.html?wapkw=intel+itanium+processor+family+reference+guide) — Intel's official Itanium instruction set reference manual.
 
@@ -155,10 +171,14 @@ The first LoongArch CPU was released in 2021 by the privately owned but Chinese 
 
 Learning LoongArch assembly language is a useful skill for any Gentoo user interested in the unique CPU design either as a learning exercise or one seeking to implement or improve a compiler on that platform as well as anyone interested in embedded aerospace or defense applications of this ISA. **Gentoo's LoongArch project is in its early days and would welcome new contributors.**
 
+#### [LoongArch](https://wiki.gentoo.org/wiki/Project:LoongArch)
+
 - [Kernel.org's Introduction to LoongArch](https://docs.kernel.org/loongarch/introduction.html)
 - [LoongArch Documentation](https://loongson.github.io/LoongArch-Documentation/README-EN.html) — The official LoongArch ABI and instruction set documentation.
 - [The unofficial yet comprehensive FAQ for LoongArch](https://blog.xen0n.name/en/posts/tinkering/loongarch-faq/) — an extensive FAQ written by Gentoo developer [Xen0n](https://wiki.gentoo.org/wiki/User:Xen0n) detailing the inner workings of the LoongArch design.
 - [List of LoongArch instructions](https://github.com/loongson-community/loongarch-opcodes) — a resource produced by the community because the official LoongArch print manual has many errors and inconsistencies that were not caught prior to publication.
+
+#### [LoongISA](https://wiki.gentoo.org/wiki/Project:MIPS)
 
 The LoongISA is a superset of MIPS64, see the [MIPS Section](https://wiki.gentoo.org/wiki/Assembly_language#MIPS).
 
@@ -168,11 +188,15 @@ The LoongISA is a superset of MIPS64, see the [MIPS Section](https://wiki.gentoo
 
 Those interested in the assembly language of the S/360 series are likely those with a history with — or historical interest in — mainframe architecture. **Gentoo's S/390 project would welcome new contributors!** For those without access to real hardware, the Hercules Emulator [app-emulation/hercules](https://packages.gentoo.org/packages/app-emulation/hercules), can handle most workloads on commonly available PC hardware.
 
+#### [System/390](https://wiki.gentoo.org/wiki/Project:S390)
+
 ### MIPS Computer Systems
 
 [MIPS Technologies](https://en.wikipedia.org/wiki/MIPS_Technologies) released the first MIPS microprocessor in 1985. Both 32-bit and 64-bit implementations of the ISA exist. It's an extremely well-studied design which has gone on to influence nearly all RISC designs that came after it. It originated as a high end sever design but found new life in later decades as a specifically embedded CPU. A great many network devices run MIPS processors.
 
 Recently the MIPS corporation has shifted away from the MIPS architecture and has committed itself to designing RISC-V cores going forward. MIPS Open Architecture has a relatively permissive licensing terms and third parties, most notably Loongson, intend to continue to evolve the platform. MIPS remains a viable installation target for Gentoo Linux, that said **the Gentoo MIPS project welcomes new contributors.** Those wishing to learn MIPS assembly often do so in academic environments or as prospective embedded systems programmers, most commonly targeting network appliances.
+
+#### [MIPS](https://wiki.gentoo.org/wiki/Project:MIPS)
 
 - [MIPS32 official Architecture documentation](https://www.mips.com/products/architectures/mips32-2/).
 - [Wikibooks: MIPS Assembly](https://en.wikibooks.org/wiki/MIPS_Assembly).
@@ -185,6 +209,8 @@ Recently the MIPS corporation has shifted away from the MIPS architecture and ha
 
 A large number of high end workstations and servers running SPARC processors exist on the secondary (used) market, most of them perfectly suitable as Gentoo installation targets. **The Gentoo SPARC team would welcome new contributors.** Knowledge of SPARC is useful to anyone who seeks to broaden their knowledge of the inner workings of an interesting RISC ISA.
 
+#### [SPARC](https://wiki.gentoo.org/wiki/Project:SPARC)
+
 - [SPARC Assembly Language Reference Manual](https://docs.oracle.com/cd/E19641-01/802-1947/802-1947.pdf) — Sun's official assembly language reference manual for the SPARC architecture.
 - [Rosetta Code: SPARC\_Assembly](https://rosettacode.org/wiki/Category:SPARC_Assembly) — a handful of articles on SPARC assembly.
 
@@ -193,6 +219,8 @@ A large number of high end workstations and servers running SPARC processors exi
 RISC-V began as a project for at the University of California, Berkeley in 2010 as an effort to produce an open standard ISA. There are 32-bit and 64-bit variants. In addition to the core instruction set, RISC-V's modular design allows it to be easily extended to add custom features. RISC-V is a workable installation target for Gentoo Linux, but it is not yet considered stable. **The Gentoo RISC-V project is seeking volunteers to join its ranks** as it's hard to keep up with everything happening in the RISC-V space. The RISC-V ISA is experiencing a tsunami of rapid growth in the single board computer and embedded markets. Server versions of the chip, including those that support virtualization, are already in development.
 
 Those seeking to learn RISC-V assembly may do so for any number of reasons. A working knowledge of RISC-V assembly language can open doors in multiple market segments.
+
+#### [RISC-V](https://wiki.gentoo.org/wiki/Project:RISC-V)
 
 Has its own syntax, not AT&T or Intel (from [comment](https://github.com/riscv-collab/riscv-gnu-toolchain/issues/1008#issuecomment-1006988287)):
 
@@ -207,6 +235,8 @@ I'd just call it "RISC-V syntax". No $ on register specifiers; operand order is 
 - [RISC-V dependent features](https://sourceware.org/binutils/docs/as/RISC_002dV_002dDependent.html) — from "Using GNU as".
 - [RISC-V assembly style guide](https://opentitan.org/book/doc/contributing/style_guides/asm_coding_style.html) (Apache-2.0 license) — from OpenTitan project.
 - [User:Vazhnov/PlatformIO + VIM + ccls + Sipeed Longan nano RISC-V](https://wiki.gentoo.org/wiki/User:Vazhnov/PlatformIO_%2B_VIM_%2B_ccls_%2B_Sipeed_Longan_nano_RISC-V) — example
+
+### [Embedded Processors and Microcontrollers](https://wiki.gentoo.org/wiki/Project:Embedded)
 
 In modern usage a **microcontroller** is not just an ultra low-spec CPU contemporary standards. Modern microcontrollers are processors with their own RAM and ROM on a single package. This isn't quite the same thing as a System on a Chip, but the two concepts are similar and both exist with the goal of reducing total chip count to reduce production cost. A good many CPU's that are now only produced exclusively as micocontrolers or even just FPGA cores were once considered powerful enough to be the CPU of one or more lines of home computer. Edge cases exist, but in general most microcontrollers do not make good Gentoo Linux installation targets — even with a [binhost](https://wiki.gentoo.org/wiki/Binary_package_guide) providing the heavy lifting required to compile packages.
 
@@ -240,6 +270,8 @@ The [6502](https://en.wikipedia.org/wiki/MOS_Technology_6502) was an early 8-bit
 - [py65](https://github.com/mnaberez/py65) - Python-based emulator ([dev-python/py65::pypi](https://gpo.zugaina.org/Overlays/pypi/dev-python/py65)).
 - [cl-6502](https://github.com/redline6561/cl-6502) - Common-Lisp-based emulator.
 
+#### [Motorola M68k](https://wiki.gentoo.org/wiki/Project:M68k)
+
 [Motorola](https://en.wikipedia.org/wiki/Motorola) produced the original [M68k](https://en.wikipedia.org/wiki/Motorola_68000_series) series of microprocessors. That IP was sold to [Freescale Semiconductor](https://en.wikipedia.org/wiki/Freescale_Semiconductor) which produces the [Freescale 683XX](https://en.wikipedia.org/wiki/Freescale_683XX) which is backwards compatible with the original M68k line and is still produced in large numbers. Freescale eventually merged with [NXP Semiconductor](https://en.wikipedia.org/wiki/NXP_Semiconductor). Hence, NXP's website hosting content that asserts a Motorola or a Freescale copyright and references to Freescale processors with M68k instructions.
 
 - [*Motorola M68000 Family Programmer's Reference Manual*](https://www.nxp.com/docs/en/reference-manual/M68000PRM.pdf) by Motorola (PDF) — The official programmer's reference manual.
@@ -260,6 +292,8 @@ The two most significant virtual machines that run byte code, effectively machin
 WebAssembly is a virtual machine execution environment primarily targeting modern Web Browsers. This is distinct from a web browsers two other virtual machines, those being its rendering engine and its JavaScript execution environment. WebAssembly is marketed as allowing web-based application code to be executed at near-native speed.
 
 Direct assembly or disassembly is rare and primarily limited to debugging. In both cases, the respective virtual machine byte codes are primarily intended as compilation targets.
+
+#### [Java Bytecode](https://wiki.gentoo.org/wiki/Project:Java)
 
 - [How to write a (toy) JVM](https://zserge.com/posts/jvm/) — details the inner workings of the JVM.
 - [Chocopy Hacking Part 2: Compiling to JVM](https://yangdanny97.github.io/blog/2021/08/26/chocopy-jvm-backend)

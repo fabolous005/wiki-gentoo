@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Gnome_Cheat_Sheet
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2017-08-07"
-fingerprint: "555b8419e8b323ba"
+fingerprint: "555b841b68b323be"
 license: CC BY-SA 4.0
 ---
 
 # Gnome Cheat Sheet
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -19,9 +21,7 @@ license: CC BY-SA 4.0
 
 Create a APP\_NAME.desktop (APP\_NAME application name) file under /usr/share/applications (or \~/.local/share/applications or directly in \~/Desktop) with the following content:
 
-**`APP_NAME.desktop`**
-
-**APP\_NAME.desktop file**
+FILE **`APP_NAME.desktop`****APP\_NAME.desktop file**
 
 ```
 [Desktop Entry]

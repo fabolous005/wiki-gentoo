@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/AutoFS
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-10-02"
-fingerprint: "9a09501eb6b791e8"
+fingerprint: "9a01509eb6b791e8"
 license: CC BY-SA 4.0
 ---
 
@@ -23,12 +23,27 @@ license: CC BY-SA 4.0
 
 AutoFS works by monitoring directories on the local filesystem. Whenever a program tries to access one of those directories, AutoFS will mount something on that directory. The directories to monitor, as well as what to mount on them, are specified in the AutoFS configuration files such as /etc/autofs/autofs.master. Examples of how to configure AutoFS mounts are given down the page, under [Usage](https://wiki.gentoo.org/wiki/AutoFS#Usage).
 
+## Installation
+
 AutoFS requires a kernel module and a userspace program.
+
+### Kernel configuration
 
 The following kernel option activates the kernel functionality required for automounting.
 
+```
+File systems --->
+    <*/M> Kernel automounter version 4 support (also supports v3)
+```
+### Userspace program
+
 As with most Linux filesystems, in addition to the relevant option being enabled in the kernel, the userspace package must be installed to actually handle the mounting.
 
+
+### USE flags for
+            [net-fs/autofs](https://packages.gentoo.org/packages/net-fs/autofs)
+            
+            Kernel based automounter
 
 | [+libtirpc](https://packages.gentoo.org/useflags/+libtirpc) | Use TiRPC library instead of SunRPC | 
 | [ldap](https://packages.gentoo.org/useflags/ldap) | Install LDAP module | 
@@ -40,6 +55,8 @@ As with most Linux filesystems, in addition to the relevant option being enabled
 Install it with the following command:
 
 `root #``emerge --ask net-fs/autofs`
+### Additional software
+
 To be able to mount [NFS](https://wiki.gentoo.org/wiki/NFS) file systems, the [net-fs/nfs-utils](https://packages.gentoo.org/packages/net-fs/nfs-utils) package is required:
 
 `root #``emerge --ask net-fs/nfs-utils`
@@ -49,7 +66,13 @@ For [CIFS](https://wiki.gentoo.org/wiki/CIFS) file systems the [net-fs/cifs-util
 For WebDAV file systems the [net-fs/davfs2](https://packages.gentoo.org/packages/net-fs/davfs2) package is required:
 
 `root #``emerge --ask net-fs/davfs2`
+## Configuration
+
+### Service
+
 The AutoFS daemon needs to be running for automounting to work.
+
+#### OpenRC
 
 Add AutoFS to the default runlevel:
 
@@ -60,6 +83,8 @@ To begin using the automounter before rebooting, start it manually:
 Of course it is advisable to edit the configuration files first, as described below. If AutoFS is already running when the configuration is edited, run the following command to reload the configuration:
 
 `root #``rc-service autofs reload`
+### Files
+
 The default installation of AutoFS provides the following four configuration files:
 
 | File | Description | 
@@ -103,9 +128,14 @@ Lines in this file take the following format:
 
 **`/etc/autofs/auto.misc`**
 
+```
+key             [-options]                                   location
+```
 Here `key` specifies a unique key associated with the AutoFS mount, which forms part or all of the path at which the filesystem will be mounted. `location` tells AutoFS what filesystem to mount there. `-options` is a comma-separated list of options to pass to mount, except for some special options which are handled by AutoFS (such as `fstype`). For details, see [Usage](https://wiki.gentoo.org/wiki/AutoFS#Usage) below, or view the manual page by running
 
 `user $``man 5 autofs`
+## Usage
+
 AutoFS mounts are specified in /etc/autofs/auto.master
 
 Example configuration:
@@ -114,22 +144,36 @@ Example configuration:
 
 **Mount blockdevices, defined in /etc/autofs/auto.blockdev, at /media/blockdev, with a timeout of 5 minutes**
 
+```
+/media/blockdev    /etc/autofs/auto.blockdev   --timeout=5
+```
 **`/etc/autofs/auto.blockdev`**
 
 **Automatically mount block devices under /dev at /media/blockdev indirectly**
 
+```
+*   -fstype=auto            :dev/&
+```
 The location of the map takes the format `host:path`. In this case, it is `auto.blockdev`, which references /etc/autofs/auto.blockdev. The `host` component may be left empty to refer to a path on the local machine. Otherwise, the named path from the named remote host will be mounted using [NFS](https://wiki.gentoo.org/wiki/Nfs-utils).
 
 With this configuration, /media/blockdev will be created when the autofs service is started. If a device exists at /dev/sda1 and access to /media/blockdev/sda1 is attempted, the device at that location should automatically mount there.
 
 There are two kinds of AutoFS mounts, direct and indirect.
 
+### Direct AutoFS mounts
+
 For a direct AutoFS mount, the `mount-point` is `/-`, and `key` in the map file is the full path at which the filesystem will be mounted. For example, the manual pages for AutoFS include an example like this:
 
 **`/etc/autofs/auto.master`**
 
+```
+/-              /etc/autofs/auto.data
+```
 **`/etc/autofs/auto.data`**
 
+```
+/tst/sbin       bogus:/usr/sbin
+```
 These lines tell AutoFS to watch the directory /tst/sbin. If a program tries to access anything in that directory, AutoFS will mount the directory `/usr/sbin` from the remote host `bogus` on the local directory `/tst/sbin`. In other words, it will effectively execute the command
 
 `root #``mount -t nfs bogus:/usr/sbin /tst/sbin`
@@ -137,19 +181,33 @@ An example of mounting a local device might look like this:
 
 **`/etc/autofs/auto.master`**
 
+```
+/-              /etc/autofs/auto.local
+```
 **`/etc/autofs/auto.local`**
 
+```
+/mnt/stuff      -fstype=ext4    :/dev/sdd1
+```
 This will effectively execute the command
 
 `root #``mount -t ext4 /dev/sdd1 /mnt/stuff`
+### Indirect AutoFS mounts
+
 For an indirect AutoFS mount, the `mount-point` is a directory path, and `map` is the full path to a file which describes rules for mounting devices inside that directory. For example, the default installation includes the following line (though it is commented out):
 
 **`/etc/autofs/auto.master`**
 
+```
+/misc           /etc/autofs/auto.misc
+```
 This line would tell AutoFS to watch files and directories under /misc for filesystem accesses. When a program tries to access something under /misc, AutoFS will use the configuration in /etc/autofs/auto.misc to determine whether to automatically mount something. Each (non-comment, non-empty) line in that file corresponds to something that AutoFS will be able to mount under /misc. For example, the line
 
 **`/etc/autofs/auto.misc`**
 
+```
+cd              -fstype=iso9660,ro,nosuid,nodev     :/dev/cdrom
+```
 tells AutoFS to watch /misc/cd. When a program tries to access this directory, AutoFS will effectively run the command
 
 `root #``mount -t iso9660 -o ro,nosuid,nodev /dev/cdrom /misc/cd`
@@ -157,17 +215,37 @@ Here are some other examples:
 
 **`/etc/autofs/auto.master`**
 
+```
+/mnt/auto           /etc/autofs/auto.misc
+```
 **`/etc/autofs/auto.misc`**
 
+```
+# The file above will use the mount-point /mnt/auto | mount options | device, network share etc.
+# network share mounted via NFSv3 on /mnt/auto/data
+data            -rw,vers=3,soft,async                        192.0.2.1:/tank1/data
+# network share mounted via CIFS on /mnt/auto/data1
+data1           -fstype=cifs,credentials=/root/smb.txt       ://192.0.2.1/data1
+# memory stick used regulary with known UUID, for example a Kindle
+kindle          -fstype=vfat,rw,uid=1000                     :UUID="4CBF-23A2"
+```
 Indirect mounts allow AutoFS to use wildcards. For example, if users' home directories are stored on a different machine and mounted over NFS, AutoFS could be configured as follows:
 
 **`/etc/autofs/auto.master`**
 
+```
+/home           /etc/autofs/auto.home
+```
 **`/etc/autofs/auto.home`**
 
+```
+*               neighborhood:/export/home/&
+```
 This way, when a user `larry` logs in and accesses some files in their home directory, AutoFS will effectively run the command:
 
 `root #``mount -t nfs neighborhood:/export/home/larry /home/larry`
+### Useful options
+
 These options can be given in the master map file.
 
 - `--timeout=<seconds>` specifies the number of seconds that an automounted filesystem can go unused before AutoFS unmounts it.
@@ -176,6 +254,8 @@ These options can be given in the master map file.
 For a full description of options, run
 
 `user $``man 5 auto.master`
+### Non-file maps
+
 In /etc/autofs/auto.master, instead of merely specifying `map`, the second column can take a more complicated form such as `map-type:map`, which allows the map to be something other than a file. For instance, it can be an executable which prints out map specifications (the lines that would be included in a map file), or any of various types of databases. For a full description of recognized types, run
 
 `user $``man 5 auto.master`
@@ -186,10 +266,19 @@ or navigating to /net/192.0.2.1/share in a filesystem browser or dialog. The fil
 
 **`/etc/autofs/auto.master`**
 
+```
+/net     file:/etc/autofs/auto.smbm    --ghost --nonstrict
+```
 **`/etc/autofs/auto.smbm`**
 
+```
+*        -fstype=autofs,-Dhost=&       file://etc/autofs/auto.share
+```
 **`/etc/autofs/auto.share`**
 
+```
+*         -fstype=cifs,username=guest,password=,file_mode=0664,dir_mode=0775,uid=netmount,gid=netmount,port=139     ://${host}/&
+```
 ## Syslog
 
 Configuring [syslog-ng](https://wiki.gentoo.org/wiki/Syslog-ng) to redirect logs to a custom file such as /var/log/autofs.log requires setting up filters and log paths in the syslog-ng configuration. This determines which events are logged and where they are recorded. The following provides guidance on configuring syslog-ng to handle logs for the AutoFS service.
@@ -203,18 +292,27 @@ A filter for messages from the 'autofs' service can be created within this file.
 
 **Filter for autofs**
 
+```
+filter f_autofs { program("automount"); };
+```
 After establishing the filter, define the log path that incorporates it, directing the output to the specified log file. Add the following lines to set the log path accordingly:
 
 **`/etc/syslog-ng/syslog-ng.conf`**
 
 **Log path for autofs**
 
+```
+destination d_autofs { file("/var/log/autofs.log" perm(0640) owner("larry") group("wheel")); };
+log { source(s_src); filter(f_autofs); destination(d_autofs); };
+```
 Conclude the configuration by restarting the syslog-ng service to enforce the changes:
 
 `root #``/etc/init.d/syslog-ng restart`
 To effectively activate syslog and ensure maximum debugging for the specified configuration, set the appropriate option flags in the AutoFS configuration file. Add the flag `OPTIONS="--debug"` to the file located at /etc/conf.d/autofs. After setting this option, proceed to restart the AutoFS service:
 
 `root #``/etc/init.d/autofs restart`
+## Troubleshooting
+
 In case of mount failure or problems use following steps to narrow the source of the issue.
 
 Stop the autofs service:
@@ -236,6 +334,8 @@ attempting to mount entry /net/gentoo
 >> mount: /net/gentoo: bad option; for several filesystems (e.g. nfs, cifs) you might need a /sbin/mount.\<type> helper program.
 mount(generic): failed to mount //example.net/larry (type cifs) on /net/gentoo
 failed to mount /net/gentoo
+
+## External resources
 
 - [Automount mini-Howto](https://tldp.org/HOWTO/Automount.html) on The Linux Documentation Project website
 - [AutoFS page](https://help.ubuntu.com/community/Autofs) on the Ubuntu Community Help Wiki

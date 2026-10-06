@@ -28,6 +28,11 @@ When Fontconfig is needed, it will almost certainly be installed already. If not
 ### USE flags
 
 
+### USE flags for
+            [media-libs/fontconfig](https://packages.gentoo.org/packages/media-libs/fontconfig)
+            
+            A library for configuring and customizing font access
+
 | [doc](https://packages.gentoo.org/useflags/doc) | Add extra documentation (API, Javadoc, etc). It is recommended to enable per package instead of globally | 
 | [nls](https://packages.gentoo.org/useflags/nls) | Add Native Language Support (using gettext - GNU locale utilities) | 
 | [test](https://packages.gentoo.org/useflags/test) | Enable dependencies and/or preparations necessary to run tests (usually controlled by FEATURES=test but can be toggled independently) | 

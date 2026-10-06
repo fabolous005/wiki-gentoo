@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/66-init
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-10-21"
-fingerprint: "90c9bc53270f8b50"
+fingerprint: "80c9bd57270f0b50"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Deprecated article**
 
 This article is **deprecated (obsolete)**. Contents are <u>no longer relevant</u>, and are intended for historical reference only!
 
@@ -33,7 +35,7 @@ See the [official documentation page](https://web.obarun.org/software/66/0.8.0.2
 **66** suite is divided into various packages, which  are available in the [66-svmgr](https://github.com/pramodvu1502/66-svmgr-gentoo-overlay/) repository.
 To the add the repository with eselect:
 
-`root #``emerge --ask eselect-repository``root #``emaint sync -r 66-svmgr`
+`root #``emerge --ask eselect-repository``root #``eselect repository add 66-svmgr git` [https://github.com/pramodvu1502/66-svmgr-gentoo-overlay/](https://github.com/pramodvu1502/66-svmgr-gentoo-overlay/)`root #``emaint sync -r 66-svmgr`
 Installing the package [sys-apps/66-boot](https://packages.gentoo.org/packages/sys-apps/66-boot) will pull in all the required dependencies:
 
 `root #``emerge --ask sys-apps/66-boot::66-svmgr`
@@ -182,6 +184,33 @@ In the meanwhile, you can manually write it:
 
 **s6-socklog frontend for 66**
 
+```
+[Main]
+Type = classic
+Description = "A simple syslog daemon relying on s6-log for filtering and on-disk saving"
+Version = 2.13.1
+User = ( root )
+Notify = 3
+Provide = ( syslog )
+Flags = ( earlier )
+[Start]
+Execute=(
+    s6-socklog -d 3 -x ${syslogSockDatagram} -l ${linelen}
+)
+[Logger]
+# No. of total clean (not half-written) files other than the currently-used to keep
+Backup = 5
+# Maximum size of the logfile before rotation
+MaxSize = 1000000
+# Where to save the logs; it is a directory with the state and logfiles
+Destination = /var/log/socklog
+# You might like to leave /var/log{messages,syslog} alone as they are files rather than a directory which s6-log uses.
+[Environment]
+# The syslog datagram socket to listen on
+syslogSockDatagram=!/dev/log
+# Maximum lines in a single "log" message
+linelen=!1024
+```
 A frontend for using busybox-syslog is available on the alpine's frontend repository: [https://git.obarun.org/66-service/alpine/busybox-daemons/-/blob/master/frontends/busybox-syslogd](https://git.obarun.org/66-service/alpine/busybox-daemons/-/blob/master/frontends/busybox-syslogd)
 
 Run the below command to configure some daemon-specific and rotation options:

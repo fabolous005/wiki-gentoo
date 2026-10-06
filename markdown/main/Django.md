@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Django
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-07-04"
-fingerprint: "9a9016507d651bce"
+fingerprint: "9a9016506de51bce"
 license: CC BY-SA 4.0
 ---
 
@@ -23,6 +23,11 @@ See the [Django overview](https://www.djangoproject.com/start/overview/) for inf
 
 ### USE flags
 
+
+### USE flags for
+            [dev-python/django](https://packages.gentoo.org/packages/dev-python/django)
+            
+            High-level Python web framework
 
 | [doc](https://packages.gentoo.org/useflags/doc) | Add extra documentation (API, Javadoc, etc). It is recommended to enable per package instead of globally | 
 | [sqlite](https://packages.gentoo.org/useflags/sqlite) | Add support for sqlite - embedded sql database | 
@@ -58,7 +63,7 @@ Example to set up a given virtual host with WSGI:
 **Specify WSGI config**
 
 ```
- *:80>
+<VirtualHost *:80>
    ...
    WSGIScriptAlias / /var/www/myProject/myProject/myProject.py
    ...
@@ -74,7 +79,8 @@ is not properly configured to work with Apache or other severs expect for Django
 **Add your project to Python's sys.path**
 
 ```
-('/var/www/myProject') #This is the missing line it must be before os.environ.setdefault(...)
+...
+sys.path.append('/var/www/myProject') #This is the missing line it must be before os.environ.setdefault(...)
 ...
 ```
 ## Usage

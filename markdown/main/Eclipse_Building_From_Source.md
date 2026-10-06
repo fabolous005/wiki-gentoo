@@ -13,6 +13,8 @@ license: CC BY-SA 4.0
 
 From Gentoo Wiki
 
+\< [Eclipse](https://wiki.gentoo.org/wiki/Eclipse)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)

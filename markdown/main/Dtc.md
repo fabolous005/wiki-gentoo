@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Dtc
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-05-26"
-fingerprint: b6001b3d8fcbb2f8
+fingerprint: "3600183d8fcbb2f8"
 license: CC BY-SA 4.0
 ---
 
 # Dtc
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -21,6 +23,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [sys-apps/dtc](https://packages.gentoo.org/packages/sys-apps/dtc)
+            
+            Open Firmware device tree compiler
 
 | [python](https://packages.gentoo.org/useflags/python) | Add optional support/bindings for the Python language | 
 | [static-libs](https://packages.gentoo.org/useflags/static-libs) | Build static versions of dynamic libraries as well | 

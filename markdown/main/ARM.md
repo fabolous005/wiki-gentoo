@@ -230,3 +230,7 @@ The pre-built [GNU Arm Embedded Toolchain](https://developer.arm.com/tools-and-s
 1. [Embedded Artistry](https://embeddedartistry.com/blog/2017/10/9/r1q7pksku2q3gww9rpqef0dnskphtc) explains the difference between `hard`, `softfp` and `soft` (the three ARM floating point compiler options).
 2. [Discussion](http://gentoo.2317880.n4.nabble.com/Building-a-bare-metal-ARM-hard-float-compiler-what-ABI-td300828.html) on the problems enabling *hardfloat*.
 3. Another similar [discussion](https://forums.gentoo.org/viewtopic-t-1067608-start-0.html) in the Gentoo forums.
+
+## Referencies
+
+1. [↑](https://wiki.gentoo.org#cite_ref-Embedded_Artistry_1-0) Phillip Johnston. ["Demystifying ARM Floating Point Compiler Options"](https://embeddedartistry.com/blog/2017/10/9/r1q7pksku2q3gww9rpqef0dnskphtc), October 11, 2017. Retrieved on 2019-09-30

@@ -16,6 +16,8 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+**Resources**
+
 This article provides a list of some of the **compression and file-archiver utilities** available in Gentoo Linux.
 
 It's important to note distinctions between [file-archiver](https://en.wikipedia.org/wiki/File_archiver) utilities able to "bundle" multiple files (which may or may not support some forms of compression), and [pure compression](https://en.wikipedia.org/wiki/Lossless_compression) utilities that can only compress the contents of a file (often without metadata, such as permissions or timestamps). File-archiver utilities are frequently used in conjunction with compression utilities to create a compressed archive containing multiple files and associated metadta.

@@ -5,15 +5,21 @@ url: https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2013/Ideas/Package_bug_a
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2018-11-09"
-fingerprint: af690e692872b590
+fingerprint: ad290ee92872b590
 license: CC BY-SA 4.0
 ---
 
 # Google Summer of Code/2013/Ideas/Package bug assignment in Bugzilla
 
+From Gentoo Wiki
+
+\< [Google Summer of Code](https://wiki.gentoo.org/wiki/Google_Summer_of_Code) | [2013](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2013) | [Ideas](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2013/Ideas)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+## [Package bug assignment in Bugzilla]
 
 Currently, bugs are usually bound to packages through naming the relevant package in Summary. Although this works, it is quite limited. It is unsuitable for obtaining the package in an automated way or adding long lists of relevant packages in a searchable manner.
 

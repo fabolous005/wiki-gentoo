@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/FVWM-Crystal
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-12-01"
-fingerprint: f066845e508523cc
+fingerprint: f066ac5e508523cc
 license: CC BY-SA 4.0
 ---
 
@@ -118,6 +118,13 @@ You may want to use sudo to stop the computer or use the mount command from FVWM
 
 **`/etc/sudoers.d/dom`**
 
+```
+dom ALL=(ALL) NOPASSWD: /sbin/shutdown
+dom ALL=(ALL) NOPASSWD: /sbin/reboot
+dom ALL=(ALL) NOPASSWD: /sbin/halt
+dom ALL=(ALL) NOPASSWD: /bin/mount
+dom ALL=(ALL) NOPASSWD: /bin/umount
+```
 FVWM-Crystal has its own applications menu with full support for the xdg additional categories. It work in 2 steps.
 
 First, it comes with a extensive database of menu entries and icons. The Application database helps explain in detail how it works and how you can customize it. Take also a look at the existing entries, they will show you the way.

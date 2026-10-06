@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Complete_Virtual_Mail_Server/Dovecot_to_Databa
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-08-01"
-fingerprint: "3203091ed18439c8"
+fingerprint: "3202099ed58439c8"
 license: CC BY-SA 4.0
 ---
 
@@ -27,6 +27,11 @@ To use POP3, which is explicitly discouraged, see [Complete Virtual Mail Server/
 
 [net-mail/dovecot](https://packages.gentoo.org/packages/net-mail/dovecot) has a few USE flags that need to be examined.
 
+
+### USE flags for
+            [net-mail/dovecot](https://packages.gentoo.org/packages/net-mail/dovecot)
+            
+            An IMAP and POP3 server written with security primarily in mind
 
 | [argon2](https://packages.gentoo.org/useflags/argon2) | Add support for ARGON2 password schemes | 
 | [caps](https://packages.gentoo.org/useflags/caps) | Use Linux capabilities library to control privilege | 
@@ -70,14 +75,37 @@ Regarding the database flags, only choose the desired database backend. Other fl
 
 **enable imap**
 
+```
+protocols = imap
+```
 **`/etc/dovecot/conf.d/10-mail.conf`**
 
 **mailbox setup**
 
+```
+mail_driver = maildir
+mail_gid = 5000
+mail_path = ~/%{maildir}
+mail_uid = 5000
+mailbox_idle_check_interval = 30 secs
+mailbox_list_index = yes
+maildir_copy_with_hardlinks = yes
+namespace inbox {
+  inbox = yes
+}
+```
 **`/etc/dovecot/conf.d/10-ssl.conf`**
 
 **TLS setup**
 
+```
+ssl_cipher_list = ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES256-GCM-SHA384
+ssl_min_protocol = TLSv1.2
+ssl_server {
+  cert_file = /etc/letsencrypt/live/example.com/fullchain.pem
+  key_file = /etc/letsencrypt/live/example.com/privkey.pem
+}
+```
 ### Configuring the authentication mechanism
 
 #### PostgreSQL
@@ -86,10 +114,37 @@ Regarding the database flags, only choose the desired database backend. Other fl
 
 **Authentication setup**
 
+```
+auth_allow_cleartext = no
+auth_default_domain = example.com
+auth_failure_delay = 2 secs
+auth_mechanisms = plain login
+auth_username_chars = abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890.-_@
+```
 **`/etc/dovecot/conf.d/20-sql.conf`**
 
 **Connection with postgres**
 
+```
+dict_server {
+  dict sql {
+    sql_driver = pgsql
+    pgsql localhost {
+      parameters {
+        dbname = postfix
+        password = secret
+        user = postfix
+      }
+    }
+  }
+}
+passdb sql {
+  query = SELECT local_part AS username, domain, password FROM mailbox WHERE local_part = '%n' AND domain = '%d'
+}
+userdb sql {
+  query = SELECT local_part AS user, CONCAT('/var/vmail/',maildir) AS home FROM mailbox WHERE local_part = '%n' AND domain = '%d'
+}
+```
 ### Access permissions
 
 Permissions must be set correctly, as the files can contain sensitive password information:

@@ -27,6 +27,11 @@ This environment is configured by invoking ebuildtester with appropriate command
 ### USE flags
 
 
+### USE flags for
+            [dev-util/ebuildtester](https://packages.gentoo.org/packages/dev-util/ebuildtester)
+            
+            A dockerized approach to test a Gentoo package within a clean stage3 container
+
 ### Emerge
 
 `root #``emerge --ask dev-util/ebuildtester`

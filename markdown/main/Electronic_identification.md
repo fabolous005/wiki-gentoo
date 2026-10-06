@@ -5,15 +5,19 @@ url: https://wiki.gentoo.org/wiki/Electronic_identification
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-02-10"
-fingerprint: "8bb6470520fdb1ad"
+fingerprint: "8bb6470520edb1ad"
 license: CC BY-SA 4.0
 ---
 
 # Electronic identification
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 An **electronic identification** (**eID**) is the core part of e-government implementation, providing a way to identify citizens and organizations.
 
@@ -37,9 +41,7 @@ In Firefox's preferences, under Privacy & Security → Security → Certificates
 
 When using Firefox in a [Firejail](https://wiki.gentoo.org/wiki/Firejail), add this to /etc/firejail/firefox-common.local (create the file if necessary):
 
-**`/etc/firejail/firefox-common.local`**
-
-**Firejail whitelisting rules for Belgian eID**
+FILE **`/etc/firejail/firefox-common.local`****Firejail whitelisting rules for Belgian eID**
 
 ```
 # Belgian eID
@@ -54,3 +56,4 @@ See [Web eID](https://wiki.gentoo.org/wiki/Web_eID).
 ### Germany
 
 `root #``emerge --ask sys-auth/AusweisApp`
+See [https://www.ausweisapp.bund.de/en/home](https://www.ausweisapp.bund.de/en/home)

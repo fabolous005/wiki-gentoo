@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Eza
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-02-28"
-fingerprint: f690111a97e6c663
+fingerprint: f690191a97e6c663
 license: CC BY-SA 4.0
 ---
 
@@ -23,6 +23,11 @@ license: CC BY-SA 4.0
 ### USE flags
 
 
+### USE flags for
+            [sys-apps/eza](https://packages.gentoo.org/packages/sys-apps/eza)
+            
+            A modern, maintained replacement for ls
+
 ### Emerge
 
 `root #``emerge --ask sys-apps/eza`
@@ -36,12 +41,18 @@ For more comfortable usage, the shell can be configured - e.g. via \~/.zshrc or 
 
 **Replace ls with eza**
 
+```
+alias ls='eza'
+```
 Passing flags to eza is not strictly required,since it uses the same flags as ls. For instance, when `ls -la` is entered, it will be transformed to `eza -la` by the shell. However, it's possible to e.g. specify flags such as `--icons` and `--color=always` for more graphical output:
 
 **`~/.zshrc`**
 
 **Replace ls with eza**
 
+```
+alias ls='eza --icons --color=always'
+```
 ### Colors
 
 In order to customize colors of eza's output, the theme.yml file can be created in the \~/.config/eza directory.

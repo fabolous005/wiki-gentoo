@@ -15,6 +15,8 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+**Resources**
+
 This article describes a advanced automated remote backup scheme using the tool rsnapshot as non-root user, which is based on [rsync](https://en.wikipedia.org/wiki/Rsync).
 
 **rsnapshot** makes a specified number of incremental backups of specified file trees from remote servers via ssh with non-user root using sudo, with help of [hard links](https://en.wikipedia.org/wiki/Hard_link) to save space on the backup medium.

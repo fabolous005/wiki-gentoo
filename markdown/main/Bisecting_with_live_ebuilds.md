@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Bisecting_with_live_ebuilds
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-05-20"
-fingerprint: b2b8bcff203d7d8e
+fingerprint: b2b8bc7f201d7d8e
 license: CC BY-SA 4.0
 ---
 
@@ -44,6 +44,7 @@ Suppose one hits a regression in ZFS. In this example, between ZFS 2.1.4 (last k
 
 First, clone ZFS at the `zfs-2.1.5-staging` branch:
 
+`user $``git clone` [https://github.com/openzfs/zfs](https://github.com/openzfs/zfs) -b zfs-2.1.5-staging
 Start the bisect:
 
 `user $````

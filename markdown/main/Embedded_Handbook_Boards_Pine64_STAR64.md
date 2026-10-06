@@ -5,11 +5,15 @@ url: https://wiki.gentoo.org/wiki/Embedded_Handbook/Boards/Pine64_STAR64
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-05-26"
-fingerprint: "5291fad8c1dd7bca"
+fingerprint: "1291fad0c1dd6bca"
 license: CC BY-SA 4.0
 ---
 
 # Embedded Handbook/Boards/Pine64 STAR64
+
+[Embedded Handbook](https://wiki.gentoo.org/wiki/Embedded_Handbook) |
+
+[Boards](https://wiki.gentoo.org/wiki/Embedded_Handbook/Boards)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

@@ -11,9 +11,13 @@ license: CC BY-SA 4.0
 
 # Asrock C70M1
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 ![](https://wiki.gentoo.org/images/thumb/b/bd/Pavlix-asrock-c70m1.jpg/300px-Pavlix-asrock-c70m1.jpg)
 

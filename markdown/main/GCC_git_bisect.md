@@ -11,6 +11,8 @@ license: CC BY-SA 4.0
 
 # GCC/git bisect
 
+[GCC](https://wiki.gentoo.org/wiki/GCC)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
@@ -30,6 +32,7 @@ mkdir gcc && cd gcc
 `user $````
 mkdir build
 ```
+`user $``git clone` [https://gcc.gnu.org/git/gcc.git](https://gcc.gnu.org/git/gcc.git) src
 `user $````
 mkdir install
 ```

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Chroot
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-07-22"
-fingerprint: c82fd86e7d46d005
+fingerprint: d82fd86e7d46d005
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 **chroot** **(*Ch*ange *root*)** is a Unix system utility used to change the apparent root directory to create a new environment logically separate from the main system's root directory. This new environment is known as a "chroot jail." A user operating inside the jail cannot see or access files outside of the environment they have been locked into.
 
@@ -104,7 +106,7 @@ To persist that - you can add them to .bashrc:
 **`/root/.bashrc`**
 
 ```
- /etc/profile
+. /etc/profile
 export PS1="(chroot) $PS1"
 ```
 If you are getting error like **Error opening terminal: xterm-kitty** - add to .bashrc
@@ -220,3 +222,8 @@ If the uid of the user inside the chroot does not match the uid outside the chro
 ## External resources
 
 - [*chroot*](https://wiki.archlinux.org/index.php/Chroot) on Archlinux's wiki
+
+## References
+
+1. [↑](https://wiki.gentoo.org#cite_ref-1) [https://wayland-book.com/protocol-design/wire-protocol.html](https://wayland-book.com/protocol-design/wire-protocol.html)
+2. [↑](https://wiki.gentoo.org#cite_ref-2) So if DISPLAY=:12, then Xorg will listen on localhost TCP port 6012

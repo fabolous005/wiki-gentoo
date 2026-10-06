@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Epiphany
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-08-16"
-fingerprint: e5f0ad36b109b977
+fingerprint: f0f0ad74bd09b977
 license: CC BY-SA 4.0
 ---
 
 # Epiphany
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -21,6 +23,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [www-client/epiphany](https://packages.gentoo.org/packages/www-client/epiphany)
+            
+            GNOME webbrowser based on Webkit
 
 ### Emerge
 

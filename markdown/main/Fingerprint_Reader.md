@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Fingerprint_Reader
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-05-21"
-fingerprint: "8888882236152687"
+fingerprint: "88888822361526cf"
 license: CC BY-SA 4.0
 ---
 
@@ -59,3 +59,7 @@ As for the enabling of it for graphical authentication, the system is able to lo
 [PAM](https://wiki.gentoo.org/wiki/PAM) is the authentication service used by Linux. To use a fingerprint reader with PAM, insert the following command in to the configuration file to make eligible for fingerprint.
 
 **`/etc/pam.d/(pam.d service)`**
+
+```
+auth            sufficient      pam_fprintd.so
+```

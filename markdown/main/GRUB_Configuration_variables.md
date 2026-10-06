@@ -5,11 +5,15 @@ url: https://wiki.gentoo.org/wiki/GRUB/Configuration_variables
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-08-07"
-fingerprint: bd09511a38a5bfa8
+fingerprint: bd09111a38a5bfa8
 license: CC BY-SA 4.0
 ---
 
 # GRUB/Configuration variables
+
+From Gentoo Wiki
+
+\< [GRUB](https://wiki.gentoo.org/wiki/GRUB)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

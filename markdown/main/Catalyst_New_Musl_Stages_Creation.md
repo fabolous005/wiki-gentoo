@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Catalyst/New_Musl_Stages_Creation
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-05-09"
-fingerprint: ec2eb23a758f5134
+fingerprint: ec2eb27a758fd334
 license: CC BY-SA 4.0
 ---
 
 # Catalyst/New Musl Stages Creation
+
+[Catalyst](https://wiki.gentoo.org/wiki/Catalyst)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -71,6 +73,9 @@ mkdir /usr/mips64-unknown-linux-musl/etc/portage/package.use
 ```
 **`/usr/mips64-unknown-linux-musl/etc/portage/package.use/system`**
 
+```
+sys-apps/util-linux -su
+```
 #### Emerge the system
 
 `root #``mips64-unknown-linux-musl-emerge -va1 @system --keep-going`
@@ -152,6 +157,9 @@ Qemu chroot also need some sandbox features disabled, so add these to the make.c
 
 **make.conf example**
 
+```
+FEATURES="-pid-sandbox -network-sandbox"
+```
 #### Emerge sync
 
 Run an emerge --sync:
@@ -183,8 +191,34 @@ Next, create the spec files
 `root #``cd /var/tmp/catalyst`
 **`stage1-mips64-musl-n64-openrc.spec`**
 
+```
+subarch: mips64_n64
+target: stage1
+version_stamp: musl-openrc-20221019
+interpreter: /usr/bin/qemu-mips64
+rel_type: default
+profile: default/linux/mips/17.0/musl/n64
+snapshot: 2022.10.19
+source_subpath: mips64-musl-seed
+compression_mode: pixz
+decompressor_search_order: xz bzip2
+update_seed: yes
+update_seed_command: -uDN @world
+```
 **`stage3-mips64-musl-n64-openrc.spec`**
 
+```
+subarch: mips64_n64
+target: stage3
+version_stamp: openrc-2022-10-19
+interpreter: /usr/bin/qemu-mips64
+rel_type: default
+profile: default/linux/mips/17.0/musl/n64
+snapshot: 2022.10.19
+source_subpath: default/stage1-mips64_n64-openrc-20221019
+compression_mode: pixz
+decompressor_search_order: xz bzip2
+```
 #### Start the build
 
 Finally, build the stage:

@@ -5,15 +5,21 @@ url: https://wiki.gentoo.org/wiki/Eudev/Network_device_names
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-12-19"
-fingerprint: "3e01d979c9dfa3d7"
+fingerprint: "3e21d979c9cfa3df"
 license: CC BY-SA 4.0
 ---
 
 # Eudev/Network device names
 
+From Gentoo Wiki
+
+\< [Eudev](https://wiki.gentoo.org/wiki/Special:MyLanguage/Eudev)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Archived article**
 
 This article is **archived (obsolete)**. Contents are surely incorrect for current usage, and are intended for historical reference only.
 

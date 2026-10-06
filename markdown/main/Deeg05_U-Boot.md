@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Deeg05:U-Boot
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-05-31"
-fingerprint: "8fdb1c1a7b91f971"
+fingerprint: a7db1c1a7b91f961
 license: CC BY-SA 4.0
 ---
 
@@ -28,11 +28,14 @@ This document describes how to compile U-Boot for linux-sunxi devices
 
 Prepare working environment:
 
-`user $``cd u-boot-sunxi``user $``export CROSS_COMPILE="armv7a-unknown-linux-gnueabihf-"``user $``virtualenv -p /usr/bin/python2.7 venv``user $``source venv/bin/activate`
+`user $``git clone` [https://github.com/linux-sunxi/u-boot-sunxi.git](https://github.com/linux-sunxi/u-boot-sunxi.git)`user $``cd u-boot-sunxi``user $``export CROSS_COMPILE="armv7a-unknown-linux-gnueabihf-"``user $``virtualenv -p /usr/bin/python2.7 venv``user $``source venv/bin/activate`
 Remove line from scripts/dtc/dtc-lexer.lex.c
 
 FILE **`scripts/dtc/dtc-lexer.l`****dtc-lexer.l**
 
+```
+YYLTYPE yyloc;
+```
 Compile:
 
 `user $``make Cubietruck_config``user $``make clean``user $``make all`

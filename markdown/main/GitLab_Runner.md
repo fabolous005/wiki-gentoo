@@ -5,13 +5,15 @@ url: https://wiki.gentoo.org/wiki/GitLab/Runner
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-02-24"
-fingerprint: f25785ea1b87cbff
+fingerprint: f25785ea1b8388fe
 license: CC BY-SA 4.0
 ---
 
 # GitLab/Runner
 
 From Gentoo Wiki
+
+\< [GitLab](https://wiki.gentoo.org/wiki/GitLab)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

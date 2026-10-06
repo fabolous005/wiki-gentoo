@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Asus_Tuf_Gaming_fx505dy
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-08-16"
-fingerprint: df462cc5833a85ac
+fingerprint: ff462cd5c33a25ec
 license: CC BY-SA 4.0
 ---
 
@@ -133,12 +133,46 @@ The laptop features AMD/Realtek HD audio.
 ```
 Configure [ALSA](https://wiki.gentoo.org/wiki/ALSA) with the following driver settings:
 
+```
+Device Drivers --->
+    <*> Sound card support
+        <*> Advanced Linux Sound Architecture --->
+            HD-Audio  --->
+                -*- Allow dynamic codec reconfiguration
+                [*] Support initialization patch loading for HD-audio
+                <*> Build Realtek HD-audio codec support
+                <*> Build HDMI/DisplayPort HD-audio codec support
+                -*- Enable generic HD-audio codec parser
+          (2048) Pre-allocated buffer size for HD-audio driver
+```
 ### Touchpad
 
 The laptop's touchpad will probably be an Elan 1200 model, which may not be detected by system tools, including lspci.
 
 To enable it, use the following kernel configuration settings:
 
+```
+Processor type and features  --->
+    [*] AMD ACPI2Platform devices support
+Device Drivers  --->
+    -*- Pin controllers  --->
+        <*> AMD GPIO pin control
+    HID support  --->
+        Special HID drivers  --->
+            <*> HID Multitouch panels
+        I2C HID support  --->
+            <*> HID over I2C transport layer
+    I2C support  --->
+        I2C Hardware Bus support  --->
+            <*> AMD MP2 PCIe
+            <*> Synopsys DesignWare Platform
+            <*> Synopsys DesignWare PCI
+    Input device support  --->
+        Mice  --->
+            <*> ELAN I2C Touchpad support
+            [*] Enable I2C support
+            [*] Enable SMbus support
+```
 ### USB
 
 ### SATA, PCI

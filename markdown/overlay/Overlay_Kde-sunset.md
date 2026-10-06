@@ -11,9 +11,13 @@ license: CC BY-SA 4.0
 
 # Overlay:kde-sunset
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 ## Contents
 
@@ -39,7 +43,7 @@ As it does not have an active maintainer, the `kde-sunset` overlay is no longer 
 `root #``eselect repository add kde-sunset git git://anongit.gentoo.org/proj/kde-sunset.git`
 or
 
-**`/etc/portage/repos.conf/kde-sunset.conf`**
+FILE **`/etc/portage/repos.conf/kde-sunset.conf`**
 
 ```
 [kde-sunset]

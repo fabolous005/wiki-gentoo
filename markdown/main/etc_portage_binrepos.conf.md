@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki//etc/portage/binrepos.conf
 hostname: gentoo.org
 sitename: "/etc/portage/binrepos.conf"
 date: "2026-02-06"
-fingerprint: eda13e860dc27390
+fingerprint: eda13e860dc26390
 license: CC BY-SA 4.0
 ---
 
 # /etc/portage/binrepos.conf
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -21,9 +23,7 @@ license: CC BY-SA 4.0
 
 Currently adding a binary package repository can only be done by hand, an example binrepos.conf config looks like the following:
 
-**`/etc/portage/binrepos.conf/gentoobinhost.conf`**
-
-**UK Mirror Example, amd64**
+FILE **`/etc/portage/binrepos.conf/gentoobinhost.conf`****UK Mirror Example, amd64**
 
 ```
 [gentoo]

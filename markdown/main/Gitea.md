@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Gitea
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-01-25"
-fingerprint: be2858c339858e81
+fingerprint: be2858c379858e81
 license: CC BY-SA 4.0
 ---
 
 # gitea
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -17,6 +19,11 @@ license: CC BY-SA 4.0
 
 
 **Resources**
+
+This article has some todo items:
+
+
+[Services: runit](https://wiki.gentoo.org#Service)
 
 **Gitea** is painless self-hosted [git](https://wiki.gentoo.org/wiki/Git) service, a fork of gogs.
 
@@ -30,6 +37,11 @@ Gitea requires the use of a database backend, the following are supported:
 
 ### USE flags
 
+
+### USE flags for
+            [www-apps/gitea](https://packages.gentoo.org/packages/www-apps/gitea)
+            
+            A painless self-hosted Git service
 
 | [+acct](https://packages.gentoo.org/useflags/+acct) | User and group management via acct-\*/git packages | 
 | [+filecaps](https://packages.gentoo.org/useflags/+filecaps) | Use Linux file capabilities to control privilege rather than set\*id (this is orthogonal to USE=caps which uses capabilities at runtime e.g. libcap) | 
@@ -94,6 +106,8 @@ The web interface should be available at [http://localhost:3000/](http://localho
 ### Unmerge
 
 `root #``emerge --ask --depclean --verbose www-apps/gitea`
+## See also
+
 ## External resources
 
 - [ArchWiki Gitea](https://wiki.archlinux.org/index.php/Gitea#Usage) - can be helpful while configuration sections is incomplete on Gentoo wiki

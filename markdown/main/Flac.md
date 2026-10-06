@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Flac
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-12-27"
-fingerprint: ac40721b02aa1e12
+fingerprint: ac40701b02aa1e12
 license: CC BY-SA 4.0
 ---
 
 # flac
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -26,6 +28,11 @@ FLAC may optionally use an OGG  [container](https://wiki.gentoo.org/wiki/Multime
 
 ### USE flags
 
+
+### USE flags for
+            [media-libs/flac](https://packages.gentoo.org/packages/media-libs/flac)
+            
+            Free lossless audio encoder and decoder
 
 | [+cxx](https://packages.gentoo.org/useflags/+cxx) | Build support for C++ (bindings, extra libraries, code generation, ...) | 
 | [debug](https://packages.gentoo.org/useflags/debug) | Enable extra debug codepaths, like asserts and extra output. If you want to get meaningful backtraces see https://wiki.gentoo.org/wiki/Project:Quality\_Assurance/Backtraces | 

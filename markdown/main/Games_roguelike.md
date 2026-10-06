@@ -12,6 +12,8 @@ license: CC BY-SA 4.0
 
 # Games/roguelike
 
+[Games](https://wiki.gentoo.org/wiki/Games)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
@@ -22,12 +24,16 @@ This article provides an overview of roguelike games that are available in the :
 
 ![](https://wiki.gentoo.org/images/thumb/7/7e/Stonesoup_screenshot1.png/200px-Stonesoup_screenshot1.png)
 
+[more](http://crawl.develz.org/wordpress/screenshots)
+
 Dungeon Crawl Stone Soup is a 1st class open-source rogue-like game of exploration and treasure-hunting in dungeons filled with dangerous and unfriendly monsters in a quest to rescue the mystifyingly fabulous Orb of Zot. It features a wide variety of classes, items and spells and can be played offline and [online](https://crawl.develz.org/wordpress/howto). You can play the game in gui-mode (tiles useflag) or ascii-mode (ncurses useflag) or even [in your browser](http://webtiles.akrasiac.org/). View a YouTube demo [here](https://www.youtube.com/watch?v=OEDGUPKm3Uc).
 
 `root #``emerge --ask games-roguelike/stone-soup`
 ## TomeNET
 
 ![](https://wiki.gentoo.org/images/thumb/f/fd/TomeNET_Screenshot.png/200px-TomeNET_Screenshot.png)
+
+[more](http://www.tomenet.eu/screenshots.php)
 
 TomeNET is a **multiplayer** rogue-like, based on and somewhat similar to MAngband and ToME, and also featuring some Zangband and Cthulu Angband monsters. It was created around 2001 (originally under the name of *PernMAngband* which had to be renamed due to a letter of Anne McCaffrey's attorney who prohibited the use of the name *Pern*) as a fork of MAngband which got some ToME design added to it. TomeNET is feared for being hard to master, but at the same time the more rewarding to the skillful player who has learned to make use of all the nifty possibilities open to him. The game has a full-fledged documentation called *The TomeNET Guide* - [HTML version](http://www.tomenet.eu/guide.php).
 

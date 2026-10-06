@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Gentoo_FreeBSD/Experimental
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-04-13"
-fingerprint: b4051443d98be3af
+fingerprint: b4251443d98be3af
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Archived article**
 
 This article is **archived (obsolete)**. Contents are surely incorrect for current usage, and are intended for historical reference only.
 

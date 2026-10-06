@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Asus_PN50
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-08-16"
-fingerprint: "5712907670ba1785"
+fingerprint: "5712907670aa9785"
 license: CC BY-SA 4.0
 ---
 
@@ -23,6 +23,9 @@ Package [app-portage/cpuid2cpuflags](https://packages.gentoo.org/packages/app-po
 
 **`/etc/portage/package.use/00cpu-flags`**
 
+```
+*/* CPU_FLAGS_X86: aes avx avx2 f16c fma3 mmx mmxext pclmul popcnt rdrand sha sse sse2 sse3 sse4_1 sse4_2 sse4a ssse3
+```
 The following command can be used to verify CPU related info<sup>[\[2\]](https://wiki.gentoo.org#cite_note-2)</sup>.
 
 `user $``grep -m1 -A3 "vendor_id" /proc/cpuinfo`
@@ -35,6 +38,11 @@ The following configuration shall be applied:
 
 **`/etc/portage/make.conf`**
 
+```
+COMMON_FLAGS="-march=znver2 -O2 -pipe"
+CFLAGS="${COMMON_FLAGS}"
+CXXFLAGS="${COMMON_FLAGS}"
+```
 Note on `MAKEOPTS`: there are lots of discussions related to the best way to configure how many parallel make jobs can be launched from Portage<sup>[\[3\]](https://wiki.gentoo.org#cite_note-3)</sup>. An example for Asus PN50, using the following command output:
 
 `user $``lscpu`
@@ -57,6 +65,9 @@ would suggest, since 6 logical CPUs are available, 6 physical cores each with 1 
 
 **`/etc/portage/make.conf`**
 
+```
+MAKEOPTS="-j6"
+```
 However, considering also the fact that higher the value of `MAKEOPTS`, higher the RAM request is (and hence possible usage of swap
 ) it is suggested to lower the value coming from previous computation, or at least to make such considerations.
 
@@ -163,6 +174,9 @@ The kernel module to be loaded (or built in kernel) is `amdgpu`. In addition, th
 
 **Kernel command line**
 
+```
+BOOT_IMAGE=/boot/vmlinuz-5.4.80-gentoo-r1-x86_64 root=UUID=6e1d35b8-5e2a-4bdb-8fc0-2f4b70dee0ac ro ''amdgpu.exp_hw_support=1''
+```
 #### X11 Driver
 
 The following configuration shall be used:
@@ -170,7 +184,7 @@ The following configuration shall be used:
 **`/etc/portage/package.use/00video`**
 
 ```
- VIDEO_CARDS: -* amdgpu radeonsi
+*/* VIDEO_CARDS: -* amdgpu radeonsi
 ```
 X11 driver [x11-drivers/xf86-video-amdgpu](https://packages.gentoo.org/packages/x11-drivers/xf86-video-amdgpu) shall be emerged.
 

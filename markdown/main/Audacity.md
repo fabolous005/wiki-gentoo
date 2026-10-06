@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Audacity
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-02-27"
-fingerprint: "8600c31cc997394c"
+fingerprint: "600431c4997784c"
 license: CC BY-SA 4.0
 ---
 
 # Audacity
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -21,6 +23,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [media-sound/audacity](https://packages.gentoo.org/packages/media-sound/audacity)
+            
+            Free crossplatform audio editor
 
 | [+flac](https://packages.gentoo.org/useflags/+flac) | Add support for FLAC: Free Lossless Audio Codec | 
 | [+ladspa](https://packages.gentoo.org/useflags/+ladspa) | Enable the ability to support ladspa plugins | 

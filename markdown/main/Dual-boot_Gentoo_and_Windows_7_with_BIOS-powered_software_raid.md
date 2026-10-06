@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Dual-boot_Gentoo_and_Windows_7_with_BIOS-power
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-08-24"
-fingerprint: "9d1f695bcfadb49f"
+fingerprint: "9d1f695bcfadb49d"
 license: CC BY-SA 4.0
 ---
 
@@ -96,6 +96,13 @@ Adjust fstab and grub.conf and setup GRUB on the partition you marked active in 
 
 **`grub.conf`**
 
+```
+title Windows
+map (hd0) (hd1)
+map (hd1) (hd0)
+rootnoverify (hd1,0)
+chainloader +1
+```
 Reboot, go into the BIOS and choose Linux as your boot device. That's it, you are done.
 
 Maybe now you want to setup Linux md software RAID for your Gentoo. You certanly want to setup a regular backup scheme for your data.

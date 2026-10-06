@@ -15,6 +15,8 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+**Deprecated article**
+
 This article is **deprecated (obsolete)**. Contents are <u>no longer relevant</u>, and are intended for historical reference only!
 
 TLDR:
@@ -238,6 +240,8 @@ Last command also pulls [sys-libs/zlib](https://packages.gentoo.org/packages/sys
 
 [https://forums.gentoo.org/viewtopic-t-1017844-highlight-capt.html](https://forums.gentoo.org/viewtopic-t-1017844-highlight-capt.html) -- this one is useful for **amd64**
 
+[https://forums.gentoo.org/viewtopic-t-913082-highlight-capt.html](https://forums.gentoo.org/viewtopic-t-913082-highlight-capt.html)
+
 ### Bugs
 
 Expect them. And please report bugs/problems you have with ebuilds to [bug #130612](https://bugs.gentoo.org/show_bug.cgi?id=130612)
@@ -247,5 +251,9 @@ Expect them. And please report bugs/problems you have with ebuilds to [bug #1306
 While searching for solutions of your problems with some of this printers you will get to this pages, eventually:
 
 [Driverless printing](https://wiki.gentoo.org/wiki/Driverless_printing).  To be tested/verified by someone owning such printer
+
+[https://sourceforge.net/projects/foo2capt/](https://sourceforge.net/projects/foo2capt/)
+
+[https://www.boichat.ch/nicolas/capt/](https://www.boichat.ch/nicolas/capt/)
 
 Those were really nice open source drivers, that were actually working at the time, but only had one release. It would be nice if someone would take over those projects and keep them alive. Until then, we will have to use official ones.

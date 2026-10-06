@@ -19,10 +19,14 @@ This page documents the process and some configuration tips to get Gentoo runnin
 
 Since WSL uses a real Linux [kernel](https://wiki.gentoo.org/wiki/Kernel) running on top of a [hypervisor](https://en.wikipedia.org/wiki/Hypervisor), Linux is essentially run within Windows. Gentoo can run on top of WSL, too.
 
+## Installing WSL
+
 WSL needs to be enabled in Windows before Gentoo can be installed. Here, the `--no-distribution` flag prevents the default distribution (Ubuntu) from being installed by default (this can be left out, if desired).
 
 `PS >``wsl --install --no-distribution`
 Please consult Microsoft's documentation for installing WSL on [Windows 10 (build 19041 or above) or Windows 11](https://learn.microsoft.com/en-us/windows/wsl/install) and [older builds of Windows 10](https://learn.microsoft.com/en-us/windows/wsl/install-manual).
+
+### WSL global options
 
 The `.wslconfig` file configures settings globally for all Linux distributions running under WSL 2; WSL 1 distributions relying solely on /etc/wsl.conf for configuration. It covers settings such as RAM, swap, number of processors, and host port-forwarding. The file can be created in the Windows user home directory if it does not already exist (e.g. C:\Users\larry\.wslconfig). Here is an example of available options:
 
@@ -69,6 +73,8 @@ These settings will become important for post-install configuration below (compi
 
 The per-distribution config (/etc/wsl.conf) will be discussed throughout the following sections.
 
+## Importing Gentoo via stage file
+
 Gentoo is not included in the official WSL distributions (run `wsl --list --online` to list available distributions) and requires a [manual approach](https://learn.microsoft.com/en-us/windows/wsl/use-custom-distro) rather than the usual Microsoft Store install. A [stage 3 file](https://wiki.gentoo.org/wiki/Stage_file#Stage_3) is used to import a basic Gentoo filesystem. This is similar to a bare-metal installation, where the archive is unpacked in the soon-to-be mounted filesystem. Assuming WSL is installed and enabled as per the instructions above, the simplified steps are as follows:
 
 - Steps to download, unpack, and import a stage 3 file.
@@ -105,10 +111,16 @@ Older versions of WSL may use a Gentoo stage4 WSL tarball, however users will ne
 4. Exit the WSL environment
 5. Enter the environment as the newly created user with:`PS >``wsl -d Gentoo -u larry`
 
+## Basic Gentoo configuration in WSL
+
+### Initial run
+
 After the [stage file import](https://wiki.gentoo.org/wiki/Gentoo_in_WSL#Importing_Gentoo_via_stage_file), the resulting Gentoo system can be used immediately. Assuming the label given in the import step was `Gentoo`, the following command can be used to load the system:
 
 `PS >``wsl -d Gentoo`
 However, the steps outlined below are *highly* recommended, as a Gentoo WSL image (much like a Gentoo stage3 file) is a blank slate awaiting user customisation. Following the (in this case abridged) Gentoo Handbook is, as always, highly recommended to configure a Gentoo system.
+
+### Installation Handbook: Recommended setup steps
 
 The following sections of the Installation Handbook should be used to finalize the installation process of a minimal system (assuming an AMD64 architecture).
 
@@ -122,6 +134,8 @@ The following sections of the Installation Handbook should be used to finalize t
 In general, the handbook can be used in its entirety, with some common-sense changes (like the aforementioned /mnt/gentoo -> /). In particular, as WSL runs a container, some features do not require configuration (e.g. networking, which attempts to configure may actually 'break\`), while others are not meaningfully configurable as they are provided by the host (e.g. filesystem, bootloader).
 
 [The kernel can be customised](https://learn.microsoft.com/en-us/community/content/wsl-user-msft-kernel-v6), however this is not required and should only be attempted if (e.g.) a feature that is not configured needs to be enabled.
+
+### Setting up a non-root default user
 
 When starting Gentoo in WSL, the root user will be used by default. This is neither secure nor preferable. To this, it is recommended that a non-root user is enabled and set as the default. The simplest way to set a default user is to create one (if one hasn't been created already):
 
@@ -140,6 +154,8 @@ After configuring a default user, a root session can still be explicitly started
 
 `PS >``wsl -u root -d Gentoo`
 There are alternative ways to specify the default user. Configuration specified in /etc/wsl.conf will be preserved when exporting/importing a distribution which makes it less suitable for creating templates.
+
+### Per-Distribution WSL Config
 
 The per-distribution file /etc/wsl.conf can be used to configure important settings for the newly unpacked Gentoo system. In Gentoo, this file is provided by [sys-apps/gentoo-wsl-config](https://packages.gentoo.org/packages/sys-apps/gentoo-wsl-config) and is included in stage4 WSL tarballs; it may also be created manually, if the default configuration is undesirable. The file is modeled after `ini` syntax.
 
@@ -188,6 +204,8 @@ appendWindowsPath = true
 ```
 See [Advanced settings configuration in WSL](https://learn.microsoft.com/en-us/windows/wsl/wsl-config#wslconf) for a full description of the options available for wsl.conf.
 
+### Init systems
+
 OpenRC can be run on WSL start. Add the following to /etc/wsl.conf:
 
 **`/etc/wsl.conf`**
@@ -215,14 +233,21 @@ systemd=true
 ```
 As this change impacts on the startup of the WSL container, WSL should be shutdown (or the distro terminated) and relaunched for the changes to take effect. Keep the "8 second rule" in mind.
 
+### WSL filesystems
+
 By default, existing drives are [automatically mounted](https://learn.microsoft.com/en-us/windows/wsl/wsl-config#automount-settings) using the [drvfs](https://learn.microsoft.com/en-us/windows/wsl/wsl-config#what-is-drvfs) driver. These drives can be accessed under the /mnt directory.
 
 To mount drives not recognized by Windows, read [Mount a Linux disk in WSL 2](https://learn.microsoft.com/en-us/windows/wsl/wsl2-mount-disk). To mount a USB drive (already mounted on the Windows host), the current method uses [usbip](https://github.com/dorssel/usbipd-win) which uses the IP protocol to give WSL access to Windows-mounted USB drives. Further instructions can be accessed [on the Microsoft wsl page](https://learn.microsoft.com/en-us/windows/wsl/connect-usb) or [on the usbipd github wiki page](https://github.com/dorssel/usbipd-win/wiki/WSL-support).
+
+### Graphical programs using X11 or Wayland
 
 Graphical programs can be run under WSL thanks to WSLg (Windows Subsystem for Linux GUI). The purpose of the project is to enable support for running Linux GUI applications (X11 and Wayland) on Windows. The WSLg "system distro" is a containerized Linux environment where the WSLg XServer, Wayland server and Pulse Audio sockets originate. WSLg exposes the DirectX 12 API through the device `/etc/dxg` and it directly communicates with the GPU on the Windows host. To enable d3d12, add the following:
 
 **`/etc/portage/package.use/00video`**
 
+```
+*/* VIDEO_CARDS:  d3d12
+```
 Then, update the system to enable the changes:
 
 `root #``emerge --ask --verbose --update --deep --changed-use @world`
@@ -246,6 +271,8 @@ On systemd, the X11 socket in /tmp will be shadowed by its tmpfs upon mounting, 
 ## Advanced WSL Configuration
 
 These steps are not required (or recommended for most users), however users with a particular need to (e.g.) update the kernel or use a modified kernel configuration may wish to follow the steps below.
+
+### Updating the kernel as part of make install
 
 The following hook script finds where your C:\ drive is mounted inside WSL 2, copies the kernel to %USERPROFILE% then edits %USERPROFILE%\.wslconfig to change the kernel = line to refer to the new kernel.
 
@@ -275,6 +302,10 @@ fi
 cp "/boot/${kernel}" "${win_home}" || exit 1
 sed -re "s/^kernel(\s+)?=.*/kernel = ${win_home_win}\\\\\\\\${kernel}/" -i "$wslconfig" || exit 1
 ```
+## Troubleshooting
+
+### WSL error WSL\_E\_WSL\_OPTIONAL\_COMPONENT\_REQUIRED
+
 If the error `Wsl/WSL_E_WSL_OPTIONAL_COMPONENT_REQUIRED` is encountered during the import step, ensure that the Hyper-V feature is enabled. This can be verified and enabled via the Windows interface (Start > Control Panel > Programs > Turn Windows features on or off > Hyper-V), or via PowerShell:
 
 `PS >``Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V`
@@ -283,12 +314,16 @@ To enable it if disabled:
 `PS >``Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All`
 A system restart will be required.
 
+### An error occurred mounting one of the file systems
+
 If a new Gentoo installation on Windows 11 fails to start with this error message:
 
 `PS >``wsl -d Gentoo`
 An error occurred mounting one of the file systems. Please run 'dmesg' for more details.
 
 Then reinstall Gentoo using a `nomultilib` stage3 variant.
+
+### Segmentation fault in docker
 
 If using a docker image with some old glibc distributions inside Gentoo in WSL, segmentation faults may occur. In most cases this happens because vsyscall is off by default. Workaround is to enable its emulation at global WSL configurationː
 
@@ -300,10 +335,16 @@ If using a docker image with some old glibc distributions inside Gentoo in WSL, 
 [wsl2]
 kernelCommandLine = vsyscall=emulate
 ```
+### Problems with network with active Cisco AnyConnect VPN
+
 If the VPN has no routes to the internet (only intranet), then change VPN interface metrics after each reconnect. Otherwise all traffic from WSL will go to VPN interface. This can be done with the next command on Windows:
 
 `PS >``Get-NetAdapter | Where-Object {$_.InterfaceDescription -Match "Cisco AnyConnect"} | Set-NetIPInterface -InterfaceMetric 6000`
+### No audio / Can not connect to ALSA
+
 The WSLg component of WSL provides a `PULSE_SERVER` environment variable. It is only possible to push audio from WSL guest into Windows host through that socket. Ensure the variable `PULSE_SERVER` is set and the desired software to run was built with pulseaudio support. For example, MPV requires the `pulseaudio` USE flag to have audio playback from videos.
+
+### /usr/lib/wsl/lib/libcuda.so.1 is not a symbolic link
 
 This error message may appear in the kernel log (`dmesg` or `journalctl -kb --grep libcuda`). This can be fixed with an administrator `cmd` with the following commands:
 
@@ -322,10 +363,14 @@ Directory of C:\Windows\System32\lxss\lib
 03/15/2022 03:59 PM libcuda.so \[libcuda.so.1.1\]|
 03/15/2022 04:00 PM libcuda.so.1 \[libcuda.so.1.1\]|
 
+### /proc/sys/fs/binfmt\_misc/WSLInterop-late: Permission denied
+
 Inside the VM:
 
 `root #``echo ':WSLInterop:M::MZ::/init:PF' > /etc/binfmt.d/wsl.conf`
 After a reboot of the VM launching Windows executables from within the VM should work.
+
+### Windows programs not on PATH
 
 By default, despite setting `appendWindowsPath = true`, the Gentoo baselayout will overwrite the provided `PATH` completely. To solve this, edit /etc/profile to preserve the initial `PATH`:
 
@@ -351,6 +396,8 @@ unset WSLPATH
 ```
 The first line and the last two lines of this block need to be added around the pre-existing middle block at the top of /etc/profile. [Zsh](https://wiki.gentoo.org/wiki/Zsh) users should perform the change in /etc/zsh/zprofile.
 
+### TrueColor support not detected in Windows Terminal
+
 Although Windows Terminal natively supports 24-bit (TrueColor) output, it [does **not** set the `COLORTERM` environment variable by default](https://github.com/microsoft/terminal/issues/11057). As a result, some applications (such as Helix) may incorrectly assume that TrueColor is not supported.
 
 To work around this issue, you can explicitly set the `COLORTERM` variable in your /etc/profile:
@@ -373,12 +420,16 @@ export COLORTERM="truecolor"
 
 Any attempt to use OpenGL with the D3D12 Gallium driver and an Intel ARC GPU immediately hard-locks Windows and WSL, although using the GPU for OpenCL calculations works fine. Intel ARC GPU drivers still lack maturity, however recently released drivers have resolved the issue: try updating to at least version 32.0.101.8626 (WHQL Certified). See the Intel ARC graphics drivers [download page](https://www.intel.com/content/www/us/en/download/785597/intel-arc-graphics-windows.html).
 
+### OpenGL falling back to llvmpipe software renderer on Intel GPUs
+
 When using the d3d12 gallium driver in Mesa on an Intel based GPU, the current (September 2024) driver in WSL2 will fail to load on a Gentoo system.
 
 To fix this:
 
 `root #``emerge --ask dev-libs/libedit``root #``ln -s /usr/lib/libedit.so /usr/lib/libedit.so.2`
 See [bug #937851](https://bugs.gentoo.org/show_bug.cgi?id=937851) for more information.
+
+### Windows do not open after switching from an external X Server to WSLg
 
 Without WSLg you have to use an external X Server to run applications with a graphical interface. After switching to WSLg which provides a Wayland compositor and makes the external X Server obsolete, you have to take care, that you keep the value of the `DISPLAY` environment variable set by WSLg to `:0`. For an external X Server you might have set this variable to a different value containing the IP address of the host. In that case all applications with a graphical interface cannot open their window and the process will simply hang until a timeout occurs.
 
@@ -417,5 +468,7 @@ For more information visit: https://aka.ms/wslusers
  * [DEBUG] Starting OOBE loop
 ```
 For local development, the `--dry-run` option will ensure that the local system is not modified (and skips the 'does UID 1000 already exist' check).
+
+## See also
 
 - [Prefix](https://wiki.gentoo.org/wiki/Prefix) — enables the power of Gentoo and [Portage](https://wiki.gentoo.org/wiki/Portage) on other distributions and/or operating systems (Microsoft Windows via Cygwin, Android via Termux, etc.).

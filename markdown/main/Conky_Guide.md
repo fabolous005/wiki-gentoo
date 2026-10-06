@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Conky/Guide
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-09-25"
-fingerprint: a4a1591a36b29ffc
+fingerprint: a4a1591a36b29dfc
 license: CC BY-SA 4.0
 ---
 
 # Conky/Guide
+
+[Conky](https://wiki.gentoo.org/wiki/Conky)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -86,5 +88,6 @@ And We'll choose a few options for curl:
 
 We're going to parse the result of the url and read the temperature of curl return and jq
 
+`user $``curl -s --retry 5 --retry-max-time 30 --url "`[https://api.open-meteo.com/v1/dwd-icon?latitude=53.9576&longitude=-1.0827¤t=temperature_2m&timezone=auto](https://api.open-meteo.com/v1/dwd-icon?latitude=53.9576&longitude=-1.0827¤t=temperature_2m&timezone=auto)" | jq -r '.current.temperature_2m'
 
 Our final command can be written as follows to display York's temperature in °C:

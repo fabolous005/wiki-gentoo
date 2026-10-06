@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki//etc/portage/profile/package.use.mask
 hostname: gentoo.org
 sitename: "/etc/portage/profile/package.use.mask"
 date: "2025-01-19"
-fingerprint: "6fb32bd9ed23def7"
+fingerprint: "6fb123d9ed25fefd"
 license: CC BY-SA 4.0
 ---
 
@@ -27,3 +27,10 @@ The /etc/portage/profile/package.use.mask file contains per-package USE flag mas
 ## Example
 
 FILE **`/etc/portage/profile/package.use.mask`****Per-package USE flag masks example**
+
+```
+# Mask docs for GTK 2.x
+=x11-libs/gtk+-2* gtk-doc
+# Unmask mysql support for QT
+dev-qt/qtbase -mysql
+```

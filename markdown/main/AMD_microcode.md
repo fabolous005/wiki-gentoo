@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/AMD_microcode
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-09-24"
-fingerprint: "271ed83f42f693a5"
+fingerprint: "2716d87d42b603a5"
 license: CC BY-SA 4.0
 ---
 
@@ -25,10 +25,21 @@ For the Linux kernel to support CPU microcode loading, the following must be ena
 
 **Enable AMD microcode loading support up to kernel version 6.5**
 
+```
+Processor type and features  --->
+    [*] CPU microcode loading support
+    [*]   AMD microcode loading support
+```
 For the kernel to be able to load any firmware (including microcode), the *firmware loading facility* option must also be enabled:
 
 **Enable firmware loading facility**
 
+```
+Device Drivers  --->
+    Generic Driver Options 
+        Firmware loader --->
+        {*} Firmware loading facility
+```
 When microcode is available and the kernel is configured, it will update microcode automatically. In most modern configurations the root partition (where the /lib/firmware directory is located) will be mounted during the boot process. For this reason, to be able to update the microcode as soon as possible, it is also necessary to include the microcode firmware blobs either in the kernel image or the initrd/initramfs.
 
 For further instructions, refer to the [Microcode](https://wiki.gentoo.org/wiki/Microcode) article.
@@ -70,12 +81,24 @@ It is possible to incorporate the microcode firmware blob files for all AMD proc
 
 **All AMD firmware blobs in-kernel**
 
+```
+Device Drivers  --->
+    Generic Driver Options 
+        Firmware loader --->
+        {*} Firmware loading facility
+        (amd-ucode/microcode_amd.bin amd-ucode/microcode_amd_fam15h.bin amd-ucode/microcode_amd_fam16h.bin amd-ucode/microcode_amd_fam17h.bin amd/amd_sev_fam17h_model0xh.sbin amd/amd_sev_fam17h_model3xh.sbin amd-ucode/microcode_amd_fam19h.bin amd/amd_sev_fam19h_model0xh.sbin) External firmware blobs to build into the kernel binary
+        (/lib/firmware) Firmware blobs root directory
+```
 For in-kernel microcode it may be preferable to only include the firmware blob file(s) specific to the identified CPU. For example, for the EPYC 7xx1 CPU family this would be `CONFIG_EXTRA_FIRMWARE="amd-ucode/microcode_amd_fam17h.bin amd/amd_sev_fam17h_model0xh.sbin"`.
 
 Instead of in-kernel, the firmware blob files can also be included in an (additional) initrd/initramfs.
 
 **Enable kernel support for loading microcode via initramfs/initrd**
 
+```
+General setup  --- >
+    [*] Initial RAM filesystem and RAM disk (initramfs/initrd) support (BLK_DEV_INITRD)
+```
 This method has the advantage that only the specific initrd/initramfs must be rebuild in case of a firmware files update. If the `initramfs` USE flag is used with the [sys-kernel/linux-firmware](https://packages.gentoo.org/packages/sys-kernel/linux-firmware) package, microcode for all AMD processors will be saved in /boot/amd-uc.img, allowing it to be loaded alongside any other initrd/initramfs by a Linux bootloader such as [GRUB](https://wiki.gentoo.org/wiki/GRUB).
 
 ### Verification
@@ -117,6 +140,8 @@ After updating [sys-kernel/linux-firmware](https://packages.gentoo.org/packages/
 If the microcode was supplied in-kernel, [rebuilding](https://wiki.gentoo.org/wiki/Kernel/Configuration#Build) and installing the kernel as usual is needed to finally provide the new microcode firmware files to the kernel during the boot process. Likewise, if the microcode was included in the main initramfs/initrd, rebuilding it will be necessary to replace the previous with the new versions of the microcode firmware files.
 
 If the patch-level still doesn't change after including the updated firmware files it is very likely that the microcode simply doesn't apply for the specific CPU.
+
+## See also
 
 - [Microcode](https://wiki.gentoo.org/wiki/Microcode) — describes various ways to update a CPU's microcode in Gentoo.
 - [Intel microcode](https://wiki.gentoo.org/wiki/Intel_microcode) — describes the process of updating the [microcode](https://wiki.gentoo.org/wiki/Microcode) on Intel processors.

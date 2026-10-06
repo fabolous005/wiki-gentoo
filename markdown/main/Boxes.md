@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Boxes
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-04-24"
-fingerprint: a23c52f8efa3c374
+fingerprint: a23c12f8efa3c374
 license: CC BY-SA 4.0
 ---
 
 # Boxes
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -24,12 +26,20 @@ Boxes leverages [QEMU](https://wiki.gentoo.org/wiki/QEMU) with  [KVM](https://wi
 ### USE flags
 
 
+### USE flags for
+            [gnome-extra/gnome-boxes](https://packages.gentoo.org/packages/gnome-extra/gnome-boxes)
+            
+            Simple GNOME application to access remote or virtual systems
+
 ### Emerge
 
 To use the file sharing feature of Boxes, [net-misc/spice-gtk](https://packages.gentoo.org/packages/net-misc/spice-gtk) must be emerged with the webdav USE flag enabled:
 
-**`/etc/portage/package.use/gnome-boxes`**
+FILE **`/etc/portage/package.use/gnome-boxes`**
 
+```
+net-misc/spice-gtk webdav
+```
 Install gnome-boxes:
 
 `root #``emerge --ask gnome-extra/gnome-boxes`

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Distrobox
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-07-03"
-fingerprint: "1402d154bfe57fd6"
+fingerprint: "1402d15cbfe57dc7"
 license: CC BY-SA 4.0
 ---
 
@@ -20,6 +20,13 @@ license: CC BY-SA 4.0
 
 ## Use Flags
 
+
+### USE flags for
+            [app-containers/distrobox](https://packages.gentoo.org/packages/app-containers/distrobox)
+            
+            Use any Linux distribution inside your terminal (powered by docker/podman)
+
+| [gui](https://packages.gentoo.org/useflags/gui) | Enable support for a graphical user interface | 
 
 ## Installation
 

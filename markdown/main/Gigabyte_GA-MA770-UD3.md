@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Gigabyte_GA-MA770-UD3
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-22"
-fingerprint: b5813a574ba67eb9
+fingerprint: "3e838a56dba63980"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 ## General Information
 
@@ -32,24 +34,93 @@ The GA-MA770-UD3 is an AMD motherboard with an AM2+ socket and SB700 chipset. Th
 
 ### CPU
 
+```
+[*] 64-bit kernel
+Processor type and features  --->
+    [*] Symmetric multi-processing support
+    [*] Avoid speculative indirect branches in kernel
+    Processor family (AMD 61xx/7x50/PhenomX3/X4/II/K10)
+    [*] Machine Check / overheating reporting
+        [*]   AMD MCE features
+    [*] MTRR (Memory Type Range Register) support
+        [*]   x86 PAT support
+Power management and ACPI options  --->
+    CPU Frequency scaling  --->
+        Default CPUFreq governor (schedutil)
+        <*>   ACPI Processor P-States driver
+```
 ### Disks
 
 **{00:11.0 SATA controller,00:14.1 IDE interface}: Advanced Micro Devices, Inc. \[AMD/ATI\] SB7x0/SB8x0/SB9x0 {SATA Controller \[AHCI mode\],IDE Controller}**
 
+```
+Device Drivers  --->
+    <*> Serial ATA and Parallel ATA drivers (libata)  --->
+        <*>   AHCI SATA support
+        [*]   ATA SFF support
+        [*]     ATA BMDMA support
+        <*>     Intel ESB, ICH, PIIX3, PIIX4 PATA/SATA support
+```
 Floppy disk support is there, if needed:
 
 **00:14.3 ISA bridge: Advanced Micro Devices, Inc. \[AMD/ATI\] SB7x0/SB8x0/SB9x0 LPC host controller**
 
+```
+Device Drivers  --->
+    [*] Block devices  --->
+        <*>   Normal floppy disk support
+```
 ### Sound
 
+```
+Device Drivers  --->
+    <*> Sound Card Support  --->
+        <*> Advanced Linux Sound Architecture  --->
+            HD-Audio  --->
+                <*> HD Audio PCI
+                <*> Build Realtek HD-audio codec support
+```
 ### Ethernet
 
 **02:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller (rev 02)**
 
+```
+Device Drivers  --->
+    Networking support  --->
+        [*] Network device support  --->
+            [*] Ethernet driver support  --->
+                [*]   Realtek devices
+                <*>     Realtek 8169 gigabit ethernet support
+```
 ### Peripherals
 
+```
+Device Drivers  --->
+    [*] USB support  --->
+        <*>   Support for Host-side USB
+        [*]   PCI based USB host interface
+        <*>     EHCI HCD (USB 2.0) support
+            [*]     Root Hub Transaction Translators
+            [*]     Improved Transaction Translator scheduling
+        <*>     OHCI HCD (USB 1.1) support
+            <*>     OHCI support for PCI-bus USB controllers
+    IEEE 1394 (FireWire) support  --->
+        <*> FireWire driver stack
+        <*>   OHCI-1394 controllers
+```
 ### Sensors
 
+```
+Device Drivers --->
+    I2C support  --->
+        <*>   I2C device interface
+        [*]   Autoselect pertinent helper modules
+        I2C Hardware Bus support  --->
+            <*> Intel PIIX4 and compatible (ATI/AMD/Serverworks/Broadcom/SMSC)
+    -*- Hardware Monitoring support  --->
+        <?>   AMD Family 10h+ temperature sensor
+        <*>   ITE IT87xx and compatibles
+```
 Many AMD Family 10h (i.e. Athlon/Phenom II) chips have a faulty temperature sensor. It's safe to enable the driver here, but the kernel will detect affected CPUs and disable it automatically for them. In that case there's no reason to leave it enabled at all.
 
 lm-sensors doesn't have an upstream config file for this chipset; the following is a best-effort attempt to write one:
@@ -58,6 +129,62 @@ lm-sensors doesn't have an upstream config file for this chipset; the following 
 
 **lm-sensors config file**
 
+```
+# Partial Gigabyte GA-MA770-UD3 config file for lm-sensors 3, 2019-12-20
+chip "it8720-*"
+    ## Fans
+    # These are the labels as printed on the motherboard
+    label   fan1    "CPU Fan"
+    label   fan2    "Sys Fan"
+    label   fan3    "Sys Fan 2"
+    label   fan5    "PSU Fan"
+    ## Temperatures
+    label   temp1   "Sys Temp" # idle temp is 38°C, may need offset
+    label   temp2   "CPU Temp" # idle temp is 45°C, ditto
+    ignore  temp3   # stuck at 80°C, probably disconnected
+    ## Local settings - adjust these yourself!
+    set     fan1_min    0   # BIOS sets non-zero
+    ignore  fan3        # not present
+    ignore  fan5        # not present
+    set     temp1_min   25
+    set     temp1_max   45
+    set     temp2_min   35
+    set     temp2_max   65
+    ## Voltages
+    # These settings were hacked together from bits and pieces of user-submitted
+    # config files from similar 770/870 boards (mostly MA770-DS3) here:
+    # https://github.com/lm-sensors/lm-sensors/blob/master/configs/Gigabyte/
+    # While none of them are a perfect match, it does help significantly.
+    ignore  in0     # 1.30V, never changes
+    label   in1     "DDR2 1.8V"
+    label   in2     "+3.3V"     # suspect, never changes from exactly 3.34V
+    label   in3     "+5V"
+    label   in4     "+12V"      # DS3's 12V in6 lines seem to work here
+    label   in5     "Vcore?"
+    ignore  in6     # duplicate of in2?
+    label   in7     "5VSB"      # the kernel's it87 driver sets this for us
+    label   in8     "Vbat"
+    set     in1_min 1.8 * 0.95
+    set     in1_max 1.8 * 1.05
+    set     in2_min 3.3 * 0.95
+    set     in2_max 3.3 * 1.05
+    compute in3     @ * ((6.8/10)+1),   @ / ((6.8/10)+1)
+    set     in3_min 5 * 0.95
+    set     in3_max 5 * 1.05
+    compute in4     @ * ((30/10)+1),    @ / ((30/10)+1)
+    set     in4_min 12 * 0.95
+    set     in4_max 12 * 1.05
+    # Unknown, but probably Vcore - seems directly proportional to CPU load.
+    # 4 idle cores have this reading around 1.5, fully loaded as high as 2.2
+    set     in5_min 1.5 * 0.95
+    set     in5_max 2.1 * 1.05
+    compute in7     @ * ((6.8/10)+1),   @ / ((6.8/10)+1)
+    set     in7_min 5 * 0.95
+    set     in7_max 5 * 1.05
+    ## Other
+    ignore  cpu0_vid    # probably correct (1.250V), but static so not useful
+    ignore  intrusion0  # nobody uses these things…
+```
 Sensor output with the above configuration:
 
 `user $``sensors | sed -n '/it87/,/^   }$/ p'`

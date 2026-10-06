@@ -80,6 +80,11 @@ To boot directly from [UEFI](https://wiki.gentoo.org/wiki/UEFI), the kernel or i
 
 **Root Partition information for Kernels 6.1+**
 
+```
+Processor type and features  --->
+    [*] Built-in kernel command line
+    (root=PARTUUID=adf55784-15d9-4ca3-bb3f-56de0b35d88d rw)
+```
 ##### Option 2: Configuring it into UEFI
 
 To add an entry with command line arguments:
@@ -107,6 +112,11 @@ The kernel supports both CPIO files (e.g., as produced by [Dracut](https://wiki.
 
 **Embedding the initramfs into the kernel**
 
+```
+General Setup  --->
+    [*] Initial RAM filesystem and RAM disk (initramfs/initrd) support
+    (/usr/src/initramfs) Initramfs source file(s)
+```
 ##### EFI configuration
 
 To ensure everything is functioning properly, the kernel may be booted without the initrd command line argument.

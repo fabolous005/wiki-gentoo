@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/BeagleBone
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-15"
-fingerprint: b6d1fa1b8586bba5
+fingerprint: b641fa1b8586bba5
 license: CC BY-SA 4.0
 ---
 
@@ -70,6 +70,7 @@ For booting the BeagleBone we need a kernel. The vanilla kernel.org doesn't supp
 
 Obtain the kernel:
 
+`root #``git clone` [git://arago-project.org/git/projects/linux-am33x.git](git://arago-project.org/git/projects/linux-am33x.git)
 `root #````
 cd linux-am33x
 ```
@@ -78,8 +79,10 @@ git checkout -f v3.2-staging
 ```
 Or use the following if you are only interested in the last revision of this branch:
 
+`root #``git clone --depth 1 --branch v3.2-staging --single-branch` [git://arago-project.org/git/projects/linux-am33x.git](git://arago-project.org/git/projects/linux-am33x.git)
 Obtain needed firmware:
 
+`root #``# wget "`[http://arago-project.org/git/projects/?p=am33x-cm3.git;a=blob_plain;f=bin/am335x-pm-firmware.bin;hb=HEAD](http://arago-project.org/git/projects/?p=am33x-cm3.git;a=blob_plain;f=bin/am335x-pm-firmware.bin;hb=HEAD)" -O firmware/am335x-pm-firmware.bin
 Configure the kernel:
 
 `root #``make ARCH=arm CROSS_COMPILE=armv7a-hardfloat-linux-gnueabi- am335x_evm_defconfig`
@@ -88,16 +91,32 @@ Run menuconfig for enable ext4 support:
 `root #``make ARCH=arm CROSS_COMPILE=armv7a-hardfloat-linux-gnueabi- menuconfig`
 Enable ext4 as built-in:
 
+```
+File systems --->
+   <*>The Extended 4 (ext4) filesystem
+```
 Enable devtmpfs support for newer systems:
 
 **Enabling devtmpfs support**
 
+```
+Device Drivers --->
+  Generic Driver Options --->
+    [*] Maintain a devtmpfs filesystem to mount at /dev
+    [*]   Automount devtmpfs at /dev, after the kernel mounted the rootfs
+```
 The kernel includes CPU frequency scaling support, but by default is configured to use the userspace governor, that means that unless you have any CPU frequency scaling manager in the rootfs, the cpu will be stuck at 600MHz.
 
 You can change the governor anytime you want, but if you are like me and prefer the ondemand governor set by default, which makes a CPU frequency scaling manager redundant, or if you prefer the performance governor which is like disabling CPU frequency scaling, you can choose the default governor in the following kernel config menu.
 
 Set the default governor in menuconfig:
 
+```
+Code Listing 3.8: Configuring the default governor in menuconfig
+CPU Power Management --->
+   CPU Frequency Scaling --->
+      Default CPUFreq governor (userspace)  --->
+```
 Cross-compile the kernel (replace `9` in the command with an appropriate number of cores on the build computer):
 
 `root #``make -j9 ARCH=arm CROSS_COMPILE=armv7a-hardfloat-linux-gnueabi- uImage`
@@ -134,6 +153,10 @@ The default configuration of U-Boot differs a bit from our setup, we fix that by
 
 **`uEnv.txt`**
 
+```
+bootfile=uImage
+loaduimage=run loaduimagefat; run mmcboot
+```
 ### Copy U-Boot, MLO, and the kernel to the SD card
 
 Now we'll mount the first partition on the card and copy the needed files (the ones that we built before) to boot our BeagleBone.
@@ -207,10 +230,20 @@ Edit the /mnt/p2/etc/fstab file to look like this:
 
 **`/mnt/p2/etc/fstab`**
 
+```
+# NOTE: If your BOOT partition is ReiserFS, add the notail option to opts.
+/dev/mmcblk0p1		/boot		vfat		noauto,noatime	1 2
+/dev/mmcblk0p2		/		ext4		noatime		0 1
+```
 If they exist, remove (or comment out) the following lines since this system does not have a swap partition, CD-ROM, or floppy:
 
 **`/mnt/p2/etc/fstab`**
 
+```
+/dev/SWAP		none		swap		sw		0 0
+/dev/cdrom		/mnt/cdrom	auto		noauto,ro	0 0
+#/dev/fd0		/mnt/floppy	auto		noauto		0 0
+```
 ### Set the default root password
 
 This is the most important part of the installation. As without the root password we won't be able to login!
@@ -227,6 +260,9 @@ Replace the first line with the following line (where `password` is the output f
 
 **`/mnt/p2/etc/shadow`**
 
+```
+root:password:14698:0:::::
+```
 ### Setup hostname and networking
 
 Please read the network configuration chapter of the ARM handbook to configure the network.
@@ -243,6 +279,9 @@ By default the ttyS0 port is configured at 9600 bps. However, almost all of the 
 `root #``nano -w /mnt/p2/etc/inittab`
 **`/etc/inittab`**
 
+```
+s0:12345:respawn:/sbin/agetty 115200 ttyO0 vt100
+```
 ### Finishing the installation
 
 Let's unmount the SD card:

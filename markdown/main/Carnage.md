@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Carnage
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-04-27"
-fingerprint: be8175b479cfa8d3
+fingerprint: be8175b079cfa8d3
 license: CC BY-SA 4.0
 ---
 
 # carnage
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -56,9 +58,7 @@ options:
 
 Certain commands may or may not require [superuser privileges](https://wiki.gentoo.org/wiki/Sudo) depending on the user. Privilege can be requested always using a command override:
 
-**`~/.config/carnage/commands.toml`**
-
-**Requesting privilege for reading news**
+FILE **`~/.config/carnage/commands.toml`****Requesting privilege for reading news**
 
 ```
 [news.read]

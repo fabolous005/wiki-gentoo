@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/FVWM
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-07-23"
-fingerprint: d603635cd19a38ec
+fingerprint: d203615cd19a18ec
 license: CC BY-SA 4.0
 ---
 
 # FVWM
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -21,6 +23,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [x11-wm/fvwm3](https://packages.gentoo.org/packages/x11-wm/fvwm3)
+            
+            A multiple large virtual desktop window manager derived from fvwm
 
 | [+go](https://packages.gentoo.org/useflags/+go) | Enable building dev-lang/go code (FvwmPrompt) | 
 | [bidi](https://packages.gentoo.org/useflags/bidi) | Enable bidirectional language support | 
@@ -43,8 +50,11 @@ To start FVWM use a [display manager](https://wiki.gentoo.org/wiki/Display_manag
 
 When using startx with [elogind](https://wiki.gentoo.org/wiki/Elogind) support, setup elogind and create the following file:
 
-**`~/.xinitrc`**
+FILE **`~/.xinitrc`**
 
+```
+exec dbus-launch --sh-syntax --exit-with-session fvwm
+```
 ## See also
 
 - [FVWM-Crystal](https://wiki.gentoo.org/wiki/FVWM-Crystal) — an easy to use, powerful and pretty desktop environment.

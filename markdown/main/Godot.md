@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Godot
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-12-22"
-fingerprint: ee08ca5f49efb7cc
+fingerprint: ee08ca5f49efb5cc
 license: CC BY-SA 4.0
 ---
 
@@ -21,6 +21,11 @@ Godot is an open-source game engine. Godot enables the user to write cross-platf
 
 ### USE flags
 
+
+### USE flags for
+            [dev-games/godot](https://packages.gentoo.org/packages/dev-games/godot)
+            
+            Multi-platform 2D and 3D game engine with a feature-rich editor
 
 | [+dbus](https://packages.gentoo.org/useflags/+dbus) | Enable dbus support for anything that needs it (gpsd, gnomemeeting, etc) | 
 | [+fontconfig](https://packages.gentoo.org/useflags/+fontconfig) | Support for configuring and customizing font access via media-libs/fontconfig | 

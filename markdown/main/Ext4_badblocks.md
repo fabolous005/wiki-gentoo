@@ -11,6 +11,8 @@ license: CC BY-SA 4.0
 
 # Ext4/badblocks
 
+[Ext4](https://wiki.gentoo.org/wiki/Ext4)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)

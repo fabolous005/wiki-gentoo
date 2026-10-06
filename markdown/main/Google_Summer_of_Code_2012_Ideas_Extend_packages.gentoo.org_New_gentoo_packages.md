@@ -5,15 +5,21 @@ url: https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Extend_packag
 hostname: gentoo.org
 sitename: Google Summer of Code/2012/Ideas/Extend packages.gentoo.org New gentoo packages
 date: "2022-04-02"
-fingerprint: "47291d200de12513"
+fingerprint: "452b7d2009e1251b"
 license: CC BY-SA 4.0
 ---
 
 # Google Summer of Code/2012/Ideas/Extend packages.gentoo.org New gentoo packages
 
+From Gentoo Wiki
+
+\< [Google Summer of Code](https://wiki.gentoo.org/wiki/Google_Summer_of_Code) | [2012](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012) | [Ideas](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+## [Extend packages.gentoo.org New gentoo packages]
 
 Creating new packages.gentoo.org with rich web interface and advanced features. Port it to django.
 
@@ -43,4 +49,10 @@ I want thank my mentor Matthew Summers, Brian Dolbec and all other who helped me
 
 | Contacts | Required Skills | 
 |---|---|
-|  |  |
+|  |  | 
+
+
+
+#### Mailing List Archives
+
+ [Extend packages.gentoo.org New gentoo packages - Mailing List Archives](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Extend_packages.gentoo.org_New_gentoo_packages/MailingListArchives)

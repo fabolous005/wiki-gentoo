@@ -5,15 +5,23 @@ url: https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Package_stati
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-04-02"
-fingerprint: a7e92e28a935431a
+fingerprint: afe92ea88935630a
 license: CC BY-SA 4.0
 ---
 
 # Google Summer of Code/2012/Ideas/Package statistics reporting tool
 
+[Google Summer of Code](https://wiki.gentoo.org/wiki/Google_Summer_of_Code) |
+
+[2012](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012) |
+
+[Ideas](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+## [Package statistics reporting tool]
 
 A user end program to upload anonymous information about installed packages on a users machine to a database that package maintainers and developers have access to. Last year's effort is called [Gentoostats](https://wiki.gentoo.org/wiki/Gentoostats).
 

@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/FrOSCon_2026
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-05-17"
-fingerprint: "7a3b9efd403b83dd"
+fingerprint: "7a3b9ee9402b83dd"
 license: CC BY-SA 4.0
 ---
 
 # FrOSCon 2026
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

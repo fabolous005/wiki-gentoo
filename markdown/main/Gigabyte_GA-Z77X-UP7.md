@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Gigabyte_GA-Z77X-UP7
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-12-20"
-fingerprint: "2d598e557ba2b5ea"
+fingerprint: "2f598e557ba2b5eb"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,10 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**outdated**. You can help the Gentoo community by verifying and
+
+[updating this article](https://wiki.gentoo.org/index.php?title=Gigabyte_GA-Z77X-UP7&action=edit).
 
 ## Introduction
 
@@ -287,12 +291,12 @@ FEATURES="splitdebug"            # On these fast platforms, save the symbols for
 **`/etc/portage/package.use/00cpu-flags`**
 
 ```
- CPU_FLAGS_X86: aes aes-ni mmx smp sse sse2 ssse3 sna vaap
+*/* CPU_FLAGS_X86: aes aes-ni mmx smp sse sse2 ssse3 sna vaap
 ```
 **`/etc/portage/package.use/00video`**
 
 ```
- VIDEO_CARDS: -* intel
+*/* VIDEO_CARDS: -* intel
 ```
 #### Compile in Memory, not on Disk
 
@@ -300,6 +304,10 @@ The following tip, if you've installed a large amount of memory such as the full
 
 **`/etc/fstab`**
 
+```
+# Use 'mount /var/tmp/portage' to map portage compile folder to RAM, using 5G for RAM.
+none    /var/tmp/portage        tmpfs   size=5G,mode=0777,noauto                0 0
+```
 ### Sound
 
 #### Audio Chip Quality Check
@@ -366,6 +374,8 @@ During my initial tests, the Xonar STX SPDIF coaxial seemed to contain very slig
 #### Onboard Realtek SPDIF Toslink or Discrete Soundcard SPDIF Toslink?
 
 Onboard Realtek SPDIF Toslink/Optical and descrete Xonar STX SPDIF Toslink/Optical appear to show the same quality and performance. Very likely, the dedicated Xonar hardware will perform ever so slightly than the simple integrated Realtek onboard chip, but this is pure speculation. Another benefit of using the onboard Realtek, the onboard optical connection does not require an adapter, unlike the Xonar STX requiring a flimsy S/PDIF TOSLINK optical adapter.
+
+[Onboard sound S/PDIF vs discrete sound card S/PDIF](https://www.head-fi.org/t/424891/onboard-sound-s-pdif-vs-discrete-sound-card-s-pdif)
 
 ### Wireless
 

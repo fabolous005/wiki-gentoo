@@ -6,7 +6,7 @@ hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-12-17"
 categories: ['app-dicts']
-fingerprint: b00b20a7aa40fc2
+fingerprint: "300b2087aa40fc2"
 license: CC BY-SA 4.0
 ---
 
@@ -23,6 +23,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [app-text/dictd](https://packages.gentoo.org/packages/app-text/dictd)
+            
+            Dictionary Client/Server for the DICT protocol
 
 | [dbi](https://packages.gentoo.org/useflags/dbi) | Enable dev-db/libdbi (database-independent abstraction layer) support | 
 | [judy](https://packages.gentoo.org/useflags/judy) | Build Judy-based (dev-libs/judy) plugin implementing fast "exact" and especially "lev" strategies | 
@@ -68,6 +73,14 @@ and then restart the dictd service.
 
 **`/etc/dict/dict.conf`**
 
+```
+# This is the configuration file for dict.
+# Usually all you will ever need here is the server keywords.
+# Refer to the dict manpage for other options.
+# It will only check the second server if the first fails
+server localhost
+server dict.org
+```
 Refer to the [dict(1)](https://man.archlinux.org/man/dict.1.en) [man page for possible configuration options.](https://wiki.gentoo.org/wiki/Special:MyLanguage/man_page)
 
 /etc/dict/dictd.conf configures individual dictionaries; refer to [dictd(8)](https://man.archlinux.org/man/dictd.8.en) [for possible configuration options. On OpenRC systems, this file should not need to be edited manually - even if installing new dictionaries manually rather than via a package, the new dictionaries should be configured by the service script automatically upon (re-)starting.](https://wiki.gentoo.org/wiki/Special:MyLanguage/man_page) 

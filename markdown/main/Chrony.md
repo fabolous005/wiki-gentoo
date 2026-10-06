@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Chrony
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-09-01"
-fingerprint: a6883d38140688c6
+fingerprint: ee887978f006acc6
 license: CC BY-SA 4.0
 ---
 
@@ -16,12 +16,19 @@ license: CC BY-SA 4.0
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
 
+*Not to be confused with[cronie](https://wiki.gentoo.org/wiki/Cron#cronie).*
+
 **chrony** is a versatile implementation of the [Network Time Protocol](https://wiki.gentoo.org/wiki/Network_Time_Protocol) (NTP). It can synchronize the [system clock](https://wiki.gentoo.org/wiki/System_time) with NTP servers, reference clocks (e.g. GPS receiver), and manual input using wristwatch and keyboard. It can also operate as an NTPv4 (RFC 5905) server and peer to provide a time service to other computers in the network.
 
 ## Installation
 
 ### USE flags
 
+
+### USE flags for
+            [net-misc/chrony](https://packages.gentoo.org/packages/net-misc/chrony)
+            
+            NTP client and server programs
 
 | [+caps](https://packages.gentoo.org/useflags/+caps) | Use Linux capabilities library to control privilege | 
 | [+cmdmon](https://packages.gentoo.org/useflags/+cmdmon) | Support for command and monitoring | 
@@ -65,10 +72,32 @@ The drift file contains two values: the drift rate in parts per million and the 
 
 **`/etc/chrony/chrony.conf`**
 
+```
+# Use public NTP servers from the pool.ntp.org project.
+server 0.gentoo.pool.ntp.org iburst
+server 1.gentoo.pool.ntp.org iburst
+server 2.gentoo.pool.ntp.org iburst
+server 3.gentoo.pool.ntp.org iburst
+ 
+# Record the rate at which the system clock gains/losses time.
+driftfile /var/lib/chrony/drift
+ 
+# Allow the system clock to be stepped in the first three updates
+# if its offset is larger than 1 second.
+makestep 1.0 3
+ 
+# Enable kernel synchronization of the real-time clock (RTC).
+rtcsync
+ 
+hwclockfile /etc/adjtime
+```
 On systems where a network connection is not always available at boot (laptops, etc.), it might help to change the pool line in the server configuration:
 
 **`/etc/chrony/chrony.conf`**
 
+```
+pool pool.ntp.org iburst auto_offline
+```
 This tells chronyd that the machine will be assumed to have gone offline when 2 requests have been sent to it without receiving a response.
 
 Use the chronyc online command to re-enable polling (See below)
@@ -79,18 +108,56 @@ NTS provides cryptographic security on NTP client-server connections using Trans
 
 **`/etc/chrony/chrony.conf`**
 
+```
+# List of NTS servers:
+ 
+# Anycast Cloudflare servers
+server time.cloudflare.com              iburst nts
+ 
+# Servers from System76 located in USA
+server virginia.time.system76.com       iburst nts
+server ohio.time.system76.com           iburst nts
+server oregon.time.system76.com         iburst nts
+ 
+# Anycast servers located in Sweden
+server nts.netnod.se                    iburst nts
+ 
+# NTS pool located in Netherlands
+server ntppool1.time.nl                 iburst nts
+server ntppool2.time.nl                 iburst nts
+ 
+# NTS pool located in Germany
+server ptbtime1.ptb.de                  iburst nts
+server ptbtime2.ptb.de                  iburst nts
+server ptbtime3.ptb.de                  iburst nts
+ 
+# NTS cookie jar to minimise NTS-KE requests upon chronyd restart
+ntsdumpdir /var/lib/chrony
+```
 ### Use UTC time
 
 **chronyd** assumes by default that the RTC keeps local time (including any daylight saving changes). To use UTC instead use:
 
 **`/etc/chrony/chrony.conf`**
 
+```
+rtconutc
+```
 ### Acting as a local NTP server
 
 By default, chronyd only synchronizes the local machine time. By adding allow and deny rules, it will act as a local NTP source:
 
 **`/etc/chrony/chrony.conf`**
 
+```
+# Note order does not matter for this example, order does matter with 'allow all' or 'deny all'
+# Allow a specific IP
+allow 192.0.2.1
+# Deny the 198.51.100.0/24 subnet (example)
+deny 198.51.100
+# Allow all of the 192.0.2.0 subnet
+allow 192.0.2
+```
 ### DHCP
 
 To avoid DHCP replacing the local NTP config and the DHCP server is configured with NTP destinations (rare in home use), consider the following configuration options:
@@ -99,6 +166,9 @@ To avoid DHCP replacing the local NTP config and the DHCP server is configured w
 
 **`/etc/conf.d/net`**
 
+```
+dhcp="nontp"
+```
 ## Advanced Configuration
 
 ### Hardware Timestamping and PTP Integration
@@ -111,6 +181,13 @@ When dealing with hardware clocks, it is necessary to enable support for them in
 
 In addition to the PTP-clock support itself, check the configuration options available for the system's NIC drivers - for some (e.g. Cadence MACB/GEM, *macb*) hardware timestamping has to be explicitly enabled, for some others (e.g. Intel PRO/1000 PCIe, *e1000e*) there are switches for additional timestamping-related features. Alternatively, when building a kernel for a KVM guest, enable CONFIG\_PTP\_1588\_CLOCK\_KVM. Last but not least, set up network PHY device support for the line of adapters if not yet completed.
 
+```
+PTP Clock Support
+  PTP Clock Support
+  KVM virtual PTP clock
+Network device support
+  PHY Device support and infrastructure
+```
 After rebooting to the new kernel verify access to the NIC clocks by emerging [sys-apps/ethtool](https://packages.gentoo.org/packages/sys-apps/ethtool) and running ethtool -T. Example for an interface with all the required features:
 
 `root #``ethtool -T eth2````
@@ -275,6 +352,20 @@ The OpenRC service can be configured via /etc/conf.d/chronyd:
 
 **`/etc/conf.d/chronyd`**
 
+```
+# /etc/conf.d/chronyd
+ 
+CFGFILE="/etc/chrony/chrony.conf"
+ 
+# Configuration dependant options :
+#      -s - Set system time from RTC if rtcfile directive present
+#      -r - Reload sample histories if dumponexit directive present
+#
+# The combination of "-s -r" allows chronyd to perform long term averaging of
+# the gain or loss rate across system reboots and shutdowns.
+ 
+ARGS=" -u ntp -F 2"
+```
 Common options in ARGS:
 
 - -u ntp - Run as the ntp user for security

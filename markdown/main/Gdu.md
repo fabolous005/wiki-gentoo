@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Gdu
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-10-21"
-fingerprint: df939cbfd175784c
+fingerprint: "5f939cffd173784c"
 license: CC BY-SA 4.0
 ---
 
 # Gdu
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

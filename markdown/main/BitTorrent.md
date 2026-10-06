@@ -5,15 +5,19 @@ url: https://wiki.gentoo.org/wiki/BitTorrent
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-03-09"
-fingerprint: "1eefee7abbaf8f21"
+fingerprint: "1eefee7abbafcf21"
 license: CC BY-SA 4.0
 ---
 
 # BitTorrent
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 **BitTorrent** is a decentralized file sharing protocol.
 

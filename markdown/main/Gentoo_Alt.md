@@ -5,15 +5,19 @@ url: https://wiki.gentoo.org/wiki/Gentoo_Alt
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2018-03-06"
-fingerprint: "55b4fad0cef7f3fc"
+fingerprint: "15b4fad0cef7f3fc"
 license: CC BY-SA 4.0
 ---
 
 # Gentoo Alt
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Deprecated article**
 
 This article is **deprecated (obsolete)**. Contents are <u>no longer relevant</u>, and are intended for historical reference only!
 

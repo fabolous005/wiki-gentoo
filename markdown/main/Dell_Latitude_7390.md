@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Dell_Latitude_7390
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-29"
-fingerprint: "3ecf6b4b4933b9e9"
+fingerprint: "3e8f4b45d923b9e8"
 license: CC BY-SA 4.0
 ---
 
@@ -21,20 +21,20 @@ license: CC BY-SA 4.0
 
 | Device | Make/model | Status | Vendor ID / Product ID | Kernel driver(s) | Kernel version | Notes | 
 |---|---|---|---|---|---|---|
-| CPU | [Intel i7-8650U](https://ark.intel.com/content/www/us/en/ark/products/124968/intel-core-i7-8650u-processor-8m-cache-up-to-4-20-ghz.html) |  | N/A | N/A | 5.6.6 |  | 
-| Controller | Intel Sunrise Point-LP Serial IO I2C Controller |  |  | mfd\_intel\_lpss\_{acpi/pci} | 5.6.6 | required for touchpad | 
-| Controller | Intel Sunrise Point-LP Thermal subsystem |  |  | intel\_pch\_thermal | 5.6.6 |  | 
-| Video | Intel UHD Graphics 620 |  |  | i915; linux-firmware (i915/kbl\_dmc\_v1\_04.bin, i915/kbl\_guc\_33.0.0.bin, i915/kbl\_huc\_4.0.0.bin) | 5.6.6 |  | 
-| Audio | Intel Device 9d71 |  |  | snd\_hda\_intel | 5.6.6 |  | 
-| Ethernet | [Intel I219-LM](https://ark.intel.com/products/82185/Intel-Ethernet-Connection-I219-LM) |  |  | e1000e | 5.6.6 |  | 
-| Wireless | Intel Wireless 8265 / 8275 |  |  | [iwlwifi](https://wiki.gentoo.org/wiki/Iwlwifi) | 5.6.6 | linux-firmware wifi-8265-36.ucode | 
-| WWAN | Dell DW5816E (rebadged Sierra Wireless EM7430) |  |  | cdc\_mbim or qmi\_wwan and qcserial | 5.6.13 |  | 
-| Touchpad | DLL07A8:01 044E:120B |  |  | i2c\_designware\_{core,platform} | 5.6.6 | with alps/synaptics | 
-| Touchscreen | Elan Microelectronics Touchscreen |  | 04f3:254f | usb\_hid | 5.6.6 |  | 
-| SD Card reader | Realtek RTS525A PCI Express Card Reader |  |  | mfd\_rtsx\_pci, mmc\_realtek\_pci | 5.6.6 |  | 
-| Bluetooth | Intel Bluetooth controller |  | 8087:0a2b | btusb | 5.6.6 |  | 
-| Webcam | Realtek Integrated Webcam HD |  | 0bda:568c | uvcvideo (usb\_video\_class) | 5.6.6 |  | 
-| Smartcard | Broadcom 5880 |  | 0a5c:5832 | app-crypt/ccid | 5.6.6 |  | 
+| CPU | [Intel i7-8650U](https://ark.intel.com/content/www/us/en/ark/products/124968/intel-core-i7-8650u-processor-8m-cache-up-to-4-20-ghz.html) | Works | N/A | N/A | 5.6.6 |  | 
+| Controller | Intel Sunrise Point-LP Serial IO I2C Controller | Works |  | mfd\_intel\_lpss\_{acpi/pci} | 5.6.6 | required for touchpad | 
+| Controller | Intel Sunrise Point-LP Thermal subsystem | Works |  | intel\_pch\_thermal | 5.6.6 |  | 
+| Video | Intel UHD Graphics 620 | Works |  | i915; linux-firmware (i915/kbl\_dmc\_v1\_04.bin, i915/kbl\_guc\_33.0.0.bin, i915/kbl\_huc\_4.0.0.bin) | 5.6.6 |  | 
+| Audio | Intel Device 9d71 | Works |  | snd\_hda\_intel | 5.6.6 |  | 
+| Ethernet | [Intel I219-LM](https://ark.intel.com/products/82185/Intel-Ethernet-Connection-I219-LM) | Works |  | e1000e | 5.6.6 |  | 
+| Wireless | Intel Wireless 8265 / 8275 | Works |  | [iwlwifi](https://wiki.gentoo.org/wiki/Iwlwifi) | 5.6.6 | linux-firmware wifi-8265-36.ucode | 
+| WWAN | Dell DW5816E (rebadged Sierra Wireless EM7430) | Works |  | cdc\_mbim or qmi\_wwan and qcserial | 5.6.13 |  | 
+| Touchpad | DLL07A8:01 044E:120B | Works |  | i2c\_designware\_{core,platform} | 5.6.6 | with alps/synaptics | 
+| Touchscreen | Elan Microelectronics Touchscreen | Works | 04f3:254f | usb\_hid | 5.6.6 |  | 
+| SD Card reader | Realtek RTS525A PCI Express Card Reader | Works |  | mfd\_rtsx\_pci, mmc\_realtek\_pci | 5.6.6 |  | 
+| Bluetooth | Intel Bluetooth controller | Works | 8087:0a2b | btusb | 5.6.6 |  | 
+| Webcam | Realtek Integrated Webcam HD | Works | 0bda:568c | uvcvideo (usb\_video\_class) | 5.6.6 |  | 
+| Smartcard | Broadcom 5880 | Not tested | 0a5c:5832 | app-crypt/ccid | 5.6.6 |  | 
 
 ## Installation
 
@@ -76,16 +76,42 @@ To enable the i2c touchpad, set the following kernel options.
 
 **Enable support for touchpad**
 
+```
+Device Drivers  --->
+     I2C support  ---> 
+         I2C Hardware Bus support  --->
+              <*> Synopsys DesignWare Platform
+     Multifunction device drivers  --->
+              <*> Intel Low Power Subsystem support in PCI mode
+     HID support  --->
+         Special HID drivers  --->
+             <*> Alps HID device support
+         I2C HID support  --->
+             <*> HID over I2C transport layer
+```
 After that, the [Synaptics](https://wiki.gentoo.org/wiki/Synaptics) article can be followed.
 
 #### SD card reader
 
 **Enable support for the SD card reader**
 
+```
+Device Drivers  --->
+     Multifunction device drivers  --->
+         <*> Realtek PCI-E card reader
+     <*> MMC/SD/SDIO card support  --->
+         <*>   Realtek PCI-E SD/MMC Card Interface Driver
+```
 #### Webcam
 
 **Enable support for the webcam**
 
+```
+Device Drivers  --->
+    <*> Multimedia support  --->
+        [*]   Media USB Adapters  --->.
+            <*>   USB Video Class (UVC)
+```
 And add any users that need access to webcams to the video group to access the device: /dev/video0.
 
 `root #``gpassword -a <user> video`
@@ -106,13 +132,19 @@ To manage the WWAN card using ModemManager several kernel drivers are required:
 
 **Enable PPP**
 
+```
+Device Drivers  --->
+     Network Device Support  ---> 
+         <M> PPP (point-to-point protocol) support
+         <M> PPP support for sync tty ports
+```
 The WWAN card can operate in either MBIM or QMI mode, and depending on USB composition will expose the following ports:
 
 | Composition | DM | NMEA | AT | Interface | 
 |---|---|---|---|---|
-| 6 - QMI |  |  |  | QMI | 
-| 8 - MBIM |  |  |  | MBIM | 
-| 9 - MBIM |  |  |  | MBIM | 
+| 6 - QMI | Yes | Yes | Yes | QMI | 
+| 8 - MBIM | Yes | Yes | Yes | MBIM | 
+| 9 - MBIM | No | No | No | MBIM | 
 
 AT, NMEA and DM ports are /dev/ttyUSB interfaces that are provided by the qcserial driver:
 

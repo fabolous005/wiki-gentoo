@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/EAPI
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-05-09"
-fingerprint: bab69ebfaf8223e4
+fingerprint: bab69eafaf8223e4
 license: CC BY-SA 4.0
 ---
 
 # EAPI
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

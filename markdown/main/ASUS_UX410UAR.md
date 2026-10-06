@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/ASUS_UX410UAR
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-29"
-fingerprint: "7f599726fcaa746a"
+fingerprint: "7f599726dcaa746a"
 license: CC BY-SA 4.0
 ---
 
 # ASUS UX410UAR
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

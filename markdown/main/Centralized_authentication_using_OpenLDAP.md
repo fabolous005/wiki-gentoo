@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Centralized_authentication_using_OpenLDAP
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-07-14"
-fingerprint: bb1587d14d8122e4
+fingerprint: bb1da7d14f0123e4
 license: CC BY-SA 4.0
 ---
 
@@ -89,6 +89,12 @@ To use the *rfc2307bis* schema , it must first be [converted to an LDIF file](ht
 
 **`rfc2307.conf`**
 
+```
+# The first 2 schemas are dependencies
+include /etc/openldap/schema/core.schema
+include /etc/openldap/schema/cosine.schema
+include /etc/openldap/schema/rfc2307bis.schema
+```
 `user $````
 mkdir myconfig
 ```
@@ -103,6 +109,21 @@ The back-references (**memberOf**) used by this schema cannot be created manuall
 
 **`add-memberOf.ldif`**
 
+```
+include: file:///etc/openldap/schema/dyngroup.ldif
+dn: cn=module,cn=config
+objectClass: olcModuleList
+cn: module
+olcModulePath: /usr/lib64/openldap/openldap
+olcModuleLoad: dynlist.so
+# This assumes the directory database is number 2. Adjust as needed
+dn: olcOverlay=dynlist,olcDatabase={2}mdb,cn=config
+changetype: add
+objectClass: olcOverlayConfig
+objectClass: olcDynListConfig
+OlcOverlay: dynlist
+olcDynListAttrSet: groupOfURLs memberURL member+memberOf@groupOfMembers
+```
 Add the above to the server:
 
 `root #``ldapadd -H ldapi:/// -Y EXTERNAL -f add-memberOf.ldif`
@@ -114,10 +135,32 @@ The directory will contain "global users". The username and ID numbers used on t
 
 **`unique-add.ldif`**
 
+```
+dn: cn=module,cn=config
+changetype: add
+objectClass: olcModuleList
+cn: module
+olcModulePath: /usr/lib64/openldap/openldap
+olcModuleLoad: unique.so
+# This assumes the directory database is number 2. Adjust as needed
+dn: olcOverlay=unique,olcDatabase={2}mdb,cn=config
+changetype: add
+objectClass: olcOverlayConfig
+objectClass: olcUniqueConfig
+olcOverlay: unique
+```
 Now create filters for the attributes:
 
 **`unique-config.ldif`**
 
+```
+# TThis assumes the directory database is number 2 ad the overlay is number 2. Adjust as needed
+dn: olcOverlay={2}unique,olcDatabase={2}mdb,cn=config
+changetype: modify
+replace: olcUniqueURI
+olcUniqueURI: ldap:///?uidNumber,mail?sub
+olcUniqueURI: ldap:///?gidNumber?sub?objectClass=posixGroup
+```
 This ensures no 2 DN the the same subtree have the same uidNumber, gidNumber, or mail attribute.
 
 Keeping track of allocation is difficult. [Here's Debian's solution](http://docs.debops.org/en/latest/ansible/roles/ldap/ldap-posix.html#ldap-ref-next-uid-gid).
@@ -136,6 +179,25 @@ First, the module must be added and the overlay added
 
 **Install password policy module and overlay**
 
+```
+# We need this schema because pwdPolicy is AUXILIARY and STRUCTRAL objectClass is needed 
+include: /etc/openldap/schema/namedobject.ldif
+dn: cn=module,cn=config
+objectClass: olcModuleList
+cn: module
+olcModulePath: /usr/lib64/openldap/openldap
+olcModuleLoad: ppolicy.so
+# This assumes the directory database is number 2. Adjust as needed
+dn: olcOverlay=ppolicy,olcDatabase={2}mdb,cn=config
+objectClass: olcOverlayConfig
+objectClass: olcPPolicyConfig
+olcOverlay: ppolicy
+olcPPolicyDefault: cn=default,ou=ppolicies,dc=example,dc=com
+# Uncomment the next line to disclose "account locked" status on binds failed due to account locking
+#olcPPolicyUseLockout: TRUE
+# Uncomment the next line if this is a read-only replica.
+#olcPPolicyForwardUpdates: TRUE
+```
 `root #``ldapmodify -H ldapi:/// -Y EXTERNAL -f ppolicy-add.ldif`
 #### Password Policy Configuration
 
@@ -147,6 +209,18 @@ The password policies are stored in the directory itself, so 2 more DNs have to 
 
 **Create password policies container and default password policy**
 
+```
+dn: ou=ppolicies,dc=example,dc=com
+objectClass: organizationalUnit
+objectClass: top
+ou: ppolicies
+dn: cn=default,ou=ppolicies,dc=example,dc=com
+objectClass: namedPolicy
+objectClass: pwdPolicy
+# This attribute is required even though "userPassword" is the only supported value
+pwdAttribute: userPassword
+cn: default
+```
 The password policy comprises functionality of the **shadow**, **pwhistory**, **faillock**, and **pwqdc**/**pwquality** modules, except for password complexity, which requires an external module not in Portage.
 
 Options available are:
@@ -173,6 +247,43 @@ Here's an example default policy:
 
 **Example password policy**
 
+```
+dn: cn=default,ou=ppolicies,dc=example,dc=com
+changetype: modify
+add: pwdMinAge
+# 1 day
+pwdMinAge: 3600
+-
+add: pwdMaxAge
+# 42 days
+pwdMaxAge: 151200
+-
+add: pwdInHistory
+pwdInHistory: 24
+-
+add: pwdMinLength
+pwdMinLength: 7
+-
+add: pwdLockout
+pwdLockout: TRUE
+-
+add: pwdLockoutDuration
+# 20 minutes
+pwdLockoutDuration: 1200
+-
+add: pwdMaxFailure
+pwdMaxFailure: 20
+-
+add: pwdFailureCountInterval
+# 30 minutes
+pwdFailureCountInterval: 3600
+-
+add: pwdMustChange
+pwdMustChange: TRUE
+-
+add: pwdSafeModify
+pwdSafeModify: TRUE
+```
 This policy requires a minimum password length of 7 characters, limit password changes to once a day, mandates a password change after 42 days, disallows the use of the last 24 passwords, enabled lockout after 20 attempts for 15 minutes, resets the failed counter after 30 minutes,requires the old password to be sent before changing to a new password, and requires a password change after an administrative password reset.
 
 Password policies can be set for individual accounts. Set the **pwdPolicySubentry** to the DN of the policy. Note the *pwdPolicySubentry* aatribute is an operational attribute and will not be shown by *ldapsearch* unless specifically requested.
@@ -183,6 +294,18 @@ To exempt an account (for example, the replicator account) from the default pass
 
 **Empty password policy for replicator**
 
+```
+dn: cn=empty,ou=ppolicies,dc=example,dc=com
+changetype: add
+objectClass: namedPolicy
+objectClass: pwdPolicy
+pwdAttribute: userPassword
+cn: empty
+dn: cn=replicator,dc=example,dc=com
+changetype: modify
+add: pwdPolicySubentry
+pwdPolicySubentry: dn: cn=empty,ou=ppolicies,dc=example,dc=com
+```
 The *RootDN* ignores all password policies.
 
 ## Configuring the OpenLDAP client tools
@@ -203,6 +326,11 @@ Edit the LDAP Client configuration file. This file is read by ldapsearch and oth
 
 **Add the following**
 
+```
+BASE         dc=example,dc=com
+URI          ldap://ldap.example.com:389/ ldap://ldap-1.example.com:389/ ldap://ldap-2.example.com:389/
+TLS_CACERT   /etc/openldap/ca.crt
+```
 Test the running server with the following command:
 
 `user $``ldapsearch -x -D "cn=Manager,dc=example,dc=com" -W`
@@ -282,6 +410,11 @@ Then configure nss by appending **sss** to the *passwd*, *shadow* and *group* li
 
 **`/etc/nsswitch.conf`**
 
+```
+passwd:     files sss
+shadow:     files sss
+group:      files sss
+```
 Test nss:
 
 `user $````
@@ -306,6 +439,9 @@ Add the following to /etc/portage/package.use/00sssd:
 
 **`/etc/portage/package.use/00sssd`**
 
+```
+*/* sssd
+```
 In particular, [sys-auth/pambase](https://packages.gentoo.org/packages/sys-auth/pambase) has an (experimental!) [sssd](https://packages.gentoo.org/useflags/sssd) [USE flag which enables SSSD support. Re-emerge the packages with changed USE flags but](https://wiki.gentoo.org/wiki/USE_flag) **don't** run *etc-update* or *dispatch-conf*  yet.
 
 `root #``emerge -auvDU @world`
@@ -315,6 +451,9 @@ The configuration done should work "out of the box". The configuration does not 
 
 **(excerpt)**
 
+```
+session         optional        pam_mkhomedir.so
+```
 Test the login from another computer (using SSH), another VT (if local), or in a different root window with *login* and verify it succeeds (if automatic home directory creation is enabled, try it once with the directory created and again with the directory not created).
 
 *sssd* supports netgroups, *sudo*, and automounting as well. Add the appropriate lines to /etc/nsswitch.conf and /etc/sssd/sssd.conf. See [sssd.conf(5)](https://man.archlinux.org/man/sssd.conf.5.en) [for](https://wiki.gentoo.org/wiki/Special:MyLanguage/man_page) *sssd* general configuration and [sssd-sudo(5)](https://man.archlinux.org/man/sssd-sudo.5.en) [for](https://wiki.gentoo.org/wiki/Special:MyLanguage/man_page) *sudo* configuration.
@@ -335,6 +474,20 @@ Change /etc/nslcd.conf. It should contain
 
 **(excerpt)**
 
+```
+uid nslcd
+gid nslcd
+# Uncomment the next line to troubleshoot nslcd
+#log syslog debug
+# Enable TLS or passwords will be sent in the clear
+ssl start_tls
+tls_cacertfile /etc/openldap/ca.crt
+# If the server disallows anonymous binds, use client certificates or Kerberos instead
+# For legacy setups, uncomment out the next 2 lines and replace their values appropriately
+#binddn cn=nslcd,dc=example,dc=com
+#bindpw secret
+# Both rfc2307 and rfc2307bis should work "out of the box" with no maps
+```
 Test nss:
 
 `user $````
@@ -361,16 +514,51 @@ In /etc/nsswitch.conf the *passwd*, *group*, and *shadow*  lines need to be appe
 
 **(excerpt)**
 
+```
+passwd:         files ldap
+group:          files ldap
+shadow:         files ldap
+```
 Next, configure PAM to allow LDAP authorization. PAM configurations (and the PAM configuration format itself) have gotten significantly more complex, and the advice of inserting *pam\_ldap* after *pam\_unix* no longer works on it own. The configuration cannot be described simply though adds and deletions, so a sample file modeled after the SSSD configuration will be used.
 
 **`/etc/pam.d/system-auth`**
 
+```
+auth            required    pam_env.so
+auth            [default=1 ignore=ignore success=ok]    pam_usertype.so isregular
+auth            [default=3 ignore=ignore success=ok]    pam_localuser.so
+auth            requisite       pam_faillock.so preauth
+auth            sufficient      pam_unix.so nullok  try_first_pass
+auth            [default=die]   pam_faillock.so authfail
+# This assumes that global users start at 10000. Replace as neeeded.
+auth            required        pam_ldap.so nullok try_first_pass minimum_uid=10000
+auth            optional        pam_cap.so
+account         required        pam_unix.so
+account         required        pam_faillock.so
+account         sufficient      pam_localuser.so
+account         sufficient      pam_usertype.so issystem
+# This assumes that global users start at 10000. Replace as neeeded.
+account         [default=bad success=ok user_unknown=ignore] pam_ldap.so minimum_uid=10000
+password        required        pam_passwdqc.so config=/etc/security/passwdqc.conf
+password        sufficient      pam_unix.so try_first_pass use_authtok nullok sha512 shadow
+# This assumes that global users start at 10000. Replace as neeeded.
+password        sufficient      pam_ldap.so try_use_authtok nullok minimum_uid=10000
+password        required        pam_deny.so
+session         required        pam_limits.so
+session         required        pam_env.so
+session         required        pam_unix.so
+# This assumes that global users start at 10000. Replace as neeeded.
+session         optional        pam_ldap.so minimum_uid=10000
+```
 The configuration does not include automated home directory creation,, so no non-local logins will be allowed until a home directory is created. To enable automated home directory creation, append the following to /etc/pam.d/system-auth (please read the warning above!):
 
 **`/etc/pam.d/system-auth`**
 
 **(excerpt)**
 
+```
+session         optional        pam_mkhomedir.so
+```
 Test the login from another computer (using SSH), another VT (if local), or in a different root window with *login* and verify it succeeds (if automatic home directory creation is enabled, try it once with the directory created and again with the directory not created).
 
 ## Convert file userbase to LDAP
@@ -383,6 +571,30 @@ Here's a template for adding user along with their group.
 
 **`ldap-usergroup-add.ldif.in`**
 
+```
+dn: uid=${LDAP_USERNAME},ou=people,${MY_DOMAIN_DC}
+changetype: add
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+sn: ${LDAP_USERNAME}
+cn: ${LDAP_USERNAME}
+userPassword: {CRYPT}x
+loginShell: /bin/bash
+uidNumber: ${LDAP_UID}
+gidNumber: ${LDAP_GID}
+homeDirectory: /home/${LDAP_USERNAME}
+dn: cn=${LDAP_USERNAME},ou=groups,${MY_DOMAIN_DC}
+changetype: add
+# Uncomment out the next line if using rfc2307bis
+# objectClass: groupOfMembers
+objectClass: posixGroup
+cn: ${LDAP_USERNAME}
+gidNumber: ${LDAP_GID}
+memberUID: ${LDAP_USERNAME}
+# Delete the above line and uncomment out the next line if using rfc2307bis
+# member: uid=${LDAP_USERNAME},ou=people,${MY_DOMAIN_DC}
+```
 Replace the variables with sed:
 
 `user $``sed -e 's/${LDAP_USERNAME}/bertram/g' -e 's/${MY_DOMAIN_DC}/dc=example,dc=com/g' -e 's/${LDAP_UID}/10000/g' -e 's/${LDAP_GID}/10000/g'  <  ldap-usergroup-add.ldif.in > ldap-usergroup-add.ldif``root #``ldapmodify -H ldap://ldap.example.com -D "cn=Manager,dc=example,dc=com" -W -f ldap-usergroup-add.ldif.in`
@@ -393,6 +605,15 @@ To add just a group:
 
 **`ldapgroup-add.ldif.in`**
 
+```
+dn: cn=${LDAP_GROUPNAME},ou=groups,${MY_DOMAIN_DC}
+changetype: add
+# Uncomment out the next line if using rfc2307bis
+# objectClass: groupOfMembers
+objectClass: posixGroup
+cn: ${LDAP_GROUPNAME}
+gidNumber: ${LDAP_GID}
+```
 Replace the variables with sed:
 
 `user $``sed -e 's/${LDAP_GROUPNAME}/admin/g' -e 's/${MY_DOMAIN_DC}/dc=example,dc=com/g' -e 's/${LDAP_GID}/20000/g'  <  ldap-group-add.ldif.in > ldap-group-add.ldif``root #``ldapmodify -H ldap://ldap.example.com -D "cn=Manager,dc=example,dc=com" -W -f ldap-group-add.ldif`

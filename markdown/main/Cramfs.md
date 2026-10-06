@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Cramfs
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2020-06-30"
-fingerprint: "5e8f7baad4da3ff8"
+fingerprint: "5e8f79aed4da3be8"
 license: CC BY-SA 4.0
 ---
 
 # Cramfs
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -25,8 +27,14 @@ The precursor to [SquashFS](https://wiki.gentoo.org/wiki/SquashFS), Cramfs was o
 
 Specifically the `CONFIG_CRAMFS` and `CONFIG_CRAMFS_BLOCKDEV` options.
 
-**Enable Cramfs support**
+KERNEL **Enable Cramfs support**
 
+```
+File systems  --->
+  [*] Miscellaneous filesystems  --->
+    <*>   Compressed ROM file system support (cramfs)
+    [*]     Support CramFs image over a regular block device (NEW)
+```
 ### Emerge
 
 ## See also

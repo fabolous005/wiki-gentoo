@@ -5,15 +5,21 @@ url: https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2013/Ideas/Improved_clou
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2019-01-11"
-fingerprint: "390f89e8d7ad3355"
+fingerprint: "390e89c8d7ac3355"
 license: CC BY-SA 4.0
 ---
 
 # Google Summer of Code/2013/Ideas/Improved cloud support
 
+From Gentoo Wiki
+
+\< [Google Summer of Code](https://wiki.gentoo.org/wiki/Google_Summer_of_Code) | [2013](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2013) | [Ideas](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2013/Ideas)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+## [Improved cloud support]
 
 Gentoo has a great opportunity to be amazing for use in public clouds like Amazon's AWS platform. For this to work well, we will need to integrate cloud support much more thoroughly into our release-engineering processes. For examples, [catalyst](http://www.gentoo.org/proj/en/releng/catalyst/) and related [releng](http://www.gentoo.org/proj/en/releng/) tools should produce and upload images to AWS, in addition to supporting tools like [Vagrant](http://www.vagrantup.com/) with pregenerated boxes (perhaps using [veewee](https://github.com/jedi4ever/veewee)).
 

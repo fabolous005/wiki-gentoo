@@ -5,15 +5,23 @@ url: https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/lmonade_reloc
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2018-11-09"
-fingerprint: c3659c7ca65f23d8
+fingerprint: "8165186ca65d23d8"
 license: CC BY-SA 4.0
 ---
 
 # Google Summer of Code/2012/Ideas/lmonade relocation and binary packages
 
+[Google Summer of Code](https://wiki.gentoo.org/wiki/Google_Summer_of_Code) |
+
+[2012](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012) |
+
+[Ideas](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+## [lmonade relocation and binary packages]
 
 The [lmonade](http://www.lmona.de) project is a distribution of mathematical software based on [Gentoo prefix](http://www.gentoo.org/proj/en/gentoo-alt/prefix/). It can be installed without admistrative rights on different linux distributions or OSX. The main aim is to make scientific software available across platforms.
 

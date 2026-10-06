@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Btrbk
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-19"
-fingerprint: be416f0df5ee128b
+fingerprint: be052f0df5ea9281
 license: CC BY-SA 4.0
 ---
 
@@ -37,12 +37,52 @@ To backup subvolumes etc, var/log, and var/lib to /media/backup/btrbk, with snap
 
 **Basic configuration**
 
+```
+# Enable transaction logging
+transaction_log            /var/log/btrbk.log
+# Use a lockfile so only one btrbk instance can run at a time
+lockfile                   /run/lock/btrbk.lock
+# Use sudo if btrbk or lsbtr is run by regular user
+backend_local_user         btrfs-progs-sudo
+# Enable stream buffering 
+stream_buffer              256m
+# Store snapshots under .btrbk_snapshots under the root of the volume
+snapshot_dir               .btrbk_snapshots
+# Only create new snapshots when changes have been made
+snapshot_create            onchange
+# Preserve hourly snapshots for up to 24 hours, and daily snapshots for up to 7 days
+snapshot_preserve          24h 7d 0w 0m 0y
+# The latest snapshot is always kept, regardless of the preservation policy
+snapshot_preserve_min      latest
+# Preserve daily backups for up to 14 days, weekly backups for up to 5 weeks, monthly backups for up to a month, and yearly backups for up to a year
+target_preserve            0h 14d 5w 1m 1y
+# Preserve the latest snapshot, regardless of the preservation policy
+target_preserve_min        latest
+# Preserve one archive of each type except hourly backups
+archive_preserve           0h 1d 1w 1m 1y
+archive_preserve_min       latest
+# Backup subvolumes at '/etc', '/var/lib' and '/var/log'
+volume /
+  target /media/backup/btrbk
+  subvolume etc
+  subvolume var/lib
+  subvolume var/log
+```
 ### Snapshotting subvolumes
 
 **`/etc/btrbk/btrbk.conf`**
 
 **Make snapshots of Larry's homedir.**
 
+```
+# Create simple snapshots of /home's subvolume 'larry' (replace as appropriate)
+# These are not sent to another device or machine (no 'target').
+#
+# Make sure snapshot_preserve_min / snapshot_preserve are set in the main config section!
+volume /home
+  snapshot_dir .btrbk_snapshots
+  subvolume    larry
+```
 ### Backing up subvolumes
 
 #### Backing up the root subvolume
@@ -53,16 +93,30 @@ To backup the root subvolume (the subvolume mounted at /) with the relative path
 
 **fstab example with the top-level subvolume mounted at /mnt/btr\_pool and*root* subvolume (named `@root` here) mounted at /.**
 
+```
+/dev/sda1  /              btrfs  subvol=@root  0 0
+/dev/sda1  /mnt/btr_pool  btrfs  subvolid=5    0 0
+```
 **`/etc/btrbk/btrbk.conf`**
 
 **Backup the*root* subvolume to /media/backup/btrbk.**
 
+```
+volume /mnt/btr_pool
+  target /media/backup/btrbk
+  subvolume @root
+```
 #### Backing up standard subvolumes
 
 **`/etc/btrbk/btrbk.conf`**
 
 **Backup the*home* subvolume to /media/backup/home\_backups**
 
+```
+volume /
+  target /media/backup/home_backups
+  subvolume home
+```
 ### Remote Backups
 
 #### SSH configuration
@@ -71,10 +125,18 @@ To backup the root subvolume (the subvolume mounted at /) with the relative path
 
 **`/etc/ssh/sshd_config`**
 
+```
+PermitRootLogin prohibit-password
+```
 To restrict the IPs/IP ranges from where root can log in, use the `Match` keyword. Consult the man page for *sshd\_config* for details.
 
 **`/etc/ssh/sshd_config`**
 
+```
+Match Address fd69::6:9
+PermitRootLogin prohibit-password
+Match All
+```
 ##### Generate keys
 
 Root login should only be performed using keys, not passwords. To generate a new root SSH key, and install it on a target system:
@@ -93,12 +155,30 @@ Backups can be made over SSH:
 
 **Backup homedirs to backup.example.org using SSH**
 
+```
+ssh_identity               /etc/btrbk/ssh/id_ed25519
+ssh_user                   root
+volume /
+  target ssh://backup.example.org:22/media/backup/home_backups
+  subvolume @home
+```
 #### Pull backups from another host using SSH
 
 This is an example configuration for multiple clients to backup onto a server:
 
 **`/etc/btrbk/btrbk.conf`**
 
+```
+ssh_identity               /etc/btrbk/ssh/id_ed25519
+ssh_user                   root
+volume ssh://larry-desktop.example.org:22/mnt/btr_pool
+  target /media/backup/larry-desktop
+    subvolume @root
+    subvolume @home
+volume ssh://larry-laptop.example.org:22/mnt/btr_pool
+  target /media/backup/larry-laptop
+    subvolume @root
+```
 For more examples, take a look at the official documentation hyperlinked at the top right of this page.
 
 ## Usage

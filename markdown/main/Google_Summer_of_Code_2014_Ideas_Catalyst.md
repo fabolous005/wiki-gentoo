@@ -5,15 +5,23 @@ url: https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2014/Ideas/Catalyst
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2021-06-08"
-fingerprint: "1b87e52e06383bd0"
+fingerprint: "1b87e52e463839d0"
 license: CC BY-SA 4.0
 ---
 
 # Google Summer of Code/2014/Ideas/Catalyst
 
+[Google Summer of Code](https://wiki.gentoo.org/wiki/Google_Summer_of_Code) |
+
+[2014](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2014) |
+
+[Ideas](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2014/Ideas)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+## [Catalyst]
 
 Catalyst is Gentoo's stage building software which automates the building of Gentoo's release media. Unfortunately it's software base is in need of some major updating. A rewrite has been started a couple of times. The most recent catalyst rewrite branch will be the starting point for future work. Catalyst is written in a combination of python and bash, much like it's package manager portage. Problems with the original code include, not being installed to python's site-packages, poor code organization (growing pains), hard coded paths making changes difficult, not using what are now built-in python features and modules, etc.. An initial restructure has been done with some code split into smaller logical files/modules. Also some of the hard coded paths have been made configurable.
 

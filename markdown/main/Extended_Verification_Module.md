@@ -54,6 +54,18 @@ First of all, enable the EVM subsystem in the Linux kernel configuration. Also e
 
 **Linux kernel configuration for EVM**
 
+```
+CONFIG_KEYS=y
+CONFIG_TRUSTED_KEYS=y
+CONFIG_ENCRYPTED_KEYS=y
+  
+CONFIG_INTEGRITY=y
+CONFIG_INTEGRITY_SIGNATURE=y
+CONFIG_EVM=y
+  
+# If you have a TPM
+CONFIG_TCG_TPM=y
+```
 ### Bootloader configuration
 
 Next, configure the bootloader to enable EVM:

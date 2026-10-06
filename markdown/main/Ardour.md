@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Ardour
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-02-20"
-fingerprint: e45cfcfd81ad7581
+fingerprint: a45efcfd81ad7589
 license: CC BY-SA 4.0
 ---
 
@@ -21,6 +21,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [media-sound/ardour](https://packages.gentoo.org/packages/media-sound/ardour)
+            
+            Digital Audio Workstation
 
 | [doc](https://packages.gentoo.org/useflags/doc) | Add extra documentation (API, Javadoc, etc). It is recommended to enable per package instead of globally | 
 | [jack](https://packages.gentoo.org/useflags/jack) | Add support for the JACK Audio Connection Kit | 

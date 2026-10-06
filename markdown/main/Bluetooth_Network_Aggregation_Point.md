@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Bluetooth_Network_Aggregation_Point
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-09-12"
-fingerprint: "5681994918a21d83"
+fingerprint: "5681994918a21583"
 license: CC BY-SA 4.0
 ---
 
@@ -69,6 +69,7 @@ Remember the device name (*eth0*) and edit /etc/conf.d/net:
 **`/etc/conf.d/net`**
 
 ```
+...
 # Comment out this line, and add the following lines:
 #config_eth0="dhcp"
 config_eth0="null"
@@ -143,7 +144,7 @@ exec /usr/bin/bluez-test-nap br1 >/dev/null 2>&1 &
 **`/etc/local.d/bluez-test-nap.stop`**
 
 ```
- -SIGINT bluez-test-nap
+killall -SIGINT bluez-test-nap
 ```
 `root #``chmod +x /etc/local.d/bluez-test-nap.start /etc/local.d/bluez-test-nap.stop`
 - Instead of the local.d files approach, it's better to use a real [init script](https://wiki.gentoo.org/wiki/Handbook:X86/Working/Initscripts). This file must be made executable:
@@ -230,6 +231,9 @@ If you lose your Internet connectivity, if things break, restore your backup of 
 
 **`/etc/conf.d/net`**
 
+```
+(old file)
+```
 `root #``rc-service net.eth0 restart`
 ### Tools for testing
 

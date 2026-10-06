@@ -5,15 +5,23 @@ url: https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Ebuild_Upstre
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-04-02"
-fingerprint: "7bfbcf49097b53be"
+fingerprint: "7bfbcd48097b53ba"
 license: CC BY-SA 4.0
 ---
 
 # Google Summer of Code/2012/Ideas/Ebuild Upstream Scanner
 
+[Google Summer of Code](https://wiki.gentoo.org/wiki/Google_Summer_of_Code) |
+
+[2012](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012) |
+
+[Ideas](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+## [Ebuild Upstream Scanner]
 
 euscan (Ebuild Upstream Scanner) is an utility to check if an ebuild
 have new upstream version. It was designed to provide the same

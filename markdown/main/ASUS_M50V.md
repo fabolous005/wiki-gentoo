@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/ASUS_M50V
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-12-20"
-fingerprint: "2f059a6599a6d8dd"
+fingerprint: "3f018b5d91a238cc"
 license: CC BY-SA 4.0
 ---
 
@@ -60,6 +60,11 @@ The hard disk controller should work with the standard AHCI driver:
 
 **AHCI Driver**
 
+```
+Device Drivers --->
+    [*] Serial ATA and Parallel ATA drivers  --->
+        <*> AHCI SATA Support
+```
 Make sure that AHCI support is compiled into the kernel, and not as a module, or the kernel may fail to boot.
 
 The DVD drive may lock up spinning a disc upon insertion due to bad firmware.
@@ -73,6 +78,12 @@ The memory card reader should work fine with the standard driver:
 
 **Card Reader Support**
 
+```
+Device Drivers  --->
+    [*] MMC/SD/SDIO card support  --->
+        <*> Secure Digital Host Controller Interface support
+        <*> SDHCI support on PCI bus
+```
 ### Video Chipset
 
 The video chipset is an NVIDIA GeForce 9600M GS, which has full support for 2D/3D acceleration, CUDA, and OpenCL with the proprietary drivers.
@@ -84,7 +95,7 @@ See [NVIDIA](https://wiki.gentoo.org/wiki/NVIDIA) for details on video card supp
 **`/etc/portage/package.use/00input`**
 
 ```
- INPUT_DEVICES: evdev synaptics
+*/* INPUT_DEVICES: evdev synaptics
 ```
 The media buttons on the touchpad are not supported, but normal touchpad and scrollwheel functionality works perfectly.
 
@@ -94,30 +105,70 @@ Networking is provided by a Realtek 8168B Gigabit Ethernet device.
 
 **Ethernet Support**
 
+```
+Device Drivers  --->
+    [*] Network device support  --->  
+        [*] Ethernet (1000 Mbit)  --->
+            <*> Realtek 8169 gigabit ethernet support
+```
 ### 802.11 Wifi
 
 Wifi is provided by an Atheros AR928X wifi adapter:
 
 **Wifi Support**
 
+```
+Device Drivers  --->
+    [*] Network device support  --->  
+        [*] Wireless LAN  --->
+            <M> Atheros Wireless Cards  --->
+                <M> Atheros 802.11n wireless cards support
+```
 ### Sound
 
 The audio hardware is supported by the Intel HD Audio drivers:
 
 **Audio Support**
 
+```
+Device Drivers  --->
+    <*> Sound card support  --->
+        <*> Advanced Linux Sound Architecture  --->
+            <*> Sequencer support 
+            <*> OSS Mixer API
+            <*> OSS PCM (digital audio) API
+            [*] OSS PCM (digital audio) API - Include plugin system
+            [*] OSS Sequencer API
+            <*> HR-timer backend support
+                [*] Use HR-timer as default sequencer timer
+            [*] PCI sound devices  --->
+                <*> Intel HD Audio
+```
 ### USB
 
 USB support is provided by the standard drivers:
 
 **USB Support**
 
+```
+Device Drivers  --->
+    [*] USB support  --->
+        <*> Support for Host-side USB
+        <*> EHCI HCD (USB 2.0) support
+        <*> UHCI HCD support (most Intel and VIA) support
+```
 ### Firewire
 
 The Firewire port should work fine with the standard driver:
 
 **Firewire Support**
 
+```
+Device Drivers  --->
+    IEEE 1394 (FireWire) support  --->  
+        <*> FireWire driver stack
+        <*> OHCI-1394 controllers
+```
 At the time of this writing, the author has not tested Firewire.
 
 ### Bluetooth
@@ -130,6 +181,14 @@ The built-in webcam is a is supported through V4L with USB2.0 UVC:
 
 **Webcam Support**
 
+```
+Device Drivers  --->
+    <*> Multimedia support  --->
+        <*> Video For Linux   
+        [*] Video capture adapters  ---> 
+            [*] V4L USB devices  --->
+                <*> USB Video Class (UVC)
+```
 ### Fingerprint Reader
 
 The fingerprint reader should be supported through USB and libfprint. See [Fingerprint Reader](https://wiki.gentoo.org/wiki/Fingerprint_Reader).

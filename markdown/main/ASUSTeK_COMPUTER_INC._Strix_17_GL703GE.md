@@ -82,6 +82,9 @@ TODO
 
 KERNEL **Enable support for these hardware drivers**
 
+```
+Write menuconfig instructions here.
+```
 ### Emerge
 
 TODO

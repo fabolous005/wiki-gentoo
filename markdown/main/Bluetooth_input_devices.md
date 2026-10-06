@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Bluetooth_input_devices
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-08-21"
-fingerprint: "4641fa1ed09a3940"
+fingerprint: "4e01ea1ed1923940"
 license: CC BY-SA 4.0
 ---
 
@@ -23,6 +23,19 @@ This article describes the setup of [Bluetooth](https://wiki.gentoo.org/wiki/Blu
 
 Both [Bluetooth](https://wiki.gentoo.org/wiki/Bluetooth) and [evdev](https://wiki.gentoo.org/wiki/Evdev) support is necessary in the kernel. The following options are also required.
 
+```
+Device Drivers  --->
+    [*] HID bus support  --->
+        Special HID drivers  --->
+            <*> ...
+ 
+[*] Networking support  --->
+    <*>   Bluetooth subsystem support  --->
+        [*] Bluetooth Classic (BR/EDR) features
+            <*> HIDP Protocol support
+        [*] Bluetooth Low Energy (LE) features
+            <*>   Bluetooth L2CAP Enhanced Credit Flow Control
+```
 ### BlueZ settings
 
 Change the value of `UserspaceHID` to `true` in /etc/bluetooth/input.conf to enable user-space HID support:
@@ -38,6 +51,11 @@ User-space HID support also requires the User-space I/O driver for HID input dev
 
 **Enabling user-space-hid support**
 
+```
+Device Drivers --->
+    HID support --->
+        <*>   User-space I/O driver support for HID subsystem
+```
 ## Configuration
 
 To configure the input devices use the specialized desktop management tools:

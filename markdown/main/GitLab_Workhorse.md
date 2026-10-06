@@ -5,13 +5,15 @@ url: https://wiki.gentoo.org/wiki/GitLab/Workhorse
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-02-24"
-fingerprint: "5ef9cfce815ce812"
+fingerprint: "7effcfcec35ce812"
 license: CC BY-SA 4.0
 ---
 
 # GitLab/Workhorse
 
 From Gentoo Wiki
+
+\< [GitLab](https://wiki.gentoo.org/wiki/GitLab)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

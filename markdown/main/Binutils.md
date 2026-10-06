@@ -26,6 +26,11 @@ Binutils contains commands such as the ld linker, as assembler, or the strip too
 ### USE flags
 
 
+### USE flags for
+            [sys-devel/binutils](https://packages.gentoo.org/packages/sys-devel/binutils)
+            
+            Tools necessary to build programs
+
 | [+debuginfod](https://packages.gentoo.org/useflags/+debuginfod) | Enable debuginfod support via dev-libs/elfutils libdebuginfod | 
 | [+gold](https://packages.gentoo.org/useflags/+gold) | Build ld.gold linker | 
 | [+nls](https://packages.gentoo.org/useflags/+nls) | Add Native Language Support (using gettext - GNU locale utilities) | 

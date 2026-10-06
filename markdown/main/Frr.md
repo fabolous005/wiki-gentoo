@@ -72,6 +72,11 @@ Please note that wherever possible we will endeavour to hard-mask a slot at leas
 ### USE flags
 
 
+### USE flags for
+            [net-misc/frr](https://packages.gentoo.org/packages/net-misc/frr)
+            
+            The FRRouting Protocol Suite
+
 | [doc](https://packages.gentoo.org/useflags/doc) | Add extra documentation (API, Javadoc, etc). It is recommended to enable per package instead of globally | 
 | [fpm](https://packages.gentoo.org/useflags/fpm) | Enable Forwarding Plane Manager support | 
 | [grpc](https://packages.gentoo.org/useflags/grpc) | Enable gRPC plugin | 
@@ -93,6 +98,27 @@ Review frr's configuration /etc/frr/daemons file to enable additional routing pr
 
 **`/etc/frr/daemons`**
 
+```
+...
+bgpd=no
+ospfd=no
+ospf6d=no
+ripd=no
+ripngd=no
+isisd=no
+pimd=no
+ldpd=no
+nhrpd=no
+eigrpd=no
+babeld=no
+sharpd=no
+pbrd=no
+bfdd=no
+fabricd=no
+vrrpd=no
+pathd=no
+...
+```
 Add larry to frrvty group to be able to use vtysh:
 
 `root #``gpasswd -a larry frrvty`

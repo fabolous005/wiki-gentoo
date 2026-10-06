@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Coreboot
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-07-15"
-fingerprint: "9e0a941c03f319ec"
+fingerprint: "9e0e941c03fb19ec"
 license: CC BY-SA 4.0
 ---
 
@@ -26,19 +26,19 @@ There are different types of architectures and supported hardware. The fully up-
 
 | Hardware | Supported | Blob Free | Native RAM Init | Native Graphics Init | Flashable via Hardware | Flashable via Software | Desoldering needed | 
 |---|---|---|---|---|---|---|---|
-| Lenovo Thinkpad T530 |  |  |  |  |  |  |  | 
-| Lenovo Thinkpad T480 |  |  |  |  |  |  |  | 
-| Lenovo Thinkpad T430s |  |  |  |  |  |  |  | 
-| Lenovo Thinkpad X230 |  |  |  |  |  |  |  | 
-| Lenovo Thinkpad T420s |  |  |  |  |  |  |  | 
-| Lenovo Thinkpad T420 |  |  |  |  |  |  |  | 
-| Lenovo Thinkpad T520 |  |  |  |  |  |  |  | 
-| Lenovo Thinkpad X220 |  |  |  |  |  |  |  | 
-| Lenovo Thinkpad X220 |  |  |  |  |  |  |  | 
-| Lenovo Thinkpad T410 |  |  |  |  |  |  |  | 
-| Lenovo Thinkpad T510 |  |  |  |  |  |  |  | 
-| Lenovo Thinkpad X201 |  |  |  |  |  |  |  | 
-| Apple Macbook Air 4,2 |  |  |  |  |  |  |  | 
+| Lenovo Thinkpad T530 | Currently broken | No | Yes | Partial | Yes | not with OEM BIOS | Yes | 
+| Lenovo Thinkpad T480 | WIP(?) | No | Yes | Partial | Yes | not with OEM BIOS | No | 
+| Lenovo Thinkpad T430s | Currently broken | No | Yes | Partial | Yes | not with OEM BIOS | Yes | 
+| Lenovo Thinkpad X230 | Yes | No | Yes | Partial | Yes | not with OEM BIOS | No | 
+| Lenovo Thinkpad T420s | Yes | No | Yes | Partial | Yes | not with OEM BIOS | No | 
+| Lenovo Thinkpad T420 | WIP | No | Yes | Partial | Yes | not with OEM BIOS | No | 
+| Lenovo Thinkpad T520 | Yes | No | Yes | Partial | Yes | not with OEM BIOS | No | 
+| Lenovo Thinkpad X220 | Yes | No | Yes | Partial | Yes | not with OEM BIOS | No | 
+| Lenovo Thinkpad X220 | Yes | No | Yes | Partial | Yes | not with OEM BIOS | No | 
+| Lenovo Thinkpad T410 | WIP | No | Yes | Partial | Yes | not with OEM BIOS | No | 
+| Lenovo Thinkpad T510 | WIP | No | Yes | Partial | Yes | not with OEM BIOS | No | 
+| Lenovo Thinkpad X201 | Currently broken | No | Yes | Partial | Yes | not with OEM BIOS | No | 
+| Apple Macbook Air 4,2 | Yes | No | Yes | No | Yes | not with OEM BIOS | No | 
 
 ## The basics
 
@@ -54,6 +54,11 @@ There are different types of SPI chips ([list](http://flashrom.org/Supported_har
 
 ### flashrom
 
+
+### USE flags for
+            [sys-apps/flashrom](https://packages.gentoo.org/packages/sys-apps/flashrom)
+            
+            Utility for reading, writing, erasing and verifying flash ROM chips
 
 | [+asm106x](https://packages.gentoo.org/useflags/+asm106x) | Enable programmer for ASMedia SATA controllers | 
 | [+atavia](https://packages.gentoo.org/useflags/+atavia) | Support for VIA VT6421A SATA controllers | 
@@ -117,7 +122,7 @@ It's important to take multiple dumps, in case there is a connection error. Once
 
 Now, the coreboot git repository needs to be cloned to a working directory, as it contains tools required to carry on. Directories must also be created for the specific manufacturer and model.
 
-`user $``cd coreboot``user $``mkdir -p 3rdparty/blobs/mainboard/<manufacturer>/<model>`
+`user $``git clone --recursive` [https://review.coreboot.org/coreboot.git](https://review.coreboot.org/coreboot.git)`user $``cd coreboot``user $``mkdir -p 3rdparty/blobs/mainboard/<manufacturer>/<model>`
 Replace \<manufacturer> and \<model> with the target system's manufacturer and model respectively (e.g. lenovo/x220).
 
 The next step is to extract regions of the flash dump. Regions are similar to partitions, and are a flash chip contains a flash descriptor that can be seen as a partition table for the SPI flash with some additional properties. This descriptor is read by a program called ifdtool, which will be used to gain the individual partitions.

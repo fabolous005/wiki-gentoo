@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Acer_Travelmate_8172
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-28"
-fingerprint: "6f4e0d65d33e536a"
+fingerprint: "7f4e0965d3a6d32a"
 license: CC BY-SA 4.0
 ---
 
@@ -17,6 +17,8 @@ From Gentoo Wiki
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+The information in this article is probably **outdated**. You can help the Gentoo community by verifying and [updating this article](https://wiki.gentoo.org/index.php?title=Acer_Travelmate_8172&action=edit).
+
 This is an article about running Gentoo on an Acer TravelMate 8172 series laptop.
 
 ## Hardware
@@ -25,15 +27,15 @@ This is an article about running Gentoo on an Acer TravelMate 8172 series laptop
 
 | Device | Make/model | Status | Vendor ID / Product ID | Kernel driver(s) | Kernel version | Notes | 
 |---|---|---|---|---|---|---|
-| CPU | Intel® Core™ i3-330UM |  | N/A | N/A | 2.6.39 |  | 
-| GPU | Intel Corporation Arrandale Integrated Graphics Controller (rev 02) |  | N/A | N/A | 2.6.39 |  | 
-| HDD | N/A |  | N/A | ahci | 2.6.39 |  | 
-| Ethernet | Broadcom Corporation NetXtreme BCM57760 Gigabit Ethernet PCIe (rev 01) |  | N/A | N/A | 2.6.39 |  | 
-| Wi-Fi | Broadcom Corporation Device 4357 (rev 01) |  | N/A | brcm80211 | 2.6.39 |  | 
-| Sound | Intel Corporation Ibex Peak High Definition Audio (rev 05) |  | N/A | snd\_hda\_codec\_conexant snd\_hda\_intel | 2.6.39 |  | 
-| SD card reader | N/A |  | N/A | sdhci | 2.6.39 |  | 
-| Webcam | N/A |  | N/A | uvcvideo | 2.6.39 |  | 
-| Fingerprint reader | N/A |  | N/A | N/A | N/A |  | 
+| CPU | Intel® Core™ i3-330UM | Works | N/A | N/A | 2.6.39 |  | 
+| GPU | Intel Corporation Arrandale Integrated Graphics Controller (rev 02) | Works | N/A | N/A | 2.6.39 |  | 
+| HDD | N/A | Works | N/A | ahci | 2.6.39 |  | 
+| Ethernet | Broadcom Corporation NetXtreme BCM57760 Gigabit Ethernet PCIe (rev 01) | Works | N/A | N/A | 2.6.39 |  | 
+| Wi-Fi | Broadcom Corporation Device 4357 (rev 01) | Works | N/A | brcm80211 | 2.6.39 |  | 
+| Sound | Intel Corporation Ibex Peak High Definition Audio (rev 05) | Works | N/A | snd\_hda\_codec\_conexant snd\_hda\_intel | 2.6.39 |  | 
+| SD card reader | N/A | Works | N/A | sdhci | 2.6.39 |  | 
+| Webcam | N/A | Works | N/A | uvcvideo | 2.6.39 |  | 
+| Fingerprint reader | N/A | Not tested | N/A | N/A | N/A |  | 
 
 ### Detailed information
 
@@ -261,4 +263,22 @@ The wireless network card requires external firmware:
 
 KERNEL **Ethernet (kernel v. 2.6.38)**
 
+```
+Device Drivers  --->
+    [*] Network device support  --->
+        [*]   Ethernet (1000 Mbit)  --->
+            <*>   Broadcom Tigon3 support
+```
 KERNEL **Wi-Fi, (kernel v. 2.6.38)**
+
+```
+[*] Networking support  --->
+    [*]   Wireless  --->
+        <*>   Generic IEEE 802.11 Networking Stack (mac80211)
+Device Drivers  --->
+    [*] Staging drivers  --->
+        Broadcom IEEE802.11n WLAN drivers  --->
+            Broadcom IEEE802.11n driver style (Broadcom IEEE802.11n PCIe SoftMAC WLAN driver)  --->
+                (X) Broadcom IEEE802.11n PCIe SoftMAC WLAN driver
+                ( ) Broadcom IEEE802.11n embedded FullMAC WLAN driver
+```

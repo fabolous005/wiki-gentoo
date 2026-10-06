@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Gemato
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-10-20"
-fingerprint: "5797bc9c04eb8fe8"
+fingerprint: "5797b89c04eb8ff0"
 license: CC BY-SA 4.0
 ---
 
 # Gemato
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -21,6 +23,11 @@ Gemato (**Ge**ntoo **Ma**nifest **To**ol) is a stand-alone utility to verify and
 
 ### USE flags
 
+
+### USE flags for
+            [app-portage/gemato](https://packages.gentoo.org/packages/app-portage/gemato)
+            
+            Stand-alone Manifest generation & verification tool
 
 | [+gpg](https://packages.gentoo.org/useflags/+gpg) | Install dependencies needed for OpenPGP signature verification support | 
 | [pretty-log](https://packages.gentoo.org/useflags/pretty-log) | Pull dev-python/rich to enable pretty logs | 

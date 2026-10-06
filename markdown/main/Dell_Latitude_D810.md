@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Dell_Latitude_D810
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-29"
-fingerprint: "61c9b2feaeab28a"
+fingerprint: "7f2c9b35d9a331e8"
 license: CC BY-SA 4.0
 ---
 
 # Dell Latitude D810
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -44,32 +46,75 @@ If your boot order is not already accommodating, tap `F2` (`F12`?) at the POST s
 
 The CPU is an Intel Pentium M.
 
-**Processor Support**
+KERNEL **Processor Support**
 
+```
+Processor type and features --->
+    Process family (Pentium M)
+```
 ### Video
 
 Video device is either an ATI (AMD) Radeon X300 or X600. The R300\_cp.bin firmware is used for both.
 
-**Video Device Support**
+KERNEL **Video Device Support**
 
+```
+Device Drivers --->
+    Generic Driver Options --->
+        (radeon/R300_cp.bin) External firmware blobs to build into the kernel binary
+    Graphics support --->
+        <*> ATI Radeon
+```
 ### Drive Controller
 
-**Drive Controller Support**
+KERNEL **Drive Controller Support**
 
+```
+Device Drivers --->
+    <*> Serial ATA and Parallel ATA drivers --->
+        <*> Intel ESB, ICH, PIIX3, PIIX4 PATA/SATA support
+```
 
 
 ### Audio
 
-**Audio Support**
+KERNEL **Audio Support**
 
+```
+Device Drivers --->
+    <*> Sound card support --->
+        <*> Advanced Linux Sound Architecture --->
+            [*] PCI sound devices --->
+                <*> Intel/SiS/nVidia/AMD/ALi AC97 Controller
+```
 ### USB
 
-**USB Support**
+KERNEL **USB Support**
 
+```
+Device Drivers --->
+    [*] USB support
+        <*> EHCI HCD (USB 2.0) support
+        <*> UHCI HDC (most Intel and VIA) support
+```
 ### Ethernet
 
-**Ethernet Support**
+KERNEL **Ethernet Support**
 
+```
+Device Drivers --->
+    [*] Network devices support --->
+        [*] Ethernet driver support --->
+            [*] Broadcom devices
+                <*> Broadcom Tigon3 support
+```
 ### Wireless
 
-**Wireless Networking Support**
+KERNEL **Wireless Networking Support**
+
+```
+Device Drivers --->
+    [*] Network devices support --->
+        [*] Wireless LAN --->
+            <*> Intel PRO/Wireless 2200BG and 2915ABG Network Connection
+```

@@ -5,11 +5,15 @@ url: https://wiki.gentoo.org/wiki/Embedded_Handbook/General/Frequently_asked_que
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-04-24"
-fingerprint: "1e4a990387279dd4"
+fingerprint: "5eca990387279dd4"
 license: CC BY-SA 4.0
 ---
 
 # Embedded Handbook/General/Frequently asked questions
+
+[Embedded Handbook](https://wiki.gentoo.org/wiki/Embedded_Handbook) |
+
+[General](https://wiki.gentoo.org/wiki/Embedded_Handbook/General)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

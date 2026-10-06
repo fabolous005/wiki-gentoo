@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/GRUB2_Migration
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-08-16"
-fingerprint: bea2e04f082cad95
+fingerprint: "9ea2e16f08acad95"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Archived article**
 
 This article is
 
@@ -52,10 +54,25 @@ The grub.conf file will look something like this:
 
 **`/boot/grub/grub.conf`**
 
+```
+default 0
+timeout 30
+splashimage=(hd0,0)/boot/grub/splash.xpm.gz
+  
+title Gentoo Linux 3.2.12
+root (hd0,0)
+kernel /boot/kernel-3.2.12-gentoo root=/dev/sda3 quiet dolvm
+initrd /boot/initramfs-genkernel-x86_64-3.2.12-gentoo
+```
 Based on the above file it is possible to know that `(hd0)` is the boot drive but we must map this to a real device. To know this, look at the /boot/grub/device.map file. An example one is provided below.
 
 **`/boot/grub/device.map`**
 
+```
+(fd0) /dev/fd0
+(hd0) /dev/sda
+(hd1) /dev/sdb
+```
 Based on the above file we know that /dev/sda is the boot drive.
 
 ### Installing and configuring GRUB2
@@ -75,10 +92,27 @@ Found linux image: /boot/kernel-3.2.12-gentoo
 Found initrd image: /boot/initramfs-genkernel-x86\_64-3.2.12-gentoo
 done
 
+### Chainloading GRUB2 from GRUB Legacy to test the setup
+
 Because a broken GRUB configuration could mean an unbootable system, we want to test our GRUB2 configuration before making it permanent. To do this we will chainload GRUB2 from GRUB Legacy. This is done by adding a new section into /boot/grub/grub.conf. An example is shown below.
 
 **`/boot/grub/grub.conf`**
 
+```
+default 0
+timeout 30
+splashimage=(hd0,0)/boot/grub/splash.xpm.gz
+  
+title GRUB2 Chainload
+root (hd0,0)
+kernel /boot/grub/i386-pc/core.img
+boot
+  
+title Gentoo Linux 3.2.12
+root (hd0,0)
+kernel /boot/kernel-3.2.12-gentoo root=/dev/sda3 quiet dolvm
+initrd /boot/initramfs-genkernel-x86_64-3.2.12-gentoo
+```
 At this point the machine should be rebooted, and `GRUB2 Chainload` selected from the GRUB menu when the machine begins to boot. Another GRUB menu will be presented which should advertise itself as GRUB 2.0.0 or higher at the top and show the available kernel(s) to boot. Should this not work, simply reboot the system and pick the normal boot option instead of `GRUB2 Chainload`.
 
 ### Replacing and removing GRUB Legacy

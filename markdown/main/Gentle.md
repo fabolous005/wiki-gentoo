@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Gentle
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-01-12"
-fingerprint: "87557ce8b5e123fe"
+fingerprint: c79f7de8f5e923ff
 license: CC BY-SA 4.0
 ---
 
@@ -24,6 +24,11 @@ From Gentoo Wiki
 
 ### USE flags
 
+
+### USE flags for
+            [app-portage/gentle](https://packages.gentoo.org/packages/app-portage/gentle)
+            
+            Gentoo Lazy Entry - a metadata.xml generator
 
 ### Emerge
 

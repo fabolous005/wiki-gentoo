@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki//var/db/repos/gentoo
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-11-24"
-fingerprint: fb93ba9d9ca3336c
+fingerprint: d993ba9d9ca3336c
 license: CC BY-SA 4.0
 ---
 
 # /var/db/repos/gentoo
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

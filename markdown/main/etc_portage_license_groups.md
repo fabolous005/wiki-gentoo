@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki//etc/portage/license_groups
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-05-12"
-fingerprint: "67d3be861f9baeb4"
+fingerprint: e0019ce20f998d34
 license: CC BY-SA 4.0
 ---
 
@@ -29,3 +29,10 @@ From Gentoo Wiki
 ## Example
 
 FILE **`/etc/portage/license_groups`****License groups example**
+
+```
+# The FSF-APPROVED group includes the entire GPL-COMPATIBLE group and more.
+FSF-APPROVED @GPL-COMPATIBLE Apache-1.1 BSD-4 MPL-1.0 MPL-1.1
+# The GPL-COMPATIBLE group includes all licenses compatible with the GNU GPL.
+GPL-COMPATIBLE Apache-2.0 BSD BSD-2 GPL-2 GPL-3 LGPL-2.1 LGPL-3 X11 ZLIB
+```

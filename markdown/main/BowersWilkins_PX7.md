@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/BowersWilkins_PX7
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-09-23"
-fingerprint: b41016ddf9a25c8d
+fingerprint: b61017ddf9a25c0d
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 The Bowers and Wilkins PX7 headphones have bluetooth, USB-C, and 3.5mm TRS connections to audio sources. These are battery-powered high-sensitivity headphones that are known to work well with ALSA using the analog and USB-C connections.
 
@@ -26,6 +28,10 @@ These USE flags are set:
 
 **`/etc/porage/package.use`**
 
+```
+media-plugins/alsa-plugins ffmpeg mix usb_stream
+media-video/mplayer alsa
+```
 ## Hardware
 
 When the PX7 is plugged in to a *USB* port and powered on, multiple USB devices are created. This article uses this device (trimmed output shown):
@@ -75,7 +81,7 @@ The headphone drivers appear to always be powered from the battery even when con
 
 | Device | Make/model | Status | Vendor ID / Product ID | Kernel driver(s) | Kernel version | Notes | 
 |---|---|---|---|---|---|---|
-| Wireless Headphone | B & W Group PX7 (Bowers & Wilkins) |  | `19b5:0025` | snd-usb-audio (when built as a module) | 5.19.3 | Enable kernel option `SND_USB_AUDIO` in the kernel. | 
+| Wireless Headphone | B & W Group PX7 (Bowers & Wilkins) | Works (USB & Analog) | `19b5:0025` | snd-usb-audio (when built as a module) | 5.19.3 | Enable kernel option `SND_USB_AUDIO` in the kernel. | 
 
 ## Installation
 
@@ -89,6 +95,13 @@ The only installation requirements are:
 
 ### Kernel
 
+```
+Device Drivers ->
+  Sound card support ->
+    Advanced Linux Sound Architecture ->
+      USB sound devices ->
+        <*/M> USB Audio/MIDI driver
+```
 Note that there have been times where not having all of the sound-related modules configured as modules has caused failures.
 
 ### Emerge

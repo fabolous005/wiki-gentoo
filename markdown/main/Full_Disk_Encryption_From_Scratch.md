@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Full_Disk_Encryption_From_Scratch
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-05-31"
-fingerprint: be011c5a9da4a4d0
+fingerprint: be011e5a9da4acd0
 license: CC BY-SA 4.0
 ---
 
@@ -420,18 +420,56 @@ To use UGRD to decrypt a LUKS volume with detached headers, stored at /boot (Boo
 
 **`/etc/ugrd/config.toml`**
 
+```
+# This configuration should autodetect root/luks info and use detached headers
+modules = [
+  "ugrd.kmod.usb",
+  "ugrd.crypto.cryptsetup"
+]
+auto_mounts = ['/boot']
+#[mounts.boot]
+#type = "vfat"
+#uuid = "BDF2-0139"
+[cryptsetup.root]
+header_file = "/boot/luks_header.img"
+# partuuid = f0273847-2754-4961-b64e-307c30097396  # should be autodetected
+```
 #### Symmetrically encrypted GPG keyfile
 
 To use UGRD with a GPG encrypted keyfile at /boot/crypt\_key.luks.gpg:
 
 **`/etc/ugrd/config.toml`**
 
+```
+modules = [
+  "ugrd.kmod.usb",
+  "ugrd.crypto.gpg"
+]
+auto_mounts = ['/boot']
+[cryptsetup.root]
+#uuid = "4bb45bd6-9ed9-44b3-b547-b411079f043b"  # should be autodetected
+key_type = "gpg"
+key_file = "/boot/crypt_key.luks.gpg"
+```
 #### Yubikey Protected GPG keyfile
 
 To use UGRD with a YubiKey to decrypt /boot/crypt\_key.luks.gpg with the public key at /etc/ugrd/pubkey.gpg:
 
 **`/etc/ugrd/config.toml`**
 
+```
+modules = [
+  "ugrd.kmod.usb",
+  "ugrd.crypto.smartcard"
+]
+sc_public_key = "/etc/ugrd/pubkey.gpg"
+auto_mounts = ['/boot']
+[cryptsetup.root]
+#uuid = "4bb45bd6-9ed9-44b3-b547-b411079f043b"  # should be autodetected
+key_type = "gpg"
+key_file = "/boot/crypt_key.luks.gpg"
+try_nokey = true
+```
 #### Updating an initramfs image
 
 If the **ugrd** USE flag is set on [sys-kernel/installkernel](https://packages.gentoo.org/packages/sys-kernel/installkernel), the initramfs can be regenerated and reinstalled with:
@@ -528,6 +566,9 @@ The following modules must be added to the *add\_dracutmodules* directive in /et
 
 **Minimum required components to decrypt LUKS volumes using dracut**
 
+```
+add_dracutmodules+=" crypt dm rootfs-block "
+```
 ##### GPG config
 
 If GPG keys are being used, the following module must also be added: **crypt-gpg**
@@ -536,6 +577,9 @@ If GPG keys are being used, the following module must also be added: **crypt-gpg
 
 **Minimum required components to decrypt LUKS volumes using dracut**
 
+```
+add_dracutmodules+=" crypt crypt-gpg dm rootfs-block "
+```
 #### Dracut cmdline config
 
 Dracut can be configured to build with configuration for LUKS hardcoded, first disk information must be obtained:
@@ -555,6 +599,9 @@ To open a LUKS volume protected with passphrase encryption:
 
 **`/etc/dracut.conf`**
 
+```
+kernel_cmdline+=" root=UUID=cb070f9e-da0e-4bc5-825c-b01bb2707704 rd.luks.uuid=4bb45bd6-9ed9-44b3-b547-b411079f043b "
+```
 ##### GPG Keys
 
 To open a gpg keyfile protected LUKS volume:
@@ -563,12 +610,18 @@ To open a gpg keyfile protected LUKS volume:
 
 **Embed cmdline parameters for rootfs decryption**
 
+```
+kernel_cmdline+=" root=LABEL=crypt rd.luks.uuid=4bb45bd6-9ed9-44b3-b547-b411079f043b rd.luks.key=/crypt_key.luks.gpg:UUID=0e86bef-30f8-4e3b-ae35-3fa2c6ae705b "
+```
 #### Systemd
 
 For systemd systems, rebuild with the **cryptsetup** USE-flag:
 
 **`/etc/portage/package.use/systemd`**
 
+```
+sys-apps/systemd cryptsetup
+```
 `root #``emerge --ask --newuse sys-apps/systemd`
 #### Manually generating an image
 
@@ -599,6 +652,12 @@ With the *initramfs* unpacked in /usr/src/initramfs, the kernel can be configure
 
 **Embed the initramfs into the kernel**
 
+```
+General Setup --->
+[*] Initial RAM filesystem and RAM disk (initramfs/initrd) support
+    (/usr/src/initramfs) Initramfs source file(s)
+[*]   Support initial ramdisk/ramfs compressed using gzip
+```
 .config equivalent:
 
 With this configuration, the kernel will automatically embed whatever exists under /usr/src/initramfs into the kernel when it is built, and attempt to use it on boot. This is especially useful when [Secure Booting](https://wiki.gentoo.org/wiki/Secure_Boot).
@@ -635,6 +694,12 @@ With the partition UUIDs and labels identified, [/etc/fstab](https://wiki.gentoo
 
 **`/mnt/gentoo/etc/fstab`**
 
+```
+# <fs>                                          <mountpoint>    <type>          <opts>          <dump/pass>
+UUID=BDF2-0139                                  /efi            vfat            noauto,noatime  0 1
+LABEL=boot                                      /boot           ext4            noauto,noatime  0 1
+LABEL=rootfs                                    /               btrfs           defaults        0 0
+```
 ### Finalizing the Gentoo install
 
 At this point, the Gentoo install can be continued normally: [Installing a stage tarball](https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Installation#Installing_a_stage_tarball)
@@ -642,6 +707,8 @@ At this point, the Gentoo install can be continued normally: [Installing a stage
 ## Additional information
 
 ### SSD tricks
+
+[SSD § Partitioning](https://wiki.gentoo.org/wiki/SSD#Partitioning)
 
 SSD [trim](<https://en.wikipedia.org/wiki/Trim_(computing)>) allows an operating system to inform a solid-state drive (SSD) which blocks of data are no longer considered in use and can be wiped internally. Because low-level operation of SSDs differs significantly from hard drives, the typical way in which operating systems handle operations like deletes and formats resulted in unanticipated progressive performance degradation of write operations on SSDs. Trimming enables the SSD to more efficiently handle garbage collection, which would otherwise slow future write operations to the involved blocks.
 

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/GTK
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-04-19"
-fingerprint: d6019278d0a6b9c4
+fingerprint: d601925844a6b9c4
 license: CC BY-SA 4.0
 ---
 
@@ -34,6 +34,11 @@ The [gtk4](https://packages.gentoo.org/useflags/gtk4) [USE flag is provided by p
 #### USE flags
 
 
+### USE flags for
+            [gui-libs/gtk](https://packages.gentoo.org/packages/gui-libs/gtk)
+            
+            GTK is a multi-platform toolkit for creating graphical user interfaces
+
 | [+X](https://packages.gentoo.org/useflags/+X) | Add support for X11 | 
 | [+introspection](https://packages.gentoo.org/useflags/+introspection) | Add support for GObject based introspection | 
 | [aqua](https://packages.gentoo.org/useflags/aqua) | Include support for the Mac OS X Aqua (Carbon/Cocoa) GUI | 
@@ -59,6 +64,11 @@ There are also [gtk3](https://packages.gentoo.org/useflags/gtk3) [and](https://w
 
 #### USE flags
 
+
+### USE flags for
+            [x11-libs/gtk+](https://packages.gentoo.org/packages/x11-libs/gtk+)
+            
+            Gimp ToolKit +
 
 | [+X](https://packages.gentoo.org/useflags/+X) | Add support for X11 | 
 | [+introspection](https://packages.gentoo.org/useflags/+introspection) | Add support for GObject based introspection | 
@@ -97,6 +107,11 @@ GTK 4 uses the file \~/.config/gtk-4.0/settings.ini by default for user settings
 
 **`~/.config/gtk-4.0/settings.ini`**
 
+```
+[Settings]
+gtk-theme-name = "Adwaita"
+gtk-application-prefer-dark-theme = 1
+```
 Note that:
 
 GTK reads default values for settings from settings.ini files in /etc/gtk-4.0, $XDG\_CONFIG\_DIRS/gtk-4.0 and $XDG\_CONFIG\_HOME/gtk-4.0. These files must be valid key files, and have a section called `[Settings]`. Themes can also provide default values for settings by installing a settings.ini file next to their gtk.css file.[\[2\]](https://wiki.gentoo.org#cite_note-2)
@@ -113,10 +128,18 @@ GTK 3 uses the file \~/.config/gtk-3.0/settings.ini by default for user settings
 
 **`~/.config/gtk-3.0/settings.ini`**
 
+```
+[Settings]
+gtk-application-prefer-dark-theme = true
+```
 To specify default settings for all users, modify /etc/gtk-3.0/settings.ini. For example:
 
 **`/etc/gtk-3.0/settings.ini`**
 
+```
+[Settings]
+gtk-application-prefer-dark-theme = true
+```
 The [x11-libs/gtk+](https://packages.gentoo.org/packages/x11-libs/gtk+) version 3 package provides the gtk-query-settings(1) utility for printing the name and value of all GtkSettings properties.
 
 ### GTK 2
@@ -125,6 +148,13 @@ GTK 2 uses the file \~/.gtkrc-2.0 for user settings. Example file:
 
 **`~/.gtkrc-2.0`**
 
+```
+gtk-font-name = "Liberation Sans 16"
+gtk-cursor-theme-name = "Adwaita"
+gtk-fallback-icon-theme = "gnome"
+gtk-icon-theme-name = "Adwaita"
+gtk-theme-name = "Adwaita"
+```
 The `GTK2_RC_FILES` environment variable can be set to point to a gtkrc-2.0 file containing settings for a particular GTK 2 application.
 
 ## Troubleshooting
@@ -174,3 +204,9 @@ For more information, see [GTK applications (sometimes?) do not scroll correctly
 - [GTK 4.0 documentation](https://docs.gtk.org/gtk4/index.html)
 - [GTK 3.0 documentation](https://docs.gtk.org/gtk3/index.html)
 - [x11-libs/wxGTK](https://packages.gentoo.org/packages/x11-libs/wxGTK) - GTK version of [wxWidgets](https://wxwidgets.org/), a cross-platform C++ GUI toolkit
+
+## References
+
+1. [↑](https://wiki.gentoo.org#cite_ref-1) "[Gnome, GSettings, gconf, and which one you want](https://utcc.utoronto.ca/~cks/space/blog/linux/DconfVsGconfInGnome)". Retrieved on 2026-02-25.
+2. [↑](https://wiki.gentoo.org#cite_ref-2) ["Gtk > Settings"](https://docs.gtk.org/gtk4/class.Settings.html). Retrieved on 2025-01-26.
+3. [↑](https://wiki.gentoo.org#cite_ref-3) ["Running and debugging GTK Applications"](https://docs.gtk.org/gtk4/running.html#gtk_theme). Retrieved on 2025-01-26.

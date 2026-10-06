@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/ECryptfs
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-09-05"
-fingerprint: "9e91f05d11c19560"
+fingerprint: "9e80d01d11819560"
 license: CC BY-SA 4.0
 ---
 
@@ -97,8 +97,44 @@ Make sure to select appropriate hardware accelerated ciphers for the target comp
 
 **Enable eCryptfs support**
 
+```
+Processor type and features  --->
+    Processor family (AMD Zen 3)      (select appropriate target CPU if USE=experimental for gentoo-sources)
+File systems  --->
+    [*] Miscellaneous filesystems  --->
+        <M> eCrypt filesystem layer support
+            [*] Enable notifications for userspace key wrap/unwrap
+Security options  --->
+    [*] Enable access key retention support
+Cryptographic API  --->
+    *** Block modes ***
+    <M> CBC support
+    <M> ECB support
+    *** Digest ***
+    <M> MD5 digest algorithm
+    *** Ciphers ***
+    <M> AES cipher algorithms
+    <M> AES cipher algorithms (AES-NI)
+    <M> Blowfish cipher algorithm 
+    <M> Blowfish cipher algorithm (x86_64)
+    {M} CAST5 (CAST-128) cipher algorithm 
+    <M> CAST5 (CAST-128) cipher algorithm (x86_64/AVX)
+    {M} CAST6 (CAST-256) cipher algorithm
+    <M> CAST6 (CAST-256) cipher algorithm (x86_64/AVX)
+    <M> DES and Triple DES EDE cipher algorithms
+    <M> Triple DES EDE cipher algorithm (x86-64)
+    <M> Twofish cipher algorithm 
+    {M} Twofish cipher algorithm (x86_64)
+    {M} Twofish cipher algorithm (x86_64, 3-way parallel)
+    <M> Twofish cipher algorithm (x86_64/AVX)
+```
 ### USE flags
 
+
+### USE flags for
+            [sys-fs/ecryptfs-utils](https://packages.gentoo.org/packages/sys-fs/ecryptfs-utils)
+            
+            eCryptfs userspace utilities
 
 | [doc](https://packages.gentoo.org/useflags/doc) | Add extra documentation (API, Javadoc, etc). It is recommended to enable per package instead of globally | 
 | [gpg](https://packages.gentoo.org/useflags/gpg) | Enable app-crypt/gnupg key module | 
@@ -313,6 +349,11 @@ This can then be added to /etc/fstab, adding "noauto" and "user" to the mount op
 
 **`/etc/fstab`**
 
+```
+..
+/home/user/.private /home/user/private ecryptfs noauto,user,key=passphrase:passwd_file=/home/user/.ecryptfs/keyfile.ecryptfs,rw,relatime,ecryptfs_sig=45d18b267ac3e929,ecryptfs_cipher=aes,ecryptfs_key_bytes=16 0 0
+..
+```
 A user is then able to mount this directory after adding their passphrase to they kernel keyring. When PAM is used for adding the passphrase to the kernel keyring, the mount could be done automatically after login from a login script (e.g. \~/.bashrc) or a desktop autostart facility.
 
 Note that ordinary users are not allowed to provide mount options;
@@ -327,6 +368,11 @@ is currently Ubuntu centric. To setup an encrypted swap, install [sys-fs/cryptse
 
 **crypt-swap example**
 
+```
+swap=crypt-swap
+source=/dev/sda3
+options='--cipher=aes-xts-plain64 --key-size=512 --key-file=/dev/urandom'
+```
 Add dm-crypt to the boot run level with:
 
 `root #``rc-config add dmcrypt boot`
@@ -351,6 +397,10 @@ Inserted auth tok with sig \[28320aba320b22df\] into the user session keyring
 
 **`/etc/fstab`**
 
+```
+#mount with same passphrase for files and meta data
+/home/user/.secret	/home/user/secret	ecryptfs	user,noauto,ecryptfs_sig=28320aba320b22df,ecryptfs_fnek_sig=28320aba320b22df,ecryptfs_cipher=aes,ecryptfs_key_bytes=32,ecryptfs_unlink_sigs 0 0
+```
 Use keyctl to verify signatures of keys being loaded for current user. After ecryptfs-add-passphrase, there will be more entries. The sample shows the signature from above plus two others. Also check that after umount of ecryptfs layer the signature is gone.
 
 `user $``keyctl list @u`

@@ -5,11 +5,15 @@ url: https://wiki.gentoo.org/wiki/Btrfs/Encrypted_Btrfs_System_Root_Guide
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-09-25"
-fingerprint: "9fc43033806c6ed9"
+fingerprint: "9b843213806d6ad9"
 license: CC BY-SA 4.0
 ---
 
 # Btrfs/Encrypted Btrfs System Root Guide
+
+From Gentoo Wiki
+
+\< [Btrfs](https://wiki.gentoo.org/wiki/Btrfs)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

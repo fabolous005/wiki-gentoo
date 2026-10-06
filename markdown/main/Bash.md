@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Bash
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-09-21"
-fingerprint: b0a39c5c6927fb9d
+fingerprint: b0a39c5c6125fb9d
 license: CC BY-SA 4.0
 ---
 
@@ -28,6 +28,11 @@ bash is part of the [*@system* set](<https://wiki.gentoo.org/wiki/System_set_(Po
 It is possible to [change USE flags](https://wiki.gentoo.org/wiki/Handbook:AMD64/Working/USE#Declaring_USE_flags_for_individual_packages) for the bash package:
 
 
+### USE flags for
+            [app-shells/bash](https://packages.gentoo.org/packages/app-shells/bash)
+            
+            The standard GNU Bourne again shell
+
 | [+net](https://packages.gentoo.org/useflags/+net) | Enable /dev/tcp/host/port redirection | 
 | [+readline](https://packages.gentoo.org/useflags/+readline) | Enable support for libreadline, a GNU line-editing library that almost everyone wants | 
 | [afs](https://packages.gentoo.org/useflags/afs) | Add OpenAFS support (distributed file system) | 
@@ -45,6 +50,8 @@ It is possible to [change USE flags](https://wiki.gentoo.org/wiki/Handbook:AMD64
 After making USE modifications, ask Portage to update the system so the changes take effect:
 
 `root #``emerge --ask --changed-use --deep @world`
+### Shell completion
+
 Shell completion programming, sometimes called tab completion, is available to many programs and their parameters on Gentoo. To enable shell completion for bash, install the [app-shells/bash-completion](https://packages.gentoo.org/packages/app-shells/bash-completion) package. No special USE flags for packages, which support completion, are required on individual packages. Post-installation, completion functionality can be managed through [eselect](https://wiki.gentoo.org/wiki/Eselect).
 
 `root #``emerge --ask app-shells/bash-completion`
@@ -99,6 +106,8 @@ rm() { command rm -i "${@}"; }
 cp() { command cp -i "${@}"; }
 mv() { command mv -i "${@}"; }
 ```
+### Shell completion integrations
+
 List available completions via:
 
 `user $``eselect bashcomp list`
@@ -454,3 +463,7 @@ The output of a shell can, in some conditions, become corrupt. See the [terminal
 - The [Bash FAQ](https://mywiki.wooledge.org/BashFAQ) and [Bash guide](https://mywiki.wooledge.org/BashGuide) on Greg Wooledge's wiki.
 - [POSIX sh](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html) specification.
 - [mksh](https://www.mirbsd.org/man/mksh.1), [ksh93](http://www2.research.att.com/sw/download/man/man1/ksh.html), and [ksh88](http://www2.research.att.com/sw/download/man/man1/ksh88.html) manuals for cross-reference.
+
+## References
+
+1. [↑](https://wiki.gentoo.org#cite_ref-1) [News Items - bash-completion-2.1-r90](https://www.gentoo.org/support/news-items/2014-11-25-bash-completion-2_1-r90.html), November 25th, 2014. Retrieved on May 13th, 2017.

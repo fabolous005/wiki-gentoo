@@ -147,27 +147,27 @@ ACCEPT_LICENSE="-* @FREE @BINARY-REDISTRIBUTABLE"
 **`/etc/portage/package.use/00localization`**
 
 ```
- LINGUAS: en
+*/* LINGUAS: en
 ```
 **`/etc/portage/package.use/00video`**
 
 ```
- VIDEO_CARDS: -* vmware fbdev
+*/* VIDEO_CARDS: -* vmware fbdev
 ```
 **`/etc/portage/package.use/00input`**
 
 ```
- INPUT_DEVICES: libinput
+*/* INPUT_DEVICES: libinput
 ```
 **`/etc/portage/package.use/00cpu-flags`**
 
 ```
- CPU_FLAGS_ARM: aes sha1 sha2 sha3 crc32 neon v8 vfpv4
+*/* CPU_FLAGS_ARM: aes sha1 sha2 sha3 crc32 neon v8 vfpv4
 ```
 **`/etc/portage/package.use/00grub`**
 
 ```
- GRUB_PLATFORMS: efi-64
+*/* GRUB_PLATFORMS: efi-64
 ```
 **Note:** The `-march=native` flag seemed to cause problems when compiling ffmpeg, so it has been removed in this sample `make.conf`.
 
@@ -276,10 +276,20 @@ The minimum requirement to make the VM boot is enabling the DRM driver in the ke
 
 **Enable support for VMware DRM**
 
+```
+-> Device Drivers                                                                                                                                                                     
+  -> Graphics support 
+    [*] DRM driver for VMware Virtual GPU
+```
 If you also want `open-vm-tools` integration, which provides performance improvements and improved integration with the host (shared clipboard, etc), enable the following in the kernel:
 
 **Enable support for VMware DRM**
 
+```
+-> Device Drivers                                                                                                                                                                     
+  -> Network device support
+    [*] VMware VMXNET3 ethernet driver
+```
 When this guide was written (Jan 2023), most of the host integration features in the kernel were only supported on x86.
 
 After configuring your kernel, you can build and install it. The following command uses `-j10` to start 10 build jobs. Usually the number of build jobs should be the same as the number of CPU cores you configured your VM with. The more build jobs you use, the faster your build will finish.
@@ -318,6 +328,9 @@ lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
 
 **/etc/conf.d/net example**
 
+```
+config_ens160="dhcp"
+```
 `(chroot) livecd /usr/src/linux #````
 cd /etc/init.d
 ```
@@ -359,18 +372,30 @@ Need to unmask the fbdev and vmware video drivers to allow them to be installed.
 
 **/etc/portage/profile/use.mask**
 
+```
+-video_cards_vmware
+-video_cards_fbdev
+```
 Enable gnome-light by providing ACCEPT\_KEYWORDS variable. Create the file `/etc/portage/package.accept_keywords/gnome_light` with the following contents:
 
 **`/etc/portage/package.accept_keywords/gnome_light`**
 
 **/etc/portage/package.accept\_keywords/gnome\_light**
 
+```
+gnome-base/gnome-light **
+x11-drivers/xf86-video-vmware **
+x11-drivers/xf86-video-fbdev **
+```
 Set use flags for mesa by creating `/etc/portage/package.use/mesa` with the following contents:
 
 **`/etc/portage/package.use/mesa`**
 
 **/etc/portage/package.use/mesa**
 
+```
+media-libs/mesa xa
+```
 #### Installing Gnome
 
 Need to set your profile to Gnome Desktop:
@@ -429,6 +454,12 @@ Enable the mouse driver in the kernel
 
 **Enable CONFIG\_INPUT\_MOUSEDEV**
 
+```
+-> Device Drivers                                                                                                                                                                     
+  -> Input device support
+    -> Generic input layer (needed for keyboard, mouse, ...) (INPUT [=y])
+      <*> Mouse interface
+```
 
 
 `(chroot) livecd /usr/src/linux #````
@@ -449,6 +480,9 @@ Set display manager to GDM:
 
 **/etc/conf.d/display-manager**
 
+```
+DISPLAYMANAGER="gdm"
+```
 
 Start the login manager:
 
@@ -463,12 +497,19 @@ Since `open-vm-tools` is still experimental, unmask it:
 
 **/etc/portage/package.accept\_keywords/open-vm-tools**
 
+```
+app-emulation/open-vm-tools **
+dev-libs/libdnet **
+```
 Then add USE flags for `open-vm-tools`
 
 **`/etc/portage/package.use/open-vm-tools`**
 
 **/etc/portage/package.use/open-vm-tools**
 
+```
+app-emulation/open-vm-tools gtkmm resolutionkms fuse
+```
 
 
 `(chroot) livecd /usr/src/linux #``emerge open-vm-tools`

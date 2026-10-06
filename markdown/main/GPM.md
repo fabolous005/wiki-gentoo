@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/GPM
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-07-01"
-fingerprint: c4de8e4a599b23dd
+fingerprint: d4de8e4a598b2bdd
 license: CC BY-SA 4.0
 ---
 
@@ -15,12 +15,19 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+*Not to be confused with[GDM](https://wiki.gentoo.org/wiki/GNOME/gdm).*
+
 This guide shows you how to set up and use **GPM** (the General Purpose Mouse server) from within a command line interface. This is especially useful for new Gentoo installations or for systems that cannot or do not use an [Xorg](https://wiki.gentoo.org/wiki/Xorg) server.
 
 ## Kernel
 
 **Kernel configuration**
 
+```
+Device Drivers  --->
+  Input device support ---> [CONFIG_INPUT]
+    <*/M> Mouse interface   [CONFIG_INPUT_MOUSEDEV]
+```
 ## Getting GPM
 
 If you've just installed Gentoo, you almost certainly don't have your mouse set up to work within a command line interface (CLI) yet. Or perhaps you can't use or don't need an X server, yet you still need to use a mouse. The solution is simple: [sys-libs/gpm](https://packages.gentoo.org/packages/sys-libs/gpm), the General Purpose Mouse server.

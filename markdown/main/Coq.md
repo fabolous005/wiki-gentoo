@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Coq
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-02-08"
-fingerprint: "94404a0e6afb7a4e"
+fingerprint: "84404a0e6afb7a4e"
 license: CC BY-SA 4.0
 ---
 
@@ -24,6 +24,11 @@ It (Coq, red.) provides a formal language to write mathematical definitions, exe
 
 ## Installation
 
+
+### USE flags for
+            [sci-mathematics/coq](https://packages.gentoo.org/packages/sci-mathematics/coq)
+            
+            Coq/Rocq is a proof assistant written in O'Caml
 
 | [+ocamlopt](https://packages.gentoo.org/useflags/+ocamlopt) | Enable ocamlopt support (ocaml native code compiler) -- Produces faster programs (Warning: you have to disable/enable it at a global scale) | 
 | [debug](https://packages.gentoo.org/useflags/debug) | Enable extra debug codepaths, like asserts and extra output. If you want to get meaningful backtraces see https://wiki.gentoo.org/wiki/Project:Quality\_Assurance/Backtraces | 

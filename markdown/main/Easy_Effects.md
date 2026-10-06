@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Easy_Effects
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-10-03"
-fingerprint: "2e04924e4907f062"
+fingerprint: ae00924e4907f062
 license: CC BY-SA 4.0
 ---
 
@@ -27,6 +27,11 @@ formerly known as PulseEffects, but ... was renamed to Easy Effects after it sta
 ### USE flags
 
 
+### USE flags for
+            [media-sound/easyeffects](https://packages.gentoo.org/packages/media-sound/easyeffects)
+            
+            Limiter, auto volume and many other plugins for PipeWire applications
+
 | [+doc](https://packages.gentoo.org/useflags/+doc) | Install packages needed to display built-in user documentation | 
 | [calf](https://packages.gentoo.org/useflags/calf) | Enable use of media-plugins/calf for adding various FX | 
 | [debug](https://packages.gentoo.org/useflags/debug) | Enable extra debug codepaths, like asserts and extra output. If you want to get meaningful backtraces see https://wiki.gentoo.org/wiki/Project:Quality\_Assurance/Backtraces | 
@@ -37,6 +42,8 @@ formerly known as PulseEffects, but ... was renamed to Easy Effects after it sta
 ### Emerge
 
 `root #``emerge --ask media-sound/easyeffects`
+### Alternative installation method: Flatpak
+
 EasyEffects is available as a [Flatpak](https://wiki.gentoo.org/wiki/Flatpak) application that can be downloaded and installed automatically from Flathub:
 
 `user $``flatpak install flathub com.github.wwmm.easyeffects`

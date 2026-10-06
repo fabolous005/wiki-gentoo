@@ -11,6 +11,8 @@ license: CC BY-SA 4.0
 
 # Dell XPS 15 Touch 9530
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)

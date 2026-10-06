@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Apple_MacBook_Pro_13-inch_(2020,_Intel,_Four_T
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-03-19"
-fingerprint: "2f4ca927fbaa1369"
+fingerprint: "2f4c6927dba21369"
 license: CC BY-SA 4.0
 ---
 
@@ -27,43 +27,43 @@ A number of components are not supported by the mainline kernel (as of 6.9). Out
 
 | Device | Make/model | Status | Vendor ID / Product ID | Kernel driver(s) | Kernel version | Notes | 
 |---|---|---|---|---|---|---|
-| CPU | Intel Core i5-1038G7 |  | N/A | N/A | 6.9.4 |  | 
-| iGPU | Intel Iris Plus Graphics G7 |  | PCI 8086:8a53 | [i915](https://wiki.gentoo.org/wiki/Intel) | 6.9.4 |  | 
-| GPIO | Intel GPIO Pin Controller |  | N/A | pinctrl\_intel | 6.9.4 |  | 
-| I2C/SMBus Controller | Intel SMBus Controller |  | PCI 8086:38c8 | i2c\_i801 | 6.9.4 |  | 
-| SPI Controller | Intel Ice Lake SPI Controller |  | PCI 8086:38a4 | spi\_intel\_pci | 6.9.4 |  | 
-| LPSS Controller | Intel Low Power Subsystem Controller |  | PCI 8086:38a8 | intel\_lpss\_acpi, intel\_lpss\_pci | 6.9.4 | required for Bluetooth | 
-| Serial Controller | Designware Serial Controller |  | ? | 8250\_dw | 6.9.4 | required for Bluetooth | 
-| VHCI bridge | Apple T2 Bridge Controller |  | PCI 106b:1801 | apple-bce | out of tree driver | requires that the IOMMU is enabled; required for keyboard, trackpad, and the Apple Audio device | 
-| Secure element | Apple T2 Secure Enclave Processor |  | PCI 106b:1802 |  |  |  | 
-| NVMe | Apple ANS2 NVMe Controller |  | PCI 106b:2005 | nvme | 6.9.4 |  | 
-| Audio | Intel Corporation HD Audio device |  | PCI 8086:7270 | snd\_hda\_intel, snd\_soc\_avs, snd\_sof\_pci\_intel\_icl | 6.9.4 | for HDMI/DisplayPort audio | 
-| Audio | Apple Audio Device |  | PCI 106b:1803 | apple-bce | out of tree driver | only playback, no recording | 
-| Wireless LAN | Broadcom BCM4364 802.11ac Wireless Network Adapter |  | PCI 14e4:4464 | brcmfmac | 6.9.4 | needs firmware that is not in linux-firmware.git, see [#Wifi](https://wiki.gentoo.org#Wifi) | 
-| Bluetooth | Broadcom BCM4364 Bluetooth |  | PCI 14e4:4464 | hci\_uart, hci\_uart\_bcm | 6.9.4 |  | 
-| Thunderbolt 3 | Intel Ice Lake Thunderbolt NHI |  | PCI 8086:8a17, PCI 8086:8a0d | thunderbolt | 6.9.4 | also requires that CONFIG\_HOTPLUG\_PCI\_PCIE is enabled | 
-| USB 3 | Intel Ice Lake USB Controller |  | PCI 8086:38ed | xhci\_hcd | 6.9.4 |  | 
-| Keyboard | Apple Magic Keyboard |  | USB 05ac:027e | usbhid | 6.9.4 |  | 
-| Touchpad | Apple Magic Touchpad |  | USB 05ac:027e | bcm5974 | 6.9.4 |  | 
-| Touchbar | Apple Touchbar |  | USB 05ac:8302, USB 05ac:8102 | appletbdrm, hid\_appletb\_bl, hid\_appletb\_kbd | 6.15.0 | Controlled by [app-laptop/tiny-dfr](https://packages.gentoo.org/packages/app-laptop/tiny-dfr), see [#Touchbar](https://wiki.gentoo.org#Touchbar) | 
-| Fingerprint sensor | Apple Touch ID sensor |  | ? |  |  |  | 
-| Webcam | Apple FaceTime HD Camera |  | USB 05ac:8514 | uvcvideo | 6.9.4 |  | 
-| Hardware Monitoring | various |  |  | acpi\_battery, applesmc, coretemp, int340x, nvme, sbs | 6.9.4 | applesmc needs out of tree patches | 
-| Ambient light sensor | Apple Ambient Light Sensor |  | USB 05ac:8262 | hid\_sensor\_hub |  |  | 
+| CPU | Intel Core i5-1038G7 | Works | N/A | N/A | 6.9.4 |  | 
+| iGPU | Intel Iris Plus Graphics G7 | Works | PCI 8086:8a53 | [i915](https://wiki.gentoo.org/wiki/Intel) | 6.9.4 |  | 
+| GPIO | Intel GPIO Pin Controller | Works | N/A | pinctrl\_intel | 6.9.4 |  | 
+| I2C/SMBus Controller | Intel SMBus Controller | Works | PCI 8086:38c8 | i2c\_i801 | 6.9.4 |  | 
+| SPI Controller | Intel Ice Lake SPI Controller | Works | PCI 8086:38a4 | spi\_intel\_pci | 6.9.4 |  | 
+| LPSS Controller | Intel Low Power Subsystem Controller | Works | PCI 8086:38a8 | intel\_lpss\_acpi, intel\_lpss\_pci | 6.9.4 | required for Bluetooth | 
+| Serial Controller | Designware Serial Controller | Works | ? | 8250\_dw | 6.9.4 | required for Bluetooth | 
+| VHCI bridge | Apple T2 Bridge Controller | Partial | PCI 106b:1801 | apple-bce | out of tree driver | requires that the IOMMU is enabled; required for keyboard, trackpad, and the Apple Audio device | 
+| Secure element | Apple T2 Secure Enclave Processor | Unsupported | PCI 106b:1802 |  |  |  | 
+| NVMe | Apple ANS2 NVMe Controller | Works | PCI 106b:2005 | nvme | 6.9.4 |  | 
+| Audio | Intel Corporation HD Audio device | Works | PCI 8086:7270 | snd\_hda\_intel, snd\_soc\_avs, snd\_sof\_pci\_intel\_icl | 6.9.4 | for HDMI/DisplayPort audio | 
+| Audio | Apple Audio Device | Partial | PCI 106b:1803 | apple-bce | out of tree driver | only playback, no recording | 
+| Wireless LAN | Broadcom BCM4364 802.11ac Wireless Network Adapter | Works | PCI 14e4:4464 | brcmfmac | 6.9.4 | needs firmware that is not in linux-firmware.git, see [#Wifi](https://wiki.gentoo.org#Wifi) | 
+| Bluetooth | Broadcom BCM4364 Bluetooth | Works | PCI 14e4:4464 | hci\_uart, hci\_uart\_bcm | 6.9.4 |  | 
+| Thunderbolt 3 | Intel Ice Lake Thunderbolt NHI | Works | PCI 8086:8a17, PCI 8086:8a0d | thunderbolt | 6.9.4 | also requires that CONFIG\_HOTPLUG\_PCI\_PCIE is enabled | 
+| USB 3 | Intel Ice Lake USB Controller | Works | PCI 8086:38ed | xhci\_hcd | 6.9.4 |  | 
+| Keyboard | Apple Magic Keyboard | Works | USB 05ac:027e | usbhid | 6.9.4 |  | 
+| Touchpad | Apple Magic Touchpad | Works | USB 05ac:027e | bcm5974 | 6.9.4 |  | 
+| Touchbar | Apple Touchbar | Works | USB 05ac:8302, USB 05ac:8102 | appletbdrm, hid\_appletb\_bl, hid\_appletb\_kbd | 6.15.0 | Controlled by [app-laptop/tiny-dfr](https://packages.gentoo.org/packages/app-laptop/tiny-dfr), see [#Touchbar](https://wiki.gentoo.org#Touchbar) | 
+| Fingerprint sensor | Apple Touch ID sensor | Unsupported | ? |  |  |  | 
+| Webcam | Apple FaceTime HD Camera | Works | USB 05ac:8514 | uvcvideo | 6.9.4 |  | 
+| Hardware Monitoring | various | Works |  | acpi\_battery, applesmc, coretemp, int340x, nvme, sbs | 6.9.4 | applesmc needs out of tree patches | 
+| Ambient light sensor | Apple Ambient Light Sensor | Unknown | USB 05ac:8262 | hid\_sensor\_hub |  |  | 
 
 ### ACPI / Power management
 
 | Function | Status | Kernel driver(s) | Kernel version | BIOS version | Notes | 
 |---|---|---|---|---|---|
-| CPU frequency scaling |  | intel\_pstate, intel\_rapl | 6.9.4 | 2022.100.22.0.0 |  | 
-| GPU Powersaving |  | i915 |  |  |  | 
-| PCIe Power Management (ASPM) |  |  |  |  |  | 
-| USB Type C Power Delivery |  |  | 6.9.4 | 2022.100.22.0.0 |  | 
-| Battery |  | sbs | 6.9.4 | 2022.100.22.0.0 |  | 
-| Suspend to RAM |  |  |  |  |  | 
-| Suspend to disk (hibernate) |  |  |  |  |  | 
-| Display backlight control |  | backlight\_apple | 6.9.4 | 2022.100.22.0.0 |  | 
-| Keyboard backlight control |  | hid\_apple\_magic\_backlight | out of tree driver | 2022.100.22.0.0 |  | 
+| CPU frequency scaling | Works | intel\_pstate, intel\_rapl | 6.9.4 | 2022.100.22.0.0 |  | 
+| GPU Powersaving | Not tested | i915 |  |  |  | 
+| PCIe Power Management (ASPM) | Not tested |  |  |  |  | 
+| USB Type C Power Delivery | Works |  | 6.9.4 | 2022.100.22.0.0 |  | 
+| Battery | Works | sbs | 6.9.4 | 2022.100.22.0.0 |  | 
+| Suspend to RAM | Not tested |  |  |  |  | 
+| Suspend to disk (hibernate) | Not tested |  |  |  |  | 
+| Display backlight control | Works | backlight\_apple | 6.9.4 | 2022.100.22.0.0 |  | 
+| Keyboard backlight control | Works | hid\_apple\_magic\_backlight | out of tree driver | 2022.100.22.0.0 |  | 
 
 ### Extra hardware information
 
@@ -213,10 +213,13 @@ Bus 005 Device 008: ID 05ac:8102 Apple, Inc. Touch Bar Backlight
 
 **`/etc/portage/make.conf`**
 
+```
+COMMON_FLAGS="-O2 -pipe -march=icelake-client"
+```
 **`/etc/portage/package.use/00cpu-flags`**
 
 ```
-  CPU_FLAGS_X86: aes avx avx2 avx512_bitalg avx512_vbmi2 avx512_vnni avx512_vpopcntdq avx512bw avx512cd avx512dq avx512f avx512ifma avx512vbmi avx512vl f16c fma3 mmx mmxext pclmul popcnt rdrand sha sse sse2 sse3 sse4_1 sse4_2 ssse3 vpclmulqdq
+*/*  CPU_FLAGS_X86: aes avx avx2 avx512_bitalg avx512_vbmi2 avx512_vnni avx512_vpopcntdq avx512bw avx512cd avx512dq avx512f avx512ifma avx512vbmi avx512vl f16c fma3 mmx mmxext pclmul popcnt rdrand sha sse sse2 sse3 sse4_1 sse4_2 ssse3 vpclmulqdq
 ```
 ## Installation
 

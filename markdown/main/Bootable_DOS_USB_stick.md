@@ -54,6 +54,9 @@ Add the previously prepared USB partition to the list of "hdimages" in the DOSEM
 
 **`~/.dosemurc`**
 
+```
+$_hdimage = "drives/* /tmp /dev/sdb1"
+```
 Make sure the USB stick is not already mounted, e.g. through any desktop environment file manager, as DOSEMU requires block-level access. This means that DOSEMU must be invoked as root, unless the permissions of the device file have been modified.
 
 ### Setting up DOS with DOSEMU
@@ -76,6 +79,15 @@ In order to prevent problems with booting and conflicts between drivers and firm
 
 **`F:\config.sys`**
 
+```
+SWITCHES=/F
+DOS=UMB,HIGH
+dosdata=umb
+lastdrive=Z
+files=40
+stacks=0
+buffers=10
+```
 **`F:\autoexec.bat`**
 
 ```

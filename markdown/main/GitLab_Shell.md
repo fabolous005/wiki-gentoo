@@ -5,11 +5,15 @@ url: https://wiki.gentoo.org/wiki/GitLab/Shell
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-02-24"
-fingerprint: "729155cd997bfcdb"
+fingerprint: "72d155cddb7bfcdf"
 license: CC BY-SA 4.0
 ---
 
 # GitLab/Shell
+
+From Gentoo Wiki
+
+\< [GitLab](https://wiki.gentoo.org/wiki/GitLab)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

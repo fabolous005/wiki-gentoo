@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Fan_speed_control/thinkfan
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-28"
-fingerprint: "9c4717cdfc4650ee"
+fingerprint: "9e6717cdec5650ef"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 **Thinkfan** is a fan controlling deamon aimed specifically towards IBM/Lenovo Thinkpad [laptops](https://wiki.gentoo.org/wiki/Category:Laptops). It can read multiple sensors, but control only a single fan.
 
@@ -25,6 +27,11 @@ The kernel needs to have the Thinkpad ACPI driver configured:
 
 **Enable Thinkpad ACPI support in the kernel**
 
+```
+Device Drivers  --->
+    [*] X86 Platform Specific Device Drivers  ---> 
+        <M>   ThinkPad ACPI Laptop Extras
+```
 This will create a module called thinkpad\_acpi, which needs to be configured to allow for controlling a fan.
 
 Edit or create /etc/modprobe.d/thinkpad.conf as follows:
@@ -32,12 +39,17 @@ Edit or create /etc/modprobe.d/thinkpad.conf as follows:
 **`/etc/modprobe.d/thinkpad.conf`**
 
 ```
- thinkpad_acpi fan_control=1
+options thinkpad_acpi fan_control=1
 ```
 Most Thinkpads provide /proc/acpi/ibm/fan as a path to the fan device.
 
 ### USE flags
 
+
+### USE flags for
+            [app-laptop/thinkfan](https://packages.gentoo.org/packages/app-laptop/thinkfan)
+            
+            Simple fan control program for thinkpads
 
 ### Emerge
 
@@ -127,3 +139,9 @@ There are a few special values of `level`:
 - `level auto` - the fan RPM is controlled by the [BIOS](https://wiki.gentoo.org/wiki/BIOS)
 - `level full-speed` - the maximum fan speed while being monitored
 - `level disengaged` - even faster speed, where the controller does not monitor the fan speed.
+
+## External resources
+
+## References
+
+1. [↑](https://wiki.gentoo.org#cite_ref-1) [ThinkPad ACPI Extras Driver — The Linux Kernel  documentation](https://www.kernel.org/doc/html/v6.0/admin-guide/laptops/thinkpad-acpi.html), kernel.org. Retrieved on November 26, 2022

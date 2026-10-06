@@ -6,7 +6,7 @@ hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-04-14"
 categories: ['some privacy addons']
-fingerprint: "8438916ff7267967"
+fingerprint: "8438996ff7263967"
 license: CC BY-SA 4.0
 ---
 
@@ -15,6 +15,10 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+[checking over the content](https://wiki.gentoo.org/index.php?title=Chrooting_proxy_services&action=edit)(
+
+[how to get started](https://wiki.gentoo.org/wiki/Gentoo_Wiki:Contributor%27s_guide)).
 
 Today there are many process isolation techniques. Most of them are based on virtualization or containers. Some are focused on security, which is what we want for this.
 
@@ -31,6 +35,28 @@ Then set the necessary hardened chroot options:
 
 **make menuconfig options**
 
+```
+Security options  --->
+    Grsecurity  --->
+        [*] Grsecurity
+            Customize Configuration  --->
+                Filesystem Protections  --->
+                    [*] Chroot jail restrictions
+                    [*]   Deny mounts
+                    [*]   Deny double-chroots
+                    [*]   Deny pivot_root in chroot
+                    [*]   Enforce chdir("/") on all chroots
+                    [*]   Deny (f)chmod +s
+                    [*]   Deny fchdir and fhandle out of chroot
+                    [*]   Deny mknod
+                    [*]   Deny shmat() out of chroot
+                    [*]   Deny access to abstract AF_UNIX sockets out of chroot
+                    [*]   Protect outside processes
+                    [*]   Restrict priority changes
+                    [*]   Deny sysctl writes
+                    [*]   Deny bad renames
+                    [*]   Capability restrictions
+```
 ## Chroot
 
 As an example, of building chroot services, lets take a look at home proxy server. A home proxy can look something like:

@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Foliate
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-05-01"
-fingerprint: "56e7231b8b5b98dc"
+fingerprint: "56f7232b835b881c"
 license: CC BY-SA 4.0
 ---
 
 # Foliate
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -23,6 +25,11 @@ It comes with multiple features including but not limited to highlighting, note-
 
 ### USE flags
 
+
+### USE flags for
+            [app-text/foliate](https://packages.gentoo.org/packages/app-text/foliate)
+            
+            gtk ebook reader built with gjs
 
 ### Emerge
 

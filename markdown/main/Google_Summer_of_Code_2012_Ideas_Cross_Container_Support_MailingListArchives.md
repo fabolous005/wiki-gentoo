@@ -5,13 +5,15 @@ url: https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Cross_Contain
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-04-02"
-fingerprint: "8e4a8b12eeb9b9a6"
+fingerprint: "8e6a8b12eeb1b9a6"
 license: CC BY-SA 4.0
 ---
 
 # Google Summer of Code/2012/Ideas/Cross Container Support/MailingListArchives
 
 From Gentoo Wiki
+
+\< [Google Summer of Code](https://wiki.gentoo.org/wiki/Google_Summer_of_Code) | [2012](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012) | [Ideas](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas) | [Cross Container Support](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Cross_Container_Support)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

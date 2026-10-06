@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Ccache
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-07-14"
-fingerprint: "8051653ee7f47b88"
+fingerprint: "8051752ee7f47b80"
 license: CC BY-SA 4.0
 ---
 
@@ -31,6 +31,11 @@ A compiler cache is can be useful for:
 
 ### USE flags
 
+
+### USE flags for
+            [dev-util/ccache](https://packages.gentoo.org/packages/dev-util/ccache)
+            
+            Fast compiler cache
 
 | [+static-c++](https://packages.gentoo.org/useflags/+static-c++) | Avoid dynamic dependency on gcc's libstdc++. | 
 | [doc](https://packages.gentoo.org/useflags/doc) | Add extra documentation (API, Javadoc, etc). It is recommended to enable per package instead of globally | 
@@ -175,6 +180,9 @@ To pass through a binary, the following entry is suggested for ccache.conf:
 
 **`ccache.conf`**
 
+```
+compiler_check = %compiler% -v
+```
 Also, `-v` has a nice side-effect of not invalidating the cache if compiler itself was rebuilt without version changes.
 
 ## Caveats

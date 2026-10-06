@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Fastfetch
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-01-11"
-fingerprint: "6605ab545d3339e0"
+fingerprint: "6607ab545d3339e0"
 license: CC BY-SA 4.0
 ---
 
 # Fastfetch
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -21,6 +23,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [app-misc/fastfetch](https://packages.gentoo.org/packages/app-misc/fastfetch)
+            
+            Fast neofetch-like system information tool
 
 | [X](https://packages.gentoo.org/useflags/X) | Add support for X11 | 
 | [chafa](https://packages.gentoo.org/useflags/chafa) | Enables text/graphics renderer with media-gfx/chafa | 
@@ -53,8 +60,14 @@ license: CC BY-SA 4.0
 
 The simplest fastfetch `config.jsonc` looks like:
 
-**`~/.config/fastfetch/config.jsonc`**
+FILE **`~/.config/fastfetch/config.jsonc`**
 
+```
+// ~/.config/fastfetch/config.jsonc
+{
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json"
+}
+```
 ## Usage
 
 You can see your system configuration by running:

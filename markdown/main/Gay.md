@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Gay
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-08-22"
-fingerprint: "7b95953c1e3339fc"
+fingerprint: fb97953c1e3339fc
 license: CC BY-SA 4.0
 ---
 
@@ -17,6 +17,8 @@ From Gentoo Wiki
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+
+**Resources**
 
 **gay** is a way to colour your text / terminal to be more gay.
 

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Dropbear
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-11-27"
-fingerprint: b610f0534b86bbe5
+fingerprint: b698f0534986bbe5
 license: CC BY-SA 4.0
 ---
 
@@ -25,6 +25,11 @@ Dropbear is a lightweight SSH server. It runs on a variety of POSIX-based platfo
 
 ### USE flags
 
+
+### USE flags for
+            [net-misc/dropbear](https://packages.gentoo.org/packages/net-misc/dropbear)
+            
+            Small SSH 2 client/server designed for small memory environments
 
 | [+shadow](https://packages.gentoo.org/useflags/+shadow) | Enable shadow password support | 
 | [+syslog](https://packages.gentoo.org/useflags/+syslog) | Enable support for syslog | 

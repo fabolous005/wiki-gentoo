@@ -6,11 +6,13 @@ hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-12-20"
 categories: ['https://packages.gentoo.org/categories/games-arcade']
-fingerprint: affc076dc92f8b1d
+fingerprint: affc076dc92b8b1d
 license: CC BY-SA 4.0
 ---
 
 # Games/arcade
+
+[Games](https://wiki.gentoo.org/wiki/Games)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -52,12 +54,16 @@ The point of the game is to scramble through 48 levels of patterns, collecting a
 
 ![](https://wiki.gentoo.org/images/thumb/0/07/Supertux_screenshot1.png/150px-Supertux_screenshot1.png)
 
+[more...](http://supertux.lethargik.org/screenshots.html)
+
 [SuperTux](http://supertux.lethargik.org) is a classic 2D jump'n run sidescroller game in a style similar to the original Super Mario games. It currently features 9 different enemies, 26 playable levels and a little story. It allows to configure joystick and keyboard input and has software and opengl rendering modes. View a YouTube demo [here](https://www.youtube.com/watch?v=kk0pY9E-RIc).
 
 `root #``emerge --ask games-arcade/supertux`
 ## TecnoballZ
 
 ![](https://wiki.gentoo.org/images/thumb/1/12/TecnoballZ_screenshot1.png/150px-TecnoballZ_screenshot1.png)
+
+[more...](http://linux.tlk.fr/games/TecnoballZ/screenshots/)
 
 [TecnoballZ](http://linux.tlk.fr/games/TecnoballZ/) is an exciting Brick Breaker with 50 levels of game and 11 special levels, distributed on the 2 modes of game to give the player a sophisticated system of attack weapons with an enormous power of fire that can be build by gaining bonuses. View a YouTube demo [here](https://www.youtube.com/watch?v=rXdVn97SleE).
 

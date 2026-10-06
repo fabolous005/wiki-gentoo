@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Beelink_GTR7
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-05-10"
-fingerprint: bc02ab85a98b07bc
+fingerprint: be028b05b98a15ac
 license: CC BY-SA 4.0
 ---
 
@@ -24,18 +24,18 @@ The Beelink GTR7 (GTR7 Pro) models were released in 2023.  Mini PCs are based on
 
 | Device | Make/model | Status | Kernel driver(s) | Kernel version | Notes |  | 
 |---|---|---|---|---|---|---|
-| CPU | AMD Ryzen 9 7940HS |  | N/A | 6.1.67 | Zen 4 |  | 
-| GPU | Advanced Micro Devices, Inc. \[AMD/ATI\] Phoenix1 (rev c1) |  | amdgpu | 6.1.67 | Integrated Ryzen 7000 graphics |  | 
-| PCI Bridge | Advanced Micro Devices, Inc. \[AMD\] Family 19h USB4/Thunderbolt PCIe tunnel |  | pcieport | 6.1.67 |  |  | 
-| SMBus | Advanced Micro Devices, Inc. \[AMD\] FCH SMBus Controller (rev 71) |  | piix4\_smbus, sp5100\_tco | 6.1.67 |  |  | 
-| Ethernet controller | Realtek Semiconductor Co., Ltd. RTL8125 2.5GbE Controller (rev 05) |  | r8169 | 6.1.67 |  |  | 
-| Network controller | Intel Corporation Wi-Fi 6 AX200 (rev 1a) |  | mt7921e | 6.1.67 | Bluetooth works after adding the firmware files listed below. |  | 
-| Non-Volatile memory controller | Micron/Crucial Technology P2 \[Nick P2\] / P3 / P3 Plus NVMe PCIe SSD (DRAM-less) (rev 01) |  | nvme | 6.1.67 |  |  | 
-| Audio device | Advanced Micro Devices, Inc. \[AMD/ATI\] Renoir Radeon High Definition Audio Controller, \[AMD\] Family 17h/19h HD Audio Controller |  | snd\_hda\_intel | 6.1.67 |  |  | 
-| Multimedia controller | Advanced Micro Devices, Inc. \[AMD\] ACP/ACP3X/ACP6x Audio Coprocessor (rev 63) |  | snd\_rn\_pci\_acp3x | 6.1.67 |  |  | 
-| Encryption controller | Advanced Micro Devices, Inc. \[AMD\] Family 19h (Model 74h) CCP/PSP 3.0 Device |  | ccp | 6.1.67 |  |  | 
-| USB controller | Advanced Micro Devices, Inc. \[AMD\] ASM2142/ASM3142 USB 3.1 Host Controller |  | xhci\_hcd | 6.1.67 |  |  | 
-| Fingerprint reader |  |  |  | 6.1.67 |  |  | 
+| CPU | AMD Ryzen 9 7940HS | Works | N/A | 6.1.67 | Zen 4 |  | 
+| GPU | Advanced Micro Devices, Inc. \[AMD/ATI\] Phoenix1 (rev c1) | Works | amdgpu | 6.1.67 | Integrated Ryzen 7000 graphics |  | 
+| PCI Bridge | Advanced Micro Devices, Inc. \[AMD\] Family 19h USB4/Thunderbolt PCIe tunnel | Works | pcieport | 6.1.67 |  |  | 
+| SMBus | Advanced Micro Devices, Inc. \[AMD\] FCH SMBus Controller (rev 71) | Works | piix4\_smbus, sp5100\_tco | 6.1.67 |  |  | 
+| Ethernet controller | Realtek Semiconductor Co., Ltd. RTL8125 2.5GbE Controller (rev 05) | Works | r8169 | 6.1.67 |  |  | 
+| Network controller | Intel Corporation Wi-Fi 6 AX200 (rev 1a) | Works | mt7921e | 6.1.67 | Bluetooth works after adding the firmware files listed below. |  | 
+| Non-Volatile memory controller | Micron/Crucial Technology P2 \[Nick P2\] / P3 / P3 Plus NVMe PCIe SSD (DRAM-less) (rev 01) | Works | nvme | 6.1.67 |  |  | 
+| Audio device | Advanced Micro Devices, Inc. \[AMD/ATI\] Renoir Radeon High Definition Audio Controller, \[AMD\] Family 17h/19h HD Audio Controller | Works | snd\_hda\_intel | 6.1.67 |  |  | 
+| Multimedia controller | Advanced Micro Devices, Inc. \[AMD\] ACP/ACP3X/ACP6x Audio Coprocessor (rev 63) | Works | snd\_rn\_pci\_acp3x | 6.1.67 |  |  | 
+| Encryption controller | Advanced Micro Devices, Inc. \[AMD\] Family 19h (Model 74h) CCP/PSP 3.0 Device | Not tested | ccp | 6.1.67 |  |  | 
+| USB controller | Advanced Micro Devices, Inc. \[AMD\] ASM2142/ASM3142 USB 3.1 Host Controller | Works | xhci\_hcd | 6.1.67 |  |  | 
+| Fingerprint reader |  | Not tested |  | 6.1.67 |  |  | 
 
 `root #``lscpu````
 Architecture:            x86_64
@@ -94,6 +94,8 @@ Vulnerabilities:
 ```
 ### BIOS
 
+[Official Beelink Drivers and Software Download](https://dr.bee-link.cn/?dir=uploads%2FGTR%2FGTR+7840+GTR+7940%2F)
+
 For the regular and PRO versions, the BIOS firmware is identical. Latest known version [v39](https://disk.yandex.ru/d/_wu8jUflwpgChQ) (prev. [v38](https://disk.yandex.ru/d/tHTM2Bq6um53yQ), [v37](https://disk.yandex.ru/d/MTSvcugX8qydAg), [v35](https://disk.yandex.ru/d/bQPoCSq837yriQ)).
 [Instructions for flashing BIOS](https://disk.yandex.ru/i/BJVI5UOFbYornQ)
 
@@ -111,17 +113,17 @@ MAKEOPTS="-j8"
 **`/etc/portage/package.use/00cpu-flags`**
 
 ```
- CPU_FLAGS_X86: aes avx avx2 avx512f avx512dq avx512cd avx512bw avx512vl avx512vbmi f16c fma3 mmx mmxext pclmul popcnt rdrand sha sse sse2 sse3 sse4_1 sse4_2 sse4a ssse3
+*/* CPU_FLAGS_X86: aes avx avx2 avx512f avx512dq avx512cd avx512bw avx512vl avx512vbmi f16c fma3 mmx mmxext pclmul popcnt rdrand sha sse sse2 sse3 sse4_1 sse4_2 sse4a ssse3
 ```
 **`/etc/portage/package.use/00video`**
 
 ```
- VIDEO_CARDS: -* amdgpu radeonsi
+*/* VIDEO_CARDS: -* amdgpu radeonsi
 ```
 **`/etc/portage/package.use/00grub`**
 
 ```
- GRUB_PLATFORMS: efi-64
+*/* GRUB_PLATFORMS: efi-64
 ```
 ### Firmware
 
@@ -129,12 +131,57 @@ For wifi, bluetooth, integrated graphics, and microcode updates add the followin
 
 **`/usr/src/linux/.config`**
 
+```
+CONFIG_EXTRA_FIRMWARE="amd-ucode/microcode_amd_fam19h.bin iwlwifi-cc-a0-77.ucode"
+```
 ### Kernel
 
 The Ryzen 7 7840HS and Ryzen 9 7940HS processors have full support for kernel versions 6.4 and higher. Recommended kernel version 6.5+ due to the *new AMD P-State EPP Driver*.
 
 **menuconfig**
 
+```
+[*] 64-bit kernel
+    Processor type and features  --->
+        [*] AMD ACPI2Platform devices support
+        Processor family (AMD Zen4)
+    Device Drivers  --->
+        [*] PCI support  --->
+            [*] PCI Express Port Bus support
+        NVME Support  --->
+            <*> NVM Express block device
+        [*] Network device support  --->
+            [*] Wireless LAN --->
+                [*] Intel devices
+                <M> Intel Wireless WiFi Next Gen AGN - Wireless-N/Advanced-N/Ultimate-N (iwlwifi)
+                <M> Intel Wireless WiFi DVM Firmware support
+                <M> Intel Wireless WiFi MVM Firmware support
+            [*] Ethernet driver support  --->
+                [*] Realtek devices
+                <*> Realtek 8169/8168/8101/8125 ethernet support
+        Graphics support  --->
+            < > ATI Radeon
+            <M> AMD GPU
+                ACP (Audio CoProcessor) Configuration  --->
+                    [*] Enable AMD Audio CoProcessor IP support
+                Display Engine Configuration  --->
+                    [*] AMD DC - Enable new display engine
+            [*] HSA kernel driver for AMD GPU devices
+        <*> Sound card support  --->
+            <*> Advanced Linux Sound Architecture  --->
+                HD-Audio  --->
+                   <*> Build Realtek HD-audio codec support
+        [*] USB support  --->
+            <*> xHCI HCD (USB 3.0) support
+            <*> EHCI HCD (USB 2.0) support
+            <*> USB Mass Storage support
+            <*> USB Type-C Support  --->
+                <*> USB Type-C Port Controller Manager
+                <*> Type-C Port Controller Interface driver
+                <*> USB Type-C Connector System Software Interface driver 
+        [*] IOMMU Hardware Support  --->
+            [*]   AMD IOMMU support
+```
 ### Emerge
 
 `root #``emerge --ask sys-kernel/linux-firmware media-libs/mesa x11-apps/mesa-progs dev-util/vulkan-tools`

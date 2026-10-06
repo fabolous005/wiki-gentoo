@@ -63,10 +63,10 @@ Below is an example invocation of emerge, installing "package". The options `-at
 These are the packages that would be merged, in reverse order:
 
 Calculating dependencies... done!
-\[ebuild       \] **category/package--::gentoo \[2.0::gentoo\]** USE="**enabled -disabled toggled new (-unavailable)**" MAKE\_OPTIONS="**-disabled**" 777 kB
-\[ebuild     **U** \]  -2.0 **\[3.0::gentoo\]** 777 kB
-\[ebuild       \]   category/package-1.0::gentoo  777 kB
-\[ebuild       \]  category/package-0.5::some-overlay-name  777 kB
+\[ebuild     **U**  \] **category/package-3.0-r2::gentoo \[2.0::gentoo\]** USE="**enabled -disabled toggled\* new% (-unavailable)**" MAKE\_OPTIONS="**-disabled**" 777 kB
+\[ebuild     **UD** \]  category/package-2.0::gentoo **\[3.0::gentoo\]** 777 kB
+\[ebuild   **R**    \]   category/package-1.0::gentoo  777 kB
+\[ebuild  **N**     \]  category/package-0.5::some-overlay-name  777 kB
 
 Total: 4 packages (1 new, 1 reinstall, 1 upgrade, 1 downgrade), Size of downloads: 3108 kB
 
@@ -130,6 +130,8 @@ Extra information may be output by using the `--verbose` flag.
 To re-verify the integrity of and re-download previously removed/corrupted distfiles for all currently installed packages, run:
 
 `root #``emerge --ask --fetchonly --emptytree @world`
+### Do not add dependencies to the world file
+
 If a dependency must be reinstalled, use the `--oneshot` (`-1`) option. Installing dependencies with the emerge package command would add them to the [world file](<https://wiki.gentoo.org/wiki/World_set_(Portage)>) and may lead to issues.
 
 Installing dependencies with Portage for compiling custom source software is also ill advised: it is preferable to [write an ebuild](https://wiki.gentoo.org/wiki/Basic_guide_to_write_Gentoo_Ebuilds).

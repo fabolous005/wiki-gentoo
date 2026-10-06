@@ -28,6 +28,11 @@ Despite the fact that development of antiword has stagnated and there have been 
 ### USE flags
 
 
+### USE flags for
+            [app-text/antiword](https://packages.gentoo.org/packages/app-text/antiword)
+            
+            free MS Word reader
+
 ### Environment variables
 
 - `ANTIWORDHOME` the location of antiword's configuration files.

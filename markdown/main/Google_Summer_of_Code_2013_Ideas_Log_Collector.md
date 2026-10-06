@@ -5,15 +5,21 @@ url: https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2013/Ideas/Log_Collector
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2020-04-12"
-fingerprint: e52d4de72a354190
+fingerprint: e52dcde78a354192
 license: CC BY-SA 4.0
 ---
 
 # Google Summer of Code/2013/Ideas/Log Collector
 
+From Gentoo Wiki
+
+\< [Google Summer of Code](https://wiki.gentoo.org/wiki/Google_Summer_of_Code) | [2013](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2013) | [Ideas](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2013/Ideas)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+## [Log Collector]
 
 #### Log collector/analyzer for tinderbox build logs
 

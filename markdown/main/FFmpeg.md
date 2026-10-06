@@ -26,6 +26,11 @@ license: CC BY-SA 4.0
 Some packages know the [ffmpeg](https://packages.gentoo.org/useflags/ffmpeg)[USE flag](https://wiki.gentoo.org/wiki/USE_flag) for enabling [ffmpeg](https://packages.gentoo.org/packages/media-video/ffmpeg)-based audio/video codec support.
 
 
+### USE flags for
+            [media-video/ffmpeg](https://packages.gentoo.org/packages/media-video/ffmpeg)
+            
+            Complete solution to record/convert/stream audio and video
+
 | [+dav1d](https://packages.gentoo.org/useflags/+dav1d) | Enable AV1 decoding support via media-libs/dav1d | 
 | [+drm](https://packages.gentoo.org/useflags/+drm) | Enable use of x11-libs/libdrm for various hardware accelerated functions and Kernel Mode Setting screen capture | 
 | [+fontconfig](https://packages.gentoo.org/useflags/+fontconfig) | Support for configuring and customizing font access via media-libs/fontconfig | 
@@ -8770,6 +8775,7 @@ left double-click   toggle full screen
 
 ffplay can also play YouTube videos directly with the help of yt-dlp
 
+`user $``yt-dlp -o - "`[https://www.youtube.com/watch?v=dQw4w9WgXcQ](https://www.youtube.com/watch?v=dQw4w9WgXcQ)" | ffplay -
 ### Play a sequence of images as a video
 
 If you have a series of images (for instance, a sequence of frames from an animation), you can use \`ffplay\` to play them as a video:
@@ -8812,7 +8818,7 @@ With system sound plus mic (converted to mono with "amerge"), for the right disp
 **`grab.sh`**
 
 ```
- -vaapi_device /dev/dri/renderD128 -f x11grab -video_size 1920x1200 -i :0.0+2566,720 \
+ffmpeg -vaapi_device /dev/dri/renderD128 -f x11grab -video_size 1920x1200 -i :0.0+2566,720 \
 	-f pulse -i alsa_output.pci-0000_00_1b.0.analog-stereo.monitor \
 	-f pulse -i alsa_input.usb-Focusrite_Scarlett_Solo_USB_Y7D1J3F0A66336-00.analog-stereo \
 	-filter_complex "amerge" -ac 1 \
@@ -8824,7 +8830,7 @@ With system sound plus mic, another display configuration, av1 software encoding
 **`grab.sh`**
 
 ```
- -f x11grab -video_size 1920x1200 -i :0.0+1200 \
+ffmpeg -f x11grab -video_size 1920x1200 -i :0.0+1200 \
 	-f pulse -i alsa_output.usb-GN_Netcom_A_S_Jabra_EVOLVE_LINK_00113735E82E0A-00.analog-stereo.monitor \
 	-f pulse -i alsa_input.usb-GN_Netcom_A_S_Jabra_EVOLVE_LINK_00113735E82E0A-00.mono-fallback \
 	-filter_complex "amerge" -ac 1 \

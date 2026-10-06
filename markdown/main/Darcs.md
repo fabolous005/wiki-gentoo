@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Darcs
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-09-08"
-fingerprint: fb1cb77e8f8faeed
+fingerprint: fb1cbf7e8f8faefd
 license: CC BY-SA 4.0
 ---
 
 # darcs
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

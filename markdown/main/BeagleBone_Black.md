@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/BeagleBone_Black
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-15"
-fingerprint: "179f7b3b35a26be6"
+fingerprint: "179f7b3b75a26be6"
 license: CC BY-SA 4.0
 ---
 
@@ -115,6 +115,7 @@ for d in $(find -type l); do (cd $d; for f in $(find -type f -name "*.ebuild"); 
 - Robert C. Nelson keeps the main-line kernel patches in github. (git clone [https://github.com/RobertCNelson/bb-kernel](https://github.com/RobertCNelson/bb-kernel) -b \[version\] and follow instructions)
 - This one from beaglebone.org will build the firmware into the kernel under linux/firmware and includes patched sources. The older versions required you to run patch.sh, download the firmware manually, and drop it in the firmware folder.
 - Go to [github.com](https://github.com/beagleboard/linux.git) and decide which branch you want to check out.  I settled on the latest long-term release kernel, 3.14.17.
+- `user $``git clone -b 3.14 --single-branch` [https://github.com/beagleboard/linux.git](https://github.com/beagleboard/linux.git)
 
 - If you get any GIT errors about not having user.name or user.email, try this:
 
@@ -169,16 +170,26 @@ SUBLEVEL = 17
 
 **`~/bbb/deploy/etc/fstab`**
 
+```
+/dev/mmcblk0p2		/		ext4		noatime,errors=remount-ro	0 1
+/dev/mmcblk0p1		/boot/uboot	auto		noatime				1 2
+```
 - edit \~/bbb/deploy/etc/shadow so root can login: `root #``openssl passwd -1`
 
 - grab hash output, edit deploy/etc/shadow, and put here:
 
 **`~/bbb/deploy/etc/shadow`**
 
+```
+root:<hash_output>:10770:0:::::
+```
 - edit \~/bbb/deploy/etc/inittab since everyone expects serial port to run at 115200 and have the name ttyO0
 
 **`~/bbb/deploy/etc/inittab`**
 
+```
+s0:12345:respawn:/sbin/agetty -L 115200 ttyO0 vt100
+```
 #### Optional
 
 - setup a static IP on your BBB first, since we don't have dhcpcd installed: edit \~/bbb/deploy/etc/conf.d/net.

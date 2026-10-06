@@ -5,13 +5,15 @@ url: https://wiki.gentoo.org/wiki/GNOME/GNOME_without_systemd
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-08-22"
-fingerprint: c3bb32590f8341d4
+fingerprint: d3bbb2590f8341d4
 license: CC BY-SA 4.0
 ---
 
 # GNOME/GNOME without systemd
 
 From Gentoo Wiki
+
+\< [GNOME](https://wiki.gentoo.org/wiki/GNOME)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

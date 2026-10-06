@@ -5,15 +5,21 @@ url: https://wiki.gentoo.org/wiki/Embedded_Handbook/Boards/Pine64/QuartzPro64
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-15"
-fingerprint: "6c67bcfa47cd39d3"
+fingerprint: "6c67bc9b47cd3b51"
 license: CC BY-SA 4.0
 ---
 
 # Embedded Handbook/Boards/Pine64/QuartzPro64
 
+[Embedded Handbook](https://wiki.gentoo.org/wiki/Embedded_Handbook) |
+
+[Boards](https://wiki.gentoo.org/wiki/Embedded_Handbook/Boards)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 This is a VERY early page for the QuartzPro64 development board. The primary purpose at this time is to create a path to the install guide for Gentoo; the hardware specs on this page are largely inaccurate having been "cut and pasted" from the RockPro64 page which was used as a template.
 
@@ -33,25 +39,25 @@ The PINE64 QuartzPro64 is a Rockchip RK3588 (ARMv8-A, Cortex-A76/A55 big.LITTLE)
 
 | Component | Make/model | Status | Kernel driver(s) | Kernel version | Notes | 
 |---|---|---|---|---|---|
-| CPU | 4 x ARM Cortex-A76@2.4Ghz (ARMv8-A) 4 x ARM Cortex-A55@1.8Ghz (ARMv8-A) |  |  | 6.1 | big.LITTLE | 
-| GPU | 4 x Mali-G610MC4 (4x Valhalla cores) |  | panfrost, rockchip\_drm, drm\_fbdev\_emulation, rockchip\_iommu | 6.1 |  | 
-| HDMI | Synopsys Designware IP |  | rockchip\_dw\_hdmi | 6.1 |  | 
-| MMC | Synopsys Designware IP |  | mmc\_dw\_rockchip, pwrseq\_emmc | 6.1 |  | 
-| SDHCI | Arasan SDHCI |  | mmc\_sdhci\_of\_arasan | 6.1 |  | 
-| Ethernet MAC |  |  | dwmac\_rockchip | 6.1 | 1 GBit | 
-| USB Type-C | Fairchild FUSB302 |  | typec\_fusb302 | 6.1 | PD, alternate mode DP | 
-| USB-A 3.0 |  |  | xhci\_platform | 6.1 |  | 
-| USB 2.0 |  |  | ehci\_platform | 6.1 |  | 
-| DMA engine | PL330 |  | pl330\_dma | 6.1 |  | 
-| HDMI audio | Synopsis Designware IP |  | soc\_rockchip\_i2s, drm\_dw\_hdmi\_i2s\_audio, simple\_card | 6.1 |  | 
+| CPU | 4 x ARM Cortex-A76@2.4Ghz (ARMv8-A) 4 x ARM Cortex-A55@1.8Ghz (ARMv8-A) | Works |  | 6.1 | big.LITTLE | 
+| GPU | 4 x Mali-G610MC4 (4x Valhalla cores) | ? | panfrost, rockchip\_drm, drm\_fbdev\_emulation, rockchip\_iommu | 6.1 |  | 
+| HDMI | Synopsys Designware IP | ? | rockchip\_dw\_hdmi | 6.1 |  | 
+| MMC | Synopsys Designware IP | ? | mmc\_dw\_rockchip, pwrseq\_emmc | 6.1 |  | 
+| SDHCI | Arasan SDHCI | ? | mmc\_sdhci\_of\_arasan | 6.1 |  | 
+| Ethernet MAC |  | Works | dwmac\_rockchip | 6.1 | 1 GBit | 
+| USB Type-C | Fairchild FUSB302 | ? | typec\_fusb302 | 6.1 | PD, alternate mode DP | 
+| USB-A 3.0 |  | ? | xhci\_platform | 6.1 |  | 
+| USB 2.0 |  | ? | ehci\_platform | 6.1 |  | 
+| DMA engine | PL330 | ? | pl330\_dma | 6.1 |  | 
+| HDMI audio | Synopsis Designware IP | ? | soc\_rockchip\_i2s, drm\_dw\_hdmi\_i2s\_audio, simple\_card | 6.1 |  | 
 
 ### Peripherals
 
 | Component | Make/model | Status | Kernel driver(s) | Kernel version | Notes | 
 |---|---|---|---|---|---|
-| PMIC | Rockchip RK806 |  | rk806 | 6.1 | Power Management Integrated Circuit (Regulators, RTC, Clocking) | 
-| Ethernet PHY | Realtek RTL8211F |  | realtek\_phy | 6.1 | via RGMII | 
-| Analog Audio |  |  | es8388, audio\_graph\_card | 6.1 |  | 
+| PMIC | Rockchip RK806 | ? | rk806 | 6.1 | Power Management Integrated Circuit (Regulators, RTC, Clocking) | 
+| Ethernet PHY | Realtek RTL8211F | Works | realtek\_phy | 6.1 | via RGMII | 
+| Analog Audio |  | ? | es8388, audio\_graph\_card | 6.1 |  | 
 
 ## General Hardware
 

@@ -5,15 +5,19 @@ url: https://wiki.gentoo.org/wiki/ASUS_N56JR
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-29"
-fingerprint: "7f5a87a5dba85aea"
+fingerprint: "7f5a8785dba85a6a"
 license: CC BY-SA 4.0
 ---
 
 # ASUS N56JR
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 Drivers for the ASUS N56JR can be installed according to the appropriate wiki pages. I ran into issues with the wireless, but I don't recall what they were exactly - iirc, I had to add the lines manually to .config for the kernel. ATM it is working with the Atheros 802.11n wireless cards support installed as a module with the Atheros ath9k PCI/PCIe bus support enabled.
 

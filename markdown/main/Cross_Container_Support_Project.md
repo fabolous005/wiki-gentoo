@@ -17,6 +17,10 @@ license: CC BY-SA 4.0
 
 
 
+**outdated**. You can help the Gentoo community by verifying and
+
+[updating this article](https://wiki.gentoo.org/index.php?title=Cross_Container_Support_Project&action=edit).
+
 This page is aimed to introduce the GSoC 2012 project: Cross Container Support.
 
 I will document the progress of my project here.
@@ -47,6 +51,10 @@ If this module is not built already, then the development host will require a re
 
 **3.2.1-gentoo-r2 (`CONFIG_BINFMT_MISC`)**
 
+```
+Executable file formats / Emulations  --->
+   [*] Kernel support for MISC binaries
+```
 Mount the binfmt\_misc handler if it's not already, then register the supported executable formats with the kernel via the procfs.
 
 `root #````

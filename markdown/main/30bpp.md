@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/30bpp
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-08-14"
-fingerprint: d6faf2496ac52b97
+fingerprint: d6f8b34d6ac52f97
 license: CC BY-SA 4.0
 ---
 
@@ -39,6 +39,12 @@ To set 30bpp in xorg.conf instead, using slightly longer code:
 
 **Sample xorg.conf fragment**
 
+```
+Section "Screen"
+  Identifier "Screen Name"
+  DefaultDepth 30
+EndSection
+```
 ## Compatibility
 
 While most GUI toolkits have no problem with 30bpp, individual software may have graphical issues or crash outright. Anything that uses [media-libs/imlib2](https://packages.gentoo.org/packages/media-libs/imlib2) or [media-libs/libsdl](https://packages.gentoo.org/packages/media-libs/libsdl) will either crash, not display anything, or misrender. This includes quite a long list of old games, as well as tools that interact with the screen.

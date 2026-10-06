@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Gentoopm
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-01-12"
-fingerprint: "23b09e8c18e8df36"
+fingerprint: "10b19e8c5ee85f74"
 license: CC BY-SA 4.0
 ---
 
 # gentoopm
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -24,6 +26,13 @@ The project provides a gentoopmq tool providing basic lookups into the package m
 
 ### USE flags
 
+
+### USE flags for
+            [app-portage/gentoopm](https://packages.gentoo.org/packages/app-portage/gentoopm)
+            
+            A common interface to Gentoo package managers
+
+| [test](https://packages.gentoo.org/useflags/test) | Enable dependencies and/or preparations necessary to run tests (usually controlled by FEATURES=test but can be toggled independently) | 
 
 ### Emerge
 

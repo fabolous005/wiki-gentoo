@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/DRBD_with_OCFS2
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2019-03-19"
-fingerprint: "2e40f858dce10fdc"
+fingerprint: "2e60d858dce12fdc"
 license: CC BY-SA 4.0
 ---
 
@@ -38,8 +38,26 @@ This guide covers only a two node, dual primary configuration. If you required m
 
 **3.10.25-gentoo**
 
+```
+File systems --->   
+    [*] OCFS2 file system support
+    [*]   O2CB Kernelspace Clustering
+    [*]   OCFS2 statistics
+    [*]   OCFS2 logging support
+    [ ]   OCFS2 expensive checks
+    <*> Distributed Lock Manager (DLM)
+Device Drivers  --->
+    [*] Block devices  --->
+        [*]   DRBD Distributed Replicated Block Device support
+        [ ]     DRBD fault injection
+```
 ### USE flags
 
+
+### USE flags for
+            [sys-cluster/drbd-utils](https://packages.gentoo.org/packages/sys-cluster/drbd-utils)
+            
+            mirror/replicate block-devices across a network-connection
 
 | [+udev](https://packages.gentoo.org/useflags/+udev) | Enable virtual/udev integration (device discovery, power and storage device support, etc) | 
 | [pacemaker](https://packages.gentoo.org/useflags/pacemaker) | Enable Pacemaker integration | 
@@ -69,6 +87,49 @@ Please check the on the manual for more info.
 
 **`/etc/drdb.d/global_common.conf`**
 
+```
+global {
+        usage-count yes;
+        # minor-count dialog-refresh disable-ip-verification
+}
+common {
+        handlers {
+                pri-on-incon-degr "/usr/lib64/drbd/notify-pri-on-incon-degr.sh; /usr/lib64/drbd/notify-emergency-reboot.sh; echo b > /proc/sysrq-trigger ; reboot -f";
+                pri-lost-after-sb "/usr/lib64/drbd/notify-pri-lost-after-sb.sh; /usr/lib64/drbd/notify-emergency-reboot.sh; echo b > /proc/sysrq-trigger ; reboot -f";
+                local-io-error "/usr/lib64/drbd/notify-io-error.sh; /usr/lib64/drbd/notify-emergency-shutdown.sh; echo o > /proc/sysrq-trigger ; halt -f";
+                # fence-peer "/usr/lib64/drbd/crm-fence-peer.sh";
+                # split-brain "/usr/lib64/drbd/notify-split-brain.sh root";
+                out-of-sync "/usr/lib64/drbd/notify-out-of-sync.sh root";
+                # before-resync-target "/usr/lib64/drbd/snapshot-resync-target-lvm.sh -p 15 -- -c 16k";
+                # after-resync-target /usr/lib64/drbd/unsnapshot-resync-target-lvm.sh;
+                outdate-peer "/sbin/kill-other-node.sh";
+        }
+        startup {
+                # wfc-timeout degr-wfc-timeout outdated-wfc-timeout wait-after-sb
+        }
+        options {
+                # cpu-mask on-no-data-accessible
+        }
+        disk {
+                # size max-bio-bvecs on-io-error fencing disk-barrier disk-flushes
+                # disk-drain md-flushes resync-rate resync-after al-extents
+                # c-plan-ahead c-delay-target c-fill-target c-max-rate
+                # c-min-rate disk-timeout
+                fencing resource-and-stonith;
+        }
+        net {
+                # protocol timeout max-epoch-size max-buffers unplug-watermark
+                # connect-int ping-int sndbuf-size rcvbuf-size ko-count
+                # allow-two-primaries cram-hmac-alg shared-secret after-sb-0pri
+                # after-sb-1pri after-sb-2pri always-asbp rr-conflict
+                # ping-timeout data-integrity-alg tcp-cork on-congestion
+                # congestion-fill congestion-extents csums-alg verify-alg
+                # use-rle
+                # protocol C;
+                # allow-two-primaries yes;
+        }
+}
+```
 Please create the files below.
 
 If you have multiple resource setup, you can do it one resource per files to avoid confusion.
@@ -80,6 +141,35 @@ Below files is a 2 Node Resource example. Note on the Comment Part, they will ne
 
 **Resource name r0 DRBD**
 
+```
+resource r0 {
+        handlers {
+                split-brain "/usr/lib64/drbd/notify-split-brain.sh root";
+        }
+        startup {
+                # become-primary-on both;
+        }
+        on serverNode01 {
+                device    /dev/drbd1;
+                disk      /dev/sda5;
+                address   192.168.11.23:7789;
+                meta-disk internal;
+        }
+        on serverNode02 {
+                device    /dev/drbd1;
+                disk      /dev/sda5;
+                address   192.168.11.27:7789;
+                meta-disk internal;
+        }
+        net {
+                after-sb-0pri discard-zero-changes;
+                after-sb-1pri discard-secondary;
+                after-sb-2pri disconnect;
+                protocol C;
+                # allow-two-primaries yes;
+        }
+}
+```
 In plain English, we will use /dev/sda5 on serverNode01 (IP 192.168.11.23) and /dev/sda5 on serverNode02 (IP 192.168.11.27) to create a drbd node /dev/drbd1 respectively on both server. Both drbd nodes will store the metadata internally.
 
 | Name | Description | 
@@ -140,12 +230,22 @@ There are a lot of configurable parameters there but we will only make one chang
 
 **Change OCFS2 Cluster Name**
 
+```
+OCFS2_CLUSTER="ocfs2cluster"
+```
 It is also time we add the required mount to /etc/fstab. Please add the following.
 
 **`/etc/fstab`**
 
 **add the following**
 
+```
+# Needed by ocfs2
+none                    /sys/kernel/config            configfs        defaults                                  0 0
+none                    /sys/kernel/dlm               ocfs2_dlmfs     defaults                                  0 0
+# Our DRBD and OCFS2 mount
+/dev/drbd1              /ocfs2cluster/                ocfs2            _netdev,nointr,user_xattr,acl            0 0
+```
 ## DRBD Initialization and Setup
 
 After we have all this.
@@ -280,6 +380,35 @@ Enabling Dual-Primary mode is easy, just uncomment the resources files we have m
 
 **Resource name r0 DRBD Dual Primary**
 
+```
+resource r0 {
+        handlers {
+                split-brain "/usr/lib64/drbd/notify-split-brain.sh root";
+        }
+        startup {
+                become-primary-on both;
+        }
+        on serverNode01 {
+                device    /dev/drbd1;
+                disk      /dev/sda5;
+                address   192.168.11.23:7789;
+                meta-disk internal;
+        }
+        on serverNode02 {
+                device    /dev/drbd1;
+                disk      /dev/sda5;
+                address   192.168.11.27:7789;
+                meta-disk internal;
+        }
+        net {
+                after-sb-0pri discard-zero-changes;
+                after-sb-1pri discard-secondary;
+                after-sb-2pri disconnect;
+                protocol C;
+                allow-two-primaries yes;
+        }
+}
+```
 Then it's time to make changes on both nodes, in sequence primary then only secondary.
 
 `root #````
@@ -337,3 +466,11 @@ drbdadm connect r0
 Sync should happen and we should have our array back. What if that don't happen.
 
 Troubleshooting and error recovery[\[3\]](https://wiki.gentoo.org#cite_note-TroubleshootingandErrorRecovery-3)
+
+## See also
+
+## References
+
+1. [↑](https://wiki.gentoo.org#cite_ref-drbdManual_1-0) [The DRBD User’s Guide Ver 8.4](http://www.drbd.org/users-guide/drbd-users-guide.html), The DRBD User’s Guide
+2. [↑](https://wiki.gentoo.org#cite_ref-ManualSplitBrinaRecovery_2-0) [Manual Split Brain Recovery Ver 8.4](http://www.drbd.org/users-guide/s-resolve-split-brain.html)
+3. [↑](https://wiki.gentoo.org#cite_ref-TroubleshootingandErrorRecovery_3-0) [Troubleshooting and error recovery Ver 8.4](http://www.drbd.org/users-guide/ch-troubleshooting.html)

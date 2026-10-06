@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Gedit
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-05-31"
-fingerprint: "766b429bfa2e3046"
+fingerprint: "766b42dbfb3e384c"
 license: CC BY-SA 4.0
 ---
 
@@ -23,6 +23,11 @@ From Gentoo Wiki
 
 ### USE flags
 
+
+### USE flags for
+            [app-editors/gedit](https://packages.gentoo.org/packages/app-editors/gedit)
+            
+            A text editor for the GNOME desktop
 
 ### Emerge
 

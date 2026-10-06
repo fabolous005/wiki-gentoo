@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Dolphin
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-06-12"
-fingerprint: a262deda6ea77a74
+fingerprint: a262de9a2ea77a74
 license: CC BY-SA 4.0
 ---
 
@@ -15,12 +15,19 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+*Not to be confused with[the Dolphin console emulator](https://wiki.gentoo.org/wiki/Dolphin_emulator).*
+
 **Dolphin** is [KDE](https://wiki.gentoo.org/wiki/KDE)'s file manager that allows navigating and browsing the contents of hard drives, USB sticks, SD cards, and more. Creating, moving, or deleting files and folders is simple and fast. It is written in C++ and [Qt](https://wiki.gentoo.org/wiki/Qt).
 
 ## Installation
 
 ### USE flags
 
+
+### USE flags for
+            [kde-apps/dolphin](https://packages.gentoo.org/packages/kde-apps/dolphin)
+            
+            Plasma filemanager focusing on usability
 
 | [+handbook](https://packages.gentoo.org/useflags/+handbook) | Enable handbooks generation for packages by KDE | 
 | [debug](https://packages.gentoo.org/useflags/debug) | Enable extra debug codepaths, like asserts and extra output. If you want to get meaningful backtraces see https://wiki.gentoo.org/wiki/Project:Quality\_Assurance/Backtraces | 

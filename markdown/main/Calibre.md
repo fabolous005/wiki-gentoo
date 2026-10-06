@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Calibre
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-06-16"
-fingerprint: "5a112b1cc986b9cc"
+fingerprint: "5a111b1c4d86b9cc"
 license: CC BY-SA 4.0
 ---
 
@@ -23,6 +23,11 @@ From Gentoo Wiki
 
 ### USE flags
 
+
+### USE flags for
+            [app-text/calibre](https://packages.gentoo.org/packages/app-text/calibre)
+            
+            Ebook management application
 
 | [+font-subsetting](https://packages.gentoo.org/useflags/+font-subsetting) | Enable font subsetting support | 
 | [+system-mathjax](https://packages.gentoo.org/useflags/+system-mathjax) | Use a system copy of mathjax | 
@@ -44,6 +49,9 @@ Calibre requires [dev-qt/qtgui](https://packages.gentoo.org/packages/dev-qt/qtgu
 
 FILE **`/etc/portage/package.use/calibre`**
 
+```
+dev-qt/qtgui jpeg
+```
 `root #``emerge --ask --oneshot dev-qt/qtgui`
 ## Removal
 

@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Emacs_NotMuch_Email_Client
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-03-07"
-fingerprint: "62948a530a9fb058"
+fingerprint: "62949a530a8fb0d8"
 license: CC BY-SA 4.0
 ---
 
 # Emacs NotMuch Email Client
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -58,10 +60,10 @@ Known troubles:
 ```
 ## Tagging for incoming emails (in sandbox)
 
-**`my.notmuch`**
+FILE **`my.notmuch`**
 
 ```
- -- folder:SAVED
++saved -- folder:SAVED
 +sent -- folder:Sent
 +spam -- folder:Spam
 +book -- folder:book
@@ -73,7 +75,7 @@ Known troubles:
 ```
 ## NotMuch configuration for Emacs (not in sandbox)
 
-**`.emacs`**
+FILE **`.emacs`**
 
 ```
 ;; ------ notmuch
@@ -118,10 +120,10 @@ Known troubles:
 ```
 ## Authentication information for smtpmail-multi (not in sandbox)
 
-**`.authinfo`**
+FILE **`.authinfo`**
 
 ```
- mail.gmx.com login fox@gmx.com port 587 password 123passw0rd
+machine mail.gmx.com login fox@gmx.com port 587 password 123passw0rd
 machine smtp.gmail.com login firmin.martin port 587 password abc123
 ```
 ## Keys

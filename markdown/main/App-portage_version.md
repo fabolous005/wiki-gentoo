@@ -5,16 +5,20 @@ url: https://wiki.gentoo.org/wiki/App-portage/version
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-11-13"
-fingerprint: bfb40cadcce1a6c1
+fingerprint: bfb40ead8ce187c1
 license: CC BY-SA 4.0
 ---
 
 # app-portage/version
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+
+**Deprecated article**
 
 This article is **deprecated (obsolete)**. Contents are <u>no longer relevant</u>, and are intended for historical reference only!
 

@@ -11,6 +11,8 @@ license: CC BY-SA 4.0
 
 # Bugzilla/Guide
 
+[Bugzilla](https://wiki.gentoo.org/wiki/Bugzilla)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
@@ -68,6 +70,8 @@ make: \*\*\* \[shared\] Error 2
 
 
 ## Handling run-time errors
+
+[Debugging with the **G**NU **D**e**b**ugger](https://wiki.gentoo.org/wiki/GDB).
 
 
 ### Finding file access errors using strace

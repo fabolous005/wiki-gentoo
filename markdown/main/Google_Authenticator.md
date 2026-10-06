@@ -137,6 +137,17 @@ You can generate a new secret at any time, so it's not necessary to backup this 
 
 **`/home/larry/.google_authenticator`**
 
+```
+ZBURIWIVW5UQP4F5PYZ75LHTXU
+" RATE_LIMIT 3 30
+" DISALLOW_REUSE
+" TOTP_AUTH
+26221962
+22963189
+57587651
+88889973
+75012523
+```
 The generated .google\_authenticator file has following, working default file permissions:
 
 `user $``ls -lah`

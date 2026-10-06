@@ -26,6 +26,11 @@ It is also possible to schedule a job contingent upon acceptable system load via
 ### USE flags
 
 
+### USE flags for
+            [sys-process/at](https://packages.gentoo.org/packages/sys-process/at)
+            
+            Queues jobs for later execution
+
 ### Emerge
 
 `root #``emerge --ask sys-process/at`

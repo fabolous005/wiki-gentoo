@@ -209,6 +209,8 @@ Another example, to list all files installed by [media-sound/ncmpcpp](https://pa
 
 Descriptions of other modules and additional command line flags can be found in the equery [man page](https://wiki.gentoo.org/wiki/Man_page) (man equery).
 
+### Looking for packages that have a specific USE flag with hasuse (h)
+
 `hasuse` can be used to find packages with a given USE flag. `hasuse` will not indicate if the flag has been enabled or not; it simply outputs a list of ebuilds that have the queried flag as an option. See the EXAMPLES section of `hasuse` in the equery man page for more tip on getting this kind of information.
 
 `user $``equery hasuse qt3 qt4`
@@ -348,6 +350,8 @@ Ever been curious to find out how much space a specific package is occupying? Si
          Total size  : 361.38 MiB
 ```
 Using `size` prints the total space used in human-readable units and lists the total number of files the package has. To get the total size in bytes use `--bytes`.
+
+### Listing per-package USE flags with uses (u)
 
 equery's `uses` module can provide information about what USE flags are available for a specific package and which of those flags is currently enabled.
 

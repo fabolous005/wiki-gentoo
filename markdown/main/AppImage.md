@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/AppImage
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-08-27"
-fingerprint: bc00bf5b82ab299f
+fingerprint: bc00bf5a82ab299f
 license: CC BY-SA 4.0
 ---
 
@@ -51,6 +51,7 @@ Make sure you have the necessary tools and dependencies installed on your system
 
 **Step 2: Clone the ripgrep repository**
 
+`root #``git clone` [https://github.com/BurntSushi/ripgrep.git](https://github.com/BurntSushi/ripgrep.git)
 **Step 3: Navigate to the ripgrep directory**
 
 `root #``cd ripgrep`

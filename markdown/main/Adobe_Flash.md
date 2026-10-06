@@ -5,15 +5,19 @@ url: https://wiki.gentoo.org/wiki/Adobe_Flash
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-05-23"
-fingerprint: b257f4e469e9649b
+fingerprint: b2d7f4e469c9669f
 license: CC BY-SA 4.0
 ---
 
 # Adobe Flash
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Archived article**
 
 This article is **archived (obsolete)**. Contents are surely incorrect for current usage, and are intended for historical reference only.
 

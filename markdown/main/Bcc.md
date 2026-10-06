@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Bcc
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-01-07"
-fingerprint: "82c02a72d354b2e2"
+fingerprint: a2c2aa72d354b2ea
 license: CC BY-SA 4.0
 ---
 
 # bcc
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -21,6 +23,8 @@ license: CC BY-SA 4.0
 ## Installation
 
 ### Kernel configuration
+
+KERNEL
 
 ```
 General setup --->
@@ -39,6 +43,11 @@ Networking support --->
 
 ### USE flags
 
+
+### USE flags for
+            [dev-util/bcc](https://packages.gentoo.org/packages/dev-util/bcc)
+            
+            Tools for BPF-based Linux IO analysis, networking, monitoring, and more
 
 | [+lua](https://packages.gentoo.org/useflags/+lua) | Enable Lua scripting support | 
 | [+python](https://packages.gentoo.org/useflags/+python) | Add optional support/bindings for the Python language | 

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Eix
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-12-04"
-fingerprint: ff055e0f03a2bba0
+fingerprint: ff055e0f03a2bb20
 license: CC BY-SA 4.0
 ---
 
@@ -26,6 +26,11 @@ For more information on eix, read its [man page](https://wiki.gentoo.org/wiki/Ma
 
 ### USE flags
 
+
+### USE flags for
+            [app-portage/eix](https://packages.gentoo.org/packages/app-portage/eix)
+            
+            Search and query ebuilds
 
 | [debug](https://packages.gentoo.org/useflags/debug) | Build with upstream's CXXFLAGS/LDFLAGS for debugging support; not recommended for normal use. | 
 | [doc](https://packages.gentoo.org/useflags/doc) | Create description of the eix cache file additionally in html format | 
@@ -145,6 +150,10 @@ If layman is used to manage [ebuild repositories](https://wiki.gentoo.org/wiki/E
 
 **`/etc/eix-sync.conf`**
 
+```
+# Sync all ebuild repositories with layman -S
+*
+```
 In standard configuration, emerge --sync [calls](https://wiki.gentoo.org/wiki/Ebuild_repository#Repository_synchronization) emaint sync --auto that updates other repositories as well. Finally, to speed up the eix-update step, eix-sync can run emerge --regen after syncing ebuild repositories:
 
 **`/etc/eix-sync.conf`**
@@ -174,6 +183,10 @@ To do this automatically on each eix-sync, add the following:
 
 **`/etc/eix-sync.conf`**
 
+```
+@StatusInfo "Downloading remote1"
+@eix-remote fetch1
+```
 It will then be possible to search all overlays using the `-R` option to **eix**:
 
 `user $``eix -R````
@@ -505,6 +518,17 @@ On some terminal emulators, the color palette will render Eix and Emerge with di
 
 **`/etc/eixrc/00-eixrc`**
 
+```
+COLOR_INST_VERSION="white,1;blue|33,1;%{BG1}|black;green|30,1;%{BG3}"
+BG0=none;
+BG1=none;
+BG2=none;
+BG3=none;
+COLORSCHEME0=0;
+COLORSCHEME1=0;
+COLORSCHEME2=0;
+COLORSCHEME3=0;
+```
 ### Tmux and Screen users should disable status line updates
 
 When using tmux with automatic window renaming enabled (that is `set -g automatic-rename on` has been ran in the tmux configuration file) or screen, status line updates should be disabled. Otherwise, every time eix-update is ran the title of the window will be renamed to something like "eix-update: Finished\*".

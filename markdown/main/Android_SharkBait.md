@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 
 From Gentoo Wiki
 
+\< [Android](https://wiki.gentoo.org/wiki/Android)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)

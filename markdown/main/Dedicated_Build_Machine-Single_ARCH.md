@@ -5,17 +5,22 @@ url: https://wiki.gentoo.org/wiki/Dedicated_Build_Machine-Single_ARCH
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2020-09-20"
-fingerprint: "4e88145b2e975190"
+fingerprint: "4e881c5b0e97519c"
 license: CC BY-SA 4.0
 ---
 
 # Dedicated Build Machine-Single ARCH
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+This article has some todo items:
+
 - A lot of the packages will be broken, explain where to report
+
 
 This page shows how to create a single dedicated build machine to compile software for multiple target devices of a single **ARCH**.
 

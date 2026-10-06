@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Apple_Macbook_Pro_Retina_13-inch_(early_2013)
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-28"
-fingerprint: "770c073ddb3cd46a"
+fingerprint: "770e173ddb3cd46a"
 license: CC BY-SA 4.0
 ---
 
 # Apple Macbook Pro Retina 13-inch (early 2013)
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -62,7 +64,7 @@ Bus 001 Device 002: ID 8087:0024 Intel Corp. Integrated Rate Matching Hub
 
 This xorg.conf works:
 
-**`/etc/X11/xorg.conf`**
+FILE **`/etc/X11/xorg.conf`**
 
 ```
 Section "ServerLayout"

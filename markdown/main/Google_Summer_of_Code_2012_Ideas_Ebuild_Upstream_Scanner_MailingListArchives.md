@@ -5,13 +5,15 @@ url: https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Ebuild_Upstre
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-04-02"
-fingerprint: "8bd695a06d3177bc"
+fingerprint: "8bd6b5a06d3177bc"
 license: CC BY-SA 4.0
 ---
 
 # Google Summer of Code/2012/Ideas/Ebuild Upstream Scanner/MailingListArchives
 
 From Gentoo Wiki
+
+\< [Google Summer of Code](https://wiki.gentoo.org/wiki/Google_Summer_of_Code) | [2012](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012) | [Ideas](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas) | [Ebuild Upstream Scanner](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Ebuild_Upstream_Scanner)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/BlueBox/NAT
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2013-04-09"
-fingerprint: d4a4bddb5eae8faa
+fingerprint: d4a4bddbdeaeafaa
 license: CC BY-SA 4.0
 ---
 
 # BlueBox/NAT
+
+[BlueBox](https://wiki.gentoo.org/wiki/BlueBox)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

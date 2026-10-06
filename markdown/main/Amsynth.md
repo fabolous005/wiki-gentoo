@@ -11,6 +11,8 @@ license: CC BY-SA 4.0
 
 # amsynth
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
@@ -22,6 +24,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [media-sound/amsynth](https://packages.gentoo.org/packages/media-sound/amsynth)
+            
+            Virtual analogue synthesizer
 
 | [alsa](https://packages.gentoo.org/useflags/alsa) | Add support for media-libs/alsa-lib (Advanced Linux Sound Architecture) | 
 | [dssi](https://packages.gentoo.org/useflags/dssi) | Enable support for DSSI Soft Synth Interface | 

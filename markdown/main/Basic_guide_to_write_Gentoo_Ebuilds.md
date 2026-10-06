@@ -6,7 +6,7 @@ hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-09-21"
 categories: ['Michał Górny: Category: Ebuild writing']
-fingerprint: "9fa93a1e94b923aa"
+fingerprint: "9fa93a1e9cb923aa"
 license: CC BY-SA 4.0
 ---
 
@@ -22,6 +22,8 @@ Write an ebuild to install a piece of software on Gentoo, when there are no suit
 
 Once an ebuild is working, it can be shared by submitting it in a [pull request](https://wiki.gentoo.org/wiki/GitHub_Pull_Requests) or in a separate [ebuild repository](https://repos.gentoo.org/) and making it accessible publicly. With a little effort, ebuilds can be proposed and maintained in the [GURU](https://wiki.gentoo.org/wiki/GURU) repository.
 
+## Ebuild repositories
+
 In order for ebuilds to be available to [Portage](https://wiki.gentoo.org/wiki/Portage), they are placed in an [ebuild repository](https://wiki.gentoo.org/wiki/Ebuild_repository) that is configured for Portage through [/etc/portage/repos.conf](https://wiki.gentoo.org/wiki//etc/portage/repos.conf) (see the section on [repository management](https://wiki.gentoo.org/wiki/Ebuild_repository#Repository_management) for general information about working with ebuild repositories).
 
 [Create](https://wiki.gentoo.org/wiki/Creating_an_ebuild_repository#Creating_an_empty_repository) an ebuild repository to experiment in, while following on with this guide. The rest of the article will consider a repository in /var/db/repos/example\_repository.
@@ -32,9 +34,13 @@ In order for ebuilds to be available to [Portage](https://wiki.gentoo.org/wiki/P
 It is much easier to maintain your own repository using your user account. To do this, change the owner of the newly created repository (replace larry with your own username):
 
 `root #``chown larry -R /var/db/repos/example_repository`
+## How to create an ebuild
+
 Ebuilds are simply text files, in their most basic form. All that is needed to start writing ebuilds is a [text editor](https://wiki.gentoo.org/wiki/Text_editor), to provide installable software packages for Gentoo.
 
 Some editors have optional ebuild functionality. In that case, skip to the appropriate section, otherwise a skeleton ("template") may be used to get started quicker.
+
+### Start with the skeleton
 
 If the editor does not have integrated ebuild functionality to help to start off, there is a skeleton ebuild file (skel.ebuild) located in the [Gentoo ebuild repository](https://wiki.gentoo.org/wiki/Ebuild_repository#The_Gentoo_ebuild_repository). To start with that file as a base, simply copy it to an appropriate location (nano is used as the text editor in this example):
 
@@ -50,6 +56,8 @@ cd /var/db/repos/example_repository/{CATEGORY}/{PN}
 `user $````
 nano {P}.ebuild
 ```
+### Vim
+
 There is a vim plugin to automatically start from a skeleton when creating an empty ebuild file.
 
 After installing [app-vim/gentoo-syntax](https://packages.gentoo.org/packages/app-vim/gentoo-syntax), create the appropriate directory for the ebuild, then launch [vim](https://wiki.gentoo.org/wiki/Vim) with a new {P}.ebuild filename provided on the command line, to be automatically met with a basic skeleton that can be modified and saved:
@@ -61,9 +69,15 @@ mkdir --parents /var/db/repos/example_repository/{CATEGORY}/{PN}
 cd /var/db/repos/example_repository/{CATEGORY}/{PN}
 ```
 `user $``vim {P}.ebuild`
+### Emacs
+
 A similar tool is available for users of [Emacs](https://wiki.gentoo.org/wiki/Emacs), provided by [app-emacs/ebuild-mode](https://packages.gentoo.org/packages/app-emacs/ebuild-mode) or [app-xemacs/ebuild-mode](https://packages.gentoo.org/packages/app-xemacs/ebuild-mode), depending on Emacs distribution.
 
+### Language server
+
 There is [a language server for gentoo ebuild](https://github.com/termux/termux-language-server).
+
+## Demonstration by example
 
 This example will create an ebuild for [scrub](https://github.com/chaos/scrub), version 2.6.1 (if it didn't already exist), to show how a typical process might go.
 
@@ -142,11 +156,17 @@ For best practice, the test suite may be run at this stage - this is particularl
 To actually install the new ebuild on the system, run:
 
 `root #``ebuild scrub-2.6.1.ebuild clean install merge`
+## Patching upstream source in an ebuild
+
 A patch can be created from the unpacked source code as explained in the [Creating a patch](https://wiki.gentoo.org/wiki/Creating_a_patch) article. Patches should then be put in the files directory and be listed in an array called `PATCHES` as explained in the [devmanual](https://devmanual.gentoo.org/ebuild-writing/functions/src_prepare/eapply/index.html):
+
+## QA testing
 
 Use [pkgcheck](https://wiki.gentoo.org/wiki/Pkgcheck) ([dev-util/pkgcheck](https://packages.gentoo.org/packages/dev-util/pkgcheck)) to check for QA errors in an ebuild:
 
 `user $``pkgcheck scan`
+## See also
+
 - [GitHub Pull Requests](https://wiki.gentoo.org/wiki/GitHub_Pull_Requests) — how to contribute to Gentoo by creating [pull requests on GitHub](https://github.com/gentoo/gentoo/pulls).
 - [java-ebuilder](https://wiki.gentoo.org/wiki/Java-ebuilder) — an experimental package being developed by Gentoo Java developers to generate initial ebuilds from [Maven](https://wiki.gentoo.org/wiki/Maven) `pom.xml` files.
 - [Notes on ebuilds with GUI](https://wiki.gentoo.org/wiki/Notes_on_ebuilds_with_GUI)

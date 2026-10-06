@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Dust
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-05"
-fingerprint: ab03916467e9df61
+fingerprint: af01916c67e9dc61
 license: CC BY-SA 4.0
 ---
 
 # Dust
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -21,6 +23,13 @@ Dust is a command-line tool similar to du that displays file and directory usage
 
 ### USE flags
 
+
+### USE flags for
+            [sys-block/dust](https://packages.gentoo.org/packages/sys-block/dust)
+            
+            A more intuitive version of du
+
+| [debug](https://packages.gentoo.org/useflags/debug) | Enable extra debug codepaths, like asserts and extra output. If you want to get meaningful backtraces see https://wiki.gentoo.org/wiki/Project:Quality\_Assurance/Backtraces | 
 
 ### Emerge
 

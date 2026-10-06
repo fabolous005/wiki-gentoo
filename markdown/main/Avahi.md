@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Avahi
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-10-10"
-fingerprint: "2805355f1c539f5"
+fingerprint: "82805355f1c539f5"
 license: CC BY-SA 4.0
 ---
 
@@ -33,6 +33,11 @@ license: CC BY-SA 4.0
 
 Some packages are aware of the [zeroconf](https://packages.gentoo.org/useflags/zeroconf) [USE flag](https://wiki.gentoo.org/wiki/USE_flag) pulling in avahi.
 
+
+### USE flags for
+            [net-dns/avahi](https://packages.gentoo.org/packages/net-dns/avahi)
+            
+            System which facilitates service discovery on a local network
 
 | [+dbus](https://packages.gentoo.org/useflags/+dbus) | Enable dbus support for anything that needs it (gpsd, gnomemeeting, etc) | 
 | [+introspection](https://packages.gentoo.org/useflags/+introspection) | Add support for GObject based introspection | 
@@ -86,6 +91,9 @@ Add the appropriate mdns into the hosts line in /etc/nsswitch.conf, An example l
 
 **`/etc/nsswitch.conf`**
 
+```
+hosts:       files mdns_minimal [NOTFOUND=return] dns mdns
+```
 Once this is installed it should be possible to ping the hostname of the machine appending `.local`. For example:
 
 `user $``ping yourhostname.local`

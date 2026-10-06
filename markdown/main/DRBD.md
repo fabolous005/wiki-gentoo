@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/DRBD
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2019-10-12"
-fingerprint: "179a70d6c8fcab13"
+fingerprint: "579a50dec8f4ab03"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Archived article**
 
 This article is **archived (obsolete)**. Contents are surely incorrect for current usage, and are intended for historical reference only.
 
@@ -35,6 +37,10 @@ From the kernel documentation:
 
 **Enable CONFIG\_BLK\_DEV\_DRBD in the kernel**
 
+```
+Device Drivers --->  Block devices --->
+<*>   DRBD Distributed Replicated Block Device support
+```
 ### Emerge
 
 Install [sys-cluster/drbd-utils](https://packages.gentoo.org/packages/sys-cluster/drbd-utils):

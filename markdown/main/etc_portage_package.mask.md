@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki//etc/portage/package.mask
 hostname: gentoo.org
 sitename: "/etc/portage/package.mask"
 date: "2025-12-23"
-fingerprint: "75b93e6e0ea7b389"
+fingerprint: "3fbb3e6e0ae7f399"
 license: CC BY-SA 4.0
 ---
 
@@ -29,6 +29,17 @@ From Gentoo Wiki
 
 FILE **`/etc/portage/package.mask`****package.mask example**
 
+```
+# Mask versions 1.97 and greater of powertop since they have less features.
+>=sys-power/powertop-1.97
+ 
+# Prevent MySQL from being installed by masking the package (use MariaDB)
+dev-db/mysql
+ 
+# Want to go without Java 8; mask JDK and JRE that use Java 8.
+virtual/jdk:1.8
+virtual/jre:1.8
+```
 Now Portage helpfully explains when packages are masked.
 
 `root #``emerge virtual/jdk:1.8`

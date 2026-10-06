@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Chromium
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-08-21"
-fingerprint: "6cdada026f935da8"
+fingerprint: "6cdada026f935d28"
 license: CC BY-SA 4.0
 ---
 
@@ -23,6 +23,11 @@ A complete list of the differences can be found in the [Chromium repository](htt
 
 ### USE flags
 
+
+### USE flags for
+            [www-client/chromium](https://packages.gentoo.org/packages/www-client/chromium)
+            
+            Open-source version of Google Chrome web browser
 
 | [+X](https://packages.gentoo.org/useflags/+X) | Add support for X11 | 
 | [+hangouts](https://packages.gentoo.org/useflags/+hangouts) | Enable support for Google Hangouts features such as screen sharing | 
@@ -90,6 +95,9 @@ To turn off animations, set the following parameters:
 
 **`/etc/chromium/default`**
 
+```
+CHROMIUM_FLAGS="--wm-window-animations-disabled --animation-duration-scale=0"
+```
 ### Profile Directories
 
 Gentoo enables simultaneous installation of the various Chromium channels (stable, beta, dev \[unstable\]). As a result of this, each channel has an independent profile directory in the same way that Google Chrome or any other properly-channeled Chromium-based browser. This is a requirement as Chromium semi-regularly performs incompatible profile format upgrades that will cause older versions / channels to crash on startup without an error message.

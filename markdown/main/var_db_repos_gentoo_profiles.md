@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki//var/db/repos/gentoo/profiles
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-02-12"
-fingerprint: "1f349a1ae6b02366"
+fingerprint: "3cbfba56e6b1236e"
 license: CC BY-SA 4.0
 ---
 
 # /var/db/repos/gentoo/profiles
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

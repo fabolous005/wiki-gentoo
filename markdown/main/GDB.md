@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/GDB
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-02-19"
-fingerprint: be80a25e6c073bc8
+fingerprint: be80a25c6e075bc8
 license: CC BY-SA 4.0
 ---
 
@@ -23,6 +23,11 @@ The **GNU debugger (GDB)**, is used to investigate runtime errors that normally 
 
 ### USE flags
 
+
+### USE flags for
+            [dev-debug/gdb](https://packages.gentoo.org/packages/dev-debug/gdb)
+            
+            GNU debugger
 
 | [+debuginfod](https://packages.gentoo.org/useflags/+debuginfod) | Enable debuginfod support via dev-libs/elfutils libdebuginfod | 
 | [+python](https://packages.gentoo.org/useflags/+python) | Enable support for the new internal scripting language, as well as extended pretty printers | 
@@ -92,6 +97,9 @@ To change this, enable `startup-quietly` in \~/.config/gdb/gdbearlyinit:
 
 **`~/.config/gdb/gdbearlyinit`**
 
+```
+set startup-quietly on
+```
 Then afterwards, gdb is far quieter:
 
 `user $``gdb`
@@ -103,6 +111,12 @@ By default, gdb does not retain command history or scrollback between runs. This
 
 **`~/.config/gdb/gdbinit`**
 
+```
+set history filename ~/.gdb_history
+set history save on
+set history size unlimited
+set history remove-duplicates unlimited
+```
 ### Retain debug symbols
 
 See [Installing debugging information for packages](https://wiki.gentoo.org/wiki/Debugging#Installing_debugging_information_for_packages).
@@ -121,6 +135,10 @@ gdb can create and maintain a cache when it reads debug information, but only wh
 
 **`~/.config/gdb/gdbinit`**
 
+```
+# https://sourceware.org/gdb/current/onlinedocs/gdb.html/Index-Files.html
+set index-cache enabled on
+```
 ## Usage
 
 ### Enabling core dumps

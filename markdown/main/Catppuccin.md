@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Catppuccin
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-08-23"
-fingerprint: ab95977e8d2fdbee
+fingerprint: ab95976e8f2ffbee
 license: CC BY-SA 4.0
 ---
 
 # catppuccin
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -45,4 +47,8 @@ For a qt theme, install **catppuccin-kvantum**.
 `root #``emerge --ask x11-themes/catppuccin-kvantum`
 Then, edit your **.profile**:
 
-**`~/.profile`**
+FILE **`~/.profile`**
+
+```
+export QT_STYLE_OVERRIDE=kvantum
+```

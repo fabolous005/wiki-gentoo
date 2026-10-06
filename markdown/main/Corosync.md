@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Corosync
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-02-28"
-fingerprint: f926da4d50973989
+fingerprint: f926da4d509729a9
 license: CC BY-SA 4.0
 ---
 
@@ -15,6 +15,10 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+**outdated**. You can help the Gentoo community by verifying and
+
+[updating this article](https://wiki.gentoo.org/index.php?title=Corosync&action=edit).
+
 **Corosync** is the currently preferred [cluster](https://wiki.gentoo.org/wiki/Cluster) messaging layer in the Linux cluster community. It is typically used with [Pacemaker](https://wiki.gentoo.org/wiki/Pacemaker) to set up Gentoo-based clusters.
 
 ## Installing
@@ -23,6 +27,11 @@ Recently there has been a fair amount of standardization-oriented changes within
 
 ### USE flags
 
+
+### USE flags for
+            [sys-cluster/corosync](https://packages.gentoo.org/packages/sys-cluster/corosync)
+            
+            OSI Certified implementation of a complete cluster engine
 
 | [augeas](https://packages.gentoo.org/useflags/augeas) | Enable augeas support | 
 | [dbus](https://packages.gentoo.org/useflags/dbus) | Enable dbus support for anything that needs it (gpsd, gnomemeeting, etc) | 

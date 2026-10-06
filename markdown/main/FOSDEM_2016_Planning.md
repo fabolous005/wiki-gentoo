@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/FOSDEM_2016/Planning
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2021-06-08"
-fingerprint: "7f851845b729934f"
+fingerprint: "7f851841b729934f"
 license: CC BY-SA 4.0
 ---
 
 # FOSDEM 2016/Planning
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

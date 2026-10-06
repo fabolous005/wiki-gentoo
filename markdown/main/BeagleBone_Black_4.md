@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/BeagleBone_Black_4
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-15"
-fingerprint: "179f7a3b350e6be2"
+fingerprint: "159f7a3b350e6be2"
 license: CC BY-SA 4.0
 ---
 
 # BeagleBone Black 4
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -49,7 +51,7 @@ chown -R portage:portage /var/db/repos/crossdev
 ```
 Create /etc/portage/repos.conf/crossdev:
 
-**`/etc/portage/repos.conf/crossdev`**
+FILE **`/etc/portage/repos.conf/crossdev`**
 
 ```
 [crossdev]
@@ -106,6 +108,7 @@ More info: [forums.gentoo.org](https://forums.gentoo.org/viewtopic-t-959774-star
 - This one from beaglebone.org will build the firmware into the kernel under linux/firmware and includes patched sources. The older versions required you to run patch.sh, download the firmware manually, and drop it in the firmware folder.
 - Go to [github.com](https://github.com/beagleboard/linux.git) and decide which branch you want to check out. Here we use the latest long-term release kernel, 4.4.x
 
+`user $``git clone -b 4.4 --single-branch` [https://github.com/beagleboard/linux.git](https://github.com/beagleboard/linux.git)
 - If you get any GIT errors about not having user.name or user.email, try this:
 
 `user $````
@@ -118,7 +121,7 @@ git config --global user.name "Username"
 
 - and look at the top lines in Makefile:
 
-**`Makefile`**
+FILE **`Makefile`**
 
 ```
 VERSION = 4
@@ -157,23 +160,33 @@ SUBLEVEL = 44
 
 - edit \~/bbb/deploy/etc/fstab:
 
-**`~/bbb/deploy/etc/fstab`**
+FILE **`~/bbb/deploy/etc/fstab`**
 
+```
+/dev/mmcblk0p2		/		ext4		noatime,errors=remount-ro	0 1
+/dev/mmcblk0p1		/boot/uboot	auto		noatime				1 2
+```
 - edit \~/bbb/deploy/etc/shadow so root can login: `root #``openssl passwd -1`
 
 - grab hash output, edit deploy/etc/shadow, and put here:
 
-**`~/bbb/deploy/etc/shadow`**
+FILE **`~/bbb/deploy/etc/shadow`**
 
+```
+root:<hash_output>:10770:0:::::
+```
 - edit \~/bbb/deploy/etc/inittab since everyone expects serial port to run at 115200 and have the name ttyO0
 
-**`~/bbb/deploy/etc/inittab`**
+FILE **`~/bbb/deploy/etc/inittab`**
 
+```
+s0:12345:respawn:/sbin/agetty -L 115200 ttyS0 vt100
+```
 #### Optional
 
 - setup a static IP on your BBB first, since we don't have dhcpcd installed: edit \~/bbb/deploy/etc/conf.d/net.
 
-**`~/bbb/deploy/etc/conf.d/net`**
+FILE **`~/bbb/deploy/etc/conf.d/net`**
 
 ```
 config_eth0="<your IP> netmask <your netmask> brd <network broadcast IP>"
@@ -182,7 +195,7 @@ dns_servers_eth0="<nameserver IP> <another nameserver IP>"
 ```
 - edit \~/bbb/deploy/etc/conf.d/hostname:
 
-**`~/bbb/deploy/etc/conf.d/hostname`**
+FILE **`~/bbb/deploy/etc/conf.d/hostname`**
 
 ```
 hostname="beaglebone"
@@ -230,7 +243,7 @@ tar cvzpf ../deploy.tar.gz .
 - I chose a modified version of TI's from here: [downloads.ti.com](http://downloads.ti.com/dsps/dsps_public_sw/psp/LinuxPSP/AM335x_04_06/04_06_00_08/index_FDS.html). Original is under host-tools/mksd-am335x.sh.
 - Use 'lsblk' to verify your SD device IDs match the ones used in the script. For a device mmcblk0, the script assumes /dev/mmcblk0{p1,p2} as partitions.
 
-**`host-tools/mksd-am335x.sh`**
+FILE **`host-tools/mksd-am335x.sh`**
 
 ```
 #!/bin/bash

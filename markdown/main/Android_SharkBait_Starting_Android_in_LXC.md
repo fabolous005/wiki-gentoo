@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Android/SharkBait/Starting_Android_in_LXC
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-11-29"
-fingerprint: "2f2fe1131f076b81"
+fingerprint: "2f2ee1131f076b81"
 license: CC BY-SA 4.0
 ---
 
@@ -45,6 +45,21 @@ Write the following fstab entries to `/etc/fstab` in Gentoo, so that OpenRC will
 
 **Android container fstab**
 
+```
+# Android mounts
+/dev/mmcblk0p43 /var/lib/android/system ext4 ro,barrier=1,inode_readahead_blks=8 0 0
+/dev/mmcblk0p32 /var/lib/android/persist ext4 noatime,nosuid,nodev,barrier=1,data=ordered,nomblk_io_submit 0 0
+/dev/mmcblk0p37 /var/lib/android/vendor ext4 ro,barrier=1,inode_readahead_blks=8 0 0
+/dev/mmcblk0p38 /var/lib/android/cache ext4 noatime,nosuid,nodev,barrier=1,data=ordered,nomblk_io_submit,noauto_da_alloc 0 0
+/dev/mmcblk0p44 /var/lib/android/data ext4 noatime,nosuid,nodev,barrier=1,data=ordered,nomblk_io_submit,noauto_da_alloc,inode_readahead_blks=8 0 0
+# Bind into container
+/var/lib/android/system /var/lib/lxc/android/rootfs/system none bind 0 0
+/var/lib/android/persist /var/lib/lxc/android/rootfs/persist none bind 0 0
+/var/lib/android/vendor /var/lib/lxc/android/rootfs/vendor none bind 0 0
+/var/lib/android/cache /var/lib/lxc/android/rootfs/cache none bind 0 0
+/var/lib/android/data /var/lib/lxc/android/rootfs/data none bind 0 0
+/run /var/lib/lxc/android/rootfs/run none bind 0 0
+```
 Boot into Gentoo by temporarily booting the preinit boot.img to check if the partitions are mounted correctly. Double-check that the device nodes are correct if things go wrong. Boot back into Android by rebooting.
 
 ## Install LXC in Gentoo Linux

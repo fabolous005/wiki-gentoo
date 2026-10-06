@@ -5,16 +5,20 @@ url: https://wiki.gentoo.org/wiki/Dos2unix
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2019-06-10"
-fingerprint: "55efe13bb5c7929a"
+fingerprint: "55efe13bbcc7929a"
 license: CC BY-SA 4.0
 ---
 
 # dos2unix
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+
+**Resources**
 
 dos2unix is a tool to convert text files from DOS line endings (carriage return + line feed) to Unix line endings (line feed). It is also capable of conversion between UTF-16 to UTF-8. Invoking the unix2dos command can be used to convert *from* Unix *to* DOS. This tool comes in handy when sharing files between Windows and Linux machines.
 

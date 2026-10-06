@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Discord
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-09-01"
-fingerprint: d6371c090e23b8d4
+fingerprint: d6371c090e23b9d4
 license: CC BY-SA 4.0
 ---
 
@@ -24,6 +24,11 @@ Discord is written in JavaScript (with React), [Elixir](https://wiki.gentoo.org/
 ### USE flags
 
 
+### USE flags for
+            [net-im/discord](https://packages.gentoo.org/packages/net-im/discord)
+            
+            All-in-one voice and text chat for gamers
+
 | [+seccomp](https://packages.gentoo.org/useflags/+seccomp) | Enable seccomp (secure computing mode) to perform system call filtering at runtime to increase security of programs | 
 | [appindicator](https://packages.gentoo.org/useflags/appindicator) | Build in support for notifications using the libindicate or libappindicator plugin | 
 | [wayland](https://packages.gentoo.org/useflags/wayland) | Enable dev-libs/wayland backend | 
@@ -39,6 +44,8 @@ Emerge Discord:
 
 For users that may have reason to prefer other methods of installing Discord on Gentoo, these alternative options are available.
 
+#### Flatpak
+
 Discord is available as a [Flatpak](https://wiki.gentoo.org/wiki/Flatpak) application that can be automatically downloaded and installed from Flathub.
 
 Once Flatpak is available, install Discord from Flathub:
@@ -47,6 +54,8 @@ Once Flatpak is available, install Discord from Flathub:
 After successful installation, Discord may be launched from the command line:
 
 `user $``flatpak run com.discordapp.Discord`
+#### Snap
+
 First, install [Snap](https://wiki.gentoo.org/wiki/Snap), paying attention to the recommendations from that article.
 
 Once Snap is available, install Discord:

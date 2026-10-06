@@ -5,15 +5,19 @@ url: https://wiki.gentoo.org/wiki/GPD_Pocket_4
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-06-29"
-fingerprint: "7552897d996213c2"
+fingerprint: "7546895588a31700"
 license: CC BY-SA 4.0
 ---
 
 # GPD Pocket 4
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 **GPD Pocket 4** is an 8" screen laptop from GPD Corporation.
 
@@ -23,10 +27,10 @@ license: CC BY-SA 4.0
 
 | Device | Make/model | Status | Vendor ID / Product ID | Kernel driver(s) | Kernel version | Notes | 
 |---|---|---|---|---|---|---|
-| CPU | AMD Ryzen™ AI 9 HX 370 |  | N/A | N/A | 6.14.9 |  | 
-| Video card | AMD Radeon™ 890M |  | 1002:150e | amdgpu | 6.14.9 |  | 
-| Ethernet controller | Realtek Semiconductor Co., Ltd. RTL8125 2.5GbE Controller |  | 10ec:8125 | r8169 | 6.14.9 |  | 
-| Wireless network controller | Intel Corporation Wi-Fi 6E(802.11ax) AX210/AX1675 |  | 8086:2725 | iwlwifi | 6.14.9 |  | 
+| CPU | AMD Ryzen™ AI 9 HX 370 | Works | N/A | N/A | 6.14.9 |  | 
+| Video card | AMD Radeon™ 890M | Works | 1002:150e | amdgpu | 6.14.9 |  | 
+| Ethernet controller | Realtek Semiconductor Co., Ltd. RTL8125 2.5GbE Controller | Works | 10ec:8125 | r8169 | 6.14.9 |  | 
+| Wireless network controller | Intel Corporation Wi-Fi 6E(802.11ax) AX210/AX1675 | Works | 8086:2725 | iwlwifi | 6.14.9 |  | 
 
 ## LTE broadband
 

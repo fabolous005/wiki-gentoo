@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Extract_Blu-ray_audio_with_FFmpeg
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-10-16"
-fingerprint: "4e43835c49de39cc"
+fingerprint: "4e43835c49de39ec"
 license: CC BY-SA 4.0
 ---
 
@@ -25,6 +25,11 @@ This article will only discuss unencrypted Blu-Ray Audio media, and merrily poin
 
 ### USE flags
 
+
+### USE flags for
+            [media-video/ffmpeg](https://packages.gentoo.org/packages/media-video/ffmpeg)
+            
+            Complete solution to record/convert/stream audio and video
 
 | [+dav1d](https://packages.gentoo.org/useflags/+dav1d) | Enable AV1 decoding support via media-libs/dav1d | 
 | [+drm](https://packages.gentoo.org/useflags/+drm) | Enable use of x11-libs/libdrm for various hardware accelerated functions and Kernel Mode Setting screen capture | 
@@ -146,10 +151,17 @@ Blu-Rays use UDF filesystem format, and require to be mounted as such. Probably 
 
 **`/etc/fstab`**
 
+```
+/dev/sr0       /mnt/dvd        iso9660         noauto,user,ro  0 0
+/dev/sr0       /mnt/dvd-udf    udf             noauto,user,rw  0 0
+```
 Or the following will automatically decide with little to no additional access time difference:
 
 **`/etc/fstab`**
 
+```
+/dev/sr0       /mnt/dvd        auto            noauto,user,ro  0 0
+```
 Create the mount folders defined previously in the /etc/fstab example file:
 
 `root #``mkdir /mnt/dvd /mnt/dvd-udf`

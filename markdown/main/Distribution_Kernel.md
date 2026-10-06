@@ -96,7 +96,7 @@ To use generic UKI, manual creation of an initramfs or Unified Kernel Image must
 **package.use**
 
 ```
- generic-uki
+sys-kernel/gentoo-kernel generic-uki
 sys-kernel/gentoo-kernel-bin generic-uki
 sys-kernel/installkernel -dracut -ugrd -ukify
 ```

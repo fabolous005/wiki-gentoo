@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Asus_Transformer_Infinity_(TF700T)
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-29"
-fingerprint: b7ef04b617bc59ca
+fingerprint: b7ef04b637bc5dca
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,9 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+
+[ASUS Official page for Transformer Infinity](http://www.asus.com/Tablets_Mobile/ASUS_Transformer_Pad_Infinity_TF700T/) 
 
 The Asus Transformer TF700, also known as the Asus Transformer Pad Infinity, is the successor to the Transformer Prime. The tablet comes with an NVIDIA Tegra 3 quad-core processor clocked at 1.6 GHz per core. The screen resolution is 1920x1200 over a 10.1" screen. The Transformer TF700 has a micro HDMI port, as well as 2 USB 2.0 ports. It features DLNA and Wi-Fi connectivity. The Asus Transformer TF700 also features a 12 core GPU.
 

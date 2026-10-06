@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Autotools
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-07-09"
-fingerprint: c5c8d04b7f83af14
+fingerprint: "8548d04b7e83ae14"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 **Autotools** is a build system often used for open source projects. Autotools is a particularly mature project, very commonly preinstalled on modern unix-like systems. Though it has the advantage of being almost ubiquitous, Autotools isn't necessarily a user friendly system. [Alternatives](https://wiki.gentoo.org/wiki/Build_automation) have been written over the years and have better adoption with newer projects.
 

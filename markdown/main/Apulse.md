@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Apulse
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-05-21"
-fingerprint: dde8be5e6ef8fc16
+fingerprint: dde8be5e6ef0fc36
 license: CC BY-SA 4.0
 ---
 
 # apulse
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -25,6 +27,11 @@ Internally, no separate sound mixing daemon is used. Instead, apulse relies on A
 
 ### USE flags
 
+
+### USE flags for
+            [media-sound/apulse](https://packages.gentoo.org/packages/media-sound/apulse)
+            
+            PulseAudio emulation for ALSA
 
 | [debug](https://packages.gentoo.org/useflags/debug) | Enable extra debug codepaths, like asserts and extra output. If you want to get meaningful backtraces see https://wiki.gentoo.org/wiki/Project:Quality\_Assurance/Backtraces | 
 | [sdk](https://packages.gentoo.org/useflags/sdk) | Install PulseAudio headers and pkg-config files. Be aware apulse is not a full PulseAudio replacement by design and some functionality may be missing. | 

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Application_level_package_management
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-03-05"
-fingerprint: "9d63be0dc2732dbd"
+fingerprint: "9d63be0dc2732dad"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 This meta article provides best practice recommendations on managing the coexistence of operating system and **application level package managers** on Gentoo.
 

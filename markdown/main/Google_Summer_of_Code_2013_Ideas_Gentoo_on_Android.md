@@ -5,15 +5,21 @@ url: https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2013/Ideas/Gentoo_on_And
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2018-11-09"
-fingerprint: b78ea1421bb46348
+fingerprint: b38ea1405b946348
 license: CC BY-SA 4.0
 ---
 
 # Google Summer of Code/2013/Ideas/Gentoo on Android
 
+From Gentoo Wiki
+
+\< [Google Summer of Code](https://wiki.gentoo.org/wiki/Google_Summer_of_Code) | [2013](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2013) | [Ideas](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2013/Ideas)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+## [Gentoo on Android]
 
 **Completed in 2013**
 

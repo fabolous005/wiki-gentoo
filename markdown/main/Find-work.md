@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Find-work
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-09-05"
-fingerprint: "818da2a88863e1da"
+fingerprint: "819fa2a888e3e1de"
 license: CC BY-SA 4.0
 ---
 
 # find-work
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

@@ -15,6 +15,8 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+**Resources**
+
 The *BLAS/LAPACK Switching Mechanism* is a method to change the BLAS/LAPACK libraries during runtime, without the need to recompile software depending on these libraries.
 
 ## Overview

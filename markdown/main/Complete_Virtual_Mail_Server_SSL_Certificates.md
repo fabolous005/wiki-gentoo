@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Complete_Virtual_Mail_Server/SSL_Certificates
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-05-06"
-fingerprint: "3f13e24a3d2a3e95"
+fingerprint: "3f53e24e0f2a3e95"
 license: CC BY-SA 4.0
 ---
 
@@ -112,6 +112,12 @@ While Let's Encrypt provides sane standarts for security, those can be further i
 
 **Hardening options**
 
+```
+SSLProtocol             all -SSLv2 -SSLv3 -TLSv1 -TLSv1.1
+SSLCipherSuite          ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES256-GCM-SHA384
+SSLHonorCipherOrder     off
+SSLUseStapling on
+```
 Roundcube has a nice option to force all incoming requests over HTTPS. This means that when a users opens [http://mail.example.com](http://mail.example.com), he will get immediately redirected to [https://mail.example.com](https://mail.example.com). If using a proper TLS certificate this is strongly recommended. When using a self-signed certificate, or a CA-cert.org certificate that does not have the root installed to all users, this should remain off however.
 
 **`/var/www/mail/htdocs/config/main.inc.php`**
@@ -133,6 +139,10 @@ Courier-imap needs to be told where to find the certificates. This should be don
 
 **Use Let's Encrypt**
 
+```
+TLS_CERTFILE=/etc/letsencrypt/live/example.com/fullchain.pem
+TLS_PRIVATE_KEYFILE=/etc/letsencrypt/live/example.com/privkey.pem
+```
 ### Using a CACert.org signed certificate
 
 The mkimapdcert script creates a self-signed certificate and combines them into one file as Courier-imap does actually not use the three separate files as most applications do and needs them specially formatted.
@@ -152,12 +162,38 @@ The resulting file should have a contents like this:
 
 **imap certificate**
 
+```
+-----BEGIN PRIVATE KEY-----
+MIIEvaasdfasdfSfasdfadfasdfasdfasdfasdfasdfasdfasdfasdsahdahhgfh
+<snip>
+asdfasdfasdfsdfsdf
+-----BEGIN CERTIFICATE REQUEST-----
+MIIDHTsdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfsdfasdf
+<snip>
+asdfasdfasdfasdfaswYEdpa+rdFfs=
+-----END PRIVATE KEY-----
+-----END CERTIFICATE REQUEST-----
+-----BEGIN CERTIFICATE-----
+MIIGhzClkjhlkjhlkjhkljhkljhkljhkljhkljhkljhlkjhkljhkljhlkjhkljhk
+<snip>
+kljhlkjhkljhlkjhlkjhlkjhkljhkljhlkjhlkjhkljhk==
+-----END CERTIFICATE-----
+-----BEGIN DH PARAMETERS-----
+MIGHAoGBAPF7fJnfw+VPPev9FAkf2XJNFimn4ik+zkXXuHD5t9Oke1Yx224WTocq
+KJ+Zv9onecK0MPYRUj8PPqqy+Q00pScW9+qPSr9T2sEG/meKjLqqA3XQf4Gwzqco
+SUG0PEjiYNNfe966p9E1vp6yN5+gSyu6zv9Vn+cfYY2q7d3a4x9rAgEC
+-----END DH PARAMETERS-----
+```
 ### Configure SSL
 
 **`/etc/courier-imap/imapd-ssl`**
 
 **Configure certificate**
 
+```
+##NAME: IMAPDSSLSTART:0
+IMAPDSSLSTART=YES
+```
 Starting this server should allow imap to work through SSL:
 
 `root #``/etc/init.d/courier-imapd-ssl restart`
@@ -178,6 +214,17 @@ If the Let's Encrypt certificate is being used, certificates should be stored in
 
 **Certificate configuration for SMTP using Let's Encrypt**
 
+```
+# TLS Authentication
+smtpd_tls_security_level = may
+smtpd_tls_auth_only = no
+smtpd_tls_loglevel = 3
+smtpd_tls_key_file = /etc/letsencrypt/live/foo.example.com/privkey.pem
+smtpd_tls_cert_file = /etc/letsencrypt/live/foo.example.com/fullchain.pem
+smtpd_tls_received_header = yes
+smtpd_tls_session_cache_timeout = 3600s
+tls_random_source = dev:/dev/urandom
+```
 ### Other certificate providers
 
 The certificates for use with postfix should be stored in /etc/ssl/postfix/ or if using the same certificates as with courier-imap they should be stored in /etc/ssl/postfix/. If using CACert.org, then its root certificate needs to be used. Gentoo pre-installs the CACert.org root certificate and should be used.
@@ -186,6 +233,18 @@ The certificates for use with postfix should be stored in /etc/ssl/postfix/ or i
 
 **Certificate configuration for SMTP**
 
+```
+# TLS Authentication
+smtpd_tls_security_level = may
+smtpd_tls_auth_only = no
+smtpd_tls_loglevel = 3
+smtpd_tls_key_file = /etc/ssl/postfix/foo.example.com_privatekey.pem
+smtpd_tls_cert_file = /etc/ssl/postfix/foo.example.com_crt.pem
+smtpd_tls_CAfile = /etc/ssl/certs/cacert.org_root.pem
+smtpd_tls_received_header = yes
+smtpd_tls_session_cache_timeout = 3600s
+tls_random_source = dev:/dev/urandom
+```
 ### Postfix configuration
 
 Now STARTTLS can be used to use an authenticated connection over port 25. **SSL/TLS** support on port *465* (smtp**s**) however should be enabled as well. Courier-imap did this automatically, postfix needs a change to master.cf:
@@ -194,6 +253,10 @@ Now STARTTLS can be used to use an authenticated connection over port 25. **SSL/
 
 **Enable smtps support**
 
+```
+smtps     inet  n       -       n       -       -       smtpd
+  -o smtpd_tls_wrappermode=yes
+```
 Restart postfix to start the SSL secured daemons:
 
 `root #``/etc/init.d/postfix restart`
@@ -228,6 +291,13 @@ Postfix can try to use secure connections for sending mails to other SMTP server
 
 **Try to use TLS for transferring mails**
 
+```
+# Enable TLS for sending mails if supported by other server
+smtp_use_tls = yes
+smtp_tls_security_level = may
+smtp_tls_key_file = /etc/letsencrypt/live/example.com/privkey.pem
+smtp_tls_cert_file = /etc/letsencrypt/live/example.com/fullchain.pem
+```
 Restart postfix afterwards:
 
 `root #``/etc/init.d/postfix restart`
@@ -244,3 +314,8 @@ Once everything is working as expected, logging can be disabled again:
 **`/etc/postfix/main.cf`**
 
 **Disable logging**
+
+```
+smtpd_tls_loglevel = 0
+smtp_tls_loglevel = 0
+```

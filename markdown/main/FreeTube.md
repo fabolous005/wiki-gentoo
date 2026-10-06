@@ -43,7 +43,7 @@ freetube-bin is likely to be masked with the \~amd64 keyword. To unmask it:
 **`/etc/portage/package.keywords/package.keywords`**
 
 ```
- ~amd64
+net-misc/freetube-bin ~amd64
 ```
 And Finally, install `freetube-bin`:
 
@@ -68,7 +68,7 @@ FreeTube is likely to be masked with the \~amd64 keyword. To unmask it:
 **`/etc/portage/package.keywords/package.keywords`**
 
 ```
- ~amd64
+media-video/freetube ~amd64
 ```
 And finally, compile and install FreeTube:
 
@@ -87,7 +87,7 @@ freetube-bin is likely to be masked with the \~amd64 keyword. To unmask it:
 **`/etc/portage/package.keywords/package.keywords`**
 
 ```
- ~amd64
+net-misc/freetube-bin ~amd64
 ```
 emerge:
 
@@ -102,7 +102,7 @@ FreeTube is likely to be masked with the \~amd64 keyword. To unmask it:
 **`/etc/portage/package.keywords/package.keywords`**
 
 ```
- ~amd64
+media-sound/freetube ~amd64
 ```
 emerge:
 

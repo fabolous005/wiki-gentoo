@@ -15,6 +15,8 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+*Not to be confused with[gentoolkit](https://wiki.gentoo.org/wiki/Gentoolkit).*
+
 
 **Resources**
 
@@ -41,6 +43,11 @@ genkernel is a tool created by Gentoo used to automate the build process of the 
 
 ### USE flags
 
+
+### USE flags for
+            [sys-kernel/genkernel](https://packages.gentoo.org/packages/sys-kernel/genkernel)
+            
+            Gentoo automatic kernel building scripts
 
 ### Emerge
 
@@ -242,7 +249,7 @@ The above operation causes genkernel to create a kernel capable to open LUKS and
 
 Replacing `--no-install` with the `--install` option allows genkernel to automatically install the new kernel in the /boot directory, and will create symlinks if `--symlink` is specified. Using the `--mountboot` option allows genkernel to mount the /boot partition automatically, if necessary.
 
-### /efi
+### Changing the boot directory to /efi
 
 It is now recommended to mount the UEFI system boot partition (ESP) under /efi instead of /boot.
 
@@ -922,16 +929,36 @@ First, the kernel image must include the drivers for the system's Network Interf
 
 **Configuring a 3.x.x series kernel to support various NIC drivers**
 
+```
+Device Drivers --->
+   Networking Support --->
+      Ethernet (10 or 100Mbit)  --->
+         [*] Ethernet (10 or 100Mbit)
+         <*>   The driver(s) for each network card
+```
 Secondly, it is suggested that *IP: kernel level autoconfiguration* is enabled as well as *IP: DHCP support options*. This avoids an unnecessary layer of complexity since the IP address and the NFS path to the Installation CD can be configured on a DHCP server. Of course, this means the kernel command line will remain constant for any machine — which is very important for etherbooting.
 
 **Configuring a 3.x.x series kernel to support DHCP**
 
+```
+Device Drivers --->
+   Networking Support --->
+      Networking options
+         [*] TCP/IP networking--->
+         [*]   IP: kernel level autoconfiguration
+         [*]     IP: DHCP support
+```
 Tells the kernel to send a DHCP request at bootup.
 
 Additionally, enable [SquashFS](https://wiki.gentoo.org/wiki/SquashFS) because most modern Gentoo Installation CDs require it. Support for SquashFS is not included with the generic kernel source tree. To enable SquashFS, apply the necessary patches to the generic kernel source or install gentoo-sources.
 
 **Configuring the kernel to support SquashFS**
 
+```
+File systems--->
+   Miscellaneous filesystems --->
+      [*] SquashFS 2.X - Squashed file system support
+```
 Once the compilation process is completed, create a compressed tarball (tar.gz) that contains the kernel's modules. This step is only necessary if the kernel version does not match the kernel image version on the Installation CD.
 
 To create an archive containing all the modules:
@@ -991,6 +1018,14 @@ The netboot images will ask the DHCP server on the network for an IP as well as 
 
 **Sample client dhcpd.conf setup**
 
+```
+# Here, 192.168.1.2 is the NFS server while 192.168.1.10 will be the IP address of the netbooted machine
+host netbootableMachine {
+         hardware ethernet 11:22:33:44:55:66;
+         fixed-address 192.168.1.10;
+         option root-path "192.168.1.2:/nfs/livecd";
+}
+```
 #### Netbooting instructions
 
 Netbooting itself is again very platform-specific. The important part is to specify the `ip=dhcp` and `init=/linuxrc` parameters on the kernel command line, as this will bring up the network interface and tell the initrd scripts to mount the Installation CD via NFS. Here are some platform-specific tips.
@@ -1006,6 +1041,15 @@ For PXE, setup pxelinux (part of syslinux), then create a pxelinux.cfg/default a
 
 **Default entry**
 
+```
+DEFAULT gentoo
+TIMEOUT 40
+PROMPT 1
+  
+LABEL gentoo
+    KERNEL kernel-X.Y.Z
+    APPEND initrd=initrd-X.Y.Z root=/dev/ram0 init=/linuxrc ip=dhcp
+```
 #### Booting a genkernel initramfs
 
 ##### Introduction
@@ -1020,6 +1064,13 @@ If the system uses LVM or software-RAID, the initramfs has to be built using the
 
 **Enabling LVM and/or MDADM support**
 
+```
+# Example for GRUB 1.x
+title Gentoo Linux
+root (hd0,0)
+kernel /vmlinuz root=/dev/md3 dolvm domdadm
+initrd /initramfs-genkernel-x86_64-3.4.3
+```
 ##### Booting in single-user mode
 
 If for some reason boot-up fails, rescuing the system by booting in the single-user mode is still possible. This will only load the really necessary services and then drop the user to a rescue (root) shell.
@@ -1028,6 +1079,13 @@ If for some reason boot-up fails, rescuing the system by booting in the single-u
 
 **Booting in single-user mode**
 
+```
+# Example for GRUB 1.x
+title Gentoo Linux
+root (hd0,0)
+kernel /vmlinuz root=/dev/md3 init_opts=S
+initrd /initramfs-genkernel-x86_64-3.4.3
+```
 ### Cross-compile support
 
 To build kernel and/or initramfs for a different platform as genkernel is being executed on, kernel/initramfs must be cross-compiled.
@@ -1149,6 +1207,34 @@ Check /var/log/genkernel.log first. In most cases, a root cause will appear like
 
 **`/var/log/genkernel.log`**
 
+```
+[...]
+  AR      drivers/usb/built-in.a
+  AR      drivers/built-in.a
+  GEN     .version
+  CHK     include/generated/compile.h
+  AR      built-in.a
+  LD      vmlinux.o
+  MODPOST vmlinux.o
+ld: .tmp_vmlinux1: final close failed: No space left on device
+make: *** [Makefile:1032: vmlinux] Error 1
+ 
+* ERROR: compile_kernel(): compile_generic() failed to compile the "bzImage" target!
+* Please consult '/var/log/genkernel.log' for more information and any
+* errors that were reported above.
+*
+* Report any genkernel bugs to bugs.gentoo.org and
+* assign your bug to genkernel@gentoo.org. Please include
+* as much information as you can in your bug report; attaching
+* '/var/log/genkernel.log' so that your issue can be dealt with effectively.
+*
+* Please do *not* report kernel compilation failures as genkernel bugs!
+*
+ 
+* mount: >> Boot partition state on '/boot' was not changed; Skipping restore boot partition state ...
+>>> Ended on: 2019-12-16 02:30:19 (after 0 days 0 hours 07 minutes 49 seconds)
+</pre>
+```
 In other words: The system has run out of disk space (`No space left on device`) during compilation.
 
 To guard against problems like this set `CHECK_FREE_DISK_SPACE_BOOTDIR=50` and `CHECK_FREE_DISK_SPACE_KERNELOUTPUTDIR=4000` in /etc/genkernel.conf in which case genkernel would fail early with a message like

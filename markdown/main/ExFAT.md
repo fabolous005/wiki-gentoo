@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/ExFAT
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-09-25"
-fingerprint: "8e0949bccca7b8f5"
+fingerprint: e0949b8dca738f5
 license: CC BY-SA 4.0
 ---
 
 # exFAT
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -26,8 +28,13 @@ The availability of the exFAT filesystem had long been poor, because of its prop
 
 Enable exFAT support in the kernel:
 
-**Enable support for CONFIG\_EXFAT\_FS**
+KERNEL **Enable support for CONFIG\_EXFAT\_FS**
 
+```
+File systems  --->
+   DOS/FAT/EXFAT/NT Filesystems  --->
+      <*> exFAT filesystem support
+```
 ### Emerge
 
 Install the [sys-fs/exfatprogs](https://packages.gentoo.org/packages/sys-fs/exfatprogs) package:

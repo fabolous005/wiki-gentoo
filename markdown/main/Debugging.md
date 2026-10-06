@@ -15,6 +15,8 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+**Resources**
+
 This article provides general advice on how to enable **debugging** symbols and information.
 
 ## Installing debugging information for packages

@@ -83,6 +83,9 @@ Set the useflags `static` and `-pam` to /etc/portage/package.use/busybox
 
 **busybox**
 
+```
+sys-apps/busybox static -pam
+```
 `root #````
 emerge --ask --verbose sys-apps/busybox
 ```
@@ -131,24 +134,52 @@ With either method, there is a need to enable Initial RAM filesystem and RAM dis
 
 **CONFIG\_BLK\_DEV\_INITRD=y**
 
+```
+General setup  --->
+    [*] Initial RAM filesystem and RAM disk (initramfs/initrd) support
+```
 #### Embedding into the Kernel
 
 To embed the *initramfs* directly into the kernel image, set `CONFIG_INITRAMFS_SOURCE` to the root of the *initramfs* directory, (e.g. /usr/src/initramfs):
 
 **CONFIG\_INITRAMFS\_SOURCE="/usr/src/initramfs"**
 
+```
+General setup  --->
+    (/usr/src/initramfs) Initramfs source file(s)
+```
 On compilation, the kernel will automatically collect the files into a cpio archive and embed it into the kernel image. The kernel will have to be rebuilt any time a change is made to the *initramfs* directory.
 
 If the kernel is compressed, which by default it is with gzip, disabling compression for the embedded initramfs achieves smaller kernel filesizes and faster startups. This happens because when the kernel as a whole is compressed, elements of the initram shared with the kernel can be deduplicated. It is more performant because it skips the second stage of decompression of the initram.
 
 **CONFIG\_INITRAMFS\_COMPRESSION\_NONE=y**
 
+```
+General setup  --->
+    Built-in initramfs compression mode (None)  --->
+        ( ) LZMA
+        ( ) XZ
+        ( ) LZO
+        ( ) LZ4
+        ( ) ZSTD
+        (X) None
+```
 #### Creating a separate file
 
 To use a standalone archive file, adjust the kernel settings accordingly:
 
 **Support inital ramdisk/ramfs compressed using \<compression\_method>**
 
+```
+General setup  --->
+    () Initramfs source file(s)
+    [*]   Support initial ramdisk/ramfs compressed using gzip 
+    [ ]   Support initial ramdisk/ramfs compressed using bzip2
+    [ ]   Support initial ramdisk/ramfs compressed using LZMA 
+    [ ]   Support initial ramdisk/ramfs compressed using XZ   
+    [ ]   Support initial ramdisk/ramfs compressed using LZO  
+    [ ]   Support initial ramdisk/ramfs compressed using LZ4
+```
 For this example gzip is sufficient.
 
 Create a standalone archive file by running the following commands:
@@ -169,16 +200,34 @@ In case of GRUB,  do this with the **initrd** line:
 
 **GRUB initrd example**
 
+```
+linux 3.12.6-gentoo
+initrd custom-initramfs.cpio.gz
+```
 In order to make this usable with grub-mkconfig, the filename custom-initramfs.cpio.gz must be included in the GRUB helper scripts:
 
 **`/etc/grub.d/10_linux`**
 
 **grub-mkconfig helper script**
 
+```
+[...]
+initrd_real=
+for i in "initrd.img-${version}" "initrd-${version}.img" "initrd-${version}.gz" "custom-initramfs.cpio.gz" \
+     "initrd-${version}" "initramfs-${version}.img" \
+[...]
+```
 **`/etc/grub.d/10_linux_xen`**
 
 **grub-mkconfig helper script**
 
+```
+[...]
+initrd_real=
+for i in "initrd.img-${version}" "initrd-${version}.img" "initrd-${version}.gz" "custom-initramfs.cpio.gz" \
+   "initrd-${version}" "initramfs-${version}.img" \
+[...]
+```
 After applying the changes, the file will be recognized running grub-mkconfig; the output may look like the following:
 
 `root #``grub-mkconfig -o /boot/grub/grub.cfg`
@@ -197,6 +246,11 @@ A minimalistic list may look like so:
 
 **cpio list example**
 
+```
+# Custom Initramfs minimal example
+dir /dev 0755 0 0
+file /init /usr/src/initramfs/init 0755 0 0
+```
 Create the cpio archive, compress it, and move it to /boot:
 
 `root #````
@@ -323,7 +377,7 @@ To be dropped to a rescue shell if an error occurs, add the following function t
 **Rescue shell functionality**
 
 ```
-() {
+rescue_shell() {
     echo "Something went wrong. Dropping to a shell."
     exec sh
 }
@@ -335,7 +389,7 @@ In the example below, the rescue\_shell will be executed if the root partition f
 **Invoking the rescue shell**
 
 ```
- -o ro /dev/sda1 /mnt/root || rescue_shell
+mount -o ro /dev/sda1 /mnt/root || rescue_shell
 ```
 #### Force entry into the rescue shell
 
@@ -355,7 +409,7 @@ Similarly, it's possible to handle more widely known `init=/bin/sh` option in th
 **Option to drop to the rescue shell**
 
 ```
-() {
+break_requested() {
     local want_break
     for o in $(cat /proc/cmdline) ; do
         case "$o" in
@@ -383,6 +437,11 @@ Provided by the kernel, devtmpfs is designed to offer device nodes during early 
 
 **CONFIG\_DEVTMPFS=y**
 
+```
+Device Drivers  --->
+    Generic Driver Options  --->
+        [*] Maintain a devtmpfs filesystem to mount at /dev
+```
 Include the following snippet in the **/init** script to have it mount at boot:
 
 **`/usr/src/initramfs/init`**
@@ -390,7 +449,7 @@ Include the following snippet in the **/init** script to have it mount at boot:
 **mount devtmpfs**
 
 ```
- -t devtmpfs none /dev
+mount -t devtmpfs none /dev
 ```
 Don't forget to unmount it again in the cleanup phase of the script:
 
@@ -399,7 +458,7 @@ Don't forget to unmount it again in the cleanup phase of the script:
 **umount devtmpfs**
 
 ```
- /dev
+umount /dev
 ```
 #### mdev
 
@@ -407,6 +466,11 @@ Although devtmpfs is the preferred solution today, alternatively use mdev, the u
 
 **CONFIG\_UEVENT\_HELPER=y**
 
+```
+Device Drivers  --->
+    Generic Driver Options  --->
+        [*] Support for uevent helper
+```
 For mdev to work, make /sbin/mdev a symlink to /bin/busybox in the *initramfs*.
 
 `root #``ln --symbolic ../bin/busybox /usr/src/initramfs/sbin/mdev`
@@ -429,7 +493,7 @@ With [Dynamic devices](https://wiki.gentoo.org#Dynamic_devices) enabled, it may 
 **mount using findfs**
 
 ```
- -o ro $(findfs UUID=845b2454-42a3-19ef-6ec5-238a358c365b) /mnt/root
+mount -o ro $(findfs UUID=845b2454-42a3-19ef-6ec5-238a358c365b) /mnt/root
 # or
 mount -o ro $(findfs LABEL=myroot) /mnt/root
 ```
@@ -444,7 +508,7 @@ Using kernel parameters instead of hardcoding device names or UUIDs, there will 
 **Adding a simple cmdline parser function**
 
 ```
-() {
+cmdline() {
     local value
     value=" $(cat /proc/cmdline) "
     value="${value##* ${1}=}"
@@ -459,7 +523,7 @@ The function is called with the name of the kernel parameter in question. In the
 **Mount rootfs by cmdline**
 
 ```
- -o ro $(findfs $(cmdline root)) /mnt/root
+mount -o ro $(findfs $(cmdline root)) /mnt/root
 ```
 It works for both `root=/dev/sda1` and `root=UUID=845b2454` but will fail when the parameter is missing.
 
@@ -475,7 +539,7 @@ Now, enable the LVM root partition in **/init**. This example assumes that the v
 **Setting up the root volume**
 
 ```
- vgscan --mknodes # creates /dev/mapper/control
+lvm vgscan --mknodes # creates /dev/mapper/control
 lvm lvchange -a y VG/root
 lvm vgscan --mknodes # creates /dev/mapper/VG-root and /dev/VG/root
 ```
@@ -493,7 +557,7 @@ Recent versions of [sys-fs/lvm2](https://packages.gentoo.org/packages/sys-fs/lvm
 **Disable udev in lvm.conf**
 
 ```
- {
+devices {
     # Disable scanning udev for md/multipath components.
     # This is required with recent versions of lvm2, even if you use another solution for
     # your LV device nodes; without it lvm commands will stall for minutes waiting for udev.
@@ -516,7 +580,7 @@ Normally the Linux kernel will automatically scan for any "Linux raid autodetect
 **Adding RAID autodetect support to /init**
 
 ```
- /dev/md0
+raidautorun /dev/md0
 ```
 #### mdadm
 
@@ -537,7 +601,7 @@ Edit the mdadm.conf in the *initramfs* as required. An example mdadm.conf follow
 **mdadm.conf example**
 
 ```
- /dev/sd?*
+DEVICE /dev/sd?*
 ARRAY /dev/md0 UUID=627125a5:abce6b82:6c738e49:50adadae
 ```
 This mdadm.conf will scan all /dev/sd?\* devices and assemble the RAID device fitting the UUID 627125a5:abce6b82:6c738e49:50adadae.
@@ -549,7 +613,7 @@ Now Software RAID can be initialized in **/init**:
 **Assemble software RAIDs with mdadm**
 
 ```
- --assemble --scan
+mdadm --assemble --scan
 ```
 With this, the root partition /dev/md0 should be able to be mounted.
 
@@ -599,7 +663,7 @@ Now it is possible to unlock the encrypted root partition in **/init**:
 **Setting up LUKS encryption in /init**
 
 ```
- --tries 5 luksOpen /dev/sda1 luksroot
+cryptsetup --tries 5 luksOpen /dev/sda1 luksroot
 ```
 Once the passphrase is entered, the root partition will be available as /dev/mapper/luksroot.
 
@@ -653,7 +717,7 @@ If the network situation allows the use of a static network IP, it is possible t
 **Static network IP setup in /init**
 
 ```
- eth0 10.0.2.15
+ifconfig eth0 10.0.2.15
 route add default gw 10.0.2.2
 ```
 #### DHCP
@@ -678,7 +742,7 @@ Now, it's possible to obtain a dynamic IP address for eth0 using DHCP:
 **Network setup using DHCP**
 
 ```
- eth0 up
+ifconfig eth0 up
 udhcpc -t 5 -q -s /bin/simple.script
 ```
 #### DNS
@@ -736,7 +800,7 @@ Now just update the init-script:
 **Change keyboard layout**
 
 ```
- < /keymap.bmap
+loadkmap < /keymap.bmap
 ```
 ## Troubleshooting
 

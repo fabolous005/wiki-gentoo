@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/ASUS_TUF_GAMING_B550M-PLUS
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-22"
-fingerprint: ff51af55996a35ec
+fingerprint: "7f048b55992e35ac"
 license: CC BY-SA 4.0
 ---
 
@@ -15,6 +15,8 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+**Resources**
+
 This article details the ASUS TUF GAMING B550M-PLUS motherboard; providing Linux kernel configuration hints and workarounds. The motherboard has an B550 chipset and AM4 CPU socket compatible with Ryzen CPUs.
 
 ## Hardware
@@ -23,14 +25,14 @@ This article details the ASUS TUF GAMING B550M-PLUS motherboard; providing Linux
 
 | Device | Make/model | Status | Bus ID | Kernel driver(s) | Kernel version | Notes | 
 |---|---|---|---|---|---|---|
-| CPU | AMD Ryzen 7 3800X 8-Core Processor |  | N/A | N/A | 5.8.6-gentoo | This CPU rocks! | 
-| Audio device (on board) | Starship/Matisse HD Audio Controller |  | 09:00.4 | snd\_hda\_codec\_realtek | 5.8.6-gentoo |  | 
-| USB controller | USB controller: Advanced Micro Devices, Inc. \[AMD\] Device 43ee |  | 09:00.3 | ohci-pci | 5.8.6-gentoo |  | 
-| SATA controller | SATA controller: Advanced Micro Devices, Inc. \[AMD\] Device 43eb |  | 02:00.1 | ahci | 5.8.6-gentoo |  | 
-| NVMe disk | Non-Volatile memory controller: Kingston Technology Company, Inc. Device 2263 (rev 03) |  | 01:00.0 | nvme | 5.8.6-gentoo | KINGSTON A2000 SA2000M8/500G 500ГБ, M.2 2280, PCI-E x4, NVMe on M2\_1 | 
-| Ethernet controller | Ethernet controller: Realtek Semiconductor Co., Ltd. RTL8125 2.5GbE Controller (rev 04) |  | 06:00.0 | r8169 | 5.9.6-gentoo | Kernel 5.9.6 and >=sys-kernel/linux-firmware-20201022-r2 for RTL8125(B) support. | 
-| Video card | NVIDIA Corporation TU116 \[GeForce GTX 1660 SUPER\] |  | 10de:0185 | x11-drivers/nvidia-drivers | 5.8.6-gentoo |  | 
-| Memory | CRUCIAL BL16G32C16U4B.M16FE |  |  |  | 5.8.6-gentoo | 2 modules | 
+| CPU | AMD Ryzen 7 3800X 8-Core Processor | Works | N/A | N/A | 5.8.6-gentoo | This CPU rocks! | 
+| Audio device (on board) | Starship/Matisse HD Audio Controller | Works | 09:00.4 | snd\_hda\_codec\_realtek | 5.8.6-gentoo |  | 
+| USB controller | USB controller: Advanced Micro Devices, Inc. \[AMD\] Device 43ee | Works | 09:00.3 | ohci-pci | 5.8.6-gentoo |  | 
+| SATA controller | SATA controller: Advanced Micro Devices, Inc. \[AMD\] Device 43eb | Works | 02:00.1 | ahci | 5.8.6-gentoo |  | 
+| NVMe disk | Non-Volatile memory controller: Kingston Technology Company, Inc. Device 2263 (rev 03) | Works | 01:00.0 | nvme | 5.8.6-gentoo | KINGSTON A2000 SA2000M8/500G 500ГБ, M.2 2280, PCI-E x4, NVMe on M2\_1 | 
+| Ethernet controller | Ethernet controller: Realtek Semiconductor Co., Ltd. RTL8125 2.5GbE Controller (rev 04) | Works | 06:00.0 | r8169 | 5.9.6-gentoo | Kernel 5.9.6 and >=sys-kernel/linux-firmware-20201022-r2 for RTL8125(B) support. | 
+| Video card | NVIDIA Corporation TU116 \[GeForce GTX 1660 SUPER\] | Works | 10de:0185 | x11-drivers/nvidia-drivers | 5.8.6-gentoo |  | 
+| Memory | CRUCIAL BL16G32C16U4B.M16FE | Works |  |  | 5.8.6-gentoo | 2 modules | 
 
 ## Installation
 
@@ -48,10 +50,22 @@ You should except from [Gigabyte\_X570-UD](https://wiki.gentoo.org/wiki/Gigabyte
 - Ethernet driver section
 - Do not enable \`AMD Secure Memory Encryption (SME) support\` because with this option kernel doesn't boot
 
+```
+Processor type and features  --->
+    [ ] AMD Secure Memory Encryption (SME) support
+    [ ]   Activate AMD Secure Memory Encryption (SME) by default
+```
 
 
 **Network requires Kernel 5.9.8**
 
+```
+Device Drivers  --->
+  [*] Network device support  --->
+     [*]   Ethernet driver support  --->
+        [*]   Realtek devices
+           <*>     Realtek 8169/8168/8101/8125 ethernet support
+```
 ## Performance and CPU temperature
 
 The [my kernel config](https://github.com/sergeygalkin/cookbook/blob/master/gentoo/kernel_config/home/config) build time (after make clean) is about 3 minutes on this hardware

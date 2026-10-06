@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Dropbox
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-07-26"
-fingerprint: cb241f5b2ef701d7
+fingerprint: c3241f5b2ef701df
 license: CC BY-SA 4.0
 ---
 
@@ -22,6 +22,11 @@ license: CC BY-SA 4.0
 ### USE flags
 
 
+### USE flags for
+            [net-misc/dropbox](https://packages.gentoo.org/packages/net-misc/dropbox)
+            
+            Dropbox daemon (pretends to be GUI-less)
+
 ### Emerge
 
 Dropbox uses the CC BY-ND 3.0 license, which must be accepted before merging the package. This license is not generally considered to be free<sup>[\[1\]](https://wiki.gentoo.org#cite_note-1)</sup>, and more information can be found on the [Creative Commons website](https://creativecommons.org/licenses/by-nd/3.0/).
@@ -30,6 +35,9 @@ If /etc/portage/package.license is a file, add the following line:
 
 **`/etc/portage/package.license`**
 
+```
+net-misc/dropbox CC-BY-ND-3.0 dropbox
+```
 Alternatively, if /etc/portage/package.license/ is a directory, create the file /etc/portage/package.license/dropbox, and add the line there.
 
 Emerge the package:
@@ -44,6 +52,9 @@ Set the `DROPBOX_USERS` variable to the regular user name in /etc/conf.d/dropbox
 
 **`/etc/conf.d/dropbox`**
 
+```
+DROPBOX_USERS="larry"
+```
 To start Dropbox, run:
 
 `user $``dropbox start`
@@ -93,6 +104,9 @@ Dropbox may report that an outdated version is installed. If this is an issue, a
 
 **`/etc/portage/package.accept_keywords`**
 
+```
+net-misc/dropbox ~amd64
+```
 ## See also
 
 - [SparkleShare](https://wiki.gentoo.org/wiki/SparkleShare) — a cross platform, free, open source, Dropbox-like, git-based collaboration and file sharing tool.

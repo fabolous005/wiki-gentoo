@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Gentoo_FreeBSD
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-11-25"
-fingerprint: dcbcbc7b7cc6d285
+fingerprint: dcbcbc7b7cc6da85
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Archived article**
 
 This article is **archived (obsolete)**. Contents are surely incorrect for current usage, and are intended for historical reference only.
 
@@ -359,6 +361,7 @@ Now, Gentoo/FreeBSD 9.0 [stage 3](https://wiki.gentoo.org/index.php?title=Stage_
 cd /mnt
 ```
 `root #``fetch` [http://dev.gentoo.org/~aballier/fbsd9.0/x86/stage3-i686-freebsd-9.0.tar.bz2](http://dev.gentoo.org/~aballier/fbsd9.0/x86/stage3-i686-freebsd-9.0.tar.bz2) (for x86-fbsd users)
+`root #``fetch` [http://distfiles.gentoo.org/experimental/bsd/freebsd/stages/amd64-fbsd-9.1/stage3-amd64-freebsd-9.1.tar.bz2](http://distfiles.gentoo.org/experimental/bsd/freebsd/stages/amd64-fbsd-9.1/stage3-amd64-freebsd-9.1.tar.bz2) (for amd64-fbsd users)
 #### Unpacking stage3 and Portage snapshot
 
 `root #````

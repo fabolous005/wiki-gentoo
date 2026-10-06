@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Fglrx_Quick_Switch
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-12-23"
-fingerprint: "168f4b5fd8eeb9a3"
+fingerprint: "16855b5fd8e6bba7"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Deprecated article**
 
 This article is
 
@@ -45,11 +47,17 @@ The legacy driver for HD2000, HD3000 and HD4000 devices is currently in the tree
 
 **`/etc/portage/package.mask`**
 
+```
+x11-drivers/ati-drivers:1
+```
 If you try to emerge ati-drivers like this, it will downgrade xorg-server to 1.12.4. We can install this version to a separate root instead and then fool the regular system into thinking we also have this version. This assumes that you use xf86-input-evdev for input.
 
 `root #``ROOT="/mnt/fglrx" CPPFLAGS="-I/mnt/fglrx/usr/include/xorg" emerge --nodeps =x11-base/xorg-server-1.12.4 x11-drivers/xf86-input-evdev`
 **`/etc/portage/profile/package.provided`**
 
+```
+x11-base/xorg-server-1.12.4
+```
 ### Everyone can continue from here...
 
 Now you can emerge ati-drivers.
@@ -96,8 +104,24 @@ In hybrid system setups, drm is needed by i915 (intel) module so the grep expres
 
 **`/etc/lightdm/lightdm.conf`**
 
+```
+...
+[SeatDefaults]
+xserver-command=/etc/X11/xinit/xserverrc
+...
+```
 **`/etc/X11/gdm/custom.conf`**
 
+```
+...
+[server-Standard]
+command=/etc/X11/xinit/xserverrc -audit 0 
+...
+# There is a graphical tool for gdm setup that can be reached 
+# from the gdm greeter screen. Aside from "server-Standard" 
+# there are two more option groups where the path to /usr/bin/X 
+# can be replaced by the xserverrc script, as needed.
+```
 If you haven't already done so, you now need to have the **radeon** and **drm** drivers built as modules rather than built into the kernel. These are the `CONFIG_DRM_RADEON` and `CONFIG_DRM` options respectively. The framebuffer drivers can remain built in.
 
 Now we need to control which kernel modules are loaded. The good news is that this can be done from the kernel command line. The bad news is that GRUB 2 doesn't support complex configurations out of the box with grub2-mkconfig. The other good news is that we can still easily hack it for our needs. Apply this patch or manually apply the changes.

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Blender
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-10-02"
-fingerprint: ee83595ccdb6b8cc
+fingerprint: ee83595c4db6b8cc
 license: CC BY-SA 4.0
 ---
 
@@ -15,6 +15,10 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+[checking over the content](https://wiki.gentoo.org/index.php?title=Blender&action=edit)(
+
+[how to get started](https://wiki.gentoo.org/wiki/Gentoo_Wiki:Contributor%27s_guide)).
+
 **Blender** is a free and open-source 3D creation suite. It can perform a variety of tasks, including modeling, rigging, animation, simulation, rendering, compositing and motion tracking, video editing, game creation and even 2D animation<sup>[\[1\]](https://wiki.gentoo.org#cite_note-1)</sup>. Blender's functionality can also be extended using add-ons written in [Python](https://wiki.gentoo.org/wiki/Python). Blender is a community-driven project, but is supported by the Blender Foundation which funds core development<sup>[\[2\]](https://wiki.gentoo.org#cite_note-2)</sup>.
 
 ## Installation
@@ -23,6 +27,11 @@ license: CC BY-SA 4.0
 
 Blender has a lot of optional features that can be enabled for specific hardware or workflows. See [Configuration](https://wiki.gentoo.org/wiki/Blender#Configuration) for more information.
 
+
+### USE flags for
+            [media-gfx/blender](https://packages.gentoo.org/packages/media-gfx/blender)
+            
+            3D Creation/Animation/Publishing System
 
 | [+bullet](https://packages.gentoo.org/useflags/+bullet) | Enable Bullet (Physics Engine). | 
 | [+color-management](https://packages.gentoo.org/useflags/+color-management) | Enable color management via media-libs/opencolorio. | 

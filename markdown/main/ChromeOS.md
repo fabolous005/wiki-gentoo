@@ -5,15 +5,19 @@ url: https://wiki.gentoo.org/wiki/ChromeOS
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-06-15"
-fingerprint: "3da756370abe56b9"
+fingerprint: "35a356670aba72b9"
 license: CC BY-SA 4.0
 ---
 
 # ChromeOS
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+*Not to be confused with[wikipedia:Chromium OS](https://en.wikipedia.org/wiki/Chromium_OS).*
 
 **ChromeOS** is an operating system developed almost exclusively by Google in order to be used on the Chromebook hardware line.
 

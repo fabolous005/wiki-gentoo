@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/GRUB
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-09-28"
-fingerprint: "9c05d85a87a6a9cd"
+fingerprint: "9c05d85a87e4a9cd"
 license: CC BY-SA 4.0
 ---
 
@@ -39,21 +39,26 @@ The following platforms are supported depending on the target CPU:
 | Platform | Target |  |  |  |  |  |  | 
 |---|---|---|---|---|---|---|---|
 |  | i386 | ia64 | mips | mipsel | powerpc | sparc64 | x86\_64 | 
-| ARC |  |  |  |  |  |  |  | 
-| Coreboot |  |  |  |  |  |  |  | 
-| EFI |  |  |  |  |  |  |  | 
-| EMU |  |  |  |  |  |  |  | 
-| IEEE 1275 (Open Firmware) |  |  |  |  |  |  |  | 
-| Loongson |  |  |  |  |  |  |  | 
-| Multiboot |  |  |  |  |  |  |  | 
-| QEMU |  |  |  |  |  |  |  | 
-| QEMU-MIPS |  |  |  |  |  |  |  | 
-| PC |  |  |  |  |  |  |  | 
+| ARC | No | No | No | Yes | No | No | No | 
+| Coreboot | Yes | No | No | No | No | No | 32-bit | 
+| EFI | Yes | Yes | No | No | No | No | Yes | 
+| EMU | Yes | Yes | Yes | Yes | Yes | Yes | Yes | 
+| IEEE 1275 (Open Firmware) | Yes | No | No | No | Yes | Yes | 32-bit | 
+| Loongson | No | No | No | Yes | No | No | No | 
+| Multiboot | Yes | No | No | No | No | No | 32-bit | 
+| QEMU | Yes | No | No | No | No | No | 32-bit | 
+| QEMU-MIPS | No | No | Yes | No | No | No | No | 
+| PC | Yes | No | No | No | No | No | 32-bit | 
 
 The **amd64** profiles enable support for (U)EFI functionality by default. When using a BIOS-based system, set `GRUB_PLATFORMS` variable to `pc` to avoid unneeded dependencies.
 
 ### USE flags
 
+
+### USE flags for
+            [sys-boot/grub](https://packages.gentoo.org/packages/sys-boot/grub)
+            
+            GNU GRUB boot loader
 
 | [+branding](https://packages.gentoo.org/useflags/+branding) | Enable Gentoo specific branding | 
 | [+device-mapper](https://packages.gentoo.org/useflags/+device-mapper) | Enable support for devmapper; required for LUKS or LVM volume detection | 
@@ -71,10 +76,14 @@ The **amd64** profiles enable support for (U)EFI functionality by default. When 
 | [truetype](https://packages.gentoo.org/useflags/truetype) | Build and install grub-mkfont conversion utility | 
 | [verify-sig](https://packages.gentoo.org/useflags/verify-sig) | Verify upstream signatures on distfiles | 
 
+### Emerge
+
 To install GRUB:
 
 `root #``emerge --ask --newuse --deep sys-boot/grub`
 ### Additional software
+
+#### os-prober to automatically detect available operating systems
 
 Optionally, [sys-boot/os-prober](https://packages.gentoo.org/packages/sys-boot/os-prober) can be installed to detect and generate boot entries for other operating systems when running grub-mkconfig. In most cases, enables GRUB to automatically detect other operating systems including Windows and other Linux distributions, etc.
 
@@ -86,6 +95,8 @@ Optionally, [sys-boot/os-prober](https://packages.gentoo.org/packages/sys-boot/o
 `root #``emerge --ask dev-libs/libisoburn`
 #### Boot from ISOs from your main storage - without USB
 
+[https://wiki.grml.org/doku.php?id=rescueboot](https://wiki.grml.org/doku.php?id=rescueboot)
+
 From Guru:
 
 `root #``emerge --ask sys-boot/grml-rescueboot`
@@ -93,6 +104,27 @@ Or manually launch discs with GRUB's loopback device:
 
 **`/etc/grub.d/40_custom`**
 
+```
+#!/bin/sh
+exec tail -n +3 $0
+# This file provides an easy way to add custom menu entries.  Simply type the
+# menu entries you want to add after this comment.  Be careful not to change
+# the 'exec tail' line above.
+ 
+menuentry "systemrescue-11.02-amd64.iso" {
+     iso_path="/systemrescue-11.02-amd64.iso"
+     export iso_path
+     search --set=root --file $iso_path
+ 
+     # support booting recent GRUB versions on UEFI systems
+     rmmod tpm
+ 
+     loopback loop $iso_path
+     set root=(loop)
+     # the path below is on the SystemRescue ISO, not the hard drive
+     configfile /boot/grub/loopback.cfg
+}
+```
 After saving the entry, to update GRUB:
 
 `root #``grub-mkconfig -o /boot/grub/grub.cfg`
@@ -101,6 +133,8 @@ After saving the entry, to update GRUB:
 [sys-fs/mdadm](https://packages.gentoo.org/packages/sys-fs/mdadm) may be installed to enable RAID device detection:
 
 `root #``emerge --ask sys-fs/mdadm`
+## GRUB Bootloader Installation
+
 Installing GRUB as the system's boot loader depends on how the system is meant to boot (through which type of firmware, e.g. on PCs either the legacy [BIOS](https://wiki.gentoo.org/wiki/BIOS) or its successor [UEFI](https://wiki.gentoo.org/wiki/UEFI)) and how the disk on which the boot loader should be installed is partitioned (e.g. on a PC, whether it is using the [MBR](https://wiki.gentoo.org/wiki/Master_Boot_Record) or the [GPT](https://wiki.gentoo.org/wiki/GPT) [partition](https://wiki.gentoo.org/wiki/Partition) layout).
 
 This article covers the following situations:
@@ -111,6 +145,8 @@ This article covers the following situations:
 - [Open Firmware (IEEE 1275) on PowerPC](https://wiki.gentoo.org/wiki/GRUB#Open_Firmware_.28IEEE_1275.29_on_PowerPC)
 
 Select the installation instructions appropriate for the system.
+
+### UEFI with GPT
 
 #### Partitioning for UEFI with GPT
 
@@ -182,6 +218,11 @@ To create a [fstab](https://wiki.gentoo.org/wiki//etc/fstab) entry for this part
 
 **Adding the ESP's mountpoint**
 
+```
+PARTUUID=20f3d6cc-9781-3640-9232-0f5a8c662a60       /efi      vfat    noauto,noatime  1 2
+```
+#### Installing GRUB for EFI
+
 Before installing GRUB, the EFI System Partition must be mounted. If there is an entry for it in the [fstab](https://wiki.gentoo.org/wiki//etc/fstab), it can be mounted just by specifying the corresponding mountpoint. Assuming it is /efi, like in the example from the Handbook:
 
 `root #``mount /efi`
@@ -196,6 +237,8 @@ If the ESP is mounted elsewhere, an `--efi-directory` option specifying its moun
 
 `root #``grub-install --efi-directory=/efi`
 Installation finished. No error reported.
+
+### BIOS with MBR
 
 Make sure that the /boot location is available - if this uses a separate partition, make sure that it is mounted:
 
@@ -212,6 +255,8 @@ grub-install accepts a `--target` option to set the CPU architecture and system 
 Be sure to leave enough free space before the first partition. Starting the first partition at sector 2048 leaves at least 1 MiB of disk space for the master boot record. It is recommended (but not mandatory) to create an additional partition for GRUB called the *BIOS boot partition*. This partition just needs to be defined, but not formatted. It is only needed if the system is later migrated to the GPT partition layout. When sticking with MBR, this is not needed.
 
 If the [Gentoo installation instructions](https://wiki.gentoo.org/wiki/Handbook:Main_Page) were followed, this BIOS boot partition will already be available.
+
+### BIOS with GPT
 
 On a BIOS system with GPT partitioning, GRUB relies on a partition called "BIOS boot partition". This partition is not formatted with a file system, instead grub-install will copy parts of the boot loader to it. The "BIOS boot partition" is not the same partition as a /boot partition.
 
@@ -304,13 +349,19 @@ Creating partitions in gdisk is straightforward for users familiar with the fdis
 
 Users who have followed the [Gentoo installation instructions](https://wiki.gentoo.org/wiki/Handbook:Main_Page) will already have the proper partitioning layout set up.
 
+### Open Firmware (IEEE 1275) on PowerPC
+
 See [GRUB on Open Firmware (PowerPC)](<https://wiki.gentoo.org/wiki/GRUB_on_Open_Firmware_(PowerPC)>).
+
+### Install on encrypted partition
 
 If the whole disk is encrypted, including /boot, extra steps need to be taken, to allow GRUB to decrypt and mount the device.
 
 The [device-mapper](https://www.gentoo.org/support/use-flags/) [USE flag](https://wiki.gentoo.org/wiki/USE_flag) needs to be set when emerging the GRUB package. Then the [sys-fs/cryptsetup](https://packages.gentoo.org/packages/sys-fs/cryptsetup) package needs to be installed. The partition needs to be encrypted as [luks1](https://wiki.gentoo.org/wiki/Dm-crypt#Full_disk_encryption_booting) partition type.
 
 After installing GRUB on the device, depending on the way the kernel is setup, [initramfs](https://wiki.gentoo.org/wiki/Dm-crypt_full_disk_encryption#Generating_an_initramfs) might need to be modified in order for the system to boot completely. If a [distribution kernel](https://wiki.gentoo.org/wiki/Kernel#Distribution_kernels) is installed, [Dracut](https://wiki.gentoo.org/wiki/Dracut) will be installed on the system as well and can be used to finish the configuration.
+
+## Configuration
 
 Once GRUB has been installed, it can be configured to suit the specific system. In most cases, no additional configuration is required.
 
@@ -320,11 +371,11 @@ The grub-mkconfig script is used to generate a grub configuration. It uses the s
 
 | File | Format | Edits recommended? | Description | 
 |---|---|---|---|
-| /usr/sbin/grub-mkconfig | POSIX shell script |  | Installed as part of the [sys-boot/grub](https://packages.gentoo.org/packages/sys-boot/grub):2 package. Run this script to generate /boot/grub/grub.cfg after configuring the files described below. | 
-| /boot/grub/grub.cfg | GRUB shell script |  | The file generated by grub-mkconfig. This file is evaluated by GRUB's built-in script interpreter and doesn't necessarily support all POSIX commands or syntax. See the [scripting reference](https://www.gnu.org/software/grub/manual/grub.html#Shell_002dlike-scripting) in the GRUB manual for supported features. Be aware that modifications to this file won't persist to the next time grub-mkconfig is run. | 
-| /etc/grub.d/\* | POSIX shell scripts |  | Each script under /etc/grub.d/\* that has its execute bit set is evaluated in sequence, and the stdout is concatenated to form the final /boot/grub/grub.cfg (or whatever file is given to the grub-mkconfig `-o` option). These scripts use the current system shell and therefore can use any supported syntax. Ideally they should be POSIX-compatible scripts, and the output script must be compatible with the GRUB interpreter. It may be necessary to disable or add scripts. For instance, to add menu items that couldn't be automatically generated. | 
-| /boot/grub/custom.cfg | GRUB shell script |  | The /etc/grub.d/41\_custom script will reference this file to be read in at boot time if it exists. This file provides a place to add additional entries or commands and does not require regeneration of the main grub.cfg file. | 
-| /etc/default/grub | POSIX shell script |  | In most cases this is the only file that should be modified directly. It is mainly used to assign variables used by the scripts in /etc/grub.d to generate a working configuration file. See [GRUB configuration variables](https://wiki.gentoo.org/wiki/GRUB/Configuration_variables) or the [official reference](https://www.gnu.org/software/grub/manual/grub.html#Simple-configuration) for supported variables. | 
+| /usr/sbin/grub-mkconfig | POSIX shell script | No | Installed as part of the [sys-boot/grub](https://packages.gentoo.org/packages/sys-boot/grub):2 package. Run this script to generate /boot/grub/grub.cfg after configuring the files described below. | 
+| /boot/grub/grub.cfg | GRUB shell script | No | The file generated by grub-mkconfig. This file is evaluated by GRUB's built-in script interpreter and doesn't necessarily support all POSIX commands or syntax. See the [scripting reference](https://www.gnu.org/software/grub/manual/grub.html#Shell_002dlike-scripting) in the GRUB manual for supported features. Be aware that modifications to this file won't persist to the next time grub-mkconfig is run. | 
+| /etc/grub.d/\* | POSIX shell scripts | Maybe | Each script under /etc/grub.d/\* that has its execute bit set is evaluated in sequence, and the stdout is concatenated to form the final /boot/grub/grub.cfg (or whatever file is given to the grub-mkconfig `-o` option). These scripts use the current system shell and therefore can use any supported syntax. Ideally they should be POSIX-compatible scripts, and the output script must be compatible with the GRUB interpreter. It may be necessary to disable or add scripts. For instance, to add menu items that couldn't be automatically generated. | 
+| /boot/grub/custom.cfg | GRUB shell script | Maybe | The /etc/grub.d/41\_custom script will reference this file to be read in at boot time if it exists. This file provides a place to add additional entries or commands and does not require regeneration of the main grub.cfg file. | 
+| /etc/default/grub | POSIX shell script | Yes | In most cases this is the only file that should be modified directly. It is mainly used to assign variables used by the scripts in /etc/grub.d to generate a working configuration file. See [GRUB configuration variables](https://wiki.gentoo.org/wiki/GRUB/Configuration_variables) or the [official reference](https://www.gnu.org/software/grub/manual/grub.html#Simple-configuration) for supported variables. | 
 
 GRUB does not require the administrator to manually maintain a boot option configuration (as is the case with boot loaders such as GRUB Legacy and [LILO](https://wiki.gentoo.org/wiki/LILO)). Instead it can generate its configuration file (/boot/grub/grub.cfg) using the grub-mkconfig command. This utility will use the scripts in /etc/grub.d/ and the settings in /etc/default/grub.
 
@@ -375,6 +426,24 @@ Change the /etc/grub.d/40\_custom script to:
 
 **Adding an entry for dual booting**
 
+```
+#!/bin/sh
+exec tail -n +3 $0
+# This file provides an easy way to add custom menu entries.  Simply type the
+# menu entries you want to add after this comment.  Be careful not to change
+# the 'exec tail' line above.
+ 
+menuentry "FreeBSD" --class freebsd --class bsd --class os {
+ insmod ufs2
+ insmod bsd
+ set root=(hd0,1)
+ kfreebsd /boot/kernel/kernel
+ kfreebsd_loadenv /boot/device.hints
+ set kFreeBSD.vfs.root.mountfrom=ufs:/dev/ada0s1a
+ set kFreeBSD.vfs.root.mountfrom.options=rw
+ set kFreeBSD.hw.psm.synaptics_support=1
+}
+```
 /dev/sda1 or `(hd0,1)` is the partition in which FreeBSD resides. If the normal UFS install was used for the FreeBSD partition then /dev/sda1 is a container (something like a logical partition). It consists of the swap and root partition. Verify the 40\_custom script is executable by running ls -la /etc/grub.d/40\_custom. If the executable bit is not set then set it using the chmod u+x 40\_custom command.
 
 Next install GRUB and update the configuration file:
@@ -406,6 +475,19 @@ GRUB 2 was built with a truly improved chainload mode when compared to GRUB Lega
 
 **Chainloading another bootloader**
 
+```
+#!/bin/sh
+exec tail -n +3 $0
+# This file provides an easy way to add custom menu entries.  Simply type the
+# menu entries you want to add after this comment.  Be careful not to change
+# the 'exec tail' line above.
+ 
+menuentry "Custom Super-bootloader example" {
+     insmod part_msdos
+     insmod chain
+     chainloader (hd1,1)+1
+}
+```
 For more information on chainloading, please see the [Chainloading](https://wiki.gentoo.org/wiki/GRUB/Chainloading) sub-page.
 
 To secure GRUB so it is not possible for anyone to change boot parameters or use the command line, add a user/password combination to GRUB's configuration files. The program grub-mkpasswd-pbkdf2 generates password hashes for GRUBː
@@ -467,6 +549,11 @@ To select this font in-kernel, `CONFIG_FONT_TER16x32` has to be enabled.
 
 **Kernel compiled-in fonts**
 
+```
+Library routines  --->
+      [*] Select compiled-in fonts
+      [*] Terminus 16x32 font (not supported by all drivers)
+```
 The same font is available as [media-fonts/terminus-font](https://packages.gentoo.org/packages/media-fonts/terminus-font), which can then be used for GRUB as well.
 
 `root #``emerge --ask media-fonts/terminus-font``root #``grub-mkfont -s 32 -o /boot/grub/fonts/terminus32b.pf2 /usr/share/fonts/terminus/ter-u32b.otb`
@@ -511,6 +598,8 @@ To re-install these files, follow the steps in the relevant sections:
 
 Most of the issues can be resolved by ensuring that the partition layout is correct. Make sure enough space is available before the first partition of the disk, or optionally make sure that a *BIOS boot partition* is available. Also verify that /boot/grub/grub.cfg was correctly generated with grub-mkconfig, or generate one with a custom menu entry.
 
+### os-prober not running
+
 When running the grub-mkconfig command, os-prober is not running as expected, even though it is installed:
 
 `root #``grub-mkconfig -o /boot/grub/grub.cfg`
@@ -544,7 +633,7 @@ done
 
 ### Motherboard firmware not finding the .EFI file
 
-Some especially older (pre-2020) motherboards from certain manufacturers seem to only support one location for PE32+ files in the EFI System Partition (ESP): the [fallback or removable media path](https://wiki.gentoo.org/wiki/EFI_System_Partition#Removable_media). If this seems to be the case, GRUB's \EFI\BOOT directory of the ESP. First, make sure the ESP is mounted. Presuming it is mounted at /efi, as suggested in the Handbook, execute:
+Some especially older (pre-2020) motherboards from certain manufacturers seem to only support one location for PE32+ files in the EFI System Partition (ESP): the [fallback or removable media path](https://wiki.gentoo.org/wiki/EFI_System_Partition#Removable_media). If this seems to be the case, GRUB's  file can be renamed and moved to the \EFI\BOOT directory of the ESP. First, make sure the ESP is mounted. Presuming it is mounted at /efi, as suggested in the Handbook, execute:
 
 `root #````
 mkdir -p /efi/EFI/BOOT

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Freefall
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2018-07-03"
-fingerprint: "170e346a65758b8f"
+fingerprint: "170e346ae175898f"
 license: CC BY-SA 4.0
 ---
 
@@ -15,6 +15,8 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+**Resources**
+
 **freefall** is a simple daemon providing HDD shock protection for HP laptops supporting the feature officially called "HP Mobile Data Protection System 3D" or "HP 3D DriveGuard".
 
 ## Installation
@@ -23,6 +25,11 @@ license: CC BY-SA 4.0
 
 You need to activate the following kernel option either as built-in or as module.
 
+```
+Device drivers --->
+    [*] X86 Platform Specific Device Drivers  --->
+        <*> HP laptop accelerometer
+```
 ### Emerge
 
 The freefall daemon and init script can be found in [sys-apps/linux-misc-apps](https://packages.gentoo.org/packages/sys-apps/linux-misc-apps):

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/GPhoto
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-08-10"
-fingerprint: "1e034b7aa096f9dc"
+fingerprint: e034b7ef096f9dc
 license: CC BY-SA 4.0
 ---
 
@@ -31,7 +31,15 @@ another way of enabling it is by creating a file named gphoto2 in /etc/portage/p
 
 **`/etc/portage/package.use/gphoto2`**
 
+```
+*/* gphoto2
+```
 Enabling gPhoto support will pull in the [media-libs/libgphoto2](https://packages.gentoo.org/packages/media-libs/libgphoto2) package, which has the following USE flags:
+
+### USE flags for
+            [media-libs/libgphoto2](https://packages.gentoo.org/packages/media-libs/libgphoto2)
+            
+            Library that implements support for numerous digital cameras
 
 | [doc](https://packages.gentoo.org/useflags/doc) | Add extra documentation (API, Javadoc, etc). It is recommended to enable per package instead of globally | 
 | [examples](https://packages.gentoo.org/useflags/examples) | Install examples, usually source code | 

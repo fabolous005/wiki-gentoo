@@ -5,22 +5,32 @@ url: https://wiki.gentoo.org/wiki/Apple_Keyboard
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-03-23"
-fingerprint: fec69929797db189
+fingerprint: fec6a9297966b189
 license: CC BY-SA 4.0
 ---
 
 # Apple Keyboard
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 ## Installation
 
 ### Kernel
 
-**Enabling the Apple HID driver for Linux 4.1 or higher**
+KERNEL **Enabling the Apple HID driver for Linux 4.1 or higher**
 
+```
+    Device Drivers --->
+          HID support --->
+                  Special HID drivers --->
+                    <*> Apple {i,Power,Mac}Books
+```
 ## Configuration
 
 ### Behavior
@@ -33,7 +43,7 @@ When using a non-English layout, the `<` and `>` keys may be mapped to the `^` a
 `root #``echo 0 > /sys/module/hid_apple/parameters/iso_layout`
 If the Apple HID driver is built into the kernel, create the following [local.d](https://wiki.gentoo.org/wiki/Local.d) script to have the module parameters set at boot:
 
-**`/etc/local.d/hid_apple.start`**
+FILE **`/etc/local.d/hid_apple.start`**
 
 ```
 #!/bin/sh
@@ -47,4 +57,8 @@ Set the local.d script as executable:
 `root #``chmod +x /etc/local.d/hid_apple.start`
 If the Apple HID driver is built as a module, add the following to /etc/modprobe.d/keyboard.conf to have the module parameters set at boot:
 
-**`/etc/modprobe.d/keyboard.conf`**
+FILE **`/etc/modprobe.d/keyboard.conf`**
+
+```
+options hid_apple fnmode=2 iso_layout=0
+```

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Future_EAPI/Triggers
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2019-10-28"
-fingerprint: ce69ba55e2334220
+fingerprint: ce6dba55c2336220
 license: CC BY-SA 4.0
 ---
 
@@ -60,6 +60,14 @@ Trigger conditions are described in metadata/triggers.desc. The file uses the sa
 
 **`metadata/triggers.desc`**
 
+```
+# top-directory               filename-pattern   grep-condition   phase  exec-mode      trigger-name
+/usr/share/applications       *.xml              ^MimeType=       *      after-package  xdg_desktop_database
+/usr/share/icons              *.png              -                *      after-package  gtk_icon_cache
+/usr/share/icons              *.svg              -                *      after-package  gtk_icon_cache
+/usr/lib64/gdk-pixbuf-2.0     *                  -                *      after-package  gtk_pixbuf_cache
+/usr/lib32/gdk-pixbuf-2.0     *                  -                *      after-package  gtk_pixbuf_cache
+```
 **top-directory**
 
 - The top directory which is scanned *recursively* for files matching the trigger rules. For simplicity, we could avoid allowing patterns here. However, if we don't want to reiterate over all possible libdirs, we should probably allow patterns but then we need proper pattern handling and that might be PITA in Python.
@@ -99,4 +107,14 @@ Those are the actual trigger code files. Each file is named ${name}.trigger.
 
 **`xdg_desktop_database.trigger`**
 
+```
+xdg_desktop_database_trigger() {
+  if type -P update-desktop-database &>/dev/null; then
+    update-desktop-database -q "${EROOT}"/usr/share/applications || die
+  else
+    # remove stale file if present
+    rm -f "${EROOT}"/usr/share/applications/mimeinfo.cache || die
+  fi
+}
+```
 The trigger defines a function named by itself so that we can easily include them in saved environment for `postrm`.

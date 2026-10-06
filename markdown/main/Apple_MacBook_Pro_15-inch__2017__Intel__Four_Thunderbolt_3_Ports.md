@@ -232,6 +232,11 @@ To enlarge tiny font during GRUB, change GRUB\_GFXMODE=auto into:
 
 **GRUB configuration file**
 
+```
+GRUB_GFXMODE=1440x900
+GRUB_GFXPAYLOAD_LINUX=keep
+GRUB_CMDLINE_LINUX_DEFAULT= .... fbcon=font:TER12x24
+```
 then run
 
 `root #``update-grub`

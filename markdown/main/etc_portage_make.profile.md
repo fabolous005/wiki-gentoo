@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki//etc/portage/make.profile
 hostname: gentoo.org
 sitename: "/etc/portage/make.profile"
 date: "2022-03-07"
-fingerprint: "7fda69fef7f4d32a"
+fingerprint: "5fda69feff76d32a"
 license: CC BY-SA 4.0
 ---
 
 # /etc/portage/make.profile
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Fortune
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-05-25"
-fingerprint: b28a0cc695678b9b
+fingerprint: "32ca0cc297678bbb"
 license: CC BY-SA 4.0
 ---
 
 # fortune
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -22,6 +24,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [games-misc/fortune-mod](https://packages.gentoo.org/packages/games-misc/fortune-mod)
+            
+            The notorious fortune program
 
 ### Emerge
 
@@ -38,8 +45,13 @@ fortune [-afilsw] [-m pattern] [-n number] [ [#%] file/directory/all
 
 The fortune quote database is stored in separate files for different categories of quotes in the /usr/share/fortune directory. To add fortunes to the database, edit any of the text files in the directory, with a % before and after the quote, as an example,
 
-**`/usr/share/fortune/fortunes`**
+FILE **`/usr/share/fortune/fortunes`**
 
+```
+%
+Larry the Cow beckons you to explore the Gentoo Wiki!
+%
+```
 ### Cowsay
 
 Fortune supports the cowsay package.

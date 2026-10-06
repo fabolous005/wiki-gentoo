@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Bc
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-06-11"
-fingerprint: "1ca1984bc2ff7b4a"
+fingerprint: "1eb3984be6ff3b5a"
 license: CC BY-SA 4.0
 ---
 
@@ -22,6 +22,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [sys-devel/bc](https://packages.gentoo.org/packages/sys-devel/bc)
+            
+            Handy console-based calculator utility
 
 ### Emerge
 
@@ -189,6 +194,16 @@ Create a shell script to reuse an existing calculation. For example, create a si
 
 **Fahrenheit to Celsius temperature conversion**
 
+```
+#!/usr/bin/bc -q
+scale=2
+print "\nConvert Fahrenheit degrees to Celsius\n\n"
+print "Enter temperature in Fahrenheit: " ; fah = read()
+print "\n"
+print "The equivalent Temperature in Celsius is: "
+(fah - 32.0) * 5.0 / 9.0
+quit
+```
 ### Calculate π
 
 The number Pi *π* is always equal to the circumference divided by the diameter of a circle. So, use the bc math library with the arctangent function of 1 and multiply it by 4 to get the Pi value.
@@ -210,6 +225,23 @@ It is also possible to write it in the following way in a bc script
 
 **A Simple Arithmetic Calculator using bc**
 
+```
+#!/usr/bin/bc -q
+scale=2
+print "\nA Simple Arithmetic Calculator using bc\n"
+print "  Enter x and y value then select an operation.\n\n"
+while (1) {
+  print "x=? "; x = read()
+  print "y=? "; y = read()
+  print "Choose an operation: addition (1),  subtraction (2), multiplication (3), division (4) "; op = read()
+  if (op == 1) print "Addition: ", x, "+", y, "=", x+y;
+  if (op == 2) print "Subtraction: ", x, "-", y, "=", x-y;
+  if (op == 3) print "Multiplication: ", x, "*", y, "=", x*y;
+  if (op == 4) print "Division: ", x, "/", y, "=", x/y;
+  print "\n\n"
+}
+quit
+```
 Below is output of running the previous bc shell script in a bash terminal.
 
 `user $````

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Dm-crypt
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-05-08"
-fingerprint: "8e0449500786b3e4"
+fingerprint: ae0449500786b3e4
 license: CC BY-SA 4.0
 ---
 
@@ -277,6 +277,29 @@ Edit the /etc/conf.d/dmcrypt file and add in entries for each file system. The s
 
 **Automatically enabling two encrypted file systems**
 
+```
+# Definition for /dev/mapper/home (for /home)
+target=home
+source=UUID="abcdef12-321a-a324-a88c-cac412befd98"
+key=/etc/keys/home.key
+# If trim is desired, it can be enabled as below.
+# Keep in mind that trim is not enabled by default for a security reason.
+# This configuration is optional, otherwise default options apply.
+options="--allow-discards"
+ 
+# Definition for /dev/mapper/local (for /usr/local)
+target=local
+source=UUID="fedcba34-4823-b423-a94c-cadbefda2943"
+key=/etc/keys/local.key
+ 
+# Using an encrypted partition as key source.
+target=other
+source=UUID="ff24303e-49e1-4d13-b8ad-fc6b7e1d8174"
+key=/keys/other.key                                # Relative to the root of the encrypted partition.
+remdev=/dev/mapper/home                            # The recently decrypted partition.
+ 
+# An empty line is important at the end of the file
+```
 If using passphrase instead of a keyfile, you'll be prompted for it on boot (given a simple target and source configuration).
 
 Summary of available entries:
@@ -302,6 +325,10 @@ Then, update the /etc/fstab file accordingly:
 
 **Automounting the decrypted file systems**
 
+```
+UUID="4321421a-4321-a6c9-de52-ba6421efab76"   /home        ext4   defaults   0   0
+UUID="bdef2432-3bd1-4ab4-523d-badcf234a342"   /usr/local   ext4   defaults   0   0
+```
 ### Add initscript to bootlevel
 
 Don't forget to have the dmcrypt init service launched at boot:

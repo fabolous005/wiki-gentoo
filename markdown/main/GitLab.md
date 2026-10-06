@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/GitLab
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-12-21"
-fingerprint: f2077f5e1b05bfca
+fingerprint: f20f7f5e1b053dca
 license: CC BY-SA 4.0
 ---
 
@@ -41,6 +41,18 @@ GitLab requires the use of a database backend. Since version 12 [PostgreSQL](htt
 
 ### USE flags
 
+```
+U I 
+- - favicon       : For the Custom Favicon to work, GraphicsMagick needs to be installed
++ + gitaly_git    : Use the Git version provided by Gitaly
+- - gitlab-config : Config in /opt/gitlab/gitlab/config instead of /etc/gitlab (s. news 2021-02-22-etc-gitlab)
+- - kerberos      : Add kerberos support
+- - mail_room     : Enables support for GitLab MailRoom 
+- - pages         : Pulls in the compatible version of www-apps/gitlab-pages
+- - prometheus    : Enables support for the Prometheus monitoring system
+- - relative_url  : Support for relative url
++ + systemd       : Enable use of systemd-specific libraries and features like socket activation or session tracking
+```
 The `gitaly-config` USE flag is explained in the [2021-02-22-etc-gitlab](https://gitlab.awesome-it.de/overlays/gitlab/-/blob/master/metadata/news/2021-02-22-etc-gitlab/2021-02-22-etc-gitlab.en.txt) news of the overlay (since version 13.11.4 its default changed to *on*, as recommended by upstream). The `gitaly_git` USE flag uses the bundled Git from gitlab-gitaly instead of [dev-vcs/git](https://packages.gentoo.org/packages/dev-vcs/git). The former `puma` and `unicorn` USE flags were removed because with GitLab 14.0 Unicorn was removed by upstream and Puma is now the only supported web server. The `systemd` USE flag is preselected since the maintainer of the overlay ran out of OpenRC hosts for init script testing. :-) But with the help of some users of the overlay the OpenRC init scripts will be provided further on.
 
 ### Preparations
@@ -51,6 +63,11 @@ Add the following keywords to be accepted by Portage (we use amd64 as architectu
 
 **Keywords**
 
+```
+www-apps/gitlab ~amd64
+dev-vcs/gitlab-shell ~amd64
+=dev-ruby/rubygems-3.5* ~amd64
+```
 The overlay overrides the gentoo [acct-user/git](https://packages.gentoo.org/packages/acct-user/git) package introducing a new USE flag `gitlab` which creates the git user as required by [www-apps/gitlab](https://packages.gentoo.org/packages/www-apps/gitlab) with `HOME` in /var/lib/gitlab/ and as member in the redis group. Add the USE Flag:
 
 `root #``echo "acct-user/git gitlab" >> /etc/portage/package.use/gitlab`

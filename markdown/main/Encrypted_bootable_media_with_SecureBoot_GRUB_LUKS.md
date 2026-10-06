@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Encrypted_bootable_media_with_SecureBoot/GRUB/
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-03-25"
-fingerprint: "9dc8c932a09cab54"
+fingerprint: "9dc8c932a49cab54"
 license: CC BY-SA 4.0
 ---
 
@@ -154,7 +154,7 @@ Example custom config to boot kernel with initramfs from encrypted [GRUB](https:
 **`/mnt/bootmedia_grubdata/grub/custom.cfg`**
 
 ```
- "host1 (menu)" {
+submenu "host1 (menu)" {
     menuentry "host1 [curr]" {
         linux /linux/host1/kernel-curr
         initrd /linux/host1/initramfs.cpio.xz /linux/additional.cpio
@@ -170,7 +170,7 @@ Example custom config to boot SystemRescue ISO<sup>[\[1\]](https://wiki.gentoo.o
 **`/mnt/bootmedia_grubdata/grub/custom.cfg`**
 
 ```
- "SystemRescue (menu)" {
+submenu "SystemRescue (menu)" {
     set sysrcd_version='11.01'
     menuentry "Boot SystemRescue ${sysrcd_version}" {
         set gfxpayload=keep
@@ -198,6 +198,8 @@ cryptsetup close "${bootmedia##*/}-part3.luks"
 `root #````
 unset bootmedia
 ```
+## See also
+
 - [UEFI](https://wiki.gentoo.org/wiki/UEFI) — a firmware standard for boot ROM designed to provide a stable API for interacting with system hardware. On [x86](https://en.wikipedia.org/wiki/x86) it replaced the legacy [BIOS](https://wiki.gentoo.org/wiki/BIOS).
 - [Secure Boot](https://wiki.gentoo.org/wiki/Secure_Boot) — an enhancement of the security of the pre-boot process of a [UEFI](https://wiki.gentoo.org/wiki/UEFI) system.
 - [GRUB](https://wiki.gentoo.org/wiki/GRUB) — a multiboot secondary [bootloader](https://wiki.gentoo.org/wiki/Bootloader) capable of loading kernels from a variety of [filesystems](https://wiki.gentoo.org/wiki/Filesystem) on most system architectures.

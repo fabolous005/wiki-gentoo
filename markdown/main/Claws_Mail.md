@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Claws_Mail
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-06-08"
-fingerprint: fa42125ec9d63844
+fingerprint: fa42125ec9d6384c
 license: CC BY-SA 4.0
 ---
 
@@ -25,6 +25,11 @@ For Gentoo Linux it is provided by the [mail-client/claws-mail](https://packages
 
 ### USE flags
 
+
+### USE flags for
+            [mail-client/claws-mail](https://packages.gentoo.org/packages/mail-client/claws-mail)
+            
+            An email client (and news reader) based on GTK+
 
 | [+gnutls](https://packages.gentoo.org/useflags/+gnutls) | Prefer net-libs/gnutls as SSL/TLS provider (ineffective with USE=-ssl) | 
 | [+imap](https://packages.gentoo.org/useflags/+imap) | Add support for IMAP (Internet Mail Application Protocol) | 

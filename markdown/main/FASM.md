@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/FASM
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-07-19"
-fingerprint: f45a300f4312bbaa
+fingerprint: fc5a300f4312bbaa
 license: CC BY-SA 4.0
 ---
 
@@ -31,6 +31,7 @@ add [an overlay which provides them](https://gpo.zugaina.org/Search?search=fasm%
 
 Using [eselect repository](https://wiki.gentoo.org/wiki/Eselect/Repository):
 
+`root #``eselect repository add piniverlay git` [https://github.com/pinicarus/gentoo-overlay.git](https://github.com/pinicarus/gentoo-overlay.git)
 `root #````
 emaint sync -r piniverlay
 ```

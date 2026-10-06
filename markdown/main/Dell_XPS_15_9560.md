@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Dell_XPS_15_9560
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-12-20"
-fingerprint: bdd0985f59a211c9
+fingerprint: "3f98895f9da69229"
 license: CC BY-SA 4.0
 ---
 
@@ -21,21 +21,21 @@ license: CC BY-SA 4.0
 
 | Device | Make/model | Status | Kernel driver(s) | Kernel version | 
 |---|---|---|---|---|
-| CPU | Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz |  |  | 4.12.5 | 
-| Memory | 16GB DDR4-2400MHz |  |  |  | 
-| Hard disk | 512GB PCIe Solid State Drive |  | nvme |  | 
-| Video card | NVIDIA Corporation GP107M GeForce GTX 1050 Mobile (4GB GDDR5) |  | nvidia, fbsimple | 4.14.8 | 
-| Video card | Intel Corporation Device 591b (rev 04) |  | i915 | 4.13 | 
-| Wireless | Killer 1535 802.11ac 2x2 WiFi ( [Qualcomm Atheros QCA6174](https://wiki.gentoo.org/wiki/Qualcomm_Atheros_QCA6174)) |  | ath10k\_core ath10k\_pci linux-firmware |  | 
-| Touchscreen | ELAN Touchscreen |  | usbhid hid\_multitouch | 4.15.4 | 
-| Touchpad | [Synaptics](https://wiki.gentoo.org/wiki/Synaptics) TouchPad |  | mouse\_ps2\_synaptics\_smbus | 4.13.0 | 
-| Bluetooth | Killer 1535 Bluetooth |  | bluetooth btrtl btintel bnep btbcm rfcomm btusb linux-firmware | 4.15.4 | 
-| USB 3.0 |  |  | xhci\_hcd |  | 
-| Thunderbolt 3 | 2 lanes of PCI Express Gen 3. Supports: Power In / Charging, PowerShare, 40Gbps Bi-Directional, 3.1 USB Gen 2 (10Gbps), VGA, HDMI, Ethernet and USB-A via Dell Adapter (Sold Separately) |  | ? |  | 
-| SD Card Reader | SD, SDHC, SDXC |  | ? |  | 
-| Webcam | Widescreen HD (720p) |  | uvc | 4.14.8 | 
-| Microphone | Dual array digital microphones |  | ? |  | 
-| Fingerprint reader | 138a:0091 Validity Sensors, Inc. |  | None (see below) |  | 
+| CPU | Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz | Works |  | 4.12.5 | 
+| Memory | 16GB DDR4-2400MHz | Works |  |  | 
+| Hard disk | 512GB PCIe Solid State Drive | Works | nvme |  | 
+| Video card | NVIDIA Corporation GP107M GeForce GTX 1050 Mobile (4GB GDDR5) | Works | nvidia, fbsimple | 4.14.8 | 
+| Video card | Intel Corporation Device 591b (rev 04) | Works | i915 | 4.13 | 
+| Wireless | Killer 1535 802.11ac 2x2 WiFi ( [Qualcomm Atheros QCA6174](https://wiki.gentoo.org/wiki/Qualcomm_Atheros_QCA6174)) | Works | ath10k\_core ath10k\_pci linux-firmware |  | 
+| Touchscreen | ELAN Touchscreen | Works | usbhid hid\_multitouch | 4.15.4 | 
+| Touchpad | [Synaptics](https://wiki.gentoo.org/wiki/Synaptics) TouchPad | Works | mouse\_ps2\_synaptics\_smbus | 4.13.0 | 
+| Bluetooth | Killer 1535 Bluetooth | Works | bluetooth btrtl btintel bnep btbcm rfcomm btusb linux-firmware | 4.15.4 | 
+| USB 3.0 |  | Works | xhci\_hcd |  | 
+| Thunderbolt 3 | 2 lanes of PCI Express Gen 3. Supports: Power In / Charging, PowerShare, 40Gbps Bi-Directional, 3.1 USB Gen 2 (10Gbps), VGA, HDMI, Ethernet and USB-A via Dell Adapter (Sold Separately) | Works | ? |  | 
+| SD Card Reader | SD, SDHC, SDXC | Works | ? |  | 
+| Webcam | Widescreen HD (720p) | Works | uvc | 4.14.8 | 
+| Microphone | Dual array digital microphones | Works | ? |  | 
+| Fingerprint reader | 138a:0091 Validity Sensors, Inc. | No | None (see below) |  | 
 
 Regarding the unsupported fingerprint reader, according to arch wiki, "The fingerprint reader is a Validity/Synaptics model with USB id 138a:0090. There currently is no Linux driver but an open source Linux driver is being developed by reverse engineering the Windows driver.". This implies some or earlier versions have the 138a:0090 version, which a driver is now functional for, however mine has the 138a:0091 version, which is unsupported. See [driver development github repository](https://github.com/nmikhailov/Validity90) for further information.
 
@@ -59,27 +59,69 @@ We want to enable a few things in {{Path|/etc/portage/package.use} ...
 **`/etc/portage/package.use/00video`**
 
 ```
- VIDEO_CARDS: -* nvidia
+*/* VIDEO_CARDS: -* nvidia
 ```
 **`/etc/portage/package.use/00input`**
 
 ```
- INPUT_DEVICES: evdev wacom libinput synaptics
+*/* INPUT_DEVICES: evdev wacom libinput synaptics
 ```
 ### Kernel
 
 **Input support**
 
+```
+CONFIG_INPUT_EVDEV=y
+```
 **NVMe support**
 
+```
+CONFIG_NVME_CORE=y
+CONFIG_NVME_=y
+```
 **Wireless support**
 
+```
+CONFIG_ATH10K=m=y
+CONFIG_ATH10K_PCI=m
+CONFIG_ATH10K_AHB=y
+CONFIG_ATH10K_USB=m
+```
 **Real Time Clock support**
 
+```
+CONFIG_RTC_CLASS=y
+CONFIG_RTC_HCTOSYS=y
+CONFIG_RTC_SYSTOHC=y
+CONFIG_RTC_NVMEM=y
+CONFIG_RTC_INTF_SYSFS=y
+CONFIG_RTC_INTF_PROC=y
+CONFIG_RTC_INTF_DEV=y
+CONFIG_RTC_DRV_CMOS=y
+```
 **ACPI button support**
 
+```
+CONFIG_DELL_SMBIOS=y
+CONFIG_DELL_WMI=y
+CONFIG_DELL_WMI_AIO=y
+CONFIG_DELL_WMI_LED=y
+CONFIG_DELL_SMO8800=y
+CONFIG_DELL_RBTN=y
+```
 **Graphics support**
 
+```
+CONFIG_FB=y
+CONFIG_FB_BACKLIGHT=y
+CONFIG_FB_NVIDIA=n
+CONFIG_FB_RIVA=n
+CONFIG_DRM_NOUVEAU=n
+CONFIG_FB_EFI=n
+CONFIG_FB_VGA16=n
+CONFIG_FB_UVESA=n
+CONFIG_FB_SIMPLE=y
+```
 ### Touchpad
 
 [Synaptics](https://wiki.gentoo.org/wiki/Synaptics) touch pad.

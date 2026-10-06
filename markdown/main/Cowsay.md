@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Cowsay
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-04-20"
-fingerprint: ce8e9c4a1cc2899b
+fingerprint: ce9e9cca1cc289fb
 license: CC BY-SA 4.0
 ---
 
 # cowsay
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -69,6 +71,11 @@ Xcowsay is a graphical variant of cowsay that spawns a cartoon depiction of a co
 ### USE flags
 
 
+### USE flags for
+            [games-misc/xcowsay](https://packages.gentoo.org/packages/games-misc/xcowsay)
+            
+            Displays a cute cow and message on your desktop
+
 ### Emerge
 
 `root #``emerge --ask games-misc/xcowsay`
@@ -111,8 +118,11 @@ Xcowsay supports the Fortune package.
 
 First, edit your use flags for fortune-mod:
 
-**`/etc/portage/repos.conf/tde.conf`**
+FILE **`/etc/portage/repos.conf/tde.conf`**
 
+```
+games-misc/xcowsay fortune
+```
 Then, emerge fortune:
 
 `root #``emerge --ask games-misc/fortune-mod`

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Asrock_Z97_Extreme4
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-22"
-fingerprint: "2dccd357de9ff16b"
+fingerprint: "3f088154d597394b"
 license: CC BY-SA 4.0
 ---
 
@@ -16,6 +16,8 @@ From Gentoo Wiki
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 ## General Information
 
@@ -41,34 +43,91 @@ Select "AHCI SATA support" module.
 
 KERNEL **SATA on Asrock Z97 Extreme4**
 
+```
+Device Drivers --->
+  Serial ATA and Parallel ATA drivers (libata)  --->
+   [*]   ATA ACPI Support
+   <*>   AHCI SATA support
+   <*>   Platform AHCI SATA support
+```
 ### Sound
 
 KERNEL **Sound on Asrock Z97 Extreme4**
 
+```
+Device Drivers --->
+ <*> Sound card support  --->
+  <*> Advanced Linux Sound Architecture --->
+   <*> PCI sound devices --->
+     HD-Audio  --->
+     <*> Build Realtek HD-audio codec support
+```
 ### USB
 
 KERNEL **USB on Asrock Z97 Extreme4**
 
+```
+Device Drivers --->
+  USB support --->
+   <*> xHCI HCD (USB 3.0) support
+   <*> EHCI HCD (USB 2.0) support
+```
 ### Network
 
 KERNEL **NIC on Asrock Z97 Extreme**
 
+```
+Device Drivers --->
+  [*] Network device support --->
+   [*]   Ethernet driver support  --->
+    [*]   Intel devices 
+     <M>     Intel(R) PRO/1000 PCI-Express Gigabit Ethernet support
+```
 ### Intel MEI
 
 KERNEL **MEI on Asrock Z97 Extreme**
 
+```
+Device Drivers --->
+  Misc devices  --->
+   {M} Intel Management Engine Interface
+     <M> ME Enabled Intel Chipsets
+```
 ### Sensor
 
 KERNEL **Sensor on Asrock Z97 Extreme**
 
+```
+Device Drivers --->
+  <*> Hardware Monitoring support  --->
+   <M>   Nuvoton NCT6775F and compatibles
+```
 ### PCI Express
 
 KERNEL **PCI Express on Asrock Z97 Extreme**
 
+```
+Bus options (PCI etc.)  --->
+  [*] PCI support
+   [*] Support mmconfig PCI config space access
+    [*] PCI Express Port Bus support
+```
 ### SMBus
 
 KERNEL **SMBus on Asrock Z97 Extreme**
 
+```
+Device Drivers --->
+  I2C support  --->
+   <*> I2C support
+    [*] ACPI I2C Operation region support
+    [*] Enable compatibility bits for old user-space
+    <M> I2C device interface
+    [*] Autoselect pertinent helper modules
+    [*] I2C slave support
+     I2C Hardware Bus support  --->
+      <M> Intel 82801 (ICH/PCH)
+```
 ### Warning
 
 All tested and working very well.

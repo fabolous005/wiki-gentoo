@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/FOSDEM_2014
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2014-02-01"
-fingerprint: dff3e040db8a56fe
+fingerprint: "57f3e040db8256fe"
 license: CC BY-SA 4.0
 ---
 
 # FOSDEM 2014
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

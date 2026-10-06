@@ -28,8 +28,25 @@ A module provides several actions. Actions typically either display some informa
 
 To list all currently installed modules, run eselect without any arguments. See also the [eselect user guide](https://wiki.gentoo.org/wiki/Project:Eselect/User_guide).
 
+## Installation
+
 Deployments of Gentoo Linux should already have eselect installed, as the [app-admin/eselect](https://packages.gentoo.org/packages/app-admin/eselect) package is part of the [system set](<https://wiki.gentoo.org/wiki/System_set_(Portage)>).
 
+### USE flags
+
+
+### USE flags for
+            [app-admin/eselect](https://packages.gentoo.org/packages/app-admin/eselect)
+            
+            Gentoo's multi-purpose configuration and management tool
+
+| [doc](https://packages.gentoo.org/useflags/doc) | Add extra documentation (API, Javadoc, etc). It is recommended to enable per package instead of globally | 
+| [emacs](https://packages.gentoo.org/useflags/emacs) | Add support for GNU Emacs | 
+| [vim-syntax](https://packages.gentoo.org/useflags/vim-syntax) | Pulls in related vim syntax scripts | 
+
+### Emerge
+
+#### After USE flag changes
 
 After changing USE flags [just for the eselect package](https://wiki.gentoo.org/wiki//etc/portage/package.use), rebuild eselect for the new flags to be applied. As eselect is in the system set, `--oneshot` should be used to avoid adding it to the [world file](<https://wiki.gentoo.org/wiki/Selected-packages_set_(Portage)>):
 
@@ -37,12 +54,16 @@ After changing USE flags [just for the eselect package](https://wiki.gentoo.org/
 After changing any global USE flags in [make.conf](https://wiki.gentoo.org/wiki//etc/portage/make.conf) that affect the eselect package, emerge world to update to the new USE flags:
 
 `root #``emerge --ask --verbose --update --deep --newuse @world`
+#### Modules
+
 Install an eselect module just like any other package. For example, for the [app-eselect/eselect-repository](https://packages.gentoo.org/packages/app-eselect/eselect-repository) module:
 
 `root #``emerge --ask --verbose app-eselect/eselect-repository`
 Some modules will be pulled in when installing packages that depend on them.
 
 See the [modules section](https://wiki.gentoo.org/wiki/Eselect#Modules_2) for information on finding optional modules for installation.
+
+## Invocation
 
 Just running eselect, or eselect help for a little more information, will provide usage information and list all installed modules and their function:
 
@@ -88,13 +109,19 @@ Extra modules:
   visual                    Manage the VISUAL environment variable
   wxwidgets                 Manage the system default wxWidgets profile
 ```
+## Modules
+
 Gentoo has tens of eselect modules available, to automate various system configuration tasks. Several modules allow to select between optional subsytems, such as which installed vi editor package to use or which emacs distribution to be default.
 
 Some modules are [shipped by default](https://gitweb.gentoo.org/proj/eselect.git/tree/modules) with eselect, while other modules can be [installed from the Gentoo repository](https://packages.gentoo.org/categories/app-eselect).
 
 To list all modules currently installed, run eselect without any arguments.
 
+### Default modules
+
 These modules are maintained as part of the [eselect project](https://wiki.gentoo.org/wiki/Project:Eselect), so they should be available as long as the [app-admin/eselect](https://packages.gentoo.org/packages/app-admin/eselect) package is installed.
+
+#### Arptables, iptables, and ebtables
 
 Manage the iptables/arptables/ebtables symlinks. Because [sys-apps/iproute2](https://packages.gentoo.org/packages/sys-apps/iproute2) is part of the [system set](<https://wiki.gentoo.org/wiki/System_set_(Portage)>), [app-eselect/eselect-iptables](https://packages.gentoo.org/packages/app-eselect/eselect-iptables) is often pulled in by the dependency graph, to provide these modules.
 
@@ -112,6 +139,8 @@ Extra actions:
   show                      Show the current arptables symlink
   unset                     Unset arptables symlink targets
 ```
+#### Binutils
+
 Manage installed versions of [sys-devel/binutils](https://packages.gentoo.org/packages/sys-devel/binutils). This module is not provided as part of the [app-admin/eselect](https://packages.gentoo.org/packages/app-admin/eselect) package, but is from [sys-devel/binutils-config](https://packages.gentoo.org/packages/sys-devel/binutils-config), a dependency of [sys-devel/binutils](https://packages.gentoo.org/packages/sys-devel/binutils). As [sys-devel/binutils](https://packages.gentoo.org/packages/sys-devel/binutils) is part of the [system set](<https://wiki.gentoo.org/wiki/System_set_(Portage)>), eselect binutils should be available on all Gentoo systems.
 
 `user $``eselect binutils help````
@@ -127,6 +156,8 @@ Extra actions:
     target                    Target name or number (from 'list' action)
   show                      Print the currently active binutils version
 ```
+#### Editor
+
 Manage the `EDITOR` environment variable, this determines what many CLI programs will run to edit text files.
 
 See also the [visual module](https://wiki.gentoo.org/wiki/Eselect#Visual) section.
@@ -150,6 +181,8 @@ list                      List available targets for the EDITOR variable
  show                      Show value of the EDITOR variable in profile
  update                    Update the EDITOR variable if it is unset or invalid
 
+#### Env
+
 Manage environment variables set in [/etc/env.d](https://wiki.gentoo.org/wiki//etc/env.d).
 
 `user $``eselect env help````
@@ -163,6 +196,8 @@ Extra actions:
   update <noldconfig>       Collect environment variables from all scripts in /etc/env.d/
     noldconfig                Do not alter the ld.so cache or configuration.
 ```
+#### Gcc
+
 Manage installed versions of sys-devel/gcc. Because [sys-devel/gcc](https://packages.gentoo.org/packages/sys-devel/gcc) is part of the [system set](<https://wiki.gentoo.org/wiki/System_set_(Portage)>), [sys-devel/gcc-config](https://packages.gentoo.org/packages/sys-devel/gcc-config) will be pulled in, providing this module.
 
 `user $``eselect gcc help````
@@ -179,6 +214,8 @@ Extra actions:
   show                      Print the currently active gcc version
 ```
 See also [upgrading GCC](https://wiki.gentoo.org/wiki/Upgrading_GCC#Quick_guide_to_GCC_upgrades).
+
+#### Kernel
 
 The /usr/src/linux symlink should point to the currently running kernel, this can be done with eselect.
 
@@ -197,6 +234,8 @@ Extra actions:
 ```
 See [setting the kernel link with eselect](https://wiki.gentoo.org/wiki/Kernel/Upgrade#Default:_Setting_the_link_with_eselect).
 
+#### Locale
+
 Manage the `LANG` environment variable, this sets the system language for users, date formats etc.
 
 `user $``eselect locale help````
@@ -214,6 +253,8 @@ Extra actions:
 ```
 See [the handbook](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/Base#Locale_selection), [localization guide](https://wiki.gentoo.org/wiki/Localization/Guide#OpenRC) and [UTF-8 article](https://wiki.gentoo.org/wiki/UTF-8#Alternatively.2C_using_eselect_to_set_locales).
 
+#### Modules
+
 Query eselect modules.
 
 `user $``eselect modules help````
@@ -228,6 +269,8 @@ Extra actions:
   list                      List all available modules
     --only-names              Output names of modules only
 ```
+#### News
+
 Read Gentoo ("GLEP 42") [news items](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/Base#Reading_news_items). It is ***important to read and follow these***, when they are shown after a [Gentoo ebuild repository synchronization](https://wiki.gentoo.org/wiki/Ebuild_repository#Repository_synchronization).
 
 `user $``eselect news help````
@@ -254,6 +297,8 @@ Extra actions:
     all                       Mark all news items as unread
     item                      Item name or number (from 'list' action)
 ```
+#### Pager
+
 Manage the `PAGER` environment variable, this will influence what programs will use to display pages of text to the user.
 
 `user $``eselect pager help````
@@ -270,6 +315,8 @@ Extra actions:
   show                      Show value of the PAGER variable in profile
   update                    Update the PAGER variable if it is unset or invalid
 ```
+#### Profile
+
 Manage the [make.profile](https://wiki.gentoo.org/wiki//etc/portage/make.profile) symlink, this is an important configuration item for Portage, and for the whole system.
 
 `user $``eselect profile help````
@@ -288,9 +335,13 @@ Extra actions:
 ```
 See [handbook](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/Base#Choosing_the_right_profile), and the article about [switching profiles](https://wiki.gentoo.org/wiki/Portage/Profiles/Switching_profiles).
 
+#### Rc
+
 The eselect rc module, and thus its corresponding rc-config command, are deprecated as of version 1.4.30 (2025-03-22).
 
 This module was used to manage [OpenRC](https://wiki.gentoo.org/wiki/OpenRC) scripts, the rc-update, rc-service or rc-status commands can be used instead.
+
+#### Visual
 
 Manage the `VISUAL` environment variable, to set the default text editor for capable terminals.
 
@@ -310,6 +361,8 @@ Extra actions:
   show                      Show value of the VISUAL variable in profile
   update                    Update the VISUAL variable if it is unset or invalid
 ```
+### Additional modules
+
 [Additional modules](https://packages.gentoo.org/categories/app-eselect) for eselect are available from the [Gentoo ebuild repository](https://wiki.gentoo.org/wiki/Ebuild_repository#The_Gentoo_ebuild_repository).
 
 Some of these modules will be pulled-in as dependencies when associated packages are installed, so it may not be required to emerge these specifically. Once installed, these modules can be used with eselect \<module> commands, similarly to the default modules.
@@ -329,6 +382,8 @@ Here are some of the modules documented in the wiki:
 - [eselect repository](https://wiki.gentoo.org/wiki/Eselect/Repository) — an [eselect] module for configuring [ebuild repositories](https://wiki.gentoo.org/wiki/Ebuild_repository) for [Portage](https://wiki.gentoo.org/wiki/Portage).
 - [eselect ruby](https://wiki.gentoo.org/wiki/Rails#Configuration) - change the selected Ruby slot.
 - [eselect vi](https://wiki.gentoo.org/wiki/Vi#.2Fusr.2Fbin.2Fvi_symlink) - mange the  /usr/bin/vi symlink.
+
+## See also
 
 - [Project:Eselect/User guide](https://wiki.gentoo.org/wiki/Project:Eselect/User_guide) — a modular framework for writing configuration utilities.
 - [Project:Eselect/Developer guide](https://wiki.gentoo.org/wiki/Project:Eselect/Developer_guide) — a framework for simplifying and introducing consistency to the various foo-config and blah-update tools.

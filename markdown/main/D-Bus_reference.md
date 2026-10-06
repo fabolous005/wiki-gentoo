@@ -11,6 +11,8 @@ license: CC BY-SA 4.0
 
 # D-Bus/reference
 
+[D-Bus](https://wiki.gentoo.org/wiki/D-Bus)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
@@ -18,6 +20,8 @@ license: CC BY-SA 4.0
 For a brief overview of D-Bus, refer to [D-Bus/background](https://wiki.gentoo.org/wiki/D-Bus/background).
 
 Bus names and interfaces are defined in various specifications, reference documents, and repositories. When a repository is linked, the methods for a given interface can be found in the XML file for that interface.
+
+## Accessibility / AT-SPI
 
 Bus name:
 
@@ -53,10 +57,14 @@ Interfaces:
 - `org.a11y.atspi.Text`
 - `org.a11y.atspi.Value`
 
+## AccountsService
+
 Interfaces:
 
 - `org.freedesktop.Accounts`
 - `org.freedesktop.Accounts.User`
+
+## Avahi
 
 Interfaces:
 
@@ -69,6 +77,8 @@ Interfaces:
 - `org.freedesktop.Avahi.ServiceBrowser`
 - `org.freedesktop.Avahi.ServiceResolver`
 - `org.freedesktop.Avahi.ServiceTypeBrowser`
+
+## BlueZ
 
 Bus names:
 
@@ -130,10 +140,14 @@ Interfaces:
 - `org.bluez.Thermometer1`
 - `org.bluez.ThermometerWatcher1`
 
+## CloudProviders
+
 Interfaces:
 
 - `org.freedesktop.CloudProviders.Account`
 - `org.freedesktop.CloudProviders.Provider`
+
+## colord
 
 Bus name:
 
@@ -145,6 +159,8 @@ Interfaces:
 - `org.freedesktop.ColorManager.Device`
 - `org.freedesktop.ColorManager.Profile`
 - `org.freedesktop.ColorManager.Sensor`
+
+## D-Bus
 
 Bus name:
 
@@ -158,6 +174,8 @@ Interfaces:
 - `org.freedesktop.DBus.Properties`
 - `org.freedesktop.DBus.ObjectManager`
 
+## dconf
+
 Bus name:
 
 - `ca.desrt.dconf`
@@ -167,6 +185,8 @@ Interfaces:
 - `ca.desrt.dconf.Writer`
 - `ca.desrt.dconf.ServiceInfo`
 
+## Desktop Notifications Specification
+
 Bus name:
 
 - `org.freedesktop.Notifications` on session bus
@@ -175,6 +195,8 @@ Interfaces:
 
 - `org.freedesktop.Notifications`
 
+## File Manager Interface
+
 Bus name:
 
 - `org.freedesktop.FileManager1`
@@ -182,6 +204,10 @@ Bus name:
 Interfaces:
 
 - `org.freedesktop.FileManager1`
+
+## Flatpak
+
+### libflatpak
 
 Bus name:
 
@@ -193,6 +219,8 @@ Interfaces:
 - `org.freedesktop.Flatpak.Development`
 - `org.freedesktop.Flatpak.SessionHelper`
 - `org.freedesktop.Flatpak.SystemHelper`
+
+## GNOME Session
 
 Bus name:
 
@@ -206,9 +234,13 @@ Interfaces:
 - `org.gnome.SessionManager.Inhibitor`
 - `org.gnome.SessionManager.Presence`
 
+## hostname1
+
 Interface:
 
 - `org.freedesktop.hostname1`
+
+## logind
 
 Bus name:
 
@@ -220,6 +252,8 @@ Interfaces:
 - `org.freedesktop.login1.Seat`
 - `org.freedesktop.login1.Session`
 - `org.freedesktop.login1.User`
+
+## Media Player Remote Interfacing Specification (MPRIS)
 
 Bus names:
 
@@ -235,6 +269,8 @@ Interfaces:
 - `org.mpris.MediaPlayer2.Player`
 - `org.mpris.MediaPlayer2.TrackList`
 - `org.mpris.MediaPlayer2.Playlists`
+
+## mu4e
 
 Bus names:
 
@@ -253,9 +289,13 @@ Other interfaces implemented:
 - `org.freedesktop.DBus.Introspectable`
 - `org.freedesktop.DBus.Properties`
 
+## NetworkManager
+
 Interfaces:
 
 - `org.freedesktop.NetworkManager`
+
+## PolicyKit
 
 Bus names:
 
@@ -265,6 +305,8 @@ Interfaces:
 
 - `org.freedesktop.PolicyKit1.Authority`
 - `org.freedesktop.PolicyKit1.AuthenticationAgent`
+
+## Portal
 
 Bus name:
 
@@ -304,6 +346,8 @@ Interfaces:
 - `org.freedesktop.portal.Trash`
 - `org.freedesktop.portal.Wallpaper`
 
+## PulseAudio
+
 Bus names:
 
 - `org.PulseAudio1`
@@ -327,10 +371,14 @@ Interfaces:
 - `org.PulseAudio.Ext.StreamRestore1.RestoreEntry`
 - `org.PulseAudio.Ext.Ladspa1`
 
+## resolve1
+
 Interfaces:
 
 - `org.freedesktop.resolve1.Manager`
 - `org.freedesktop.resolve1.Link`
+
+## Secret Service API
 
 Object paths:
 
@@ -348,12 +396,16 @@ Interfaces:
 - `org.freedesktop.Secret.Session`
 - `org.freedesktop.Secret.Prompt`
 
+## system-config-printer
+
 Interfaces:
 
 - `org.fedoraproject.Config.Printing`
 - `org.fedoraproject.Config.Printing.NewPrinterDialog`
 - `org.fedoraproject.Config.Printing.PrinterPropertiesDialog`
 - `org.fedoraproject.Config.Printing.JobApplet`
+
+## UDisks2
 
 Bus names:
 
@@ -392,6 +444,8 @@ Interfaces:
 - `org.freedesktop.UDisks2.Manager.VDO`
 - `org.freedesktop.UDisks2.Block.VDO`
 
+## UPower
+
 Bus names:
 
 - `org.freedesktop.UPower` on system bus
@@ -401,6 +455,8 @@ Interfaces:
 - `org.freedesktop.UPower`
 - `org.freedesktop.UPower.Device`
 - `org.freedesktop.UPower.KbdBacklight`
+
+## wpa\_supplicant
 
 Bus names:
 

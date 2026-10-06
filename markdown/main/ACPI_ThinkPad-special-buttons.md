@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/ACPI/ThinkPad-special-buttons
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-07-01"
-fingerprint: a87f1ced646ba950
+fingerprint: ac7f1ced646ba950
 license: CC BY-SA 4.0
 ---
 
 # ACPI/ThinkPad-special-buttons
+
+[ACPI](https://wiki.gentoo.org/wiki/ACPI)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -83,10 +85,47 @@ By default, system store key assignment can be found in the /lib/udev/hwdb.d/60-
 
 **`/lib/udev/hwdb.d/60-keyboard.hwdb`**
 
+```
+...
+# ThinkPad Keyboard with TrackPoint
+keyboard:usb:v17EFp6009*
+ KEYBOARD_KEY_090012=screenlock                         # Fn+F2
+ KEYBOARD_KEY_090013=battery                            # Fn+F3
+ KEYBOARD_KEY_090014=wlan                               # Fn+F5
+ KEYBOARD_KEY_090016=switchvideomode                    # Fn+F7
+ KEYBOARD_KEY_090017=f21                                # Fn+F8  touchpad toggle
+ KEYBOARD_KEY_090019=suspend                            # Fn+F12
+ KEYBOARD_KEY_09001a=brightnessup                       # Fn+Home
+ KEYBOARD_KEY_09001b=brightnessdown                     # Fn+End
+ KEYBOARD_KEY_09001d=zoom                               # Fn+Space
+ KEYBOARD_KEY_090011=prog1                              # ThinkVantage button
+ KEYBOARD_KEY_090015=camera                             # Fn+F6 headset/camera VoIP key  ??
+ KEYBOARD_KEY_090010=f20                                # Microphone mute button; should be micmute
+...
+```
 By default some buttons are mapped to key codes that X can not handle or has no keysym for. So the following might be useful. It modifies the udev defaults slightly to fix the key combinations that otherwise would not work in X:
 
 **`/etc/udev/hwdb.d/thinkpad_keyboard.hwdb`**
 
+```
+# To debug key presses and access scan code mapping data of 
+# an input device use the commonly available tool: evtest(1). 
+# A list of possible keycodes is available under 
+# https://github.com/torvalds/linux/blob/master/include/uapi/linux/input.h 
+### common 
+keyboard:name:ThinkPad Extra Buttons:dmi:bvn*:bvr*:bd*:svnLENOVO*:pn* 
+ KEYBOARD_KEY_00=prog2          # Fn+F1 
+ KEYBOARD_KEY_08=media          # Fn+F9; should be undock, but X has no keysym 
+ KEYBOARD_KEY_0a=prog3          # Fn+F11 
+ KEYBOARD_KEY_13=search         # Fn+Space; should be zoom, but X can't handle keycode 
+# KEYBOARD_KEY_18=              # Fn+1 (might need hotkey unmasking) 
+# KEYBOARD_KEY_19=              # Fn+2 (same) 
+### X61t display buttons 
+keyboard:dmi:bvn*:bvr*:bd*:svnLENOVO*:pnThinkPad*X6*:pvr* 
+ KEYBOARD_KEY_67=screenlock     # small unlabelled button 
+ KEYBOARD_KEY_6C=f21            # rotate button (f21 = XF86TouchpadToggle) 
+ KEYBOARD_KEY_68=config         # rectangle thing button (config = XF86Tools; was:screenlock)
+```
 ## Recipes
 
 Create an *event* for each button in /etc/acpi/events/, the following example names them by location-function; use whatever naming scheme works best. After creating the events create corresponding actions for each event in /etc/acpi/actions/ See examples below for more information.

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Complete_Virtual_Mail_Server/Postfix_to_Databa
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-06-16"
-fingerprint: a237a96a3e6b3393
+fingerprint: e237ad2a7efb2b97
 license: CC BY-SA 4.0
 ---
 
@@ -100,6 +100,14 @@ Be aware that any errors in the configuration information in these files can be 
 
 **virtual\_mailbox\_domains**
 
+```
+# virtual_mailbox_domains.cf
+user            = postfix
+password        = $password
+dbname          = postfix
+#hosts          = localhost
+query           = SELECT domain FROM domain WHERE domain = '%s' AND backupmx = '0' AND active = '1';
+```
 It's best to test the query on the database (using copy paste) to ensure no typo's exist in the query:
 
 `root #``psql -U postfix postfix``postfix=>``SELECT domain FROM domain WHERE domain = 'example.com' AND backupmx = '0' AND active = '1';`
@@ -112,6 +120,14 @@ domain
 
 **virtual\_mailbox\_maps**
 
+```
+# virtual_mailbox_maps.cf
+user            = postfix
+password        = $password
+dbname          = postfix
+#hosts          = localhost
+query           = SELECT maildir FROM mailbox WHERE local_part='%u' AND domain='%d' AND active='1';
+```
 Also here, it's best again to execute the query on the database:
 
 `root #``psql -U postfix postfix``postfix=>``SELECT maildir FROM mailbox WHERE local_part='testuser' AND domain='example.com' AND active='1';`
@@ -124,6 +140,14 @@ maildir
 
 **virtual\_alias\_maps**
 
+```
+# virtual_alias_maps.cf
+user            = postfix
+password        = $password
+dbname          = postfix
+#hosts          = localhost
+query           = SELECT goto FROM alias WHERE address='%s' AND active='1';
+```
 Run the query on the database to verify its output:
 
 `root #``psql -U postfix postfix``postfix=>``SELECT goto FROM alias WHERE address='testuser@example.com' AND active='1';`
@@ -138,24 +162,90 @@ Set up the necessary configurations for postfix to interact with the database fo
 
 **`/etc/postfix/mysql-aliases.cf`**
 
+```
+user         = mailsql
+password     = $password
+dbname       = mailsql
+table        = alias
+select_field = destination
+where_field  = alias
+hosts        = unix:/var/run/mysqld/mysqld.sock
+```
 **`/etc/postfix/mysql-relocated.cf`**
 
+```
+user         = mailsql
+password     = $password
+dbname       = mailsql
+table        = relocated
+select_field = destination
+where_field  = email
+hosts        = unix:/var/run/mysqld/mysqld.sock
+```
 **`/etc/postfix/mysql-transport.cf`**
 
 **(optional)**
 
+```
+user         = mailsql
+password     = $password
+dbname       = mailsql
+table        = transport
+select_field = destination
+where_field  = domain
+hosts        = unix:/var/run/mysqld/mysqld.sock
+```
 **`/etc/postfix/mysql-virtual-gid.cf`**
 
 **(optional)**
 
+```
+user            = mailsql
+password        = $password
+dbname          = mailsql
+table           = users
+select_field    = gid
+where_field     = email
+additional_conditions = and postfix = 'y'
+hosts           = unix:/var/run/mysqld/mysqld.sock
+```
 **`/etc/postfix/mysql-virtual-maps.cf`**
 
+```
+user            = mailsql
+password        = $password
+dbname          = mailsql
+table           = users
+select_field    = maildir
+where_field     = email
+additional_conditions = and postfix = 'y'
+hosts           = unix:/var/run/mysqld/mysqld.sock
+```
 **`/etc/postfix/mysql-virtual-uid.cf`**
 
 **(optional)**
 
+```
+user            = mailsql
+password        = $password
+dbname          = mailsql
+table           = users
+select_field    = uid
+where_field     = email
+additional_conditions = and postfix = 'y'
+hosts           = unix:/var/run/mysqld/mysqld.sock
+```
 **`/etc/postfix/mysql-virtual.cf`**
 
+```
+user         = mailsql
+password     = $password
+dbname       = mailsql
+table        = 'virtual'
+select_field = destination
+where_field  = email
+hosts        = unix:/var/run/mysqld/mysqld.sock
+```
 ### Access rights
 
 Only postfix should have access rights to these files, as they contain passwords:
@@ -172,10 +262,46 @@ chown root:postfix -R /etc/postfix/
 
 **Connect postfix to postgres**
 
+```
+#
+# Settings required to support virtual mail delivery using lookups in
+# the Postgres database.
+#
+ 
+# A list of all virtual domains serviced by this instance of postfix.
+virtual_mailbox_domains = pgsql:/etc/postfix/pgsql/virtual_mailbox_domains.cf
+ 
+# Look up the mailbox location based on the email address received.
+virtual_mailbox_maps = pgsql:/etc/postfix/pgsql/virtual_mailbox_maps.cf
+ 
+# Any aliases that are supported by this system
+virtual_alias_maps = pgsql:/etc/postfix/pgsql/virtual_alias_maps.cf
+```
 #### MySQL/MariaDB
 
 **`/etc/postfix/main.cf`**
 
+```
+## (Ensure that there are no other alias_maps definitions)
+alias_maps = mysql:/etc/postfix/mysql-aliases.cf
+relocated_maps = mysql:/etc/postfix/mysql-relocated.cf
+ 
+local_transport = local
+local_recipient_maps = $alias_maps $virtual_mailbox_maps unix:passwd.byname
+ 
+virtual_transport = virtual
+## (The domains listed by the mydestination should not be listed in
+##  the virtual_mailbox_domains parameter)
+virtual_mailbox_domains = virt-domain.com, $other-virtual-domain.com
+ 
+virtual_minimum_uid = 1000
+## (Substitute $vmail-gid with the GID of the vmail group)
+virtual_gid_maps = static:$vmail-gid
+virtual_mailbox_maps = mysql:/etc/postfix/mysql-virtual-maps.cf
+virtual_alias_maps = mysql:/etc/postfix/mysql-virtual.cf
+## (Substitute $vmail-uid with the UID of the vmail user)
+virtual_uid_maps = static:$vmail-uid
+```
 As of Postfix 2.0.x, there were a number of significant changes over the 1.1.x release. Notably the transport, virtual-gid, and virtual-uid tables are no longer necessary. The tables are still included to support potential different use cases.
 
 ### Testing the database connection
@@ -217,3 +343,17 @@ Connection closed by foreign host.
 **`/var/log/mail.log`**
 
 **Verify test messages**
+
+```
+Mar 16 19:25:15 foo postfix/smtpd[32321]: connect from unknown[127.0.0.1]
+Mar 16 19:25:32 foo postfix/smtpd[32321]: EA94F164C7: client=unknown[127.0.0.1]
+Mar 16 19:25:42 foo postfix/cleanup[32330]: EA94F164C7: message-id=<>
+Mar 16 19:25:42 foo postfix/qmgr[31681]: EA94F164C7: from=<me@you.com>, size=215, nrcpt=1 (queue active)
+Mar 16 19:25:42 foo postfix/virtual[32332]: EA94F164C7: to=<testuser@example.com>, relay=virtual, delay=22, delays=22/0.02/0/0.05, dsn=2.0.0, status=sent (delivered to maildir)
+Mar 16 19:25:42 foo postfix/qmgr[31681]: EA94F164C7: removed
+Mar 16 19:26:05 foo postfix/smtpd[32321]: 3A276164C7: client=unknown[127.0.0.1]
+Mar 16 19:26:14 foo postfix/cleanup[32330]: 3A276164C7: message-id=<>
+Mar 16 19:26:14 foo postfix/qmgr[31681]: 3A276164C7: from=<me@you.com>, size=199, nrcpt=1 (queue active)
+Mar 16 19:26:15 foo postfix/smtp[32338]: 3A276164C7: to=<test.user@example.com>, orig_to=<test.user@example.com>, relay=virtual, delay=23, delays=22/0.02/0.57/0.39, dsn=2.0.0, status=sent (delivered to maildir)
+Mar 16 19:26:15 foo postfix/qmgr[31681]: 3A276164C7: removed
+```

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Amazon_Kindle
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-09-10"
-fingerprint: "5e0909988cabb4fd"
+fingerprint: "5e0909988cabb4f5"
 license: CC BY-SA 4.0
 ---
 
@@ -15,6 +15,8 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+**Resources**
+
 A quick document explaining how to use the **Amazon Kindle** with Gentoo.
 
 ## Kernel
@@ -23,6 +25,14 @@ To be able to mount your Kindle as an [external storage device](https://wiki.gen
 
 **Enabling File System Options**
 
+```
+File Systems  --->
+   DOS/FAT/NT Filesystems  --->
+       [*] VFAT (Windows-95) fs support
+Enable the block layer  --->
+   Partition Types  --->
+       [*] PC BIOS (MSDOS partition tables) support
+```
 ## Kindle DX / DX Graphite
 
 ### Mounting the Removable Storage Media
@@ -36,18 +46,43 @@ Find the [UUID](https://wiki.gentoo.org/wiki/Removable_media#UUIDs_and_labels) f
 
 **`/etc/autofs/auto.misc`**
 
+```
+kindle    -fstype=vfat,gid=100,noatime,rw,umask=002,user,utf8    UUID="Your_UUID_from_blkid_Output"
+```
 Edit the /etc/conf.d/autofs file to your liking.  Make sure you uncomment the *MASTER\_MAP\_NAME="auto.master"* line if you use the /etc/autofs/auto.master file!
 
 The following addition to the auto.master file can be used.  The *--ghost* option auto-unmounts after five seconds:
 
 **`1/etc/autofs/auto.master`**
 
+```
+/mnt/auto   /etc/autofs/auto.misc   --timeout=5 --ghost
+```
 #### Mounting using udev
 
 The following [udev](https://wiki.gentoo.org/wiki/Udev) rule will mount your Kindle using the Volume Name (ie. "Kindle") to (/media/Kindle). You then will need to execute the user scripts add.sh and remove.sh to tell the udev to add (mount) and remove (unmount) the device.  In turn, the /media/Kindle folder is automagically created and destroyed on mount and unmount.
 
 **`/etc/udev/rules.d/11-media-by-label-auto-mount.rules`**
 
+```
+SUBSYSTEM!="usb", KERNEL!="sd[c-z][0-9]", GOTO="media_by_label_auto_mount_end"
+# Import FS infos
+IMPORT{program}="/sbin/blkid -o udev -p %N"
+# Get a label if present, otherwise specify one
+ENV{ID_FS_LABEL}!="", ENV{dir_name}="%E{ID_FS_LABEL}"
+ENV{ID_FS_LABEL}=="", ENV{dir_name}="usbhd-%k"
+# Global mount options
+#ACTION=="add", ENV{mount_options}="relatime"
+ACTION=="add", ENV{mount_options}="noatime"
+# Filesystem-specific mount options
+ACTION=="add", ENV{ID_FS_TYPE}=="vfat|ntfs", ENV{mount_options}="$env{mount_options},utf8,gid=100,umask=002"
+# Mount the device
+ACTION=="add", RUN+="/bin/mkdir -p /media/%E{dir_name}", RUN+="/bin/mount -o $env{mount_options} /dev/%k /media/%E{dir_name}"
+# Clean up after removal
+ACTION=="remove", ENV{dir_name}!="", RUN+="/bin/umount -l /media/%E{dir_name}", RUN+="/bin/rmdir /media/%E{dir_name}"
+# Exit
+LABEL="media_by_label_auto_mount_end"
+```
 **`/home/user/bin/udev-add-all.sh`**
 
 ```

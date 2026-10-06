@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Eclass
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-08-07"
-fingerprint: "1a935a0cabbb623a"
+fingerprint: "1a931a0c8bbb6238"
 license: CC BY-SA 4.0
 ---
 
 # eclass
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -20,9 +22,7 @@ An eclass is a collection of code which can be used by more than one [ebuild](ht
 
 To use an eclass, it must be *inherited*. This is done via the `inherit` function, which is provided by ebuild.sh. The inherit statement must come at the top of the ebuild, before any functions.[\[2\]](https://wiki.gentoo.org#cite_note-2)
 
-**`autotools-example-9999.ebuild`**
-
-**eclass usage snippet**
+FILE **`autotools-example-9999.ebuild`****eclass usage snippet**
 
 ```
 # Copyright 2022 Gentoo Authors

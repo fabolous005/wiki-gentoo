@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/GNOME/GNOME_without_systemd/Dantrell
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-03-31"
-fingerprint: fa5d257f2fa6ab86
+fingerprint: fa5d257f2fa7ab86
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,10 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**outdated**. You can help the Gentoo community by verifying and
+
+[updating this article](https://wiki.gentoo.org/index.php?title=GNOME/GNOME_without_systemd/Dantrell&action=edit).
 
 ![](https://wiki.gentoo.org/images/thumb/c/c7/GNOME_without_systemd.png/500px-GNOME_without_systemd.png)
 
@@ -104,6 +108,17 @@ Next, create configuration files for Dantrell B.'s external ebuild repositories 
 
 **Configuration for dantrell-gnome repo**
 
+```
+[dantrell-gnome]
+# Dantrell B.'s Gentoo Overlay for GNOME (generic)
+# Maintainer: Dantrell B. (email: see CONTRIBUTING.md in main GitHub project)
+# Homepage: https://github.com/dantrell/gentoo-project-gnome-without-systemd
+location = /usr/local/portage/dantrell-gnome
+sync-type = git
+sync-uri = https://github.com/dantrell/gentoo-overlay-dantrell-gnome.git
+priority = 150
+auto-sync = yes
+```
 Next, create the desired GNOME 'version' overlay configuration file(s), as shown below; if using the 'stable' (amd64) branch, create *at least* the one which matches the current stable [gnome-base/gnome](https://packages.gentoo.org/packages/gnome-base/gnome) in Gentoo (version 3.24, at the time of writing).
 
 For example, for GNOME 3.14, create the following file:
@@ -112,6 +127,17 @@ For example, for GNOME 3.14, create the following file:
 
 **Configuration for dantrell-gnome-3-14 repo**
 
+```
+[dantrell-gnome-3-14]
+# Dantrell B.'s Gentoo Overlay for GNOME (3.14)
+# Maintainer: Dantrell B. (email: see CONTRIBUTING.md in main GitHub project)
+# Homepage: https://github.com/dantrell/gentoo-project-gnome-without-systemd
+location = /usr/local/portage/dantrell-gnome-3-14
+sync-type = git
+sync-uri = https://github.com/dantrell/gentoo-overlay-dantrell-gnome-3-14.git
+priority = 100
+auto-sync = yes
+```
 The above can actually be used as a basis to create the other (3.16 → 3.32) variants, rather than entering them manually. To do so, issue:
 
 `(chroot) livecd / #````
@@ -188,28 +214,28 @@ If there are any additional applications which it is desired to install as part 
 | USE flag | Default | Description | 
 |---|---|---|
 | `anjuta` |  | Install the dev-util/anjuta IDE | 
-| `bijiben` |  | Install the app-misc/bijiben note editor | 
+| `bijiben` | Yes | Install the app-misc/bijiben note editor | 
 | `boxes` |  | Install the gnome-extra/gnome-boxes remote and virtual system manager | 
 | `builder` |  | Install the gnome-extra/gnome-builder IDE (only in GNOME 3.16 or greater) | 
 | `california` |  | Install the gnome-extra/california calendar | 
-| `dino` |  | Install the net-im/dino chat client (only in GNOME 3.32 or greater) | 
+| `dino` | Yes | Install the net-im/dino chat client (only in GNOME 3.32 or greater) | 
 | `empathy` |  | Install the net-im/empathy chat client | 
 | `epiphany` |  | Install the www-client/epiphany web browser | 
-| `evolution` |  | Install the mail-client/evolution mail client | 
+| `evolution` | Yes | Install the mail-client/evolution mail client | 
 | `flashback` |  | Install the gnome-base/gnome-flashback (aka fallback mode; work-in-progress) | 
-| `fonts` |  | Install media-fonts/{noto,symbola,unifont} | 
-| `games` |  | Install Gnome Games | 
+| `fonts` | Yes | Install media-fonts/{noto,symbola,unifont} | 
+| `games` | Yes | Install Gnome Games | 
 | `geary` |  | Install the mail-client/geary mail client | 
 | `gnote` |  | Install the app-misc/gnote note editor | 
 | `latexila` |  | Install the app-editors/latexila integrated LaTeX environment | 
 | `multi-writer` |  | Install the gnome-extra/gnome-multi-writer USB device writer (only in GNOME 3.16 or greater) | 
-| `recipes` |  | Install the gnome-extra/gnome-recipes live cookbook (only in GNOME 3.22 or greater) | 
-| `share` |  | Install the gnome-extra/gnome-user-share personal file sharing tool | 
-| `shotwell` |  | Install the media-gfx/shotwell photo manager | 
+| `recipes` | Yes | Install the gnome-extra/gnome-recipes live cookbook (only in GNOME 3.22 or greater) | 
+| `share` | Yes | Install the gnome-extra/gnome-user-share personal file sharing tool | 
+| `shotwell` | Yes | Install the media-gfx/shotwell photo manager | 
 | `simple-scan` |  | Install the media-gfx/simple-scan document scanning utility | 
-| `todo` |  | Install the gnome-extra/gnome-builder task manager (only in GNOME 3.18 or greater) | 
-| `tracker` |  | Install the app-misc/tracker indexer and the GNOME packages that require it | 
-| `usage` |  | Install the gnome-extra/gnome-usage system resources monitor (only in GNOME 3.28 or greater) | 
+| `todo` | Yes | Install the gnome-extra/gnome-builder task manager (only in GNOME 3.18 or greater) | 
+| `tracker` | Yes | Install the app-misc/tracker indexer and the GNOME packages that require it | 
+| `usage` | Yes | Install the gnome-extra/gnome-usage system resources monitor (only in GNOME 3.28 or greater) | 
 
 For example, to add the [epiphany](https://wiki.gentoo.org/wiki/Epiphany) browser to the default set of installed applications, do:
 
@@ -241,6 +267,11 @@ Once GNOME is emerged, change the `DISPLAYMANGER` value in the xdm configuration
 
 **Specify the GNOME display manager, as follows**
 
+```
+# What display manager do you use ?  [ xdm | gdm | kdm | gpe | entrance ]
+# NOTE: If this is set in /etc/rc.conf, that setting will override this one.
+DISPLAYMANAGER="gdm"
+```
 Leave the rest of the file as-is.
 
 Then set dbus, xdm, [NetworkManager](https://wiki.gentoo.org/wiki/NetworkManager) and openrc-settingsd to come up on boot, and disable [dhcpcd](https://wiki.gentoo.org/wiki/Dhcpcd) if using it:

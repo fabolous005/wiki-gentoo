@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/D%C3%A9marrage_s%C3%A9curis%C3%A9
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-08-28"
-fingerprint: "9f545f51d6eab4d4"
+fingerprint: "9f545f51d6e2b4d4"
 license: CC BY-SA 4.0
 ---
 
@@ -61,7 +61,24 @@ Secure Boot stocke les clés publiques et les listes de signatures, généraleme
 ### USE flags
 
 
+### USE flags for
+            [app-crypt/efitools](https://packages.gentoo.org/packages/app-crypt/efitools)
+            
+            Tools for manipulating UEFI secure boot platforms
 
+| [static](https://packages.gentoo.org/useflags/static) | !!do not set this during bootstrap!! Causes binaries to be statically linked instead of dynamically | 
+
+
+### USE flags for
+            [app-crypt/sbsigntools](https://packages.gentoo.org/packages/app-crypt/sbsigntools)
+            
+            Utilities for signing and verifying files for UEFI Secure Boot
+
+
+### USE flags for
+            [dev-libs/openssl](https://packages.gentoo.org/packages/dev-libs/openssl)
+            
+            Robust, full-featured Open Source Toolkit for the Transport Layer Security (TLS)
 
 | [+asm](https://packages.gentoo.org/useflags/+asm) | Enable using assembly for optimization | 
 | [+quic](https://packages.gentoo.org/useflags/+quic) | Enable support for QUIC (RFC 9000); a UDP-based protocol intended to replace TCP | 

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/ASUS_ExpertBook_B7_Flip_B7402
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-03-02"
-fingerprint: "7f50df297faa1169"
+fingerprint: "7f50df0b7fa21168"
 license: CC BY-SA 4.0
 ---
 
@@ -15,22 +15,26 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+**Resources**
+
 ## Hardware
 
 ### Standard
 
+See [Linux Hardware for ASUS EXPERTBOOK B7402FEA](https://linux-hardware.org/?view=computers&type=convertible&vendor=ASUSTek+Computer&model=ASUS+EXPERTBOOK+B7402FEA_B7402FEA)
+
 | Device | Make/model | Status | Vendor ID / Product ID | Kernel driver(s) | Kernel version | Notes | 
 |---|---|---|---|---|---|---|
-| CPU | Intel® Core™ i5-1155G7 |  | N/A | N/A | 5.15 |  | 
-| Video card | Intel Corporation Iris Xe Graphics |  | N/A | i915 | 5.15 |  | 
-| Audio card | Intel Corporation Tiger Lake-LP Smart Sound Technology Audio Controller |  | N/A | snd\_hda\_intel, snd\_sof\_pci\_intel\_tgl | 5.15 | Requires sys-firmware/sof-firmware. Microphone from wired headset does not work | 
-| Wi-Fi | Intel Corporation Wi-Fi 6 AX201 |  | N/A | iwlwifi | 5.15 |  | 
-| Ethernet controller | Intel Corporation Ethernet Connection I219-V |  | N/A | e1000e | 5.15 |  | 
-| Bluetooth | Intel Corporation AX201 Bluetooth |  | N/A | btusb | 5.15 | Required sys-kernel/linux-firmware | 
-| Web Camera | IMC Networks USB2.0 HD UVC WebCam |  | N/A | uvcvideo | 5.15 |  | 
-| Fingerprint Reader | Synaptics, Inc. |  | N/A | N/A | N/A |  | 
-| Touchpad | Elan Microelectronics Corp. ELAN:ARM-M4 |  | N/A | N/A | 5.15 |  | 
-| LTE Controller | Intel 5G Solution |  | N/A | N/A | N/A | 0000:55:00.0 Wireless controller \[0d40\]: MEDIATEK Corp. Device \[14c3:4d75\] (rev 01) | 
+| CPU | Intel® Core™ i5-1155G7 | Works | N/A | N/A | 5.15 |  | 
+| Video card | Intel Corporation Iris Xe Graphics | Works | N/A | i915 | 5.15 |  | 
+| Audio card | Intel Corporation Tiger Lake-LP Smart Sound Technology Audio Controller | Partial | N/A | snd\_hda\_intel, snd\_sof\_pci\_intel\_tgl | 5.15 | Requires sys-firmware/sof-firmware. Microphone from wired headset does not work | 
+| Wi-Fi | Intel Corporation Wi-Fi 6 AX201 | Works | N/A | iwlwifi | 5.15 |  | 
+| Ethernet controller | Intel Corporation Ethernet Connection I219-V | Works | N/A | e1000e | 5.15 |  | 
+| Bluetooth | Intel Corporation AX201 Bluetooth | Works | N/A | btusb | 5.15 | Required sys-kernel/linux-firmware | 
+| Web Camera | IMC Networks USB2.0 HD UVC WebCam | Works | N/A | uvcvideo | 5.15 |  | 
+| Fingerprint Reader | Synaptics, Inc. | Not tested | N/A | N/A | N/A |  | 
+| Touchpad | Elan Microelectronics Corp. ELAN:ARM-M4 | Works | N/A | N/A | 5.15 |  | 
+| LTE Controller | Intel 5G Solution | Partial | N/A | N/A | N/A | 0000:55:00.0 Wireless controller \[0d40\]: MEDIATEK Corp. Device \[14c3:4d75\] (rev 01) | 
 
 `root #``lscpu````
  
@@ -234,19 +238,19 @@ Bus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
 **`/etc/portage/package.use/00-cpuflags`**
 
 ```
- CPU_FLAGS_X86: aes avx avx2 avx512f avx512dq avx512cd avx512bw avx512vl avx512vbmi f16c fma3 mmx mmxext pclmul popcnt rdrand sha sse sse2 sse3 sse4_1 sse4_2 ssse3
+*/* CPU_FLAGS_X86: aes avx avx2 avx512f avx512dq avx512cd avx512bw avx512vl avx512vbmi f16c fma3 mmx mmxext pclmul popcnt rdrand sha sse sse2 sse3 sse4_1 sse4_2 ssse3
 ```
 ## package.use
 
 **`/etc/portage/package.use/00video`**
 
 ```
- VIDEO_CARDS: -* intel
+*/* VIDEO_CARDS: -* intel
 ```
 **`/etc/portage/package.use/00input`**
 
 ```
- INPUT_DEVICES: libinput synaptics
+*/* INPUT_DEVICES: libinput synaptics
 ```
 ## Sound configuration
 
@@ -256,8 +260,27 @@ Fix for wired headphones for ALC 294 codec (microphone still does not work).
 
 **`/lib/firmware/alc294-sound-patch.fw`**
 
+```
+[codec]
+0x10ec0294 0x1043194e 0
+[pincfg]
+0x19 0x03a11050
+0x1a 0x03a11c30
+0x21 0x03211420
+[verb]
+0x20 0x500 0x62
+0x20 0x400 0xa007
+0x20 0x500 0x10
+0x20 0x400 0x8420
+0x20 0x500 0x0f
+0x20 0x400 0x7774
+```
 **`cat /etc/modprobe.d/alsa-base.conf`**
 
+```
+options snd_hda_intel model=auto
+options snd-hda-intel patch=alc294-sound-patch.fw
+```
 Different combinations of hda verbs work for wired headphones, but still none of them makes wired microphone useful.
 
 ## Troubleshooting
@@ -269,7 +292,7 @@ Check what sleep state system uses. Add option mem\_sleep\_default=deep to grub.
 **`/sys/power/mem_sleep`**
 
 ```
- [deep]
+s2idle [deep]
 ```
 ### Some hardware does not work
 

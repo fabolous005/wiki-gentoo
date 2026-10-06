@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/BorgBackup
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-07-07"
-fingerprint: "9f0a189c45a99fe1"
+fingerprint: "9f1a189c45a1dfe1"
 license: CC BY-SA 4.0
 ---
 
@@ -19,18 +19,38 @@ BorgBackup (short: Borg) is a deduplicating backup program. Optionally, it suppo
 
 The main goal of Borg is to provide an efficient and secure way to back up data. The data deduplication technique used makes Borg suitable for daily backups since only changes are stored. The authenticated encryption technique makes it suitable for backups to targets not fully trusted.
 
+## Installation
+
+### USE flags
+
+
+### USE flags for
+            [app-backup/borgbackup](https://packages.gentoo.org/packages/app-backup/borgbackup)
+            
+            Deduplicating backup program with compression and authenticated encryption
 
 | [debug](https://packages.gentoo.org/useflags/debug) | Enable extra debug codepaths, like asserts and extra output. If you want to get meaningful backtraces see https://wiki.gentoo.org/wiki/Project:Quality\_Assurance/Backtraces | 
 | [test](https://packages.gentoo.org/useflags/test) | Enable dependencies and/or preparations necessary to run tests (usually controlled by FEATURES=test but can be toggled independently) | 
 
+### Emerge
+
 `root #``emerge --ask app-backup/borgbackup`
+## Compatibility
+
 There is a planned compatibility break in the development, not-yet-released 2.0 version. See the "Breaking compatibility" [section](https://www.borgbackup.org/releases/borg-2.0.html) of the preliminary release notes, as well as the [general note](https://borgbackup.readthedocs.io/en/latest/#compatibility-notes) in its documentation.
 
 In the past, there have also been [compatibility issues](https://borgbackup.readthedocs.io/en/stable/faq.html#path-to-repo-is-not-a-valid-repository-check-repo-config) with old clients and new repositories, as well as when [mixing](https://github.com/borgbackup/borg/discussions/7970#discussioncomment-11204436) different client versions because of security fixes.
 
+## Usage
+
+### Initializing a new repository
+
 Before backups can be made, a repository must be initialized
 
-`user $``borg init --encryption=repokey /path/to/repo``user $``borg create /path/to/repo::ArchiveName ~/src ~/Documents`
+`user $``borg init --encryption=repokey /path/to/repo`
+### Backing up directories
+
+`user $``borg create /path/to/repo::ArchiveName ~/src ~/Documents`
 The archive name may include placeholders which will expanded by borg, e.g. '{hostname}-{now}' would become something like 'panther-2024-08-31T19:00:00'
 
 Statistics can be output with the `--stats` argument.
@@ -51,24 +71,39 @@ All archives:                8.33 MB              8.34 MB              4.19 MB
 Chunk index:                     132                  261
 ------------------------------------------------------------------------------
 ```
+### Listing archives in a repository
+
 `user $``borg list /path/to/repo`
 First                               Mon, 2016-02-15 19:14:44
 Second                              Tue, 2016-02-16 19:15:11
+
+### Listing contents of an archive
 
 `user $``borg list /path/to/repo::ArchiveName`
 drwxr-xr-x user   group          0 Mon, 2016-02-15 18:22:30 home/user/Documents
 -rw-r--r-- user   group       7961 Mon, 2016-02-15 18:22:30 home/user/Documents/Important.doc
 ...
 
-`user $``borg extract /path/to/repo::ArchiveName``user $``borg delete /path/to/repo::ArchiveName`
+### Restoring an archive
+
+`user $``borg extract /path/to/repo::ArchiveName`
+### Deleting an archive
+
+`user $``borg delete /path/to/repo::ArchiveName`
+### Pruning a repository
+
 Pruning a repository allows borg to delete archives that do not need to be retained. This is useful for managing automated backups.
 
 `user $``borg prune --keep-daily=7 --keep-weekly=4 --keep-monthly=6 /path/to/repo`
 Afterwards, use **borg compact** to free up repository disk space
 
+### Compacting a repository
+
 Compacting a repository allows borg to recover disk space by compacting segment files
 
 `user $``borg compact /path/to/repo`
+### Mounting a repository
+
 Mounting a repository uses FUSE to make the archives available as directories at the mount point, which is useful for browsing or restoring files and directories.
 
 `user $``borg mount /path/to/repo /mount/point``user $``ls -l /mount/point`

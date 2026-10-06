@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/ASUS_X71SL
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-29"
-fingerprint: ee991b3f1baeb3d8
+fingerprint: ee811b3f9baef3d8
 license: CC BY-SA 4.0
 ---
 
@@ -58,6 +58,9 @@ Wired network doesn't work perfectly by default. MTU need to be set to 1492 inst
 
 **Wired Network**
 
+```
+mtu_eth0="1492"
+```
 You have to create the /etc/init.d/net.eth0 symlink to /etc/init.d/net.lo and start it at boot by:
 
 `root #``rc-update add net.eth0 default`
@@ -68,3 +71,13 @@ You don't really need to add it to the default boot level, because net.eth0 is s
 The audio hardware is supported by the Intel HD Audio drivers:
 
 **Audio Support**
+
+```
+Device Drivers  --->
+    <*> Sound card support  --->
+        <*> Advanced Linux Sound Architecture  --->
+            [*] PCI sound devices  --->
+                <*> Intel HD Audio  --->
+                    [*]   Build Realtek HD-audio codec support
+                        [ ]     Build static quirks for Realtek codecs
+```

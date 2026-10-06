@@ -6,15 +6,21 @@ hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-11-29"
 categories: ['dev-dotnet']
-fingerprint: "75023a1b8093a3f4"
+fingerprint: "55333a6b029323d4"
 license: CC BY-SA 4.0
 ---
 
 # C-Sharp
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+*Not to be confused with[the C programming language](https://wiki.gentoo.org/wiki/C).*
+
+*Not to be confused with[the C++ programming language](https://wiki.gentoo.org/wiki/C%2B%2B).*
 
 **C#** (**C-Sharp**) is an open-source, general-purpose, multi-paradigm, programming language. It was created by Microsoft around the year 2000 and is part of the [.NET framework](https://en.wikipedia.org/wiki/.NET) ("dot net").
 

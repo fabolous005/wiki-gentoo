@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Beelink_SER5_AMD_Ryzen_5_5560U_Mini_PC
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-01-09"
-fingerprint: ff4a91ddc7ba8829
+fingerprint: ff0a81ddc7ba8829
 license: CC BY-SA 4.0
 ---
 
 # Beelink SER5 AMD Ryzen 5 5560U Mini PC
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -25,19 +27,19 @@ The Beelink SER5 AMD Ryzen 5 5560U Mini PC was produced in 2022, then discontinu
 
 | Device | Make/model | Status | Kernel driver(s) | Kernel version | Notes |  | 
 |---|---|---|---|---|---|---|
-| CPU | AMD Ryzen 5 5560U |  | N/A | 6.1.31 | Zen 3 |  | 
-| GPU | AMD Radeon Graphics, Cezanne \[Radeon Vega Series / Radeon Vega Mobile Series\] (rev c3) |  | amdgpu | 6.1.31 | Integrated Ryzen 5000 graphics, "Green Sardine" codename <sup>[\[9\]](https://wiki.gentoo.org#cite_note-amd-9)</sup>. |  | 
-| Host Bridge | Advanced Micro Devices, Inc. \[AMD\] Renoir/Cezanne Root Complex |  | N/A | 6.1.31 |  |  | 
-| Host Bridge | Advanced Micro Devices, Inc. \[AMD\] Cezanne Data Fabric |  | k10temp | 6.1.31 |  |  | 
-| PCI Bridge | Advanced Micro Devices, Inc. \[AMD\] Renoir/Cezanne PCIe GPP Bridge |  | pcieport | 6.1.31 |  |  | 
-| SMBus | Advanced Micro Devices, Inc. \[AMD\] FCH SMBus Controller (rev 51) |  | piix4\_smbus, sp5100\_tco | 6.1.31 |  |  | 
-| Ethernet controller | Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller (rev 15) |  | r8169 | 6.1.31 |  |  | 
-| Network controller | MEDIATEK Corp. MT7921K (RZ608) Wi-Fi 6E 80MHz |  | mt7921e | 6.1.31 | Bluetooth works after adding the firmware files listed below. |  | 
-| Non-Volatile memory controller | Intel Corporation Device f1aa (rev 03) |  | nvme | 6.1.31 |  |  | 
-| Audio device | Advanced Micro Devices, Inc. \[AMD/ATI\] Renoir Radeon High Definition Audio Controller, \[AMD\] Family 17h/19h HD Audio Controller |  | snd\_hda\_intel | 6.1.31 |  |  | 
-| Multimedia controller | Advanced Micro Devices, Inc. \[AMD\] ACP/ACP3X/ACP6x Audio Coprocessor (rev 01) |  | snd\_rn\_pci\_acp3x | 6.1.31 |  |  | 
-| Encryption controller | Advanced Micro Devices, Inc. \[AMD\] Family 17h (Models 10h-1fh) Platform Security Processor |  | ccp | 6.1.31 |  |  | 
-| USB controller | Advanced Micro Devices, Inc. \[AMD\] Renoir/Cezanne USB 3.1 |  | xhci\_hcd | 6.1.31 |  |  | 
+| CPU | AMD Ryzen 5 5560U | Works | N/A | 6.1.31 | Zen 3 |  | 
+| GPU | AMD Radeon Graphics, Cezanne \[Radeon Vega Series / Radeon Vega Mobile Series\] (rev c3) | Works | amdgpu | 6.1.31 | Integrated Ryzen 5000 graphics, "Green Sardine" codename <sup>[\[9\]](https://wiki.gentoo.org#cite_note-amd-9)</sup>. |  | 
+| Host Bridge | Advanced Micro Devices, Inc. \[AMD\] Renoir/Cezanne Root Complex | Works | N/A | 6.1.31 |  |  | 
+| Host Bridge | Advanced Micro Devices, Inc. \[AMD\] Cezanne Data Fabric | Works | k10temp | 6.1.31 |  |  | 
+| PCI Bridge | Advanced Micro Devices, Inc. \[AMD\] Renoir/Cezanne PCIe GPP Bridge | Works | pcieport | 6.1.31 |  |  | 
+| SMBus | Advanced Micro Devices, Inc. \[AMD\] FCH SMBus Controller (rev 51) | Works | piix4\_smbus, sp5100\_tco | 6.1.31 |  |  | 
+| Ethernet controller | Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller (rev 15) | Works | r8169 | 6.1.31 |  |  | 
+| Network controller | MEDIATEK Corp. MT7921K (RZ608) Wi-Fi 6E 80MHz | Works | mt7921e | 6.1.31 | Bluetooth works after adding the firmware files listed below. |  | 
+| Non-Volatile memory controller | Intel Corporation Device f1aa (rev 03) | Works | nvme | 6.1.31 |  |  | 
+| Audio device | Advanced Micro Devices, Inc. \[AMD/ATI\] Renoir Radeon High Definition Audio Controller, \[AMD\] Family 17h/19h HD Audio Controller | Works | snd\_hda\_intel | 6.1.31 |  |  | 
+| Multimedia controller | Advanced Micro Devices, Inc. \[AMD\] ACP/ACP3X/ACP6x Audio Coprocessor (rev 01) | Works | snd\_rn\_pci\_acp3x | 6.1.31 |  |  | 
+| Encryption controller | Advanced Micro Devices, Inc. \[AMD\] Family 17h (Models 10h-1fh) Platform Security Processor | Not tested | ccp | 6.1.31 |  |  | 
+| USB controller | Advanced Micro Devices, Inc. \[AMD\] Renoir/Cezanne USB 3.1 | Works | xhci\_hcd | 6.1.31 |  |  | 
 
 `root #``lscpu````
 Architecture:            x86_64
@@ -338,27 +340,72 @@ Vulnerabilities:
 
 ### make.conf
 
-**`/etc/portage/make.conf`**
+FILE **`/etc/portage/make.conf`**
 
 ```
 VIDEO_CARDS="amdgpu radeonsi"
 GRUB_PLATFORMS="efi-64"
 ```
-**`/etc/portage/package.use/00cpu-flags`**
+FILE **`/etc/portage/package.use/00cpu-flags`**
 
 ```
- CPU_FLAGS_X86: aes avx avx2 f16c fma3 mmx mmxext pclmul popcnt rdrand sha sse sse2 sse3 sse4_1 sse4_2 sse4a ssse3
+*/* CPU_FLAGS_X86: aes avx avx2 f16c fma3 mmx mmxext pclmul popcnt rdrand sha sse sse2 sse3 sse4_1 sse4_2 sse4a ssse3
 ```
 ### Firmware
 
 For wifi, bluetooth, integrated graphics, and microcode updates add the following firmware files:
 
-**`/usr/src/linux/.config`**
+FILE **`/usr/src/linux/.config`**
 
+```
+CONFIG_EXTRA_FIRMWARE="mediatek/BT_RAM_CODE_MT7961_1_2_hdr.bin mediatek/WIFI_MT7961_patch_mcu_1_2_hdr.bin mediatek/WIFI_RAM_CODE_MT7961_1.bin amd/amd_sev_fam17h_model0xh.sbin amd/amd_sev_fam17h_model3xh.sbin amd/amd_sev_fam19h_model0xh.sbin amd-ucode/microcode_amd_fam17h.bin amd-ucode/microcode_amd_fam19h.bin amdgpu/green_sardine_asd.bin amdgpu/green_sardine_ce.bin amdgpu/green_sardine_dmcub.bin amdgpu/green_sardine_me.bin amdgpu/green_sardine_mec2.bin amdgpu/green_sardine_mec.bin amdgpu/green_sardine_pfp.bin amdgpu/green_sardine_rlc.bin amdgpu/green_sardine_sdma.bin amdgpu/green_sardine_ta.bin amdgpu/green_sardine_vcn.bin"
+CONFIG_EXTRA_FIRMWARE_DIR="/lib/firmware"
+```
 ### Kernel
 
-**menuconfig**
+KERNEL **menuconfig**
 
+```
+[*] 64-bit kernel
+    Processor type and features  --->
+        [*] AMD ACPI2Platform devices support
+        Processor family (AMD-Native optimizations autodetected by the compiler)
+[*] Virtualization
+        <*> KVM for AMD processors support
+    Device Drivers  --->
+        [*] PCI support  --->
+            [*] PCI Express Port Bus support
+            NVME Support  --->
+                <*> NVM Express block device
+        [*] Network device support  --->
+            [*] Wireless LAN  --->
+                [*] MediaTek devices
+                <*>     MediaTek MT7921E (PCIe) support
+                <*>     MediaTek MT7921S (SDIO) support 
+                <*>     MediaTek MT7921U (USB) support 
+            [*] Realtek devices
+            <*>     Realtek 8180/8185/8187SE PCI support
+        Graphics support  --->
+            < > ATI Radeon
+            <*> AMD GPU
+                ACP (Audio CoProcessor) Configuration  --->
+                    [*] Enable AMD Audio CoProcessor IP support
+                Display Engine Configuration  --->
+                    [*] AMD DC - Enable new display engine
+                    [*] Enable HDCP support in DC
+            [*] HSA kernel driver for AMD GPU devices
+        [*] USB support  --->
+            <*> xHCI HCD (USB 3.0) support
+            <*> EHCI HCD (USB 2.0) support
+            <*> USB Mass Storage support
+            <*> USB Type-C Support  --->
+                <*> USB Type-C Port Controller Manager
+                <*> Type-C Port Controller Interface driver
+                <*> USB Type-C Connector System Software Interface driver 
+        [*] IOMMU Hardware Support  --->
+            [*]   AMD IOMMU support
+            <*>     AMD IOMMU Version 2 driver
+```
 ### Emerge
 
 `root #``emerge --ask sys-kernel/linux-firmware media-libs/mesa x11-apps/mesa-progs vulkan-tools`

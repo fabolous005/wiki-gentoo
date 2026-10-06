@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/GnuPG
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-09-27"
-fingerprint: a688b39a4bae2afc
+fingerprint: a488b39a4bbe2afc
 license: CC BY-SA 4.0
 ---
 
@@ -27,6 +27,11 @@ GPG supports hardware security devices with an OpenPGP module, such as the [Yubi
 
 ### USE flags
 
+
+### USE flags for
+            [app-crypt/gnupg](https://packages.gentoo.org/packages/app-crypt/gnupg)
+            
+            The GNU Privacy Guard, a GPL OpenPGP implementation
 
 | [+alternatives](https://packages.gentoo.org/useflags/+alternatives) | Install renamed, for compatibility with app-alternatives/gpg. | 
 | [+smartcard](https://packages.gentoo.org/useflags/+smartcard) | Build scdaemon software. Enables usage of OpenPGP cards. For other type of smartcards, try app-crypt/gnupg-pkcs11-scd. Bring in dev-libs/libusb as a dependency; enable scdaemon. | 
@@ -93,6 +98,39 @@ The following options are part of [GLEP 63](https://wiki.gentoo.org/wiki/Project
 
 **Reference GLEP63 configuration**
 
+```
+# Assume that command line arguments are given as UTF8 strings.
+utf8-strings
+ 
+# when outputting certificates, view user IDs distinctly from keys:
+fixed-list-mode
+ 
+# long keyids are more collision-resistant than short keyids (it's trivial to make a key
+# with any desired short keyid)
+# NOTE: this breaks kmail gnupg support!
+keyid-format 0xlong
+ 
+# when multiple digests are supported by all recipients, choose the strongest one:
+personal-digest-preferences SHA512 SHA384 SHA256 SHA224
+ 
+# preferences chosen for new keys should prioritize stronger algorithms:
+default-preference-list SHA512 SHA384 SHA256 SHA224 AES256 AES192 AES CAST5 BZIP2 ZLIB ZIP Uncompressed
+ 
+# You should always know at a glance which User IDs GPG thinks are legitimately bound to
+# the keys in the keyring:
+verify-options show-uid-validity
+list-options show-uid-validity
+ 
+# include an unambiguous indicator of which key made a signature:
+# (see http://thread.gmane.org/gmane.mail.notmuch.general/3721/focus=7234)
+# (and http://www.ietf.org/mail-archive/web/openpgp/current/msg00405.html)
+sig-notation issuer-fpr@notations.openpgp.fifthhorseman.net=%g
+ 
+# when making an OpenPGP certification, use a stronger digest than the default SHA1:
+cert-digest-algo SHA512
+s2k-cipher-algo AES256
+s2k-digest-algo SHA512
+```
 ### Pinentry
 
 [app-crypt/pinentry](https://packages.gentoo.org/packages/app-crypt/pinentry) is a helper application that gpg-agent uses to request the passphrase in a graphical window. It comes in many flavors, including: gtk3, qt6, tty, and curses.
@@ -147,6 +185,9 @@ To instruct gpg-agent to use pinentry-kwallet, create the following file:
 
 **Attach pinentry-kwallet to gpg-agent**
 
+```
+pinentry-program /usr/bin/pinentry-kwallet
+```
 Finally, **logout & restart** to make sure any lingering gpg-agent processes get the new configuration.
 
 ### Key management
@@ -461,6 +502,9 @@ To make gpg use *keys.openpgp.org* as the default key server, the following conf
 
 **Make GPG use keys.openpgp.org as the default*keyserver***
 
+```
+keyserver keys.openpgp.org
+```
 ##### Sending keys to key servers
 
 Once keys are generated, they can be shared with a keyserver. This makes it easier for others to import the key.
@@ -499,16 +543,27 @@ This command can be added to a cron job or systemd timer.
 
 **Configure gpg-agent to use /usr/bin/pinentry with a ttl of 30 minutes**
 
+```
+pinentry-program /usr/bin/pinentry
+no-grab
+default-cache-ttl 1800
+```
 **`~/.gnupg/gpg-agent.conf`**
 
 **Configure gpg-agent with ssh-agent support**
 
+```
+enable-ssh-support
+```
 GPG must be configured to use gpg-agent, this can be accomplished with:
 
 **`~/.gnupg/gpg.conf`**
 
 **Configuring GnuPG to use a GPG agent**
 
+```
+use-agent
+```
 Configuration changes can be reloaded with:
 
 `user $``gpg-connect-agent reloadagent /bye`
@@ -518,6 +573,9 @@ To use GPG with a hardware key/security key/smart card, ensure that the `smartca
 
 **`/etc/portage/package.use/gnupg`**
 
+```
+app-crypt/gnupg smartcard
+```
 `root #``emerge --ask -uND app-crypt/gnupg`
 To read smart cards, GPG uses the CCID driver, but there are two ways to implement the driver: built-in and stand-alone.
 
@@ -549,10 +607,21 @@ If you had more than one smartcard reader you need to specify the reader-port in
 
 **`~/.gnupg/scdaemon.conf`**
 
+```
+reader-port "<some smart card> [CCID/ICCD Interface]"
+disable-ccid
+```
 You can get your reader-port parameter enabling the scdaemon log file in the config
 
 **`~/.gnupg/scdaemon.conf`**
 
+```
+reader-port "<some smart card> [CCID/ICCD Interface]"
+card-timeout 1
+debug-level basic
+log-file /home/<USER>/.gnupg/scdaemon.log
+disable-ccid
+```
 Ensure to terminate the scdaemon process after changing the the scdaemon config.
 
 `user $``gpgconf --kill scdaemon``user $``tail -f ~/.gnupg/scdaemon.log & gpg --card-status` ...
@@ -566,6 +635,11 @@ Finally you will have a config file similar to this
 
 **`~/.gnupg/scdaemon.conf`**
 
+```
+reader-port "Yubico YubiKey OTP+FIDO+CCID 00"
+card-timeout 1
+disable-ccid
+```
 Ensure to terminate the scdaemon process after changing the scdaemon config.
 
 `user $``gpgconf --kill scdaemon`
@@ -640,6 +714,9 @@ To allow gpg-agent to use the specified GPG key for SSH auth:
 
 **`~/.gnupg/sshcontrol`**
 
+```
+0CA0F1710A5837577FB10177355BE575A425D76D
+```
 #### From v2.3.7
 
 gpg-agent deprecates use of \~/.gnupg/sshcontrol file instead recommends setting `Use-for-ssh` attribute in auth key files which should be used for SSH.
@@ -655,6 +732,9 @@ First, the remote server's SSH daemon must be configured to allow remote forward
 
 **`/etc/ssh/sshd_config`**
 
+```
+StreamLocalBindUnlink yes
+```
 Then, the path for the GPG agent sockets must be obtained on both systems with:
 
 `user $``gpgconf --list-dirs`
@@ -678,6 +758,11 @@ SSH can be configured to automatically forward the GPG agent socket with:
 
 **Automatically forward the GPG agent socket over SSH**
 
+```
+host remoteHost
+    HostName 1.2.3.4
+    RemoteForward /run/user/1000/gnupg/S.gpg-agent:/run/user/1000/gnupg/S.gpg-agent.extra
+```
 ### Changing pinentry for SSH logins
 
 If gpg-agent is used over SSH, a graphical pinentry password prompt will not come up in the login shell. This causes all operations that require a password to fail. The following snippet can be added to \~/.bash\_profile, this tells gpg-agent to use a **curses** prompt in the current shell. The snippet does not affect the pinentry settings when using local shells.
@@ -701,6 +786,9 @@ A generic method to autostart the GPG agent is to add `gpgconf --launch gpg-agen
 
 **Autostart gpg-agent on shell init**
 
+```
+gpgconf --launch gpg-agent
+```
 #### KDE
 
 [KDE](https://wiki.gentoo.org/wiki/KDE) manages the GPG agent using the following files:

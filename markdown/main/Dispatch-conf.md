@@ -56,7 +56,7 @@ This process of configuration is as simple as editing the configuration file to 
 **`/etc/dispatch-conf.conf`**
 
 ```
-=yes
+use-rcs=yes
 ```
 Administrators can then view the differences using the rcs utilities like rlog as well as roll-back changes using co. The rcs utilities work with file locking itself, so the moment it is needed for administrative tasks, understand that:
 

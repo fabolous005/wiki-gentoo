@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Fwupd
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-11-06"
-fingerprint: ec00b81c08d6b9c2
+fingerprint: ec00b81c48d6b9c2
 license: CC BY-SA 4.0
 ---
 
@@ -27,6 +27,11 @@ fwupd is colloquially referred to as **L**inux **V**endor **F**irmware **S**ervi
 `root #``emerge --ask sys-apps/fwupd`
 ### USE flags
 
+
+### USE flags for
+            [sys-apps/fwupd](https://packages.gentoo.org/packages/sys-apps/fwupd)
+            
+            Aims to make updating firmware on Linux automatic, safe and reliable
 
 | [+archive](https://packages.gentoo.org/useflags/+archive) | Use app-arch/libarchive for archives support | 
 | [+gnutls](https://packages.gentoo.org/useflags/+gnutls) | Prefer net-libs/gnutls as SSL/TLS provider (ineffective with USE=-ssl) | 

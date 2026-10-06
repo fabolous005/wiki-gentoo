@@ -6,7 +6,7 @@ hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-03-21"
 categories: ['app-backup']
-fingerprint: bd4a8b1cc1abd38a
+fingerprint: bd4a831cc1abd38a
 license: CC BY-SA 4.0
 ---
 
@@ -15,6 +15,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 **Backups** prevent loss of data by ensuring it can be recovered.
 

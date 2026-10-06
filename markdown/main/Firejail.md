@@ -22,6 +22,11 @@ license: CC BY-SA 4.0
 ### USE flags
 
 
+### USE flags for
+            [sys-apps/firejail](https://packages.gentoo.org/packages/sys-apps/firejail)
+            
+            Security sandbox for any type of processes
+
 | [+chroot](https://packages.gentoo.org/useflags/+chroot) | Enable chrooting to custom directory | 
 | [+dbusproxy](https://packages.gentoo.org/useflags/+dbusproxy) | Enable DBus proxying to filter access in supporting profiles | 
 | [+file-transfer](https://packages.gentoo.org/useflags/+file-transfer) | Enable file transfers between sandboxes and the host system | 
@@ -115,6 +120,11 @@ Optionally you can enable user namespaces in the kernel so they can be utilized 
 
 **Enabling user namespaces**
 
+```
+General setup --->
+  Namespaces support --->
+    <*>  User namespace
+```
 ## Usage
 
 Usage is simple as:

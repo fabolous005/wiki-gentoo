@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/CDROM
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-08-22"
-fingerprint: a625acd20eecd159
+fingerprint: b605ac548ee6f14d
 license: CC BY-SA 4.0
 ---
 
 # CDROM
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -28,8 +30,38 @@ To choose the right driver, first detect the used storage controller. [lspci](ht
 
 Activate the following kernel options:
 
-**Kernel options for optical storage media**
+KERNEL **Kernel options for optical storage media**
 
+```
+Device Drivers --->
+   <*> Serial ATA and Parallel ATA drivers  --->
+      [*] ATA ACPI Support
+  
+      # If the drive is connected to a SATA Port Multiplier:
+      [*] SATA Port Multiplier support
+  
+      # Select the driver for the SATA controller, e.g.:
+      <*> AHCI SATA support (ahci)
+  
+      # If the drive is connected to an IDE controller:
+      [*] ATA SFF support
+      [*] ATA BMDMA support
+  
+      # Select the driver for the IDE controller, e.g.:
+        <*> Intel ESB, ICH, PIIX3, PIIX4 PATA/SATA support (ata_piix)
+  
+   SCSI device support  ---> 
+      <*> SCSI device support
+      <*> SCSI CDROM support
+      <*> SCSI generic support
+  
+File systems  --->
+   CD-ROM/DVD Filesystems  --->
+      <M> ISO 9660 CDROM file system support
+      [*] Microsoft Joliet CDROM extensions
+      [*] Transparent decompression extension
+      <M> UDF file system support
+```
 ## Usage
 
 Filesystems can be mounted in several ways:

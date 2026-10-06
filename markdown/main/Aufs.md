@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Aufs
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-12-19"
-fingerprint: "9ed5473f9cae1d33"
+fingerprint: "9ed0471e9cae0d1b"
 license: CC BY-SA 4.0
 ---
 
@@ -15,6 +15,8 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+**Deprecated article**
+
 As of
 
 **2020-12-29**, this article is
@@ -22,6 +24,8 @@ As of
 **deprecated (obsolete)**. Contents are
 
 <u>no longer relevant</u>, and are intended for historical reference only!
+
+[this comment in 2020-12-29](https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=12a57dcdb261de4c2230101532d477876c9525ba).
 
 TLDR:
 
@@ -56,6 +60,22 @@ Use eselect to set the symlink to the aufs kernel sources:
 
 **Enabling support for Aufs**
 
+```
+File systems  --->
+   Miscellaneous filesystems  --->
+      [*] Aufs (Advanced multi layered unification filesystem) support
+            Maximum number of branches (127)  --->
+      [*]   Detect direct branch access (bypassing aufs)
+              method (fsnotify)  --->
+      [ ]   NFS-exportable aufs
+      [*]   support for XATTR/EA (including Security Labels)
+      [*]   File-based Hierarchical Storage Management
+      [ ]   Readdir in userspace
+      [ ]   Workaround for rename(2)-ing a directory
+      [ ]   Show whiteouts
+      [*]   Ramfs (initramfs/rootfs) as an aufs branch
+      [ ]   Debug aufs
+```
 After the features have been set, build the kernel following the [kernel configuration guide](https://wiki.gentoo.org/wiki/Kernel/Configuration#Build).
 
 ## Configuration

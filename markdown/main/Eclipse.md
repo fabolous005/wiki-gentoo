@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Eclipse
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-03-17"
-fingerprint: bb44549d8815b9c6
+fingerprint: "3b44549f8815b9c7"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Archived article**
 
 This article is **archived (obsolete)**. Contents are surely incorrect for current usage, and are intended for historical reference only. *Page archived as of **2025-03-17**.*
 
@@ -55,6 +57,8 @@ In a desktop environment, the different versions should show up automatically in
 CDT adds C/C++ tools to Eclipse SDK.
 
 Need to first find the latest code name for the latest release of CDT. Go to the following page and take note of the latest code named release. (ie. kepler, indigo, juno, ...)
+
+[http://www.eclipse.org/cdt/downloads.php](http://www.eclipse.org/cdt/downloads.php)
 
 ## Configuration
 

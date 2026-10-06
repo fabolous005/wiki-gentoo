@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Conky
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-09-24"
-fingerprint: de42431c489e38ec
+fingerprint: de42531c489e38ec
 license: CC BY-SA 4.0
 ---
 
 # Conky
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -21,6 +23,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [app-admin/conky](https://packages.gentoo.org/packages/app-admin/conky)
+            
+            An advanced, highly configurable system monitor for X
 
 | [+portmon](https://packages.gentoo.org/useflags/+portmon) | Enable support for tcp (ip4) port monitoring | 
 | [X](https://packages.gentoo.org/useflags/X) | Add support for X11 | 
@@ -76,8 +83,17 @@ After installing Conky, create a default configuration as a starting point:
 
 Users of modern composited desktop environments will probably want to use conky in own window mode with true transparency:
 
-**`~/.config/conky/conky.conf`**
+FILE **`~/.config/conky/conky.conf`**
 
+```
+own_window = true,
+own_window_class = 'conky',
+own_window_argb_visual = true,
+own_window_argb_value = 80,
+own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+own_window_colour = '101010',
+own_window_type = 'desktop'
+```
 ## See also
 
 - [Conky/Guide](https://wiki.gentoo.org/wiki/Conky/Guide) — describes how to install and configure the system monitor known as Conky.

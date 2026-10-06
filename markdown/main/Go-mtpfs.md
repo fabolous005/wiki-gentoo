@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Go-mtpfs
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-08-21"
-fingerprint: bf41a83699c45988
+fingerprint: bf51a83699c459a8
 license: CC BY-SA 4.0
 ---
 
 # Go-mtpfs
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -23,8 +25,12 @@ Go-mtpfs is a simple FUSE-based filesystem written in Go language for mounting A
 
 Allow live builds for two packages in /etc/portage/package.accept\_keywords:
 
-**`/etc/portage/package.accept_keywords`**
+FILE **`/etc/portage/package.accept_keywords`**
 
+```
+dev-libs/go-fuse **
+sys-fs/go-mtpfs **
+```
 ### Kernel
 
 See the [MTP](https://wiki.gentoo.org/wiki/MTP) meta article or the [FUSE](https://wiki.gentoo.org/wiki/FUSE) article for instructions on enabling FUSE support in the Linux kernel.

@@ -153,17 +153,17 @@ List of Kernel Configs
 **`/etc/portage/package.use/00input`**
 
 ```
- INPUT_DEVICES: evdev synaptics
+*/* INPUT_DEVICES: evdev synaptics
 ```
 **`/etc/portage/package.use/00video`**
 
 ```
- VIDEO_CARDS: -* intel nvidia
+*/* VIDEO_CARDS: -* intel nvidia
 ```
 **`/etc/portage/package.use/00cpu-flags`**
 
 ```
- CPU_FLAGS_X86: aes avx avx2 fma3 mmx mmxext popcnt sse sse2 sse3 sse4_1 sse4_2 ssse3
+*/* CPU_FLAGS_X86: aes avx avx2 fma3 mmx mmxext popcnt sse sse2 sse3 sse4_1 sse4_2 ssse3
 ```
 ## Issues
 

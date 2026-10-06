@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Bootstrapping_Rust_via_cross_compilation
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-10-10"
-fingerprint: "3f445c3fc51c2ba3"
+fingerprint: "3f449c3f651c0ba3"
 license: CC BY-SA 4.0
 ---
 
@@ -49,6 +49,7 @@ Create a cross toolchain for the chosen `CHOST`. For sparc, it'll be:
 
 The git repo is used because the tag tarballs lack the required submodules:
 
+`amd64 #``git clone` [https://github.com/rust-lang/rust.git](https://github.com/rust-lang/rust.git) -b stable && cd rust
 `amd64 #``git submodule update --init --recursive`
 ### Build it
 
@@ -59,6 +60,18 @@ Configure:
 
 **`config.toml`**
 
+```
+# Includes one of the default files in src/bootstrap/defaults
+profile = "user"
+changelog-seen = 2
+[rust]
+channel = "stable"
+[target.sparc64-unknown-linux-gnu]
+# Needed because of some mixup between Rust target names and defaults(?)
+# for it -- seems to assume Debian naming of sparc64-linux-gnu otherwise?
+cc = "sparc64-unknown-linux-gnu-gcc"
+cxx = "sparc64-unknown-linux-gnu-g++"
+```
 Run the mono x.py build script:
 
 `amd64 #``OPENSSL_INCLUDE_DIR=/usr/sparc64-unknown-linux-gnu/usr/include/ OPENSSL_LIB_DIR=/usr/sparc64-unknown-linux-gnu/usr/lib PKG_CONFIG_PATH=/usr/sparc64-unknown-linux-gnu/usr/lib/pkgconfig ./x.py dist --build x86_64-unknown-linux-gnu --host sparc64-unknown-linux-gnu --target sparc64-unknown-linux-gnu`
@@ -85,10 +98,24 @@ Some changes are needed to /etc/portage:
 
 **`/etc/portage/package.unmask`**
 
+```
+app-eselect/eselect-rust
+dev-lang/rust
+virtual/rust
+```
 **`/etc/portage/package.accept_keywords`**
 
+```
+app-eselect/eselect-rust * ~*
+dev-lang/rust * ~*
+virtual/rust * ~*
+```
 **`/etc/portage/package.use`**
 
+```
+# This is our LLVM_TARGET from earlier.
+dev-lang/rust RUST_TARGETS: Sparc
+```
 Copy the Rust ebuilds to a temporary location:
 
 `sparc #````

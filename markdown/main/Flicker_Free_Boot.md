@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Flicker_Free_Boot
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-12-20"
-fingerprint: e7152f1bfdea29c9
+fingerprint: e7152f1afdea2bc9
 license: CC BY-SA 4.0
 ---
 
@@ -65,7 +65,7 @@ In order to set the correct use flags for plymouth, you'll need to take the foll
 
 1. Add the following line to the file:
 
-- FILE**`/etc/portage/package.use/plymouth`**
+- FILE**`/etc/portage/package.use/plymouth`** sys-boot/plymouth libkms pango
 
   1. NOTE: `libkms` is the minimal requirement for the splash screen to show up. `pango` is required for interactivity (e.g.: This is necessary to have the ability to enter a [LUKS](https://wiki.gentoo.org/wiki/Dm-crypt) password on a nice graphical screen). The `gtk` and `gdm` USE flags should be added respectively when using [GDM](https://wiki.gentoo.org/wiki/GDM) as the [Display manager](https://wiki.gentoo.org/wiki/Display_manager) or [LightDM](https://wiki.gentoo.org/wiki/LightDM) with GTK.
   2. NOTE: Do *NOT* enable the `static-libs` USE flag. This USE flags will plymouth and may causes the package not to compile or display themes.
@@ -107,6 +107,12 @@ Next, configure the bootloader entry to look something like the following:
 
 **Default settings**
 
+```
+title Gentoo Linux
+linux /EFI/Linux/vmlinuz
+initrd /EFI/Linux/initrd.img
+options [...] i915.fastboot=1 quiet splash
+```
 ## See also
 
 - [Dracut](https://wiki.gentoo.org/wiki/Dracut) — an [initramfs](https://wiki.gentoo.org/wiki/Initramfs) infrastructure and aims to have as little as possible hard-coded into the initramfs.

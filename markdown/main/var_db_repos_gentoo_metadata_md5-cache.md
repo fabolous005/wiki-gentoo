@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki//var/db/repos/gentoo/metadata/md5-cache
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-08-24"
-fingerprint: "7a1f541777b7f9d4"
+fingerprint: "7a1f565777b7fbf4"
 license: CC BY-SA 4.0
 ---
 
 # /var/db/repos/gentoo/metadata/md5-cache
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

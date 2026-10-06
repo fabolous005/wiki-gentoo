@@ -5,15 +5,21 @@ url: https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/OpenRC_Extens
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-04-02"
-fingerprint: "8fb7baf897ab8bbc"
+fingerprint: "9a16bae887a18bac"
 license: CC BY-SA 4.0
 ---
 
 # Google Summer of Code/2012/Ideas/OpenRC Extensions
 
+From Gentoo Wiki
+
+\< [Google Summer of Code](https://wiki.gentoo.org/wiki/Google_Summer_of_Code) | [2012](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012) | [Ideas](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+## [OpenRC Extensions]
 
 OpenRC is the default init system in Gentoo, it provides a large deal of features while staying mostly agnostic to the underlying implementation on /sbin/init.
 
@@ -45,5 +51,7 @@ Abstract:
 - Extend Prefix with the long-waited feature of services daemons.
 
 #### Mailing List Archives
+
+[gentoo-soc - report 7.16-7.23: improving OpenRC heroxbd@×××××.com Tue, 24 Jul 2012 09:06:29](https://archives.gentoo.org/gentoo-soc/message/f768d78d3bf0d1e1069af2a8c9b82d50) 
 
 **Contacts:**

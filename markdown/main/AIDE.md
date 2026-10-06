@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/AIDE
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-08-21"
-fingerprint: ec063aba85e43191
+fingerprint: e406baba85e03191
 license: CC BY-SA 4.0
 ---
 
@@ -18,7 +18,16 @@ license: CC BY-SA 4.0
 
 AIDE (***A**dvanced **I**ntrusion **D**etection **E**nvironment*) is a host-based intrusion detection system. AIDE scans files and other resources and stores information about these files in a database. Stored information includes key file attributes such as file hash output, file size, ownership, modification time, creation time, and more. After the initial database has been created, AIDE then rescans the system and compares new scan results with previously stored values. If values differ then the file has been changed and the change will be reported. The idea behind using AIDE is to create a snapshot of a system then compare the snapshot to another created snapshot to find compromised files.
 
+## Installation
+
+### USE flags
+
 It is easy to install [app-forensics/aide](https://packages.gentoo.org/packages/app-forensics/aide) after setting the USE flags accordingly.
+
+### USE flags for
+            [app-forensics/aide](https://packages.gentoo.org/packages/app-forensics/aide)
+            
+            AIDE (Advanced Intrusion Detection Environment) is a file integrity checker
 
 | [acl](https://packages.gentoo.org/useflags/acl) | Add support for Access Control Lists | 
 | [audit](https://packages.gentoo.org/useflags/audit) | Enable support for Linux audit subsystem using sys-process/audit | 
@@ -34,9 +43,18 @@ USE flag changes specific to a certain package should be defined in the /etc/por
 
 **Enable curl support for AIDE**
 
+```
+app-forensics/aide curl
+```
+### Emerge
+
 After the USE flags have been set, install the software:
 
 `root #``emerge --ask app-forensics/aide`
+## Configuration
+
+### Overview
+
 The configuration file for [app-forensics/aide](https://packages.gentoo.org/packages/app-forensics/aide) is not as daunting as it might seem at first sight. The default file is stored at /etc/aide/aide.conf but administrators can easily create multiple configuration files if necessary. Besides a few variables, the configuration file contains short-hand notations for what aspects of files to scan for (only hashes, or also inode information, etc.) and which files to scan.
 
 Take look at the database variables:
@@ -45,6 +63,10 @@ Take look at the database variables:
 
 **AIDE database configuration variables**
 
+```
+database=file:/var/lib/aide/aide.db
+database_out=file:/var/lib/aide/aide.db.new
+```
 The first line in the example above (`database`) defines where the location of database that contains the known values. The second line (`database_out`) defines where to store new databases when another is generated. It is generally recommended against having these variables point to the same database (having the same paths for each variable). If one database is to overwrite another, the best method is to *manually copy* over the generated database from one location to the other. For example, to overwrite the first database with the second, this command could be used:
 
 `root #``cp /var/lib/aide/aide.db.new /var/lib/aide/aide.db`
@@ -81,11 +103,23 @@ Next is an overview of which directories to scan, and what to scan for. In three
 
 **Scan target options**
 
+```
+/bin Binlib
+/sbin Binlib
+/var/log Logs
+...
+```
 AIDE supports regular expressions and users are allowed to "remove" matches. For instance, to scan /var/log but not /var/log/portage then make an exclusion set by using the `!` (exclamation point) before the excluded path(s):
 
 **`aide.conf`**
 
 **Other scan targets**
+
+```
+/var/log Logs
+!/var/log/portage
+```
+### Detailed options
 
 The configuration file is based on regular expressions, macros and rules for files and directories. Users experienced with the [tripwire solution](https://www.tripwire.org/) will have no difficulties dealing with AIDE's configuration file. The following macros are available:
 
@@ -132,6 +166,8 @@ If AIDE is compiled with mhash support, then the following flags can be used as 
 | `haval` | haval checksum | 
 | `gost` | gost checksum | 
 | `crc32` | crc32 checksum | 
+
+### Initialization and frequent scanning
 
 For a basic AIDE setup, a database must be initialized. This is performed using the `--init` option. To make sure AIDE uses the configuration settings defined in the sections before, be sure to pass the `--config` option pointed to the correct configuration file:
 
@@ -192,6 +228,10 @@ File: /etc/pam.d/run\_init
   MD5      : Mm0KPzpPt63eqGClTJ/KaQ==         , eLUrP2BsIq25f3AZX+dlBA==
   SHA1     : NrQtsUeOsXS4RHUq+ejYBne5V6E=     , 5A6ef6VJCcMiqEjKQ7e9xkBNZB8=
 
+## Best practices
+
+### Be clear on what to scan
+
 The default AIDE configuration is useful, but it needs to be fine-tuned to suit the users' needs. It is important to know which files to scan and why.
 
 For instance, to scan for all authentication-related files but not for other files, use a configuration like so:
@@ -200,9 +240,27 @@ For instance, to scan for all authentication-related files but not for other fil
 
 **authentication-related scan targets**
 
+```
+# SELinux policy and settings
+/etc/selinux ConfFiles
+# Authentication databases
+/etc/passwd ConfFiles
+/etc/shadow ConfFiles
+/etc/nsswitch.conf ConfFiles
+# Authentication configuration
+/etc/pam.d ConfFiles
+/etc/securetty ConfFiles
+/etc/security ConfFiles
+# PAM libraries
+/lib(64)?/security Binlib
+```
+### Keep the database offline and read-only
+
 A second important aspect is that the result database should be stored offline when *not* needed and should be used in read-only mode when the database *is* needed. This gives some protection against a malicious user that might have compromised the machine to modify the results database. For instance, provide the result database on a read-only NFS mount (for servers) or read-only medium (when physical access to the machine is possible) such as a CD/DVD or a read-only USB drive.
 
 After storing the database on a read-only location, update the aide.conf file to have `database` point to this new location.
+
+### Do offline scanning
 
 If applicable, try using offline scanning methods for the system. In case of virtual platforms, it might be possible to take a snapshot of the system, mount this snapshot (read-only) and then run the aide scan on the mounted file system.
 
@@ -235,5 +293,7 @@ vgchange -an /dev/volgrpX
 ```
 `root #``losetup -d /dev/loop0`
 The above approach uses chroot. This is only needed when the initial file system has been scanned from the live system and the administrator wants to perform an offline validation. If the initial scan was done offline, then the aide.conf file will point to the mount point already and the database will use these paths immediately, so then there is no need for chrooting.
+
+## See also
 
 - [Integrity/Concepts](https://wiki.gentoo.org/wiki/Integrity/Concepts) talks about the concepts related to system integrity

@@ -5,19 +5,23 @@ url: https://wiki.gentoo.org/wiki/GENTOO_MIRRORS
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-08-13"
-fingerprint: "2af6a0c9e9b4fa4"
+fingerprint: "2af2e0c9e8b4f24"
 license: CC BY-SA 4.0
 ---
 
 # GENTOO\_MIRRORS
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+**Resources**
+
 The `GENTOO_MIRRORS` variable is set in /usr/share/portage/config/make.globals:
 
-**`/usr/share/portage/config/make.globals`**
+FILE **`/usr/share/portage/config/make.globals`**
 
 ```
 # Default distfiles mirrors. This rotation has multiple hosts and is reliable.
@@ -34,9 +38,7 @@ It can be overwritten with an entry in [/etc/portage/make.conf](https://wiki.gen
 
 [mirrorselect](https://wiki.gentoo.org/wiki/Mirrorselect) is a tool for managing such entry. That entry can hold a space-delimited list of Gentoo source mirrors to check before downloading from the URL defined in an ebuild or downloading a snapshot (webrsync).
 
-**`/etc/portage/make.conf`**
-
-**Two mirror locations in make.conf**
+FILE **`/etc/portage/make.conf`****Two mirror locations in make.conf**
 
 ```
 GENTOO_MIRRORS="https://mirrors.evowise.com/gentoo/ https://mirrors.lug.mtu.edu/gentoo/ http://distfiles.gentoo.org"

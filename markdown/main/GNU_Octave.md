@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/GNU_Octave
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-14"
-fingerprint: "6e834958d1827bc4"
+fingerprint: "7e83c958d1a27bc4"
 license: CC BY-SA 4.0
 ---
 
 # GNU Octave
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -21,6 +23,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [sci-mathematics/octave](https://packages.gentoo.org/packages/sci-mathematics/octave)
+            
+            High-level interactive language for numerical computations
 
 | [+glpk](https://packages.gentoo.org/useflags/+glpk) | Add support for sci-mathematics/glpk for linear programming | 
 | [+qhull](https://packages.gentoo.org/useflags/+qhull) | Add support for media-libs/qhull, to allow \`delaunay', \`convhull', and related functions | 

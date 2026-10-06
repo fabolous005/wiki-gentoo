@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Acer_Chromebook_C720
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-29"
-fingerprint: "944ffd0b009781cc"
+fingerprint: "5443dd59418799cc"
 license: CC BY-SA 4.0
 ---
 
@@ -83,14 +83,50 @@ For installation instructions on either MBR or GPT disk partitioning, follow the
 
 **Enable c720 chromebook support**
 
+```
+Device Drivers  --->
+   [*] Platform support for Chrome hardware  --->
+       <*> Chrome OS Laptop
+       <*> Chrome OS pstore support
+       < > ChromeOS Tablet Switch Controller
+       < > Backlight LED support for Chrome OS keyboards
+```
 Atheros ath9k wireless card
 
 **Enable ath9k support**
 
+```
+Device Drivers  --->
+   [*] Network device support --->
+      [*] Wireless LAN --->
+         [*] Atheros/Qualcomm devices
+            [*/ ] Atheros wireless debugging
+               [*/ ] Atheros wireless tracing
+            < > Atheros 5xxx wireless cards support
+            [ ] Atheros 5xxx PCI bus support 
+            [*/ ] Atheros bluetooth coexistence support
+            <*> Atheros 802.11n wireless cards support
+               [*] Atheros ath9k PCI/PCIe bus support
+               [ ] Atheros ath9k AHB bus support
+               [*/ ] Atheros ath9k debugging
+                  [*/ ] Detailed station statistics
+```
 Cypress APA I2C touchpad support
 
 **Enable Cypress APA touchpad support**
 
+```
+Processor type and features --->
+    [*] Intel Low Power Subsystem Support
+Device Drivers  --->
+    Input device support --->
+       [*] Mice --->
+          <*/M> Cypress APA I2C Trackpad support
+    I2C support --->
+       I2C Hardware Bus support --->
+          <*> Synopsys DesignWare Platform
+          <*> Synopsys DesignWare PCI
+```
 ### Wireless networking
 
 The setup of wireless networking is detailed in the [wpa supplicant](https://wiki.gentoo.org/wiki/Wpa_supplicant) and [Wifi](https://wiki.gentoo.org/wiki/Wifi) articles.

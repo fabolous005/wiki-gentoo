@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Btrfs
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-09-23"
-fingerprint: "3f873b1ba0f14ba1"
+fingerprint: "1f833b1ba0f15ba1"
 license: CC BY-SA 4.0
 ---
 
@@ -16,6 +16,8 @@ license: CC BY-SA 4.0
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
 **Btrfs** is a copy-on-write (CoW) [filesystem](https://wiki.gentoo.org/wiki/Filesystem) for Linux aimed at implementing advanced features while focusing on fault tolerance, self-healing properties, and easy administration. Jointly developed at Oracle, Red Hat, Fujitsu, Intel, SUSE, STRATO, and many others, Btrfs is licensed under the [GPL](https://en.wikipedia.org/wiki/GNU_General_Public_License) and open for contribution from anyone.
+
+## Features
 
 Ext4 is safe and stable and can handle large filesystems with extents, but why switch?  Btrfs has established features such as subvolumes, snapshots, checksumming, and compression; maturity varies by feature, and RAID5/6 remains unstable.<sup>[\[1\]](https://wiki.gentoo.org#cite_note-upstream-status-1)</sup> Some Linux distributions have already begun to switch to it with their current releases. Btrfs has a number of advanced features in common with ZFS, which is what made the ZFS filesystem popular with BSD distributions and NAS devices.
 
@@ -31,6 +33,8 @@ Ext4 is safe and stable and can handle large filesystems with extents, but why s
 
 Down the road, new clustered filesystems will readily take advantage of Btrfs with its copy on write and other advanced features for their object stores. [Ceph](https://wiki.gentoo.org/wiki/Ceph) is one example of a clustered filesystem that looks very promising, and can take advantage of Btrfs.
 
+## Caveats
+
 Btrfs gradually allocates storage in block groups (also called chunks) that are then filled with extents. Typical sizes are 1 GiB for data and 256 MiB or 1 GiB for metadata, depending on filesystem size. Partially filled block groups remain allocated; deleting a file does not necessarily free a whole block group.<sup>[\[5\]](https://wiki.gentoo.org#cite_note-upstream-profiles-5)</sup> This approach can lead to a scenario where
 
 1. The underlying storage backend is fully allocated with chunks
@@ -43,7 +47,13 @@ Additionally, a single 4K reference to a 128M extent inside Btrfs can cause free
 
 On top of the potential issue described above, information on the issues present in Btrfs in the latest kernel branches is available in [btrfs status page](https://btrfs.readthedocs.io/en/latest/Status.html).
 
+## Installation
+
+### Kernel
+
 In order for the Linux kernel to support Btrfs, the filesystem has to be enabled:
+
+#### Versions \<6.14.0
 
 **Enable Btrfs and CRC32c hardware acceleration**
 
@@ -53,6 +63,8 @@ File systems  --->
    Accelerated Cryptographic Algorithms for CPU (x86) --->
        \<\*> CRC32c (SSE4.2/PCLMULQDQ) [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for \<code>CONFIG\_CRYPTO\_CRC32C\_INTEL\</code> to find this item.
 
+#### Versions >=6.14.0
+
 **Enable Btrfs and CRC32c hardware acceleration**
 
 File systems  --->
@@ -60,11 +72,24 @@ File systems  --->
 Library routines --->
    \[\*\] Enable optimized CRC implementations [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for \<code>CONFIG\_CRC\_OPTIMIZATIONS\</code> to find this item.
 
+#### Snippet
+
 **`/etc/kernel/config.d/btrfs-linux6-1-111.config`**
+
+```
+CONFIG_BTRFS_FS=y
+CONFIG_XOR_BLOCKS=y
+CONFIG_RAID6_PQ=y
+CONFIG_RAID6_PQ_BENCHMARK=y
+CONFIG_ZSTD_COMPRESS=y
+```
+### Emerge
 
 To work with the [sys-fs/btrfs-progs](https://packages.gentoo.org/packages/sys-fs/btrfs-progs) utilities package issue:
 
 `root #``emerge --ask sys-fs/btrfs-progs`
+## Usage
+
 Typing long Btrfs commands can quickly become a hassle. Each command (besides the initial btrfs command) can be reduced to a very short set of instructions. This method is helpful when working from the command line to reduce the amount of characters typed.
 
 For example, to defragment certain internal trees of the filesystem mounted at /, the following shows the long command. Without -r, this directory argument does not recursively defragment file contents; see [#Defragmentation](https://wiki.gentoo.org#Defragmentation) for that operation:[\[8\]](https://wiki.gentoo.org#cite_note-upstream-defrag-8)
@@ -73,12 +98,16 @@ For example, to defragment certain internal trees of the filesystem mounted at /
 
 `root #``btrfs fi de -v /` No other btrfs commands start with `fi`; `filesystem` is the only one. The same goes for the `de` sub-command under the `filesystem` command.
 
+### Creation
+
 To create a Btrfs filesystem on the /dev/sdXN partition:
 
 `root #``mkfs.btrfs /dev/sdXN`
 In the example above, replace `N` with the partition number and `X` with the disk letter that is to be formatted. For example, to format the third partition of the first drive in the system with Btrfs, run:
 
 `root #``mkfs.btrfs /dev/sda3`
+### Labels
+
 Labels can be added to Btrfs filesystems, making mounting and organization easier.
 
 Labels can be added to a Btrfs filesystem after it has been created by using:
@@ -87,12 +116,16 @@ Labels can be added to a Btrfs filesystem after it has been created by using:
 Labels can be added when the Btrfs filesystem is created with:
 
 `root #``mkfs.btrfs -L rootfs /dev/sda1`
+### Mount
+
 After creation, filesystems can be mounted in several ways:
 
 - [mount](https://wiki.gentoo.org/wiki/Mount) - Manual mount.
 - [/etc/fstab](https://wiki.gentoo.org/wiki//etc/fstab) - Defining mount points in /etc/fstab enables automatic mounts on system boot.
 - [Removable media](https://wiki.gentoo.org/wiki/Removable_media) - Automatic mounts on demand (useful for USB drives).
 - [AutoFS](https://wiki.gentoo.org/wiki/AutoFS) - Automatic mount on filesystem access.
+
+### Maintenance
 
 To check the current space usage of a mounted Btrfs filesystem:
 
@@ -123,6 +156,8 @@ If more space is needed, consider deleting unneeded large files before retrying.
 
 The above (and more) can be automated with [sys-fs/btrfsmaintenance](https://packages.gentoo.org/packages/sys-fs/btrfsmaintenance).
 
+### Converting ext\* based file systems
+
 It is possible to convert ext2, ext3, and ext4 filesystems to Btrfs using the btrfs-convert utility.
 
 The following instructions only support the conversion of filesystems that are unmounted. To convert the root partition, boot to a system rescue disk (SystemRescueCD works nicely) and run the conversion commands on the root partition.
@@ -142,10 +177,17 @@ Be sure to edit /etc/fstab after the device has been formatted to change the fil
 
 **Changing ext4 to btrfs**
 
+```
+<device>   <mountpoint>  btrfs  defaults  0 0
+```
+### Defragmentation
+
 Another feature of Btrfs is online defragmentation. To recursively defragment files under /, run the following command. It does not descend into nested subvolumes, other mount points, or directory symlinks; those require separate consideration.[\[8\]](https://wiki.gentoo.org#cite_note-upstream-defrag-8)
 
 `root #``btrfs filesystem defragment -r -v /`
 The `autodefrag` mount option sets the default behavior to online defragmentation.
+
+### Compression
 
 Btrfs supports transparent compression using zlib, lzo, and zstd. Zstd support was introduced in Linux 4.14; configurable positive zstd levels were added in Linux 5.1.[\[12\]](https://wiki.gentoo.org#cite_note-12)[\[13\]](https://wiki.gentoo.org#cite_note-upstream-compression-13)
 
@@ -169,6 +211,8 @@ To request zlib compression for the same recursive traversal:
 `root #``btrfs filesystem defragment -r -v -czlib /`
 Substitute zstd for zlib in the example above to activate zstd compression.
 
+#### Compression level
+
 zlib supports levels 1-9. zstd supports levels 1-15 and, since Linux 6.15, faster levels -15 through -1; these negative levels are available on Linux 6.18. Level 0 selects the default. For example, to set zlib to maximum compression at mount time:[\[13\]](https://wiki.gentoo.org#cite_note-upstream-compression-13)
 
 `root #``mount -o compress=zlib:9 /dev/sdXY /path/to/btrfs/mountpoint`
@@ -186,11 +230,18 @@ The compression level should be visible in /proc/mounts, or by checking the most
 \[ 3111.930973\] BTRFS info (device sdd1): has skinny extents
 \[ 9428.918325\] BTRFS info (device sdd1): use zlib compression, level 3
 
+#### Adjust fstab for compression
+
 Once a drive has been remounted or adjusted to compress data, be sure to add the appropriate modifications to the /etc/fstab file. In this example, the device is set to noatime and forced zstd level 1 for higher data throughput<sup>[\[16\]](https://wiki.gentoo.org#cite_note-16)</sup> at mount time:
 
 **`/etc/fstab`**
 
 **Add Btrfs compression for zstd**
+
+```
+/dev/sdb                /srv            btrfs           defaults,noatime,compress-force=zstd:1,rw     0 0
+```
+#### Compression ratio and disk usage
 
 The usual userspace tools for determining used and free space like du and df may provide inaccurate results on a *Btrfs* partition due to inherent design differences in the way files are written compared to, for example, *ext2/3/4*<sup>[\[17\]](https://wiki.gentoo.org#cite_note-17)</sup>.
 
@@ -210,19 +261,27 @@ TOTAL       99%      845G         848G         848G
 none       100%      844G         844G         844G       
 zlib        16%      532M         3.2G         3.2G
 
+### Multiple devices (RAID)
+
 Btrfs can be used with multiple block devices in order to create RAIDs. Using Btrfs to create filesystems that span multiple devices is much easier than creating using mdadm, since there is no initialization time needed for creation.
 
 Btrfs handles data and metadata separately. This is important to keep in mind when using a multi-device filesystem. It is possible to use separate profiles for data and metadata block groups. For example, metadata could be configured across multiple devices in RAID1, while data could be configured to RAID5. This combination is possible with three or more block devices. Btrfs also permits two-device RAID5, but upstream discourages that arrangement because it provides RAID1-like redundancy with additional parity overhead.[\[5\]](https://wiki.gentoo.org#cite_note-upstream-profiles-5)
 
 With RAID1 metadata, each metadata block has two copies on different devices, regardless of the total device count. RAID5 stripes data and distributed parity across devices. RAID1 metadata consumes space for two copies, and parity updates add work to RAID5 writes. Actual throughput depends on the workload.[\[5\]](https://wiki.gentoo.org#cite_note-upstream-profiles-5)
 
+#### Creation
+
 The simplest method is to use the entirety of unpartitioned block devices to create a filesystem spanning multiple devices. For example, to create a filesystem in RAID1 mode across two devices:
 
 `root #``mkfs.btrfs -m raid1 -d raid1` *<device1> <device2>*
+#### Conversion
+
 Converting between RAID profiles is possible with the balance sub-command. For example, say three block devices are presently configured for RAID1 and mounted at /srv. It is possible to convert the data in this profile from RAID1 to RAID5 with the following command:
 
 `root #``btrfs balance start -dconvert=raid5 --force /srv`
 Conversion can be performed while the filesystem is online and in use. Possible RAID profiles in Btrfs include RAID0, RAID1, RAID1C3, RAID1C4, RAID5, RAID6, and RAID10.<sup>[\[5\]](https://wiki.gentoo.org#cite_note-upstream-profiles-5)</sup> See the [upstream Btrfs wiki](https://btrfs.wiki.kernel.org/index.php/Using_Btrfs_with_Multiple_Devices) for more information.
+
+#### Addition
 
 Additional devices can be added to a mounted Btrfs filesystem to increase capacity. In the example below, /srv is the mounted filesystem and /dev/sdd is the new device. Check the device identity and ensure that no contents on it need to be kept. Do not remove an existing member just to add capacity.[\[22\]](https://wiki.gentoo.org#cite_note-upstream-device-22)
 
@@ -230,6 +289,8 @@ Additional devices can be added to a mounted Btrfs filesystem to increase capaci
 To redistribute existing data and metadata onto the newly added device, run a balance. Device addition itself makes the device available for new allocations and does not require a full balance:
 
 `root #``btrfs balance start /srv`
+#### Replacement
+
 To replace an existing member, use btrfs replace on the mounted filesystem. The target must be at least as large as the source and its contents will be overwritten. Keep a readable source connected during replacement when possible. The source is removed from the filesystem after replacement completes.[\[23\]](https://wiki.gentoo.org#cite_note-upstream-replace-23)
 
 For example, after verifying that /dev/sdb is the source and /dev/sdd is an unused replacement device (not a device already added to the filesystem):
@@ -240,9 +301,15 @@ Progress can be checked from another terminal:
 `root #``btrfs replace status /srv`
 If the source has already failed or been disconnected, identify its device ID with btrfs filesystem show and use that ID in place of the source path. Mounting with -o degraded may be necessary, and replacement is possible only if all required data can still be read or reconstructed from the remaining devices. Follow [#Multi\_device\_filesystem\_mount\_fails](https://wiki.gentoo.org#Multi_device_filesystem_mount_fails) for the degraded-mount prerequisites.[\[23\]](https://wiki.gentoo.org#cite_note-upstream-replace-23)[\[4\]](https://wiki.gentoo.org#cite_note-upstream-mountopts-4)
 
+#### Removal
+
+##### By device path
+
 Block devices (disks) can be removed from mounted multi-device filesystems using the btrfs device remove subcommand. Remaining devices must have enough space and satisfy the active profile constraints; wait for the operation to finish before disconnecting the removed device:[\[22\]](https://wiki.gentoo.org#cite_note-upstream-device-22)
 
 `root #``btrfs device remove /dev/sde /srv`
+##### By device ID
+
 Use the usage subcommand to determine the device IDs:
 
 `root #``btrfs device usage /srv`
@@ -290,6 +357,8 @@ Use the usage subcommand to determine the device IDs:
 Next use the device ID to remove the device. In this case /dev/sde will be removed:
 
 `root #``btrfs device remove 5 /srv`
+### Resizing
+
 Btrfs partitions can be resized while online using the built-in resize subcommand.
 
 Set the size of the root filesystem to 128gb:
@@ -301,6 +370,8 @@ Add 50 gigabytes of space to the rootfs:
 The command can also fill all available space:
 
 `root #``btrfs filesystem resize max /`
+### Subvolumes
+
 A **subvolume** of Btrfs is a directory with special properties. Most notably a subvolume can be mounted, in particular without mounting the entire Btrfs volume.
 
 The top directory of a Btrfs itself is always a subvolume. Thus a subvolume can contain other subvolumes. A subvolume has to be created by the `btrfs subvolume` command, as explained below. Another feature is that one can set the quota for a subvolume.
@@ -315,12 +386,16 @@ Subvolume space accounting is complicated by shared extents. Quotas provide refe
 
 Thus a Btrfs subvolume is completely different from an [LVM](https://wiki.gentoo.org/wiki/LVM) volume. A subvolume cannot be created *across* different Btrfs filesystems. The snapshot can be *moved* from one filesystem to another, but it cannot span across the two.
 
+#### Create
+
 To create a subvolume, issue the following command inside a Btrfs filesystem's name space:
 
 `root #``btrfs subvolume create` *<dest-name>*
 Replace *\<dest-name>*
 
 `root #``btrfs subvolume create /mnt/btrfs/subvolume1`
+#### List
+
 To see the subvolume(s) that have been created, use the `subvolume list` command followed by a Btrfs filesystem location. If the current directory is somewhere inside a Btrfs filesystem, the following command will display the subvolume(s) that exist on the filesystem:
 
 `root #``btrfs subvolume list .`
@@ -328,6 +403,8 @@ If a Btrfs filesystem with subvolumes exists at the mount point created in the e
 
 `root #``btrfs subvolume list /mnt/btrfs`
 ID 309 gen 102913 top level 5 path subvolume1
+
+#### Remove
 
 All available subvolume paths in a Btrfs filesystem can be seen using the list command above.
 
@@ -338,6 +415,8 @@ As above, replace *\<subvolume-path>*
 
 `root #``btrfs subvolume delete /mnt/btrfs/subvolume1`
 Delete subvolume (no-commit): '/mnt/btrfs/subvolume1'
+
+#### Snapshots
 
 Snapshots are subvolumes that share data and metadata with other subvolumes. This is made possible by Btrfs' Copy on Write (CoW) ability.<sup>[\[26\]](https://wiki.gentoo.org#cite_note-26)</sup> Snapshots preserve a subvolume at a point in time and can be used for rollback or as a source for backups.
 
@@ -368,6 +447,8 @@ cd /
 ```
 Alternatively, it is possible to use a [portage hook](https://wiki.gentoo.org/wiki/Handbook:AMD64/Portage/Advanced#Hooking_into_the_emerge_process) to create a new snapshot every time a package is installed. This could be useful for users that run testing keywords or experimental packages. See [Snapper](https://wiki.gentoo.org/wiki/Snapper) for one example on enabling this setup.
 
+#### Mounting
+
 A subvolume can be mounted in a location different from where it was created, or users can choose to not mount them at all. For example, a user could create a Btrfs filesystem in /mnt/btrfs and create /mnt/btrfs/home and /mnt/btrfs/gentoo-repo subvolumes. The subvolumes could then be mounted at /home and /var/db/repos/gentoo, with the original top level subvolume left unmounted. This results in a configuration where the subvolumes' relative path from the top level subvolume is different from their actual path.
 
 To mount a subvolume, perform the following command, where *\<rel-path>*`subvolume list` command:
@@ -379,6 +460,11 @@ Similarly, the filesystem tab can be updated to mount a Btrfs subvolume:
 
 **Mounting Subvolumes**
 
+```
+<device>  <mountpoint>  btrfs  subvol=<rel-path>  0 0
+```
+### Scrub
+
 Scrub detects damage to the filesystem against stored checksums.<sup>[\[27\]](https://wiki.gentoo.org#cite_note-27)</sup> A directory path selects the entire mounted filesystem, not just that directory subtree. To start scrubbing all devices of the filesystem mounted at /:[\[28\]](https://wiki.gentoo.org#cite_note-upstream-scrub-28)
 
 `root #``btrfs scrub start /`
@@ -387,9 +473,15 @@ Scrub repairs damaged copies when a verified good redundant copy is available. I
 To see the scrub progress:
 
 `root #``watch -cn 10 btrfs scrub status /`
+## Troubleshooting
+
+### Filesystem check
+
 With a failing disk or corrupted data, it may be necessary to run a filesystem check. Typically filesystem check commands are handled through the fsck. prefix, but for Btrfs filesystems, structural checks are handled via the btrfs check subcommand. Unmount the filesystem first. This command is read-only by default:[\[29\]](https://wiki.gentoo.org#cite_note-upstream-check-29)
 
 `root #``btrfs check --progress /dev/<device>`
+### Multi device filesystem mount fails
+
 After ungracefully removing one or more devices from a multi device filesystem, attempting to mount the filesystem will fail:
 
 `root #``mount /srv`
@@ -412,12 +504,18 @@ To remove a missing device, first mount the filesystem read-write with -o degrad
 Then remove the missing member only if all required data can still be read or reconstructed, sufficient space is available, and the remaining devices satisfy the profiles. The command below does not forcibly discard unavailable data:[\[22\]](https://wiki.gentoo.org#cite_note-upstream-device-22)
 
 `root #``btrfs device delete missing /srv`
+### Using with VM disk images
+
 For virtual machine disk images with frequent overwrites, disabling data copy-on-write can improve I/O performance. The NOCOW attribute can only be set or cleared on empty files. Setting it on a directory makes newly created files inherit it; existing populated images are not converted. For example, using the chattr command:[\[30\]](https://wiki.gentoo.org#cite_note-upstream-attributes-30)
 
 `root #``chattr +C /var/lib/libvirt/images`
+### Clear the free space cache
+
 It is possible to clear Btrfs' free space cache with the `clear_cache` mount option on the first read-write mount. With the default v2 cache, it clears the entire cache; with legacy v1, it clears only the caches of block groups modified during that mount. For an unmounted filesystem, for example:[\[4\]](https://wiki.gentoo.org#cite_note-upstream-mountopts-4)
 
 `root #``mount -o clear_cache /path/to/device /path/to/mountpoint`
+### Btrfs hogging memory (disk cache)
+
 When utilizing some of Btrfs' special abilities (like making many `--reflink` copies or creating high amounts of snapshots), a lot of memory can be consumed and not freed fast enough by the kernel's inode cache. This issue can go undiscovered since memory dedicated to the disk cache might not be clearly visible in traditional system monitoring utilities. The slabtop utility (available as part of the [sys-process/procps](https://packages.gentoo.org/packages/sys-process/procps) package) was specifically created to determine how much memory kernel objects are consuming:
 
 `root #``slabtop`
@@ -444,6 +542,8 @@ To request reclamation of both eligible slab objects and clean page-cache data, 
 `root #``echo 3 > /proc/sys/vm/drop_caches`
 More information on kernel slabs can be found in this [dedoimedo blog entry](https://www.dedoimedo.com/computers/slabinfo.html).
 
+### Mounting Btrfs fails, returning mount: unknown filesystem type 'btrfs'
+
 The [original solution by Tim on Stack Exchange](http://unix.stackexchange.com/questions/121611/gentoo-does-not-seem-to-be-booting-new-kernel) inspired the following solution: build the kernel manually instead of using [genkernel](https://wiki.gentoo.org/wiki/Genkernel):
 
 `#````
@@ -464,9 +564,13 @@ mv /boot/bzImage /boot/whatever_kernel_filename
 `#````
 genkernel --install initramfs
 ```
+### Btrfs root doesn't boot
+
 Genkernel's initramfs as created with the command below doesn't load Btrfs:
 
 `root #``genkernel --btrfs initramfs` Compile support for Btrfs in the kernel rather than as a module, or use [Dracut](https://wiki.gentoo.org/wiki/Dracut) to generate the initramfs.
+
+### lsblk doesn't show mountpoint for all devices in btrfs RAID
 
 This is unfortunately a known bug at least since 2014.
 
@@ -500,6 +604,8 @@ sdb           8:16   0   3,6T  0 disk
 
 It's because */proc/#/mountinfo* contains reference to the one device only.[\[33\]](https://wiki.gentoo.org#cite_note-GitHub_docs:_update_TODO_.C2.B7_util-linux.2Futil-linux.402b1322f-33)[\[34\]](https://wiki.gentoo.org#cite_note-Redhat_Bugzilla-34)
 
+## See also
+
 - [Btrfs/snapshots](https://wiki.gentoo.org/wiki/Btrfs/snapshots) — script to **make automatic snapshots with [Btrfs]** filesystem, using  btrfs subvolume list-new function to create snapshots only when files have changed, so as to create fewer snapshots.
 - [Btrfs/System Root Guide](https://wiki.gentoo.org/wiki/Btrfs/System_Root_Guide) — one example for re-basing a Gentoo installation's root filesystem to use btrfs
 - [Btrfs/Native System Root Guide](https://wiki.gentoo.org/wiki/Btrfs/Native_System_Root_Guide)
@@ -509,10 +615,14 @@ It's because */proc/#/mountinfo* contains reference to the one device only.[\[33
 - [Snapper](https://wiki.gentoo.org/wiki/Snapper) — a command-line program to create and manage filesystem snapshots, allowing viewing or reversion of changes.
 - [ZFS](https://wiki.gentoo.org/wiki/ZFS) — a next generation [filesystem](https://wiki.gentoo.org/wiki/Filesystem) created by Matthew Ahrens and Jeff Bonwick.
 
+## External resources
+
 - [https://wiki.debian.org/Btrfs](https://wiki.debian.org/Btrfs) - As described by the Debian wiki.
 - [https://wiki.archlinux.org/index.php/Btrfs](https://wiki.archlinux.org/index.php/Btrfs) Btrfs article - As described by the Arch Linux wiki.
 - [http://www.funtoo.org/BTRFS\_Fun](http://www.funtoo.org/BTRFS_Fun) - BTRFS Fun on the Funtoo wiki.
 - [http://marc.merlins.org/perso/btrfs/post\_2014-05-04\_Fixing-Btrfs-Filesystem-Full-Problems.html](http://marc.merlins.org/perso/btrfs/post_2014-05-04_Fixing-Btrfs-Filesystem-Full-Problems.html) - Tips and tricks on fixing niche Btrfs filesystem problems in some situations.
+
+## References
 
 1. ↑ <sup>[1.0](https://wiki.gentoo.org#cite_ref-upstream-status_1-0)</sup> <sup>[1.1](https://wiki.gentoo.org#cite_ref-upstream-status_1-1)</sup> [Btrfs feature status](https://btrfs.readthedocs.io/en/latest/Status.html); [btrfs-progs v7.1 source](https://github.com/kdave/btrfs-progs/blob/v7.1/Documentation/Status.rst).
 2. ↑ <sup>[2.0](https://wiki.gentoo.org#cite_ref-upstream-checksums_2-0)</sup> <sup>[2.1](https://wiki.gentoo.org#cite_ref-upstream-checksums_2-1)</sup> <sup>[2.2](https://wiki.gentoo.org#cite_ref-upstream-checksums_2-2)</sup> [Btrfs checksumming](https://btrfs.readthedocs.io/en/latest/Checksumming.html); [btrfs-progs v7.1 source](https://github.com/kdave/btrfs-progs/blob/v7.1/Documentation/ch-checksumming.rst).

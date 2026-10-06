@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Cinnamon
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-08-21"
-fingerprint: fa927b77a235818c
+fingerprint: fa927b7fa235818c
 license: CC BY-SA 4.0
 ---
 
@@ -16,6 +16,8 @@ license: CC BY-SA 4.0
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
 **Resources**
+
+- remove/replace "consolekit", see [https://gitweb.gentoo.org/repo/gentoo.git/commit/sys-auth/consolekit?id=39ece3ff2467f0c1a3dc946767f3896d31055198](https://gitweb.gentoo.org/repo/gentoo.git/commit/sys-auth/consolekit?id=39ece3ff2467f0c1a3dc946767f3896d31055198)
 
 **Cinnamon** is a contemporary [desktop environment](https://wiki.gentoo.org/wiki/Desktop_environment) with a traditional graphical interface. GNOME 2, [LXDE](https://wiki.gentoo.org/wiki/LXDE), or [Xfce](https://wiki.gentoo.org/wiki/Xfce) users will find it familiar. Cinnamon has very good graphical and functional features. Forked from GNOME 3's GNOME Shell and developed for [Linux Mint](https://linuxmint.com/), it is available on Gentoo for the **amd64** and **x86** architectures. Wayland support is experimental.[\[1\]](https://wiki.gentoo.org#cite_note-1)
 
@@ -67,10 +69,15 @@ Cinnamon (and other applications) are internationalized, supporting a number of 
 **`/etc/portage/package.use/00localization`**
 
 ```
- LINGUAS: en
+*/* LINGUAS: en
 ```
 ### USE flags
 
+
+### USE flags for
+            [gnome-extra/cinnamon](https://packages.gentoo.org/packages/gnome-extra/cinnamon)
+            
+            A fork of GNOME Shell with layout similar to GNOME 2
 
 | [+eds](https://packages.gentoo.org/useflags/+eds) | Enable support for Evolution-Data-Server (EDS) | 
 | [+gstreamer](https://packages.gentoo.org/useflags/+gstreamer) | Add support for media-libs/gstreamer (Streaming media) | 
@@ -161,7 +168,7 @@ Visudo runs the default text editor to generate or update a sudoers file. Replac
 **`/etc/sudoers`**
 
 ```
-  ALL=(root) NOPASSWD: /sbin/reboot
+username  ALL=(root) NOPASSWD: /sbin/reboot
 username  ALL=(root) NOPASSWD: /sbin/halt
 username  ALL=(root) NOPASSWD: /sbin/poweroff
 username  ALL=(root) NOPASSWD: /sbin/shutdown
@@ -171,7 +178,7 @@ Or for the wheel group:
 **`/etc/sudoers`**
 
 ```
-  ALL=(root) NOPASSWD: /sbin/reboot
+%wheel  ALL=(root) NOPASSWD: /sbin/reboot
 %wheel  ALL=(root) NOPASSWD: /sbin/halt
 %wheel  ALL=(root) NOPASSWD: /sbin/poweroff
 %wheel  ALL=(root) NOPASSWD: /sbin/shutdown
@@ -386,3 +393,7 @@ It's possible to set custom refresh rate via \~/.config/monitors.xml file. Repla
 - [MATE](https://wiki.gentoo.org/wiki/MATE) — a [fork](<https://en.wikipedia.org/wiki/Fork_(software_development)>) of the [GNOME 2](https://wiki.gentoo.org/wiki/GNOME) desktop environment designed to retain the look and feel of a 'traditional' desktop environment.
 - [GNOME](https://wiki.gentoo.org/wiki/GNOME) — a feature-rich desktop environment provided by the [GNOME project](https://www.gnome.org).
 - [KDE](https://wiki.gentoo.org/wiki/KDE) — a free software community, producing a wide range of applications including the popular Plasma desktop environment.
+
+## References
+
+1. [↑](https://wiki.gentoo.org#cite_ref-1) Clem. [Monthly News – January 2024](http://blog.linuxmint.com/?p=4639) Retrieved on September 21st, 2024.

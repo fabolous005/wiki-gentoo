@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/GNOME/Guide/Hardened_GNOME_Profiles
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-04-29"
-fingerprint: c903207fa464aa82
+fingerprint: d941207fa465a88e
 license: CC BY-SA 4.0
 ---
 
 # GNOME/Guide/Hardened GNOME Profiles
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -33,16 +35,28 @@ Create a local repository:
 
 It's recommended to make use of a [Portage extension](https://wiki.gentoo.org/wiki/Repository_format/metadata/layout.conf#profile-formats) for the repository as it simplifies configuration.
 
-**`/var/db/repos/local/metadata/layout.conf`**
+FILE **`/var/db/repos/local/metadata/layout.conf`**
 
+```
+masters = gentoo
+thin-manifests = true
+# Needed for profiles parent with repo syntax
+profile-formats = portage-2
+```
 ## Create the profile
 
 ### profiles.desc
 
 profiles.desc provides a list of profiles for eselect profile list to consume:
 
-**`/var/db/repos/local/profiles/profiles.desc`**
+FILE **`/var/db/repos/local/profiles/profiles.desc`**
 
+```
+# Adjust the list below as needed, no need to make them all
+amd64 hardened-gnome stable
+amd64 hardened-gnome-systemd stable
+amd64 hardened-gnome-split-usr stable
+```
 ### The profile itself
 
 Create the following directories (adjust as needed):
@@ -59,26 +73,49 @@ Use the following command:
 
 Create the following files:
 
-**`/var/db/repos/local/profiles/hardened-gnome/eapi`**
+FILE **`/var/db/repos/local/profiles/hardened-gnome/eapi`**
 
-**`/var/db/repos/local/profiles/hardened-gnome/parent`**
+```
+8
+```
+FILE **`/var/db/repos/local/profiles/hardened-gnome/parent`**
 
+```
+gentoo:default/linux/amd64/23.0/hardened
+gentoo:targets/desktop/gnome
+```
 #### hardened-gnome-systemd
 
 Create the following files:
 
-**`/var/db/repos/local/profiles/hardened-gnome-systemd/eapi`**
+FILE **`/var/db/repos/local/profiles/hardened-gnome-systemd/eapi`**
 
-**`/var/db/repos/local/profiles/hardened-gnome-systemd/parent`**
+```
+8
+```
+FILE **`/var/db/repos/local/profiles/hardened-gnome-systemd/parent`**
 
+```
+gentoo:default/linux/amd64/23.0/hardened
+gentoo:targets/desktop/gnome
+gentoo:targets/systemd
+```
 #### hardened-gnome-split-usr
 
 Create the following files:
 
-**`/var/db/repos/local/profiles/hardened-gnome-split-usr/eapi`**
+FILE **`/var/db/repos/local/profiles/hardened-gnome-split-usr/eapi`**
 
-**`/var/db/repos/local/profiles/hardened-gnome-split-usr/parent`**
+```
+8
+```
+FILE **`/var/db/repos/local/profiles/hardened-gnome-split-usr/parent`**
 
+```
+gentoo:default/linux/amd64/23.0/hardened
+gentoo:features/split-usr
+gentoo:targets/desktop/gnome
+```
 ## Selecting the profile
 
 The new profiles should now appear in eselect profile list. Enjoy!

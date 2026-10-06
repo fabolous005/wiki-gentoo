@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Gentodo
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-08-22"
-fingerprint: b9c3787d0e97dbf8
+fingerprint: b953787d9e9fdaf8
 license: CC BY-SA 4.0
 ---
 
 # Gentodo
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -53,18 +55,38 @@ First get the item ID and then:
 
 To find your `todo.json` file, go to `~/.local/share/gentodo/todo.json`, an example of which looks like:
 
-**`~/.local/share/gentodo/todo.json`**
+FILE **`~/.local/share/gentodo/todo.json`**
 
+```
+{
+   "1": {
+      "title": "Something to do",
+      "details": "Description of thing to do"
+   }
+}
+```
 ### Configuration
 
 **Gentodo** will eventually store its config in `~/.config/gentodo/config.toml`. For now, this is an example of a config file:
 
-**`~/.config/gentodo/config.toml`**
+FILE **`~/.config/gentodo/config.toml`**
 
+```
+[gentodo]
+token = "insert random gibberish here"
+```
 ## Tips
 
 A handy use for this program is to add it to the user's \~/.bashrc so every time they open a new terminal they will be reminded of upcoming tasks that they need to look at.
 
 
 
-**`~/.bashrc`**
+FILE **`~/.bashrc`**
+
+```
+# Put your fun stuff here.
+# TODO list
+echo "===== TODO List ====="
+echo ""
+gentodo --brief
+```

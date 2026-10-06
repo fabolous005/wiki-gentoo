@@ -11,6 +11,8 @@ license: CC BY-SA 4.0
 
 # FOSDEM 2015
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)

@@ -20,6 +20,15 @@ license: CC BY-SA 4.0
 **GCC** or the **GNU Compiler Collection** is among the most widely used compiler toolchains in the world with official support for: [C](https://wiki.gentoo.org/wiki/C), [C++](https://wiki.gentoo.org/wiki/C%2B%2B), [Objective-C](https://en.wikipedia.org/wiki/Objective-C), [Objective-C++](https://en.wikipedia.org/wiki/Objective-C%2B%2B), [Modula-2](https://en.wikipedia.org/wiki/Modula-2), [Fortran](https://wiki.gentoo.org/wiki/Fortran), [Ada](https://wiki.gentoo.org/wiki/Ada), [Go](https://wiki.gentoo.org/wiki/Go), [COBOL](https://en.wikipedia.org/wiki/COBOL), and [D](<https://en.wikipedia.org/wiki/D_(programming_language)>).
 Third-party front ends exist for the [Pascal](<https://en.wikipedia.org/wiki/Pascal_(programming_language)>), [Modula-3](https://en.wikipedia.org/wiki/Modula-3), and [VHDL](https://en.wikipedia.org/wiki/VHDL) programming languages.[\[1\]](https://wiki.gentoo.org#cite_note-1)
 
+## Installation
+
+### USE flags
+
+
+### USE flags for
+            [sys-devel/gcc](https://packages.gentoo.org/packages/sys-devel/gcc)
+            
+            The GNU Compiler Collection
 
 | [+cxx](https://packages.gentoo.org/useflags/+cxx) | Build support for C++ (bindings, extra libraries, code generation, ...) | 
 | [+fortran](https://packages.gentoo.org/useflags/+fortran) | Add support for fortran | 
@@ -65,9 +74,14 @@ Third-party front ends exist for the [Pascal](<https://en.wikipedia.org/wiki/Pas
 
 The [graphite](https://packages.gentoo.org/useflags/graphite) [USE flag](https://wiki.gentoo.org/wiki/USE_flag) is needed for the `-ftree-loop-optimize`, `-fgraphite-identity`, `-floop-nest-optimize`, and `-floop-parallelize-all` options. [\[2\]](https://wiki.gentoo.org#cite_note-2)
 
+### Emerge
+
 Since [sys-devel/gcc](https://packages.gentoo.org/packages/sys-devel/gcc) is installed by default, it does not need to be installed manually. If for some reason it needs to be reinstalled, for example due to [USE flag](https://wiki.gentoo.org#USE_flags) change, the following command should be used.
 
-`root #``emerge --ask --oneshot sys-devel/gcc``user $``gcc --help````
+`root #``emerge --ask --oneshot sys-devel/gcc`
+### Invocation
+
+`user $``gcc --help````
 Usage: gcc [options] file...
 Options:
   -pass-exit-codes         Exit with highest error code from a phase.
@@ -135,6 +149,8 @@ GCC upgrades should generally be handled gracefully with [Portage](https://wiki.
 
 *Downgrading* GCC might have unwanted side effects. Refer to the [troubleshooting section](https://wiki.gentoo.org/wiki/GCC#Troubleshooting) for some commonly reported issues.
 
+### Quick guide to GCC upgrades
+
 Most GCC upgrades are as simple as switching the compiler version (here from 10.3.0 to 11.2.0) and rebuilding [dev-build/libtool](https://packages.gentoo.org/packages/dev-build/libtool):
 
 `root #``emerge --ask --oneshot sys-devel/gcc``root #``gcc-config --list-profiles`
@@ -185,6 +201,8 @@ For more information and some examples, see:
 - [https://blogs.gentoo.org/blueness/2015/03/10/the-c11-abi-incompatibility-problem-in-gentoo/](https://blogs.gentoo.org/blueness/2015/03/10/the-c11-abi-incompatibility-problem-in-gentoo/)
 - [https://stackoverflow.com/questions/16190269/g-always-backward-compatible-with-older-static-libraries/16196475#16196475](https://stackoverflow.com/questions/16190269/g-always-backward-compatible-with-older-static-libraries/16196475#16196475)
 
+##### Downgrading GCC
+
 For the aforementioned reasons, if downgrading GCC or choosing an older slot with gcc-config, it is necessary to run revdep-rebuild to catch `libstdc++` consumers requiring newer symbols:
 
 `root #``revdep-rebuild --library 'libstdc++.so.6' -- --exclude gcc`
@@ -233,6 +251,8 @@ It is possible to skip building stage 1 in the 3 stage build process by adding E
 ## Writing a GCC Frontend
 
 See this [link](https://wiki.gentoo.org/wiki/GCC/Frontend).
+
+## Troubleshooting
 
 ### Rebuild of Boost
 
@@ -289,9 +309,18 @@ In this case, [dev-cpp/gtest](https://packages.gentoo.org/packages/dev-cpp/gtest
 `root #``emerge --ask --oneshot dev-cpp/gtest`
 should fix the issue and allow the continuation of emerging the original package.
 
+## See also
+
 - [Clang](https://wiki.gentoo.org/wiki/LLVM/Clang) — a C/C++/Objective-C/C++, CUDA, and RenderScript language front-end for the LLVM project
 - [GCC\_optimization](https://wiki.gentoo.org/wiki/GCC_optimization) — an introduction to optimizing compiled code using safe, sane [`CFLAGS` and `CXXFLAGS`](https://en.wikipedia.org/wiki/CFLAGS).
 - [GCC/Frontend](https://wiki.gentoo.org/wiki/GCC/Frontend) — describes how to write a [frontend](https://en.wikipedia.org/wiki/Compiler#Front_end) for [GCC] using [JIT](https://gcc.gnu.org/onlinedocs/jit/)
 - [ICE Reporting Guide](https://wiki.gentoo.org/wiki/GCC/ICE_Reporting_Guide) — guide to debugging **GCC Internal Compiler Errors** (ICEs)
 
+## External resources
+
 - [Installing GCC: Building](https://gcc.gnu.org/install/build.html) - Details about building gcc including stages and bootstrap
+
+## References
+
+1. [↑](https://wiki.gentoo.org#cite_ref-1) [Wikipedia:GNU\_Compiler\_Collection](https://en.wikipedia.org/wiki/GNU_Compiler_Collection)
+2. [↑](https://wiki.gentoo.org#cite_ref-2) [https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html#Optimize-Options](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html#Optimize-Options) Retrieved on Feb 7 2023

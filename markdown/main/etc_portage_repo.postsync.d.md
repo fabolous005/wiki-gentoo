@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki//etc/portage/repo.postsync.d
 hostname: gentoo.org
 sitename: "/etc/portage/repo.postsync.d"
 date: "2026-08-27"
-fingerprint: "9a17540c2674f9f0"
+fingerprint: "9a175c0c2674f9f0"
 license: CC BY-SA 4.0
 ---
 
 # /etc/portage/repo.postsync.d
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -25,7 +27,7 @@ An example hook using [Egencache](https://wiki.gentoo.org/wiki/Egencache) to gen
 
 Alternatively metadata cache can be generated with pmaint from [sys-apps/pkgcore](https://packages.gentoo.org/packages/sys-apps/pkgcore). Pmaint is significantly faster than egencache for generating metadata<sup>[\[1\]](https://wiki.gentoo.org#cite_note-1)</sup>.
 
-**`/etc/portage/repo.postsync.d/99-generate-cache-pmaint`**
+FILE **`/etc/portage/repo.postsync.d/99-generate-cache-pmaint`**
 
 ```
 #!/usr/bin/env bash
@@ -67,9 +69,13 @@ if [[ -n "${repository_name}" ]]; then
 fi
 exit "${ret}"
 ```
+## See also
+
 - [postsync.d (AMD64 Handbook)](https://wiki.gentoo.org/wiki/Handbook:AMD64/Portage/Advanced#Executing_tasks_after_ebuild_repository_syncs) — a directory for  user supplied postsync hooks to be run once after all repositories
 - [Ebuild\_repository#Cache\_generation](https://wiki.gentoo.org/wiki/Ebuild_repository#Cache_generation) — generating metadata cache for repositories
 - [Pkgcore](https://wiki.gentoo.org/wiki/Pkgcore) — tooling for ebuild QA and metadata generation
 - [pkgcraft](https://wiki.gentoo.org/wiki/Pkgcraft) — experimental tooling ecosystem for Gentoo written in Rust
+
+## External resources
 
 - [portage - the heart of Gentoo](https://dev.gentoo.org/~zmedico/portage/doc/man/portage.5.html) — portage man page.

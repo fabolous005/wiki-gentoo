@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Egencache
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-12-31"
-fingerprint: f6077f8607a39904
+fingerprint: f6077f8606a19904
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 egencache is a tool that (re)builds metadata information for the Portage package database. By default the metadata corresponds to the Gentoo ebuild repository. It is built into Portage and therefore comes installed on every Gentoo system.
 

@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Filesystem_in_Userspace
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-02-22"
-fingerprint: aa52fd1cccc439fd
+fingerprint: aa42f51cccc439ed
 license: CC BY-SA 4.0
 ---
 
 # Filesystem in Userspace
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -21,10 +23,19 @@ license: CC BY-SA 4.0
 
 ### Kernel
 
-**Enable support for FUSE**
+KERNEL **Enable support for FUSE**
 
+```
+File systems  --->
+    <*> FUSE (Filesystem in Userspace) support
+```
 ### USE flags
 
+
+### USE flags for
+            [sys-fs/fuse](https://packages.gentoo.org/packages/sys-fs/fuse)
+            
+            An interface for filesystems implemented in userspace
 
 | [+suid](https://packages.gentoo.org/useflags/+suid) | Enable setuid root program(s) | 
 | [examples](https://packages.gentoo.org/useflags/examples) | Install examples, usually source code | 

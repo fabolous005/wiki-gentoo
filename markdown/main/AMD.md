@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/AMD
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-08-04"
-fingerprint: c00ad70310fe0537
+fingerprint: "400a970310ca0537"
 license: CC BY-SA 4.0
 ---
 
 # AMD
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

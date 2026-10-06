@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Calcurse
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-10-13"
-fingerprint: "67f07f99bb3bf8f2"
+fingerprint: "61f04558bf2bddfa"
 license: CC BY-SA 4.0
 ---
 
 # calcurse
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -23,6 +25,11 @@ calcurse is a TUI calendar and scheduling application. It supports hooks, CalDAV
 ### USE flags
 
 
+### USE flags for
+            [app-office/calcurse](https://packages.gentoo.org/packages/app-office/calcurse)
+            
+            A text-based calendar and scheduling application
+
 ### Emerge
 
 `root #``emerge --ask app-office/calcurse`
@@ -34,4 +41,18 @@ To sync from a CalDAV server, first ensure calcurse is built with the `caldav` U
 
 Next, is a basic configuration file for syncing with CalDav:
 
-**`~/.config/calcurse/caldav/config`**
+FILE **`~/.config/calcurse/caldav/config`**
+
+```
+[General]
+Hostname = example.com:8443
+Path = /calendars/larry/default/
+AuthMethod = basic
+InsecureSSL = No
+HTTPS = Yes
+SyncFilter = cal,todo
+DryRun = no
+[Auth]
+Username = larry@example.com
+Password = SuperSecretPassword
+```

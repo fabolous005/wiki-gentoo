@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/ASUS_Chromebook_C201/Configuration_examples
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-12-20"
-fingerprint: "1d766845ab5e818a"
+fingerprint: "1d742845a95e818a"
 license: CC BY-SA 4.0
 ---
 
@@ -22,12 +22,12 @@ These configuration examples might be outdated but nevertheless provide helpful 
 **`/etc/portage/package.use/00video`**
 
 ```
- VIDEO_CARDS: -* fbdev
+*/* VIDEO_CARDS: -* fbdev
 ```
 **`/etc/portage/package.use/00input`**
 
 ```
- INPUT_DEVICES: libinput
+*/* INPUT_DEVICES: libinput
 ```
 ### ACPI
 
@@ -96,7 +96,7 @@ Add the following if using Pulseaudio:
 **`/etc/pulse/default.pa`**
 
 ```
- module-alsa-sink device=sysdefault
+load-module module-alsa-sink device=sysdefault
 load-module module-alsa-source device=sysdefault
 ```
 See [InstallingDebianOn/Asus/C201#Audio](https://wiki.debian.org/InstallingDebianOn/Asus/C201#Audio) for further information. VEYRON-I2S shipped with alsa, so it is unlikely to need to add Google's UCM files.
@@ -128,7 +128,7 @@ This file is read-only by default, add this script to the local service if desir
 **`/etc/local.d/backlight-permissions.start`**
 
 ```
- 666 /sys/devices/platform/backlight/backlight/backlight/brightness
+chmod 666 /sys/devices/platform/backlight/backlight/backlight/brightness
 ```
 This script needs to be marked executable by doing chmod +x
 
@@ -140,10 +140,20 @@ In the following example, the search key (LWIN) has been remapped to Caps and se
 
 **keys added to "pc105" xkb\_symbols**
 
+```
+    key <LWIN>   {      [ Caps_Lock             ]       };
+    key <FK01>   {      [ Home                  ]       };
+    key <FK02>   {      [ End                   ]       };
+    key <FK03>   {      [ Page_Up               ]       };
+    key <FK04>   {      [ Page_Down             ]       };
+```
 **`/usr/share/X11/xkb/symbols/inet`**
 
 **replaced items**
 
+```
+    key <POWR>   {      [ Delete                ]       };
+```
 Restart X for these changes to take effect.
 
 To remove old files in /var/lib/xkb:

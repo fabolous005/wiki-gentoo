@@ -11,6 +11,8 @@ license: CC BY-SA 4.0
 
 # casync
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
@@ -22,6 +24,11 @@ casync is a **c**ontent-**a**ddressable data **sync**hronization tool. It can be
 
 ### USE flags
 
+
+### USE flags for
+            [net-misc/casync](https://packages.gentoo.org/packages/net-misc/casync)
+            
+            Content-Addressable Data Synchronization Tool
 
 | [+fuse](https://packages.gentoo.org/useflags/+fuse) | Enable fuse support | 
 | [+udev](https://packages.gentoo.org/useflags/+udev) | Enable virtual/udev integration (device discovery, power and storage device support, etc) | 

@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Distributions_based_on_Gentoo
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-08-02"
-fingerprint: "353b3c4987a3bba0"
+fingerprint: "343b3c4987a3bba0"
 license: CC BY-SA 4.0
 ---
 
 # Distributions based on Gentoo
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

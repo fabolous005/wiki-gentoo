@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Early_Userspace_Mounting
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-01-08"
-fingerprint: "1b03579ab7e67f2c"
+fingerprint: "1b0b579ab7e67f2c"
 license: CC BY-SA 4.0
 ---
 
@@ -54,6 +54,41 @@ Next up is the initramfs\_list file which will tell gen\_initramfs.sh how to con
 
 **`/usr/src/initramfs/initramfs_list`**
 
+```
+# directory structure
+dir /proc       755 0 0
+dir /usr        755 0 0
+dir /bin        755 0 0
+dir /sys        755 0 0
+dir /var        755 0 0
+dir /lib        755 0 0
+dir /sbin       755 0 0
+#dir /lib64      755 0 0
+#dir /lib32      755 0 0
+dir /mnt        755 0 0
+dir /mnt/root   755 0 0
+dir /etc        755 0 0
+dir /root       700 0 0
+dir /dev        755 0 0
+# busybox
+file /bin/busybox /bin/busybox 755 0 0
+# libraries required by /sbin/fsck.ext4 and /sbin/fsck
+file    /lib/ld-linux.so.2      /lib/ld-linux.so.2                  755 0 0
+file    /lib/libext2fs.so.2     /lib/libext2fs.so.2                 755 0 0
+file    /lib/libcom_err.so.2    /lib/libcom_err.so.2                755 0 0
+file    /lib/libpthread.so.0    /lib/libpthread.so.0                755 0 0
+file    /lib/libblkid.so.1      /lib/libblkid.so.1                  755 0 0
+file    /lib/libmount.so.1      /lib/libmount.so.1                  755 0 0
+file    /lib/libuuid.so.1       /lib/libuuid.so.1                   755 0 0
+file    /lib/libe2p.so.2        /lib/libe2p.so.2                    755 0 0
+file    /lib/libc.so.6          /lib/libc.so.6                      755 0 0
+file    /lib/librt.so.1         /lib/librt.so.1                     755 0 0
+file    /lib/libdl.so.2         /lib/libdl.so.2                     755 0 0
+file    /sbin/fsck              /sbin/fsck                          755 0 0
+file    /sbin/fsck.ext4         /sbin/fsck.ext4                     755 0 0
+# our init script
+file    /init                   /usr/src/initramfs/init             755 0 0
+```
 Copy and save the contents of the above to /usr/src/initramfs/initramfs\_list after adjusting for the current architecutre.
 
 Last up is the actual init file which will execute the initramfs:
@@ -159,6 +194,9 @@ In fstab, we must set the sixth field for the `/usr` entry to `0`, this will pre
 
 **`/etc/fstab`**
 
+```
+/dev/sdb3   /usr    ext4   noatime  0 0
+```
 ## Generating the Initramfs
 
 ### Building as an embedded Initramfs
@@ -167,6 +205,9 @@ It is not necessary to compile gen\_init\_cpio or make it executable because the
 
 **`/usr/src/initramfs/initramfs_list`**
 
+```
+nod /dev/console 0600 0 0 c 5 1
+```
 This kernel configuration will do all steps to include all needed files in an embedded initramfs.
 
 For embedding the initramfs directly into the kernel image, the initramfs\_list must be coded in **Initramfs source file(s)** (`CONFIG_INITRAMFS_SOURCE`) in the kernel (directly under the **Initial RAM filesystem and RAM disk (initramfs/initrd) support** (`CONFIG_BLK_DEV_INITRD`) option):
@@ -215,12 +256,26 @@ Add the `initrd` line to /boot/grub/grub.conf:
 
 **`grub.conf`**
 
+```
+title Gentoo Linux <version>
+root (hd0,0)
+kernel /boot/kernel-<version>-gentoo
+initrd /boot/initrd.cpio.gz
+```
 ### Configuring LILO
 
 Add the `initrd` and `append` line to /etc/lilo.conf:
 
 **`lilo.conf`**
 
+```
+image = /boot/vmlinuz-<version>-gentoo
+  #root = /dev/sda4
+  label = gentoo
+  read-only
+  append = "real_root=/dev/sda4"
+  initrd = boot/initrd.cpio.gz
+```
 ## Using a Stub Kernel
 
 If no bootmanager is used (UEFI boots a stub kernel directly) the UUID of the root partition must be configured into the built-in kernel command line or as parameter in the UEFI boot entry (see next paragraph):

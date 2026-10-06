@@ -22,6 +22,11 @@ license: CC BY-SA 4.0
 ### USE flags
 
 
+### USE flags for
+            [net-misc/connman](https://packages.gentoo.org/packages/net-misc/connman)
+            
+            Provides a daemon for managing internet connections
+
 | [+ethernet](https://packages.gentoo.org/useflags/+ethernet) | Enable ethernet support. | 
 | [+nftables](https://packages.gentoo.org/useflags/+nftables) | Use net-firewall/nftables as firewall. | 
 | [+wifi](https://packages.gentoo.org/useflags/+wifi) | Enable wireless network functions | 
@@ -114,6 +119,14 @@ In the case of openVPN, a working openvpn configuration can easily be used by ed
 
 **`/var/lib/connman-vpn/myvpnname.config`**
 
+```
+[provider_openvpn]
+Type = OpenVPN
+Name = myVPNname
+Host = openvpn.mydomain.com
+Domain = openvpn.mydomain.com
+OpenVPN.ConfigFile = /etc/openvpn/myvpnname.conf
+```
 Some connman GUI (see below) or Enlightenment's built in connman client can be used to connect to the VPN ("connmanctl connect" does NOT seem to work). It will show up as the string provided by "Name" in the above config file.
 
 The connection is established as it should, but connman always sets the default route over the first service.
@@ -170,6 +183,9 @@ It is possible to try using Gentoo's distribution kernel to see if that gets the
 
 **`/etc/connman/main.conf`**
 
+```
+NetworkInterfaceBlacklist = usb,wlan
+```
 Obviously, change the interface names to those that are desired to be to blacklistd with ConnMan. This allows another service to manage those connections, while utilizing ConnMan for other network interfaces (ie, ofono, [bluetooth](https://wiki.gentoo.org/wiki/Bluetooth)). If connected via [SSH](https://wiki.gentoo.org/wiki/SSH), this should be done first to prevent ConnMan closing the SSH tunnel.
 
 ### Error: no carrier

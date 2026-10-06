@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Full_Encrypted_System_Root_with_Dracut_USB_Sti
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-07-25"
-fingerprint: bd10301a95a65b79
+fingerprint: bd11301a95e65b79
 license: CC BY-SA 4.0
 ---
 
@@ -230,5 +230,11 @@ If the header is damaged, the entirety of the contents of the filesystem become 
 - LUKS partition is not headless - no plausible deniability.
 
 ## Links
+
+1\. [Full Disk Encryption From Scratch Simplified](https://wiki.gentoo.org/wiki/Full_Disk_Encryption_From_Scratch_Simplified)
+
+2\. [Dm-crypt\_full\_disk\_encryption](https://wiki.gentoo.org/wiki/Dm-crypt_full_disk_encryption)
+
+3\. [Full\_Encrypted\_Btrfs/Native\_System\_Root\_Guide](https://wiki.gentoo.org/wiki/Full_Encrypted_Btrfs/Native_System_Root_Guide)
 
 4\. [Dracut](https://wiki.gentoo.org/wiki/Dracut)

@@ -5,15 +5,19 @@ url: https://wiki.gentoo.org/wiki/Elogv
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-05-25"
-fingerprint: "2413caea02f2a986"
+fingerprint: "2417caea02e2a986"
 license: CC BY-SA 4.0
 ---
 
 # Elogv
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 elogv is a curses-based tool that parses the contents of [elogs](https://wiki.gentoo.org/wiki/Portage_log) created by Portage.
 

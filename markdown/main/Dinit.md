@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Dinit
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-07-28"
-fingerprint: "1308a1c7714480e7"
+fingerprint: "1308a1c7710480e7"
 license: CC BY-SA 4.0
 ---
 
@@ -52,6 +52,9 @@ Once the repository has been added, unmask the [sys-apps/dinit::guru](https://gi
 
 **`/etc/portage/package.accept_keywords/dinit`**
 
+```
+sys-apps/dinit ~amd64
+```
 Lastly install the [sys-apps/dinit::guru](https://github.com/gentoo-mirror/guru/tree/master/sys-apps/dinit) package:
 
 `root #``emerge --ask sys-apps/dinit`
@@ -63,6 +66,13 @@ Service files for Dinit can be found in /etc/dinit.d, an example of how such a s
 
 **`/etc/dinit.d/turnstiled`**
 
+```
+type        = process
+command     = /usr/bin/turnstiled
+logfile     = /var/log/turnstiled.log
+before:     login.target
+depends-on: local.target
+```
 For detailed information on how to write service files run `man dinit-service`.
 
 ### Directories
@@ -83,6 +93,12 @@ You will also need to unmask [virtual/service-manager](https://packages.gentoo.o
 
 **`/etc/portage/package.accept_keywords/dinit`**
 
+```
+sys-apps/dinit-services ~amd64
+virtual/service-manager ~amd64
+# If using the cryptsetup useflag on sys-apps/dinit-services
+# app-crypt/cryptsetup-scripts-dinit ~amd64
+```
 Now install the testing version of [virtual/service-manager](https://packages.gentoo.org/packages/virtual/service-manager):
 
 `root #``emerge --ask --oneshot virtual/service-manager`
@@ -90,6 +106,9 @@ The `sysv-utils` useflag will have to be set on [sys-apps/dinit::guru](https://g
 
 **`/etc/portage/package.use/dinit`**
 
+```
+sys-apps/dinit sysv-utils
+```
 Now install the service package:
 
 `root #``emerge --ask sys-apps/dinit-services`

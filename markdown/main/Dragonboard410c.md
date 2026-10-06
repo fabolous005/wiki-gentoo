@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Dragonboard410c
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-12"
-fingerprint: "17a896c63ee591a5"
+fingerprint: "172896c73ea590a5"
 license: CC BY-SA 4.0
 ---
 
@@ -23,10 +23,10 @@ The Dragonboard410c is a credit-card sized minicomputer, akin to the popular Ras
 
 | Device | Make/model | Status | Kernel driver(s) | Kernel version | Notes | 
 |---|---|---|---|---|---|
-| CPU | [ARM Cortex A53](http://www.arm.com/products/processors/cortex-a/cortex-a53-processor.php) @ 1.2GHz |  | N/A | N/A | quad-core, 64bit | 
-| Graphics | Adreno 306 GPU @ 400MHz |  | TBD | TBD | Supports OpenGL ES 3.0, OpenCL | 
-| Memory | 1GB LPDDR3 @ 533MHz |  | N/A | N/A |  | 
-| Onboard Storage | 8GB eMMC 4.51 |  | TBD | N/A |  | 
+| CPU | [ARM Cortex A53](http://www.arm.com/products/processors/cortex-a/cortex-a53-processor.php) @ 1.2GHz | Works | N/A | N/A | quad-core, 64bit | 
+| Graphics | Adreno 306 GPU @ 400MHz | not tested | TBD | TBD | Supports OpenGL ES 3.0, OpenCL | 
+| Memory | 1GB LPDDR3 @ 533MHz | Works | N/A | N/A |  | 
+| Onboard Storage | 8GB eMMC 4.51 | Works | TBD | N/A |  | 
 
 ## Initial Flash
 

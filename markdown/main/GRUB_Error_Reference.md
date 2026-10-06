@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/GRUB_Error_Reference
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2019-12-04"
-fingerprint: "9781e21a8dadbb9f"
+fingerprint: "9785e21a8dadbb9f"
 license: CC BY-SA 4.0
 ---
 
@@ -53,6 +53,10 @@ This problem appeared on a dell r320 server, caused by having serial and termina
 
 **options to remove**
 
+```
+#serial --unit=1 --speed=19200  
+#terminal --timeout=10 serial
+```
 ## GRUB Error 12
 
 ### Situation
@@ -327,6 +331,12 @@ After selecting the Windows entry, the system refuses to boot without any clear 
 
 **Mapping disks**
 
+```
+title Windows XP
+  map (hd0) (hd1)
+  map (hd1) (hd0)
+  chainloader (hd1,0)+1
+```
 ## GRUB segfaults when trying to install
 
 ### Situation

@@ -38,6 +38,11 @@ The dosemu2 fork is not yet available as a Gentoo ebuild.
 ### USE flags
 
 
+### USE flags for
+            [app-emulation/dosemu](https://packages.gentoo.org/packages/app-emulation/dosemu)
+            
+            DOS Emulator
+
 | [X](https://packages.gentoo.org/useflags/X) | Add support for X11 | 
 | [alsa](https://packages.gentoo.org/useflags/alsa) | Add support for media-libs/alsa-lib (Advanced Linux Sound Architecture) | 
 | [debug](https://packages.gentoo.org/useflags/debug) | Enable extra debug codepaths, like asserts and extra output. If you want to get meaningful backtraces see https://wiki.gentoo.org/wiki/Project:Quality\_Assurance/Backtraces | 

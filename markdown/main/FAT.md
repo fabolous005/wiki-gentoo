@@ -15,6 +15,8 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+**Resources**
+
 The **File Allocation Table (FAT)** - [filesystem](https://wiki.gentoo.org/wiki/Filesystem) originally created for use with MS-DOS (and later pre-NT Microsoft Windows). Currently a later revision of FAT (FAT32) is used for [USB](https://wiki.gentoo.org/wiki/USB) flash disks.<sup>[\[1\]](https://wiki.gentoo.org#cite_note-1)</sup> It has made its way over to Linux systems and has official support in the Linux [kernel](https://wiki.gentoo.org/wiki/Kernel).
 
 Although FAT32 lacks many of the features inherent in modern file systems, this filesystem can still be found in modern computers, for example, when using [EFI System Partition](https://wiki.gentoo.org/wiki/EFI_System_Partition). In 2006 Microsoft has developed a new version of FAT (exFAT) that is not backward compatible with the previous version. See the [exFAT](https://wiki.gentoo.org/wiki/ExFAT) article for more info.
@@ -25,10 +27,31 @@ Although FAT32 lacks many of the features inherent in modern file systems, this 
 
 **Enable FAT support (`CONFIG_VFAT_FS`)**
 
+```
+File systems  --->
+   DOS/FAT/NT Filesystems  --->
+      < > MSDOS fs support
+      <*> VFAT (Windows-95) fs support
+      (437) Default codepage for FAT
+      (iso8859-1) Default iocharset for FAT
+      [ ]   Enable FAT UTF-8 option by default
+   -*- Native language support  --->
+      (iso8859-1) Default NLS Option
+      <*>   Codepage 437 (United States, Canada)
+      <*>   NLS ISO 8859-1  (Latin 1; Western European Languages)
+      -*-   NLS UTF-8
+```
 #### Snippet
 
 **`/etc/kernel/config.d/esp-linux6-1-111.config`**
 
+```
+CONFIG_FAT_FS=y
+CONFIG_MSDOS_FS=y
+CONFIG_VFAT_FS=y
+CONFIG_FAT_DEFAULT_CODEPAGE=437
+CONFIG_FAT_DEFAULT_IOCHARSET="iso8859-1"
+```
 When planning on [mounting](https://wiki.gentoo.org/wiki/Mount) FAT [partitions](https://wiki.gentoo.org/wiki/Partition), users may need to specify a `codepage=` option with mount. In the example above the codepage for the United States and Canada is used, however other codepages can be enabled a necessary. Optionally, users can also set a default codepage for FAT in the kernel configuration. Be sure each codepage value which is to be used has been enabled in the kernel.
 
 Avoid setting `Default iocharset for fat` to [UTF-8](https://wiki.gentoo.org/wiki/UTF-8); it is not recommended. Instead, pass the `utf8=true` option when [mounting](https://wiki.gentoo.org/wiki/Mount) FAT partitions (this requires `CONFIG_NLS_UTF8` to be enabled in the kernel). For further information see [mount(8)](https://man.archlinux.org/man/mount.8.en) [man page or see the appropriate kernel documentation at /usr/src/linux/Documentation/filesystems/vfat.rst](https://wiki.gentoo.org/wiki/Special:MyLanguage/man_page)

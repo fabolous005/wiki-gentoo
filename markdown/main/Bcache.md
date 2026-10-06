@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Bcache
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-11-30"
-fingerprint: "37425955baa37b29"
+fingerprint: "174249549aa37909"
 license: CC BY-SA 4.0
 ---
 
 # bcache
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -24,8 +26,13 @@ license: CC BY-SA 4.0
 
 Activate the following kernel options:
 
-**Enable block device support in the Kernel (`CONFIG_BCACHE`)**
+KERNEL **Enable block device support in the Kernel (`CONFIG_BCACHE`)**
 
+```
+Device Drivers --->
+   Multiple devices driver support (RAID and LVM) --->
+      <*>   Block device as cache
+```
 ### Emerge
 
 Install [sys-fs/bcache-tools](https://packages.gentoo.org/packages/sys-fs/bcache-tools):

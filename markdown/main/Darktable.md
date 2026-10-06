@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Darktable
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-12-15"
-fingerprint: "26019a5c719638c4"
+fingerprint: "26118a5c719638c4"
 license: CC BY-SA 4.0
 ---
 
@@ -23,6 +23,11 @@ license: CC BY-SA 4.0
 `root #``emerge --ask media-gfx/darktable`
 ### USE flags
 
+
+### USE flags for
+            [media-gfx/darktable](https://packages.gentoo.org/packages/media-gfx/darktable)
+            
+            A virtual lighttable and darkroom for photographers
 
 | [X](https://packages.gentoo.org/useflags/X) | Add support for X11 | 
 | [avif](https://packages.gentoo.org/useflags/avif) | Add AV1 Image Format (AVIF) support | 

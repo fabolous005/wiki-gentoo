@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Future_EAPI/EAPI_6_tentative_features
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-06-14"
-fingerprint: be0f0a67d0b2ab70
+fingerprint: be2f2a67d0b2ab70
 license: CC BY-SA 4.0
 ---
 
 # Future EAPI/EAPI 6 tentative features
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

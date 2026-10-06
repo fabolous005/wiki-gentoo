@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/FreeType
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-02-18"
-fingerprint: "8ed41b7969ae3bc2"
+fingerprint: "8ed4197869ae3b5a"
 license: CC BY-SA 4.0
 ---
 
 # FreeType
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -21,6 +23,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [media-libs/freetype](https://packages.gentoo.org/packages/media-libs/freetype)
+            
+            High-quality and portable font engine
 
 | [+adobe-cff](https://packages.gentoo.org/useflags/+adobe-cff) | Use Adobe CFF as default font-renderer | 
 | [+cleartype-hinting](https://packages.gentoo.org/useflags/+cleartype-hinting) | Bytecode hinting mode for TrueType fonts that activates subpixel hinting (a.k.a. ClearType hinting) by default | 

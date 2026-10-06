@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Docker
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-08-20"
-fingerprint: "3b07fb5701a71984"
+fingerprint: "7b07fb5701a73984"
 license: CC BY-SA 4.0
 ---
 
@@ -23,6 +23,11 @@ Docker is built on a thin layer of virtualization, using the host [kernel](https
 
 ### USE flags
 
+
+### USE flags for
+            [app-containers/docker](https://packages.gentoo.org/packages/app-containers/docker)
+            
+            The core functions you need to create Docker images and run Docker containers
 
 | [+container-init](https://packages.gentoo.org/useflags/+container-init) | Makes the a staticly-linked init system tini available inside a container. | 
 | [+overlay2](https://packages.gentoo.org/useflags/+overlay2) | Enables dependencies for the "overlay2" graph driver, including necessary kernel flags. | 
@@ -139,6 +144,83 @@ After exiting the kernel configuration, [rebuild the kernel](https://wiki.gentoo
 
 **`/etc/kernel/config.d/docker-linux6-11-10.config`**
 
+```
+CONFIG_XFRM_ESP=m
+CONFIG_NET_IP_TUNNEL=m
+CONFIG_NET_UDP_TUNNEL=m
+CONFIG_INET_ESP=m
+# CONFIG_INET_ESP_OFFLOAD is not set
+# CONFIG_INET_ESPINTCP is not set
+CONFIG_BRIDGE_NETFILTER=m
+CONFIG_NETFILTER_FAMILY_BRIDGE=y
+CONFIG_NF_CONNTRACK_FTP=m
+CONFIG_NF_CONNTRACK_TFTP=m
+CONFIG_NF_NAT_FTP=m
+CONFIG_NF_NAT_TFTP=m
+CONFIG_NF_NAT_REDIRECT=y
+CONFIG_NETFILTER_XT_MARK=m
+CONFIG_NETFILTER_XT_TARGET_REDIRECT=m
+CONFIG_NETFILTER_XT_MATCH_IPVS=m
+# CONFIG_NETFILTER_XT_MATCH_PHYSDEV is not set
+CONFIG_IP_VS=m
+# CONFIG_IP_VS_IPV6 is not set
+# CONFIG_IP_VS_DEBUG is not set
+CONFIG_IP_VS_TAB_BITS=12
+#
+# IPVS transport protocol load balancing support
+#
+CONFIG_IP_VS_PROTO_TCP=y
+CONFIG_IP_VS_PROTO_UDP=y
+# CONFIG_IP_VS_PROTO_ESP is not set
+# CONFIG_IP_VS_PROTO_AH is not set
+# CONFIG_IP_VS_PROTO_SCTP is not set
+#
+# IPVS scheduler
+#
+CONFIG_IP_VS_RR=m
+# CONFIG_IP_VS_WRR is not set
+# CONFIG_IP_VS_LC is not set
+# CONFIG_IP_VS_WLC is not set
+# CONFIG_IP_VS_FO is not set
+# CONFIG_IP_VS_OVF is not set
+# CONFIG_IP_VS_LBLC is not set
+# CONFIG_IP_VS_LBLCR is not set
+# CONFIG_IP_VS_DH is not set
+# CONFIG_IP_VS_SH is not set
+# CONFIG_IP_VS_MH is not set
+# CONFIG_IP_VS_SED is not set
+# CONFIG_IP_VS_NQ is not set
+# CONFIG_IP_VS_TWOS is not set
+#
+# IPVS SH scheduler
+#
+CONFIG_IP_VS_SH_TAB_BITS=8
+#
+# IPVS MH scheduler
+#
+CONFIG_IP_VS_MH_TAB_INDEX=12
+#
+# IPVS application helper
+#
+# CONFIG_IP_VS_FTP is not set
+CONFIG_IP_VS_NFCT=y
+CONFIG_IP_NF_RAW=y
+CONFIG_IP_NF_TARGET_MASQUERADE=m
+CONFIG_IP_NF_TARGET_REDIRECT=m
+CONFIG_BRIDGE_VLAN_FILTERING=y
+CONFIG_VLAN_8021Q=m
+# CONFIG_VLAN_8021Q_GVRP is not set
+# CONFIG_VLAN_8021Q_MVRP is not set
+CONFIG_DUMMY=m
+CONFIG_MACVLAN=m
+# CONFIG_MACVTAP is not set
+CONFIG_IPVLAN_L3S=y
+CONFIG_IPVLAN=m
+# CONFIG_IPVTAP is not set
+CONFIG_VXLAN=m
+# CONFIG_PRESTERA is not set
+CONFIG_CRYPTO_ECHAINIV=m
+```
 #### Compatibility check
 
 To re-run the kernel configuration compatibility check, issue:
@@ -280,6 +362,9 @@ A more permanent change can be made with:
 
 **Enable ip forwarding persistently**
 
+```
+net.ipv4.ip_forward=1
+```
 ## Usage
 
 ### Testing
@@ -342,6 +427,9 @@ Create a new Dockerfile in an empty directory with the following content:
 
 **`Dockerfile`**
 
+```
+FROM php:5.6-apache
+```
 Run:
 
 `user $````
@@ -446,6 +534,10 @@ Configure the kernel modules to load at boot. The docker root service loads the 
 
 **Load ip\_tables and overlay modules at boot**
 
+```
+ip_tables
+overlay
+```
 Install [app-containers/slirp4netns](https://packages.gentoo.org/packages/app-containers/slirp4netns) and [sys-apps/rootlesskit](https://packages.gentoo.org/packages/sys-apps/rootlesskit):
 
 `root #``emerge --ask --verbose app-containers/slirp4netns sys-apps/rootlesskit`
@@ -509,6 +601,9 @@ Set DOCKER\_HOST in \~/.profile so that the Docker client connects to the rootle
 
 **`~/.profile`**
 
+```
+export DOCKER_HOST=unix:///run/user/$(id -u)/docker.sock
+```
 Start the user service:
 
 `user $``rc-service --user docker-rootless start`
@@ -535,7 +630,7 @@ nano /etc/portage/package.use/docker
 **`/etc/portage/package.use/docker`**
 
 ```
- btrfs device-mapper
+app-containers/docker btrfs device-mapper
 ```
 Install Docker with the new USE flags
 
@@ -548,12 +643,15 @@ Docker service restart
 On an error like:
 
 ```
- to start container process: error during container init: error mounting "cgroup" to rootfs at "/sys/fs/cgroup": mount cgroup:/sys/fs/cgroup/openrc (via /proc/self/fd/6), flags: 0xf, data: openrc: invalid argument
+unable to start container process: error during container init: error mounting "cgroup" to rootfs at "/sys/fs/cgroup": mount cgroup:/sys/fs/cgroup/openrc (via /proc/self/fd/6), flags: 0xf, data: openrc: invalid argument
 ```
 The solution is to set following: [https://github.com/abiosoft/colima/issues/764#issuecomment-1701672142](https://github.com/abiosoft/colima/issues/764#issuecomment-1701672142)
 
 **`/etc/rc.conf`**
 
+```
+rc_cgroup_mode="unified"
+```
 and restart
 
 `root #``rc-service cgroups restart`
@@ -573,7 +671,7 @@ Add following to `/etc/portage/package.use/docker`, then re-emerge Docker will s
 **`/etc/portage/package.use/docker`**
 
 ```
- overlay -device-mapper
+app-containers/docker overlay -device-mapper
 ```
 In case of an error saying, `Error starting daemon: Error initializing network controller: list bridge addresses failed: no available network`, the docker0 network bridge may be missing. Please see the following Docker issue which provides a bash script solution to create the docker0 network bridge: [https://github.com/docker/docker/issues/31546](https://github.com/docker/docker/issues/31546)
 
@@ -621,7 +719,7 @@ Activate USE flag for systemd
 **`/etc/portage/package.use/systemd`**
 
 ```
- cgroup-hybrid
+sys-apps/systemd cgroup-hybrid
 ```
 Install systemd with the new USE flags
 

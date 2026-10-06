@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Btrfs/Native_System_Root_Guide
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-08-24"
-fingerprint: "329fe27a92ce5f41"
+fingerprint: "329fe25a92ce5f41"
 license: CC BY-SA 4.0
 ---
 
 # Btrfs/Native System Root Guide
+
+[Btrfs](https://wiki.gentoo.org/wiki/Btrfs)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -62,6 +64,9 @@ sdb
 
 **`/etc/dracut.conf.d/00-installkernel.conf`**
 
+```
+kernel_cmdline+=" root=UUID=cb070f9e-da0e-4bc5-825c-b01bb2707704  "
+```
 ## Finalize
 
 It is now safe to follow the Handbook as normal, only making sure [sys-fs/btrfs-progs](https://packages.gentoo.org/packages/sys-fs/btrfs-progs) is installed

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Apple_iPod,_iPad,_iPhone
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-10-03"
-fingerprint: "3e49180787af13e8"
+fingerprint: "3e49180787af13c8"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Article status**
 
 This is a placeholder for a more comprehensive article on how to manage an Apple device on a Gentoo system. 
 The goal is to mount the iPod/iPhone/iPad somewhere so that it can be interfaced with by other tools, such as [app-pda/gtkpod](https://packages.gentoo.org/packages/app-pda/gtkpod) or others. It also shows how to copy files to the iDevice using a file manager, without the need of syncing via iTunes.
@@ -56,9 +58,13 @@ to pair with the device. Check this with:
 
 Note that media files must be in /var/mobile/Applications//.data/Movies/ to be accessible by applications running on the device. More on this later.
 
+### [gnome-base/gvfs](https://packages.gentoo.org/packages/gnome-base/gvfs)
+
 Simply emerge gvfs with USE="ios", and it should auto-mount it for you. You can also mount the device manually using a frontend to GIO/GVfs such as [x11-misc/gigolo](https://packages.gentoo.org/packages/x11-misc/gigolo), [xfce-base/thunar](https://packages.gentoo.org/packages/xfce-base/thunar) (>=1.6.x) or [gnome-base/nautilus](https://packages.gentoo.org/packages/gnome-base/nautilus).
 
 `root #``emerge -av x11-misc/gigolo`
+### [app-pda/ifuse](https://packages.gentoo.org/packages/app-pda/ifuse)
+
 First, emerge ifuse, then try running it:
 
 `root #``emerge -av app-pda/ifuse`
@@ -97,9 +103,15 @@ You should note that the author's experience is that throughput is slow, and is 
 
 ## Transferring Media
 
+### [app-pda/gtkpod](https://packages.gentoo.org/packages/app-pda/gtkpod)
+
 For transferring audio files to the idevice, mount the Media partition, make sure that your user can read and write files there and point gtkpod at it.
 
+### [net-misc/rclone](https://packages.gentoo.org/packages/net-misc/rclone)
+
 For transfering files through file manager on iPhone - using Sambda share, another option:
+
+### [net-fs/samba](https://packages.gentoo.org/packages/net-fs/samba)
 
 ### To Apps on the iDevice
 
@@ -115,6 +127,8 @@ Following is a non-exhaustive list of free apps that support file transfers as d
 - PDFs or E-books: 'Documents 2', 'ciando Reader'
 
 Sometimes it may be necessary to restart the app to make it aware of the transferred file, or possibly even reboot the iPad.
+
+#### [app-pda/ifuse](https://packages.gentoo.org/packages/app-pda/ifuse)
 
 **ifuse** can also mount areas of the ipad **by AppID**, which allows the user to transfer files, which may then be used by the particular application. The AppID is [a kind of namespace](http://stackoverflow.com/questions/555424/what-is-the-app-id-that-the-apple-developer-connection-site-is-asking-me-for), particular to each application.
 

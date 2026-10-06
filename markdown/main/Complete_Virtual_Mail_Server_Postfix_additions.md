@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Complete_Virtual_Mail_Server/Postfix_additions
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-05-06"
-fingerprint: fa1b6a3aa82b26ba
+fingerprint: fa1beb3b282b26ba
 license: CC BY-SA 4.0
 ---
 
@@ -31,6 +31,12 @@ The submission port is enabled in Postfix's master.cf. It is commented by defaul
 
 **Mail submission by postfix**
 
+```
+submission inet n       -       n       -       -       smtpd
+  -o smtpd_tls_security_level=may
+  -o smtpd_sasl_auth_enable=yes
+  -o smtpd_client_restrictions=permit_sasl_authenticated,reject
+```
 After restarting Postfix, this lets the client know that there is STARTTLS availability, but it is not required (set this to `smtpd_tls_security_level=encrypt` to enforce encryption) and rejects all mail, except for authenticated users:
 
 `root #``/etc/init.d/postfix restart`
@@ -52,24 +58,53 @@ The database already knows about backup domains. If a domain *has* a backup mail
 
 **Setup relay domains**
 
+```
+# relay_domains.cf
+user            = postfix
+password        = $password
+dbname          = postfix
+#hosts          = localhost
+query           = SELECT description FROM domain WHERE domain='%s' AND backupmx='1' AND active='1';
+```
 This then needs to be configured into postfix:
 
 **`/etc/postfix/main.cf`**
 
 **Modify postfix for relay domains**
 
+```
+# The relay_domains parameter restricts what destinations this system will
+# relay mail to.  See the smtpd_recipient_restrictions description in
+# postconf(5) for detailed information.
+relay_domains = pgsql:/etc/postfix/pgsql/relay_domains.cf
+```
 To make proper use of `relay_domains`:
 
 **`/etc/postfix/pgsql/relay_recipient_maps.cf`**
 
 **Setup relay recipients**
 
+```
+# relay_recipient_maps.cf
+user            = postfix
+password        = $password
+dbname          = postfix
+#hosts          = localhost
+query           = SELECT goto FROM alias WHERE address='%s' AND active='1';
+```
 Also this needs to be configured into postfix:
 
 **`/etc/postfix/main.cf`**
 
 **Modify postfix for relay recipients**
 
+```
+# REJECTING UNKNOWN RELAY USERS
+#
+# The relay_recipient_maps parameter specifies optional lookup tables
+# with all addresses in the domains that match $relay_domains.
+relay_recipient_maps = pgsql:/etc/postfix/pgsql/relay_recipient_maps.cf
+```
 After restarting postfix, the mail server is now a less-open relay, relaying mail to only approved domains and approved users.
 
 ## Quotas
@@ -88,18 +123,43 @@ First, the data needs to be obtained from the database:
 
 **Query the database for quotas**
 
+```
+# virtual_alias_maps.cf
+user            = postfix
+password        = $password
+dbname          = postfix
+#hosts          = localhost
+query           = SELECT quota FROM mailbox WHERE local_part='%u' AND domain='%d' AND active='1';
+```
 There are a few things that need to be configured in postfix, next to the database query. The *Trash* folder for example should not be counted when automatically deleting Trash after a fixed amount of time. This can (and has to) be done in courier-imap.
 
 **`/etc/postfix/main.cf`**
 
 **Setup postfix to use quotas**
 
+```
+# Support for Postfix VDA quotas
+virtual_mailbox_limit_maps = pgsql:/etc/postfix/pgsql/virtual_mailbox_limit_maps.cf
+virtual_mailbox_limit_inbox = no
+virtual_mailbox_limit_override = yes
+virtual_maildir_extended = yes
+virtual_overquota_bounce = no
+# virtual_maildir_limit_message_maps = hash:/etc/postifx/limit_messages
+virtual_maildir_limit_message = "Sorry, the recipients mailbox is currently full. Please try again later."
+virtual_trash_count = no
+virtual_trash_name = ".Trash"
+virtual_maildir_filter = no
+```
 With VDA quota's in place, it's recommended to disable the postfix internal mailbox size limit.
 
 **`/etc/postfix/main.cf`**
 
 **Change allowed message size limit**
 
+```
+# Disable postfix mailbox size check
+mailbox_size_limit = 0
+```
 ### Testing
 
 Roundcube displays diskusage per default and hovering over it displays detailed information. Thunderbird has an extension, [Display quota](http://addons.mozilla.org/en-US/thunderbird/addon/881). For both and others to actually work a maildirsize file is required. This file will be created and updated whenever postfix delivers a message or when courier-imap makes changes. The file is located in each virtual users root mail dir, which would be /var/vmail/example.com/testuser/maildirsize in the case of testuser on example.com. Thus sending a message to testuser@example.com would create this file in the users maildir.
@@ -134,6 +194,11 @@ On a properly configured network the following will be tight and should work:
 
 **HELO Restrictions**
 
+```
+# HELO Restrictions
+smtpd_helo_restrictions = permit_sasl_authenticated, reject_invalid_hostname, reject_unknown_hostname, reject_non_fqdn_hostname
+smtpd_helo_required = yes
+```
 ## Deny local username farming
 
 Normally postfix, or general MTAs allow to verify whether a mailbox exists or not. This command may have been useful in the early days of mail, but is almost exclusively used by people who maintain bulk mailing lists and search if accounts are still valid. This command can be disabled by postfix:
@@ -142,6 +207,10 @@ Normally postfix, or general MTAs allow to verify whether a mailbox exists or no
 
 **Disable verify**
 
+```
+# Do not respond to the VRFY command
+disable_vrfy_command = yes
+```
 After a restart of postfix, telnet to port 25 will no longer show **250-VRFY**.
 
 ## SMTPD Banner
@@ -152,6 +221,10 @@ Another often abused feature is the SMTP header. Also some countries require sen
 
 **Change the SMTPD Banner**
 
+```
+# SHOW SOFTWARE VERSION OR NOT
+smtpd_banner = $myhostname ESMTP NO UCE
+```
 ## Message size
 
 For years the default message size amongst MTA's has been 10MiB. Google raised the bar with their gmail service to 20MiB per message. If bandwidth isn't an issue this, can easily be accomplished with postfix:
@@ -160,6 +233,10 @@ For years the default message size amongst MTA's has been 10MiB. Google raised t
 
 **Change allowed message size limit**
 
+```
+# Increase maximum message size
+message_size_limit = 20971520
+```
 ## Postfix Performance
 
 ### Biff
@@ -170,6 +247,10 @@ For compatibility reasons, postfix's local mail notification is enabled by defau
 
 **Disable biff**
 
+```
+# Disable biff notifications
+biff = no
+```
 ### Processes
 
 The amount of concurrent processes of any of postfix's applications is limited to 50. The first bump in high load environments can be very quickly be the amount of active daemons. Smaller setups should not need to worry about this setting:
@@ -178,6 +259,10 @@ The amount of concurrent processes of any of postfix's applications is limited t
 
 **Increase postfix processes**
 
+```
+# Increase number of allowed processes
+default_process_limit = 75
+```
 ### DNS Lookup
 
 A common throughput limiter is the use of DNS lookups. These can be slow and can be an issue far before processes, CPU or memory are the issue. One lookup per message is required at the very least per message, a server MX record needs to be found. A local caching DNS server could help enormously here and packages such as [net-dns/dnsmasq](https://packages.gentoo.org/packages/net-dns/dnsmasq) or even a full [net-dns/bind](https://packages.gentoo.org/packages/net-dns/bind) setup should be used.

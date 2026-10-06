@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Gem
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-08-27"
-fingerprint: c6851fdc00f7a993
+fingerprint: "86851fdc00f7a991"
 license: CC BY-SA 4.0
 ---
 
@@ -25,6 +25,11 @@ The gem command is installed with the RubyGems package, which will be installed 
 
 ### USE flags
 
+
+### USE flags for
+            [dev-ruby/rubygems](https://packages.gentoo.org/packages/dev-ruby/rubygems)
+            
+            Centralized Ruby extension management system
 
 ### Emerge
 

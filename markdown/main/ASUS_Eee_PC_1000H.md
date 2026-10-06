@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/ASUS_Eee_PC_1000H
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-12-20"
-fingerprint: "3f304f676ae2b9e9"
+fingerprint: "7e008954d1a239cc"
 license: CC BY-SA 4.0
 ---
 
@@ -58,17 +58,17 @@ CXXFLAGS="${CFLAGS}"
 **`/etc/portage/package.use/00video`**
 
 ```
- VIDEO_CARDS: -* intel i915
+*/* VIDEO_CARDS: -* intel i915
 ```
 **`/etc/portage/package.use/00input`**
 
 ```
- INPUT_DEVICES: libinput
+*/* INPUT_DEVICES: libinput
 ```
 **`/etc/portage/package.use/00cpu-flags`**
 
 ```
- CPU_FLAGS_X86: mmx mmxext sse sse2 sse3 ssse3
+*/* CPU_FLAGS_X86: mmx mmxext sse sse2 sse3 ssse3
 ```
 ### Compilation speed
 
@@ -80,38 +80,113 @@ To reduce compiling time and decrease the likelihood of builds failing due to lo
 
 **Intel Atom N270**
 
+```
+[ ] 64-bit kernel
+Processor type and features  --->
+    Processor family ()  --->
+        <*> Intel Atom
+Power management and ACPI options  --->
+    [*] Cpuidle Driver for Intel Processors
+```
 ### Hard disk
 
 lspci and other tools will show the drive controller operating in IDE emulation mode, thus the appropriate driver is the PATA one:
 
 **00:1f.2 IDE interface: Intel Corporation 82801GBM/GHM (ICH7-M Family) SATA Controller \[IDE mode\]**
 
+```
+Device Drivers --->
+    <*> Serial ATA and Parallel ATA drivers (libata)  --->
+        < >   AHCI SATA support
+        [*]   ATA SFF support
+        [*]     ATA BMDMA support
+        <*>     Intel ESB, ICH, PIIX3, PIIX4 PATA/SATA support
+```
 ### Graphics
 
 **00:02.0 VGA compatible controller: Intel Corporation Mobile 945GSE Express Integrated Graphics Controller**
 
+```
+Device Drivers  --->
+    Graphics support  --->
+        < > /dev/agpgart (AGP Support)  --->
+        <*> Direct Rendering Manager (XFree86 4.1.0 and higher DRI support) --->
+            [*]   Enable legacy fbdev support for your modesetting driver
+        <*> Intel 8xx/9xx/G3x/G4x/HD Graphics
+```
 ### Sound
 
 **00:1b.0 Audio device: Intel Corporation NM10/ICH7 Family High Definition Audio Controller**
 
+```
+Device Drivers --->
+    <*> Sound Card Support --->
+        <*> Advanced Linux Sound Architecture --->
+            HD-Audio --->
+                <*> HD Audio PCI
+                <*> Build Realtek HD-audio codec support
+```
 ### Ethernet
 
 **03:00.0 Ethernet controller: Qualcomm Atheros AR8121/AR8113/AR8114 Gigabit or Fast Ethernet**
 
+```
+Device Drivers  --->
+    Networking support  --->
+        [*] Network device support --->
+            [*] Ethernet driver support --->
+                [*]   Atheros devices
+                <*>     Atheros L1E Gigabit Ethernet support
+```
 ### Wireless
 
 **01:00.0 Network controller: Ralink corp. RT2790 Wireless 802.11n 1T/2R PCIe**
 
+```
+Bus options (PCI etc.)  --->
+    [*] PCI Express Port Bus support
+    [*]   PCI Express Hotplug driver
+    [*] Support for PCI Hotplug  --->
+        [*]   ACPI PCI Hotplug driver
+[*] Networking support  --->
+    <*> Wireless  --->
+        <*> cfg80211 - wireless configuration API
+        <*> Generic IEEE 802.11 Networking Stack (mac80211)
+Device Drivers  --->
+    Generic Driver Options  --->
+        Firmware loader  --->
+            (rt2860.bin regulatory.db regulatory.db.p7s) Build named firmware blobs into the kernel binary
+            (/lib/firmware) Firmware blobs root directory
+    Network device support  --->
+        Wireless LAN  --->
+            [*] Ralink devices  --->
+                <*> Ralink driver support  --->
+                    <*> Ralink rt27xx/rt28xx/rt30xx (PCI/PCIe/PCMCIA) support
+```
 The required firmware files are available in [sys-kernel/linux-firmware](https://packages.gentoo.org/packages/sys-kernel/linux-firmware) and [net-wireless/wireless-regdb](https://packages.gentoo.org/packages/net-wireless/wireless-regdb). PCIe hotplug is required for the `Fn+F2` keyboard toggle to actually switch the card on and off.
 
 ### Touchpad
 
 **ETPS/2 Elantech Touchpad**
 
+```
+Device Drivers --->
+    Input device support --->
+        <*> Event interface
+        [*] Mice --->
+            <*> PS/2 mouse
+                [*] Elantech PS/2 protocol extension
+                [ ]   Elantech PS/2 SMbus companion
+```
 ### ACPI, LEDs and Hotkeys
 
 **Asus EeePC extra buttons, hotplug toggles, hardware sensors, turbo mode support**
 
+```
+Device Drivers --->
+    [*] X86 Platform Specific Device Drivers --->
+        <*>   Eee PC Hotkey Driver
+```
 If you have updated the BIOS to a recent version, it assumes Windows 7 is running by default and disables the interfaces needed by the eeepc\_laptop driver. To fix this, append acpi\_osi=Linux to the kernel command line.
 
 Newer BIOS revisions have more `Fn` combinations (mostly on the unlabelled F-keys). Stable versions of the kernel have already received updates to recognize most of these, but `Fn`+`space` is missing; see below for a fix.
@@ -120,16 +195,48 @@ Newer BIOS revisions have more `Fn` combinations (mostly on the unlabelled F-key
 
 **00:1d.7 USB controller: Intel Corporation NM10/ICH7 Family USB2 EHCI Controller**
 
+```
+Device Drivers --->
+    [*] USB support  --->
+        <*>   Support for Host-side USB
+        <*>     EHCI HCD (USB 2.0) support
+            [*]     Root Hub Transaction Translators
+            [*]     Improved Transaction Translator scheduling
+        < >     OHCI HCD (USB 1.1) support
+        <*>     UHCI HCD (most Intel and VIA) support
+```
 Several internal devices are on the USB bus:
 
 #### Bluetooth
 
 **0b05:b700 ASUSTek Computer, Inc. Broadcom Bluetooth 2.1**
 
+```
+[*] Networking support  --->
+    <*> Bluetooth subsystem support  --->
+        [*]  Bluetooth Classic (BR/EDR) features
+        Bluetooth device drivers  --->
+            <*>  HCI USB driver
+            [*]    Enable USB autosuspend for Bluetooth USB devices by default
+```
 #### SD card reader
 
 **058f:6335 Alcor Micro Corp. SD/MMC Card Reader**
 
+```
+Device Drivers --->
+    [*] USB support  --->
+        <*>   USB Mass Storage support
+```
 #### Webcam
 
 **04f2:b071 Chicony Electronics Co., Ltd 2.0M UVC Webcam / CNF7129**
+
+```
+Device Drivers  --->
+    <*> Multimedia support  --->
+        [*]  Cameras/video grabbers support
+        [*]  Media USB Adapters  --->
+             <*>  USB Video Class (UVC)
+             [*]        UVC input events device support
+```

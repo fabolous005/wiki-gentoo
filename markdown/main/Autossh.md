@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Autossh
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-11-24"
-fingerprint: a03e65962ecd72cc
+fingerprint: a03e65962ec972cc
 license: CC BY-SA 4.0
 ---
 
 # autossh
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

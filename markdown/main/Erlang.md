@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Erlang
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-06-15"
-fingerprint: f343997c8a80b9cc
+fingerprint: f743997c8a82b9cc
 license: CC BY-SA 4.0
 ---
 
@@ -23,6 +23,11 @@ From Gentoo Wiki
 
 ### USE flags
 
+
+### USE flags for
+            [dev-lang/erlang](https://packages.gentoo.org/packages/dev-lang/erlang)
+            
+            Erlang programming language, runtime environment and libraries (OTP)
 
 | [+kpoll](https://packages.gentoo.org/useflags/+kpoll) | Enable kernel polling support | 
 | [doc](https://packages.gentoo.org/useflags/doc) | Add extra documentation (API, Javadoc, etc). It is recommended to enable per package instead of globally | 

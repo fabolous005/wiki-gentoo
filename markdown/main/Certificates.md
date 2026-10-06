@@ -16,6 +16,8 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+**Resources**
+
 **Certificates**, also known as SSL certificates or TLS certificates, provide systems and users with a sound method for securely communicating with them or verifying those systems and users' identity. They contain identification information (who or what the certificate belongs to) and a public key, and are signed by a third party called the *Certificate Authority*.
 
 This article focuses on many details surrounding certificates on Gentoo Linux. Where needed, a slight introduction will be given to the actions or sections presented. The technical details about certificates are better served on different platforms, such as Wikipedia.
@@ -253,6 +255,14 @@ All that the administrator has to do now is to keep the custom-ca-certificates.c
 
 **Listing only Verisign's certificates**
 
+```
+mozilla/VeriSign_Class_3_Public_Primary_Certification_Authority_-_G4.crt
+mozilla/VeriSign_Class_3_Public_Primary_Certification_Authority_-_G5.crt
+mozilla/VeriSign_Universal_Root_Certification_Authority.crt
+mozilla/Verisign_Class_1_Public_Primary_Certification_Authority_-_G3.crt
+mozilla/Verisign_Class_2_Public_Primary_Certification_Authority_-_G3.crt
+mozilla/Verisign_Class_3_Public_Primary_Certification_Authority_-_G3.crt
+```
 As was mentioned before, these entries are relative to the /usr/share/ca-certificates directory. Custom certificates can be added in /usr/local/share/ca-certificates and do not need to be listed in the ca-certificates.conf file for update-ca-certificates to take them into account.
 
 ### NSS-based modifications
@@ -328,6 +338,7 @@ To obtain a certificate for a domain:
 
 acme.sh is a lightweight alternative that can be installed manually:
 
+`root #``curl` [https://get.acme.sh](https://get.acme.sh) | sh
 To issue a certificate:
 
 `root #``acme.sh --issue -d example.com --standalone`
@@ -355,16 +366,35 @@ Set up automated renewal using cron or systemd timers:
 
 **Cron entry for certificate renewal**
 
+```
+0 2 * * * root certbot renew --quiet --post-hook "/path/to/post-renewal-script.sh"
+```
 For systemd-based systems:
 
 **`/etc/systemd/system/certbot-renewal.service`**
 
 **Systemd service for renewal**
 
+```
+[Unit]
+Description=Certbot Renewal
+[Service]
+ExecStart=/usr/local/bin/certbot renew --quiet
+```
 **`/etc/systemd/system/certbot-renewal.timer`**
 
 **Systemd timer for automatic renewal**
 
+```
+[Unit]
+Description=Run certbot twice daily
+[Timer]
+OnCalendar=*-*-* 00,12:00:00
+RandomizedDelaySec=3600
+Persistent=true
+[Install]
+WantedBy=timers.target
+```
 Enable the timer:
 
 `root #``systemctl enable --now certbot-renewal.timer`

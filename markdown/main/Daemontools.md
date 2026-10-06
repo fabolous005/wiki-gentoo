@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Daemontools
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-05-29"
-fingerprint: "1b1a5ddb28950992"
+fingerprint: "1b1a5dd928950992"
 license: CC BY-SA 4.0
 ---
 
 # daemontools
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -22,6 +24,11 @@ Daniel J. Bernstein's daemontools package, described by him as "*a collection of
 
 ### USE flags
 
+
+### USE flags for
+            [sys-process/daemontools](https://packages.gentoo.org/packages/sys-process/daemontools)
+            
+            Collection of tools for managing UNIX services
 
 ### Emerge
 

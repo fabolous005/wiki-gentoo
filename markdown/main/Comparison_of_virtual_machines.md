@@ -6,7 +6,7 @@ hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-07-08"
 categories: ['https://packages.gentoo.org/categories/app-emulation']
-fingerprint: "73331ab647a14fe6"
+fingerprint: "533f9bbe479b4fe6"
 license: CC BY-SA 4.0
 ---
 
@@ -20,13 +20,15 @@ From Gentoo Wiki
 
 This article compares the features of several platform virtual machines.
 
+**Resources**
+
 | Features | [KVM](https://wiki.gentoo.org/wiki/QEMU) | [VirtualBox](https://wiki.gentoo.org/wiki/VirtualBox) | VMware Player | 
 |---|---|---|---|
-| External kernel modules |  |  |  | 
-| Taints the kernel |  |  |  | 
-| Hardware virtualization support |  |  |  | 
-| Seamless guest window integration | [SPICE](<https://en.wikipedia.org/wiki/SPICE_(protocol)>)/[RDP](https://en.wikipedia.org/wiki/Remote_Desktop_Protocol) |  | [RDP](https://en.wikipedia.org/wiki/Remote_Desktop_Protocol) | 
-| 3D acceleration | [SPICE](<https://en.wikipedia.org/wiki/SPICE_(protocol)>) |  |  | 
+| External kernel modules | No | Yes | Yes | 
+| Taints the kernel | No | Yes | Yes | 
+| Hardware virtualization support | Required | Optional | Optional | 
+| Seamless guest window integration | [SPICE](<https://en.wikipedia.org/wiki/SPICE_(protocol)>)/[RDP](https://en.wikipedia.org/wiki/Remote_Desktop_Protocol) | Yes | [RDP](https://en.wikipedia.org/wiki/Remote_Desktop_Protocol) | 
+| 3D acceleration | [SPICE](<https://en.wikipedia.org/wiki/SPICE_(protocol)>) | Experimental | Yes | 
 
 A list with all available packages for virtualization and emulation can be found at: [https://packages.gentoo.org/categories/app-emulation](https://packages.gentoo.org/categories/app-emulation)
 

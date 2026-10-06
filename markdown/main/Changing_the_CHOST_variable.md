@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Changing_the_CHOST_variable
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-03-01"
-fingerprint: "282522775480dfdb"
+fingerprint: "202522775480dfdb"
 license: CC BY-SA 4.0
 ---
 
@@ -23,10 +23,15 @@ There are certain situations where changing the `CHOST` variable is inevitable. 
 
 Even after following the instructions here, problems may arise, so please make sure to read and execute them very carefully. In this example the `CHOST` variable will be changed from mips64-unknown-linux-gnu to mips64-unknown-linux-gnuabin32. Please change the commands according to the specific situation.
 
+## Updating make.conf
+
 To start out with the `CHOST` variable change, edit the /etc/portage/make.conf file and add/change the `CHOST` value to suit the requirements.
 
 **`/etc/portage/make.conf`**
 
+```
+CHOST="mips64-unknown-linux-gnuabin32"
+```
 Note that profiles provide a default setting for `CHOST`; depending on the situation, it may be necessary to override it in /etc/portage/make.conf or remove an override in /etc/portage/make.conf. In any case, the important point is that the effective value changes.
 
 Please note that if planning to use another value of CHOST than the profile default, the *CHOST\_${ABI}* variable may need updating as well. It is possible to query the value of this variable of the currently set profile with the *portageq* tool:
@@ -40,6 +45,11 @@ mips64-unknown-linux-gnuabin32
 If this value is equal to CHOST, it's good. Otherwise, override it as well, e.g.:
 
 **`/etc/portage/make.conf`**
+
+```
+CHOST_n32="mips64-unknown-linux-gnuabin32"
+```
+## Building the packages
 
 Rebuild the following packages in this order:
 
@@ -61,6 +71,8 @@ For glibc based systems:
 For musl based systems:
 
 `root #``emerge --ask --oneshot sys-libs/musl`
+## Verifying things work
+
 Now it is time to make sure that the gcc-config and binutils-config settings are sane and that there are no leftovers in /etc/env.d/.
 
 The output of gcc-config and binutils-config should look like the following:
@@ -158,6 +170,8 @@ If you're also using clang to build certain packages on a GCC system, you also n
 
 And replace mips64-unknown-linux-gnu with mips64-unknown-linux-gnuabin32.
 
+## Finishing the change
+
 Now it is necessary to re-emerge [sys-devel/libtool](https://packages.gentoo.org/packages/sys-devel/libtool):
 
 `root #``emerge --ask --oneshot libtool`
@@ -174,6 +188,8 @@ Note that paths that do not apply to the current system may need removing from t
 
 When encountering other packages that need recompiling, please let us know through the [discussion page](https://wiki.gentoo.org/wiki/Talk:Changing_the_CHOST_variable) of this guide.
 
+## Common problems
+
 Not so many anymore. Usually this just works, as long as no really exotic change is done. Make sure to not combine the CHOST change with other steps though. Some of the notes below are really old...
 
 When upgrading from gcc 3.3 to 4.1 at the same time as changing the `CHOST` variable (please don't do that anyway), a couple of users reported broken packages that need recompiling, such as [sys-apps/groff](https://packages.gentoo.org/packages/sys-apps/groff) and [mail-mta/courier](https://packages.gentoo.org/packages/mail-mta/courier):
@@ -183,5 +199,7 @@ This happens because during the upgrade, the `CHOST` variable doesn't exactly ma
 Please see the [GCC upgrade guide](https://wiki.gentoo.org/wiki/Upgrading_GCC) for what needs to be rebuilt after a GCC upgrade.
 
 In some rare cases, this can break old versions of python, too. This may be fixed by adding /usr/lib/gcc-lib/i386-pc-linux-gnu/3.3.6 (change accordingly to the old `CHOST` and gcc version) to /etc/ld.so.conf, running ldconfig and then emerge libstdc++-v3. However, as can be seen, this situation needs to be avoided - don't change `CHOST` and gcc at the same time.
+
+## Feedback
 
 That should be all, feedback (both if it worked, failed or other problems were encountered) is welcome, please use the [discussion page](https://wiki.gentoo.org/wiki/Talk:Changing_the_CHOST_variable) or post to [this forum thread](https://forums.gentoo.org/viewtopic-t-494147.html). Much in this guide comes from vapier, thanks for the help!

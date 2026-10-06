@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Future_EAPI/EAPI_8_tentative_features
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-11-12"
-fingerprint: "3ee53e7b9402ea7c"
+fingerprint: "3ee53e7b9442ea7c"
 license: CC BY-SA 4.0
 ---
 
@@ -27,23 +27,23 @@ The following list of features accepted for or rejected from EAPI 8 is based on 
 |---|---|---|---|---|---|
 |  |  |  | Portage | pkgcore |  | 
 | New features |  |  |  |  |  | 
-| Selective fetch restriction | [bug #371413](https://bugs.gentoo.org/show_bug.cgi?id=371413) |  |  |  |  | 
-| Install-time CBUILD dependencies | [bug #660306](https://bugs.gentoo.org/show_bug.cgi?id=660306) |  |  |  |  | 
+| Selective fetch restriction | [bug #371413](https://bugs.gentoo.org/show_bug.cgi?id=371413) | done | done | done |  | 
+| Install-time CBUILD dependencies | [bug #660306](https://bugs.gentoo.org/show_bug.cgi?id=660306) | done | done | done |  | 
 | Enhancements of existing features |  |  |  |  |  | 
-| Pass `--datarootdir` to configure | [bug #651958](https://bugs.gentoo.org/show_bug.cgi?id=651958) |  |  |  |  | 
-| Pass `--disable-static` to configure | [bug #744871](https://bugs.gentoo.org/show_bug.cgi?id=744871) |  |  |  |  | 
-| Accumulate PROPERTIES & RESTRICT over eclasses and ebuilds | [bug #701132](https://bugs.gentoo.org/show_bug.cgi?id=701132) |  |  |  |  | 
-| `dosym -r` to create symlinks relative to link location | [bug #708360](https://bugs.gentoo.org/show_bug.cgi?id=708360) |  |  |  |  | 
-| Second optional argument for `usev` | [bug #744868](https://bugs.gentoo.org/show_bug.cgi?id=744868) |  |  |  |  | 
-| Empty working directory in `pkg_*` phases | [bug #595030](https://bugs.gentoo.org/show_bug.cgi?id=595030) |  |  |  |  | 
+| Pass `--datarootdir` to configure | [bug #651958](https://bugs.gentoo.org/show_bug.cgi?id=651958) | done | done | done |  | 
+| Pass `--disable-static` to configure | [bug #744871](https://bugs.gentoo.org/show_bug.cgi?id=744871) | done | done | done |  | 
+| Accumulate PROPERTIES & RESTRICT over eclasses and ebuilds | [bug #701132](https://bugs.gentoo.org/show_bug.cgi?id=701132) | done | done | done |  | 
+| `dosym -r` to create symlinks relative to link location | [bug #708360](https://bugs.gentoo.org/show_bug.cgi?id=708360) | done | done | done |  | 
+| Second optional argument for `usev` | [bug #744868](https://bugs.gentoo.org/show_bug.cgi?id=744868) | done | done | done |  | 
+| Empty working directory in `pkg_*` phases | [bug #595030](https://bugs.gentoo.org/show_bug.cgi?id=595030) | done | done | done |  | 
 | Other changes |  |  |  |  |  | 
-| Less strict naming rules for files in updates directory | [bug #692774](https://bugs.gentoo.org/show_bug.cgi?id=692774) |  |  |  |  | 
-| Bash 5.0 | [bug #636652](https://bugs.gentoo.org/show_bug.cgi?id=636652) |  |  |  |  | 
-| Default `src_prepare` accepts only file names in `PATCHES` | [bug #752486](https://bugs.gentoo.org/show_bug.cgi?id=752486) |  |  |  |  | 
-| More consistent `insopts`/`exeopts` | [bug #657580](https://bugs.gentoo.org/show_bug.cgi?id=657580) |  |  |  |  | 
+| Less strict naming rules for files in updates directory | [bug #692774](https://bugs.gentoo.org/show_bug.cgi?id=692774) | done | done | done |  | 
+| Bash 5.0 | [bug #636652](https://bugs.gentoo.org/show_bug.cgi?id=636652) | done | done | done |  | 
+| Default `src_prepare` accepts only file names in `PATCHES` | [bug #752486](https://bugs.gentoo.org/show_bug.cgi?id=752486) | done | done | done |  | 
+| More consistent `insopts`/`exeopts` | [bug #657580](https://bugs.gentoo.org/show_bug.cgi?id=657580) | done | done | done |  | 
 | Removals and bans |  |  |  |  |  | 
-| `unpack`: Remove support for 7-Zip, RAR, and LHA | [bug #690968](https://bugs.gentoo.org/show_bug.cgi?id=690968) |  |  |  |  | 
-| Ban `useq`, `hasq`, and `hasv` functions | [bug #199722](https://bugs.gentoo.org/show_bug.cgi?id=199722) |  |  |  |  | 
+| `unpack`: Remove support for 7-Zip, RAR, and LHA | [bug #690968](https://bugs.gentoo.org/show_bug.cgi?id=690968) | done | done | done |  | 
+| Ban `useq`, `hasq`, and `hasv` functions | [bug #199722](https://bugs.gentoo.org/show_bug.cgi?id=199722) | done | done | done |  | 
 
 ## Not accepted
 
@@ -51,5 +51,5 @@ The following list of features accepted for or rejected from EAPI 8 is based on 
 |---|---|---|---|---|---|
 |  |  |  | Portage | pkgcore |  | 
 | Enhancements of existing features |  |  |  |  |  | 
-| Variant of `\|\| ( )` with defined runtime behaviour | [bug #489458](https://bugs.gentoo.org/show_bug.cgi?id=489458) | [EAPI 7 commit](https://gitweb.gentoo.org/proj/pms.git/commit/?h=deferred-7&id=dc94676f869c8449417afdb4d101613b346901a2) |  |  | From original EAPI 6 (and 7) feature list | 
-| RESTRICT value for network-restricted tests | [bug #553696](https://bugs.gentoo.org/show_bug.cgi?id=553696) |  |  |  | Added retroactively as an optional PROPERTIES token |
+| Variant of `\|\| ( )` with defined runtime behaviour | [bug #489458](https://bugs.gentoo.org/show_bug.cgi?id=489458) | [EAPI 7 commit](https://gitweb.gentoo.org/proj/pms.git/commit/?h=deferred-7&id=dc94676f869c8449417afdb4d101613b346901a2) | not done | not done | From original EAPI 6 (and 7) feature list | 
+| RESTRICT value for network-restricted tests | [bug #553696](https://bugs.gentoo.org/show_bug.cgi?id=553696) | dropped | done | not done | Added retroactively as an optional PROPERTIES token |

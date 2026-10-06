@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Daemontools-encore
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-07-22"
-fingerprint: "3e28cd12a1250b33"
+fingerprint: "3e28cd12a1250bb7"
 license: CC BY-SA 4.0
 ---
 
@@ -22,6 +22,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [sys-process/daemontools-encore](https://packages.gentoo.org/packages/sys-process/daemontools-encore)
+            
+            Collection of tools for managing UNIX services
 
 ### Emerge
 
@@ -293,6 +298,14 @@ For details about all actions supported multilog, and about the protocol used fo
 
 **Sample input for the multilog program**
 
+```
+info: Message 1
+warning: Message 2
+error: Message 3
+error: Message 4
+warning: Message 5
+info: Message 6
+```
 `user $``cat input | multilog '-*' '+warning: *' ./log1 '+error: *' ./log2``user $``ls -l`
 drwx------ 2 user user 4096 May  6 12:00 log1
 drwx------ 2 user user 4096 May  6 12:00 log2
@@ -313,8 +326,18 @@ When there's no multilog process running on a logdir, the current file has the e
 
 **`log1/current`**
 
+```
+warning: Message 2
+warning: Message 5
+```
 **`log2/current`**
 
+```
+warning: Message 2
+error: Message 3
+error: Message 4
+warning: Message 5
+```
 Note that the log2/current file also contains the warning messages. This shows that actions that aren't **+** or **-** do not affect the currently selected lines, so warning messages selected by action '+warning: \*' stay selected after processing action './log1'. To only have the error messages in log2/current, a '-\*' action should have immediatly preceded the '+error: \*' action.
 
 Service directory test-service containing a logger:
@@ -512,6 +535,9 @@ test-daemon 2>&1
 ```
 **`env/SOFTLIMIT_OPENFILES`**
 
+```
+5
+```
 This script adds variables `UID`, `GID` and `SOFTLIMIT_OPENFILES` to test-daemon's environment, the first two set to the user ID and group ID of account *daemon* via envuidgid, and the last one via the enviroment directory env, which is used by the softlimit invocation to set the maximum number of open file descriptors to 5, provided it is the daemontools-encore version of that program. Environment variables `UID` and `GID` could be used by test-daemon to drop privileges.
 
 
@@ -636,6 +662,9 @@ Gentoo users wanting to use svscanboot will need to manually edit /etc/inittab, 
 
 **`/etc/inittab`**
 
+```
+SV:12345:respawn:/usr/bin/svscanboot
+```
 `root #``telinit q`
 This will run svscanboot when entering [runlevels](https://wiki.gentoo.org/wiki/Sysvinit#runlevels) 1 to 5. Because svscanboot calls svc using absolute path /command/svc, a symlink to the correct path for Gentoo must be created:
 

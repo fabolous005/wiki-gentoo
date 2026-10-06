@@ -95,7 +95,7 @@ Into script you have to fill number, which you'll get after you run /usr/sbin/e4
 **`/usr/local/sbin/decrypt.sh`**
 
 ```
- --timeout=0 | /usr/sbin/e4crypt add_key -k @us
+systemd-ask-password --timeout=0 | /usr/sbin/e4crypt add_key -k @us
 keyctl setperm `keyctl search @us logon ext4:OUTPUT_KEY_FROM_E4CRYPT_ADD_KEY` 0x3f3f3f3f
 ```
 ### PAM script

@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Dash
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-02-04"
-fingerprint: "13f74e4cd9bd7bdd"
+fingerprint: "13f74e4cd99d7b9d"
 license: CC BY-SA 4.0
 ---
 
 # dash
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -26,6 +28,11 @@ See the [terminal emulator](https://wiki.gentoo.org/wiki/Terminal_emulator#Gener
 
 ### USE flags
 
+
+### USE flags for
+            [app-shells/dash](https://packages.gentoo.org/packages/app-shells/dash)
+            
+            Debian Almquist Shell
 
 ### Emerge
 

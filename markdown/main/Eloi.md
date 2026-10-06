@@ -16,6 +16,8 @@ license: CC BY-SA 4.0
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
 
+**Resources**
+
 **Eloi** is an ebuild searcher and installer ([eix](https://wiki.gentoo.org/wiki/Eix) with extra steps). Searches through all Gentoo's overlays provided by eselect repository and listed by Zugania's website.
 
 Eloi can:

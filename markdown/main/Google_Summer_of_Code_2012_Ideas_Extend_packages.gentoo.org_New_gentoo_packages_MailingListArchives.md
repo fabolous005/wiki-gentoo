@@ -19,6 +19,10 @@ From Gentoo Wiki
 
 ### This was a real project
 
+[https://www.google-melange.com/archive/gsoc/2012/orgs/gentoo](https://www.google-melange.com/archive/gsoc/2012/orgs/gentoo)
+
+[https://www.google-melange.com/archive/gsoc/2012/orgs/gentoo/projects/slava.html](https://www.google-melange.com/archive/gsoc/2012/orgs/gentoo/projects/slava.html)
+
 Extend packages.gentoo.org Creating new packages.gentoo.org with rich web interface and advanced features. Port it to django.
 
 ### Mailing List Archives

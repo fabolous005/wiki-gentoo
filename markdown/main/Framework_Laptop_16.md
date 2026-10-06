@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Framework_Laptop_16
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-09-05"
-fingerprint: "4f464e7700f211d9"
+fingerprint: "7e060977d1e239c8"
 license: CC BY-SA 4.0
 ---
 
@@ -25,20 +25,20 @@ Other than the CPU, both models (Ryzen 7 and 9) have the same hardware.
 
 | Device | Make/model | Status | Vendor ID / Product ID | Kernel driver(s) | Kernel version | Notes | 
 |---|---|---|---|---|---|---|
-| CPU | AMD Ryzen 9 7940HS AMD Ryzen 7 7840HS |  |  |  |  | [AMD microcode](https://wiki.gentoo.org/wiki/AMD_microcode) | 
-| Chipset | AMD Pink Sardine |  |  |  |  |  | 
-| Video card | AMD Phoenix1 |  | 1002:15bf | amdgpu |  | Use `VIDEO_CARDS: amdgpu radeonsi` | 
-| Sound card | AMD Rembrandt Radeon High Definition Audio Controller |  | 1002:1640 | snd\_hda\_intel |  |  | 
-| Sound card | AMD Family 17h/19h HD Audio Controller |  | 1022:15e3 | snd\_hda\_intel |  |  | 
-| Audio coprocessor | AMD ACP/ACP3X/ACP6x Audio Coprocessor |  | 1022:15e2 | snd\_pci\_ps |  | Also requires Realtek HD-audio codec | 
-| Wireless network card | MediaTek MT7922 |  | 14c3:0616 | mt7921e |  |  | 
-| Bluetooth | MediaTek MT7922 |  | 0e8d:e616 | btusb |  |  | 
-| Fingerprint Reader | Goodix USB2.0 MISC |  | 27c6:609c |  |  | Requires [a fingerprint reader package](https://wiki.gentoo.org/wiki/Fingerprint_Reader) | 
-| Webcam | Realtek Semiconductor Corp. Laptop Camera |  | 0bda:5634 | uvcvideo |  | The microphone is attached to the sound card (17h/19h), not the webcam | 
-| Thunderbolt/USB4 | AMD Pink Sardine USB4/Thunderbolt NHI controller |  | 1022:1668 1022:1669 | thunderbolt |  | Compatibility with complex devices such as docks and eGPUs has not been confirmed. | 
-| Ambient light sensor |  |  | 32ac:001b (Framework's HID sensor hub) | hid\_sensor\_als, hid\_sensor\_hub |  | Found at: `/sys/bus/iio/devices/iio:device0/` | 
-| Encryption | AMD Family 19h (Model 74h) CCP/PSP 3.0 Device |  | 1022:15c7 | ccp |  | Tested with `cryptsetup benchmark` | 
-| AI accelerator | AMD IPU Device |  | 1022:1502 |  |  | Requires `dev-libs/xdna-driver` from the [GURU repository](https://wiki.gentoo.org/wiki/Project:GURU) | 
+| CPU | AMD Ryzen 9 7940HS AMD Ryzen 7 7840HS | Works |  |  |  | [AMD microcode](https://wiki.gentoo.org/wiki/AMD_microcode) | 
+| Chipset | AMD Pink Sardine | Works |  |  |  |  | 
+| Video card | AMD Phoenix1 | Works | 1002:15bf | amdgpu |  | Use `VIDEO_CARDS: amdgpu radeonsi` | 
+| Sound card | AMD Rembrandt Radeon High Definition Audio Controller | Works | 1002:1640 | snd\_hda\_intel |  |  | 
+| Sound card | AMD Family 17h/19h HD Audio Controller | Works | 1022:15e3 | snd\_hda\_intel |  |  | 
+| Audio coprocessor | AMD ACP/ACP3X/ACP6x Audio Coprocessor | Works | 1022:15e2 | snd\_pci\_ps |  | Also requires Realtek HD-audio codec | 
+| Wireless network card | MediaTek MT7922 | Works | 14c3:0616 | mt7921e |  |  | 
+| Bluetooth | MediaTek MT7922 | Works | 0e8d:e616 | btusb |  |  | 
+| Fingerprint Reader | Goodix USB2.0 MISC | Works | 27c6:609c |  |  | Requires [a fingerprint reader package](https://wiki.gentoo.org/wiki/Fingerprint_Reader) | 
+| Webcam | Realtek Semiconductor Corp. Laptop Camera | Works | 0bda:5634 | uvcvideo |  | The microphone is attached to the sound card (17h/19h), not the webcam | 
+| Thunderbolt/USB4 | AMD Pink Sardine USB4/Thunderbolt NHI controller | Works | 1022:1668 1022:1669 | thunderbolt |  | Compatibility with complex devices such as docks and eGPUs has not been confirmed. | 
+| Ambient light sensor |  | Works | 32ac:001b (Framework's HID sensor hub) | hid\_sensor\_als, hid\_sensor\_hub |  | Found at: `/sys/bus/iio/devices/iio:device0/` | 
+| Encryption | AMD Family 19h (Model 74h) CCP/PSP 3.0 Device | Works | 1022:15c7 | ccp |  | Tested with `cryptsetup benchmark` | 
+| AI accelerator | AMD IPU Device | Not tested | 1022:1502 |  |  | Requires `dev-libs/xdna-driver` from the [GURU repository](https://wiki.gentoo.org/wiki/Project:GURU) | 
 
 ### Input modules
 
@@ -46,11 +46,11 @@ The Framework Laptop 16 has a user-configurable input deck. Unless otherwise not
 
 | Device | Make/model | Status | Vendor ID / Product ID | Kernel driver(s) | Kernel version | Notes | 
 |---|---|---|---|---|---|---|
-| Keyboard | Framework Laptop 16 Keyboard Module - ANSI |  | 32ac:0012 |  |  | Generic HID? | 
-| Touchpad | PixArt PIXA3854 |  | 093A:0274 | hid\_multitouch i2c\_designware\_platform pinctrl\_amd |  |  | 
-| Numpad | Framework Laptop 16 Numpad Module |  | 32ac:0014 |  |  | Generic HID? | 
-| RGB Macropad |  |  | 32ac:0013 |  |  | Generic HID? | 
-| LED Matrix |  |  | 32ac:0020 | cdc\_acm |  |  | 
+| Keyboard | Framework Laptop 16 Keyboard Module - ANSI | Works | 32ac:0012 |  |  | Generic HID? | 
+| Touchpad | PixArt PIXA3854 | Works | 093A:0274 | hid\_multitouch i2c\_designware\_platform pinctrl\_amd |  |  | 
+| Numpad | Framework Laptop 16 Numpad Module | Works | 32ac:0014 |  |  | Generic HID? | 
+| RGB Macropad |  | Works | 32ac:0013 |  |  | Generic HID? | 
+| LED Matrix |  | Works | 32ac:0020 | cdc\_acm |  |  | 
 
 Configuring the QMK devices and LED matrix via web tools requires udev rules (see below).
 
@@ -64,9 +64,9 @@ The Framework 16 has an expansion bay with a custom PCIe connector. Unless other
 
 | Device | Make/model | Status | Vendor ID / Product ID | Kernel driver(s) | Kernel version | Notes |  | 
 |---|---|---|---|---|---|---|---|
-|  | Expansion Bay Shell |  |  |  |  | Provides cooling and fills the bay. Fans are managed by the embedded controller. |  | 
-| GPU | AMD Radeon RX 7700S |  | 1002:7480 1002:ab30 | amdgpu snd\_hda\_intel |  |  |  | 
-| GPU | NVIDIA RTX 5070 8GiB Max-Q / Mobile (GB206M) |  | 10de:2d58 10de:22eb | nvidia-drivers USE=+kernel-open |  |  |  | 
+|  | Expansion Bay Shell | Works |  |  |  | Provides cooling and fills the bay. Fans are managed by the embedded controller. |  | 
+| GPU | AMD Radeon RX 7700S | Works | 1002:7480 1002:ab30 | amdgpu snd\_hda\_intel |  |  |  | 
+| GPU | NVIDIA RTX 5070 8GiB Max-Q / Mobile (GB206M) | Works | 10de:2d58 10de:22eb | nvidia-drivers USE=+kernel-open |  |  |  | 
 
 ## Installation
 
@@ -86,32 +86,214 @@ genkernel automatically enables enough to get the system booted, but additional 
 
 **General**
 
+```
+Processor type and features  --->
+   [*] AMD ACPI2Platform devices support
+   [*] Machine Check / overheating reporting
+      [*] AMD MCE features
+   Performance monitoring  --->
+      <*> Intel/AMD rapl performance events
+      <*> AMD Processor Power Reporting Mechanism
+      <*> AMD Uncore performance events
+Power management and ACPI options --->
+   [*] ACPI (Advanced Configuration and Power Interface) Support  --->
+      [*]   ACPI Platform Error Interface (APEI)
+      [*]     APEI Generic Hardware Error Source
+       CPU Frequency scaling  --->
+         [*]   AMD Processor P-State driver
+Device Drivers  --->
+   <*> Hardware Monitoring support  --->
+      <*>   AMD Family 10h+ temperature sensor
+   [*] Watchdog Timer Support  --->
+      <*>   AMD/ATI SP5100 TCO Timer/Watchdog
+   [*] HID bus support  --->
+      <*>   I2C HID support  --->
+            AMD SFH HID Support  --->
+               <*> AMD Sensor Fusion Hub
+   [*] Reliability, Availability and Serviceability (RAS) features
+   <*> EDAC (Error Detection And Correction) reporting  --->
+      <*>   Decode MCEs in human-readable form (only on AMD for now)
+      <*>   Output ACPI APEI/GHES BIOS detected errors via EDAC
+   [*] X86 Platform Specific Device Drivers  --->
+      <*>   AMD SoC PMC driver
+   [*] IOMMU Hardware Support  --->
+      [*]   AMD IOMMU support
+   [*] Generic powercap sysfs driver  --->
+      <*>   Intel RAPL Support via MSR Interface
+```
 **NVMe/SSD slots**
 
+```
+Enable the block layer  --->
+   [*]   Logic for interfacing with Opal enabled SEDs
+Device Drivers  --->
+   NVME Support  --->
+      <*> NVM Express block device
+```
 **Wi-Fi and Bluetooth**
 
+```
+Device Drivers  --->
+   [*] Network device support  --->
+      [*]   Wireless LAN  --->
+         [*]   MediaTek devices
+            <M>     MediaTek MT7921E (PCIe) support
+[*] Networking support  --->
+   <M>   Bluetooth subsystem support  --->
+      [*]     Bluetooth High Speed (HS) features
+      [*]   Bluetooth Low Energy (LE) features
+            Bluetooth device drivers  --->
+               <M> HCI USB driver
+               [*]   MediaTek protocol support
+```
 **Graphics**
 
+```
+Memory Management options  --->
+   [*] Memory hotplug  --->
+      [*]   Allow for memory hot remove
+   [*] Device memory (pmem, HMM, etc...) hotplug support
+   [*] Unaddressable device memory (GPU memory, ...)
+Device Drivers  --->
+   Graphics support  --->
+      <M> AMD GPU
+      [*]   Enable amdgpu support for SI parts
+            ACP (Audio CoProcessor) Configuration  --->
+               [*] Enable AMD Audio CoProcessor IP support
+      [*]   HSA kernel driver for AMD GPU devices
+      [*]     Enable HMM-based shared virtual memory manager
+      Frame buffer Devices  --->
+         <*> Support for frame buffer device drivers  --->
+            <*>   VGA 16-color graphics support
+            [*]   VESA VGA graphics support
+            [*]   EFI-based Framebuffer Support
+```
 **Keyboard and touchpad**
 
+```
+Cryptographic API  --->
+   [*]   Hardware crypto devices  --->
+      [*]   Support for AMD Secure Processor
+      <*>     Secure Processor device driver
+      [*]       Platform Security Processor (PSP) device
+Device Drivers  --->
+   I2C Support  --->
+      <*> I2C support
+      <*>   I2C device interface
+      I2C Hardware Bus Support  --->
+         <*> Intel PIIX4 and compatible (ATI/AMD/Serverworks/Broadcom/SMSC)
+         <*> Synopsys DesignWare Platform
+         [*]   AMD PSP I2C semaphore support
+   [*] Pin controllers  --->
+      [*]   AMD GPIO pin control
+   [*] HID bus support  --->
+      <*>   Generic HID driver
+            Special HID drivers  --->
+               <*> HID Multitouch panels
+            USB HID support  --->
+               <*> USB HID transport layer
+      <*>   I2C HID support  --->
+               <M>   HID over I2C transport layer ACPI driver
+```
 **USB4/Thunderbolt/Type-C**
 
+```
+Device Drivers  --->
+   [*] USB support  --->
+      <*>   USB Type-C Support  --->
+         <*>   USB Type-C Connector System Software Interface driver
+         <*>     UCSI ACPI Interface Driver
+               USB Type-C Alternate Mode drivers  --->
+            <*> DisplayPort Alternate Mode driver
+      <*>   USB Role Switch Support
+   <*> Unified support for USB4 and Thunderbolt  --->
+```
 **Sound card**
 
+```
+Device Drivers  --->
+   <M> Sound card support  --->
+      <M> Advanced Linux Sound Architecture  --->
+         HD-Audio  --->
+            <M> HD Audio PCI
+            <M> Build Realtek HD-audio codec support
+            <M> Build HDMI/DisplayPort HD-audio codec support
+         <M>   ALSA for SoC audio support  --->
+            <M>   AMD Audio Coprocessor-v3.x support
+            <M>   AMD Audio Coprocessor - Renoir support
+            <M>   AMD Audio Coprocessor-v5.x I2S support
+            <M>   AMD Audio Coprocessor-v6.x Yellow Carp support
+            <M>   AMD Audio Coprocessor-v6.2 RPL support
+            <M>   AMD Audio Coprocessor-v6.3 Pink Sardine support
+            [*]   Sound Open Firmware Support  --->
+               <M>   SOF PCI enumeration support
+               <M>   SOF support for AMD audio DSPs
+               <M>     SOF support for RENOIR
+               <M>     SOF support for VANGOGH
+               <M>     SOF support for REMBRANDT
+```
 **Webcam**
 
+```
+Device Drivers  --->
+   <M> Multimedia support  --->
+      [ ]   Filter media drivers
+            Media core support  --->
+               <M> Video4Linux core
+            Media drivers  --->
+               [*] Media USB Adapters  --->
+                  <M>   USB Video Class (UVC)
+```
 **Ambient light sensor**
 
+```
+Device Drivers  --->
+   [*] HID bus support  --->
+      [*]   HID bus core support
+              Special HID drivers  --->
+                 [*] HID Sensors framework support
+   [*] Industrial I/O support  --->
+            Light sensors  --->
+               [*] HID ALS
+```
 **Embedded Controller**
 
+```
+Device Drivers  --->
+   [*] Platform support for Chrome hardware  --->
+      <*>   ChromeOS Embedded Controller
+      <*>     ChromeOS Embedded Controller (LPC)
+      <*>   ChromeOS EC miscdevice
+```
 **Ethernet Expansion Card**
 
+```
+Device Drivers  --->
+   [*] Network device support  --->
+      <M>   USB Network Adapters  --->
+         <M>   Realtek RTL8152/RTL8153 Based USB Ethernet Adapters
+```
 **Storage Expansion Card**
 
+```
+Device Drivers  --->
+   [*] USB support  --->
+      <*>   USB Mass Storage support
+      <M>     USB Attached SCSI
+```
 **LED Matrix**
 
+```
+Device Drivers  --->
+   [*] USB support  --->
+      <M>   USB Modem (CDC ACM) support
+```
 **Needed to get RyzenAdj v0.15.0 working**
 
+```
+Kernel hacking  --->
+   [ ] Filter access to /dev/mem
+```
 For more features on battery charge limit and LED configuration an out-of-tree kernel module can be installed via
 
 `root #``emerge --ask app-laptop/framework-laptop-kmod`
@@ -147,6 +329,7 @@ config file, and reloads the config when it changes and contains a script for in
 
 To clone fw-fanctrl:
 
+`user $``git clone` [https://github.com/NAKlama/fw-fanctrl](https://github.com/NAKlama/fw-fanctrl)`user $``cd fw-fanctrl`
 To install (for OpenRC) run inside the cloned directory:
 
 `root #``chmod +x install-initd.sh``root #``./install-initd.sh`

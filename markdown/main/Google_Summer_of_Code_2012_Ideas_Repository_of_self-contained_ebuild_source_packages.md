@@ -5,15 +5,23 @@ url: https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Repository_of
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2019-01-11"
-fingerprint: a763ab7d0637a5b0
+fingerprint: a763a37d0637a5b0
 license: CC BY-SA 4.0
 ---
 
 # Google Summer of Code/2012/Ideas/Repository of self-contained ebuild source packages
 
+[Google Summer of Code](https://wiki.gentoo.org/wiki/Google_Summer_of_Code) |
+
+[2012](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012) |
+
+[Ideas](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+## [Repository of self-contained ebuild source packages]
 
 This proposal is similar in scope to the Cache sync proposal, except that it will focus on implementing support for repositories that host self-contained ebuild source packages that are analogous to source RPMs (SRPMs). The repository layout will be similar to existing PORTAGE\_BINHOST repositories (like those hosted at [tinderbox.dev.gentoo.org](http://tinderbox.dev.gentoo.org/default-linux/x86/)), and will include a metadata index file which is similar to [$PKGDIR/Packages](http://tinderbox.dev.gentoo.org/default-linux/x86/Packages). Each source package hosted in the repository will contain a single ebuild, its metadata, and all files it requires from the portage tree (including all inherited eclasses and any additional files such as patches from the files directory). A zip file will be a suitable container for one of these source packages.
 

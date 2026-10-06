@@ -11,9 +11,13 @@ license: CC BY-SA 4.0
 
 # Banana Pi
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 The Banana Pi embedded system is very similar to the [Raspberry Pi](https://wiki.gentoo.org/wiki/Raspberry_Pi).
 
@@ -32,6 +36,8 @@ Follow to the installation procedure in the  [amd64 manual](https://wiki.gentoo.
 but download and use an ARMv7a stage3 file from [https://www.gentoo.org/downloads/](https://www.gentoo.org/downloads/) instead of the amd64 version.
 
 ### Build the Kernel for a Banana Pi
+
+[http://wiki.lemaker.org/BananaPro/Pi:Building\_u-boot,\_script.bin\_and\_linux-kernel](http://wiki.lemaker.org/BananaPro/Pi:Building_u-boot,_script.bin_and_linux-kernel)
 
 ### Installation of U-Boot
 

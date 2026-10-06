@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Porthole_plug
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2019-01-10"
-fingerprint: "676de3cc9a2bdde2"
+fingerprint: "776de3cc9a2bfde2"
 license: CC BY-SA 4.0
 ---
 
@@ -13,9 +13,13 @@ license: CC BY-SA 4.0
 
 From Gentoo Wiki
 
+\< [Google Summer of Code](https://wiki.gentoo.org/wiki/Google_Summer_of_Code) | [2012](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012) | [Ideas](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+## [Porthole plug-ins and extensions]
 
 Porthole is a GTK+-based frontend to Portage. This project would enable Porthole to improve its ability to manage remote computers, gather and report package statistics, and more. The work would encompass creating:
 

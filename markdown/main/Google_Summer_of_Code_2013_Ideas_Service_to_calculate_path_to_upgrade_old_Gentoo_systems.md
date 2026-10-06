@@ -5,15 +5,21 @@ url: https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2013/Ideas/Service_to_ca
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2018-11-09"
-fingerprint: "31ecf0ee5a49c36d"
+fingerprint: "316cf0ec5a41e36c"
 license: CC BY-SA 4.0
 ---
 
 # Google Summer of Code/2013/Ideas/Service to calculate path to upgrade old Gentoo systems
 
+From Gentoo Wiki
+
+\< [Google Summer of Code](https://wiki.gentoo.org/wiki/Google_Summer_of_Code) | [2013](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2013) | [Ideas](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2013/Ideas)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+## [Service to calculate path to upgrade old Gentoo systems]
 
 The idea behind this potential GSoC project is to come up with a remote service (no webpages!) to estimate/calculate what the path of upgrade would be for an old Gentoo          installation. It is a known fact that once a Gentoo system is old enough, it can be problematic (or really difficult) to get it running on newer **@system** packages and       profiles. This project is made of various parts, such as an DSL for encoding the upgrade path (result of the calculation), coding the actual remote service, coding the algorithms for the estimation of the upgrade path, etc.
 

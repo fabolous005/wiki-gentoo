@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Ceph/Installation
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-07-06"
-fingerprint: ee98d87edda539c0
+fingerprint: ee98d87edda5b9c0
 license: CC BY-SA 4.0
 ---
 
 # Ceph/Installation
+
+[Ceph](https://wiki.gentoo.org/wiki/Ceph)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -46,16 +48,33 @@ The first configuration to decide on is which Ceph version to deploy. At the tim
 
 **`/etc/portage/package.accept_keywords/ceph`**
 
+```
+sys-cluster/ceph
+```
 Next, validate that the Linux kernel is configured to support Ceph.
 
 **Linux kernel configuration for Ceph**
 
+```
+Device Drivers --->
+  [*] Block devices --->
+    <*> Rados block device (RBD)
+ 
+File systems --->
+  [*] Network File Systems --->
+    <*> Ceph distributed file system
+```
 ## Installation
 
 With the system configuration done, install the Ceph software.
 
 The following USE flags are available for fine-tuning the installation.
 
+
+### USE flags for
+            [sys-cluster/ceph](https://packages.gentoo.org/packages/sys-cluster/ceph)
+            
+            Ceph distributed filesystem
 
 | [+cephfs](https://packages.gentoo.org/useflags/+cephfs) | Build support for cephfs, a POSIX compatible filesystem built on top of ceph | 
 | [+mgr](https://packages.gentoo.org/useflags/+mgr) | Build the ceph-mgr daemon | 

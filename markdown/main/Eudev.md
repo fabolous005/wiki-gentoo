@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Eudev
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-07-01"
-fingerprint: "16a9d018c599a1e8"
+fingerprint: "16a9d018c599a3e8"
 license: CC BY-SA 4.0
 ---
 
@@ -15,6 +15,8 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+
+**Archived article**
 
 This article is
 
@@ -33,6 +35,8 @@ TLDR:
 **Do not use this article!**
 
 
+
+*Not to be confused with[udev](https://wiki.gentoo.org/wiki/Udev).*
 
 eudev is a fork of [udev](https://wiki.gentoo.org/wiki/Udev), [systemd](https://wiki.gentoo.org/wiki/Systemd)'s [device file](https://wiki.gentoo.org/wiki/Device_file) manager for the Linux kernel.<sup>[\[1\]](https://wiki.gentoo.org#cite_note-1)</sup> It manages device nodes in [/dev](https://wiki.gentoo.org/wiki//dev) and handles all user space actions when adding or removing devices.
 

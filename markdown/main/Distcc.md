@@ -15,6 +15,10 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+[checking over the content](https://wiki.gentoo.org/index.php?title=Distcc&action=edit)(
+
+[how to get started](https://wiki.gentoo.org/wiki/Gentoo_Wiki:Contributor%27s_guide)).
+
 **Resources**
 
 - Extract content relating to Portage to [Portage with Distcc](https://wiki.gentoo.org/index.php?title=Portage_with_Distcc&action=edit&redlink=1), removing references to pump mode, since distcc-pump was removed in [bug #702146](https://bugs.gentoo.org/show_bug.cgi?id=702146). Use the [talk page](https://wiki.gentoo.org/wiki/Talk:Distcc) to propose a different name.
@@ -39,6 +43,11 @@ Verify that all systems use the same version of binutils (eselect binutils list)
 
 ### USE flags
 
+
+### USE flags for
+            [sys-devel/distcc](https://packages.gentoo.org/packages/sys-devel/distcc)
+            
+            Distribute compilation of C code across several machines on a network
 
 | [gssapi](https://packages.gentoo.org/useflags/gssapi) | Enable support for net-libs/libgssglue | 
 | [gtk](https://packages.gentoo.org/useflags/gtk) | Add support for x11-libs/gtk+ (The GIMP Toolkit) | 
@@ -164,12 +173,22 @@ Hosts also need to be in:
 
 **Should match --set-hosts**
 
+```
+192.168.0.1
+192.168.0.2
+192.168.0.3
+```
 Optionally, to set the maximum number of threads used by a host, add a forward slash "/" after each host:
 
 **`/etc/distcc/hosts`**
 
 **Specify max number of threads**
 
+```
+192.168.0.1/8
+192.168.0.2/4
+192.168.0.3/16
+```
 The same applies to the distcc-config command. If the maximum threads number is not specified, it will default to 4.
 
 ## Usage
@@ -462,6 +481,17 @@ Second, create a section for each host in the SSH configuration file:
 
 **Add per-host sections**
 
+```
+Host test1
+    HostName 123.456.789.1
+    Port 1234
+    User UserName
+ 
+Host test2
+    HostName 123.456.789.2
+    Port 1234
+    User UserName
+```
 Send the public key to each compilation node:
 
 `root #``ssh-copy-id -i /var/tmp/portage/.ssh/id_rsa.pub UserName@CompilationNode`
@@ -569,6 +599,12 @@ FEATURES="-distcc"
 ```
 **`/etc/portage/package.env/nodistcc`**
 
+```
+dev-lang/rust           nodistcc.conf
+mail-client/thunderbird nodistcc.conf
+sys-libs/libcxx         nodistcc.conf
+www-client/firefox      nodistcc.conf
+```
 ### Mixed GCC versions
 
 If the environment hosts different GCC versions, there will likely be very weird problems. The solution is to make certain all hosts have the *exact* same GCC version. Corollary: if you have a weird problem, double-check the compiler invocations (from local and remote logs), and verify equality of versions strings (output of `${CC} --version`).

@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Crossdev/Testing_packages_via_qemu
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-04-21"
-fingerprint: d7c21cba274ddf84
+fingerprint: d3c21cba274ddf84
 license: CC BY-SA 4.0
 ---
 
 # Crossdev/Testing packages via qemu
+
+[Crossdev](https://wiki.gentoo.org/wiki/Special:MyLanguage/Crossdev)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

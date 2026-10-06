@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Apple_Macbook_Pro_Retina_(early_2013)
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-28"
-fingerprint: "9685791d99a69b87"
+fingerprint: be85e95d99a639c6
 license: CC BY-SA 4.0
 ---
 
@@ -131,16 +131,87 @@ These options are in addition to the standard options you would select for Intel
 
 Configure your kernel as normal, but add the following options for EFI Stub (needed for rEFIt or rEFInd). More details about Kernel configuration for EFI stub are here: [EFI stub](https://wiki.gentoo.org/wiki/EFI_stub):
 
+```
+Processor type and features  --->
+  [*] EFI runtime service support 
+  [*] EFI stub support
+Device Drivers  --->
+  Input device support  --->
+    [*] Mice  --->
+      # For trackpad support
+      <*> Apple USB BCM5974 Multitouch trackpad support
+  Hardware Monitoring support  --->
+    # Motion, light sensor, keyboard backlight
+    <*> Apple SMC (Motion sensor, light sensor, keyboard backlight)
+  Graphics support  --->
+    <*> Intel 8xx/9xx/G3x/G4x/HD Graphics
+    Backlight & LCD device support  --->
+      # Screen backlight
+      <*>     Apple Backlight Driver
+  X86 Platform Specific Device Drivers  --->
+    <*>   Apple Gmux Driver
+  Multimedia support  --->
+    Media USB Adapters  --->
+      # Webcam
+      <M>   USB Video Class (UVC)
+  Sound card support  --->
+    Advanced Linux Sound Architecture  --->
+      PCI sound devices  --->
+        <M>   Intel HD Audio  --->
+          [*]   Build HDMI/DisplayPort HD-audio codec support
+          [*]   Build Cirrus Logic codec support
+  USB support  --->
+    # USB 3.0 (for integrated keyboard/trackpad)
+    <*>  xHCI HCD (USB 3.0) support
+Power management and ACPI options --->
+  ACPI (Advanced Configuration and Power Interface) Support  --->
+    <*>   Smart Battery System
+```
 Ensure the following options are NOT set (required for proper Broadcom wireless):
 
+```
+Networking support  --->
+  Wireless  --->
+    < >   Generic IEEE 802.11 Networking Stack (mac80211)
+Device Drivers  ---> 
+  Network device support  --->
+    Wireless LAN  --->
+      < >   Broadcom 43xx wireless support (mac80211 stack)
+      < >   Broadcom IEEE802.11n embedded FullMAC WLAN driver
+  Sonics Silicon Backplane  --->
+    < > Sonics Silicon Backplane support
+</pre>
+```
 If your machine is equipped with a SD card reader, you can enable the driver for it using:
 
+```
+Device Drivers  --->
+    <*> MMC/SD/SDIO card support  --->
+        -*- MMC/SD card support
+        <*>   MMC block device driver
+        [*]     Use bounce buffer for simple hosts
+```
 If your machine is equipped with Thunderbolt ports be sure to enable these options in the kernel to enable hot-plugging:
 
+```
+Bus options (PCI etc.) --->
+      [*] PCI support
+      [*]   PCI Express Port Bus support
+      [*]     PCI Express Hotplug driver
+      [*] Support for PCI Hotplug --->
+            [*]   ACPI PCI Hotplug driver
+    Device Drivers --->
+      <*> Thunderbolt support for Apple devices
+```
 For Bluetooth, follow the [wiki](https://wiki.gentoo.org/wiki/Bluetooth).
 
 If and only if you are using rEFIt, specify the root hard-coded in the kernel:
 
+```
+Processor type and features  --->
+  [*] Built-in kernel command line
+  (root=/dev/sda4) Built-in kernel command string
+```
 Make sure the `root=` line on your kernel command line configuration is correct.
 
 Once configured, compile the kernel as normal but do not copy it to /boot. Once it is compiled, do the following:
@@ -150,7 +221,7 @@ Once configured, compile the kernel as normal but do not copy it to /boot. Once 
 **`/etc/modprobe.d/alsa`**
 
 ```
- snd_hda_intel model=mbp101
+options snd_hda_intel model=mbp101
 ```
 #### Installing the kernel
 
@@ -183,6 +254,12 @@ The Broadcom closed source driver is the alternate option for the BCM 4331. In w
 
 **Kernel configuration option for the Broadcom-sta driver**
 
+```
+Device Drivers
+   -> Network device support
+      -> Wireless LAN
+         -> <*>   Intel PRO/Wireless 2100 Network Connection
+```
 If Portage complains, it may be necessary to accept the unstable version of the package then repeat the steps above:
 
 `root #``echo "net-wireless/broadcom-sta" >> /etc/portage/package.accept_keywords`
@@ -319,7 +396,7 @@ The hardware does not automatically shut off the backlight like other laptops. M
 **`/etc/acpi/default.sh`**
 
 ```
-)
+lid)
   xset -display :0 dpms force off
   ;;
 ```
@@ -328,7 +405,7 @@ In addition, edit /etc/X11/xinit/xinitrc.d/00-xhost and add the following line t
 **`/etc/X11/xinit/xinitrc.d/00-xhost`**
 
 ```
- +local:0 > /dev/null 2>&1
+xhost +local:0 > /dev/null 2>&1
 ```
 Restart ACPID and the X server for this to take effect.
 
@@ -350,6 +427,15 @@ The installation routine will generate following configuration file:
 
 **`/etc/mbpfan.conf`**
 
+```
+[general]
+min_fan_speed = 1300            # default is 2000
+max_fan_speed = 6200            # default is 6200
+low_temp = 63                   # try ranges 55-63, default is 63
+high_temp = 66                  # try ranges 58-66, default is 66
+max_temp = 86                   # do not set it > 90, default is 86
+polling_interval = 7            # default is 7
+```
 Start the mbfan daemon:
 
 `root #``/etc/init.d/mbpfan start`
@@ -426,3 +512,7 @@ After resetting the SMC all problems with loading the xHCI driver have gone righ
 
 - The [Arch Linux wiki](https://wiki.archlinux.org/index.php/MacBookPro_Retina) is a very good reference.
 - If you're interested in setting up an encrypted rootfs on lvm [Funtoo](http://www.funtoo.org/Rootfs_over_encrypted_lvm) has a great article.
+
+## References
+
+1. ↑ <sup>[1.0](https://wiki.gentoo.org#cite_ref-thunderbolt-hotplug_1-0)</sup> <sup>[1.1](https://wiki.gentoo.org#cite_ref-thunderbolt-hotplug_1-1)</sup> Knuth Posern. [\[PATCH\] thunderbolt: Allow loading of module on recent Apple MacBooks with thunderbolt 2 controller](https://lkml.org/lkml/2015/9/20/150), [LKML](https://lkml.org/), September 20th, 2015. Retrieved on December 4th, 2015.

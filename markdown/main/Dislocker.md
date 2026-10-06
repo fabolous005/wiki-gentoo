@@ -11,6 +11,8 @@ license: CC BY-SA 4.0
 
 # Dislocker
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
@@ -30,8 +32,11 @@ license: CC BY-SA 4.0
 
 BitLocker partitions can be mount-ed using the /etc/fstab file and dislocker's long options. The line below is an example line, which has to be adapted to each case:
 
-**`/etc/fstab`**
+FILE **`/etc/fstab`**
 
+```
+/dev/sda2 /mnt/dislocker fuse.dislocker user-password=blah,nofail 0 0
+```
 ## Example
 
 With the sample /etc/fstab as above, make sure the two mount points /mnt/dislocker and /mnt/clear exist. Then:

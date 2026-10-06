@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Find
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-02-05"
-fingerprint: "96c19a48f0851988"
+fingerprint: "96c19a68e4851b08"
 license: CC BY-SA 4.0
 ---
 
@@ -22,6 +22,11 @@ GNU find, provided by the [sys-apps/findutils](https://packages.gentoo.org/packa
 
 ### USE flags
 
+
+### USE flags for
+            [sys-apps/findutils](https://packages.gentoo.org/packages/sys-apps/findutils)
+            
+            GNU utilities for finding files
 
 | [nls](https://packages.gentoo.org/useflags/nls) | Add Native Language Support (using gettext - GNU locale utilities) | 
 | [selinux](https://packages.gentoo.org/useflags/selinux) | !!internal use only!! Security Enhanced Linux support, this must be set by the selinux profile or breakage will occur | 

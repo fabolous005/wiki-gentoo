@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/AMD64
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2021-11-22"
-fingerprint: "9edff7c14d20394e"
+fingerprint: "9edfb7c14d20294c"
 license: CC BY-SA 4.0
 ---
 
 # AMD64
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

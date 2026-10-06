@@ -362,6 +362,13 @@ Second, SMTP email information needs to be added to \~/.gitconfig:
 
 **`~/.gitconfig`**
 
+```
+[sendemail]
+    smtpserver = mail.youremailserver.org
+    smtpuser = you@youremailserver.org
+    smtpencryption = ssl
+    smtpserverport = 465
+```
 Third, after performing a git commit send the patch from git:
 
 `user $``git send-email --to="myorg/myproject@mygitprovider.org" HEAD^`

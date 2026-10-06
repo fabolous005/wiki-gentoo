@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Distrobuilder
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-09-18"
-fingerprint: "1533c3790f733d94"
+fingerprint: "1d23c3711f773d94"
 license: CC BY-SA 4.0
 ---
 
@@ -25,8 +25,19 @@ Distrobuilder requires [overlay filesystem](https://wiki.gentoo.org/wiki/Overlay
 
 **Enable CONFIG\_OVERLAY\_FS for distrobuilder**
 
+```
+File systems  --->    
+  <*> Overlay filesystem support
+```
 ### USE flags
 
+
+### USE flags for
+            [app-containers/distrobuilder](https://packages.gentoo.org/packages/app-containers/distrobuilder)
+            
+            System container image builder for LXC and incus
+
+| [verify-sig](https://packages.gentoo.org/useflags/verify-sig) | Verify upstream signatures on distfiles | 
 
 ### Emerge
 

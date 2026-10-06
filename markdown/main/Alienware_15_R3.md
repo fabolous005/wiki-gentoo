@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Alienware_15_R3
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-29"
-fingerprint: "7f5c86a4db2a566a"
+fingerprint: "7f5e86a4db2a566a"
 license: CC BY-SA 4.0
 ---
 
@@ -25,10 +25,10 @@ The **Dell Alienware 15 R3** is a 15-inch laptop released in 2016. [\[1\]](https
 
 | Device | Make/model | Status | Vendor ID / Product ID | Kernel driver(s) | Kernel version | Notes | 
 |---|---|---|---|---|---|---|
-| CPU | Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz |  | N/A | N/A | 4.13.0-pf4 |  | 
-| Video card | Advanced Micro Devices, Inc. \[AMD/ATI\] Ellesmere \[Radeon RX 470/480\] (rev c5) |  | 1028:0774 | amdgpu | 4.13.0-pf4 |  | 
-| Ethernet controller | Qualcomm Atheros Device (rev 10) |  | 1969:e0b1 | alx | 4.13.0-pf4 |  | 
-| Wireless network controller | Qualcomm Atheros QCA6174 802.11ac Wireless Network Adapter (rev 32) |  | 168c:003e | ath10k\_pci | 4.13.0-pf4 | Interface modes other than managed not tested. | 
+| CPU | Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz | Works | N/A | N/A | 4.13.0-pf4 |  | 
+| Video card | Advanced Micro Devices, Inc. \[AMD/ATI\] Ellesmere \[Radeon RX 470/480\] (rev c5) | Works | 1028:0774 | amdgpu | 4.13.0-pf4 |  | 
+| Ethernet controller | Qualcomm Atheros Device (rev 10) | Works | 1969:e0b1 | alx | 4.13.0-pf4 |  | 
+| Wireless network controller | Qualcomm Atheros QCA6174 802.11ac Wireless Network Adapter (rev 32) | Works | 168c:003e | ath10k\_pci | 4.13.0-pf4 | Interface modes other than managed not tested. | 
 
 ### Detailed information
 

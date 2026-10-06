@@ -22,6 +22,11 @@ The **Apache HTTP Server** is an efficient, extensible [web server](https://wiki
 ### USE flags
 
 
+### USE flags for
+            [www-servers/apache](https://packages.gentoo.org/packages/www-servers/apache)
+            
+            The Apache Web Server
+
 | [+filecaps](https://packages.gentoo.org/useflags/+filecaps) | Use Linux file capabilities to control privilege rather than set\*id (this is orthogonal to USE=caps which uses capabilities at runtime e.g. libcap) | 
 | [+suexec-caps](https://packages.gentoo.org/useflags/+suexec-caps) | Install suexec with capabilities instead of SUID | 
 | [debug](https://packages.gentoo.org/useflags/debug) | Enable extra debug codepaths, like asserts and extra output. If you want to get meaningful backtraces see https://wiki.gentoo.org/wiki/Project:Quality\_Assurance/Backtraces | 
@@ -48,7 +53,7 @@ To use the Apache event or worker MPM, enable the Apache threads USE flag:
 **Apache threads support**
 
 ```
- threads
+www-servers/apache threads
 ```
 To use the Apache event MPM, add the following to package.use:
 
@@ -57,7 +62,7 @@ To use the Apache event MPM, add the following to package.use:
 **Apache event MPM**
 
 ```
- APACHE2_MPMS: event
+*/* APACHE2_MPMS: event
 ```
 To use the Apache worker MPM, add the following to package.use:
 
@@ -66,7 +71,7 @@ To use the Apache worker MPM, add the following to package.use:
 **Apache worker MPM**
 
 ```
- APACHE2_MPMS: worker
+*/* APACHE2_MPMS: worker
 ```
 If no Multi-Processing Module (MPM) is selected, the default MPM is used. The default MPM depends on platform capabilities (like threads support), read more in the [official Apache docs](https://httpd.apache.org/docs/current/en/mpm.html#defaults).
 
@@ -361,7 +366,7 @@ For security reasons this USE flag may be masked. To reverse, edit package.use.m
 **Reversing the LUA module mask**
 
 ```
- -apache2_modules_lua
+www-servers/apache -apache2_modules_lua
 ```
 ### Enabling PHP support
 
@@ -669,6 +674,9 @@ When this occurs, add the host name to the /etc/hosts file:
 
 **Adding a Hostname for Apache**
 
+```
+127.0.0.1 localhost System_Hostname
+```
 ## See also
 
 - [Lighttpd](https://wiki.gentoo.org/wiki/Lighttpd) — a fast and lightweight [web server](https://wiki.gentoo.org/wiki/Category:Web_servers).

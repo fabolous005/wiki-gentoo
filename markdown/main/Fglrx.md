@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Fglrx
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-01-25"
-fingerprint: "844dda1f59aeb88d"
+fingerprint: "960fda1fd9a6398d"
 license: CC BY-SA 4.0
 ---
 
@@ -16,6 +16,8 @@ license: CC BY-SA 4.0
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
 
+**Deprecated article**
+
 This article is
 
 **deprecated (obsolete)**. Contents are
@@ -25,6 +27,10 @@ This article is
 TLDR:
 
 **Do not use this article!**
+
+*Not to be confused with[Catalyst](https://wiki.gentoo.org/wiki/Catalyst).*
+
+**Resources**
 
 **AMD Catalyst** (previous **fglrx**: **F**ire**GL** and **R**adeon for **X** ) is the proprietary graphics driver for *older* AMD/ATI graphic cards. The open source alternative is [radeon](https://wiki.gentoo.org/wiki/Radeon).
 
@@ -46,12 +52,12 @@ Consequently fglrx will not be updated for use with newer versions of X.org Xser
 
 | Product name | Driver version | X server (max) | Bus | Note | 
 |---|---|---|---|---|
-| Radeon based on GCN | [amdgpu](http://packages.gentoo.org/package/x11-drivers/amdgpu) |  |  | Also includes [Wayland](https://wiki.gentoo.org/wiki/Wayland) support. fglrx is deprecated upstream.  GCN based Radeons are supported by [AMDGPU](https://wiki.gentoo.org/wiki/AMDGPU), and older cards by [radeon](https://wiki.gentoo.org/wiki/Radeon) | 
-| Radeon HD 5000 and newer | [15.12](http://packages.gentoo.org/package/x11-drivers/ati-drivers) |  | PCIe |  | 
-| Radeon HD 5000 and newer | [14.12-r4](http://packages.gentoo.org/package/x11-drivers/ati-drivers) |  | PCIe |  | 
-| Radeon HD 5000 and newer | [13.12](http://packages.gentoo.org/package/x11-drivers/ati-drivers) |  | PCIe |  | 
-| Radeon HD 5000 and newer | [13.4](http://packages.gentoo.org/package/x11-drivers/ati-drivers) |  | PCIe | Broken link, no longer in portage.  Use [radeon](https://wiki.gentoo.org/wiki/Radeon) driver instead. | 
-| Radeon HD 2000 - 4000 | [13.1\_pre897](http://packages.gentoo.org/package/x11-drivers/ati-drivers) |  | PCIe or AGP | Broken link. Mask ati-drivers slot 1 and newer, see the instructions under the table. | 
+| Radeon based on GCN | [amdgpu](http://packages.gentoo.org/package/x11-drivers/amdgpu) | latest |  | Also includes [Wayland](https://wiki.gentoo.org/wiki/Wayland) support. fglrx is deprecated upstream.  GCN based Radeons are supported by [AMDGPU](https://wiki.gentoo.org/wiki/AMDGPU), and older cards by [radeon](https://wiki.gentoo.org/wiki/Radeon) | 
+| Radeon HD 5000 and newer | [15.12](http://packages.gentoo.org/package/x11-drivers/ati-drivers) | 1.17 | PCIe |  | 
+| Radeon HD 5000 and newer | [14.12-r4](http://packages.gentoo.org/package/x11-drivers/ati-drivers) | 1.16 | PCIe |  | 
+| Radeon HD 5000 and newer | [13.12](http://packages.gentoo.org/package/x11-drivers/ati-drivers) | 1.14.49 | PCIe |  | 
+| Radeon HD 5000 and newer | [13.4](http://packages.gentoo.org/package/x11-drivers/ati-drivers) | 1.13 | PCIe | Broken link, no longer in portage.  Use [radeon](https://wiki.gentoo.org/wiki/Radeon) driver instead. | 
+| Radeon HD 2000 - 4000 | [13.1\_pre897](http://packages.gentoo.org/package/x11-drivers/ati-drivers) | 1.12.49 | PCIe or AGP | Broken link. Mask ati-drivers slot 1 and newer, see the instructions under the table. | 
 | Radeon HD 1000 and older |  |  |  | Use [radeon](https://wiki.gentoo.org/wiki/Radeon) driver | 
 
 - Force legacy driver when you have Radeon HD 2000 - 4000
@@ -66,10 +72,38 @@ You need [USB](https://wiki.gentoo.org/wiki/USB) support. Kernel version 3 is ne
 
 Also you need to activate the following kernel options (using genkernel --menuconfig all in the /usr/src/linux):
 
+```
+[*] Enable loadable module support --->
+Processor type and features  --->
+    [*] MTRR (Memory Type Range Register) support
+Bus options (PCI etc.)  --->
+    [*] PCI Express support
+    [*] Message Signaled Interrupts (MSI and MSI-X)
+Device Drivers  --->
+    Graphics support  --->
+        < > Direct Rendering Manager (XFree86 4.1.0 and higher DRI support) --->
+    Graphics support  --->
+        [ ] Support for frame buffer devices -- not necessary? If you set your kernel this way, you will see no console on bootup, so if running headless, you have nothing.
+```
 If you have an AGP card, enable AGP support. If you want to use the ATI internal AGP support, you must enable kernel support as a module or not at all:
 
+```
+Device Drivers  --->
+    Graphics support  --->
+        <*> /dev/agpgart (AGP Support)  --->
+            Choose your AGP driver, e.g.:
+            <*> AMD Opteron/Athlon64 on-CPU GART support
+```
 If you use a hybrid system with Intel integrated video card, you should also activate KMS and Intel driver. Make sure radeon is disabled.
 
+```
+Device Drivers  --->
+    Graphics support  --->
+        <*> Direct Rendering Manager (XFree86 4.1.0 and higher DRI support) --->
+            < > ATI Radeon
+            <*> Intel 8xx/9xx/G3x/G4x/HD Graphics
+                [*]   Enable modesetting on intel by default
+```
 ### Driver
 
 **`/etc/portage/make.conf`**
@@ -87,8 +121,14 @@ If you are using a hybrid system, enable intel driver but disable **sna** USE fl
 
 **`/etc/portage/make.conf`**
 
+```
+VIDEO_CARDS="fglrx intel"
+```
 **`/etc/portage/package.use`**
 
+```
+x11-drivers/xf86-video-intel uxa -sna
+```
 
 
 After setting this you want to update your system so the changes take effect:

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Binary_package_guide/Building_native
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-08-12"
-fingerprint: "7c08b82e6d441e85"
+fingerprint: "7c08b22e6d441685"
 license: CC BY-SA 4.0
 ---
 
@@ -16,6 +16,8 @@ license: CC BY-SA 4.0
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
 **Gentoo binhost**
+
+**Binary packages**
 
 When building for binpkgs for a weaker system that uses the same architecture and the user doesn't want use similar Portage settings across both. Then using a container such as a chroot is the good way to achieve this goal.
 

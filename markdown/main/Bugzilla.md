@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Bugzilla
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-11-24"
-fingerprint: ec1c899dc5efb586
+fingerprint: ec1c89bdc5efb586
 license: CC BY-SA 4.0
 ---
 
@@ -15,12 +15,21 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+[checking over the content](https://wiki.gentoo.org/index.php?title=Bugzilla&action=edit)(
+
+[how to get started](https://wiki.gentoo.org/wiki/Gentoo_Wiki:Contributor%27s_guide)).
+
 **Bugzilla** is a web application for tracking bugs.
 
 ## Installation
 
 ### USE flags
 
+
+### USE flags for
+            [www-apps/bugzilla](https://packages.gentoo.org/packages/www-apps/bugzilla)
+            
+            Bugzilla is the Bug-Tracking System from the Mozilla project
 
 | [+sqlite](https://packages.gentoo.org/useflags/+sqlite) | Add support for sqlite - embedded sql database | 
 | [apache2](https://packages.gentoo.org/useflags/apache2) | Add Apache2 support | 
@@ -60,6 +69,9 @@ Edit the following configuration file and add the following line (adjust accordi
 
 **`/etc/postgresql-15/pg_hba.conf`**
 
+```
+host   all    bugs   127.0.0.1    255.255.255.255  md5
+```
 Then restart the database server:
 
 `root #``/etc/init.d/postgresql restart`

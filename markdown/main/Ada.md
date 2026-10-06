@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Ada
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-06-07"
-fingerprint: de05bf9d9db5a78a
+fingerprint: de05bf9d9db5a38a
 license: CC BY-SA 4.0
 ---
 
@@ -35,6 +35,9 @@ First, enable [ada](https://packages.gentoo.org/useflags/ada) [for](https://wiki
 
 **`/etc/portage/package.use`**
 
+```
+sys-devel/gcc ada
+```
 Then rebuild GCC:
 
 `root #``emerge --ask --oneshot --changed-use sys-devel/gcc`
@@ -74,12 +77,18 @@ Add the installation location to the PATH, e.g. via .bash\_profile:
 
 **`~/.bash_profile`**
 
+```
+export PATH="${PATH}:${HOME}/.local/bin"
+```
 and restart the login session.
 
 Depending on the installation method, ada-mode might need to be enabled manually in the [Emacs](https://wiki.gentoo.org/wiki/Emacs) configuration file:
 
 **`~/.config/emacs/init.el`**
 
+```
+(require 'ada-mode)
+```
 By default, **wisi** is used for things like faces (`ada-face-backend`) and indentation (`ada-indent-backend`); however, the AdaCore ada\_language\_server (als) can be used for cross-references, via **eglot**. Refer to the **ada** customize-group and [the ada-mode home page](https://www.nongnu.org/ada-mode/) for further information.
 
 ## Troubleshooting

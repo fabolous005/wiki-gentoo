@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Borgmatic
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-05"
-fingerprint: "2fd9470e75ddd056"
+fingerprint: "67d1050d75ddd035"
 license: CC BY-SA 4.0
 ---
 
@@ -20,5 +20,16 @@ From Gentoo Wiki
 
 borgmatic is backup software written in Python that simplifies the process for using [Borg](https://wiki.gentoo.org/wiki/Borg).
 
+## Installation
+
+### USE flags
+
+
+### USE flags for
+            [app-backup/borgmatic](https://packages.gentoo.org/packages/app-backup/borgmatic)
+            
+            Automatically create, prune and verify backups with borgbackup
+
+### Emerge
 
 `root #``emerge --ask app-backup/borgmatic`

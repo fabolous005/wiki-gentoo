@@ -21,6 +21,9 @@ The **/etc/portage/modules** file can be used to override the metadata cache imp
 
 **Modules example**
 
+```
+portdbapi.auxdbmodule = portage.cache.sqlite.database
+```
 After changing the `portdbapi.auxdbmodule` setting, it may be necessary to transfer or regenerate metadata cache. Users of the rsync tree need to run emerge --metadata if they have enabled `FEATURES="metadata-transfer"` in [make.conf](https://wiki.gentoo.org/wiki/Make.conf).
 
 In order to regenerate metadata for repositories not distributing pre-generated metadata cache, run emerge --regen (see [emerge](https://wiki.gentoo.org/wiki/Emerge)).

@@ -11,9 +11,17 @@ license: CC BY-SA 4.0
 
 # Google Summer of Code/2012/Ideas/gentoo-x86 QA website
 
+[Google Summer of Code](https://wiki.gentoo.org/wiki/Google_Summer_of_Code) |
+
+[2012](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012) |
+
+[Ideas](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+## [gentoo-x86 QA website]
 
 The idea is simple enough, take the QA results from various tools and present it via a searchable website. Think [packages.gentoo.org](http://packages.gentoo.org), just for QA results. The implementation work required would primarily be building the website itself- the user could rely upon pkgcore-checks for the initial data stream (it can output it's results as a pickle stream) leaving the candidate to focus on generating a site providing insight into the status of current architectures, current stabling, etc.
 

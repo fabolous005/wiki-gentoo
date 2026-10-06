@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/FTP
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-09-07"
-fingerprint: "3619ed5942830ad5"
+fingerprint: "3619ed5942834ad1"
 license: CC BY-SA 4.0
 ---
 
@@ -23,6 +23,11 @@ While the FTP protocol itself is insecure, as native support for TLS over FTP is
 
 ### USE flags
 
+
+### USE flags for
+            [net-ftp/ftp](https://packages.gentoo.org/packages/net-ftp/ftp)
+            
+            Standard Linux FTP client
 
 ### Emerge
 
@@ -50,6 +55,9 @@ The .netrc file is used to configure FTP auto-login behavior. The "default" toke
 
 **Default .netrc Syntax**
 
+```
+default login anonymous password user@site
+```
 This configuration allows the user to automatically log in as an anonymous FTP user to machines not specified in the .netrc file. The auto-login behavior can be disabled by using the "-n" flag.
 
 The following tokens are used in the .netrc file:

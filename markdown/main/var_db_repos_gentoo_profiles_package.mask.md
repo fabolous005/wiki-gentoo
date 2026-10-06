@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki//var/db/repos/gentoo/profiles/package.mask
 hostname: gentoo.org
 sitename: "/var/db/repos/gentoo/profiles/package.mask"
 date: "2021-03-22"
-fingerprint: d721faee06759ba8
+fingerprint: d721feef06359ba8
 license: CC BY-SA 4.0
 ---
 
 # /var/db/repos/gentoo/profiles/package.mask
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -26,10 +28,14 @@ After syncing, end users can take a look in /var/db/repos/gentoo/profiles/packag
 
 ## Examples
 
-**`/var/db/repos/gentoo/profiles/package.mask`**
+FILE **`/var/db/repos/gentoo/profiles/package.mask`****package.mask example**
 
-**package.mask example**
-
+```
+# mask out versions 1.0.4496 of the nvidia
+# drivers and later
+>=media-video/nvidia-kernel-1.0.4496
+>=media-video/nvidia-glx-1.0.4496
+```
 ## See also
 
 - [/etc/portage/package.mask](https://wiki.gentoo.org/wiki//etc/portage/package.mask) — a file, or a directory of files, controlled by the system administrator that can be used to prevent certain packages from being installed.

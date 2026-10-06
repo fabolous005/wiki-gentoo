@@ -5,11 +5,15 @@ url: https://wiki.gentoo.org/wiki/Embedded_Handbook/General/Compiling_with_QEMU_
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-08-13"
-fingerprint: de02391c49c63984
+fingerprint: de02391c49c639a4
 license: CC BY-SA 4.0
 ---
 
 # Embedded Handbook/General/Compiling with QEMU user chroot
+
+[Embedded Handbook](https://wiki.gentoo.org/wiki/Special:MyLanguage/Embedded_Handbook) |
+
+[General](https://wiki.gentoo.org/wiki/Special:MyLanguage/Embedded_Handbook/General)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -26,8 +30,17 @@ The build system's kernel must support miscellaneous binary formats. This can be
 
 **Enable CONFIG\_BINFMT\_MISC**
 
+```
+Executable file formats  --->
+  <*> Kernel support for MISC binaries
+```
 ### USE Flags
 
+
+### USE flags for
+            [app-emulation/qemu](https://packages.gentoo.org/packages/app-emulation/qemu)
+            
+            QEMU + Kernel-based Virtual Machine userland tools
 
 | [+aio](https://packages.gentoo.org/useflags/+aio) | Enables support for Linux's Async IO | 
 | [+curl](https://packages.gentoo.org/useflags/+curl) | Support ISOs / -cdrom directives via HTTP or HTTPS. | 
@@ -103,6 +116,14 @@ The build system's kernel must support miscellaneous binary formats. This can be
 
 **Enable`aarch64` user target and `static-libs` in supporting libraries.**
 
+```
+# Enable static-user and add the aarch64 target
+app-emulation/qemu static-user QEMU_SOFTMMU_TARGETS: aarch64 QEMU_USER_TARGETS: aarch64
+dev-libs/glib static-libs
+sys-libs/zlib static-libs
+sys-apps/attr static-libs
+dev-libs/libpcre2 static-libs
+```
 #### QEMU target configuration
 
 By default, [app-emulation/qemu](https://packages.gentoo.org/packages/app-emulation/qemu) does not define any `QEMU_SOFTMMU_TARGETS` or `QEMU_USER_TARGETS`. The example configuration above only includes `aarch64` targets.
@@ -113,6 +134,9 @@ To build all targets:
 
 **Configure QEMU to build all targets.**
 
+```
+app-emulation/qemu QEMU_SOFTMMU_TARGETS: * QEMU_USER_TARGETS: *
+```
 ### Emerge
 
 `root #``emerge --ask --update --newuse --deep app-emulation/qemu`

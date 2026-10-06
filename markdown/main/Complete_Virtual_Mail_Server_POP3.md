@@ -11,6 +11,8 @@ license: CC BY-SA 4.0
 
 # Complete Virtual Mail Server/POP3
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
@@ -25,10 +27,12 @@ This guide will configure a mail server to use POP3 instead of IMAP.
 
 POP3 requires little configuring to get working. It is however recommended to skip this section and not enable/use pop3 and thus leave this setting at '*NO*: a user may unwittingly remove all messages that were supposed to be stored on the server for imap usage, then incorrectly configure their mail client and purge the server of their mailbox if configured this way!
 
-**`/etc/courier-imap/pop3d`**
+FILE **`/etc/courier-imap/pop3d`****Enable pop3**
 
-**Enable pop3**
-
+```
+##NAME: POP3DSTART:0
+POP3DSTART=YES
+```
 ### Testing POP3
 
 Courier-pop3d should be started:
@@ -48,10 +52,15 @@ If testing works properly, add courier-pop3d to the default runlevel:
 `root #``rc-update add courier-pop3d default`
 ## SSL Certificates
 
-**`/etc/courier-imap/pop3d-ssl`**
+FILE **`/etc/courier-imap/pop3d-ssl`****Configure certificate**
 
-**Configure certificate**
-
+```
+##NAME: POP3DSSLSTART:0
+POP3DSSLSTART=YES
+ 
+##NAME: TLS_CERTFILE:0
+TLS_CERTFILE=/etc/ssl/courier-imap/foo.example.com.pem
+```
 Starting this server should allow pop3 to work through SSL:
 
 `root #``/etc/init.d/courier-pop3d-ssl restart`

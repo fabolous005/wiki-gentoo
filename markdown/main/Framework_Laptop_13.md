@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Framework_Laptop_13
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-04-28"
-fingerprint: "7e075e77c3aa132a"
+fingerprint: "1e074b57c3aa132e"
 license: CC BY-SA 4.0
 ---
 
@@ -23,28 +23,28 @@ The Framework Laptop 13, released in 2021, is a highly modular and repairable 13
 
 | Device | Make/model | Status | Vendor ID / Product ID | Kernel driver(s) | Kernel version | Notes | 
 |---|---|---|---|---|---|---|
-| Chipset | Intel Tiger Lake |  | \[multiple\] | i801\_smbus intel\_ish\_ipc intel\_lpss\_pci intel\_pmt | 5.14.15 |  | 
-| Video card | Intel Tiger Lake-LP GT2 |  | f111:0001 | i915 | 5.14.15 | i915 and intel VIDEO\_CARDS flags | 
-| Sound card | Intel Tiger Lake-LP Smart Sound |  | 8086:a0c8:f111:0001 | snd\_hda\_intel, snd\_soc\_sof\_tigerlake | 5.14.15 | Also requires either Realtek or IDT HD codec, depending on date of manufacture <sup>[\[1\]](https://wiki.gentoo.org#cite_note-1)</sup> | 
-| Wireless network card | Intel AX210 |  | 8086:2725:8086:0024 | iwlwifi | 5.14.15 | Needs firmware from sys-kernel/linux-firmware | 
-| Bluetooth | Intel AX210 |  |  | bluetooth | 5.14.15 |  | 
-| Touchpad | PixArt PIXA3854 |  | 093A:0274 | hid\_multitouch | 5.14.15 | Also depends on i2c\_designware\_core, intel\_ishtp\_hid | 
-| Fingerprint Reader | Goodix USB2.0 MISC |  | 27c6:609c |  |  | Requires sys-auth/fprintd-1.94.0 | 
-| Webcam | Realtek Laptop Camera |  | 0bda:5634 | uvc | 5.15.8 (as tested) |  | 
+| Chipset | Intel Tiger Lake | Works | \[multiple\] | i801\_smbus intel\_ish\_ipc intel\_lpss\_pci intel\_pmt | 5.14.15 |  | 
+| Video card | Intel Tiger Lake-LP GT2 | Works | f111:0001 | i915 | 5.14.15 | i915 and intel VIDEO\_CARDS flags | 
+| Sound card | Intel Tiger Lake-LP Smart Sound | Works | 8086:a0c8:f111:0001 | snd\_hda\_intel, snd\_soc\_sof\_tigerlake | 5.14.15 | Also requires either Realtek or IDT HD codec, depending on date of manufacture <sup>[\[1\]](https://wiki.gentoo.org#cite_note-1)</sup> | 
+| Wireless network card | Intel AX210 | Works | 8086:2725:8086:0024 | iwlwifi | 5.14.15 | Needs firmware from sys-kernel/linux-firmware | 
+| Bluetooth | Intel AX210 | Works |  | bluetooth | 5.14.15 |  | 
+| Touchpad | PixArt PIXA3854 | Works | 093A:0274 | hid\_multitouch | 5.14.15 | Also depends on i2c\_designware\_core, intel\_ishtp\_hid | 
+| Fingerprint Reader | Goodix USB2.0 MISC | Works | 27c6:609c |  |  | Requires sys-auth/fprintd-1.94.0 | 
+| Webcam | Realtek Laptop Camera | Works | 0bda:5634 | uvc | 5.15.8 (as tested) |  | 
 
 ### Intel Alder Lake (12th-gen)
 
 | Device | Make/model | Status | Vendor ID / Product ID | Kernel driver(s) | Kernel version | Notes | 
 |---|---|---|---|---|---|---|
-| Chipset | Intel Alder Lake |  |  |  |  |  | 
-| Video card | Intel Alder Lake-LP GT2 |  |  |  |  |  | 
-| Sound card | Intel Alder Lake-LP Smart Sound |  |  |  |  |  | 
-| Wireless network card | Intel AX210 |  |  |  |  |  | 
-| Bluetooth | Intel AX210 |  |  |  |  |  | 
-| Touchpad | PixArt PIXA3854 |  |  |  |  | Depends on pinctrl\_tigerlake and not pinctrl\_alderlake | 
-| Fingerprint Reader | Goodix USB2.0 MISC |  |  |  |  |  | 
-| Webcam | Realtek Laptop Camera |  |  |  |  |  | 
-| Ambient light sensor |  |  |  |  |  |  | 
+| Chipset | Intel Alder Lake | Works |  |  |  |  | 
+| Video card | Intel Alder Lake-LP GT2 | Works |  |  |  |  | 
+| Sound card | Intel Alder Lake-LP Smart Sound | Works |  |  |  |  | 
+| Wireless network card | Intel AX210 | Works |  |  |  |  | 
+| Bluetooth | Intel AX210 | Works |  |  |  |  | 
+| Touchpad | PixArt PIXA3854 | Works |  |  |  | Depends on pinctrl\_tigerlake and not pinctrl\_alderlake | 
+| Fingerprint Reader | Goodix USB2.0 MISC | Works |  |  |  |  | 
+| Webcam | Realtek Laptop Camera | Works |  |  |  |  | 
+| Ambient light sensor |  | Works |  |  |  |  | 
 
 
 
@@ -52,26 +52,26 @@ The Framework Laptop 13, released in 2021, is a highly modular and repairable 13
 
 | Device | Make/model | Status | Vendor ID / Product ID | Kernel driver(s) | Kernel version | Notes | 
 |---|---|---|---|---|---|---|
-| Chipset | Intel Alder Lake |  |  |  |  |  | 
-| Video card | Intel Alder Lake-LP GT2 |  |  |  |  |  | 
-| Sound card | Intel Alder Lake-LP Smart Sound |  |  |  |  |  | 
-| Wireless network card | Intel AX210 |  |  |  |  |  | 
-| Bluetooth | Intel AX210 |  |  |  |  |  | 
-| Touchpad | PixArt PIXA3854 |  |  |  |  | Depends on pinctrl\_tigerlake and not pinctrl\_alderlake | 
+| Chipset | Intel Alder Lake | Works |  |  |  |  | 
+| Video card | Intel Alder Lake-LP GT2 | Works |  |  |  |  | 
+| Sound card | Intel Alder Lake-LP Smart Sound | Works |  |  |  |  | 
+| Wireless network card | Intel AX210 | Works |  |  |  |  | 
+| Bluetooth | Intel AX210 | Works |  |  |  |  | 
+| Touchpad | PixArt PIXA3854 | Works |  |  |  | Depends on pinctrl\_tigerlake and not pinctrl\_alderlake | 
 
 ### AMD 7040 Series
 
 | Device | Make/model | Status | Vendor ID / Product ID | Kernel driver(s) | Kernel version | Notes | 
 |---|---|---|---|---|---|---|
-| Chipset | AMD Pink Sardine |  |  |  |  |  | 
-| Video card | AMD Radeon 780M |  |  | amdgpu |  |  | 
-| Sound card | Ryzen HD Audio Controller |  |  | snd\_hda\_intel snd\_hda\_codec\_generic |  |  | 
-| Sound card via external Displayport USB-C screen | Ryzen HD Audio Controller |  |  | snd\_hda\_codec\_hdmi snd\_hda\_codec\_generic snd\_hda\_codec\_atihdmi |  |  | 
-| Wireless network card | MediaTek MT7922 |  |  | mt7921e |  |  | 
-| Bluetooth | MediaTek MT7922 |  |  | bluetooth btmtk btusb (You must enable CONFIG\_BT\_HCIBTUSB\_MTK) |  |  | 
-| Touchpad | PixArt PIXA3854 |  |  | hid\_multitouch i2c\_designware\_platform i2c\_hid\_acpi pinctrl\_amd |  |  | 
-| Fingerprint Reader | Goodix USB2.0 MISC |  | 27c6:609c |  |  | \*Requires firmware update: see [\[1\]](https://knowledgebase.frame.work/en_us/updating-fingerprint-reader-firmware-on-linux-for-13th-gen-and-amd-ryzen-7040-series-laptops-HJrvxv_za) | 
-| Webcam | Generic Laptop Camera (?) |  |  | uvcvideo |  |  | 
+| Chipset | AMD Pink Sardine | Works |  |  |  |  | 
+| Video card | AMD Radeon 780M | Works |  | amdgpu |  |  | 
+| Sound card | Ryzen HD Audio Controller | Works |  | snd\_hda\_intel snd\_hda\_codec\_generic |  |  | 
+| Sound card via external Displayport USB-C screen | Ryzen HD Audio Controller | Works |  | snd\_hda\_codec\_hdmi snd\_hda\_codec\_generic snd\_hda\_codec\_atihdmi |  |  | 
+| Wireless network card | MediaTek MT7922 | Works |  | mt7921e |  |  | 
+| Bluetooth | MediaTek MT7922 | Works |  | bluetooth btmtk btusb (You must enable CONFIG\_BT\_HCIBTUSB\_MTK) |  |  | 
+| Touchpad | PixArt PIXA3854 | Works |  | hid\_multitouch i2c\_designware\_platform i2c\_hid\_acpi pinctrl\_amd |  |  | 
+| Fingerprint Reader | Goodix USB2.0 MISC | Works\* | 27c6:609c |  |  | \*Requires firmware update: see [\[1\]](https://knowledgebase.frame.work/en_us/updating-fingerprint-reader-firmware-on-linux-for-13th-gen-and-amd-ryzen-7040-series-laptops-HJrvxv_za) | 
+| Webcam | Generic Laptop Camera (?) | Works |  | uvcvideo |  |  | 
 | Ambient light sensor |  |  |  |  |  |  | 
 
 Backlight:
@@ -329,6 +329,10 @@ If "PIXA3854" cannot be found in the dmesg log, then the kernel is likely missin
 \[   19.079450\] hid-generic 0018:093A:0274.0003: input,hidraw2: I2C HID v1.00 Mouse \[PIXA3854:00 093A:0274\] on i2c-PIXA3854:00
 \[   19.280641\] Module hid\_sensor\_hub is blacklisted
 \[   19.430450\] hid-multitouch 0018:093A:0274.0003: input,hidraw2: I2C HID v1.00 Mouse \[PIXA3854:00 093A:0274\] on i2c-PIXA3854:00
+
+[https://forums.gentoo.org/viewtopic-p-8692426.html#8692426](https://forums.gentoo.org/viewtopic-p-8692426.html#8692426)
+
+[https://forums.gentoo.org/viewtopic-t-1148336-highlight-framework+laptop.html](https://forums.gentoo.org/viewtopic-t-1148336-highlight-framework+laptop.html)
 
 ### Built-in Keyboard not working on boot to unlock encrypted device
 

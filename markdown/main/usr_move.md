@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki//usr_move
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-12-19"
-fingerprint: "87397a6a3a24df02"
+fingerprint: "87397afa3a24df02"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Archived article**
 
 This article is **archived (obsolete)**. Contents are surely incorrect for current usage, and are intended for historical reference only. *Page archived as of **March 2nd, 2014**.*
 

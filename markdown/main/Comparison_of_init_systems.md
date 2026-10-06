@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Comparison_of_init_systems
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-08-14"
-fingerprint: "1138301e9b93b3ec"
+fingerprint: "1128301e9b97b3ec"
 license: CC BY-SA 4.0
 ---
 
@@ -24,17 +24,17 @@ This article compares and contrasts **[init systems](https://wiki.gentoo.org/wik
 | Feature | Init system |  |  |  |  |  |  |  |  |  |  |  |  | 
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 |  | [sysvinit](https://wiki.gentoo.org/wiki/Sysvinit) | [OpenRC](https://wiki.gentoo.org/wiki/OpenRC) | [systemd](https://wiki.gentoo.org/wiki/Systemd) | SMF | launchd | Epoch | finit | [runit](https://wiki.gentoo.org/wiki/Runit) | [s6](https://wiki.gentoo.org/wiki/S6) + [s6-rc](https://wiki.gentoo.org/wiki/S6-rc) | [66](https://docs.obarun.org/66/0.9.0.0/) | BSD rc.d | [dinit](https://wiki.gentoo.org/wiki/Dinit) |  | 
-| Officially supported Gentoo init | partially (used by OpenRC) |  |  |  |  |  |  |  |  |  |  |  |  | 
+| Officially supported Gentoo init | partially (used by OpenRC) | Yes (default init) | Yes | No | No | No | No | No | No | No | No | No |  | 
 | Package / Bug# | [sys-apps/sysvinit](https://packages.gentoo.org/packages/sys-apps/sysvinit) | [sys-apps/openrc](https://packages.gentoo.org/packages/sys-apps/openrc) | [sys-apps/systemd](https://packages.gentoo.org/packages/sys-apps/systemd) | - | - | [sys-apps/epoch](https://packages.gentoo.org/packages/sys-apps/epoch) | - | [sys-process/runit](https://packages.gentoo.org/packages/sys-process/runit) | [sys-apps/s6](https://packages.gentoo.org/packages/sys-apps/s6) + [sys-apps/s6-rc](https://packages.gentoo.org/packages/sys-apps/s6-rc) | - | - | [sys-apps/dinit::guru](https://github.com/gentoo-mirror/guru/tree/master/sys-apps/dinit) [sys-apps/dinit-services::guru](https://github.com/gentoo-mirror/guru/tree/master/sys-apps/dinit-services) |  | 
 | Supported platforms | Linux / BSD | Linux + BSD | Linux | Solaris | Darwin | Linux | Linux | Linux / BSD / Darwin | Linux / BSD / Darwin | Linux | BSD | Linux / BSD / Darwin |  | 
 | Main coding language | C | POSIX shell (+ C) | C | C | C | C | C | C | C | C | POSIX shell (+ C) | C++ |  | 
 | Main dependencies | - | init (sysv or BSD) | [D-Bus](https://wiki.gentoo.org/wiki/D-Bus) | init(sysv?) | - | libc, /bin/sh | ? | - | s6, execline | libc, oblibs | rcorder | - |  | 
 | Init script/service format | single config file | shell scripts | config files (ini) | XML (+ shell scripts) | plist | multiple or single .conf | multiple or single .conf | shell scripts | execline or shell scripts | config files (INI) + execline or shell scripts | shell scripts | config files |  | 
-| Per-service configuration |  |  |  |  | ? |  | ? |  |  |  |  |  |  | 
-| Running as a daemon |  |  |  |  |  |  |  |  | [sys-apps/s6-linux-init](https://packages.gentoo.org/packages/sys-apps/s6-linux-init)) |  |  |  |  | 
-| Cross-service dependencies/events |  |  |  |  |  |  | ? |  |  |  |  |  |  | 
-| Parallel service startup |  |  |  |  |  |  |  |  |  |  |  |  |  | 
-| Keeping daemons alive |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+| Per-service configuration | No | Yes (conf.d) | Yes | Yes (service instances) | ? | Yes (v1.1+) | ? | No | No | Yes | No | Yes |  | 
+| Running as a daemon | Yes (PID 1) | Yes (PID 1) | Yes (PID 1) | Yes (invoked) | Yes (PID 1) | Yes (PID 1) | Yes (PID 1) | Yes (PID 1) | Yes ( [sys-apps/s6-linux-init](https://packages.gentoo.org/packages/sys-apps/s6-linux-init)) | Yes (PID 1) | Yes (PID 1) | Yes (PID 1) |  | 
+| Cross-service dependencies/events | No | Yes | Yes | Yes | No | Yes (basic support, v1.3+) | ? | Yes | Yes | Yes | Yes | Yes |  | 
+| Parallel service startup | Yes | Yes (optional) | Yes | Yes | Yes | No | Yes | Yes | Yes | Yes | Yes | Yes |  | 
+| Keeping daemons alive | Yes | Yes (optional v0.21+ via supervise-daemon) | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes |  | 
 | Preferred service file supplier | n/a | Gentoo | upstream | Solaris | MacOS | n/a | n/a | Void Linux | Artix Linux | Obarun | NetBSD, FreeBSD, OpenBSD | Artix Linux, Chimera Linux |  | 
 | License | GPL v2+ | 2-cl. BSD | LGPL v2.1+ | ? | Apache License 2.0 | Unlicense | MIT | BSD | ISC | ISC | BSD | Apache License 2.0 |  | 
 

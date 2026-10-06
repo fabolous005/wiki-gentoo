@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki//etc/portage/package.accept_keywords
 hostname: gentoo.org
 sitename: "/etc/portage/package.accept_keywords"
 date: "2026-09-13"
-fingerprint: "9b3818ee6fc1870e"
+fingerprint: "9b38186e6fc1870e"
 license: CC BY-SA 4.0
 ---
 
@@ -34,18 +34,36 @@ For specific packages, allow installation from the testing branch, or restrict t
 
 **package.accept\_keywords single file example**
 
+```
+# Always use unstable libgd
+media-libs/libgd ~amd64
+# Only use stable (LTS) kernel
+sys-kernel/gentoo-kernel -~amd64
+# Always use unstable netcat
+net-analyzer/netcat
+```
 Use [Distribution Kernel](https://wiki.gentoo.org/wiki/Project:Distribution_Kernel) from testing branch:
 
 **`/etc/portage/package.accept_keywords/kernel`**
 
 **package.accept\_keywords as a directory example**
 
+```
+# Always use mainline dist-kernel
+sys-kernel/gentoo-kernel-bin
+sys-kernel/linux-headers
+virtual/dist-kernel
+```
 Use a specific version of package:
 
 **`/etc/portage/package.accept_keywords/netcat`**
 
 **package.accept\_keywords as a directory example**
 
+```
+# Always use testing version 110.20180111-r2 until stable catches up
+=net-analyzer/netcat-110.20180111-r2
+```
 ## Maintenance
 
 ### Comments
@@ -56,12 +74,20 @@ When adding a USE flag or keyword, it is always helpful to leave a comment to wh
 
 **p.a\_k example**
 
+```
+# Using ~amd64 package due to bug XXXX
+games-emulation/scummvm
+```
 It is generally good practice to use the testing package until the stable version becomes greater than the testing version; then the system would switch back over to tracking the stable package.
 
 **`/etc/portage/package.accept_keywords/engrampa`**
 
 **Explicitly setting version example**
 
+```
+# engrampa 1.28.1 has issues with extracting encrypted zip files
+=app-arch/engrampa-1.28.2
+```
 ### \~ARCH system-wide
 
 A common trap new and experienced users fall into, is mixing too many stable and testing packages on their system.
@@ -91,6 +117,10 @@ Sometimes a user will want a few packages to be stable only. The normally usage 
 
 **package.accept\_keywords example**
 
+```
+# Only use stable (LTS) kernel
+sys-kernel/gentoo-kernel -~amd64
+```
 
 
 ### Unkeyworded packages
@@ -123,12 +153,18 @@ Additional note: If you encounter the `-* KEYWORD`, this indicates that the pack
 
 **Broken on all but amd64 example**
 
+```
+KEYWORDS="-* amd64"
+```
 To accept this package anyway, use one of the other keywords in package.accept\_keywords like this:
 
 **`/etc/portage/package.accept_keywords`**
 
 **Accept anyways example**
 
+```
+games-fps/quake3-demo amd64
+```
 ## Find obsolete entries
 
 ### Using eix

@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Bat
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-06-16"
-fingerprint: c6a0287703b6fb9b
+fingerprint: c2a0497f13a6fbda
 license: CC BY-SA 4.0
 ---
 
 # bat
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -22,6 +24,13 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [sys-apps/bat](https://packages.gentoo.org/packages/sys-apps/bat)
+            
+            cat(1) clone with syntax highlighting and Git integration
+
+| [debug](https://packages.gentoo.org/useflags/debug) | Enable extra debug codepaths, like asserts and extra output. If you want to get meaningful backtraces see https://wiki.gentoo.org/wiki/Project:Quality\_Assurance/Backtraces | 
 
 ### Emerge
 
@@ -61,16 +70,20 @@ or
 
 Set the theme in the config file
 
-**`~/.config/bat/config`**
+FILE **`~/.config/bat/config`****bat config**
 
-**bat config**
-
+```
+--theme="ansi"
+```
 
 
 #### Make bat work more like cat
 
 Set the pager to never and the style to plain in the config file
 
-**`~/.config/bat/config`**
+FILE **`~/.config/bat/config`****bat config**
 
-**bat config**
+```
+--pager=never
+--style=plain
+```

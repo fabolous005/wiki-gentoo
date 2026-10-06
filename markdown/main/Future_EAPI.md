@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Future_EAPI
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-12-14"
-fingerprint: c904aff53f34b7b1
+fingerprint: "8904afd53f24b7b1"
 license: CC BY-SA 4.0
 ---
 
@@ -16,6 +16,8 @@ From Gentoo Wiki
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 The **Future [EAPI](https://wiki.gentoo.org/wiki/EAPI)** collects feature ideas which are being requested for inclusion in a future EAPI specification.
 

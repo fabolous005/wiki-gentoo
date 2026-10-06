@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Cursor_themes
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-10-02"
-fingerprint: "6f4fe71b03bf17de"
+fingerprint: "6f4fe75b07bf13de"
 license: CC BY-SA 4.0
 ---
 
@@ -44,12 +44,18 @@ Edit the user's \~/.Xresources file:
 
 **Choose a cursor theme**
 
+```
+Xcursor.theme: redglass
+```
 Cursor size can be optionally chosen as well:
 
 **`~/.Xresources`**
 
 **Choose the cursor size**
 
+```
+Xcursor.size: 16
+```
 ### Testing themes
 
 To test some themes on the fly, run a command like:
@@ -74,6 +80,10 @@ For [window managers](https://wiki.gentoo.org/wiki/Window_managers) it might be 
 
 **`~/.xinitrc`**
 
+```
+xrdb -merge ~/.Xresources
+eval $(dbus-launch --sh-syntax --exit-with-session <window_manager>)
+```
 Restart *X* to apply the changes:
 
 `user $````
@@ -93,6 +103,12 @@ An alternative is to create an icon theme file:
 
 **`~/.icons/default/index.theme`**
 
+```
+Name=Default
+Comment=Default Cursor Theme
+Inherits=gentoo-silver
+Size=64
+```
 This file must follow the [freedesktop Icon Theme Specification](https://specifications.freedesktop.org/icon-theme/latest/).
 
 ### GTK 2 and GTK 3
@@ -103,10 +119,22 @@ For GTK 3 applications:
 
 **`~/.config/gtk-3.0/settings.ini`**
 
+```
+[Settings]
+gtk-theme-name = gentoo
+gtk-icon-theme-name = gnome
+gtk-cursor-theme-name = gentoo
+gtk-cursor-theme-size = 16
+```
 For GTK 2 applications:
 
 **`~/.gtkrc-2.0`**
 
+```
+gtk-theme-name = gentoo
+gtk-icon-theme-name = gnome
+gtk-cursor-theme-name = gentoo
+```
 ## See also
 
 - [X resources](https://wiki.gentoo.org/wiki/X_resources) — configuration options for X applications

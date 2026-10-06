@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2013/Ideas/OpenRC_Improv
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2018-11-09"
-fingerprint: ac8c8aed4f89b3a6
+fingerprint: ad0c80ed4f89b3a2
 license: CC BY-SA 4.0
 ---
 
@@ -13,9 +13,13 @@ license: CC BY-SA 4.0
 
 From Gentoo Wiki
 
+\< [Google Summer of Code](https://wiki.gentoo.org/wiki/Google_Summer_of_Code) | [2013](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2013) | [Ideas](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2013/Ideas)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+## [OpenRC Improvements]
 
 OpenRC is the default init system in Gentoo and a viable alternative for various operating system and distribution.
 

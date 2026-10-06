@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Bootchart2
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-09-25"
-fingerprint: "30119d7f1f26b587"
+fingerprint: "3011997f1f26bd85"
 license: CC BY-SA 4.0
 ---
 
@@ -28,12 +28,27 @@ Then add the daemon to the default runlevel. This is needed to stop the bootchar
 ### USE flags
 
 
+### USE flags for
+            [app-benchmarks/bootchart2](https://packages.gentoo.org/packages/app-benchmarks/bootchart2)
+            
+            Performance analysis and visualization of the system boot process
+
+| [+cairo](https://packages.gentoo.org/useflags/+cairo) | Enable support for the cairo graphics library | 
+
 ### Kernel
 
 To get more verbose information:
 
 **enable proc events**
 
+```
+General setup  --->
+    CPU/Task time and stats accounting -->
+        -*- Export task/process statistics through netlink (EXPERIMENTAL)
+Device Drivers --->
+    <*> Connector - unified userspace <-> kernelspace linker  --->
+        [*]   Report process events to userspace
+```
 ## Usage
 
 How to enable bootchart2 during boot and access the generated charts.

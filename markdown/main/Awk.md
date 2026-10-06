@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Awk
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-02-04"
-fingerprint: d70f1a0c07b33b04
+fingerprint: d70b180c07f33b04
 license: CC BY-SA 4.0
 ---
 
@@ -31,10 +31,20 @@ Installation usually happens by [Unpacking the stage tarball](https://wiki.gento
 The [app-alternatives/awk](https://packages.gentoo.org/packages/app-alternatives/awk) [USE flags](https://wiki.gentoo.org/wiki/USE_flag) select which version of awk to pull in:
 
 
+### USE flags for
+            [app-alternatives/awk](https://packages.gentoo.org/packages/app-alternatives/awk)
+            
+            /bin/awk and /usr/bin/awk symlinks
+
 By default, [sys-apps/gawk](https://packages.gentoo.org/packages/sys-apps/gawk) will be pulled in. To use a different implementation of awk, set the appropriate USE flags on [app-alternatives/awk](https://packages.gentoo.org/packages/app-alternatives/awk) in [package.use](https://wiki.gentoo.org/wiki//etc/portage/package.use).
 
 USE flags for [sys-apps/gawk](https://packages.gentoo.org/packages/sys-apps/gawk):
 
+
+### USE flags for
+            [sys-apps/gawk](https://packages.gentoo.org/packages/sys-apps/gawk)
+            
+            GNU awk pattern-matching language
 
 | [+mpfr](https://packages.gentoo.org/useflags/+mpfr) | Use dev-libs/mpfr for high precision arithmetic (-M / --bignum) | 
 | [nls](https://packages.gentoo.org/useflags/nls) | Add Native Language Support (using gettext - GNU locale utilities) | 

@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Croaker
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-02-13"
-fingerprint: e3bb9d142cd9d268
+fingerprint: e3bb9d542cd9f278
 license: CC BY-SA 4.0
 ---
 
 # Croaker
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -17,7 +19,7 @@ license: CC BY-SA 4.0
 
 Croaker is an IRC bot that operates as a doom herald to Gentoo developers who have contributed a change to the ::gentoo ebuild repository that has not passed QA checks.
 
-Croaker lurks in the [#gentoo-dev](ircs://irc.libera.chat/#gentoo-dev) ([webchat](https://web.libera.chat/#gentoo-dev)) channel. Its source is part of the [repo-mirror-ci](https://github.com/projg2/repo-mirror-ci) code which is operated by [Michał Górny (mgorny)](https://wiki.gentoo.org/wiki/User:MGorny)
+Croaker lurks in the [#gentoo-dev](ircs://irc.libera.chat/#gentoo-dev) ([webchat](https://web.libera.chat/#gentoo-dev)) channel. Its source is part of the [repo-mirror-ci](https://github.com/projg2/repo-mirror-ci) code which is operated by [Michał Górny (mgorny)](https://wiki.gentoo.org/wiki/User:MGorny) .
 
 ## Usage
 

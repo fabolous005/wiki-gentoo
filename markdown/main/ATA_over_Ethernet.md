@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/ATA_over_Ethernet
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-04-25"
-fingerprint: afe1be4b0dbcff8f
+fingerprint: afe1ba494dbcff89
 license: CC BY-SA 4.0
 ---
 
@@ -25,6 +25,11 @@ AoE runs on layer 2 Ethernet. AoE does not use layer 3 IPv4 or IPv6; it cannot b
 
 **Enable`CONFIG_ATA_OVER_ETH` in the kernel**
 
+```
+Device Drivers  --->
+  [*] Block devices  --->
+    <M> ATA over Ethernet support
+```
 ### Server
 
 Install the vblade package:
@@ -39,6 +44,23 @@ Edit the vblade config file:
 
 **Configure an AoE target**
 
+```
+# If you intent to run only one vblade, you should edit config_vblade0
+# SYNTAX: SHELF SLOT NETIF SOURCE
+config_vblade0="0 0 eth0 /mnt/storage01/aoe-target-0-0.bin"
+# SHELF is a numeric value >= 0
+# SLOT is a numeric value 0 <= X <= 15
+# NETIF is a network interface name
+# SOURCE is a file or block device
+# For additional vblades, run:
+# ln -s /etc/init.d/vblade.vblade0 /etc/init.d/vblade.$NAME
+# and define config_$NAME in this file.
+# Note that the combination of SHELF:SLOT:NETIF should be unique for your
+# network.
+# Some additional examples
+# config_vblade1="0 1 eth0 /root/test2.img"
+# config_foobar="0 1 eth1 /dev/md0"
+```
 Start the vblade service:
 
 `root #``/etc/init.d/vblade.vblade0 start`

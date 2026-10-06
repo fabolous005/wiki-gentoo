@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/GNU_Emacs
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-09-02"
-fingerprint: b225897da891b2ce
+fingerprint: b225897da891a2ce
 license: CC BY-SA 4.0
 ---
 
@@ -33,6 +33,11 @@ In Gentoo, GNU Emacs is maintained by the team of the same name, which can be re
 
 ### USE flags
 
+
+### USE flags for
+            [app-editors/emacs](https://packages.gentoo.org/packages/app-editors/emacs)
+            
+            The advanced, extensible, customizable, self-documenting editor
 
 | [+X](https://packages.gentoo.org/useflags/+X) | Add support for X11 | 
 | [+gmp](https://packages.gentoo.org/useflags/+gmp) | Use the GNU multiple precision arithmetic library (dev-libs/gmp) instead of the bundled mini-gmp subset | 

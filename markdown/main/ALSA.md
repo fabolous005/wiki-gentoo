@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/ALSA
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-09-24"
-fingerprint: "9e0c915179a33b91"
+fingerprint: "9e0c915179e33b91"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,10 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+[checking over the content](https://wiki.gentoo.org/index.php?title=ALSA&action=edit)(
+
+[how to get started](https://wiki.gentoo.org/wiki/Gentoo_Wiki:Contributor%27s_guide)).
 
 
 ALSA, the **A**dvanced **L**inux **S**ound **A**rchitecture, is the Linux kernel's API for sound cards, together with an associated software framework. Sound servers such as [PipeWire](https://wiki.gentoo.org/wiki/PipeWire), [PulseAudio](https://wiki.gentoo.org/wiki/PulseAudio), and [JACK](https://wiki.gentoo.org/wiki/JACK) all function as a layer on top of ALSA. ALSA can be used directly, without a sound server; however, sound servers provide various additional conveniences and functionality.
@@ -82,6 +86,10 @@ then the relevant modules should be loaded in that order:
 
 **`/etc/modprobe.d/alsa.conf`**
 
+```
+options snd slots=snd-aloop,snd-hda-intel,snd-hda-intel,snd-virmidi,snd-usb-audio
+options snd-hda-intel index=1,2 model=1002:1637,1022:15e3
+```
 Card indexes start from 0.
 
 To get the model strings, use [lspci(1)](https://man.archlinux.org/man/lspci.1.en) [(or](https://wiki.gentoo.org/wiki/Special:MyLanguage/man_page) [lsusb(1)](https://man.archlinux.org/man/lsusb.1.en) [for USB cards):](https://wiki.gentoo.org/wiki/Special:MyLanguage/man_page)
@@ -94,6 +102,10 @@ Instruct the kernel to load the virtual sound cards:
 
 **`/etc/modules-load.d/alsa.conf`**
 
+```
+snd-aloop
+snd-virmidi
+```
 
 ### Software
 
@@ -171,6 +183,11 @@ This information can then be used in an ALSA configuration file, e.g.:
 
 **`~/.asoundrc`**
 
+```
+defaults.pcm.!card PCH
+defaults.pcm.!device 0
+defaults.ctl.!card PCH
+```
 This snippet demonstrates the use of `.!` to specify 'override' operation mode<sup>[\[1\]](https://wiki.gentoo.org#cite_note-1)</sup>.
 
 The default operation mode, 'merge+create', is indicated by either a bare `.` character before the final component of the node, or by `.+` in that position. In this mode, if a configuration node is not present, a new one is created; otherwise, if it passes type checking, the assignment is merged.
@@ -201,10 +218,30 @@ With a default ALSA installation, an S/PDIF or HDMI connection might work "out o
 
 **`/etc/asound.conf`**
 
+```
+pcm.!spdif {
+    type hw
+    card PCH
+    device 1
+}
+pcm.!default {
+    type plug
+    slave {
+        pcm "spdif"
+    }
+}
+```
 The above configuration will not allow sound to be played from more than one sound application, or two sounds to be played simultaneously through the same sound card. In order to allow this, use the following configuration snippet for mixing (noting that doing so might result in interrupted output and/or a slight degradation in sound quality):
 
 **`/etc/asound.conf`**
 
+```
+# Share a single card with multiple applications 
+pcm.!default {
+    type plug
+    slave.pcm "dmix:CARD=PCH,DEVICE=1,RATE=48000"
+}
+```
 
 ### Cloning audio for two or more devices
 
@@ -216,6 +253,83 @@ Refer to [this forum discussion](https://forums.gentoo.org/viewtopic-t-902670-st
 
 **`/etc/asound.conf`**
 
+```
+ctl.!default {
+    type hw
+    # Set default card
+    card PCH
+}
+ 
+pcm.!default both
+ 
+pcm.both {
+    type softvol
+    slave {
+        pcm {
+            type plug
+            slave {
+                pcm {
+                    type route
+                    slave {
+                        pcm {
+                        type multi
+                        slaves.a.pcm {
+                            type dmix
+                            ipc_key 2589455
+                            ipc_perm 0666
+                            slave {
+                                pcm {
+                                    # Add the default card - change to suit sound card #1
+                                    type hw
+                                    card PCH
+                                    device 0
+                                }
+                                buffer_size 4096
+                                channels 2
+                            }
+                        }
+                        slaves.b.pcm {
+                            type dmix
+                            ipc_key 4855689
+                            ipc_perm 0666
+                            slave {
+                                pcm {
+                                    # Add the slave card - change to suit sound card #2
+                                    type hw
+                                    card PCH
+                                    device 7
+                                }
+                                buffer_size 4096
+                                channels 2
+                            }
+                        }
+                        slaves.a.channels 2
+                        slaves.b.channels 2
+                        bindings.0.slave a
+                        bindings.0.channel 0
+                        bindings.1.slave a
+                        bindings.1.channel 1
+                        bindings.2.slave b
+                        bindings.2.channel 0
+                        bindings.3.slave b
+                        bindings.3.channel 1
+                    }
+                }
+                ttable.0.0 1
+                ttable.1.1 1
+                ttable.0.2 1
+                ttable.1.3 1
+            }
+        }
+    }
+}
+control {
+    # Define volume control name
+    name PCM
+    # Set to the default card
+    card PCH
+}
+```
 
 ### A/52 / Dolby AC-3 / Dolby Digital and DTS
 
@@ -234,6 +348,31 @@ To simulate A/52-encoded audio from standard one- or two-channel audio streams o
 
 **`~/.asoundrc`**
 
+```
+pcm.!default {
+    type plug:surroundaudio
+}
+ 
+ctl.!default {
+    type plug:surroundaudio
+}
+ 
+pcm.a52encode {
+    type a52
+    format S16_LE
+    channels 6
+    rate 48000
+    bitrate 448
+}
+ 
+pcm.surroundaudio a52encode
+ 
+ctl.surroundaudio {
+    type hw
+    card PCH
+    device 1
+}
+```
 Test the configuration with [speaker-test(1)](https://man.archlinux.org/man/speaker-test.1.en)[:](https://wiki.gentoo.org/wiki/Special:MyLanguage/man_page)
 
 `user $``speaker-test -Dsurroundaudio -c 6`
@@ -243,6 +382,28 @@ The following configuration snippet will encode a PCM 5.1 24-bit stream into a 1
 
 **`~/.asoundrc`**
 
+```
+# Make it possible to use A/52 with PulseAudio out of 
+# the box. May also be useful for other use-cases.
+ 
+pcm.a52 {
+    @args [ CARD ]
+    @args.CARD {
+        type string
+        default 0
+    }
+    type plug
+    slave {
+        pcm {
+            type a52
+            card $CARD
+            bitrate 640 # Default 448
+        }
+        # Convert to S16 bit format, per S/PDIF spec
+        format S16_LE
+    }
+}
+```
 Test the configuration with [aplay(1)](https://man.archlinux.org/man/aplay.1.en)[:](https://wiki.gentoo.org/wiki/Special:MyLanguage/man_page)
 
 `user $``aplay -D pcm.a52 /home/me/Music/Led_Zeppelin/Celegration_Day/PCM51-24bit/*.wav`
@@ -371,3 +532,8 @@ Refer to the [ALSA/troubleshooting](https://wiki.gentoo.org/wiki/ALSA/troublesho
 - ALSA Project - the C library reference, [PCM (digital audio) plugins](https://www.alsa-project.org/alsa-doc/alsa-lib/pcm_plugins.html) - ALSA PCM (digital audio) plugin descriptions and configuration file examples.
 - [A close look at ALSA](https://www.volkerschatz.com/noise/alsa.html) - introductory tutorial.
 - [PaulBredbury's asoundrc file](https://gist.github.com/thanley11/100754cc911442901867) - possibly very out of date, given mention of mplayer2, but might have useful snippets.
+
+
+## References
+
+1. [↑](https://wiki.gentoo.org#cite_ref-1) [ALSA project - the C library reference: Configuration files](https://www.alsa-project.org/alsa-doc/alsa-lib/conf.html#https://www.alsa-project.org/alsa-doc/alsa-lib/conf.html#https://www.alsa-project.org/alsa-doc/alsa-lib/conf.html): Operation modes for parsing nodes

@@ -23,6 +23,10 @@ license: CC BY-SA 4.0
 
 **Enable FUSE**
 
+```
+File systems  --->
+    [*] FUSE (Filesystem in Userspace) support
+```
 ### USE flags
 
 *sys-fs/encfs*correct?

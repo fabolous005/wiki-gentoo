@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Dell_XPS_13_9350
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-29"
-fingerprint: "3f588d267d223169"
+fingerprint: "3f488d06f9a23169"
 license: CC BY-SA 4.0
 ---
 
@@ -62,6 +62,21 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 We're trying to make [iwlwifi](https://wiki.gentoo.org/wiki/Iwlwifi) work, for more information go to the specific [iwlwifi](https://wiki.gentoo.org/wiki/Iwlwifi) article.
 After enabling the basic 802.11 support kernel options, let's enable the driver !
 
+```
+        Device Drivers  --->
+        [*] Network device support  --->
+        --- Network device support
+        [*]   Wireless LAN  --->
+            --- Wireless LAN
+            [*]   Intel devices
+            < >     Intel PRO/Wireless 2100 Network Connection
+            < >     Intel PRO/Wireless 2200BG and 2915ABG Network Connection
+            < >     Intel Wireless WiFi 4965AGN (iwl4965)
+            < >     Intel PRO/Wireless 3945ABG/BG Network Connection (iwl3945)
+            <M>     Intel Wireless WiFi Next Gen AGN - Wireless-N/Advanced-N/Ultimate-N (iwlwifi)
+            <M>       Intel Wireless WiFi DVM Firmware support
+            <M>       Intel Wireless WiFi MVM Firmware support
+```
 {Important|In case the driver is built into the kernel (`<*>`) instead as a module (`<M>`), also the firmware needs to be built [into the kernel](https://wiki.gentoo.org/wiki/Kernel_Modules#Compile-in-kernel_modules_vs_Loadable_kernel_modules_.28LKMs.29). See the section [When using built-in configuration](https://wiki.gentoo.org#When_using_built-in_configuration).}
 
 ## Firmware
@@ -73,6 +88,15 @@ Firmware for the 8260 chip is needed. It is available in [sys-kernel/linux-firmw
 
 In case the driver is built into the kernel (`<*>`) instead as a module (`<M>`), also the firmware needs to be built [into the kernel](https://wiki.gentoo.org/wiki/Kernel_Modules#Compile-in-kernel_modules_vs_Loadable_kernel_modules_.28LKMs.29).
 
+```
+        Device Drivers  --->
+            Generic Driver Options  --->
+            -*- Userspace firmware loading support
+            [ ]   Include in-kernel firmware blobs in kernel binary
+            (iwlwifi-8000C-XX.ucode) External firmware blobs to build into the kernel binary
+            (/lib/firmware) Firmware blobs root directory
+            [ ] Fallback user-helper invocation for firmware loading
+```
 (Replace the XX with the latest version)
 
 # Kernel Modules & Drivers
@@ -148,6 +172,14 @@ In case the driver is built into the kernel (`<*>`) instead as a module (`<M>`),
     |__ Port 5: Dev 4, If 0, Class=Video, Driver=uvcvideo, 480M
     |__ Port 5: Dev 4, If 1, Class=Video, Driver=uvcvideo, 480M
 ```
+```
+.config - Linux/x86 4.14.65-gentoo Kernel Configuration
+ → Device Drivers → Multimedia support → 
+[*]   Cameras/video grabbers support
+[*]   Media USB Adapters  --->
+       <M>   USB Video Class (UVC) 
+       [*]     UVC input events device support
+```
 ## Bluetooth
 
 `root #``lsusb -t````
@@ -155,6 +187,20 @@ In case the driver is built into the kernel (`<*>`) instead as a module (`<M>`),
 /:  Bus 01.Port 1: Dev 1, Class=root_hub, Driver=xhci_hcd/12p, 480M
     |__ Port 3: Dev 2, If 0, Class=Wireless, Driver=btusb, 12M
     |__ Port 3: Dev 2, If 1, Class=Wireless, Driver=btusb, 12M
+```
+```
+.config - Linux/x86 4.9.95-gentoo Kernel Configuration
+ → Search (CONFIG_BT_HCIBTUSB) 
+ Symbol: BT_HCIBTUSB [=m]
+ Type  : tristate
+ Prompt: HCI USB driver
+ Location:
+  │     -> Networking support (NET [=y])  
+  │       -> Bluetooth subsystem support (BT [=m])│  
+  │ (1)     -> Bluetooth device drivers│  
+  │   Defined at drivers/bluetooth/Kconfig:21│  
+  │   Depends on: NET [=y] && BT [=m] && USB [=y]│  
+  │   Selects: BT_INTEL [=m]
 ```
 ## Sound
 
@@ -169,6 +215,52 @@ Use intel HD graphics: [intel](https://wiki.gentoo.org/wiki/Intel).
 
 ## Kernel
 
+```
+Processor type and features  --->
+    [*] MTRR (Memory Type Range Register) support
+        Device Drivers  --->
+            Graphics support  --->
+                <*> /dev/agpgart (AGP Support)  --->
+                    --- /dev/agpgart (AGP Support)
+                    < >   AMD Opteron/Athlon64 on-CPU GART support
+                    -*-   Intel 440LX/BX/GX, I8xx and E7x05 chipset support
+                    < >   SiS chipset support
+                    < >   VIA chipset support
+                [ ] VGA Arbitration
+                [ ] Laptop Hybrid Graphics - GPU switching support
+                <*> Direct Rendering Manager (XFree86 4.1.0 and higher DRI support)  --->
+                    --- Direct Rendering Manager (XFree86 4.1.0 and higher DRI support)
+                    [*]   Enable legacy fbdev support for your modesetting driver
+                [ ] Allow to specify an EDID data set instead of probing for it
+                    I2C encoder or helper chips  --->
+                < > 3dfx Banshee/Voodoo3+
+                < > ATI Rage 128
+                < > ATI Radeon
+                < > AMD GPU
+                < > Nouveau (NVIDIA) cards
+                < > Intel I810
+                <*> Intel 8xx/9xx/G3x/G4x/HD Graphics
+                [ ]   Enable preliminary support for prerelease Intel hardware by default
+                < > Matrox g200/g400
+                < > SiS video cards
+                < > Via unichrome video cards
+                < > Savage video cards
+                < > Virtual GEM provider
+                < > DRM driver for VMware Virtual GPU
+                < > Intel GMA5/600 KMS Framebuffer
+                < > DisplayLink
+                < > AST server chips
+                < > Kernel modesetting driver for MGA G200 server engines
+                < > Cirrus driver for QEMU emulated device
+                < > QXL virtual GPU
+                < > DRM Support for bochs dispi vga interface (qemu stdvga)
+                    Display Panels  ----                 
+                    Display Interface Bridges  ----
+                    Frame buffer Devices  --->
+                -*- Backlight & LCD device support  --->
+                    Console display driver support  --->
+                [*] Bootup logo  --->
+```
 ## Firmware
 
 We need firmware for this Skylake chip, for runtime power management, if it wasn't installed before, install [sys-kernel/linux-firmware](https://packages.gentoo.org/packages/sys-kernel/linux-firmware):
@@ -176,6 +268,14 @@ We need firmware for this Skylake chip, for runtime power management, if it wasn
 `root #``emerge --ask sys-kernel/linux-firmware`
 This time we'll include the firmware in the kernel.
 
+```
+Device Drivers  --->
+    Generic Driver Options  --->
+        -*- Userspace firmware loading support
+        [*] Include in-kernel firmware blobs in kernel binary
+            (i915/skl_dmc_ver1_27.bin)
+            (/lib/firmware) Firmware blobs root directory
+```
 If you receive the following error
 
 `root #``dmesg`
@@ -206,6 +306,9 @@ Add initramfs to your use flag to allow emerge to copy the microcode file to you
 
 **`/etc/portage/make.conf`**
 
+```
+USE="initramfs"
+```
 `root #``emerge --ask emerge --ask sys-firmware/intel-microcode`
 Now grub should be able to find the /boot/intel\_uc.img file
 

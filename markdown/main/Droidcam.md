@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Droidcam
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-16"
-fingerprint: d3813c4a31bebba1
+fingerprint: d3811c5a31babbe8
 license: CC BY-SA 4.0
 ---
 
@@ -26,10 +26,21 @@ Droidcam brings its own Kernel module. For it to work, the Kernel must be config
 
 **Enable support for \<Software\_title>**
 
+```
+Device Drivers --->
+  <M> Multimedia support --->
+    [*] Cameras/video grabbers support
+    [*] Media Controller API
+```
 The module is available as `v4l2loopback-dc` and must be loaded before starting Droidcam, for example using `modprobe v4l2loopback-dc`
 
 ### USE flags
 
+
+### USE flags for
+            [media-video/droidcam](https://packages.gentoo.org/packages/media-video/droidcam)
+            
+            Use your phone or tablet as webcam with a v4l device driver and app
 
 | [+strip](https://packages.gentoo.org/useflags/+strip) | Allow symbol stripping to be performed by the ebuild for special files | 
 | [dist-kernel](https://packages.gentoo.org/useflags/dist-kernel) | Enable subslot rebuilds on Distribution Kernel upgrades | 

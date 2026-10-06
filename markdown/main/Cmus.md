@@ -25,6 +25,11 @@ license: CC BY-SA 4.0
 ### USE flags
 
 
+### USE flags for
+            [media-sound/cmus](https://packages.gentoo.org/packages/media-sound/cmus)
+            
+            Ncurses based music player with plugin support for many formats
+
 | [+flac](https://packages.gentoo.org/useflags/+flac) | Add support for FLAC: Free Lossless Audio Codec | 
 | [+mad](https://packages.gentoo.org/useflags/+mad) | Add support for mad (high-quality mp3 decoder library and cli frontend) | 
 | [+unicode](https://packages.gentoo.org/useflags/+unicode) | Add support for Unicode | 

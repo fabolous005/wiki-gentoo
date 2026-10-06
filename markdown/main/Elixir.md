@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Elixir
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-06-15"
-fingerprint: f295bc5893b83b77
+fingerprint: f6d1fdd892b83b57
 license: CC BY-SA 4.0
 ---
 
@@ -23,6 +23,13 @@ From Gentoo Wiki
 
 ### USE flags
 
+
+### USE flags for
+            [dev-lang/elixir](https://packages.gentoo.org/packages/dev-lang/elixir)
+            
+            Elixir programming language
+
+| [test](https://packages.gentoo.org/useflags/test) | Enable dependencies and/or preparations necessary to run tests (usually controlled by FEATURES=test but can be toggled independently) | 
 
 ### Emerge
 

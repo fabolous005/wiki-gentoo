@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Collectd
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-12-20"
-fingerprint: a090536e0e96b30a
+fingerprint: a090136ecb9ebf08
 license: CC BY-SA 4.0
 ---
 
@@ -22,6 +22,11 @@ license: CC BY-SA 4.0
 
 ### USE Flags
 
+
+### USE flags for
+            [app-metrics/collectd](https://packages.gentoo.org/packages/app-metrics/collectd)
+            
+            Collects system statistics and provides mechanisms to store the values
 
 | [+filecaps](https://packages.gentoo.org/useflags/+filecaps) | When set collectd daemon will have set required capabilities to run most plugins even if run as unprivileged user | 
 | [contrib](https://packages.gentoo.org/useflags/contrib) | Install user-contributed files in the doc directory | 
@@ -42,7 +47,7 @@ First, determine which plugins you want on your system. The collectd wiki contai
 **Define some plugins with COLLECTD\_PLUGINS**
 
 ```
- COLLECTD_PLUGINS: load memory syslog
+*/* COLLECTD_PLUGINS: load memory syslog
 ```
 collectd requires a plugin to enable any sort of logging. Make sure you enable the [syslog plugin](https://collectd.org/wiki/index.php/Plugin:SysLog) and/or the [logfile plugin](https://collectd.org/wiki/index.php/Plugin:LogFile).
 
@@ -59,12 +64,23 @@ With collectd and some plugins installed, enable them in the configuration file 
 
 **Enabling syslog**
 
+```
+LoadPlugin syslog
+<Plugin syslog>
+        LogLevel info  
+</Plugin>
+```
 ### rrdtool plugin
 
 Default location for saving the rrd files by collectd is BaseDir but that will mix the rrdtool's files with other plugins. So redefine it.
 
 **`/etc/collectd.conf`**
 
+```
+<Plugin rrdtool>
+        DataDir "/var/lib/collectd/rrd"
+</Plugin>
+```
 ### Service
 
 To start collectd on start-up:

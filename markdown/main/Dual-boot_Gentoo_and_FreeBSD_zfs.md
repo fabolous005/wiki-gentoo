@@ -15,6 +15,10 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+**outdated**. You can help the Gentoo community by verifying and
+
+[updating this article](https://wiki.gentoo.org/index.php?title=Dual-boot_Gentoo_and_FreeBSD_zfs&action=edit).
+
 This article suppose that you have Gentoo installed on zfs already.
 
 **Also consider this how-to as highly experimental and check all the commands that you know what are you doing.**

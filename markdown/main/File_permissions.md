@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/File_permissions
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2020-06-30"
-fingerprint: ce6c9c72c5e98504
+fingerprint: ce6c9c62c5e98504
 license: CC BY-SA 4.0
 ---
 
 # File permissions
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

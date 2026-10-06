@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Framebuffer
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-07-27"
-fingerprint: "4e8b8a5f51c63927"
+fingerprint: de8b8a5f51c63927
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 The **framebuffer'**s original function is as a video RAM cache to allow more flexibility to (older) video cards.  Many newer cards come with framebuffers on board, which are often already compatible with many operating systems.  Enabling framebuffer support in the Linux kernel will often cause graphical artifacts or black screen displays.  For most newer cards, this option should not be selected when using the LiveDVD.
 

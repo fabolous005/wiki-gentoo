@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/C-Vise
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-07-19"
-fingerprint: f266514eee9f5fe4
+fingerprint: f26653ceeedf5fec
 license: CC BY-SA 4.0
 ---
 
 # C-Vise
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -22,6 +24,13 @@ license: CC BY-SA 4.0
 ### USE flags
 
 
+### USE flags for
+            [dev-util/cvise](https://packages.gentoo.org/packages/dev-util/cvise)
+            
+            Super-parallel Python port of the C-Reduce
+
+| [test](https://packages.gentoo.org/useflags/test) | Enable dependencies and/or preparations necessary to run tests (usually controlled by FEATURES=test but can be toggled independently) | 
+
 ### Emerge
 
 To install [dev-util/cvise](https://packages.gentoo.org/packages/dev-util/cvise):
@@ -33,7 +42,7 @@ To install [dev-util/cvise](https://packages.gentoo.org/packages/dev-util/cvise)
 
 **C-vise'**s official example is:
 
-**`pr94534.c`**
+FILE **`pr94534.c`**
 
 ```
 template<typename T>
@@ -54,7 +63,7 @@ The issue with this example is it compiles on Clang but not GCC, so to figure ou
 
 To make a script to reduce, a simple shell file should suffice:
 
-**`reduce.sh`**
+FILE **`reduce.sh`**
 
 ```
 #!/bin/sh

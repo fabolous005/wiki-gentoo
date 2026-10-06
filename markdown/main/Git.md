@@ -6,7 +6,7 @@ hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-08-22"
 categories: ['dev-vcs']
-fingerprint: ba1d915f51a0fb8c
+fingerprint: ba1d915fd1a0fb8c
 license: CC BY-SA 4.0
 ---
 
@@ -27,6 +27,11 @@ This article will cover getting started with Git, and general usage.
 
 ### USE flags
 
+
+### USE flags for
+            [dev-vcs/git](https://packages.gentoo.org/packages/dev-vcs/git)
+            
+            Stupid content tracker: distributed VCS designed for speed and efficiency
 
 | [+curl](https://packages.gentoo.org/useflags/+curl) | Support fetching and pushing (requires webdav too) over http:// and https:// protocols | 
 | [+gpg](https://packages.gentoo.org/useflags/+gpg) | Pull in gnupg for signing -- without gnupg, attempts at signing will fail at runtime! | 
@@ -134,7 +139,7 @@ To setup [bash completion](https://wiki.gentoo.org/wiki/Bash#Tab_completion) ([s
 **`~/.config/bashrc`**
 
 ```
-  /usr/share/bash-completion/completions/git
+.  /usr/share/bash-completion/completions/git
 ```
 ### Zsh completion
 

@@ -5,11 +5,15 @@ url: https://wiki.gentoo.org/wiki/Embedded_Handbook/General/Creating_a_cross-com
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-03-19"
-fingerprint: "2e8c1e3b7f843c80"
+fingerprint: "2e8c1e3b7f843880"
 license: CC BY-SA 4.0
 ---
 
 # Embedded Handbook/General/Creating a cross-compiler
+
+[Embedded Handbook](https://wiki.gentoo.org/wiki/Special:MyLanguage/Embedded_Handbook) |
+
+[General](https://wiki.gentoo.org/wiki/Special:MyLanguage/Embedded_Handbook/General)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

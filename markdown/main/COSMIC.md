@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/COSMIC
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-07-22"
-fingerprint: c958b253188d67e7
+fingerprint: c978b253188967e7
 license: CC BY-SA 4.0
 ---
 
@@ -42,6 +42,10 @@ For the latest tagged release, [accept](https://wiki.gentoo.org/wiki/ACCEPT_KEYW
 
 **Unmasking unstable ebuilds**
 
+```
+cosmic-base/*
+cosmic-de/*
+```
 
 ### Unmasking live ebuilds
 
@@ -51,6 +55,11 @@ To try out the latest commits from the `master` branch, [accept](https://wiki.ge
 
 **Unmasking unstable ebuilds**
 
+```
+# Live ebuilds are masked via "missing" keywords
+cosmic-base/* **
+cosmic-de/* **
+```
 
 ### Emerge
 
@@ -81,6 +90,10 @@ Configure greetd as a [display manager](https://wiki.gentoo.org/wiki/Display_man
 
 **greetd with cosmic-greeter**
 
+```
+CHECKVT=7
+DISPLAYMANAGER="greetd"
+```
 Add the relevant OpenRC services to the relevant runlevels:
 
 `root #``rc-update add elogind boot``root #``rc-update add display-manager default`
@@ -225,6 +238,13 @@ If that directory is missing, verify that /etc/pam.d/greetd contains:
 
 **PAM config for greetd with elogind**
 
+```
+auth      include  system-login
+account   include  system-login
+password  include  system-login
+session   include  system-login
+session   required pam_elogind.so
+```
 
 #### Examine logs
 

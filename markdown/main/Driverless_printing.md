@@ -154,8 +154,15 @@ That command would create some stuff in the logs:
 
 **`/var/log/cups/access_log`**
 
+```
+localhost - - [15/Apr/2020:12:55:50 +0200] "POST / HTTP/1.1" 401 75 CUPS-Get-Devices successful-ok
+localhost - root [15/Apr/2020:12:55:50 +0200] "POST / HTTP/1.1" 200 1814 CUPS-Get-Devices -
+```
 **`/var/log/cups/error_log`**
 
+```
+E [15/Apr/2020:12:55:50 +0200] [CGI] Unable to execute ippfind utility: No such file or directory
+```
 No need to worry about [**ippfind utility**](https://bugs.gentoo.org/show_bug.cgi?id=720958).  It is not there, but who needs it?
 
 - Get some more information with **lpinfo -m**:
@@ -168,8 +175,17 @@ The important is the last line **everywhere IPP Everywhere**.  That query create
 
 **`/var/log/cups/access_log`**
 
+```
+localhost - - [15/Apr/2020:12:55:50 +0200] "POST / HTTP/1.1" 401 75 CUPS-Get-Devices successful-ok
+localhost - root [15/Apr/2020:12:55:50 +0200] "POST / HTTP/1.1" 200 1814 CUPS-Get-Devices -
+localhost - - [15/Apr/2020:12:59:16 +0200] "POST / HTTP/1.1" 200 11535 CUPS-Get-PPDs -
+```
 **`/var/log/cups/error_log`**
 
+```
+E [15/Apr/2020:12:55:50 +0200] [CGI] Unable to execute ippfind utility: No such file or directory
+E [15/Apr/2020:12:59:16 +0200] [CGI] Unable to execute ippfind utility: No such file or directory
+```
 - disabled - reason unknown
 
 If nothing works the printer might be **disabled**
@@ -197,3 +213,10 @@ The absence of ippfind might be due to [net-print/cups-filters](https://packages
 
 - [Printing](https://wiki.gentoo.org/wiki/Printing) — covers the installation and maintenance of printers using CUPS and [Samba](https://wiki.gentoo.org/wiki/Samba).
 - [Brother networked printer](https://wiki.gentoo.org/wiki/Brother_networked_printer)
+
+## External resources
+
+## References
+
+1. [↑](https://wiki.gentoo.org#cite_ref-1) [https://www.cups.org/doc/man-lpadmin.html#OPTIONS](https://www.cups.org/doc/man-lpadmin.html#OPTIONS)
+2. [↑](https://wiki.gentoo.org#cite_ref-2) man 1 driverless

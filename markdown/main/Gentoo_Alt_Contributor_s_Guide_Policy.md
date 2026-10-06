@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Gentoo_Alt/Contributor%27s_Guide/Policy
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-01-02"
-fingerprint: a759fc60dd30eff7
+fingerprint: "8759fd60ddb0cff7"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Deprecated article**
 
 This article is **deprecated (obsolete)**. Contents are <u>no longer relevant</u>, and are intended for historical reference only!
 

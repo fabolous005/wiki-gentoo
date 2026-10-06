@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Baloo
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-09-08"
-fingerprint: fb07f21d4d96abaa
+fingerprint: fb07f23d4d96abba
 license: CC BY-SA 4.0
 ---
 
@@ -25,6 +25,11 @@ The [kde-frameworks/baloo](https://packages.gentoo.org/packages/kde-frameworks/b
 
 ### USE flags
 
+
+### USE flags for
+            [kde-frameworks/baloo](https://packages.gentoo.org/packages/kde-frameworks/baloo)
+            
+            Framework for searching and managing metadata
 
 | [debug](https://packages.gentoo.org/useflags/debug) | Enable extra debug codepaths, like asserts and extra output. If you want to get meaningful backtraces see https://wiki.gentoo.org/wiki/Project:Quality\_Assurance/Backtraces | 
 | [test](https://packages.gentoo.org/useflags/test) | Enable dependencies and/or preparations necessary to run tests (usually controlled by FEATURES=test but can be toggled independently) | 

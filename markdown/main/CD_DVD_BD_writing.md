@@ -29,6 +29,14 @@ Configure the kernel to support the filesystems necessary for reading and writin
 
 **Enable ISO 9660 and UDF filesystem support**
 
+```
+File systems  --->
+   CD-ROM/DVD Filesystems  --->
+      <*> ISO 9660 CDROM file system support
+      [*]   Microsoft Joliet CDROM extensions
+      [*]   Transparent decompression extension
+      <*> UDF file system support
+```
 ### Emerge
 
 Follow the [CDROM](https://wiki.gentoo.org/wiki/CDROM) page for hardware driver kernel configuration, along with including UDF write support.
@@ -91,6 +99,9 @@ CD-RW media requires the packet device driver and starting the /etc/init.d/pktcd
 
 **`/etc/fstab`**
 
+```
+/dev/pktcdvd/0  /mnt/udfwrite  udf             user,noauto,noatime,utf8  0 0
+```
 #### DVD/Blu-ray (RW/RE) media
 
 DVD-RW, DVD+RW, DVD-RAM, and Blu-ray Recordable Erasable (BD-RE) media can be easily written by simply mounting the media and writing to the media as a normal filesystem, as these devices and media allow random writing, versus CD-RW only allowing sequential writing.

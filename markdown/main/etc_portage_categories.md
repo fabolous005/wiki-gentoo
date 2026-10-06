@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki//etc/portage/categories
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-05-12"
-fingerprint: "2f69dfaf48fa2675"
+fingerprint: "2f69deae48722675"
 license: CC BY-SA 4.0
 ---
 
 # /etc/portage/categories
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -23,6 +25,9 @@ license: CC BY-SA 4.0
 
 ## Example
 
-**`/etc/portage/categories`**
+FILE **`/etc/portage/categories`****Categories file example**
 
-**Categories file example**
+```
+app-hackers
+media-other
+```

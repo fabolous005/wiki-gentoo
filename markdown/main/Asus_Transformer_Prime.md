@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Asus_Transformer_Prime
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-12-20"
-fingerprint: "97a1175e1da5f9df"
+fingerprint: "97a5175e1da5f9df"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 **Installing Gentoo on the Asus Transformer Prime (TF201)**
 
@@ -171,12 +173,15 @@ Configure your timezone:
 
 **`/etc/timezone`**
 
+```
+Europe/Brussels
+```
 Enabling US and DE locales with the appropriate character formats. Search the gentoo documentation and forums to get information for your own language settings.
 
 **`/etc/locale.gen`**
 
 ```
- ISO-8859-1
+en_US ISO-8859-1
 en_US.UTF-8 UTF-8
 de_DE ISO-8859-1
 de_DE@euro ISO-8859-15
@@ -456,6 +461,12 @@ make oldconfig
 ```
 `user $``make menuconfig` The kernel needs the property of hardboot and is called host kernel. It can load and start another kernel a so called guest kernel. At least you will need following configurations. The configuration has these flags set, just check it. Well you see it is experimental, but seems to work. You can find additional infos at [XDA KexecHardboot guest kernel](http://forum.xda-developers.com/showthread.php?t=2104706)
 
+```
+Boot options  --->
+    [*] Kexec system call (EXPERIMENTAL)
+       [*]   Export atags in procfs
+       [*]   Support hard booting to a kexec kernel
+```
 Now compile the kernel.
 
 `user $` `make -j<X>`
@@ -465,6 +476,8 @@ If all went fine your kernel is at `arch/arm/boot/zImage`
 
 You need the sources of tux-minds repository. You will get it via git.
 
+`user $``git clone` [https://github.com/tux-mind/tf201-dev](https://github.com/tux-mind/tf201-dev)
+`user $``cd tf201-dev/kernel_chooser`
 The kernel\_chooser is made very comfortable. With 'make' you start the compile process and the packing to an initial ramdisk. In the Makefile you can change the flag 'Development' to '1' to get a rescue shell for the kernel\_chooser. The filesystem is in the directory initramfs. It contains busybox and mdev as binraies. If you would like to have additional programms, feel free to add what you need. The Blob has an maximum size of \~8MB.
 
 `user $````
@@ -561,6 +574,45 @@ The following /etc/asound.conf defines a `Master` which you can controll with al
 
 **`/etc/asound.conf`**
 
+```
+pcm.!softvol {
+    type            softvol
+    slave {
+        pcm         "dmixer" # "default"
+    }
+    control {
+        name        "Master"
+        card        tegracodec # 1
+    }
+}
+pcm.!dmixer {
+        type dmix
+        ipc_key 1024
+        slave {
+                pcm "hw:tegracodec,0"
+                period_time 0
+                period_size 1024
+                buffer_size 4096
+                rate 44100	   # 48000
+        }
+        bindings {
+                0 0
+                1 1
+        }
+}
+ctl.dmixer {
+        type hw
+        card tegracodec # 1
+}
+pcm.!default {
+        type plug
+        slave.pcm "softvol"
+}
+ctl.!default {
+        type hw
+        card tegracodec # 1
+}
+```
 Test your configuration:
 
 `root #``/etc/init.d/alsasound start`
@@ -574,12 +626,12 @@ emerge xorg-server to get a working X11 and add INPUT\_DEVICES to /etc/portage/p
 **`/etc/portage/package.use/00video`**
 
 ```
- VIDEO_CARDS: -* fbdev
+*/* VIDEO_CARDS: -* fbdev
 ```
 **`/etc/portage/package.use/00input`**
 
 ```
- INPUT_DEVICES: evdev synaptics
+*/* INPUT_DEVICES: evdev synaptics
 ```
 `root #````
 emerge -av xorg-server
@@ -628,12 +680,12 @@ The actual Xorg-server version is 19 and Nvidias last release of the tegra drive
 **`/etc/portage/package.use/00video`**
 
 ```
- VIDEO_CARDS: -* tegra
+*/* VIDEO_CARDS: -* tegra
 ```
 **`/etc/portage/package.use/00input`**
 
 ```
- INPUT_DEVICES: evdev synaptics mouse keyboard
+*/* INPUT_DEVICES: evdev synaptics mouse keyboard
 ```
 Install X11:
 

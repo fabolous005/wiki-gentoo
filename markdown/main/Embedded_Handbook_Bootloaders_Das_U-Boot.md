@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Embedded_Handbook/Bootloaders/Das_U-Boot
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-12-17"
-fingerprint: "3703d21805b5bdeb"
+fingerprint: "3703d21805b5bde3"
 license: CC BY-SA 4.0
 ---
 
@@ -60,7 +60,7 @@ Build target cross-compiler:
 `root #``crossdev -t armv7a-unknown-linux-gnueabihf`
 Download u-boot:
 
-`user $``cd u-boot/`
+`user $``git clone -b v2023.04` [https://github.com/u-boot/u-boot](https://github.com/u-boot/u-boot)`user $``cd u-boot/`
 Find the configuration for your device; if there is no exact match in the existing defconfigs, there may be a close enough match (eg, in the case of Allwinner fruity-pi or Rockchip 3328 boards).
 
 Configure and build u-boot:
@@ -96,7 +96,7 @@ Build target cross-compilers:
 `root #``crossdev -t arm-none-eabi``root #``crossdev -t aarch64-unknown-linux-gnu``user $``export M0_CROSS_COMPILE=arm-none-eabi-`
 Download TFA:
 
-`user $``cd arm-trusted-firmware/`
+`user $``git clone` [https://github.com/ARM-software/arm-trusted-firmware](https://github.com/ARM-software/arm-trusted-firmware)`user $``cd arm-trusted-firmware/`
 Configure and Build:
 
 `user $``make CROSS_COMPILE=aarch64-unknown-linux-gnu- realclean``user $``make CROSS_COMPILE=aarch64-unknown-linux-gnu- PLAT=rk3399`
@@ -105,7 +105,7 @@ Export BL31.elf:
 `user $```export BL31=`pwd`/build/rk3399/release/bl31/bl31.elf``
 Download u-boot:
 
-`user $``cd u-boot/`
+`user $``git clone -b v2023.04` [https://github.com/u-boot/u-boot](https://github.com/u-boot/u-boot)`user $``cd u-boot/`
 Configure and Build:
 
 `user $``make ARCH=arm CROSS_COMPILE=aarch64-unknown-linux-gnueabihf- distclean``user $``make ARCH=arm CROSS_COMPILE=aarch64-unknown-linux-gnueabihf- rock-pi-4-rk3399_defconfig``user $``make ARCH=arm CROSS_COMPILE=aarch64-unknown-linux-gnueabihf-`
@@ -189,6 +189,12 @@ The basic requirement for the *distro\_bootcmd* to run is the extlinux.conf file
 
 **`extlinux.conf`**
 
+```
+LABEL Gentoo arm64
+        KERNEL ../vmlinuz-5.10.14-aarch64-x0
+        APPEND console=ttyS0,115200 root=/dev/mmcblk0p1 rw rootfstype=ext4 rootwait net.ifnames=0
+        FDTDIR ../dtbs/5.10.14-aarch64-x0/
+```
 Create a file similar to the above under `/boot/extlinux`. Be sure to use tabs for indenting, and make sure to **use your console and root devices, along with your kernel version** in the config file you create:
 
 `user $````
@@ -201,3 +207,6 @@ sudo mkdir extlinux
 sudo nano extlinux/extlinux.conf
 ```
 `user $``cd -`
+
+
+1. ↑ <sup>[1.0](https://wiki.gentoo.org#cite_ref-uboot_wp_1-0)</sup> <sup>[1.1](https://wiki.gentoo.org#cite_ref-uboot_wp_1-1)</sup> [Wikipedia U-Boot article](https://en.wikipedia.org/wiki/Das_U-Boot). denx.de. Retrieved 2025-08-23.

@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Bugzilla/Bug_report_guide
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-09-11"
-fingerprint: "9f0f1cca0ea30fa4"
+fingerprint: "9f0f1cca0ea32fa4"
 license: CC BY-SA 4.0
 ---
 
 # Bugzilla/Bug report guide
+
+[Bugzilla](https://wiki.gentoo.org/wiki/Special:MyLanguage/Bugzilla)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

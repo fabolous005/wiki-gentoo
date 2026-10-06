@@ -97,7 +97,7 @@ For hardware that requires firmware to function, it is crucial to ensure only fr
 **Ensuring free firmware for linux-firmware**
 
 ```
- -redistributable
+sys-kernel/linux-firmware -redistributable
 ```
 The [-redistributable](https://packages.gentoo.org/useflags/redistributable) [USE flag for this package is intended to exclude firmware that is non-free or has redistribution restrictions. After this configuration, the package can be installed:](https://wiki.gentoo.org/wiki/USE_flag)
 

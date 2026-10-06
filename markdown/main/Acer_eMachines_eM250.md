@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Acer_eMachines_eM250
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-12-20"
-fingerprint: "6f588f27efaaf36b"
+fingerprint: "6f088924dbaa7168"
 license: CC BY-SA 4.0
 ---
 
@@ -40,43 +40,112 @@ CXXFLAGS="${CFLAGS}"
 FILE **`/etc/portage/package.use/00input`**
 
 ```
- INPUT_DEVICES: vdev synaptic
+*/* INPUT_DEVICES: vdev synaptic
 ```
 FILE **`/etc/portage/package.use/00video`**
 
 ```
- VIDEO_CARDS: -* intel fbdev vesa
+*/* VIDEO_CARDS: -* intel fbdev vesa
 ```
 ### Kernel
 
 FILE **`/etc/modules-load.d/drivers.conf`**
 
+```
+b43
+atl1c
+uvcvideo
+tun
+dummy
+```
 #### CPU
 
 KERNEL **Intel Atom N270**
 
+```
+Processor type and features  --->
+    Processor family ()  --->
+        (X) Intel Atom
+```
 #### Disk
 
 KERNEL **SATA**
 
+```
+Device Drivers --->
+    <*> Serial ATA and Parallel ATA drivers  --->
+        [*]   ATA ACPI Support
+        [*]   SATA Port Multiplier support
+        <*>   AHCI SATA support
+        [*]   ATA SFF support
+        [*]     ATA BMDMA support
+        <*>     Intel ESB, ICH, PIIX3, PIIX4 PATA/SATA support
+```
 #### Video
 
 KERNEL **Graphics**
 
+```
+Device Drivers --->
+    Graphics support  --->
+        <M> /dev/agpgart (AGP Support)  --->
+            <M>   Intel 440LX/BX/GX, I8xx and E7x05 chipset support
+        <M> Direct Rendering Manager (XFree86 4.1.0 and higher DRI support)  --->
+        <M> Intel 8xx/9xx/G3x/G4x/HD Graphics
+        {*} Support for frame buffer devices  --->
+            <M>   VGA 16-color graphics support
+            <M>   Userspace VESA VGA graphics support
+            [*]   VESA VGA graphics support
+```
 #### Sound
 
 KERNEL **Sound**
 
+```
+Device Drivers --->
+    <*> Sound card support  --->
+        <M>   Advanced Linux Sound Architecture  --->
+            [*]   PCI sound devices  --->
+                <M>   Intel HD Audio  --->
+                    (64)  Pre-allocated buffer size for HD-audio driver
+                    [*]   Build hwdep interface for HD-audio driver
+                    [*]   Build Realtek HD-audio codec support
+                    [*]   Build Analog Device HD-audio codec support
+                    -*-   Enable generic HD-audio codec parser
+                    (0)   Default time-out for HD-audio power-save mode
+```
 #### Network
 
 KERNEL **Ethernet**
 
+```
+Device Drivers --->
+    [*] Network device support  --->
+        [*]   Ethernet driver support  --->
+            [*]   Atheros devices
+            <M>     Atheros L1C Gigabit Ethernet support
+```
 KERNEL **WIFI**
 
+```
+Device Drivers --->
+    [*] Network device support  --->
+        [*]   Wireless LAN  --->
+            <M>   Broadcom 43xx wireless support (mac80211 stack)
+            [*]   Support for low-power (LP-PHY) devices
+```
 #### Webcam
 
 KERNEL **Webcam**
 
+```
+Device Drivers --->
+    <*> Multimedia support  --->
+        [*]   Cameras/video grabbers support
+        [*]   Media USB Adapters  --->
+            <M>   USB Video Class (UVC)
+            [*]     UVC input events device support
+```
 #### Other
 
 ## Hardware

@@ -11,9 +11,17 @@ license: CC BY-SA 4.0
 
 # Google Summer of Code/2014/Ideas/Manage kernel configurations
 
+[Google Summer of Code](https://wiki.gentoo.org/wiki/Google_Summer_of_Code) |
+
+[2014](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2014) |
+
+[Ideas](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2014/Ideas)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+## [Manage kernel configurations]
 
 This is your chance to be creative! Gentoo does not currently have anything to help users manage kernel configurations. This project can go into any direction you want, as long as it stays on topic. Examples of desired features are: managing custom kernel configs and future updates for one or multiple systems, multiple choosable trunks with stackable optional groups of settings, help ebuilds "depend" (optionally or not) on specific kernel settings or combinations of settings, plan for a sustainable way of providing optionable default configs to users, etc...
 

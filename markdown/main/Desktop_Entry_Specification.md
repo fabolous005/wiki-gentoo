@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Desktop_Entry_Specification
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-09-24"
-fingerprint: "5143f45bf8bf9c6c"
+fingerprint: "5142f45bf8bf9c6c"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 The **Desktop Entry Specification**, which describes the layout of .desktop files, is an [XDG](https://wiki.gentoo.org/wiki/XDG) specification designed to allow a standardized way of configuring a program's integration into a [desktop environment](https://wiki.gentoo.org/wiki/Desktop_environment), determining its appearance in the desktop environment's menu, how it should be launched, etc.
 
@@ -25,6 +27,18 @@ The following is an example of the formatting found in a .desktop file, for refe
 
 **`/usr/share/applications/larry.desktop`**
 
+```
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Larry the Cow
+GenericName=Larry
+Comment=Larry the Cow is a fictional desktop application, it can be used to do things on the computer
+Icon=larry
+TryExec=/usr/bin/larry
+Exec=/usr/bin/larry
+Terminal=false
+```
 ## Working with .desktop files
 
 ### Syntax validation for .desktop files

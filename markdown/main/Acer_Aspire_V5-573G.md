@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Acer_Aspire_V5-573G
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-28"
-fingerprint: "6f569f56ef32136b"
+fingerprint: "6f5e1dd6efb2126b"
 license: CC BY-SA 4.0
 ---
 
@@ -27,14 +27,14 @@ The **Acer Aspire V5-573G** is a laptop with a 15.7" screen, hybrid graphics, an
 
 | Device | Make/model | Status | Vendor ID / Product ID | Kernel driver(s) | Kernel version | Notes | 
 |---|---|---|---|---|---|---|
-| CPU | Intel® Core™ i5-4200U |  | N/A | N/A | N/A |  | 
-| iGPU | Intel Corporation Haswell-ULT Integrated Graphics Controller (rev 09) |  | N/A | i915 | N/A |  | 
-| dGPU | NVIDIA Corporation GK107M \[GeForce GT 750M\] (rev ff) |  | N/A | nouveau, nvidia | N/A |  | 
-| Ethernet | Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller (rev 14) |  | N/A | r8169 | N/A |  | 
-| Wi-Fi | Qualcomm Atheros AR9462 Wireless Network Adapter (rev 01) |  | N/A | ath9k | N/A |  | 
-| Bluetooth | Qualcomm Atheros AR9462 Wireless Network Adapter (rev 01) |  | N/A | ath3k | N/A |  | 
-| Sound | Intel Corporation Haswell-ULT HD Audio Controller (rev 09) |  | N/A | snd\_hda\_intel | N/A |  | 
-| Webcam | N/A |  | N/A | uvcvideo | N/A |  | 
+| CPU | Intel® Core™ i5-4200U | Works | N/A | N/A | N/A |  | 
+| iGPU | Intel Corporation Haswell-ULT Integrated Graphics Controller (rev 09) | Works | N/A | i915 | N/A |  | 
+| dGPU | NVIDIA Corporation GK107M \[GeForce GT 750M\] (rev ff) | Works | N/A | nouveau, nvidia | N/A |  | 
+| Ethernet | Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller (rev 14) | Works | N/A | r8169 | N/A |  | 
+| Wi-Fi | Qualcomm Atheros AR9462 Wireless Network Adapter (rev 01) | Works | N/A | ath9k | N/A |  | 
+| Bluetooth | Qualcomm Atheros AR9462 Wireless Network Adapter (rev 01) | Works | N/A | ath3k | N/A |  | 
+| Sound | Intel Corporation Haswell-ULT HD Audio Controller (rev 09) | Works | N/A | snd\_hda\_intel | N/A |  | 
+| Webcam | N/A | Works | N/A | uvcvideo | N/A |  | 
 
 ### Detailed information
 

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/DISTDIR
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-09-08"
-fingerprint: "2f0e3a1e86b70302"
+fingerprint: "2f0e3a1e86bf0302"
 license: CC BY-SA 4.0
 ---
 
@@ -28,13 +28,19 @@ Users can set the `DISTDIR` variable in [/etc/portage/make.conf](https://wiki.ge
 ```
 DISTDIR=/var/gentoo/distfiles
 ```
+## Source of archives
+
 To download source code archives, Portage will download files from servers defined in the `[GENTOO_MIRRORS](https://wiki.gentoo.org/wiki/GENTOO_MIRRORS)` variable first (to alleviate load on upstream project resources and for other reasons). The `SRC_URI` variable in individual [ebuilds](https://wiki.gentoo.org/wiki/Ebuild), points to the package's original source files, which is originally downloaded by the ebuild maintainers during ebuild creation and development.
 
 Part of ebuild development is the creation of [Manifest](https://wiki.gentoo.org/wiki/Repository_format/package/Manifest) files, which ensure the upstream source files are not modified from the time they are downloaded by the ebuild developer, distributed to Gentoo's mirror system, then to their destination on the endpoint system.
 
+### Bypassing Gentoo mirrors
+
 To download the source archives bypassing Gentoo mirrors, set the `GENTOO_MIRRORS` variable to an empty value from the command-line. For example:
 
 `root #``GENTOO_MIRRORS="" emerge --ask www-client/firefox`
+## See also
+
 - [Local distfiles cache](https://wiki.gentoo.org/wiki/Local_distfiles_cache) — details some approaches to setting up a local distfiles cache which will save bandwidth when several machines are running Gentoo on the same local area network.
 - [PKGDIR](https://wiki.gentoo.org/wiki/PKGDIR) — is the location [Portage](https://wiki.gentoo.org/wiki/Portage) keeps binary packages.
 - [Knowledge Base: Remove obsoleted distfiles](https://wiki.gentoo.org/wiki/Knowledge_Base:Remove_obsoleted_distfiles)

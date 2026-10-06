@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Foot
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-11-04"
-fingerprint: "54c255491b1669cb"
+fingerprint: "5cc257490b1669e9"
 license: CC BY-SA 4.0
 ---
 
@@ -17,12 +17,18 @@ license: CC BY-SA 4.0
 
 
 
+
 **Foot** is a minimalist terminal emulator for Wayland written in C.
 
 ## Installation
 
 ### USE flags
 
+
+### USE flags for
+            [gui-apps/foot](https://packages.gentoo.org/packages/gui-apps/foot)
+            
+            Fast, lightweight and minimalistic Wayland terminal emulator
 
 | [+grapheme-clustering](https://packages.gentoo.org/useflags/+grapheme-clustering) | Enable grapheme clustering support | 
 | [test](https://packages.gentoo.org/useflags/test) | Enable dependencies and/or preparations necessary to run tests (usually controlled by FEATURES=test but can be toggled independently) | 
@@ -58,12 +64,19 @@ Foot supports the operation of a daemon which can be used to reduce overhead. Th
 
 **Increase the number of worker threads to use for rendering**
 
+```
+workers=32
+```
 Foot can be started as a server by running foot -s, this can be added to a window manager startup script to enable it upon login:
 
 **`~/.config/sway/config`**
 
 **Start Foot server with Sway if foot-client is the chosen terminal**
 
+```
+set $term footclient
+exec foot -s
+```
 Once the server has been started, clients can be started with footclient.
 
 ### Scrollback configuration
@@ -74,10 +87,18 @@ The number of lines saved in the scrollback can be adjusted with:
 
 **Increase the scrollback length to 16384**
 
+```
+[scrollback]
+lines=16384
+```
 **`~/.config/foot/config`**
 
 **Show scrollback positions as a percentage**
 
+```
+[scrollback]
+indicator-format=percentage
+```
 ### Color configuration
 
 Colors can be specified with the `foreground`, `background`, `regular{0-7}`, and `bright{0-7}` parameters.

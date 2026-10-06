@@ -6,11 +6,13 @@ hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-07-08"
 categories: ['https://packages.gentoo.org/categories/games-simulation']
-fingerprint: "3a8fc2788465a8da"
+fingerprint: "3a8fc2789465a8da"
 license: CC BY-SA 4.0
 ---
 
 # Games/simulation
+
+[Games](https://wiki.gentoo.org/wiki/Games)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -22,12 +24,16 @@ This article provides an overview of simulator games that are available in the :
 
 ![](https://wiki.gentoo.org/images/thumb/9/97/FlightGear_screenshot1.png/200px-FlightGear_screenshot1.png)
 
+[more](http://www.flightgear.org/about/gallery-v2-10/)
+
 FlightGear is an open-source flight simulator whose goal is to create a sophisticated and open flight simulator framework for use in research or academic environments, pilot training, as an industry engineering tool, for DIY-ers to pursue their favorite interesting flight simulation idea, and last but certainly not least as a fun, realistic, and challenging desktop flight simulator. View a YouTube demo [here](https://www.youtube.com/watch?v=yvWJWueZ6mI).
 
 `root #``emerge --ask games-simulation/flightgear`
 ## OpenTTD
 
 ![](https://wiki.gentoo.org/images/thumb/a/af/OpenTTD_shot.png/200px-OpenTTD_shot.png)
+
+[more](https://secure.openttd.org/www/en/screenshots)
 
 OpenTTD is a free real-time strategy game. It was originally one of many extensions of the proprietary Transport Tycoon Deluxe. Then it was an effort to reverse engineer it to have a fully free Transport Tycoon clone, retaining the extensions. It has since not only achieved its goal of remaking Transport Tycoon Deluxe, but also vastly surpassed the original game with a huge amount of unique features. For those who haven't played Transport Tycoon, OpenTTD is a planning and simulation and strategy game in which the player founds a transport company. The player must make this company successful through transportation of passengers and freight. There are trains, trams, cars, busses, aeroplanes, boats and more vehicles to enable this. The player must construct train stations, bus stations, railways, roads, *etc.* as well as the towns and industries on the map. The game play is incredibly deep, and probably perplexing for newcomers — but leads to some truly unique experiences once you get to know it. The game is also highly configurable and customizable. It lets you not only tweak seemingly all game rules, but also change the graphics, sounds, AI scripts and more. OpenTTD features networked multiplayer (LAN or Internet). View a YouTube demo [here](https://www.youtube.com/watch?v=bc8WKLsR9Ds).
 

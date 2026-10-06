@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Ddcutil
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-03-05"
-fingerprint: e60023f49d0c2d06
+fingerprint: e60023f4bd0c2d16
 license: CC BY-SA 4.0
 ---
 
@@ -23,6 +23,11 @@ ddcutil is a Linux program for managing monitor settings, such as brightness, co
 
 ### USE flags
 
+
+### USE flags for
+            [app-misc/ddcutil](https://packages.gentoo.org/packages/app-misc/ddcutil)
+            
+            Program for querying and changing monitor settings
 
 | [+dbus](https://packages.gentoo.org/useflags/+dbus) | Enable dbus support for anything that needs it (gpsd, gnomemeeting, etc) | 
 | [X](https://packages.gentoo.org/useflags/X) | Add support for X11 | 

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Debuginfod
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-02-21"
-fingerprint: ec49d47f054770a7
+fingerprint: ec49d47f054370a3
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 It is possible to use **debuginfod** to provide debug information to your binary package downstreams, and, consequently, to remove debug information from the binary package, saving disk space and bandwidth.
 
@@ -42,6 +44,9 @@ The debuginfod daemon doesn't run by default and is only needed if serving files
 
 **`/etc/portage/make.conf`**
 
+```
+USE="${USE} -debuginfod"
+```
 ## Build IDs
 
 Build IDs are a related but distinct topic from debuginfod support. The linker can stamp produced binaries with a *.note.gnu.build-id* note that contains a unique identifier for the build.
@@ -86,6 +91,10 @@ Build IDs must be enabled in the toolchain. Since [bug #953869](https://bugs.gen
 `root #``mkdir /etc/portage/env/sys-devel/`
 **`/etc/portage/env/sys-devel/gcc`**
 
+```
+# https://bugs.gentoo.org/953869
+EXTRA_ECONF="${EXTRA_ECONF} --enable-linker-build-id
+```
 `root #``emerge --ask -v1 sys-devel/gcc`
 ### Configuration
 
@@ -188,6 +197,9 @@ Following an [env-update](https://wiki.gentoo.org/wiki/Env-update), new sessions
 
 **`$XDG_CONFIG_HOME/gdb/.gdbinit`**
 
+```
+set debuginfod enabled on
+```
 ## TODO
 
 - eclean-pkg: implement time delay cleanup for binpkgs ([bug #967114](https://bugs.gentoo.org/show_bug.cgi?id=967114))

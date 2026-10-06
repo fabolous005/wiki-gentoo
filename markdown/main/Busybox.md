@@ -22,6 +22,11 @@ license: CC BY-SA 4.0
 ### USE flags
 
 
+### USE flags for
+            [sys-apps/busybox](https://packages.gentoo.org/packages/sys-apps/busybox)
+            
+            Utilities for rescue and embedded systems
+
 | [debug](https://packages.gentoo.org/useflags/debug) | Enable extra debug codepaths, like asserts and extra output. If you want to get meaningful backtraces see https://wiki.gentoo.org/wiki/Project:Quality\_Assurance/Backtraces | 
 | [livecd](https://packages.gentoo.org/useflags/livecd) | !!internal use only!! DO NOT SET THIS FLAG YOURSELF!, used during livecd building | 
 | [make-symlinks](https://packages.gentoo.org/useflags/make-symlinks) | Create all the appropriate symlinks in /bin and /sbin. | 

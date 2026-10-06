@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/CurlFtpFS
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-10-03"
-fingerprint: "1a92249e9ff0595d"
+fingerprint: "1a96209adbc459dd"
 license: CC BY-SA 4.0
 ---
 
 # CurlFtpFS
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -17,8 +19,11 @@ license: CC BY-SA 4.0
 
 **Article status**
 
+This article has some todo items:
+
 - Add instructions for using from fstab.
 - Expand article.
+
 
 **CurlFtpFS** allows for [mounting](https://wiki.gentoo.org/wiki/Mount) an FTP folder as a regular directory to the local directory tree.
 
@@ -28,8 +33,12 @@ license: CC BY-SA 4.0
 
 CurlFtpFS needs [FUSE](https://wiki.gentoo.org/wiki/FUSE) activated in the kernel:
 
-**Activating FUSE**
+KERNEL **Activating FUSE**
 
+```
+File systems --->
+   <*> FUSE (Filesystem in Userspace) support
+```
 ### Emerge
 
 Install [net-fs/curlftpfs](https://packages.gentoo.org/packages/net-fs/curlftpfs):

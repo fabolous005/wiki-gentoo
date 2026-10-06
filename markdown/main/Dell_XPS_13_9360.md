@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Dell_XPS_13_9360
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-29"
-fingerprint: "7f4e033a9b28f168"
+fingerprint: "7f4e0b18db28b168"
 license: CC BY-SA 4.0
 ---
 
@@ -70,6 +70,15 @@ USB 3.0 support needs to be enabled for the USB bus to function. USB 2.0 and USB
 
 **USB, 4.9.6-gentoo-r1**
 
+```
+Device Drivers  --->
+    [*] USB support  --->
+        <*>     xHCI HCD (USB 3.0) support
+        ...
+        < >     EHCI HCD (USB 2.0) support
+        ...
+        < >     OHCI HCD (USB 1.1) support
+```
 #### NVM Express SSD
 
 In the BIOS set the SATA Controller to `AHCI`. The default for models pre-loaded with Windows is `RAID` and Linux will not detect the device unless the BIOS setting is changed.
@@ -84,22 +93,52 @@ Realtek Semiconductor Co., Ltd. RTS525A PCI Express Card Reader.
 
 **SD Card Reader, Prior Linux 4.16**
 
+```
+Device Drivers  --->
+    Multifunction device drivers  --->
+        <M> Realtek PCI-E card reader
+    <M> MMC/SD/SDIO card support  --->
+        <M>   Realtek PCI-E SD/MMC Card Interface Driver
+```
 
 
 **SD Card Reader, Since Linux 4.16**
 
+```
+Device Drivers  --->
+    Misc devices  --->
+        <M> Realtek PCI-E card reader
+    <M> MMC/SD/SDIO card support  --->
+        <M>   Realtek PCI-E SD/MMC Card Interface Driver
+```
 #### Integrated webcam
 
 Enable UVC and V4L.
 
 **Webcam, 4.8.14-gentoo**
 
+```
+Device Drivers  --->
+    <M> Multimedia support  --->
+        [*]   Cameras/video grabbers support
+            <M>   USB Video Class (UVC)
+        [*]   V4L platform devices  --->
+        [*]   Autoselect ancillary drivers (tuners, sensors, i2c, frontends)
+```
 #### USB Type-C and Thunderbolt
 
 The USB Type-C root hub is only enabled when a device is connected to the port and requires PCI-hotplug support to function. This should also allow hotplugging Thunderbolt devices.
 
 **PCI Hotplugging, 4.9.6-gentoo-r1**
 
+```
+Bus options (PCI etc.)  --->
+    [*] PCI support
+    [*]   PCI Express Port Bus support
+    [*]     PCI Express Hotplug driver
+    [*] Support for PCI Hotplug  --->
+        [*]   ACPI PCI Hotplug driver
+```
 ## Configuration
 
 ### make.conf

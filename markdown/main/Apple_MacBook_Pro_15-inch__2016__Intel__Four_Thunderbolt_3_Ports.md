@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Apple_MacBook_Pro_15-inch_(2016,_Intel,_Four_T
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-12-20"
-fingerprint: b4416953ccb7138b
+fingerprint: b6414957ccb7138b
 license: CC BY-SA 4.0
 ---
 
@@ -59,41 +59,41 @@ Notice that using profiles such as musl and llvm may result in this process to f
 
 | Device | Make/model | Status | Vendor ID / Product ID | Kernel driver(s) | Kernel version | Notes |  | 
 |---|---|---|---|---|---|---|---|
-| CPU | Intel Core i7-6820HQ@ 2.70GHz |  | GenuineIntel | N/A | 6.6.41-dist |  |  | 
-| iGPU | Intel HD 530 Graphics |  | N/a | [i915](https://wiki.gentoo.org/wiki/Intel) | 6.6.41-dist | Does not work out of the box, possible to get working with patching, see [Intel GPU](<https://wiki.gentoo.org/wiki/Apple_MacBook_Pro_15-inch_(2016,_Intel,_Four_Thunderbolt_3_Ports)#Intel_GPU>) |  | 
-| dGPU | AMD R455 Pro Graphics |  | PCI 0000:00 | [amdgpu](https://wiki.gentoo.org/wiki/AMD) | 6.6.41-dist | Works out of the box |  | 
-| I2C/SMBus Controller | Intel SMBus Controller |  | PCI 0000:00:1f.4 | i2c\_i801 | 6.6.41-dist | Works out of the box |  | 
-| SPI Controller | Apple SPI Controller |  | PCI APP000D:00 | applespi | 6.6.41-dist |  |  | 
-| LPSS Controller | Intel Low Power Subsystem Controller |  | PCI 8086:A160 | intel-lpss | 6.6.41-dist | required for Bluetooth |  | 
-| Serial Bus Controller | JHL6540 Thunderbolt 3 USB Controller (C step) \[Alpine Ridge 4C 2016\] |  | PCI 8086:15D4 | xhci\_hcd | 6.6.41-dist | Works out of the box |  | 
-| NVMe | Samsung Electronics SM963 2.5" NVMe PCIe SSD |  | PCI 0000:02:00.0 | nvme | 6.6.41-dist | Works out of the box |  | 
-| Audio | Intel Corporation HD Audio device |  | PCI 0000:00:1f.3 | snd\_soc\_avs, snd\_soc\_hda\_codec, snd\_hda\_codec\_hdmi, snd\_hda\_intel | 6.6.41-dist | Does not work out of the box, needs patching, see [Sound](<https://wiki.gentoo.org/wiki/Apple_MacBook_Pro_15-inch_(2016,_Intel,_Four_Thunderbolt_3_Ports)#Sound>) |  | 
-| Audio | ATI Baffin HDMI/DP Audio \[Radeon RX 550 640SP / RX 560/560X\] |  | PCI 0000:01:00.1 | snd\_hda\_intel | 6.6.41-dist | Does not work out of the box, needs patching, see [Sound](<https://wiki.gentoo.org/wiki/Apple_MacBook_Pro_15-inch_(2016,_Intel,_Four_Thunderbolt_3_Ports)#Sound>) |  | 
-| Wireless LAN | Broadcom BCM43602 802.11ac Wireless Network Adapter |  | PCI 14e4:43ba | brcmfmac | 6.6.41-dist | Finds only 2.4 GHz networks, needs additional firmware tweaking, see [Wi-Fi](<https://wiki.gentoo.org/wiki/Apple_MacBook_Pro_15-inch_(2016,_Intel,_Four_Thunderbolt_3_Ports)#Wi-Fi>) |  | 
-| Bluetooth | Broadcom BCM43602 Bluetooth |  | PCI 14e4:4464 ? | hci\_uart, hci\_uart\_bcm | 6.6.41-dist |  |  | 
-| Thunderbolt 3 | Intel JHL6540 Thunderbolt 3 Bridge (C step) \[Alpine Ridge 4C 2016\] |  | PCI 0000:7b:04.0, PCI 0000:7b:01.0, PCI 0000:04:00.0, PCI 0000:7c:00.0 | thunderbolt | 6.6.41-dist |  |  | 
-| USB 3 | Intel Skylake USB Controller |  | PCI 0000:00:14.0 | xhci\_hcd | 6.6.41-dist |  |  | 
-| Keyboard | Apple SPI Keyboard |  | pci-0000:00:1e.3-platform-pxa2xx-spi.5-cs-00-event-kbd | usbhid | 6.6.41-dist |  |  | 
-| Touchpad | Apple SPI Touchpad |  | pci-0000:00:1e.3-platform-pxa2xx-spi.5-cs-00-event-mouse | bcm5974 | 6.6.41-dist |  |  | 
-| Touchbar | Apple Touchbar |  | APP7777:00 | apple\_ib\_tb |  | Does not work out of box, needs patching, see [Touchbar](<https://wiki.gentoo.org/wiki/Apple_MacBook_Pro_15-inch_(2016,_Intel,_Four_Thunderbolt_3_Ports)#Touchbar>) |  | 
-| Fingerprint sensor | Apple Touch ID sensor |  | ? |  |  |  |  | 
-| Webcam | Apple FaceTime HD Camera |  | pci-0000:00:14.0-usb-0:3:1.0-video-index1 | uvcvideo | 6.6.41-dist | Should work out of the box, if not, see [Camera](<https://wiki.gentoo.org/wiki/Apple_MacBook_Pro_15-inch_(2016,_Intel,_Four_Thunderbolt_3_Ports)#Camera>) |  | 
-| Hardware Monitoring | various |  |  | acpi\_battery, applesmc, coretemp, int340x, nvme, sbs | 6.6.41-dist | applesmc needs out of tree patches |  | 
-| Ambient light sensor | Apple Backlight Keyboard Sensor |  | ACPI:APP0002:00:BACKLIGHT | kbd\_backlight |  |  |  | 
+| CPU | Intel Core i7-6820HQ@ 2.70GHz | Works | GenuineIntel | N/A | 6.6.41-dist |  |  | 
+| iGPU | Intel HD 530 Graphics | Unknown | N/a | [i915](https://wiki.gentoo.org/wiki/Intel) | 6.6.41-dist | Does not work out of the box, possible to get working with patching, see [Intel GPU](<https://wiki.gentoo.org/wiki/Apple_MacBook_Pro_15-inch_(2016,_Intel,_Four_Thunderbolt_3_Ports)#Intel_GPU>) |  | 
+| dGPU | AMD R455 Pro Graphics | Works | PCI 0000:00 | [amdgpu](https://wiki.gentoo.org/wiki/AMD) | 6.6.41-dist | Works out of the box |  | 
+| I2C/SMBus Controller | Intel SMBus Controller | Works | PCI 0000:00:1f.4 | i2c\_i801 | 6.6.41-dist | Works out of the box |  | 
+| SPI Controller | Apple SPI Controller | Works | PCI APP000D:00 | applespi | 6.6.41-dist |  |  | 
+| LPSS Controller | Intel Low Power Subsystem Controller | Works | PCI 8086:A160 | intel-lpss | 6.6.41-dist | required for Bluetooth |  | 
+| Serial Bus Controller | JHL6540 Thunderbolt 3 USB Controller (C step) \[Alpine Ridge 4C 2016\] | Works | PCI 8086:15D4 | xhci\_hcd | 6.6.41-dist | Works out of the box |  | 
+| NVMe | Samsung Electronics SM963 2.5" NVMe PCIe SSD | Works | PCI 0000:02:00.0 | nvme | 6.6.41-dist | Works out of the box |  | 
+| Audio | Intel Corporation HD Audio device | Not working | PCI 0000:00:1f.3 | snd\_soc\_avs, snd\_soc\_hda\_codec, snd\_hda\_codec\_hdmi, snd\_hda\_intel | 6.6.41-dist | Does not work out of the box, needs patching, see [Sound](<https://wiki.gentoo.org/wiki/Apple_MacBook_Pro_15-inch_(2016,_Intel,_Four_Thunderbolt_3_Ports)#Sound>) |  | 
+| Audio | ATI Baffin HDMI/DP Audio \[Radeon RX 550 640SP / RX 560/560X\] | Not tested | PCI 0000:01:00.1 | snd\_hda\_intel | 6.6.41-dist | Does not work out of the box, needs patching, see [Sound](<https://wiki.gentoo.org/wiki/Apple_MacBook_Pro_15-inch_(2016,_Intel,_Four_Thunderbolt_3_Ports)#Sound>) |  | 
+| Wireless LAN | Broadcom BCM43602 802.11ac Wireless Network Adapter | Works | PCI 14e4:43ba | brcmfmac | 6.6.41-dist | Finds only 2.4 GHz networks, needs additional firmware tweaking, see [Wi-Fi](<https://wiki.gentoo.org/wiki/Apple_MacBook_Pro_15-inch_(2016,_Intel,_Four_Thunderbolt_3_Ports)#Wi-Fi>) |  | 
+| Bluetooth | Broadcom BCM43602 Bluetooth | Works | PCI 14e4:4464 ? | hci\_uart, hci\_uart\_bcm | 6.6.41-dist |  |  | 
+| Thunderbolt 3 | Intel JHL6540 Thunderbolt 3 Bridge (C step) \[Alpine Ridge 4C 2016\] | Works | PCI 0000:7b:04.0, PCI 0000:7b:01.0, PCI 0000:04:00.0, PCI 0000:7c:00.0 | thunderbolt | 6.6.41-dist |  |  | 
+| USB 3 | Intel Skylake USB Controller | Works | PCI 0000:00:14.0 | xhci\_hcd | 6.6.41-dist |  |  | 
+| Keyboard | Apple SPI Keyboard | Works | pci-0000:00:1e.3-platform-pxa2xx-spi.5-cs-00-event-kbd | usbhid | 6.6.41-dist |  |  | 
+| Touchpad | Apple SPI Touchpad | Works | pci-0000:00:1e.3-platform-pxa2xx-spi.5-cs-00-event-mouse | bcm5974 | 6.6.41-dist |  |  | 
+| Touchbar | Apple Touchbar | Unknown | APP7777:00 | apple\_ib\_tb |  | Does not work out of box, needs patching, see [Touchbar](<https://wiki.gentoo.org/wiki/Apple_MacBook_Pro_15-inch_(2016,_Intel,_Four_Thunderbolt_3_Ports)#Touchbar>) |  | 
+| Fingerprint sensor | Apple Touch ID sensor | Unsupported | ? |  |  |  |  | 
+| Webcam | Apple FaceTime HD Camera | Works | pci-0000:00:14.0-usb-0:3:1.0-video-index1 | uvcvideo | 6.6.41-dist | Should work out of the box, if not, see [Camera](<https://wiki.gentoo.org/wiki/Apple_MacBook_Pro_15-inch_(2016,_Intel,_Four_Thunderbolt_3_Ports)#Camera>) |  | 
+| Hardware Monitoring | various | Unknown |  | acpi\_battery, applesmc, coretemp, int340x, nvme, sbs | 6.6.41-dist | applesmc needs out of tree patches |  | 
+| Ambient light sensor | Apple Backlight Keyboard Sensor | Works | ACPI:APP0002:00:BACKLIGHT | kbd\_backlight |  |  |  | 
 
 #### ACPI / Power management
 
 | Function | Status | Kernel driver(s) | Kernel version | BIOS version | Notes | 
 |---|---|---|---|---|---|
-| CPU frequency scaling |  | intel\_rapl\_msr, intel\_rapl\_common, intel\_tcc\_cooling | 6.6.41-dist | 529.120.1.0.0 |  | 
-| GPU Powersaving |  | i915,amdgpu |  |  | Possibly requires dGPU to be blacklisted, see [Intel GPU](<https://wiki.gentoo.org/wiki/Apple_MacBook_Pro_15-inch_(2016,_Intel,_Four_Thunderbolt_3_Ports)#Intel_GPU>) | 
-| PCIe Power Management (ASPM) |  |  |  |  | Power performance is not optimized | 
-| USB Type C Power Delivery |  |  | 6.6.41-dist | 529.120.1.0.0 | When no devices connected, draws unnecessary power | 
-| Battery |  | sbs | 6.6.41-dist | 529.120.1.0.0 | Performance is suboptimal | 
-| Suspend to RAM |  |  |  |  | Will instantly wake, needs blacklisted dGPU, see [Intel GPU](<https://wiki.gentoo.org/wiki/Apple_MacBook_Pro_15-inch_(2016,_Intel,_Four_Thunderbolt_3_Ports)#Intel_GPU>) and [Suspend](<https://wiki.gentoo.org/wiki/Apple_MacBook_Pro_15-inch_(2016,_Intel,_Four_Thunderbolt_3_Ports)#Suspend>) | 
-| Suspend to disk (hibernate) |  |  |  |  | Will shut down instead of hibernate | 
-| Display backlight control |  | gmux\_backlight | 6.6.41-dist | 529.120.1.0.0 |  | 
-| Keyboard backlight control |  | kbd\_backlight | out of tree driver | 529.120.1.0.0 | Touchbar needs to be fixed for keyboard control to work, see [Touchbar](<https://wiki.gentoo.org/wiki/Apple_MacBook_Pro_15-inch_(2016,_Intel,_Four_Thunderbolt_3_Ports)#Touchbar>) | 
+| CPU frequency scaling | Works | intel\_rapl\_msr, intel\_rapl\_common, intel\_tcc\_cooling | 6.6.41-dist | 529.120.1.0.0 |  | 
+| GPU Powersaving | Not working | i915,amdgpu |  |  | Possibly requires dGPU to be blacklisted, see [Intel GPU](<https://wiki.gentoo.org/wiki/Apple_MacBook_Pro_15-inch_(2016,_Intel,_Four_Thunderbolt_3_Ports)#Intel_GPU>) | 
+| PCIe Power Management (ASPM) | Not tested |  |  |  | Power performance is not optimized | 
+| USB Type C Power Delivery | Works |  | 6.6.41-dist | 529.120.1.0.0 | When no devices connected, draws unnecessary power | 
+| Battery | Works | sbs | 6.6.41-dist | 529.120.1.0.0 | Performance is suboptimal | 
+| Suspend to RAM | Not working |  |  |  | Will instantly wake, needs blacklisted dGPU, see [Intel GPU](<https://wiki.gentoo.org/wiki/Apple_MacBook_Pro_15-inch_(2016,_Intel,_Four_Thunderbolt_3_Ports)#Intel_GPU>) and [Suspend](<https://wiki.gentoo.org/wiki/Apple_MacBook_Pro_15-inch_(2016,_Intel,_Four_Thunderbolt_3_Ports)#Suspend>) | 
+| Suspend to disk (hibernate) | Not working |  |  |  | Will shut down instead of hibernate | 
+| Display backlight control | Works | gmux\_backlight | 6.6.41-dist | 529.120.1.0.0 |  | 
+| Keyboard backlight control | Works | kbd\_backlight | out of tree driver | 529.120.1.0.0 | Touchbar needs to be fixed for keyboard control to work, see [Touchbar](<https://wiki.gentoo.org/wiki/Apple_MacBook_Pro_15-inch_(2016,_Intel,_Four_Thunderbolt_3_Ports)#Touchbar>) | 
 
 ## Installation
 
@@ -226,7 +226,7 @@ File /etc/portage/package.use/00cpu-flags should have this content:
 **`/etc/portage/package.use/00cpu-flags`**
 
 ```
- CPU_FLAGS_X86: aes avx avx2 f16c fma3 mmx mmxext pclmul popcnt rdrand sse sse2 sse3 sse4_1 sse4_2 ssse3
+*/* CPU_FLAGS_X86: aes avx avx2 f16c fma3 mmx mmxext pclmul popcnt rdrand sse sse2 sse3 sse4_1 sse4_2 ssse3
 ```
 #### GPU Flags
 
@@ -235,7 +235,7 @@ This MacBook uses both Intel® HD Graphics 530 and AMD Radeon Pro 455 (AMDGPU Po
 **`/etc/portage/package.use/00video`**
 
 ```
- VIDEO_CARDS: -* intel amdgpu radeonsi radeon
+*/* VIDEO_CARDS: -* intel amdgpu radeonsi radeon
 ```
 ### Kernel configuration
 
@@ -247,6 +247,20 @@ If still manual kernel configuration is preferred ensure that following is set c
 
 **Kernel configuration options for spi\_pxa2xx\_platform and intel\_lpss\_pci**
 
+```
+CONFIG_SPI_PXA2XX=m 
+CONFIG_MFD_INTEL_LPSS_PCI=m // in distribution kernel it is =y which also should be fine
+```
+```
+Device Drivers  --->
+    <*> SPI Support  --->
+        <M>   PXA2xxSSP SPI master
+```
+```
+Device Drivers  ---> 
+  Multifunction device drivers  --->
+      <M>   Intel Low Power Subsystem support in PCI mode <--- This can be also <*> but preferably set as <M>
+```
 ## Configuration
 
 ### Installing tools
@@ -276,6 +290,7 @@ add_drivers+=" applespi apple-ib-tb intel_lpss_pci spi_px2axx_platform "
 
 To build modules we will need to clone the following repository that contains required files. Execute following commands as root:
 
+`root #``git clone` [https://github.com/almas/macbook12-spi-driver](https://github.com/almas/macbook12-spi-driver) /usr/src/applespi-0.1
 `root #````
 dkms install applespi/0.1
 ```
@@ -625,6 +640,7 @@ emerge -av sys-kernel/gentoo-sources
 ```
 Then after installing kernel sources, run following commands as root:
 
+`root #``git clone` [https://github.com/davidjo/snd_hda_macbookpro.git](https://github.com/davidjo/snd_hda_macbookpro.git)
 `root #````
 cd snd_hda_macbookpro/
 ```
@@ -713,7 +729,7 @@ Create file /etc/modprobe.d/swap-fn-control-keys with the following content:
 **`/etc/modprobe.d/swap-fn-control-keys`**
 
 ```
- applespi fnremap=1
+options applespi fnremap=1
 ```
 Save file and exit.
 
@@ -776,7 +792,7 @@ Create the file /etc/X11/xorg.conf.d/20-intel.conf with the following content:
 **`/etc/X11/xorg.conf.d/20-intel.conf`**
 
 ```
- "Device"
+Section "Device"
 	Identifier "Intel Graphics"
 	Driver "intel"
 	BusID "PCI:0:2:0"
@@ -790,6 +806,7 @@ EndSection
 
 Execute the following commands as root:
 
+`root #``git clone` [https://github.com/0xbb/gpu-switch](https://github.com/0xbb/gpu-switch)
 `root #````
 cd gpu-switch
 ```
@@ -889,3 +906,7 @@ This is a known issue and nothing can be done to fix it currently.
 - Helpful resources that are from this guide can be found here: [State of Linux on the MacBook Pro 2016 & 2017](https://github.com/Dunedan/mbp-2016-linux)
 - Repository containing fixes from this guide can be found here: [Macbook 12 SPI driver](https://github.com/almas/macbook12-spi-driver)
 - Same guide, but with more details about partitioning part: [https://dev.to/cmiranda/linux-on-macbook-pro-2016-1onb](https://dev.to/cmiranda/linux-on-macbook-pro-2016-1onb)
+
+## References
+
+1. [↑](https://wiki.gentoo.org#cite_ref-thunderbolt-hotplug_1-0) Knuth Posern. [\[PATCH\] thunderbolt: Allow loading of module on recent Apple MacBooks with thunderbolt 2 controller](https://lkml.org/lkml/2015/9/20/150), [LKML](https://lkml.org/), September 20th, 2015. Retrieved on December 4th, 2015.

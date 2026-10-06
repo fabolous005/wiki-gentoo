@@ -17,6 +17,8 @@ license: CC BY-SA 4.0
 
 **Gentoo binhost**
 
+**Binary packages**
+
 When building for different architectures such as AMD64 host and ARM64 client, then cross compiling is the method needed to create binpkgs.
 
 Gentoo mainly supports two different ways to do this with ease:
@@ -35,6 +37,8 @@ Using QEMU it is possible to emulate a completely different architecture on the 
 
 An installation guide for [sys-devel/crossdev](https://packages.gentoo.org/packages/sys-devel/crossdev) can be found at the [crossdev](https://wiki.gentoo.org/wiki/Crossdev) page.
 
+#### Build a cross compiler
+
 Using crossdev with the following command can build a toolchain for the desired system:
 
 `root #``crossdev --stable -t <arch-vendor-os-libc>`
@@ -42,6 +46,8 @@ For the rest of this section, the example target will be for a Raspberry Pi 4:
 
 `root #``crossdev --stable -t  aarch64-unknown-linux-gnu`
 After this has built, a toolchain will have been created in /usr/aarch64-unknown-linux-gnu, and will look like a bare-bones Gentoo install where it is possible to edit [Portage](https://wiki.gentoo.org/wiki/Portage) settings as normal.
+
+#### Basic setup
 
 Removing the `-pam` flag from the `USE` line in /usr/aarch64-unknown-linux-gnu/etc/portage/make.conf is generally recommended in a setup like this:
 
@@ -72,18 +78,26 @@ PORTAGE_TMPDIR=${ROOT}var/tmp/
 PKG_CONFIG_PATH="${ROOT}usr/lib/pkgconfig/"
 #PORTDIR_OVERLAY="/var/db/repos/local/"
 ```
+#### Profiles
+
 List available profiles for the device by running:
 
 `root #``PORTAGE_CONFIGROOT=/usr/aarch64-unknown-linux-gnu eselect profile list`
 Next, select the profile that best suits:
 
 `root #``PORTAGE_CONFIGROOT=/usr/aarch64-unknown-linux-gnu eselect profile set <profile number>`
+#### Build a single package
+
 To build a single binary package for use on the device, use the following:
 
 `root #``emerge-aarch64-unknown-linux-gnu --ask foo`
+#### Build world file
+
 To build every package in the world file, then the following command is needed:
 
 `root #``emerge-aarch64-unknown-linux-gnu --emptytree @world`
+#### Binary location
+
 By default, all binary packages will be stored in /usr/aarch64-unknown-linux-gnu/var/cache/binpkgs, so this is the location needed to be selected when [setting up a binary package host](https://wiki.gentoo.org/wiki/Binary_package_guide#Setting_up_a_binary_package_host).
 
 ### QEMU chroot compiling

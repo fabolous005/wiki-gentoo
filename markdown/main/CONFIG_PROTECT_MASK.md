@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/CONFIG_PROTECT_MASK
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-04-21"
-fingerprint: "35279e78a2f61c8a"
+fingerprint: "14279e78a2f2088a"
 license: CC BY-SA 4.0
 ---
 
 # CONFIG PROTECT MASK
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

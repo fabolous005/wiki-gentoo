@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Firefox_OS
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-06-10"
-fingerprint: b74c9c4f6f45ebab
+fingerprint: b74c944f6f45ebab
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Archived article**
 
 This article is **archived (obsolete)**. Contents are surely incorrect for current usage, and are intended for historical reference only.
 
@@ -44,10 +46,33 @@ Quite a few packages are required, so we might as well create a set.
 
 **@firefox\_os set**
 
+```
+# see https://developer.mozilla.org/en-US/Firefox_OS/Firefox_OS_build_prerequisites
+=sys-devel/autoconf-2.13
+sys-devel/bison
+app-arch/bzip2
+dev-java/icedtea-bin
+dev-util/ccache 
+net-misc/curl
+sys-devel/flex
+sys-apps/gawk
+dev-vcs/git
+=sys-devel/make-3.82-r4
+sys-devel/patch
+media-libs/mesa
+x11-libs/libX11
+sys-libs/ncurses 
+sys-libs/zlib
+dev-util/android-tools
+```
 You also need the 32bit versions of ncurses and zlib.
 
 **`/etc/portage/package.use/firefox_os`**
 
+```
+sys-libs/ncurses abi_x86_32
+sys-libs/zlib abi_x86_32
+```
 `root #``emerge --ask @firefox_os`
 ### adb/fastboot
 
@@ -67,6 +92,9 @@ If your phone is not detected, you may need a new udev rule
 
 **`/etc/udev/rules.d/firefox_os.rules`**
 
+```
+SUBSYSTEM=="usb", ATTR{idVendor}=="19d2", ATTR{idProduct}=="1351", MODE="0666", GROUP="plugdev"
+```
 `root #````
 /etc/init.d/udev restart
 ```
@@ -131,6 +159,7 @@ To build Firefox OS you need some non-free files only present on the phone (or b
 `user $``export ANDROIDFS_DIR="${PWD}/backup"`
 ### Fetching the sources
 
+`user $``git clone` [git://github.com/mozilla-b2g/B2G.git](git://github.com/mozilla-b2g/B2G.git)
 `user $````
 cd B2G
 ```

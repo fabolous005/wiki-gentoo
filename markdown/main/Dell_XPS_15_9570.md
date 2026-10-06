@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Dell_XPS_15_9570
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-29"
-fingerprint: "2f5d9d277ba23169"
+fingerprint: "3f4d8d275fa2106d"
 license: CC BY-SA 4.0
 ---
 
@@ -20,23 +20,23 @@ The Dell XPS 15 9570 is considered a "MacBook Pro killer". It has amazing perfor
 ## Status
 
 | **Device/Functionality** | **Status** |  | 
-| Suspend |  |  | 
-| Hbernate |  |  | 
-| Intel Integrated Graphics |  |  | 
-| Discrete NVIDIA Graphics |  |  | 
-| Hybrid Graphics/NVIDIA Optimus |  |  | 
-| Wifi |  |  | 
-| Bluetooth |  |  | 
-| rfkill |  |  | 
-| Audio |  |  | 
-| Touchpad |  |  | 
-| Touchscreen |  |  | 
-| Webcam |  |  | 
-| Card Reader |  |  | 
-| Function/Multimedia Keys |  |  | 
-| Power management |  |  | 
-| EFI Firmware Updates |  |  | 
-| Fingerprint Reader |  |  | 
+| Suspend | Works |  | 
+| Hbernate | Works |  | 
+| Intel Integrated Graphics | Works |  | 
+| Discrete NVIDIA Graphics | Works |  | 
+| Hybrid Graphics/NVIDIA Optimus | Works |  | 
+| Wifi | Works |  | 
+| Bluetooth | Works |  | 
+| rfkill | Works |  | 
+| Audio | Works |  | 
+| Touchpad | Works |  | 
+| Touchscreen | Works |  | 
+| Webcam | Works |  | 
+| Card Reader | Works |  | 
+| Function/Multimedia Keys | Works |  | 
+| Power management | Works (Remember to update BIOS) |  | 
+| EFI Firmware Updates | Works |  | 
+| Fingerprint Reader | Not working |  | 
 
 ## History
 
@@ -56,21 +56,21 @@ Additionally, the 9570's Thunderbolt 3 port now supports all four PCIe lanes, un
 
 | Device | Make/model | Status | Kernel driver(s) | Kernel version | 
 |---|---|---|---|---|
-| CPU | Intel(R) Core(TM) i7-8750H CPU @ 4.10 GHz |  |  | 4.20.0 | 
-| Memory | 16GB DDR4-2400MHz |  |  |  | 
-| Hard disk | 512GB PCIe NVME Solid State Drive |  | nvme |  | 
-| Video card | NVIDIA Corporation GP107M GeForce GTX 1050 Ti Mobile (4GB GDDR5) |  | nvidia, fbsimple (or efifb on a UEFI setup) | 4.20.0 | 
-| Video card | Intel UHD Graphics 630 (Mobile) |  | i915 (i965 in your portage.conf - I'll explain later) | 4.20.0 | 
-| Wireless | Killer 1535 802.11ac 2x2 WiFi ( [Qualcomm Atheros QCA6174](https://wiki.gentoo.org/wiki/Qualcomm_Atheros_QCA6174)) (Can be switched out for Intel Wireless AC 9260 - more details later) |  | ath10k\_core ath10k\_pci linux-firmware |  | 
-| Touchscreen | ELAN Touchscreen |  | usbhid hid\_multitouch | 4.15.4 | 
-| Touchpad | Synaptics TouchPad |  | mouse\_ps2\_synaptics\_smbus | 4.13.0 | 
-| Bluetooth | Killer 1535 Bluetooth |  | bluetooth btrtl btintel bnep btbcm rfcomm btusb linux-firmware | 4.15.4 | 
-| USB 3.0 |  |  | xhci\_hcd |  | 
-| Thunderbolt 3 | 4 lanes of PCI Express Gen 3. Supports: Power In / Charging, PowerShare, 40Gbps Bi-Directional, 3.1 USB Gen 2 (10Gbps), VGA, HDMI, Ethernet and USB-A via Dell Adapter (Sold Separately) |  | 4.20.0 |  | 
-| SD Card Reader | SD, SDHC, SDXC |  | ? |  | 
-| Webcam | Widescreen HD (720p) |  | uvc | 4.14.8 | 
-| Microphone | Dual array digital microphones |  | 4.20.0 |  | 
-| Fingerprint reader | 138a:0091 Validity Sensors, Inc. |  | None |  | 
+| CPU | Intel(R) Core(TM) i7-8750H CPU @ 4.10 GHz | Works |  | 4.20.0 | 
+| Memory | 16GB DDR4-2400MHz | Works |  |  | 
+| Hard disk | 512GB PCIe NVME Solid State Drive | Works | nvme |  | 
+| Video card | NVIDIA Corporation GP107M GeForce GTX 1050 Ti Mobile (4GB GDDR5) | Works | nvidia, fbsimple (or efifb on a UEFI setup) | 4.20.0 | 
+| Video card | Intel UHD Graphics 630 (Mobile) | Works | i915 (i965 in your portage.conf - I'll explain later) | 4.20.0 | 
+| Wireless | Killer 1535 802.11ac 2x2 WiFi ( [Qualcomm Atheros QCA6174](https://wiki.gentoo.org/wiki/Qualcomm_Atheros_QCA6174)) (Can be switched out for Intel Wireless AC 9260 - more details later) | Works | ath10k\_core ath10k\_pci linux-firmware |  | 
+| Touchscreen | ELAN Touchscreen | Works | usbhid hid\_multitouch | 4.15.4 | 
+| Touchpad | Synaptics TouchPad | Works | mouse\_ps2\_synaptics\_smbus | 4.13.0 | 
+| Bluetooth | Killer 1535 Bluetooth | Works | bluetooth btrtl btintel bnep btbcm rfcomm btusb linux-firmware | 4.15.4 | 
+| USB 3.0 |  | Works | xhci\_hcd |  | 
+| Thunderbolt 3 | 4 lanes of PCI Express Gen 3. Supports: Power In / Charging, PowerShare, 40Gbps Bi-Directional, 3.1 USB Gen 2 (10Gbps), VGA, HDMI, Ethernet and USB-A via Dell Adapter (Sold Separately) | Works | 4.20.0 |  | 
+| SD Card Reader | SD, SDHC, SDXC | Works | ? |  | 
+| Webcam | Widescreen HD (720p) | Works | uvc | 4.14.8 | 
+| Microphone | Dual array digital microphones | Works | 4.20.0 |  | 
+| Fingerprint reader | 138a:0091 Validity Sensors, Inc. | No | None |  | 
 
 ### LSPCI
 

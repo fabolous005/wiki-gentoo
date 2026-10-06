@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki//var/db/repos/gentoo/profiles/license_groups
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2019-06-05"
-fingerprint: e40698e20f998d34
+fingerprint: e4079ce24f99cd34
 license: CC BY-SA 4.0
 ---
 
 # /var/db/repos/gentoo/profiles/license\_groups
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -27,12 +29,15 @@ license: CC BY-SA 4.0
 
 The FSF-APPROVED group includes the entire GPL-COMPATIBLE group and more:
 
-**`/var/db/repos/gentoo/profiles/license_groups`**
+FILE **`/var/db/repos/gentoo/profiles/license_groups`****license\_groups example 1**
 
-**license\_groups example 1**
-
+```
+FSF-APPROVED @GPL-COMPATIBLE Apache-1.1 BSD-4 MPL-1.0 MPL-1.1
+```
 The GPL-COMPATIBLE group includes all licenses compatible with the GNU GPL:
 
-**`/var/db/repos/gentoo/profiles/license_groups`**
+FILE **`/var/db/repos/gentoo/profiles/license_groups`****license\_groups example 2**
 
-**license\_groups example 2**
+```
+GPL-COMPATIBLE Apache-2.0 BSD BSD-2 GPL-2 GPL-3 LGPL-2.1 LGPL-3 X11 ZLIB
+```

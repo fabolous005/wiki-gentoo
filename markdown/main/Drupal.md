@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Drupal
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-05-04"
-fingerprint: "44881c188b66f399"
+fingerprint: "44881c188b66f389"
 license: CC BY-SA 4.0
 ---
 
@@ -31,12 +31,18 @@ If you plan to use the default webserver, Apache 2, edit /etc/portage/make.conf 
 
 **Portage configuration file**
 
+```
+USE="... apache2 ..."
+```
 Then add the needed USE flags for PHP. Edit /etc/portage/package.use and add "gd mysql mysqli pdo" to the PHP specific USE flags.
 
 **`/etc/portage/package.use`**
 
 **Portage configuration file**
 
+```
+dev-lang/php gd mysql mysqli pdo
+```
 If you plan to use PostgreSQL instead of the default MySQL / MariaDB, add "postgres".
 
 ### Packages
@@ -80,6 +86,9 @@ At the time of writing, [www-apps/drupal](https://packages.gentoo.org/packages/w
 
 **Portage configuration file**
 
+```
+www-apps/drupal
+```
 ### Emerge
 
 Now, install the package:

@@ -6,11 +6,13 @@ hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-06-30"
 categories: ['https://packages.gentoo.org/categories/games-action']
-fingerprint: "351e7b8d1aba8f8c"
+fingerprint: "351e7b8d1aba8f8d"
 license: CC BY-SA 4.0
 ---
 
 # Games/action
+
+[Games](https://wiki.gentoo.org/wiki/Games)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

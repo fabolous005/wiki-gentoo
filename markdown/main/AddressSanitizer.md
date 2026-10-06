@@ -132,6 +132,9 @@ Next, add an entry to package.env followed by the name of the file created in th
 
 **`/etc/portage/package.env`**
 
+```
+app-misc/hello asan.conf
+```
 Then re-emerge the relevant package(s):
 
 `root #``emerge --oneshot --usepkg=n app-misc/hello`

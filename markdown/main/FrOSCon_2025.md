@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/FrOSCon_2025
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-05-08"
-fingerprint: "6fb5ac564ce963dd"
+fingerprint: "5bb7b87644ab43fd"
 license: CC BY-SA 4.0
 ---
 
 # FrOSCon 2025
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

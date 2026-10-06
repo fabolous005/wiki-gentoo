@@ -11,6 +11,8 @@ license: CC BY-SA 4.0
 
 # CVS/Tutorial
 
+[CVS](https://wiki.gentoo.org/wiki/CVS)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)

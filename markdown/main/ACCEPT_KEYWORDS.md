@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/ACCEPT_KEYWORDS
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-02-04"
-fingerprint: "3ebb0ee62ea0072c"
+fingerprint: "1ebb1efe2ea0072e"
 license: CC BY-SA 4.0
 ---
 
@@ -34,6 +34,10 @@ One should not specify the stable keyword (**amd64**) when adding the testing ke
 
 If the setting is not to be made system-wide, then it can be set per-package in the package.accept\_keywords file or directory:
 
+```
+# games
+games-fps/doomsday ~amd64
+```
 In addition to the normal values from `ACCEPT_KEYWORDS`, package.accept\_keywords supports three special tokens<sup>[\[1\]](https://wiki.gentoo.org#cite_note-1)</sup>:
 
 - `*` — Package is visible if it is stable on any architecture.
@@ -48,3 +52,7 @@ The last choice is useful for live package versions (e.g. SVN/Git/Mercurial pack
 - [KEYWORDS](https://wiki.gentoo.org/wiki/KEYWORDS) — the `KEYWORDS` variable informs in which [architectures](https://wiki.gentoo.org/wiki/Handbook:Main_Page#Architectures) the ebuild is stable or still in testing phase.
 - [Knowledge Base:Accepting a keyword for a single package](https://wiki.gentoo.org/wiki/Knowledge_Base:Accepting_a_keyword_for_a_single_package)
 - [Knowledge Base:Accepting a keyword for all packages](https://wiki.gentoo.org/wiki/Knowledge_Base:Accepting_a_keyword_for_all_packages)
+
+## References
+
+1. [↑](https://wiki.gentoo.org#cite_ref-1) Gentoo Portage, [Manual page for Portage](https://dev.gentoo.org/~zmedico/portage/doc/man/portage.5.html). Retrieved on January 30th, 2015.

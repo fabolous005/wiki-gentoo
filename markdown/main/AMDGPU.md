@@ -4,8 +4,8 @@ title: AMDGPU
 url: https://wiki.gentoo.org/wiki/AMDGPU
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-06-10"
-fingerprint: "9707985a41f6bfac"
+date: "2026-10-06"
+fingerprint: "9703985e41f6bfac"
 license: CC BY-SA 4.0
 ---
 
@@ -19,12 +19,20 @@ license: CC BY-SA 4.0
 
 Older Radeon cards are supported by the [radeon](https://wiki.gentoo.org/wiki/Radeon) driver.
 
+## Installation
+
 Setting up a system to use AMDGPU requires identifying the proper card, installing the corresponding firmware, configuring the kernel, and installing the [X11 driver](https://wiki.gentoo.org/wiki/Xorg/Hardware_3D_acceleration_guide).
+
+### Prerequisites
+
+#### Hardware detection
 
 To choose the right driver, first detect the graphics card. Use [lspci](https://wiki.gentoo.org/wiki/Hardware_detection) for this task:
 
 `root #``lspci | grep -i VGA`
 Check the output for one of the product names listed in the table below.
+
+#### Feature support
 
 Video cores supported by the AMDGPU driver feature [OpenGL](https://en.wikipedia.org/wiki/OpenGL) 4.6 and [OpenGL ES](https://en.wikipedia.org/wiki/OpenGL_ES) 3.2. The `[VIDEO_CARDS](https://wiki.gentoo.org/wiki/VIDEO_CARDS)` variable must be set to `-* amdgpu radeonsi`. Via [media-libs/mesa](https://packages.gentoo.org/packages/media-libs/mesa) (version 20.0 or higher) the driver additionally supports [Vulkan](https://wiki.gentoo.org/wiki/Vulkan) (`RADV` driver) and [OpenCL](https://wiki.gentoo.org/wiki/OpenCL#AMD) 2.0 is available via [ROCm](https://wiki.gentoo.org/wiki/ROCm) ([dev-libs/rocm-opencl-runtime](https://packages.gentoo.org/packages/dev-libs/rocm-opencl-runtime)). There is also support for [VAAPI](https://wiki.gentoo.org/wiki/VAAPI) via `radeonsi`.
 
@@ -44,6 +52,8 @@ Video cores supported by the AMDGPU driver feature [OpenGL](https://en.wikipedia
 | Navi | STRIX | RDNA 3.5 | DCN 3.5 | Strix Point APU series | Also called *RDNA 3+* or *RDNA3 refresh*, requires kernel 6.10 and Mesa 24.1 or newer.<sup>[\[11\]](https://wiki.gentoo.org#cite_note-11)</sup><sup>[\[12\]](https://wiki.gentoo.org#cite_note-12)</sup> e.g. Ryzen AI 9 365/HX 370 | 
 | Navi | NAVI44/48 | RDNA 4 | DCN 3.2 | RX 9060, RX 9060 XT, RX 9070, RX 9070 XT | Requires kernel 6.12 LTS and at least Mesa 25.0 (24.3 will also work, but with some bugs). <sup>[\[13\]](https://wiki.gentoo.org#cite_note-13)</sup> Kernel 6.15<sup>[\[14\]](https://wiki.gentoo.org#cite_note-14)</sup> and Mesa 25.1<sup>[\[15\]](https://wiki.gentoo.org#cite_note-15)</sup> or newer recommended. For Vulkan AMDVLK 2025.Q1.3 or newer is needed.<sup>[\[16\]](https://wiki.gentoo.org#cite_note-16)</sup> | 
 
+### Firmware
+
 It is necessary to install the proper firmware (or microcode) for the card. Firmware files are provided by [sys-kernel/linux-firmware](https://packages.gentoo.org/packages/sys-kernel/linux-firmware).
 
 There are two main approaches to loading firmware:
@@ -54,6 +64,11 @@ There are two main approaches to loading firmware:
 
 The easiest approach is to do 1 first then, if you wish, figure out which firmware blobs you need and do 2.
 
+
+### USE flags for
+            [sys-kernel/linux-firmware](https://packages.gentoo.org/packages/sys-kernel/linux-firmware)
+            
+            Linux firmware files
 
 | [+initramfs](https://packages.gentoo.org/useflags/+initramfs) | Create and install initramfs for early microcode loading in /boot (only AMD for now) | 
 | [+redistributable](https://packages.gentoo.org/useflags/+redistributable) | Install also non-free (but redistributable) firmware files | 
@@ -69,6 +84,8 @@ If using the [savedconfig](https://wiki.gentoo.org/wiki/Savedconfig) USE flag, m
 
 `root #``emerge --ask sys-kernel/linux-firmware`
 The firmware files installed this way will be incorporated into the kernel.
+
+### Kernel
 
 Set the following kernel options for the graphic chipsets mentioned above:
 
@@ -122,6 +139,8 @@ AMDGPU with Display Core was first implemented for VEGA10 (GCN5.0) and RAVEN (wi
 
 See the [radeon](https://wiki.gentoo.org/wiki/Radeon) article for more details about using HDMI/DisplayPort audio.
 
+#### Incorporating firmware
+
 The firmware package installed in [an earlier section](https://wiki.gentoo.org/wiki/AMDGPU#Firmware) provides files in /lib/firmware/amdgpu (for Volcanic Islands and newer cards) and/or /lib/firmware/radeon (for Southern Islands and Sea Islands cards). AMDGPU must be able to access the correct firmware files when it is loaded.
 
 **Including firmware in the kernel (4.18 and later)**
@@ -138,6 +157,8 @@ Device Drivers  --->
 In the case that the firmware needs to be included in the kernel or in an [initramfs](https://wiki.gentoo.org/wiki/Initramfs), and if using the savedconfig USE flag for [sys-kernel/linux-firmware](https://packages.gentoo.org/packages/sys-kernel/linux-firmware), make sure that the savedconfig configuration file is updated with a changed set of firmware files as well (like the change in 2018 mentioned above). Incorporate all the newly added files to the kernel configuration file in the firmware line, then rebuild and install the new kernel image. Otherwise boot will likely fail with a blank screen and firmware load errors thrown to the kernel log.
 
 It is important you include all the firmware blobs that are needed by the driver. The required blobs can either be determined by a discovery approach or, if you know your card model, using the table in [the next section](https://wiki.gentoo.org/wiki/AMDGPU#Known_firmware_blobs).
+
+##### Discovering which firmware blobs are needed
 
 In the case you are unsure which blobs are needed, a trial and error method often leads to success. In a multi-step process a basic bootable system may suffice to get the required information: missing firmware is indicated by an amdgpu error in dmesg, which helps to identify the required firmware files.
 
@@ -160,6 +181,8 @@ Loading firmware: amdgpu/green\_sardine\_vcn.bin
 The way the AMDGPU firmware files are named, all files starting with the GPU model code name are the right firmware blobs to include. In the above example the code name is "Green Sardine", thus this command looking for `green_sardine` will get the required list for `CONFIG_EXTRA_FIRMWARE`:
 
 `user $``ls /lib/firmware/amdgpu/green_sardine*.bin | sed 's/\/lib\/firmware\///' | echo $(cat)` amdgpu/green\_sardine\_asd.bin amdgpu/green\_sardine\_ce.bin amdgpu/green\_sardine\_dmcub.bin amdgpu/green\_sardine\_me.bin amdgpu/green\_sardine\_mec2.bin amdgpu/green\_sardine\_mec.bin amdgpu/green\_sardine\_pfp.bin amdgpu/green\_sardine\_rlc.bin amdgpu/green\_sardine\_sdma.bin amdgpu/green\_sardine\_ta.bin amdgpu/green\_sardine\_vcn.bin
+
+##### Firmware blobs for a known card model
 
 If you know what card model you have then this section will tell you which blobs you need.
 
@@ -212,15 +235,21 @@ After expanding the firmware file names from the following table and copying the
 | NAVI44 | amdgpu/dcn\_4\_0\_1\_dmcub.bin amdgpu/gc\_12\_0\_0\_{imu,me,mec,pfp,rlc,uni\_mes}.bin amdgpu/psp\_14\_0\_2\_{sos,ta}.bin amdgpu/sdma\_7\_0\_0.bin amdgpu/smu\_14\_0\_2.bin amdgpu/vcn\_5\_0\_0.bin | 
 | NAVI48 | amdgpu/dcn\_4\_0\_1\_dmcub.bin amdgpu/gc\_12\_0\_1\_{imu,me,mec,pfp,rlc,uni\_mes}.bin amdgpu/psp\_14\_0\_3\_{sos,ta}.bin amdgpu/sdma\_7\_0\_1.bin amdgpu/smu\_14\_0\_3.bin amdgpu/vcn\_5\_0\_0.bin | 
 
+### X11 driver
+
+#### Emerge
+
 Portage uses the [VIDEO\_CARDS](https://wiki.gentoo.org/wiki/VIDEO_CARDS)[USE\_EXPAND](https://wiki.gentoo.org/wiki/USE_EXPAND) variable for enabling support for various graphics cards in packages. Setting `VIDEO_CARDS` to `-* amdgpu radeonsi` (see the [feature matrix](https://wiki.gentoo.org/wiki/AMDGPU#Feature_support) section above) and asking Portage to update changed USE flags in the [@world set](<https://wiki.gentoo.org/wiki/World_set_(Portage)>) will pull in the correct driver:
 
 **`/etc/portage/package.use/00video`**
 
 ```
- VIDEO_CARDS: -* amdgpu radeonsi
+*/* VIDEO_CARDS: -* amdgpu radeonsi
 ```
 `root #``emerge --ask --deep --changed-use @world`
 The system should now be prepared to use amdgpu after the next reboot.
+
+## Power management
 
 Dynamic Power Management (DPM) is a technique that allows for the driver to dynamically adjust the core clock frequency, memory clock frequency, and voltage levels based on the current GPU demand. Since kernel 3.13, DPM is enabled by default for a majority of AMD hardware.[\[18\]](https://wiki.gentoo.org#cite_note-18)
 
@@ -231,7 +260,13 @@ To check if the system is using PowerPlay, review the contents of the devices's 
 `user $``ls /sys/class/drm/card0/device/pp_*`
 Any files returned with the `pp_` prefix indicate PowerPlay is implemented by the drivers.
 
+### Enabling DPM and PowerPlay features
+
+#### DPM
+
 The following kernel parameter can be used to explicitly enable (1) or disable (0) DPM. The default is -1 (auto)<sup>[\[20\]](https://wiki.gentoo.org#cite_note-20)</sup>.
+
+#### PowerPlay feature mask
 
 The PowerPlay feature mask kernel parameter overrides display features of the GPU. It is required to unlock access to adjust clocks and voltages in sysfs. The mask consists of 32 bits, currently there are 20 features implemented<sup>[\[22\]](https://wiki.gentoo.org#cite_note-22)</sup>.  The default is the current set of stable display features<sup>[\[23\]](https://wiki.gentoo.org#cite_note-23)</sup>.
 
@@ -244,13 +279,19 @@ amdgpu.ppfeaturemask=0x0007bfff
 
 Features may be changed by setting the kernel parameter at boot.
 
+### Configuration
+
 AMDGPU handles configuration of the hardware through exposed APIs, using sysfs files located in /sys/class/drm/card0/device/. The files contained within this directory will depend on the specific hardware and features that are enabled. Some of the files can be safely read by the user using `cat`, `less`, or any other non-root text editing program. Although, many of the files output binary data that is not human readable.
 
 Adjusting the clock rates and voltages (under/over clocking) is accomplished through the DPM and PowerPlay APIs. The full documentation can be found at [kernel.org](https://www.kernel.org/doc/html/latest/gpu/amdgpu/thermal.html) and should be reviewed before proceeding.
 
+#### Viewing current metrics
+
 The amdgpu driver provides a sysfs API for retrieving current gpu metrics data through the `gpu_metrics` file and gives a snapshot of all sensors at the same time.  This include temperature, frequency, engines utilization, power consume, throttler status, fan speed and cpu core statistics (available for APU only).
 
 It can be parsed using a script such as [amdgpu\_metrics.py](https://gist.github.com/leuc/e45f4dc64dc1db870e4bad1c436228bb)
+
+#### Update feature mask
 
 Before any parameters can be adjusted, the correct feature mask must be set with a kernel parameter.  Generally, setting the PP\_OVERDRIVE\_MASK bit `0x4000` in combination with the system's current mask is sufficient for adjusting the profile, clock, and voltage values.
 
@@ -263,6 +304,8 @@ amdgpu.ppfeaturemask=0x0007ffff
 
 Update kernel parameter.
 
+#### Performance profiles
+
 The amdgpu driver provides a sysfs API for adjusting certain power related parameters. The file `power_dpm_force_performance_level` is used for this. A full description of the profiles can be found in the [kernel documentation](https://www.kernel.org/doc/html/latest/gpu/amdgpu/thermal.html#power-dpm-force-performance-level).  The default is set to 'auto'.
 
 The performance profile must be set to manual to enable modification of power profiles, clock speeds, and voltages.
@@ -270,6 +313,8 @@ The performance profile must be set to manual to enable modification of power pr
 To change the current profile:
 
 `root #``echo 'manual' > /sys/class/drm/card0/device/power_dpm_force_performance_level`
+#### Power states
+
 The amdgpu driver provides a sysfs API for adjusting the heuristics related to switching between power levels in a power state. The file `pp_power_profile_mode` is used for this.  A full description of the profiles can be found in the [kernel documentation](https://www.kernel.org/doc/html/latest/gpu/amdgpu/thermal.html#pp-power-profile-mode).
 
 To view the supported profiles look at the contents of the `pp_power_profile_mode` file (the asterisk \* shows the current profile)
@@ -316,6 +361,8 @@ The power profiles can be modified by sending commands to the `pp_power_profile_
 For example, to change the `CUSTOM` power profile `GFXCLK` Booster Frequency from 800 to 500.
 
 `root #``echo '6 0 0 5 1 0 4 500 4587520 -65536 0' > /sys/class/drm/card0/device/pp_power_profile_mode`
+#### Power levels
+
 The amdgpu driver provides a sysfs API for adjusting what power levels are enabled for a given power state. The files `pp_dpm_sclk`, `pp_dpm_mclk`, `pp_dpm_socclk`, `pp_dpm_fclk`, `pp_dpm_dcefclk` and `pp_dpm_pcie` are used for this.  A full description of the profiles can be found in the [kernel documentation](https://www.kernel.org/doc/html/latest/gpu/amdgpu/thermal.html#pp-dpm).
 
 `pp_dpm_socclk` and `pp_dpm_dcefclk` interfaces are only available for Vega10 and later ASICs. `pp_dpm_fclk` interface is only available for Vega20 and later ASICs.
@@ -332,6 +379,8 @@ Reading back the files will show the available power levels within the power sta
 1: 541Mhz 
 2: 675Mhz 
 3: 1094Mhz
+
+#### Clock speed and voltage
 
 The amdgpu driver provides a sysfs API for adjusting the clocks and voltages in each power level within a power state. The `pp_od_clk_voltage` is used for this.  A full description of the profiles can be found in the [kernel documentation](https://www.kernel.org/doc/html/latest/gpu/amdgpu/thermal.html#pp-od-clk-voltage).
 
@@ -374,11 +423,21 @@ OD\_RANGE:
 These changes can be reverted.
 
 `root #``echo 'r' >  /sys/class/drm/card0/device/pp_od_clk_voltage`
+## Troubleshooting
+
+### Debug tools
+
+#### x11-apps/mesa-progs
+
 It might be helpful to install the package [x11-apps/mesa-progs](https://packages.gentoo.org/packages/x11-apps/mesa-progs), which provides the glxgears and glxinfo utilities.
 
 
 
+#### sys-apps/amdgpu\_top
+
 The AMD/Radeon usage viewer [app-misc/radeontop](https://packages.gentoo.org/packages/app-misc/radeontop) is no longer developed and incompatible with newer GPU's. [sys-apps/amdgpu\_top](https://packages.gentoo.org/packages/sys-apps/amdgpu_top) is a replacement and has a TUI and GUI interface.
+
+### Identifying which graphics card is in use
 
 First make sure that the kernel was compiled with the following settings:
 
@@ -479,6 +538,8 @@ DRI_PRIME=1 /usr/bin/chromium
 `user $````
 DRI_PRIME=1 /usr/bin/vlc
 ```
+### Prime Synchronization
+
 The [x11-drivers/xf86-video-amdgpu](https://packages.gentoo.org/packages/x11-drivers/xf86-video-amdgpu) driver does not support Prime Synchronization. This might cause tearing on monitors connected to the integrated GPU if the AMD GPU is set as the primary GPU. One possible workaround is to use the *modesetting* driver instead, to do this remove `amdgpu` from the `VIDEO_CARDS` variable. Or use a xorg configuration file to force the use of the *modesetting* driver. That being said, other issues may be encountered with the *modesetting* driver<sup>[\[26\]](https://wiki.gentoo.org#cite_note-26)</sup>.
 
 **`/etc/X11/xorg.conf.d/force-modesetting.conf`**
@@ -491,15 +552,23 @@ EndSection
 ```
 Another possible workaround is to set the integrated GPU as the primary GPU. This will **not** enable Prime Synchronization. However, tearing will be prevented nonetheless through AMD's *TearFree*. In this case it will be necessary to use the `DRI_PRIME=1` and `LIBVA_DRIVER_NAME=radeonsi`(for [VAAPI](https://wiki.gentoo.org/wiki/VAAPI)) variables on applications that should be rendered on the AMD GPU.
 
+### Fallback driver
+
 If having no other machine to browse web pages for solutions, the vesa or fbdev drivers can be used to start X without 3d and 2d acceleration.
 
 **`/etc/portage/package.use/00video`**
 
 ```
- VIDEO_CARDS: ... vesa fbdev
+*/* VIDEO_CARDS: ... vesa fbdev
 ```
 `root #``emerge --ask --update --newuse --deep @world`
+### Kernel
+
+#### Older kernels
+
 Older kernels that do not support the amdgpu driver will not provide the AMDGPU option. For VEGA and newer chips there is no video output without DC (Display Code), which was first included in vanilla Kernel 4.15. In both cases a fairly recent kernel can provide the required drivers. For very new AMD graphics cards and APUs trying a not yet stable kernel package (denoted by a **\~**, see [KEYWORDS](https://wiki.gentoo.org/wiki/KEYWORDS)) may provide the required kernel-sources.
+
+#### AMD Secure Memory Encryption
 
 If amdgpu fails to load or the screen stays frozen, it might be an incompatibility of the amdgpu module with AMD Secure Memory Encryption (SME).
 
@@ -513,19 +582,27 @@ Processor type and features  --->
     [ ]   Activate AMD Secure Memory Encryption (SME) by default [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for <code>CONFIG_AMD_MEM_ENCRYPT_ACTIVE_BY_DEFAULT</code> to find this item.
 `AMD_MEM_ENCRYPT` may remain enabled, but either `AMD_MEM_ENCRYPT_ACTIVE_BY_DEFAULT` must remain unset or the kernel command line option `mem_encrypt=off` must be used in order to turn Memory Encryption off. Likewise, with `mem_encrypt=on` SME can be activated for unaffected systems on the kernel command line or more permanently using `GRUB_CMDLINE_LINUX` in /etc/default/grub for GRUB.
 
+### AMDGPU/RadeonSI drivers do not work
+
 If the graphics card is not supported by including `amdgpu` and `radeonsi` alone in `VIDEO_CARDS`, try adding `radeon` to make.conf's `VIDEO_CARDS` definition. For example:
 
 **`/etc/portage/package.use/00video`**
 
 ```
- VIDEO_CARDS: -* amdgpu radeonsi radeon
+*/* VIDEO_CARDS: -* amdgpu radeonsi radeon
 ```
 After the values have been set update the system so the changes take effect:
 
 `root #``emerge --ask --changed-use --deep @world`
+### Full-screen windows perform poorly
+
 The installed version of [sys-devel/llvm](https://packages.gentoo.org/packages/sys-devel/llvm) may be too old. Try emerging an [unstable/testing version](https://wiki.gentoo.org/wiki/Knowledge_Base:Accepting_a_keyword_for_a_single_package).
 
+### GPU Name shows up as id
+
 The installed version of [x11-libs/libdrm](https://packages.gentoo.org/packages/x11-libs/libdrm) may be too old. Try emerging an [unstable/testing version](https://wiki.gentoo.org/wiki/Knowledge_Base:Accepting_a_keyword_for_a_single_package). This might also improve performance.
+
+### Xrandr doesn't see HDMI port with hybrid system
 
 On hybrid system with AMD iGPU and dGPU xrandr can show only eDP port, but not HDMI:
 
@@ -587,6 +664,8 @@ HDMI-A-1-0 connected 1920x1080+0+0 (normal left inverted right x axis y axis) 52
    1920x1080     60.00\*+  50.00    59.94  
 \[...\]
 
+### Screen Tearing
+
 One method to prevent screen tearing on Xorg is to enable the TearFree option in X11 like so:
 
 **`/usr/share/X11/xorg.conf.d/10-amdgpu.conf`**
@@ -599,12 +678,16 @@ Section "OutputClass"
     Option "TearFree" "true"
 EndSection
 ```
+### Flickering and white screens
+
 The suggested fix at upstream level is to set the `sg_display` module parameter like this:
 `amdgpu.sg_display=0`
 
 As an alternative apply the following patch to the kernel source code: [https://patchwork.freedesktop.org/patch/519023](https://patchwork.freedesktop.org/patch/519023)
 
 Seems to concern Linux kernels >= 6.1.4.
+
+### Frequent and Sporadic Crashes
 
 Some users may be experiencing frequent and seemingly random graphics card crashes while using the AMDGPU drivers.  Checking the kernel log may show many different errors, some common ones involving `*ERROR* Waiting for fences timed out!` and `*ERROR* ring gfx timeout`.  This is usually followed by a reset of the graphics device/drivers.
 
@@ -683,6 +766,8 @@ Combining all of this information together and comparing the reported and specif
 | [Specification](https://www.techpowerup.com/gpu-specs/gigabyte-rx-6650-xt-eagle.b9670) | 2055 MHz | 2410 MHz | 2635 MHz | 2190 MHz (17.5 Gbps) | 128-bit | 280.3 GBps | 
 | sysfs | - MHz | 2765 MHz | 2744/3150 MHz | 2400 MHz (19.2 Gbps) | 128-bit | 307.2 GBps (@1200 MHz) | 
 
+### Missing cursor on RDNA3 GPUs
+
 Hardware cursor doesn't work on new GPUs. To make cursor visible you should add software cursor option into 20-amdgpu.conf.
 
 **`/etc/X11/xorg.conf.d/20-amdgpu.conf`**
@@ -702,11 +787,17 @@ Some tools to monitor and configure the GPU are available (not limited to AMD.)
 
 These two are GUI tools:
 
+## See also
+
 - [AMDGPU-PRO](https://wiki.gentoo.org/wiki/AMDGPU-PRO) — the next generation *closed source* graphics component that operates on top of the open source [AMDGPU] drivers for newer AMD/ATI Radeon graphics cards.
 - [AMDVLK](https://wiki.gentoo.org/wiki/AMDVLK) — an open-source Vulkan driver for AMD Radeon™ graphics adapters on Linux
 
+## External resources
+
 - [A list of RadeonSI articles on the Phoronix site.](https://www.phoronix.com/scan.php?page=search&q=RadeonSI)
 - [\[1\]](https://www.kernel.org/doc/html/next/gpu/amdgpu/amd-hardware-list-info.html) Official kernel documentation on firmware version
+
+## References
 
 1. [↑](https://wiki.gentoo.org#cite_ref-1) AMD previously called the microarchitecture *Display Core* (DC). GCN stands for *Graphics Core Next* and was introduced with the Radeon HD7000 series (GCN1.0). It was superseded by RDNA, short for *Radeon DNA*, introduced with the Radeon RX 5000 series (NAVI) in 2019.
 2. [↑](https://wiki.gentoo.org#cite_ref-2) The actual Instruction Set Architecture (ISA) is defined by the *Display Core Engine* (DCE), which was superseded by *Display Core Next* (DCN), introduced with the *Raven Ridge* APUs (mobile Vega graphics core).

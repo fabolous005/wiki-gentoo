@@ -6,11 +6,15 @@ hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-12-20"
 categories: ['https://packages.gentoo.org/categories/games-misc']
-fingerprint: "5a97ad9f80a964bf"
+fingerprint: "5b97ad9f808b64ff"
 license: CC BY-SA 4.0
 ---
 
 # Games/misc
+
+From Gentoo Wiki
+
+\< [Games](https://wiki.gentoo.org/wiki/Games)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

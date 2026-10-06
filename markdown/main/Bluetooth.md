@@ -15,9 +15,17 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+**Resources**
+
 This article describes the configuration and usage of Bluetooth controllers and devices.
 
+## Prerequisites
+
 This article assumes that [udev](https://wiki.gentoo.org/wiki/Udev) and [USB](https://wiki.gentoo.org/wiki/USB) have been previously configured.
+
+## Installation
+
+### Kernel
 
 In most cases enabling [RFCOMM](https://en.wikipedia.org/wiki/List_of_Bluetooth_protocols#Radio_frequency_communication_.28RFCOMM.29) (`CONFIG_BT_RFCOMM`), [HIDP](https://en.wikipedia.org/wiki/List_of_Bluetooth_profiles#Human_Interface_Device_Profile_.28HID.29) (`CONFIG_BT_HIDP`), [HCI](https://en.wikipedia.org/wiki/List_of_Bluetooth_protocols#Host_Controller_Interface_.28HCI.29) USB (`CONFIG_BT_HCIBTUSB`) and/or HCI UART (`CONFIG_BT_HCIUART`) should be sufficient. The User-space I/O driver for HID input devices (`CONFIG_UHID`) should be enabled for Bluetooth keyboards and mice. `CONFIG_INPUT_UINPUT` is used also in some rare devices (<sup>[\[1\]](https://wiki.gentoo.org#cite_note-1)</sup>).
 
@@ -45,11 +53,20 @@ Networking support [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Se
    \[\*\] HID bus support [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for \<code>CONFIG\_HID\_SUPPORT\</code> to find this item. --->
        \[\*\] User-space I/O driver support for HID subsystem [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for \<code>CONFIG\_UHID\</code> to find this item.
 
+### Firmware
+
 Most Bluetooth controllers need [firmware](https://wiki.gentoo.org/wiki/Linux_firmware) to function. If the controller is supported by Linux, dmesg will usually indicate if firmware is needed. The [sys-kernel/linux-firmware](https://packages.gentoo.org/packages/sys-kernel/linux-firmware) package should provide the needed firmware, although some devices may need firmware that is available in another package or obtainable only from the manufacturer.
 
 `root #``emerge --ask --noreplace sys-kernel/linux-firmware`
+### USE flags
+
 [BlueZ](http://www.bluez.org/) is an implementation of the Bluetooth protocol stack for Linux, and it is provided by the [net-wireless/bluez](https://packages.gentoo.org/packages/net-wireless/bluez) package.
 
+
+### USE flags for
+            [net-wireless/bluez](https://packages.gentoo.org/packages/net-wireless/bluez)
+            
+            Bluetooth Tools and System Daemons for Linux
 
 | [+mesh](https://packages.gentoo.org/useflags/+mesh) | Add support for Bluetooth Mesh control application and advertising bearer. | 
 | [+obex](https://packages.gentoo.org/useflags/+obex) | Enable OBEX transfer support | 
@@ -78,13 +95,23 @@ USE="bluetooth"
 ```
 Alternatively, support can be enabled individually on important packages, for example, PulseAudio and PipeWire sound servers.
 
+### Emerge
+
 The system needs to be updated if the `USE` variable was set to `bluetooth`:
 
 `root #``emerge --ask --update --changed-use --deep @world`
 Install BlueZ:
 
 `root #``emerge --ask --noreplace net-wireless/bluez`
+## Configuration
+
+### Permissions
+
 Permissions for Bluetooth devices is handled automatically by D-Bus, and access is granted to all users by default.
+
+### Services
+
+#### OpenRC
 
 Start bluetooth:
 
@@ -92,19 +119,31 @@ Start bluetooth:
 Start bluetooth at boot:
 
 `root #``rc-update add bluetooth default`
+#### systemd
+
 Start bluetooth:
 
 `root #``systemctl start bluetooth`
 Start bluetooth at boot:
 
 `root #``systemctl enable bluetooth`
+### Enabling experimental mode
+
 Enable experimental mode:
 
 **`/etc/bluetooth/main.conf`**
 
+```
+[General]
+Experimental=true
+```
 Restart bluetooth to apply the configuration changes:
 
 `root #``rc-service bluetooth restart`
+## Usage
+
+### Battery level
+
 Bluez has a feature to report a device's battery level to upower. Upower should know the battery level of every device which supports sending its own battery level.
 
 `user $``upower --dump`
@@ -120,6 +159,8 @@ Alternatively
 
 `user $``bluetoothctl info`
 will show the battery percentage of connected devices.
+
+### Controller setup
 
 If, after following the steps described in the "[Installation](https://wiki.gentoo.org#Installation)" and "[Configuration](https://wiki.gentoo.org#Configuration)" sections above, Bluetooth doesn't appear to be working, or an attempt to enable the controller results in a message such as:
 
@@ -152,6 +193,11 @@ AutoEnable=true
 In some instances Bluetooth controllers may have been soft-blocked by power management tools in udev. Make sure `state` is set to `1` in the corresponding rule file, or remove the following line entirely:
 
 **`/etc/udev/rules.d/10-local-powersave.rules`**
+
+```
+SUBSYSTEM=="rfkill", ATTR{type}=="bluetooth", ATTR{state}="1"
+```
+### Device pairing
 
 Bluetooth devices need to be paired with a Bluetooth controller before they can be used. This is done by entering a PIN (or other code) on both devices via an interaction agent. Certain devices such as headsets do not allow entering an arbitrary PIN. These devices use a static PIN, which is usually 0000, 1111, 1234 or 9999. There are also devices (e.g. [Sony BD Remote Control](https://en.wikipedia.org/wiki/PlayStation_3_accessories#Blu-ray_Disc_Remote_Control)) that do not require PIN entry, and attempting to enter a PIN when prompted will result in failure. Pairing can be skipped with such devices.
 
@@ -220,7 +266,11 @@ Display information about the device:
 The device is now paired:
 
 `[bluetooth]#``quit`
+### hciconfig
+
 For information on hciconfig usage, refer to the [Bluetooth/hciconfig](https://wiki.gentoo.org/wiki/Bluetooth/hciconfig) page.
+
+## Wake from suspend
 
 To enable Bluetooth devices to wake the system from suspend, the USB device corresponding to the controller first needs to be configured to allow triggering wakeup. This can be done with a [udev](https://wiki.gentoo.org/wiki/Udev) rule.
 
@@ -242,10 +292,16 @@ Then create the following udev rule, replacing the `idVendor` and `idProduct` va
 
 **`/etc/udev/rules.d/10-bluetooth-wake.rules`**
 
+```
+SUBSYSTEM=="usb", ATTRS{idVendor}=="8087", ATTRS{idProduct}=="0026", ACTION=="add", ATTR{power/wakeup}="enabled"
+```
 Conversely, a udev rule can be created to match and configure all Bluetooth controller devices:
 
 **`/etc/udev/rules.d/10-bluetooth-wake.rules`**
 
+```
+SUBSYSTEM=="usb", ATTR{bDeviceClass}=="e0", ATTR{bDeviceSubClass}=="01", ACTION=="add", ATTR{power/wakeup}="enabled"
+```
 Test that the new rule applies to the USB device:
 
 `user $``udevadm test /sys/bus/usb/devices/3-10 2>&1 | grep wakeup````
@@ -259,10 +315,14 @@ Each paired Bluetooth device which should be allowed to trigger wake needs to be
 `user $``bluetoothctl wake 90:9C:4A:02:F1:C0 on`
 For testing on systemd systems, `systemctl suspend` will trigger an immediate suspend. The Bluetooth device should then trigger the system to wake up.
 
+## Disable Bluetooth
+
 To disable Bluetooth at runtime, run the following command:
 
 `root #``rfkill block bluetooth`
 To disable Bluetooth automatically on every boot, choose one of the following options:
+
+### Using udev to disable Bluetooth
 
 When using UDEV, just install the following rule which will disable Bluetooth:
 
@@ -271,6 +331,8 @@ When using UDEV, just install the following rule which will disable Bluetooth:
 ```
 SUBSYSTEM=="rfkill", ATTR{type}=="bluetooth", ATTR{state}="0"
 ```
+### Using OpenRC to disable Bluetooth
+
 When using [sys-apps/openrc](https://packages.gentoo.org/packages/sys-apps/openrc), install the following script for *local* service and ensure it is executable:
 
 **`/etc/local.d/disable-bluetooth.start`**
@@ -280,15 +342,30 @@ When using [sys-apps/openrc](https://packages.gentoo.org/packages/sys-apps/openr
 rfkill block bluetooth
 ```
 `root #``chmod o+x /etc/local.d/disable-bluetooth.start`
+### Disable Bluetooth at kernel level
+
 When the kernel has modular Bluetooth support, disable loading of Bluetooth modules:
 
 **`/etc/modprobe.d/blacklist-bluetooth.conf`**
+
+```
+blacklist bnep
+blacklist bluetooth
+blacklist btusb
+```
+## Utilities
 
 btmon, provided by [net-wireless/bluez](https://packages.gentoo.org/packages/net-wireless/bluez), provides access to the Bluetooth subsystem monitor infrastructure for reading HCI traces. Refer to the output of `btmon --help` for usage details.
 
 The [net-wireless/bluez-tools](https://packages.gentoo.org/packages/net-wireless/bluez-tools) package provides a number of utilities, including [bt-obex(1)](https://man.archlinux.org/man/bt-obex.1.en)[, for Bluetooth file transfers, and](https://wiki.gentoo.org/wiki/Special:MyLanguage/man_page) [bt-network(1)](https://man.archlinux.org/man/bt-network.1.en)[, a Bluetooth network manager.](https://wiki.gentoo.org/wiki/Special:MyLanguage/man_page)
 
+## Troubleshooting
+
+### TLP and laptop\_mode
+
 If [laptop-mode-tools](https://wiki.gentoo.org/wiki/Power_management/Guide) is installed or TLP make sure they're not disabling Bluetooth to save power.
+
+### XBOX ONE controller pairing
 
 It's a known issue that XBOX ONE wireless controllers will refuse to pair out of the box on most linux systems. To solve this issue ERTM needs to be disabled.
 
@@ -305,8 +382,17 @@ In most cases, this will automatically solve the issue. If it doesn't, add this 
 ```
 options bluetooth disable_ertm=Y
 ```
+### Notebook has a Synopsys DesignWare Controller
+
 Bluetooth support for this controller needs also these options in kernel config<sup>[\[4\]](https://wiki.gentoo.org#cite_note-4)</sup>:
 
+```
+Device Drivers  --->
+    Character devices  --->
+        Serial drivers  --->
+            [*] 8250/16550 and compatible serial support
+            [*] Support for Synopsys DesignWare 8250 quirks
+```
 ### Resolving firmware problems
 
 It happens that the firmware of bluetooth adapters enters a state where it is unable to pair with a certain (or all) bluetooth devices. Resetting the adapter might solve such problems.
@@ -318,6 +404,8 @@ In the case of a laptop with a built-in bluetooth adapter this might be achieved
 - Enter the firmware settings a second time and enable the bluetooth adapter again
 - Save and restart
 - Now try to pair the device again
+
+## See also
 
 - [Bluetooth headset](https://wiki.gentoo.org/wiki/Bluetooth_headset) — describes the configuration of Bluetooth [headsets](<https://en.wikipedia.org/wiki/Headset_(audio)>) within Gentoo Linux.
 - [Bluetooth input devices](https://wiki.gentoo.org/wiki/Bluetooth_input_devices) — describes the setup of [Bluetooth] input devices, for example a bluetooth mouse, on a Linux system.

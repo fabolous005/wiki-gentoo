@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Allow_only_known_usb_devices
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2020-10-17"
-fingerprint: be0c6a36f159b360
+fingerprint: b60d6a35f919f360
 license: CC BY-SA 4.0
 ---
 
@@ -21,6 +21,8 @@ This article describes how to protect a GNU/Linux system against rogue USB devic
 
 ### Kernel
 
+**Deprecated section**
+
 As of **Jan 31, 2019**, this section is **deprecated (obsolete)**. Contents are <u>no longer relevant</u>, and are intended for historical reference only!
 
 TLDR:
@@ -31,6 +33,36 @@ In kernel "sys-kernel/hardened-sources" we have two options for Physical Protect
 
 **make menuconfig options**
 
+```
+Security options  --->
+    Grsecurity  --->
+        [*] Grsecurity
+            Customize Configuration  --->
+                Physical Protections  --->
+                    [*] Deny new USB connections after toggle
+                    [ ]   Reject all USB devices not connected at boot
+GRKERNSEC_DENYUSB
+Related sysctl variables:
+    kernel.grsecurity.deny_new_usb
+If you say Y here, a new sysctl option with name "deny_new_usb"
+will be created.  Setting its value to 1 will prevent any new
+USB devices from being recognized by the OS.  Any attempted USB
+device insertion will be logged.  This option is intended to be
+used against custom USB devices designed to exploit vulnerabilities
+in various USB device drivers.
+For greatest effectiveness, this sysctl should be set after any
+relevant init scripts.  This option is safe to enable in distros
+as each user can choose whether or not to toggle the sysctl.
+GRKERNSEC_DENYUSB_FORCE
+If you say Y here, a variant of GRKERNSEC_DENYUSB will be enabled
+that doesn't involve a sysctl entry.  This option should only be
+enabled if you're sure you want to deny all new USB connections
+at runtime and don't want to modify init scripts.  This should not
+be enabled by distros.  It forces the core USB code to be built
+into the kernel image so that all devices connected at boot time
+can be recognized and new USB device connections can be prevented
+prior to init running.
+```
 It is a very good choice for servers in datacenter and server's rooms. But at reboot it is still vulnerable! Also it does not give the flexibility needed on workstations when we want to connect USB devices during run time. So let's write *eudev* rules to allow only known USB devices in the system.
 
 ## eudev
@@ -141,6 +173,44 @@ To authorize the device set *ATTR{authorized}="1"*, to block it, set *ATTR{autho
 
 **eudev rules for enable only known USB devices**
 
+```
+# 20151002
+# GPL-3
+# Enable only known devices
+# Skeep not USB
+SUBSYSTEM!="usb", GOTO="usb_end"
+# Skeep remove actions
+ACTION=="remove", GOTO="usb_end"
+# Linux Foundation
+# 2.0 root hub
+SUBSYSTEMS=="usb", ACTION=="add", ATTR{product}=="EHCI Host Controller", ATTR{serial}=="0000:00:1d.7", \
+  ATTR{idVendor}=="1d6b", ATTR{idProduct}=="0002", ATTR{bDeviceClass}=="09", ATTR{authorized}="1", GOTO="usb_end"
+# 1.1 root hub
+SUBSYSTEMS=="usb", ACTION=="add", ATTR{product}=="UHCI Host Controller", ATTR{serial}=="0000:00:1d.0", \
+  ATTR{idVendor}=="1d6b", ATTR{idProduct}=="0001", ATTR{bDeviceClass}=="09", ATTR{authorized}="1", GOTO="usb_end"
+SUBSYSTEMS=="usb", ACTION=="add", ATTR{product}=="UHCI Host Controller", ATTR{serial}=="0000:00:1d.1", \
+  ATTR{idVendor}=="1d6b", ATTR{idProduct}=="0001", ATTR{bDeviceClass}=="09", ATTR{authorized}="1", GOTO="usb_end"
+SUBSYSTEMS=="usb", ACTION=="add", ATTR{product}=="UHCI Host Controller", ATTR{serial}=="0000:00:1d.2", \
+  ATTR{idVendor}=="1d6b", ATTR{idProduct}=="0001", ATTR{bDeviceClass}=="09", ATTR{authorized}="1", GOTO="usb_end"
+SUBSYSTEMS=="usb", ACTION=="add", ATTR{product}=="UHCI Host Controller", ATTR{serial}=="0000:00:1d.3", \
+  ATTR{idVendor}=="1d6b", ATTR{idProduct}=="0001", ATTR{bDeviceClass}=="09", ATTR{authorized}="1", GOTO="usb_end"
+# Hub
+SUBSYSTEMS=="usb", ACTION=="add", ATTR{manufacturer}=="Example", ATTR{product}=="USB Hub", \
+  ATTR{idVendor}=="5555", ATTR{idProduct}=="5555", ATTR{bDeviceClass}=="09", ATTR{authorized}="1", GOTO="usb_end"
+SUBSYSTEMS=="usb", ACTION=="add", ATTR{manufacturer}=="Example", ATTR{product}=="USB Keyboard", \
+  ATTR{idVendor}=="4444", ATTR{idProduct}=="4444", ATTR{authorized}="1", GOTO="usb_end"
+SUBSYSTEMS=="usb", ACTION=="add", ATTR{manufacturer}=="Example", ATTR{product}=="USB Optical Mouse", \
+  ATTR{configuration}=="HID-compliant MOUSE", ATTR{idVendor}=="2222", ATTR{idProduct}=="2222", ATTR{authorized}="1", GOTO="usb_end"
+SUBSYSTEMS=="usb", ACTION=="add", ATTR{manufacturer}=="Example", ATTR{product}=="USB Optical Mouse", \
+  ATTR{idVendor}=="3333", ATTR{idProduct}=="3333", ATTR{authorized}="1", GOTO="usb_end"
+SUBSYSTEMS=="usb", ACTION=="add", ATTR{manufacturer}=="Example", ATTR{product}=="Storage Device 1", ATTR{serial}=="1111111111", \
+  ATTR{idVendor}=="1111", ATTR{idProduct}=="1111", ATTR{authorized}="1", GOTO="usb_end"
+SUBSYSTEMS=="usb", ACTION=="add", ATTR{manufacturer}=="Example", ATTR{product}=="Storage Device 2", ATTR{serial}=="2222222222", \
+  ATTR{idVendor}=="1111", ATTR{idProduct}=="1111", ATTR{authorized}="1", GOTO="usb_end"
+# Disable all other USB devices
+SUBSYSTEMS=="usb", ACTION=="add", ATTR{authorized}="0"
+LABEL="usb_end"
+```
 #### Smartphones, E-books, and so on
 
 Some multi-function modern devices like smartphones, e-books, and so on have many operation modes. It can operate as **USB storage device, USB camera, USB modem, USB network device**, ... So when we write rule for such devices we must add one rule for each operation modes!
@@ -164,12 +234,28 @@ It can change his serial number or ATTR{idProduct}=="000a" attribute! So **eudev
 
 **eudev rules for enable only known Smartphone**
 
+```
+SUBSYSTEMS=="usb", ACTION=="add", ATTR{manufacturer}=="Example", ATTR{product}=="Smartphone", ATTR{serial}=="000000000", \
+  ATTR{idVendor}=="0000", ATTR{idProduct}=="000a", ATTR{authorized}="1", GOTO="usb_end"
+SUBSYSTEMS=="usb", ACTION=="add", ATTR{manufacturer}=="Example", ATTR{product}=="Smartphone", ATTR{serial}=="000000000", \
+  ATTR{idVendor}=="0000", ATTR{idProduct}=="000b", ATTR{authorized}="1", GOTO="usb_end"
+SUBSYSTEMS=="usb", ACTION=="add", ATTR{manufacturer}=="Example", ATTR{product}=="Smartphone", ATTR{serial}=="000000000", \
+  ATTR{idVendor}=="0000", ATTR{idProduct}=="000c", ATTR{authorized}="1", GOTO="usb_end"
+SUBSYSTEMS=="usb", ACTION=="add", ATTR{manufacturer}=="Example", ATTR{product}=="Smartphone", ATTR{serial}=="000000000", \
+  ATTR{idVendor}=="0000", ATTR{idProduct}=="000d", ATTR{authorized}="1", GOTO="usb_end"
+```
 Or
 
 **`/lib/udev/rules.d/01-usb.rules`**
 
 **eudev rules for enable only known E-Book**
 
+```
+SUBSYSTEMS=="usb", ACTION=="add", ATTR{manufacturer}=="Example", ATTR{product}=="E-Book", ATTR{serial}=="000000001", \
+  ATTR{idVendor}=="0000", ATTR{idProduct}=="0000", ATTR{authorized}="1", GOTO="usb_end"
+SUBSYSTEMS=="usb", ACTION=="add", ATTR{manufacturer}=="Example", ATTR{product}=="E-Book", ATTR{serial}=="000000002", \
+  ATTR{idVendor}=="0000", ATTR{idProduct}=="0000", ATTR{authorized}="1", GOTO="usb_end"
+```
 ### Test eudev rules
 
 To test your script run the following command:

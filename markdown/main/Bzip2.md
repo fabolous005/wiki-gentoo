@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Bzip2
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-09-20"
-fingerprint: f2049a7bafa12b51
+fingerprint: f2049a7befa12b51
 license: CC BY-SA 4.0
 ---
 
@@ -25,6 +25,11 @@ The original bzip2 is [still maintained](https://sourceware.org/bzip2/downloads.
 
 ### USE flags
 
+
+### USE flags for
+            [app-arch/bzip2](https://packages.gentoo.org/packages/app-arch/bzip2)
+            
+            A high-quality data compressor used extensively by Gentoo Linux
 
 | [static](https://packages.gentoo.org/useflags/static) | !!do not set this during bootstrap!! Causes binaries to be statically linked instead of dynamically | 
 | [static-libs](https://packages.gentoo.org/useflags/static-libs) | Build static versions of dynamic libraries as well | 

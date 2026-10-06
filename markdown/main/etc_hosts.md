@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki//etc/hosts
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-07-04"
-fingerprint: f4cbe313ac69ffd0
+fingerprint: f46bfb13ec6dffc4
 license: CC BY-SA 4.0
 ---
 
 # /etc/hosts
+
+[/etc](https://wiki.gentoo.org/wiki//etc)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -19,12 +21,18 @@ The **/etc/hosts** file is a file associating host names with IP addresses. It c
 
 **`/etc/hosts`**
 
+```
+192.168.1.100   larry
+```
 It will then be possible to do things like `ssh user@larry`, rather than `ssh user@192.168.1.100`.
 
 The /etc/hosts file will only be consulted if the `files` is specified for the `hosts` entry in [nsswitch.conf(5)](https://man.archlinux.org/man/nsswitch.conf.5.en)[, e.g.:](https://wiki.gentoo.org/wiki/Special:MyLanguage/man_page)
 
 **`/etc/nsswitch.conf`**
 
+```
+hosts:      files dns
+```
 As DNS is not involved, tools like [host(1)](https://man.archlinux.org/man/host.1.en) [and](https://wiki.gentoo.org/wiki/Special:MyLanguage/man_page) [dig(1)](https://man.archlinux.org/man/dig.1.en) [cannot be used to test whether host name lookup is working; instead, one should use](https://wiki.gentoo.org/wiki/Special:MyLanguage/man_page) [getent(1)](https://man.archlinux.org/man/getent.1.en)[, e.g.:](https://wiki.gentoo.org/wiki/Special:MyLanguage/man_page)
 
 `user $``getent hosts larry`

@@ -5,15 +5,21 @@ url: https://wiki.gentoo.org/wiki/GRUB/Advanced_storage
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-05-04"
-fingerprint: "3caf611b288ebda0"
+fingerprint: "3cea411b288cb7a8"
 license: CC BY-SA 4.0
 ---
 
 # GRUB/Advanced storage
 
+[GRUB](https://wiki.gentoo.org/wiki/GRUB)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**outdated**. You can help the Gentoo community by verifying and
+
+[updating this article](https://wiki.gentoo.org/index.php?title=GRUB/Advanced_storage&action=edit).
 
 This section is based on converting a non-UEFI, MBR partition based system to boot from a GPT RAID enabled disk. It is currently incomplete, and partially edited from the previous version.
 
@@ -25,6 +31,9 @@ GRUB2 supports booting from an [LVM](https://wiki.gentoo.org/wiki/LVM) partition
 
 **Enabling the device-mapper USE flag for GRUB2**
 
+```
+sys-boot/grub:2 device-mapper
+```
 If GRUB2 is currently installed, re-emerge it using the `--newuse` option:
 
 `root #``emerge --ask --newuse sys-boot/grub:2`
@@ -58,6 +67,47 @@ In this section, we assume a system has three hard drives. /dev/sda is the origi
 
 **`/boot/grub/grub.cfg`**
 
+```
+menuentry 'Gentoo GNU/Linux, with Linux x86_64-3.14.14-gentoo' --class gentoo --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-x86_64-3.14.14-gentoo-advanced-8bb0e52c-d524-4af8-ac08-f3c9238c6040' {
+	load_video
+	set gfxpayload=keep
+	insmod gzio
+	insmod part_msdos
+	insmod part_gpt
+	insmod diskfilter
+	insmod mdraid1x
+	insmod ext2
+	set root='mduuid/660afb13150e817a0cdd36476d5b2c51'
+	if [ x$feature_platform_search_hint = xy ]; then
+	  search --no-floppy --fs-uuid --set=root --hint='mduuid/660afb13150e817a0cdd36476d5b2c51'  8bb0e52c-d524-4af8-ac08-f3c9238c6040
+	else
+	  search --no-floppy --fs-uuid --set=root 8bb0e52c-d524-4af8-ac08-f3c9238c6040
+	fi
+	echo	'Loading Linux x86_64-3.14.14-gentoo ...'
+	linux	/boot/kernel-3.14.14-gentoo domdadm root=UUID=8bb0e52c-d524-4af8-ac08-f3c9238c6040 ro  
+	echo	'Loading initial ramdisk ...'
+	initrd	/boot/initramfs-genkernel-x86_64-3.14.14-gentoo
+}
+ 
+menuentry 'Gentoo GNU/Linux mirror 2' --class gentoo --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-simple-8bb0e52c-d524-4af8-ac08-f3c9238c6040' {
+        load_video
+        insmod gzio
+        insmod part_msdos
+        insmod part_gpt
+	insmod mdraid1x
+        insmod ext2
+        set root=(mduuid/660afb13:150e817a:0cdd3647:6d5b2c51)
+        if [ x$feature_platform_search_hint = xy ]; then
+	          search --no-floppy --fs-uuid --set=root --hint-bios=hd1,msdos2 --hint-efi=hd1,msdos2 --hint-baremetal=ahci1,msdos2 --hint='hd1,msdos2'  8bb0e52c-d524-4af8-ac08-f3c9238c6040
+          else
+		  search --no-floppy --fs-uuid --set=root 660afb13:150e817a:0cdd3647:6d5b2c51
+        fi
+	echo    'Loading Linux 3.14.14-gentoo ...'
+	linux   /boot/kernel-3.14.14-gentoo domdadm root=/dev/disk/by-id/md-uuid-660afb13:150e817a:0cdd3647:6d5b2c51 ro
+	echo    'Loading initial ramdisk ...'
+	initrd  /boot/initramfs-genkernel-x86_64-3.14.14-gentoo
+}
+```
 `insmod part_gpt` (or `insmod part_msdos`) is needed otherwise GRUB2 will not be able to read the partition table.
 
 `insmod mdraid1x` is required for RAID v1.1 or higher. If using RAID v0.9 or v1.0 the RAID module might not be needed (`mdraid09` for v0.9) because the RAID information is stored at the end of the partition. Any references to `insmod raid` are obsolete.

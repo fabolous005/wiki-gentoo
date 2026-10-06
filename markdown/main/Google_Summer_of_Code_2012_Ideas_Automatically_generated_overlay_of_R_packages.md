@@ -5,15 +5,23 @@ url: https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Automatically
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-04-02"
-fingerprint: d135f04f42eff77c
+fingerprint: "9131704f42edf7ee"
 license: CC BY-SA 4.0
 ---
 
 # Google Summer of Code/2012/Ideas/Automatically generated overlay of R packages
 
+[Google Summer of Code](https://wiki.gentoo.org/wiki/Google_Summer_of_Code) |
+
+[2012](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012) |
+
+[Ideas](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+## [Automatically generated overlay of R packages]
 
 The R scientific language has a vast ecosystem of about 5000 packages and 40000 individual versions. It was attempted in the past to make Portage manage these packages directly. The last project was somewhat successful but suffered from some drawbacks. Some of them, like the lack of manifests, are a result of the particular kind of implementation which was chosen.
 
@@ -29,4 +37,8 @@ It is recommended you talk to one of the contacts below before you make an offic
 
 | Contacts | Required Skills | 
 |---|---|
-|  |  |
+|  |  | 
+
+#### Mailing List Archives
+
+ [Automatically generated overlay of R packages - Mailing List Archives](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Automatically_generated_overlay_of_R_packages/MailingListArchives)

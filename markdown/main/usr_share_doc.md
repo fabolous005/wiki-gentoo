@@ -5,11 +5,15 @@ url: https://wiki.gentoo.org/wiki//usr/share/doc/
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-04-23"
-fingerprint: "27fa9cbc4ba79ff4"
+fingerprint: "25fa9c9c4ba797f4"
 license: CC BY-SA 4.0
 ---
 
 # /usr/share/doc/
+
+From Gentoo Wiki
+
+\< [/usr](https://wiki.gentoo.org/wiki//usr)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

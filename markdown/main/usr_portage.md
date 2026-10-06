@@ -5,11 +5,15 @@ url: https://wiki.gentoo.org/wiki//usr/portage
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2021-10-09"
-fingerprint: "3eda1ada9497228a"
+fingerprint: bdfb1a9a3cb263c9
 license: CC BY-SA 4.0
 ---
 
 # /usr/portage
+
+From Gentoo Wiki
+
+\< [/usr](https://wiki.gentoo.org/wiki//usr)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

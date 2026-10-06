@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Gentoo_binhost/Available_packages_and_configur
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-09-09"
-fingerprint: "3a332686175f709"
+fingerprint: "3a33268e155f709"
 license: CC BY-SA 4.0
 ---
 
@@ -16,6 +16,8 @@ license: CC BY-SA 4.0
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
 **Gentoo binhost**
+
+**Binary packages**
 
 Which packages to build and provide on the [Gentoo binhost](https://wiki.gentoo.org/wiki/Gentoo_Binary_Host_Quickstart) is dependent on system architecture. Packages for a given architecture are compiled for specific profiles, and with specific *CFLAGS*. These are the **packages** that the Gentoo binhost currently provides, and the **settings** for which they are built, for each system architecture:
 

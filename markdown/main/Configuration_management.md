@@ -5,15 +5,19 @@ url: https://wiki.gentoo.org/wiki/Configuration_management
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2021-11-14"
-fingerprint: "905957786917abbd"
+fingerprint: "905957586917abbd"
 license: CC BY-SA 4.0
 ---
 
 # Configuration management
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 Configuration management software provides facilities for managing software configuration, in a centralized or hierarchical manner, with change monitoring.
 

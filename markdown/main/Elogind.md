@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Elogind
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-06-29"
-fingerprint: "9013fb5241a173c4"
+fingerprint: "8013fb5241a173c4"
 license: CC BY-SA 4.0
 ---
 
@@ -23,10 +23,21 @@ license: CC BY-SA 4.0
 
 The following kernel options are recommended:
 
+```
+General setup  --->
+    [*] Control Group support  --->
+File systems  --->
+    [*] Inotify support for userspace
+```
 In the unlikely (and not recommended) event that standard kernel features are enabled for manual configuration, elogind also requires `eventpoll`, `signalfd()` and `timerfd()` support. Most users can ignore this.
 
 ### USE flags
 
+
+### USE flags for
+            [sys-auth/elogind](https://packages.gentoo.org/packages/sys-auth/elogind)
+            
+            The systemd project's logind, extracted to a standalone package
 
 | [+acl](https://packages.gentoo.org/useflags/+acl) | Add support for Access Control Lists | 
 | [+pam](https://packages.gentoo.org/useflags/+pam) | Add support for PAM (Pluggable Authentication Modules) - DANGEROUS to arbitrarily flip | 

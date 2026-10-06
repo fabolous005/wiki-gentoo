@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Google_Pixelbook_(2017)
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-08-16"
-fingerprint: c4d378715ae63713
+fingerprint: c4c378515be6371b
 license: CC BY-SA 4.0
 ---
 
@@ -117,6 +117,9 @@ With so many pixels in such a small display, it is likely that the user will fin
 
 **`~/.Xresources`**
 
+```
+Xft.dpi: 144
+```
 Be sure to apply the changes with xrdb once done editing the file:
 
 `user $``xrdb ~/.Xresources`
@@ -128,6 +131,12 @@ The touchpad and touchscreen require CONFIG\_I2C\_HID\_ACPI (and possibly CONFIG
 
 **I2C\_HID\_ACPI**
 
+```
+Device Drivers  --->
+    HID support  --->
+        I2C HID support  --->
+            <M> HID over I2C transport layer ACPI driver
+```
 ### Audio
 
 Audio very likely will not work out of the box. PulseAudio, for example, will not detect the speakers or microphone. To get audio working, one must configure the kernel as seen below *and* copy firmware from a ChromeOS recovery image.
@@ -138,6 +147,14 @@ If using Genkernel, the default kernel config already has this enabled. Otherwis
 
 **SND\_SOC\_INTEL\_SKYLAKE**
 
+```
+Device Drivers  --->
+    <M> Sound card support  --->
+        <M> Advanced Linux Sound Architecture  --->
+            <M> ALSA for SoC audio support  --->
+                [*]   Intel ASoC SST drivers
+                    <M> All Skylake/SST Platforms
+```
 #### Firmware requirements
 
 Download and unzip the latest EVE recovery image from [here](https://chromiumdash.appspot.com/serving-builds?deviceCategory=Chrome%20OS).
@@ -174,6 +191,13 @@ Save the configuration in /usr/share/alsa/ucm2/Intel/kbl-r5514-5663-/kbl-r5514-5
 
 **`/usr/share/alsa/ucm2/Intel/kbl-r5514-5663-/kbl-r5514-5663-.conf`**
 
+```
+Syntax 3
+SectionUseCase."HiFi" {
+	File "HiFi.conf"
+	Comment "Default"
+}
+```
 Symlink kbl-r5514-5663-.conf:
 
 `root #``cd /usr/share/alsa/ucm2/conf.d/kbl-r5514-5663-/``root #``ln -sf ../../Intel/kbl-r5514-5663-/kbl-r5514-5663-.conf`
@@ -193,6 +217,28 @@ Udev can be used to rebind these keys. As an example, the following hwdb file wi
 
 **`/etc/udev/hwdb.d/61-eve-keyboard.hwdb`**
 
+```
+# Copyright 2017 The Chromium OS Authors. All rights reserved.
+# Distributed under the terms of the GNU General Public License v2
+#
+# Special keyboard mapping for Eve project. The keyboard has extra
+# "Assistant" and "Hamburger" keys.
+#
+evdev:atkbd:dmi:bvn*:bvr*:bd*:svnGoogle:pnEve:pvr*
+ KEYBOARD_KEY_5d=delete
+ KEYBOARD_KEY_d8=leftmeta
+ KEYBOARD_KEY_db=capslock
+ KEYBOARD_KEY_3b=back
+ KEYBOARD_KEY_3c=f5
+ KEYBOARD_KEY_3d=f11
+ KEYBOARD_KEY_3e=print
+ KEYBOARD_KEY_3f=brightnessdown
+ KEYBOARD_KEY_40=brightnessup
+ KEYBOARD_KEY_41=playpause
+ KEYBOARD_KEY_42=mute
+ KEYBOARD_KEY_43=volumedown
+ KEYBOARD_KEY_44=volumeup
+```
 Once this file exists, update the database as described [here](https://wiki.gentoo.org/wiki/Udev#Remapping_keys_and_buttons) and reboot the PC.
 
 #### Backlight
@@ -201,6 +247,11 @@ Ensure CONFIG\_CROS\_KBD\_LED\_BACKLIGHT is enabled in the kernel.
 
 **CROS\_KBD\_LED\_BACKLIGHT**
 
+```
+Device Drivers  --->
+    [*] Platform support for Chrome hardware  --->
+        <M> Backlight LED support for Chrome OS keyboards
+```
 The backlight brightness can then be adjusted by writing a value between 0 and 100 to /sys/class/leds/chromeos::kbd\_backlight/brightness. Setting up a keyboard combination/shortcut to cycle through some backlight values is an exercise left to the reader, though some inspiration can be found [here](https://copr-dist-git.fedorainfracloud.org/cgit/jmontleon/pixelbook/pixelbook-scripts.git/tree/pixelbook-keyboard-backlight).
 
 ## Troubleshooting

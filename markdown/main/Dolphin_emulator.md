@@ -5,15 +5,19 @@ url: https://wiki.gentoo.org/wiki/Dolphin_emulator
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-06-10"
-fingerprint: "4e224bfc5a9e3844"
+fingerprint: "46624bfc5a963844"
 license: CC BY-SA 4.0
 ---
 
 # Dolphin emulator
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+*Not to be confused with[KDE’s file manager](https://wiki.gentoo.org/wiki/Dolphin).*
 
 **Dolphin** is an emulator for two recent Nintendo video game consoles: the GameCube and the Wii.
 
@@ -21,6 +25,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [games-emulation/dolphin](https://packages.gentoo.org/packages/games-emulation/dolphin)
+            
+            Gamecube and Wii game emulator
 
 | [+evdev](https://packages.gentoo.org/useflags/+evdev) | Enable evdev input support | 
 | [+gui](https://packages.gentoo.org/useflags/+gui) | Enable support for a graphical user interface | 

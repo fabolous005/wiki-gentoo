@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Firefox/Sync_Server
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2016-02-01"
-fingerprint: "9de0a75b8b323985"
+fingerprint: "9d60775bef338985"
 license: CC BY-SA 4.0
 ---
 
 # Firefox/Sync Server
+
+[Firefox](https://wiki.gentoo.org/wiki/Firefox)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -42,18 +44,28 @@ The first step is replacing the following line by the .conf file to use on the .
 
 **Log configuration**
 
+```
+:configuration = file:%(here)s/sync.conf
+```
 Then ensure logs are saved in the proper place:
 
 **`{{{filename}}}`**
 
 **Log location**
 
+```
+class = handlers.RotatingFileHandler
+args = ('/tmp/sync-error.log',)
+```
 Then you may need to edit the server.wsgi file so they load the proper .ini files for that replace the following line by the correct file:
 
 **`{{{filename}}}`**
 
 **ini\_file**
 
+```
+:ini_file = os.path.join(_CURDIR, 'development.ini')
+```
 Finally edit the .conf file with the desired settings. The most important ones are the sqluri which define the path to the SQL databases and the fallback\_node which defines the URL to the server as seen by the client you may also want to disable the captcha.
 
 For a list of parameters check: [http://docs.services.mozilla.com/server-devguide/configuration.html](http://docs.services.mozilla.com/server-devguide/configuration.html)
@@ -79,3 +91,16 @@ Merge the following with the vhost configuration (the first line may require mod
 **`{{{filename}}}`**
 
 **Vhost configuration**
+
+```
+WSGIDaemonProcess sync user=mozsync group=mozsync processes=2 threads=25 python-path=/usr/lib64/python2.7/site-packages/syncreg/
+<Directory "/etc/mozilla-sync-server">
+    Options None
+    AllowOverride All
+    Order allow,deny
+    Allow from all
+</Directory>
+WSGIProcessGroup sync
+WSGIPassAuthorization On
+WSGIScriptAlias / /etc/mozilla-sync-server/server.wsgi
+```

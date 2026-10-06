@@ -5,11 +5,15 @@ url: https://wiki.gentoo.org/wiki/Embedded_Handbook/General/Cross-compiling_with
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-03-28"
-fingerprint: "24853a1e27f19d80"
+fingerprint: "2c853a1e26f19980"
 license: CC BY-SA 4.0
 ---
 
 # Embedded Handbook/General/Cross-compiling with Portage
+
+[Embedded Handbook](https://wiki.gentoo.org/wiki/Embedded_Handbook) |
+
+[General](https://wiki.gentoo.org/wiki/Embedded_Handbook/General)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

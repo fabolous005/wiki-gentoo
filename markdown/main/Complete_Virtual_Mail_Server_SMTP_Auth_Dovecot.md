@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Complete_Virtual_Mail_Server/SMTP_Auth_Dovecot
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-08-12"
-fingerprint: "9213c13a290ebb8e"
+fingerprint: "9213cbba280e3b9e"
 license: CC BY-SA 4.0
 ---
 
@@ -34,12 +34,32 @@ Postfix needs a few options to tell it to use sasl in its main.cf. These are not
 
 **Add sasl support to postfix.**
 
+```
+# Postfix to SASL authentication
+smtpd_sasl_type = dovecot
+smtpd_sasl_path = private/auth
+broken_sasl_auth_clients = no
+smtpd_sasl_auth_enable = yes
+smtpd_sasl_security_options = noanonymous
+smtpd_sasl_local_domain =
+smtpd_sasl_authenticated_header = yes
+smtpd_recipient_restrictions = permit_sasl_authenticated, permit_mynetworks, reject_unauth_destination, reject_rbl_client zen.spamhaus.org, reject_rbl_client bl.spamcop.net
+```
 ## Configuring dovecot
 
 **`/etc/dovecot/conf.d/10-master.conf`**
 
 **Dovecot auth connection**
 
+```
+# Postfix smtp-auth
+  unix_listener /var/spool/postfix/private/auth {
+    mode = 0660
+    user = postfix
+    group = postfix
+  }
+  user = postgres
+```
 ## Testing
 
 To verify sasl support telnet can be used to check for the `AUTH` statement:
@@ -105,3 +125,7 @@ Optionally, `smtpd_sasl_authenticated_header` can be disabled again. It is very 
 **`/etc/postfix/main.cf`**
 
 **Add sasl support to postfix**
+
+```
+smtpd_sasl_authenticated_header = no
+```

@@ -5,15 +5,19 @@ url: https://wiki.gentoo.org/wiki/Google_Season_of_Docs/2019/Ideas/PMS_Rationale
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-03-29"
-fingerprint: b5f0004532aac7f8
+fingerprint: b5f0004536aac7f8
 license: CC BY-SA 4.0
 ---
 
 # Google Season of Docs/2019/Ideas/PMS Rationale
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+## [PMS Rationale]
 
 [PMS](https://wiki.gentoo.org/wiki/Project:Package_Manager_Specification) is the specification behind Gentoo's ebuild and repository format. It is rather good as a specification goes, and we manage to fix issues and update the technical part. What is lacking is a extensive rationale section covering all the decisions made in the past.
 

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Fiio_K11
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-08-07"
-fingerprint: "3e4b0227db43f3d0"
+fingerprint: "3e4a00279f63d390"
 license: CC BY-SA 4.0
 ---
 
@@ -31,10 +31,40 @@ First, configure PipeWire to enable additional rates:
 
 **`~/.config/pipewire/pipewire.conf.d/fiio-k11-rates.conf`**
 
+```
+context.properties = {
+    # Set default rate but allow switching to match the source file
+    default.clock.rate          = 48000
+    default.clock.allowed-rates = [ 44100 48000 88200 96000 176400 192000 352800 384000 ]
+    # Maximum quality resampling (Speex quality 14 or 15)
+    # Useful when multiple streams at different rates are playing simultaneously
+    stream.properties = {
+        resample.quality = 15
+    }
+}
+```
 Then configure WirePlumber to open the device at its full 32-bit depth:
 
 **`~/.config/wireplumber/wireplumber.conf.d/51-fiio-k11.conf`**
 
+```
+monitor.alsa.rules = [
+  {
+    matches = [
+      {
+        node.name = "~alsa_output.usb-FiiO_K11.*"
+      }
+    ]
+    actions = {
+      update-props = {
+        audio.format = "S32LE"
+        api.alsa.period-size = 1024
+        api.alsa.headroom = 1024
+      }
+    }
+  }
+]
+```
 Finally, reload the daemons:
 
 `user $``systemctl --user daemon-reload``user $``systemctl --user restart pipewire pipewire-pulse wireplumber`

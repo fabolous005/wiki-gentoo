@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Extreme_TuxRacer
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-07-23"
-fingerprint: b7f1140d9121ac33
+fingerprint: b5f1140d9121ac33
 license: CC BY-SA 4.0
 ---
 
 # Extreme TuxRacer
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

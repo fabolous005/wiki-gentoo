@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Gentoo_FreeBSD/Developers_Note
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2020-02-14"
-fingerprint: d83efcea7c464337
+fingerprint: d83efcea7d464317
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Archived article**
 
 This article is **archived (obsolete)**. Contents are surely incorrect for current usage, and are intended for historical reference only.
 
@@ -117,6 +119,8 @@ NOOVERLAY=1 \
 
 Download the sample script for easy creation of a forcestage3 tarball:
 
+[https://gitweb.gentoo.org/proj/gentoo-bsd.git/plain/scripts/mkstages/create\_forcestage3.sh](https://gitweb.gentoo.org/proj/gentoo-bsd.git/plain/scripts/mkstages/create_forcestage3.sh)
+
 On completion, it will be displayed FORCESTAGE3. Please set when you run stages\_builder.sh.
 
 ### amd64-fbsd
@@ -141,6 +145,8 @@ bash create_forcestage3.sh
 ## stages\_builder.sh
 
 Download a sample script to easily create new stages:
+
+[https://gitweb.gentoo.org/proj/gentoo-bsd.git/plain/scripts/mkstages/stages\_builder.sh](https://gitweb.gentoo.org/proj/gentoo-bsd.git/plain/scripts/mkstages/stages_builder.sh)
 
 ### amd64-fbsd
 
@@ -173,6 +179,8 @@ bash /tmp/stages_builder.sh x86 &> ~/x86-fbsd-10.2.log
 ## Run the catalyst manually
 
 Sample spec files are available from gentoo-bsd overlay. Please use after replace the contents.
+
+[https://gitweb.gentoo.org/proj/gentoo-bsd.git/tree/scripts/mkstages/specs/](https://gitweb.gentoo.org/proj/gentoo-bsd.git/tree/scripts/mkstages/specs/)
 
 `root #````
 catalyst -C target=snapshot version_stamp=20171201

@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Gentoo_Java_USE_flags
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-07-18"
-fingerprint: c7c21bf966f84529
+fingerprint: c7c21bf966fa4529
 license: CC BY-SA 4.0
 ---
 
 # Gentoo Java USE flags
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

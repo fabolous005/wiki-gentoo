@@ -17,6 +17,8 @@ license: CC BY-SA 4.0
 
 **Gentoo binhost**
 
+**Binary packages**
+
 Gentoo offers prebuilt binary packages through  the **Gentoo binary package host**, for quicker and easier package [installation](https://wiki.gentoo.org/wiki/Emerge#Install_a_package) and [updates](https://wiki.gentoo.org/wiki/Update). Also called the **Gentoo binhost** for short, it provides thousands of packages that can be installed without the need to compile code locally, or to install build-time dependencies, giving Gentoo users even more choice and convenience!
 
 The Gentoo binhost leverages [Portage](https://wiki.gentoo.org/wiki/Portage)'s longstanding [support for binary packages](https://wiki.gentoo.org/wiki/Binary_package_guide) to systematically provide a huge array of prebuilt packages. It hosts commonly used packages, for a range of common [USE flag](https://wiki.gentoo.org/wiki/USE_flag) configurations, for several system architectures, and with optional optimizations for more recent hardware.
@@ -156,7 +158,7 @@ Below are some useful settings that can be applied via `EMERGE_DEFAULT_OPTS` in 
 
 - \* When the option is explicitly set to y(es), the warning is disabled.
 
-- \* When the option is explicitly set to n(o), the differences between a user's configuration and the configuration used to make the binary package are ignored, and the binary package is installed anyway. 
+- \* When the option is explicitly set to n(o), the differences between a user's configuration and the configuration used to make the binary package are ignored, and the binary package is installed anyway.  **Warning:** Dangerous.
 
 - In some cases, it is desirable to sacrifice choice of USE flags in order to expand the number of binary packages that can be installed. Leaving the option unset is therefore useful, because portage will print possible package.use lines which can be used to opt in to those binaries. Otherwise, it is best to set the option to y(es).
 
@@ -230,3 +232,7 @@ In the past, /etc/portage/gnupg may have been used for older methods of verifyin
 - [Emerge](https://wiki.gentoo.org/wiki/Emerge) — the main command-line interface to [Portage](https://wiki.gentoo.org/wiki/Portage)
 - [Portage](https://wiki.gentoo.org/wiki/Portage) — the official [package manager](https://en.wikipedia.org/wiki/Package_manager) and [distribution system](https://www.gentoo.org/get-started/about/) for Gentoo.
 - [Project:Binhost](https://wiki.gentoo.org/wiki/Project:Binhost) — aims to provide readily installable, precompiled packages for a subset of configurations, via central binary package hosting
+
+## References
+
+1. [↑](https://wiki.gentoo.org#cite_ref-1) [Gentoo forums post](https://forums.gentoo.org/viewtopic-p-8819825.html#8819825). Accessed on 2024-03-17.

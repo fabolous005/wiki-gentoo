@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/GNOME/GDM
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-08-03"
-fingerprint: d2dc9f792db3a895
+fingerprint: d2dc97796db3a895
 license: CC BY-SA 4.0
 ---
 
 # GNOME/GDM
+
+[GNOME](https://wiki.gentoo.org/wiki/Special:MyLanguage/GNOME)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -84,6 +86,14 @@ The new setting will take effect after restarting the GDM service.
 
 **`/lib/udev/rules.d/61-gdm.rules`**
 
+```
+# disable Wayland on Cirrus chipsets
+ATTR{vendor}=="0x1013", ATTR{device}=="0x00b8", ATTR{subsystem_vendor}=="0x1af4", ATTR{subsystem_device}=="0x1100", RUN+="/usr/libexec/gdm-disable-wayland"
+# disable Wayland on Hi1710 chipsets
+ATTR{vendor}=="0x19e5", ATTR{device}=="0x1711", RUN+="/usr/libexec/gdm-disable-wayland"
+# disable Wayland when using the proprietary nvidia driver
+#DRIVER=="nvidia", RUN+="/usr/libexec/gdm-disable-wayland"
+```
 ### GNOME Fails to Start Under Wayland with Proprietary NVIDIA Driver
 
 In some cases, when using the proprietary NVIDIA driver, GNOME may fail to start properly under Wayland and return control to GDM, causing the login screen to reappear in a loop. This issue is often related to how the NVIDIA driver handles threading for kernel mode setting (KMS).
@@ -129,6 +139,10 @@ Ensure that the system allows sufficient realtime priority by creating or editin
 
 **`/etc/security/limits.d/99-realtime.conf`**
 
+```
+@realtime - rtprio 99
+@realtime - memlock unlimited
+```
 This configuration grants users in the `realtime` group the ability to use high-priority scheduling and lock memory for realtime operations.
 
 ### GDM produces an all-black screen when more than one video driver is loaded
@@ -139,6 +153,12 @@ If this happens, a workaround is to temporarily blacklist the secondary GPU driv
 
 **`/etc/modprobe.d/blacklist.conf`**
 
+```
+# Force AMDGPU to load first
+blacklist nvidia
+blacklist nouveau
+blacklist radeon
+```
 Then, after GDM launches, switch to another tty and load the secondary GPU's driver. It will then be possible to switch back to GDM and start the WM, which if it can accept more than one GPU driver will utilize them.
 
 ### GDM ignores my keyboard layout

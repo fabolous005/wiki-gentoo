@@ -24,6 +24,11 @@ The *GNU C library*, aka **glibc**,  is the default [C library](https://wiki.gen
 ### USE flags
 
 
+### USE flags for
+            [sys-libs/glibc](https://packages.gentoo.org/packages/sys-libs/glibc)
+            
+            GNU libc C library
+
 | [+clone3](https://packages.gentoo.org/useflags/+clone3) | Enable the new clone3 syscall within glibc. Can be disabled to allow compatibility with older Electron applications. | 
 | [+crypt](https://packages.gentoo.org/useflags/+crypt) | build and install libcrypt and crypt.h | 
 | [+multiarch](https://packages.gentoo.org/useflags/+multiarch) | enable optimizations for multiple CPU architectures (detected at runtime) | 

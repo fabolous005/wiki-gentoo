@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Gentoo_FreeBSD/Upgrade_Guide
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2020-02-14"
-fingerprint: "3e1557669caffd8f"
+fingerprint: "3e1557669c8ffd8f"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Archived article**
 
 This article is **archived (obsolete)**. Contents are surely incorrect for current usage, and are intended for historical reference only.
 
@@ -422,6 +424,8 @@ Available profile symlink targets:
 ## Sample script to update automatically
 
 You can get the sample script for easy updates.
+
+[https://gitweb.gentoo.org/proj/gentoo-bsd.git/plain/scripts/automatic\_updater.sh](https://gitweb.gentoo.org/proj/gentoo-bsd.git/plain/scripts/automatic_updater.sh)
 
 | Argument 1 | Target Version (e.g. 11.1) | 
 | Argument 2 | kernel, freebsd\_userland, world | 

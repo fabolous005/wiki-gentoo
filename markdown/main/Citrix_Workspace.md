@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Citrix_Workspace
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-07-20"
-fingerprint: da5e94708d4ecacb
+fingerprint: da5e94608d4e4acb
 license: CC BY-SA 4.0
 ---
 
 # Citrix Workspace
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

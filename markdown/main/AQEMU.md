@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/AQEMU
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-08-27"
-fingerprint: d6c3b90f07db8960
+fingerprint: d6c3b90f07db8970
 license: CC BY-SA 4.0
 ---
 
 # AQEMU
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -21,7 +23,7 @@ AQEMU is a user-friendly GUI front-end to the [QEMU](https://wiki.gentoo.org/wik
 
 ### USE flags
 
-*app-emulation/aqemu*correct?
+Cannot load package information. Is the atom *app-emulation/aqemu* correct?
 
 ### Emerge
 

@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Android/adb
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-07-09"
-fingerprint: "9e29c81dcb09bbc8"
+fingerprint: "9e29c81dcb09fbc8"
 license: CC BY-SA 4.0
 ---
 
 # Android/adb
+
+[Android](https://wiki.gentoo.org/wiki/Android)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

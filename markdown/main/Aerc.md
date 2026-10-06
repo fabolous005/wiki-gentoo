@@ -24,6 +24,13 @@ aerc is a lightweight, command-line [mail user agent](https://en.wikipedia.org/w
 ### USE flags
 
 
+### USE flags for
+            [mail-client/aerc](https://packages.gentoo.org/packages/mail-client/aerc)
+            
+            Email client for your terminal
+
+| [notmuch](https://packages.gentoo.org/useflags/notmuch) | Enable support for net-mail/notmuch | 
+
 ### Emerge
 
 `root #``emerge --ask mail-client/aerc`

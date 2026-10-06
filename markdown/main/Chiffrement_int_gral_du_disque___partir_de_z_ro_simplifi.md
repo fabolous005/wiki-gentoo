@@ -225,12 +225,18 @@ Les modules suivants doivent être ajoutés à la directive add\_dracutmodules d
 
 **Composants minimaux requis pour déchiffrer les volumes LUKS à l'aide de dracut**
 
+```
+add_dracutmodules+=" crypt dm rootfs-block "
+```
 Si des clés GPG sont utilisées, le module suivant doit également être ajouté : **crypt-gpg**
 
 **`/etc/dracut.conf`**
 
 **Composants minimum nécessaires pour déchiffrer les volumes LUKS à l'aide de dracut**
 
+```
+add_dracutmodules+=" crypt crypt-gpg dm rootfs-block "
+```
 Dracut peut être configuré pour être construit avec la configuration pour LUKS codée en dur, les informations sur le premier disque doivent être obtenues :
 
 `root #``lsblk -o name,uuid`
@@ -245,10 +251,16 @@ nvme0n1
 
 **Paramètres cmdline intégrés pour le déchiffrage de rootfs**
 
+```
+kernel_cmdline+=" rd.luks.uuid=4bb45bd6-9ed9-44b3-b547-b411079f043b rd.luks.key=/crypt_key.luks.gpg:UUID=BDF2-0139 "
+```
 Si vous utilisez systemd comme init, vous devez également ajouter l'use flag **cryptsetup** :
 
 **`/etc/portage/package.use/systemd`**
 
+```
+sys-apps/systemd cryptsetup
+```
 Et faire un rebuild :
 
 `root #``emerge --ask --newuse sys-apps/systemd`
@@ -275,6 +287,12 @@ Une fois l'*initramfs* extrait dans /usr/src/initramfs, le noyau peut être conf
 
 **Intégration l'initramfs dans le noyau**
 
+```
+General Setup --->
+[*] Initial RAM filesystem and RAM disk (initramfs/initrd) support
+    (/usr/src/initramfs) Initramfs source file(s)
+[*]   Support initial ramdisk/ramfs compressed using gzip
+```
 Équivalent en .config :
 
 Avec cette configuration, le noyau intégrera automatiquement ce qui existe sous /usr/src/initramfs dans le noyau lorsqu'il est construit, et tentera de l'utiliser au démarrage. Ceci est particulièrement utile pour un démarrage [Secure Boot](https://wiki.gentoo.org/wiki/Secure_Boot).
@@ -306,6 +324,9 @@ Une fois les UUID et les labels des partitions identifiés, le fichier [/etc/fst
 
 **`/mnt/gentoo/etc/fstab`**
 
+```
+'"`UNIQ--pre-00000021-QINU`"'
+```
 ### Finalisation de l'installation de Gentoo
 
 A ce stade, l'installation de Gentoo peut être poursuivie normalement : [Installation d'une archive tar](https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Installation/fr#Installation_d.27une_archive_tar)
@@ -318,17 +339,29 @@ Le [trim](<https://en.wikipedia.org/wiki/Trim_(computing)>) SSD permet à un sys
 
 **`/etc/default/grub`**
 
+```
+GRUB_CMDLINE_LINUX="...root_trim=yes"
+```
 Si vous utilisez dracut pour générer les intiramfs, utilisez :
 
 **`/etc/default/grub`**
 
+```
+GRUB_CMDLINE_LINUX="...rd.luks.allow-discards"
+```
 Si vous utilisez initramfs basé sur un système utilisant systemd, utilisez :
 
 **`/etc/default/grub`**
 
+```
+GRUB_CMDLINE_LINUX="...rd.luks.options=discard"
+```
 Cela indiquera au noyau d'activer trim sur la racine. Modifiez le fichier de configuration /etc/lvm/lvm.conf :
 
 **`/etc/lvm/lvm.conf`**
 
+```
+issue_discards = 1
+```
 Cela notifiera à la couche LVM d'activer trim sur les disques SSD.
 Lors de l'utilisation de disques SSD et de l'UEFI-boot, la séquence de démarrage peut être trop rapide. Lorsque vous entrez la phrase d'authentification correcte, le noyau se plaindra de modules manquants ou de l'absence de périphérique racine. Essayez d'ajouter `rootdelay=3` à `GRUB_CMDLINE_LINUX_DEFAULT` dans /etc/default/grub, ou ajoutez-le directement en mode édition du menu GRUB lors du démarrage.

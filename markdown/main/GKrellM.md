@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/GKrellM
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2019-09-28"
-fingerprint: bc00350c2d11d9fe
+fingerprint: "3c00350c2d01d8fe"
 license: CC BY-SA 4.0
 ---
 
@@ -27,6 +27,11 @@ If you want to try another program similar to GKrellM you can read about [Conky]
 
 ### USE flags
 
+
+### USE flags for
+            [app-admin/gkrellm](https://packages.gentoo.org/packages/app-admin/gkrellm)
+            
+            Single process stack of various system monitors
 
 | [+server](https://packages.gentoo.org/useflags/+server) | Build the server (gkrellmd) | 
 | [X](https://packages.gentoo.org/useflags/X) | Build the X11 gui (gkrellm) | 

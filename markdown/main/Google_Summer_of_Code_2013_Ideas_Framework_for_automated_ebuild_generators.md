@@ -5,15 +5,23 @@ url: https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2013/Ideas/Framework_for
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2018-11-09"
-fingerprint: f329786f9dfd03f6
+fingerprint: f328796f9dfd03f2
 license: CC BY-SA 4.0
 ---
 
 # Google Summer of Code/2013/Ideas/Framework for automated ebuild generators
 
+[Google Summer of Code](https://wiki.gentoo.org/wiki/Google_Summer_of_Code) |
+
+[2013](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2013) |
+
+[Ideas](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2013/Ideas)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+## [Framework for automated ebuild generators]
 
 **Completed in 2013**
 

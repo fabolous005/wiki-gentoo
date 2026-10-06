@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/DGX_Spark
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-09-11"
-fingerprint: cfb10c2e2a8ee52e
+fingerprint: cfb10c2e2a8ee72e
 license: CC BY-SA 4.0
 ---
 
@@ -45,6 +45,9 @@ This is corroborated by the community project [RageLtd/linux-dgx-spark](https://
 
 GB10 needs these two parameters on every boot:
 
+```
+pci=pcie_bus_safe initcall_blacklist=tegra234_cbb_init
+```
 ## Installation (chroot method from DGX OS)
 
 This follows the same shape as the Handbook's "installing from an existing Linux system" method, using the stock DGX OS as the host environment.
@@ -63,6 +66,10 @@ Follow the regular [arm64 Handbook](https://wiki.gentoo.org/index.php?title=Hand
 
 Add the public overlay that carries GB10-specific kernel packages:
 
+ *`emaint sync -r clx`*
+
+```
+```
 Two options are provided, both under `sys-kernel/`:
 
 - sys-kernel/dgx-spark-kernel-bin
@@ -75,6 +82,12 @@ Two options are provided, both under `sys-kernel/`:
 
 `grub-install` and a hand-written `grub.cfg` work as normal for arm64-efi; the only DGX Spark-specific requirement is including the kernel command line parameters from [#Required kernel command line parameters](https://wiki.gentoo.org#Required_kernel_command_line_parameters):
 
+```
+menuentry 'Gentoo' {
+	linux /vmlinuz-<kver> root=UUID=<your-root-uuid> rw pci=pcie_bus_safe initcall_blacklist=tegra234_cbb_init
+	initrd /initramfs-<kver>.img
+}
+```
 `root #``grub-install --target=arm64-efi --efi-directory=/boot`
 ## Networking
 

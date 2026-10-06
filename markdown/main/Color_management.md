@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Color_management
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-02-26"
-fingerprint: c6211e3f6f77a3ec
+fingerprint: c6211f3f2f77a3e4
 license: CC BY-SA 4.0
 ---
 
@@ -97,3 +97,9 @@ The package bundles a standalone binary utility darktable-cmstest<sup>[\[3\]](ht
 
 - Color calibration section or even an outright article as it's probably complicated enough on its own on Linux.
 - More applications such as \[\[Inkscape, Blender and other graphics processing tools.
+
+## References
+
+1. [↑](https://wiki.gentoo.org#cite_ref-1) [Version 4 ICC Specification](https://www.color.org/v4spec.xalter), ICC. Retrieved on September 19, 2022
+2. [↑](https://wiki.gentoo.org#cite_ref-2) [ICC Profiles In X Specification](http://www.burtonini.com/computing/x-icc-profiles-spec-0.2.html) (20 Feb 2007, Ross Burton)
+3. [↑](https://wiki.gentoo.org#cite_ref-3) [darktable 3.4 user manual - darktable-cmstest](https://www.darktable.org/usermanual/en/special-topics/program-invocation/darktable-cmstest/)

@@ -104,6 +104,9 @@ Define where collectd-web shall look for rrd files:
 
 **`/etc/collectd/collection.conf`**
 
+```
+datadir: "/var/lib/collectd/rrd"
+```
 ## Usage
 
 Point your browser at the reverse proxy or (in case you using default Apache configuration) at [http://localhost/collectd-web](http://localhost/collectd-web).

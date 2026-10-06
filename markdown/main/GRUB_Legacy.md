@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/GRUB_Legacy
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-10-06"
-fingerprint: "9c87f5da8fafb4cd"
+fingerprint: "9e87f59a8fafb4cd"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Archived article**
 
 This article is
 
@@ -86,6 +88,13 @@ When GRUB boots from the USB disk, for GRUB itself it is the first hard disk. It
 
 **`grub.conf`**
 
+```
+default 0
+timeout 10
+title gentoo USB
+root (hd0,1)
+kernel /boot/kernel-3.4.9 rootwait root=/dev/sdd2
+```
 In contrast, the kernel sees the USB disk as /dev/sdd, the `root=` kernel parameter has to contain `/dev/sdd2`.
 
 Here pass GRUB the names, under which Linux sees it now. First chroot into /mnt/sdd2. Fire up GRUB, passing the root of the USB Linux with

@@ -11,6 +11,8 @@ license: CC BY-SA 4.0
 
 # Audacious
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
@@ -24,8 +26,18 @@ license: CC BY-SA 4.0
 #### Audacious
 
 
+### USE flags for
+            [media-sound/audacious](https://packages.gentoo.org/packages/media-sound/audacious)
+            
+            Lightweight and versatile audio player
+
 #### Audacious plugins
 
+
+### USE flags for
+            [media-plugins/audacious-plugins](https://packages.gentoo.org/packages/media-plugins/audacious-plugins)
+            
+            Lightweight and versatile audio player
 
 | [+alsa](https://packages.gentoo.org/useflags/+alsa) | Add support for media-libs/alsa-lib (Advanced Linux Sound Architecture) | 
 | [+mp3](https://packages.gentoo.org/useflags/+mp3) | Add support for reading mp3 files | 
@@ -98,10 +110,8 @@ If [CDROM](https://wiki.gentoo.org/wiki/CDROM) is configured correctly, "Play CD
 
 
 
-**`/etc/portage/package.use`**
-
-**Enabling cdda locally**
+FILE **`/etc/portage/package.use`****Enabling cdda locally**
 
 ```
- cdda
+media-plugins/audacious-plugins cdda
 ```

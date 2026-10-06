@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-09-06"
-fingerprint: e7298b4e0a31b3b8
+fingerprint: e729ba4f0a21a3b8
 license: CC BY-SA 4.0
 ---
 
@@ -27,9 +27,20 @@ You don't have to apply for one of these ideas! You can come up with your own, a
 
 We have a **custom application template** that we will ask you to fill out. Here it is:
 
+```
+'''Congratulations on applying for a project with Gentoo!''' To improve your chances of succeeding with this project, we want to make sure you're sufficiently prepared to invest a full summer's worth of time on it. '''In addition to the usual application, there are 2 specific actions and 2 pieces of info we would like to see from you:'''
+* '''Use the tools that you will use in your project to make changes to code''' (e.g., source code management [SCM] software such as CVS, Subversion, or git). Please use the same SCM as you will use for your project to check out one of our [https://anoncvs.gentoo.org/ repositories] ([http://git.overlays.gentoo.org/gitweb/ more repositories]), make a change to it, and post that change as a [http://www.network-theory.co.uk/articles/patchintro.html patch] on a mailing list or [https://bugs.gentoo.org/ bug]. Please fix a real bug reported in [https://bugs.gentoo.org/ Bugzilla] to show that you can use the tools to make a meaningful change. Your contact in Gentoo can help you determine which SCM and repository you should use for this as well as a good bug to fix. If your idea doesn't have a contact, please get in touch with us on the [https://www.gentoo.org/main/en/lists.xml gentoo-soc mailing list] or in real-time [irc://irc.gentoo.org/gentoo-soc on IRC]. Once you've made your change, link to it from your application.
+	
+* '''Participate in our development community.''' Please make a post to one of our [https://www.gentoo.org/main/en/lists.xml mailing lists] and link to it from your application ([https://archives.gentoo.org archives.gentoo.org] holds past postings). The gentoo-soc list would be a good starting point, if you aren't subscribed to any others already. The best posts would be an introduction of the project you're applying for and a little background about you, to introduce yourself to the community and get some broader input about your project.
+	
+* '''Give us your contact info and working hours.''' Please provide your email address, home mailing address, and phone number. This is a requirement and provides for accountability on both your side and ours. Also, please tell us what hours you will be working and responsive to contact via email and IRC; these should sum to at least 35 hours a week.
+These actions are things you will do extremely commonly as an open-source developer, and they really aren't that hard, so don't let them hold you back! The remainder of the application is free-form. '''Please read our [https://www.gentoo.org/proj/en/userrel/soc/applying.xml application guidelines] and [http://socghop.appspot.com/document/show/gsoc_program/google/gsoc2011/faqs Google's FAQ] to complete it.''' Good luck!
+```
 # Ideas
 
 
+
+## [Cross Container Support](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Cross_Container_Support)
 
 It is already possible to create fully working chroot using [qemu-user](http://www.gentoo.org/proj/en/base/embedded/handbook/?part=1&chap=5) and build quickly packages through it, the natural step further is to make it work as a normal container, providing a similar interface to manage it. This way build for arm targets can be done on faster systems and sidetracks also issues about python and perl not supporting proper cross compilation or widespread build systems such waf and cmake failing completely at the task.
 
@@ -46,6 +57,10 @@ An additional task is to support layered systems so native userspace can be used
 
 #### Mailing List Archives
 
+ [Cross Container Support - Mailing List Archives](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Cross_Container_Support/MailingListArchives)
+
+## [Dynamic documentation type generation](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Dynamic_documentation_type_generation)
+
 The official gentoo documentation is currently offered through a self-maintained XML format, called GuideXML. Although XML is considered a powerful language for generating other types, we are currently limiting ourselves to HTML output only. We have frequent requests for PDF and, more recently, ePub.
 
 The purpose would be to update our infrastructure to generate multiple output formats, including ePub, for our users.
@@ -55,6 +70,8 @@ The purpose would be to update our infrastructure to generate multiple output fo
 | Contacts | Required Skills | 
 |---|---|
 |  |  | 
+
+## [Ebuild Upstream Scanner](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Ebuild_Upstream_Scanner)
 
 euscan (Ebuild Upstream Scanner) is an utility to check if an ebuild
 have new upstream version. It was designed to provide the same
@@ -94,6 +111,10 @@ tweak django administration.
 
 #### Mailing List Archives
 
+ [Ebuild Upstream Scanner - Mailing List Archives](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Ebuild_Upstream_Scanner/MailingListArchives)
+
+## [gentoo-x86 QA website](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/gentoo-x86_QA_website)
+
 The idea is simple enough, take the QA results from various tools and present it via a searchable website. Think [packages.gentoo.org](http://packages.gentoo.org), just for QA results. The implementation work required would primarily be building the website itself- the user could rely upon pkgcore-checks for the initial data stream (it can output it's results as a pickle stream) leaving the candidate to focus on generating a site providing insight into the status of current architectures, current stabling, etc.
 
 One additional constraint would be that the underlying DB schema should be written in a fashion that allows multiple data imports to be used- while pkgcore-checks right now can provide data for a candidate to work with, the candidate should be designing a system also able to pull in other data sources (at some point repoman for example).
@@ -108,6 +129,8 @@ The relevant gentoo-soc discussion (with a bit more details) is accessible on [i
 |---|---|
 |  |  | 
 
+## [Gentoo@home](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Gentoo@home)
+
 Gentoo packages are stabilized and architecture tested (keyworded) following a request coming from a package maintainer or a Gentoo developer. The Gentoo architecture teams then test by hand every requested package and its dependencies. For a very large fraction of Gentoo packages, this tedious manual process could be batch automated given some specifications. The idea is to build a framework for such a project, that would help both users by getting much better stabilization process and maintainers by lightening the workflow and find critical bugs. One idea would be to use an automated built of a tinderbox, and distribute the tinderbox with stabilization scripts to the Gentoo user community to install and test packages automatically. It could be done via volunteer computing from the Gentoo user community. Since it could turn into an involved project, it could be split into three projects.
 
 
@@ -115,6 +138,8 @@ Gentoo packages are stabilized and architecture tested (keyworded) following a r
 | Contacts | Required Skills | 
 |---|---|
 |  |  | 
+
+## [Improved binary package support](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Improved_binary_package_support)
 
 Gentoo better for derived binary distros. One of them is more intelligent handling of library versions with binpkgs (and installed packages, which are a form of binpkg). For example, it's possible to build a binpkg against an old version of a library, then install it against a new version and have it be broken by default because of a shared-library version bump. It's also possible to break reverse ABI dependencies when upgrading a package, and there is currently no convenient way for package managers to detect such breakage in advance. Ideally, a package would have a way to specify its ABI dependencies in the built state instead of just which versions it can build against from source. It is possible to create an ABI dependency abstraction that is flexible enough to cover all possible kinds of ABI dependencies. Using an ABI abstraction, it will not matter whether or not there exists a specific soname to be referenced by dependencies. See [bug #192319](https://bugs.gentoo.org/show_bug.cgi?id=192319).
 
@@ -131,6 +156,8 @@ Two other minor problems:
 |---|---|
 |  |  | 
 
+## [libbash](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/libbash)
+
 For the last two summers we have been developing a shared library for bash. We got pretty close last summer by parsing many ebuilds but not 100% due to unexpected problems with the grammar. Hopefully this will be the summer we finally nail the goal.
 
 
@@ -140,6 +167,10 @@ For the last two summers we have been developing a shared library for bash. We g
 |  |  | 
 
 #### Mailing List Archives
+
+ [libbash - Mailing List Archives](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/libbash/MailingListArchives)
+
+## [lmonade relocation and binary packages](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/lmonade_relocation_and_binary_packages)
 
 The [lmonade](http://www.lmona.de) project is a distribution of mathematical software based on [Gentoo prefix](http://www.gentoo.org/proj/en/gentoo-alt/prefix/). It can be installed without admistrative rights on different linux distributions or OSX. The main aim is to make scientific software available across platforms.
 
@@ -159,6 +190,8 @@ Please e-mail us for more information.
 | Contacts | Required Skills | 
 |---|---|
 |  |  | 
+
+## [OpenRC Extensions](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/OpenRC_Extensions)
 
 OpenRC is the default init system in Gentoo, it provides a large deal of features while staying mostly agnostic to the underlying implementation on /sbin/init.
 
@@ -191,7 +224,11 @@ Abstract:
 
 #### Mailing List Archives
 
+[gentoo-soc - report 7.16-7.23: improving OpenRC heroxbd@×××××.com Tue, 24 Jul 2012 09:06:29](https://archives.gentoo.org/gentoo-soc/message/f768d78d3bf0d1e1069af2a8c9b82d50) 
+
 **Contacts:**
+
+## [Port Fedora UEFI Support](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Port_Fedora_UEFI_Support)
 
 Computer manufacturers are adopting UEFI as a BIOS replacement on amd64 systems, but Gentoo is currently unable to boot on such systems using GRUB 0.97. Intel wrote patches for UEFI support that were adopted by Fedora's GRUB fork. Porting those patches from [Fedora's GRUB fork](https://pkgs.fedoraproject.org/gitweb/?p=grub.git;a=summary) to sys-boot/grub is necessary if sys-boot/grub is to remain a viable bootloader in Gentoo.
 
@@ -204,6 +241,8 @@ In addition, sys-boot/grub is GPLv2 licensed, so these improvements may not invo
 | Contacts | Required Skills | 
 |---|---|
 |  |  | 
+
+## [Porthole plug-ins and extensions](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Porthole_plug-ins_and_extensions)
 
 Porthole is a GTK+-based frontend to Portage. This project would enable Porthole to improve its ability to manage remote computers, gather and report package statistics, and more. The work would encompass creating:
 
@@ -218,6 +257,8 @@ Porthole is a GTK+-based frontend to Portage. This project would enable Porthole
 |---|---|
 |  |  | 
 
+## [Recruiting Webapp Usability](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Recruiting_Webapp_Usability)
+
 The webapp for Gentoo recruitment at [https://recruiting.gentoo.org](https://recruiting.gentoo.org) was written two summers ago. It has developed a backlog for improved usability and it also needs updating for Rails 3.0.
 
 
@@ -226,6 +267,8 @@ The webapp for Gentoo recruitment at [https://recruiting.gentoo.org](https://rec
 |---|---|
 |  |  | 
 
+## [Repoman cleanup](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Repoman_cleanup)
+
 Repoman (the Portage QA tool) could really use some attention. Before elaborating more on how to best solve this I need to check with zmedico.
 
 
@@ -233,6 +276,8 @@ Repoman (the Portage QA tool) could really use some attention. Before elaboratin
 | Contacts | Required Skills | 
 |---|---|
 |  |  | 
+
+## [Repository of self-contained ebuild source packages](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Repository_of_self-contained_ebuild_source_packages)
 
 This proposal is similar in scope to the Cache sync proposal, except that it will focus on implementing support for repositories that host self-contained ebuild source packages that are analogous to source RPMs (SRPMs). The repository layout will be similar to existing PORTAGE\_BINHOST repositories (like those hosted at [tinderbox.dev.gentoo.org](http://tinderbox.dev.gentoo.org/default-linux/x86/)), and will include a metadata index file which is similar to [$PKGDIR/Packages](http://tinderbox.dev.gentoo.org/default-linux/x86/Packages). Each source package hosted in the repository will contain a single ebuild, its metadata, and all files it requires from the portage tree (including all inherited eclasses and any additional files such as patches from the files directory). A zip file will be a suitable container for one of these source packages.
 
@@ -247,6 +292,8 @@ In order to ensure that repository updates do not interfere with clients, it may
 | Contacts | Required Skills | 
 |---|---|
 |  |  | 
+
+## [SELinux policy originator](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/SELinux_policy_originator)
 
 Gentoo Hardened is maturing its SELinux support rapidly. In SELinux, policies are written in a higher abstract format (dictated by the reference policy) and converted to the SELinux-specific rules (like allow, dontaudit, type transitions, etc.). For troubleshooting rights however, it is a very daunting task to find out why a particular rule is set (in other words, to find which higher level rule is causing the SELinux rule to exist).
 
@@ -267,6 +314,10 @@ In this idea, we would like to find a way to register where these lines come fro
 
 #### Mailing List Archives
 
+ [SELinux policy originator - Mailing List Archives](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/SELinux_policy_originator/MailingListArchives)
+
+## [Support for Fortran modules and libraries with multiple compilers](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Support_for_Fortran_modules_and_libraries_with_multiple_compilers)
+
 Fortran modules and libraries are highly compiler dependent. Even minor version change in gfortran renders them incompatible. However, we are often forced to work with multiple compilers at the same time (e.g. scientific software development). The project aim is to create a Fortran framework that would allow to install concurrent versions of Fortran binaries in a PMS (Package Manager Specification)-aware fashion, along with a configuration module for eselect to rule them all.
 
 See also: [Linux problems you never considered handling - Fortran90 modules for multiple compilers](http://dberkholz.com/2010/12/02/linux-problems-you-never-considered-handling-fortran90-modules-for-multiple-compilers/) (Donnie's Berkholz blog post)
@@ -276,6 +327,8 @@ See also: [Linux problems you never considered handling - Fortran90 modules for 
 | Contacts | Required Skills | 
 |---|---|
 |  |  | 
+
+## [Cache sync](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Cache_sync)
 
 The portage tree and all its overlays keep growing. Right now only the official portage tree occupies more than 600Mb on a regular filesystem. However the package manager does not need the whole tree of full ebuilds, patches and manifests to perform most of its work. The idea would be to sync a smaller database or a cache of only needed information for global package manager operations, then fetch the required package only when needed. It would speed considerably tree synchronization and reduce the space occupied by portage tree (see the "Repository of Self-Contained Ebuild Source Packages" idea for an alternative approach). Currently the cache system in portage is also really slow and so is the search feature. The project could be inspired by the Debian or RPM system but with the usability and choices offered by Gentoo, and would probably include:
 
@@ -287,6 +340,8 @@ The portage tree and all its overlays keep growing. Right now only the official 
 | Contacts | Required Skills | 
 |---|---|
 |  |  | 
+
+## [Package statistics reporting tool](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Package_statistics_reporting_tool)
 
 A user end program to upload anonymous information about installed packages on a users machine to a database that package maintainers and developers have access to. Last year's effort is called [Gentoostats](https://wiki.gentoo.org/wiki/Gentoostats).
 
@@ -306,6 +361,10 @@ Here are some reasons why this project would help Gentoo:
 
 #### Mailing List Archives
 
+ [Package statistics reporting tool - Mailing List Archives](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Package_statistics_reporting_tool/MailingListArchives)
+
+## [Tags support for Portage](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Tags_support_for_Portage)
+
 Gentoo uses categories now. A package can only be in a single category, which is very limiting because generally things don't fit perfectly into one place without other possibilities. Tags could make it a lot easier to find packages they're looking for by doing Boolean searches like: kde AND mail. This project would add support for tags to Portage and would allow for backwards compatibility of categories as tags.
 
 
@@ -313,6 +372,8 @@ Gentoo uses categories now. A package can only be in a single category, which is
 | Contacts | Required Skills | 
 |---|---|
 |  |  | 
+
+## [Automatically generated overlay of R packages](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Automatically_generated_overlay_of_R_packages)
 
 The R scientific language has a vast ecosystem of about 5000 packages and 40000 individual versions. It was attempted in the past to make Portage manage these packages directly. The last project was somewhat successful but suffered from some drawbacks. Some of them, like the lack of manifests, are a result of the particular kind of implementation which was chosen.
 
@@ -331,6 +392,10 @@ It is recommended you talk to one of the contacts below before you make an offic
 |  |  | 
 
 #### Mailing List Archives
+
+ [Automatically generated overlay of R packages - Mailing List Archives](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Automatically_generated_overlay_of_R_packages/MailingListArchives)
+
+## [Extend packages.gentoo.org New gentoo packages](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Extend_packages.gentoo.org_New_gentoo_packages)
 
 Creating new packages.gentoo.org with rich web interface and advanced features. Port it to django.
 
@@ -360,4 +425,10 @@ I want thank my mentor Matthew Summers, Brian Dolbec and all other who helped me
 
 | Contacts | Required Skills | 
 |---|---|
-|  |  |
+|  |  | 
+
+
+
+#### Mailing List Archives
+
+ [Extend packages.gentoo.org New gentoo packages - Mailing List Archives](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Extend_packages.gentoo.org_New_gentoo_packages/MailingListArchives)

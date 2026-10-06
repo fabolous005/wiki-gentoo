@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/BIOS_Update
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-06-25"
-fingerprint: b30f5e1104f723a4
+fingerprint: b30f4e1104f723a4
 license: CC BY-SA 4.0
 ---
 
@@ -67,6 +67,11 @@ First download the required software and enable the loopback device in the kerne
 
 **enable loopback device**
 
+```
+Device Drivers  --->
+    [*] Block devices  --->
+        <M>   Loopback device support
+```
 If the module has not been loaded use modprobe to load it:
 
 `root #``modprobe loop`
@@ -156,6 +161,11 @@ Edit /boot/grub/grub.conf and add an entry for FreeDOS:
 
 **Example grub.conf entry**
 
+```
+title FreeDOS (BIOS update)
+kernel /boot/memdisk floppy
+initrd /boot/freedos.img
+```
 ### BIOS update
 
 Restart and choose to boot from the USB memory stick *or* the new grub entry. When using SystemRescue, in the GRUB command line type:

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Cgit
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-07-23"
-fingerprint: d4015719d4b72c84
+fingerprint: d410171ddcb7ad84
 license: CC BY-SA 4.0
 ---
 
@@ -22,6 +22,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [www-apps/cgit](https://packages.gentoo.org/packages/www-apps/cgit)
+            
+            A fast web-interface for Git repositories
 
 | [+highlight](https://packages.gentoo.org/useflags/+highlight) | Enable source code highlighting | 
 | [+lua](https://packages.gentoo.org/useflags/+lua) | Enable Lua scripting support | 
@@ -65,6 +70,10 @@ Append a include statement `include=/etc/cgitrepos` at the end of the /etc/cgitr
 
 **`/etc/cgitrc`**
 
+```
+...
+include /etc/cgitrepos
+```
 Add a cron job to schedule repository list generation every 24 hours:
 
 **`/etc/cron.daily/cgitrepos`**
@@ -92,6 +101,15 @@ Add `Alias`'es for the missing files in the virtual host configuration file:
 
 **`/etc/apache2/vhosts.d/cgit.*_vhost.include`**
 
+```
+...
+Alias /cgit.css     /var/www/cgit/htdocs/cgit/cgit.css
+Alias /cgit.png     /var/www/cgit/htdocs/cgit/cgit.png
+Alias /favicon.ico  /var/www/cgit/htdocs/cgit/favicon.ico
+Alias /robots.txt   /var/www/cgit/htdocs/cgit/robots.txt
+ScriptAlias / "/var/www/cgit/cgi-bin/cgit.cgi/"
+...
+```
 ## See also
 
 - [Git](https://wiki.gentoo.org/wiki/Git) — widely used, open source, distributed [version control system](https://wiki.gentoo.org/wiki/Version_control_systems)

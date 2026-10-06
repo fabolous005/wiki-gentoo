@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/ASUS_Eee_PC_1225B
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-05-10"
-fingerprint: df0588d4bd9eb3dd
+fingerprint: "5e058854dd963bcc"
 license: CC BY-SA 4.0
 ---
 
@@ -15,12 +15,26 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+**Resources**
+
 ## Backlight support
 
 Brightness LCD may changed by Fn+F5/Fn+F6. To support it you must config kernel
 
 **Backlight**
 
+```
+Power management and ACPI options --->
+  [*] ACPI (Advanced Configuration and Power Interface) Support --->
+    <*> AC Adapter
+    <*> Battery
+    -*- Button
+    -*- Video
+    <*> Fan
+    <*> Processor
+    <*> Thermal Zone
+    [*] Power Management Timer Support
+```
 This options also add other functional of your laptop.
 
 ## USB 3.0 support
@@ -29,12 +43,49 @@ USB 3.0 provides by ASMedia ASM1042 SuperSpeed Controller. Gentoo sources have d
 
 **USB Support**
 
+```
+Device Drivers  --->
+    [*] USB support  --->
+        <*> Support for Host-side USB
+        <M> xHCI HCD (USB 3.0) support
+        <*> EHCI HCD (USB 2.0) support
+        <*> UHCI HCD support (most Intel and VIA) support
+```
 ## 802.11 WiFi
 
 WiFi is provided by Broadcom BCM4313 802.11bgn Wireless Network Adapter
 
 **WiFi Support**
 
+```
+[*] Networking support  --->
+    [*] Wireless  --->
+        <*>   cfg80211 - wireless configuration API
+        [*]     enable powersave by default
+        <*>   Generic IEEE 802.11 Networking Stack (mac80211)
+        [*]   Minstrel
+        [*]     Minstrel 802.11n support
+              Default rate control algorithm (Minstrel)  --->
+        [*]   Enable LED triggers
+Device Drivers  --->
+     [*] Network device support  --->
+         [*] Wireless LAN  --->
+             <M> Broadcom 43xx wireless support (mac80211 stack)
+             [*]    Support for G-PHY (802.11g) devices
+             [*]    Support for N-PHY (the main 802.11n series) devices
+             [*]    Support for LP-PHY (low-power 802.11g) devices
+             [*]    Support for HT-PHY (high throughput 802.11n) devices
+             [M]    Broadcom IEEE802.11n PCIe SoftMAC WLAN driver
+        Broadcom specific AMBA --->
+         {M} BCMA support
+         [*] Support for BCMA on PCI-host bus
+         -*- BCMA Broadcom PCI core driver
+    [*] LED Support  --->
+        <*>   LED Class Support
+-*- Cryptographic API --->
+    -*- AES cipher algorithms
+    -*- AES cipher algorithms (x86_64)
+```
 Minstrel and its 802.11n support is a rate control algorithm<sup>[\[1\]](https://wiki.gentoo.org#cite_note-1)</sup> should always be activated.[\[2\]](https://wiki.gentoo.org#cite_note-2)
 
 ## Bluetooth
@@ -43,12 +94,33 @@ Bluetooth is provided by Broadcom(?) chip.
 
 **Bluetooth support**
 
+```
+[*] Networking support --->
+    <*> Bluetooth subsystem support --->
+        [*] Bluetooth Classic (BR/EDR) features
+        <*> RFCOMM protocol support
+        <*> HIDP protocol support
+    [*] Bluetooth Low Energy (LE) features
+        Bluetooth device drivers --->
+            <*> HCI USB driver
+            [*] Broadcom protocol support
+            <*> HCI UART driver
+                [*] Broadcom protocol support
+            <*> HCI BCM203x USB driver
+```
 ## Ethernet
 
 Ethernet is provided by a Realtek RTL8101E Fast Ethernet device.
 
 **Ethernet Support**
 
+```
+Device Drivers  --->
+    Network device support --->
+      Ethernet driver support --->
+        [*] Realtek devices
+          <*>/<M> Realtek 8169 gigabit ethernet support
+```
 You can compile ethernet driver as module, then you must check loading this module.
 
 ## Graphics with open-source radeon drivers
@@ -60,6 +132,11 @@ Kernel parameters are well described in [the article about Radeon](https://wiki.
 
 **Radeon drivers**
 
+```
+Device Drivers  --->
+    Graphics Support --->
+        <M> ATI Radeon
+```
 This lets kernel modesetting work properly.
 
 ### Hardware acceleration video
@@ -204,6 +281,15 @@ When VLC play movie with hardware acceleration load CPU is 30-40%.
 
 **Alsa configuration**
 
+```
+Device Drivers  --->
+  Sound card support  --->
+    <*> Advanced Linux Sound Architecture  --->
+      [*] PCI sound devices --->
+        <*> Intel HD Audio --->
+          [*] Build Realtek HD-audio codec support
+          [*] Build HDMI/DisplayPort HD-audio codec support
+```
 A good way to manage ALSA is to emerge alsa-utils:
 
 `root #``emerge --ask alsa-utils`
@@ -227,22 +313,42 @@ If HD-Audio Generic is the first number, it might be the default card. If it is 
 
 **`/etc/asound.conf`**
 
+```
+defaults.ctl.card 1
+defaults.pcm.card 1
+defaults.timer.card 1
+```
 ## Memory Card Reader
 
 Card reader is provided by Alcor Micro.
 
+```
+Device Drivers  --->
+    <*> MMC/SD/SDIO card support  --->
+        <*>   MMC block device driver
+        [*]     Use bounce buffer for simple hosts
+```
 ## Webcam
 
 Webcam is supported with standart UVC
 
 **Webcam Support**
 
+```
+Device Drivers  --->
+    <*> Multimedia support  ---> 
+        [*] Media USB Adapters  ---> 
+            <*> USB Video Class (UVC)
+```
 ## Tips and tricks
 
 If the laptop stops responding to keyboard and touchpad, add some parameters to kernel
 
 **`/etc/default/grub`**
 
+```
+GRUB_CMDLINE_LINUX_DEFAULT="i8042.nomux i8042.reset"
+```
 Then, rebuild grub config
 
 `root #``grub-mkconfig -o /boot/grub/grub.cfg`

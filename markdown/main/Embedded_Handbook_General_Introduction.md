@@ -11,11 +11,19 @@ license: CC BY-SA 4.0
 
 # Embedded Handbook/General/Introduction
 
+[Embedded Handbook](https://wiki.gentoo.org/wiki/Special:MyLanguage/Embedded_Handbook) |
+
+[General](https://wiki.gentoo.org/wiki/Special:MyLanguage/Embedded_Handbook/General)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
 
+
+**outdated**. You can help the Gentoo community by verifying and
+
+[updating this article](https://wiki.gentoo.org/index.php?title=Embedded_Handbook/General/Introduction&action=edit).
 
 
 

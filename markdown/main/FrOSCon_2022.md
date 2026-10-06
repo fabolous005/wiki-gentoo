@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/FrOSCon_2022
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-08-23"
-fingerprint: "3f7f720c46b3a6fb"
+fingerprint: "3f3f720c46b3a6fb"
 license: CC BY-SA 4.0
 ---
 
 # FrOSCon 2022
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

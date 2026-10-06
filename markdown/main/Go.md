@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Go
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-08-09"
-fingerprint: "16233e784e472d99"
+fingerprint: "36233e78ce472d99"
 license: CC BY-SA 4.0
 ---
 
@@ -23,6 +23,11 @@ Go can be used to write software, and is used to make some of the packages that 
 
 ### USE flags
 
+
+### USE flags for
+            [dev-lang/go](https://packages.gentoo.org/packages/dev-lang/go)
+            
+            A concurrent garbage collected and typesafe programming language
 
 ### Emerge
 

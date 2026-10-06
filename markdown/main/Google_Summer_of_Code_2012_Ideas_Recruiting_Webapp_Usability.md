@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Recruiting_We
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2018-11-09"
-fingerprint: e56d52ee7d90c31c
+fingerprint: e549f2e61bf86b58
 license: CC BY-SA 4.0
 ---
 
@@ -13,9 +13,13 @@ license: CC BY-SA 4.0
 
 From Gentoo Wiki
 
+\< [Google Summer of Code](https://wiki.gentoo.org/wiki/Google_Summer_of_Code) | [2012](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012) | [Ideas](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+## [Recruiting Webapp Usability]
 
 The webapp for Gentoo recruitment at [https://recruiting.gentoo.org](https://recruiting.gentoo.org) was written two summers ago. It has developed a backlog for improved usability and it also needs updating for Rails 3.0.
 

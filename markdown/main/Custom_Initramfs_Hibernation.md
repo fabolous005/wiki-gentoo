@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Custom_Initramfs/Hibernation
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-02-18"
-fingerprint: bf819baba5b42feb
+fingerprint: af819baba4b43feb
 license: CC BY-SA 4.0
 ---
 
@@ -56,3 +56,10 @@ After Hibernation, the goal of the *initramfs* is to reach the swap partition wh
 ## Kernel configuration
 
 **CONFIG\_SWAP=y CONFIG\_HIBERNATION=y**
+
+```
+General setup  --->
+    [*] Support for paging of anonymous memory (swap)
+Power management and ACPI options  --->
+    [*] Hibernation (aka 'suspend to disk')
+```

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Ghostty
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-05-31"
-fingerprint: "2dc5f45b9ab738dd"
+fingerprint: "2dc5f45b8ab538dd"
 license: CC BY-SA 4.0
 ---
 
@@ -23,6 +23,11 @@ Ghostty was first publicly released in December 2024, as *version 1.0.0*.
 
 ### USE flags
 
+
+### USE flags for
+            [x11-terms/ghostty](https://packages.gentoo.org/packages/x11-terms/ghostty)
+            
+            Fast, feature-rich, and cross-platform terminal emulator
 
 ### Emerge
 

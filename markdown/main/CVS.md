@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/CVS
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-12-05"
-fingerprint: "9e17fb7991a7b984"
+fingerprint: be17fb7893a7b994
 license: CC BY-SA 4.0
 ---
 
 # CVS
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -21,6 +23,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [dev-vcs/cvs](https://packages.gentoo.org/packages/dev-vcs/cvs)
+            
+            Concurrent Versions System - source code revision control tools
 
 | [crypt](https://packages.gentoo.org/useflags/crypt) | Add support for encryption -- using mcrypt or gpg where applicable | 
 | [doc](https://packages.gentoo.org/useflags/doc) | Add extra documentation (API, Javadoc, etc). It is recommended to enable per package instead of globally | 

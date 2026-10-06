@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Gerbera
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-10-16"
-fingerprint: "6c03e3482db331cc"
+fingerprint: "6c03e3482db339ec"
 license: CC BY-SA 4.0
 ---
 
@@ -25,12 +25,27 @@ Gerbera requires IP multicast support for automatic discovery by UPnP devices.
 
 **Enabling IP multicast support**
 
+```
+[*] Networking support --->
+            Networking options --->
+              [*] TCP/IP networking
+              [*]   IP: multicasting
+```
 Gerbera supports [inotify](https://en.wikipedia.org/wiki/Inotify), which is a file-monitoring mechanism that allows Gerbera to be notified about changes to files immediately. For more information, please consult the Gerbera [trail operations](http://docs.gerbera.io/en/latest/ui.html#trail-operations) documentation.
 
 **Enabling inotify support**
 
+```
+    File systems --->
+      [*] Inotify support for userspace
+```
 ### USE flags
 
+
+### USE flags for
+            [net-misc/gerbera](https://packages.gentoo.org/packages/net-misc/gerbera)
+            
+            UPnP Media Server
 
 | [+exif](https://packages.gentoo.org/useflags/+exif) | Add support for reading EXIF headers from JPEG and TIFF images | 
 | [+ffmpeg](https://packages.gentoo.org/useflags/+ffmpeg) | Enable ffmpeg/libav-based audio/video codec support | 
@@ -307,3 +322,7 @@ Gerbera (via libmagic) may identify the mimetype of some files incorrectly. A co
 ## See also
 
 - [MiniDLNA](https://wiki.gentoo.org/wiki/MiniDLNA) — a media server aiming to be DLNA/UPnP-AV compliant.
+
+## References
+
+1. [↑](https://wiki.gentoo.org#cite_ref-1) seppbiersack. [Samsung TV Support](https://github.com/gerbera/gerbera/issues/352), [Gerbera GitHub](https://github.com/gerbera/gerbera), September 26th, 2018. Retrieved on March 7th, 2019.

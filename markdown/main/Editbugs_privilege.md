@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Editbugs_privilege
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-04-21"
-fingerprint: eba6f9dce799b288
+fingerprint: e9a6f8d8e789b288
 license: CC BY-SA 4.0
 ---
 
 # Editbugs privilege
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

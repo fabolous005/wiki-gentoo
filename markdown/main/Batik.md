@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Batik
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-03-01"
-fingerprint: "86447f393d5a2da6"
+fingerprint: "80545e393d4a6da6"
 license: CC BY-SA 4.0
 ---
 
 # Batik
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -24,6 +26,11 @@ The package has more than 30 modules and is packaged using the [java-pkg-simple]
 ### USE flags
 
 
+### USE flags for
+            [dev-java/batik](https://packages.gentoo.org/packages/dev-java/batik)
+            
+            XML Graphics Batik
+
 | [doc](https://packages.gentoo.org/useflags/doc) | Add extra documentation (API, Javadoc, etc). It is recommended to enable per package instead of globally | 
 | [source](https://packages.gentoo.org/useflags/source) | Zip the sources and install them | 
 | [test](https://packages.gentoo.org/useflags/test) | Enable dependencies and/or preparations necessary to run tests (usually controlled by FEATURES=test but can be toggled independently) | 
@@ -37,7 +44,10 @@ The package has more than 30 modules and is packaged using the [java-pkg-simple]
 `user $``batik-rasterizer`
 See [upstream for SVG Rasterizer](https://xmlgraphics.apache.org/batik/tools/rasterizer.html)
 
-`user $``batik-slideshow``user $``batik-squiggle``user $``batik-svgpp`
+`user $``batik-slideshow``user $``batik-squiggle`
+See [upstream for Squiggle, the SVG Browser](https://xmlgraphics.apache.org/batik/tools/browser.html)
+
+`user $``batik-svgpp`
 See [upstream for SVG Pretty Printer](https://xmlgraphics.apache.org/batik/tools/pretty-printer.html)
 
 `user $``batik-ttf2svg`

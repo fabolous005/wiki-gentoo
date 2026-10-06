@@ -25,10 +25,10 @@ This is a working page that contains references to all features that have been s
 |---|---|---|---|---|---|
 |  |  |  | Portage | Pkgcore |  | 
 | New features |  |  |  |  |  | 
-| `e{in,out}dent` output commands | [bug #956051](https://bugs.gentoo.org/show_bug.cgi?id=956051) |  |  |  |  | 
+| `e{in,out}dent` output commands | [bug #956051](https://bugs.gentoo.org/show_bug.cgi?id=956051) | not done | not done | not done |  | 
 | Enhancements of existing features |  |  |  |  |  | 
 | Other changes |  |  |  |  |  | 
-| Drop `*` from lines in profile `packages` file | [bug #958336](https://bugs.gentoo.org/show_bug.cgi?id=958336) |  |  |  |  | 
-| `<repo>:` prefix in profile `parent` files | [bug #889640](https://bugs.gentoo.org/show_bug.cgi?id=889640) |  |  |  |  | 
-| Directory owner and permissions when merging | [bug #607430](https://bugs.gentoo.org/show_bug.cgi?id=607430) |  |  |  | For now, use the security bug as a placeholder | 
+| Drop `*` from lines in profile `packages` file | [bug #958336](https://bugs.gentoo.org/show_bug.cgi?id=958336) | not done | not done | not done |  | 
+| `<repo>:` prefix in profile `parent` files | [bug #889640](https://bugs.gentoo.org/show_bug.cgi?id=889640) | not done | not done | not done |  | 
+| Directory owner and permissions when merging | [bug #607430](https://bugs.gentoo.org/show_bug.cgi?id=607430) | not done | not done | not done | For now, use the security bug as a placeholder | 
 | Removals and bans |  |  |  |  |  |

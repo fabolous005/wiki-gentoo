@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Buku
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-03-08"
-fingerprint: e31510d6f1e27a77
+fingerprint: c00510def1e27a6c
 license: CC BY-SA 4.0
 ---
 
 # Buku
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -22,6 +24,13 @@ buku is a command-line manager for your bookmark, which can be seen as a *person
 ### USE flags
 
 
+### USE flags for
+            [www-misc/buku](https://packages.gentoo.org/packages/www-misc/buku)
+            
+            Powerful command-line bookmark manager
+
+| [test](https://packages.gentoo.org/useflags/test) | Enable dependencies and/or preparations necessary to run tests (usually controlled by FEATURES=test but can be toggled independently) | 
+
 ### Emerge
 
 `root #``emerge --ask www-misc/buku`
@@ -33,8 +42,10 @@ buku is a command-line manager for your bookmark, which can be seen as a *person
 
 Add a link with tags:
 
+`user $``buku -a` [http://lol.html](http://lol.html) tag1,tag2
 Add a link with a custom title:
 
+`user $``buku -a` [http://lol.html](http://lol.html) --title Test
 Search for keyword:
 
 `user $``buku -s context`

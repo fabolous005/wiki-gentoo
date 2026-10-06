@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Diskless_nodes
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-09-21"
-fingerprint: "179bb14bd1a23f17"
+fingerprint: "179bb15bd1a23f17"
 license: CC BY-SA 4.0
 ---
 
@@ -56,10 +56,30 @@ Go into the following sub-menus and make sure the listed items are checked as bu
 
 **master's kernel options**
 
+```
+[*] Networking support --->
+  Networking options --->
+    <*> Packet socket
+    <*> Unix domain sockets
+    [*] TCP/IP networking
+    [*]   IP: multicasting
+    [ ] Network packet filtering (replaces ipchains)
+  
+File systems --->
+  Network File Systems  --->
+    <*> NFS server support
+    [*]   Provide NFSv3 server support
+```
 If access to internet through the master node is required and/or a secure firewall is needed make sure to add support for iptables:
 
 **Enable iptables support**
 
+```
+[*] Network packet filtering (replaces ipchains)
+  IP: Netfilter Configuration  --->
+    <*> Connection tracking (required for masq/NAT)
+    <*> IP tables support (required for filtering/masq/NAT)
+```
 If packet filtering is required, add the rest as modules later. Make sure to read the [Gentoo Security Handbook Chapter about Firewalls](https://wiki.gentoo.org/wiki/Security_Handbook/Firewalls_and_Network_Security) on how to set this up properly.
 
 After the master kernel has been re-configured, it needs to be rebuilt:
@@ -93,6 +113,22 @@ Make sure to select the following options as built-in and *NOT* as kernel module
 
 **slave's kernel options**
 
+```
+[*] Networking support --->
+  Networking options --->
+    <*> Packet socket
+    <*> Unix domain sockets
+    [*] TCP/IP networking
+    [*]   IP: multicasting
+    [*]   IP: kernel level autoconfiguration
+    [*]     IP: DHCP support
+  
+File systems --->
+  Network File Systems  --->
+    <*> file system support
+    [*]   Provide NFSv3 client support
+    [*]   Root file system on NFS
+```
 Now the slave's kernel needs to be compiled. Be careful here not to overwrite or mess up the modules (if any) that have been built for the master:
 
 `root #````
@@ -356,6 +392,19 @@ The output should look something like this if the kernel has been properly confi
 
 **Proper NFS specific options in the master's kernel configuration**
 
+```
+CONFIG_PACKET=y
+# CONFIG_PACKET_MMAP is not set
+# CONFIG_NETFILTER is not set
+CONFIG_NFS_FS=y
+CONFIG_NFS_V3=y
+# CONFIG_NFS_V4 is not set
+# CONFIG_NFS_DIRECTIO is not set
+CONFIG_NFSD=y
+CONFIG_NFSD_V3=y
+# CONFIG_NFSD_V4 is not set
+# CONFIG_NFSD_TCP is not set
+```
 #### Installing the NFS server
 
 The NFS package that can be acquired through portage by typing:
@@ -375,6 +424,16 @@ A typical /etc/exports for the master should look something like this:
 
 **master exports file**
 
+```
+# one line like this for each slave
+/diskless/192.168.1.21   192.168.1.21(sync,rw,no_root_squash,no_all_squash)
+# common to all slaves
+/opt   192.168.1.0/24(sync,ro,no_root_squash,no_all_squash)
+/usr   192.168.1.0/24(sync,ro,no_root_squash,no_all_squash)
+/home  192.168.1.0/24(sync,rw,no_root_squash,no_all_squash)
+# if you want to have a shared log
+/var/log   192.168.1.21(sync,rw,no_root_squash,no_all_squash)
+```
 The first field indicates the directory to be exported and the next field indicates to who and how. This field can be divided in two parts: who should be allowed to mount that particular directory, and what the mounting client can do to the filesystem: `ro` for read only, `rw` for read/write; `no_root_squash` and `no_all_squash` are important for diskless clients that are writing to the disk, so that they don't get "squashed" when making I/O requests. The slave's fstab file, /diskless/192.168.1.21/etc/fstab , should look like this:
 
 In this example, *master* is just the hostname of the master but it could easily be the IP of the master. The first field indicates the directory to be mounted and the second field indicates where. The third field describes the filesystem and should be NFS for any NFS mounted directory. The fourth field indicates various options that will be used in the mounting process (see mount(1) for info on mount options). Some people have had difficulties with soft mount points so here they are made hard mounts, a look into various /etc/fstab options should be done to make the cluster more efficient.

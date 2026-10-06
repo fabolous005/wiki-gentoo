@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/ASUS_X201E
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-12-20"
-fingerprint: "2f899a7b6feff4c9"
+fingerprint: "7f81885bd1ab3048"
 license: CC BY-SA 4.0
 ---
 
@@ -29,6 +29,11 @@ The only hard drive is connected via SATA. There is no empty space to place anot
 
 **SATA Hard Drive Support**
 
+```
+Device Drivers  --->
+    <*> Serial ATA and Parallel ATA drivers  --->  
+        <*>   AHCI SATA support
+```
 ### Memory Card Reader
 
 TODO
@@ -39,6 +44,11 @@ Integrated Intel HD Graphics uses I915 driver:
 
 **Video Support**
 
+```
+Device Drivers  --->
+        Graphics support  --->  
+        <*> Intel 8xx/9xx/G3x/G4x/HD Graphics
+```
 ### Input Devices
 
 The keyboard support for X11 is provided by evdev.
@@ -49,6 +59,9 @@ To make `Fn` + `F5` (brightness down) and `Fn` + `F6` (brightness up) function k
 
 **Brightness Keys Support**
 
+```
+GRUB_CMDLINE_LINUX_DEFAULT='quiet splash acpi_osi='
+```
 Nevertheless brightness set with keyboard will not synchronize with brightness set with KDE.
 
 Touchpad support is provided through synaptics.
@@ -56,13 +69,21 @@ Touchpad support is provided through synaptics.
 **`/etc/portage/package.use/00input`**
 
 ```
- INPUT_DEVICES: evdev synaptics
+*/* INPUT_DEVICES: evdev synaptics
 ```
 
 Also you must enable CONFIG\_MOUSE\_PS2\_ELANTECH in kernel.
 
 **Touchpad Support**
 
+```
+Device Drivers  --->
+    [*] Input device support  --->  
+        [*] Generic input layer (needed for keyboard, mouse, ...)  --->
+            [*] Mice  --->
+                [*] PS/2 mouse  --->
+                    [*] Elantech PS/2 protocol extension
+```
 Double- and triple- tapping and scroll will work, although 4- and 5- finger tap will not be recognized (driver issue?).
 
 ### Ethernet
@@ -71,12 +92,27 @@ Networking is provided by Qualcomm Atheros AR8162 Fast Ethernet. Alx driver is n
 
 **Ethernet Support**
 
+```
+Device Drivers  --->
+    [*] Network device support  --->  
+        [*] Ethernet driver support  --->
+            [*] Atheros devices  --->
+                [*] Qualcomm Atheros AR816x/AR817x support
+```
 ### 802.11 Wifi
 
 Wifi is provided by Qualcomm Atheros AR9485 Wireless Network Adapter. ath9k driver is needed:
 
 **Wifi Support**
 
+```
+Device Drivers  --->
+    [*] Network device support  --->  
+        [*] Wireless LAN  --->
+            [*] Atheros Wireless Cards  --->
+                [*] Atheros 802.11n wireless cards support  --->
+                    [*] Atheros ath9k PCI/PCIe bus support
+```
 ### Bluetooth
 
 Though Atheros AR9485 has integrated bluetooth, ath9k driver doesn't support it.
@@ -87,6 +123,13 @@ Sound system is based on Intel HD Audio and could be easily brought up by snd\_h
 
 **Audio Support**
 
+```
+Device Drivers  --->
+    <*> Sound card support  --->  
+        <*> Advanced Linux Sound Architecture  --->
+            [*] PCI sound devices  --->
+                <*> Intel HD Audio
+```
 ### USB/USB3.0
 
 TODO (not tested)
@@ -96,3 +139,10 @@ TODO (not tested)
 Webcam is supported with standart UVC:
 
 **Webcam Support**
+
+```
+Device Drivers  --->
+    <*> Multimedia support  ---> 
+        [*] Media USB Adapters  ---> 
+            <*> USB Video Class (UVC)
+```

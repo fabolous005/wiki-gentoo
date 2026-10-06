@@ -82,7 +82,7 @@ You can have such script in the root of your chroot directory:
 **`/mychroot/chroot.sh`**
 
 ```
- --rbind /dev dev
+mount --rbind /dev dev
 mount --make-rslave dev
 mount -t proc /proc proc
 mount --rbind /sys sys

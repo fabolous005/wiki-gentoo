@@ -152,14 +152,30 @@ You need to add the features setting to the make.conf file on all computers that
 
 **`/etc/portage/make.conf`**
 
+```
+FEATURES="distcc"
+```
 You will now have to set the distcc hosts in the /etc/distcc/hosts file:
 
 **`/etc/distcc/hosts`**
 
+```
+# --- /etc/distcc/hosts -----------------------
+# See the "Hosts Specification" section of
+# "man distcc" for the format of this file.
+#
+# By default, just test that it works in loopback mode.
+192.168.x.xx,lzo
+192.168.x.xxx,lzo
+localhost,lzo
+```
 You have to configure the /etc/conf.d/distcc file on all your computers that you want listening to receive distcc orders from the Banana Pi as well as on the Banana Pi:
 
 **`/etc/conf.d/distcc`**
 
+```
+DISTCCD_OPTS="--port 3632 --log-level notice --log-file /var/log/distccd.log -N 15 --listen 192.168.x.xxx --allow 192.168.x.xx --allow 192.168.x.xxx"
+```
 Start Distcc and add to rc-update to be started on boot on all machines you want distcc to be running on:
 
 `root #``/etc/init.d/distccd start``root #``rc-update add distccd default`
@@ -314,13 +330,15 @@ You will now need to make a change to the BananaPi.fex and BananaPro.fex files. 
 **`BananaPi.fex`**
 
 ```
- ctp_det_used = 1
+Change
+from: ctp_det_used = 1
 to: ctp_det_used = 0cd sunxi-boards
 ```
 **`BananaPro.fex`**
 
 ```
- ctp_det_used = 1
+Change
+from: ctp_det_used = 1
 to: ctp_det_used = 0cd sunxi-boards
 ```
 `root #``make fex2bin`
@@ -382,6 +400,12 @@ These settings have NO Memory Reserve. Which works fine for a headless setup. If
 
 **`/mnt/bananapi/boot/uEnv.txt`**
 
+```
+bootargs=console=ttyS0,115200 console=tty0 sunxi_ve_mem_reserve=0 sunxi_g2d_mem_reserve=0 sunxi_no_mali_mem_reserve console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline rootwait
+aload_script=fatload mmc 0 0x43000000 script.bin;
+aload_kernel=fatload mmc 0 0x48000000 uImage; bootm 0x48000000;
+uenvcmd=run aload_script aload_kernel
+```
 ## Booting to an SATA SSD Disk
 
 Here are some hdparm results to show you why you want to use an ssd.
@@ -404,6 +428,12 @@ It is not only the overall MB/sec but even more importantly the small file rate.
 
 **`/mnt/bananapi/boot/uEnv.txt`**
 
+```
+bootargs=console=ttyS0,115200 console=tty0 sunxi_ve_mem_reserve=0 sunxi_g2d_mem_reserve=0 sunxi_no_mali_mem_reserve console=tty1 root=/dev/sda1 rootfstype=ext4 elevator=deadline rootwait
+aload_script=fatload mmc 0 0x43000000 script.bin;
+aload_kernel=fatload mmc 0 0x48000000 uImage; bootm 0x48000000;
+uenvcmd=run aload_script aload_kernel
+```
 ## Finalizing in preparation for booting
 
 You will need to edit the make.conf and specifically set the correct [CFLAGS](https://wiki.gentoo.org/wiki/CFLAGS) and [GCC-Optimization](https://wiki.gentoo.org/wiki/GCC_optimization), or certain functionality will not be possible. [Use Flags](https://www.gentoo.org/support/use-flags/) This is my make.conf, take note of the MAKEOPTS, and other settings specific to Distcc, you need to set some depending on whether you are using Distcc and how many total cpu's are avaialable, reference the [Distcc](https://wiki.gentoo.org/wiki/Distcc) and [Distcc/Cross-Compiling](https://wiki.gentoo.org/wiki/Distcc/Cross-Compiling) documentation for details. Unless you intend upon using the [Overlay](https://wiki.gentoo.org/wiki/Ebuild_repository) and [eselect-repository](https://wiki.gentoo.org/wiki/Eselect-repository) packages, you should leave those commented out. Gentoo is very flexible, spend some time learning some of the things that can be done with it, you will eventually figure out what you need and do not need in the [make.conf](https://wiki.gentoo.org/wiki//etc/portage/make.conf). These make.conf settings have been very stable and efficient. Two Banana Pi devices withstood six months of pressure testing with various server configurations.
@@ -437,7 +467,7 @@ ACCEPT_LICENSE="*"
 **`/mnt/bananapi/root/etc/portage/package.use/00localization`**
 
 ```
- en
+LINGUAS: en
 ```
 Edit /mnt/bananapi/etc/shadow so root can login:
 
@@ -446,6 +476,9 @@ Get a hash output for the root password:
 `root #``openssl passwd -1``root #``nano /mnt/bananapi/root/etc/shadow`
 **`/mnt/bananapi/root/etc/shadow`**
 
+```
+root:<hash_output>:10770:0:::::
+```
 ## Optional
 
 If you are not going to have keyboard access and need access via SSH. dhcpcd is not installed so a static address will have to be set:

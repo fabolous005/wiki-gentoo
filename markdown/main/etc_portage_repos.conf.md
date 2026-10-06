@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki//etc/portage/repos.conf
 hostname: gentoo.org
 sitename: "/etc/portage/repos.conf"
 date: "2024-06-15"
-fingerprint: b1a35c9c9ccbb3f8
+fingerprint: b1835c9c9cc3b3f8
 license: CC BY-SA 4.0
 ---
 
@@ -22,11 +22,15 @@ Creating it manually is not recommended by the handbook anymore. It changes /usr
 
 Necessary repos.conf settings, such as the `sync-uri` value, can be changed. Portage automatically adds some missing configuration file values, such as `priority`.
 
+## Manage repositories
+
 Add, disable, or remove ebuild repositories using [eselect repository](https://wiki.gentoo.org/wiki/Eselect/Repository), which also provides other functionality.
 
 It is also possible to add a repository by manually creating files in /etc/portage/repos.conf, see the [appropriate section of the Handbook](https://wiki.gentoo.org/wiki/Handbook:AMD64/Portage/CustomTree#Defining_a_custom_ebuild_repository) ([other reference](https://wiki.gentoo.org/wiki/Handbook:AMD64/Portage/Files#Gentoo_ebuild_repository)).
 
 Files in /etc/portage/repos.conf can be [edited with a text editor](https://wiki.gentoo.org/wiki/Knowledge_Base:Edit_a_configuration_file) to change the configuration options for an ebuild repository.
+
+## List repositories
 
 To show all repositories configured with portage, run [portageq](https://wiki.gentoo.org/wiki/Portageq):
 
@@ -78,6 +82,8 @@ strict-misc-digests = true
 sync-allow-hardlinks = true
 sync-rcu = false
 
+## Ebuild repository priority
+
 To set the *[priority](https://wiki.gentoo.org/wiki/Ebuild_repository#Installing_packages_from_other_repositories)* of a certain repository, manually edit the relevant repos.conf section and set `priority =` to the desired value. The higher the set value, the higher the priority. For example:
 
 **`/etc/portage/repos.conf/eselect-repo.conf`**
@@ -95,7 +101,11 @@ priority = 100
 ```
 Repositories that do not have a priority explicitly set, default to `0` - except the Gentoo ebuild repository, which defaults to to a value of `-1000`.
 
+## Alternative sync protocols
+
 See the [Portage with Git](https://wiki.gentoo.org/wiki/Portage_with_Git) article for how to sync the ::gentoo ebuild repository using git as an alternative to the traditional rsync protocol.
+
+## See also
 
 - [Project:Portage/Repository\_Verification](https://wiki.gentoo.org/wiki/Project:Portage/Repository_Verification) — describes different methods used to ensure authenticity of the Gentoo ebuild repository.
 - [Overview of the Portage sync system](https://wiki.gentoo.org/wiki/Project:Portage/Sync)

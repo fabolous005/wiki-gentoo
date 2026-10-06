@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki//etc/portage/package.license
 hostname: gentoo.org
 sitename: "/etc/portage/package.license"
 date: "2026-07-13"
-fingerprint: "65683f6c06abb1f9"
+fingerprint: "6d693f6c0fabb1f9"
 license: CC BY-SA 4.0
 ---
 
 # /etc/portage/package.license
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -49,19 +51,33 @@ man page or refer to the Gentoo Handbook.
 
 In this case, the linux-fw-redistributable license must be accepted. To do this, create:
 
-**`/etc/portage/package.license`**
+FILE **`/etc/portage/package.license`****package.license linux-firmware example**
 
-**package.license linux-firmware example**
-
+```
+# Accepting the license for linux-firmware
+sys-kernel/linux-firmware linux-fw-redistributable
+# Accepting any license that permits redistribution
+sys-kernel/linux-firmware @BINARY-REDISTRIBUTABLE
+```
 ## Format and examples
 
 - Comment lines begin with `#` (no inline comments).
 - One `DEPEND` atom per line followed by additional  licenses or groups.
 
-**`/etc/portage/package.license`**
+FILE **`/etc/portage/package.license`****package.license example**
 
-**package.license example**
-
+```
+# Accepting google-chrome license for www-client/google-chrome for version equal or greater than 42.0.2311.90_p1
+>=www-client/google-chrome-42.0.2311.90_p1 google-chrome
+# Accepting google-chrome license for any version of www-client/google-chrome
+www-client/google-chrome google-chrome
+# Accepting google-chrome license for every www-client package at any version
+www-client/* google-chrome
+# Accepting google-chrome license for every package at any version
+*/* google-chrome
+# Accepting every license for every package at any version expect EULA (See below.)
+*/*  * -EULA
+```
 Setting `*/*  *` is not recommended as some EULA licenses need to be carefully read for the users protection.
 
 ## See also

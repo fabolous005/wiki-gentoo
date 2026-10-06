@@ -11,6 +11,8 @@ license: CC BY-SA 4.0
 
 # dsh
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
@@ -22,6 +24,13 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [app-shells/dsh](https://packages.gentoo.org/packages/app-shells/dsh)
+            
+            Distributed Shell
+
+| [nls](https://packages.gentoo.org/useflags/nls) | Add Native Language Support (using gettext - GNU locale utilities) | 
 
 ### Emerge
 

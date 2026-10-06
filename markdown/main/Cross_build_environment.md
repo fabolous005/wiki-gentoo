@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Cross_build_environment
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-12-19"
-fingerprint: be863f7b06478707
+fingerprint: be863f7b06478f07
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Archived article**
 
 This article is **archived (obsolete)**. Contents are surely incorrect for current usage, and are intended for historical reference only.
 
@@ -60,6 +62,18 @@ Users may find the [Embedded Handbook](https://wiki.gentoo.org/wiki/Embedded_Han
 
 **`/usr/<TARGET>/etc/portage/make.conf`**
 
+```
+# Check your target architecture
+ARCH="arm"
+# Remove buildpkg if you don't want all binary packages in ${ROOT}/packages
+FEATURES="buildpkg"
+# Disable 'acl' to build the base system (essential packages may fail cross-compilation otherwise). Enable it later if it's needed.
+USE="${ARCH} -pam -acl"
+# Set -j1 for debugging failed compilation if necessary, otherwise set the number of build jobs appropriate to the number of CPU cores
+MAKEOPTS="-j5"
+# You can't use -march=native here if the target has a different CPU. See the following subsections for useful adaptions.
+CFLAGS="..."
+```
 - Set the appropriate [profile](<https://wiki.gentoo.org/wiki/Profile_(Portage)>). See below for target architecture specific examples.
 - If built on amd64, see the lib64-bug at [#Known\_bugs\_and\_limitations](https://wiki.gentoo.org#Known_bugs_and_limitations)
 
@@ -69,6 +83,11 @@ For the original Raspberry Pi
 
 **`/usr/<TARGET>/etc/portage/make.conf`**
 
+```
+...
+CFLAGS="-mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s -O2 -pipe"
+...
+```
 - Set the appropriate make profile. For the Raspberry Pi, it might be:
 
 - `pi #``ARCH=arm PORTAGE_CONFIGROOT=/usr/armv6j-hardfloat-linux-gnueabi eselect profile set default/linux/arm/17.0/armv6j`
@@ -79,6 +98,16 @@ In addition to the auto-generated file content, the following modifications are 
 
 **`/usr/armv7a-hardfloat-linux-gnueabi/etc/portage/make.conf`**
 
+```
+...
+# These use flags are required for successful cross-compilation (Aug. 2017)
+# Motivation for "-native-extensions": https://bugs.gentoo.org/628440
+USE="${ARCH} -pam -acl -ncurses -xattr -vtv -native-extensions"
+# CFLAGS="-Ofast -fomit-frame-pointer -pipe -fno-stack-protector -U_FORTIFY_SOURCE -march=armv7ve -mtune=cortex-a7 -mfloat-abi=hard -mfpu=neon-vfpv4 -funsafe-math-optimizations"
+# (Above CFLAGS were not helpful (Aug. 2017))
+CFLAGS="-O2 -pipe"
+...
+```
 - Set the appropriate make profile. For Allwinner A20 based boards it would be:
 
 - `sunxi #``cd /usr/armv7a-hardfloat-linux-gnueabi/etc/portage && rm make.profile && ln -s /var/db/repos/gentoo/profiles/default/linux/arm/17.0/armv7a make.profile`
@@ -124,7 +153,7 @@ Some packages (such as gnome-base/librsvg) depend on a rust cross toolchain. To 
 **Adding rust-src USE**
 
 ```
- rust-src
+dev-lang/rust rust-src
 ```
 Next modify make.conf to add the necessary LLVM targets:
 
@@ -162,7 +191,7 @@ Now unmask it:
 **Adding LLVM\_TARGETS**
 
 ```
- **
+cross-<TARGET>/rust-std **
 ```
 And install it:
 
@@ -178,7 +207,7 @@ Now cross emerging rust packages should work (provided the packages do not have 
 **Example for Raspberry Pi 1 (ARMv6j)**
 
 ```
- start
+/etc/init.d/qemu-binfmt start
 # Next two lines are optional.
 # (Activate if the qemu-wrapper is used. Check that the wrapper location corresponds with the call at the end of line 2!)
 #echo '-1' > /proc/sys/fs/binfmt_misc/arm #deregister wrong arm
@@ -265,7 +294,7 @@ There are some issues with glibc. This does not affect alternative libcs like µ
 
 - Even when a program was built with `-static`, the resulting binaries aren't necessary really static. Because of design decisions of  glibc, at least the /lib/libnss\_\*.so files are looked up dynamically. To force nss linked statically the flag `--enable-static-nss` can be used for compiling glibc.
 
-- When a program is linked statically and makes use of glibc's NSS features like `getpwnam()` the lookup of user names fails when nsswitch.conf is set to "compat". Set it to files in this case: FILE**`nsswitch.conf`****nsswitch.conf for the resulting binaries**
+- When a program is linked statically and makes use of glibc's NSS features like `getpwnam()` the lookup of user names fails when nsswitch.conf is set to "compat". Set it to files in this case: FILE**`nsswitch.conf`****nsswitch.conf for the resulting binaries** #passwd: compat #shadow: compat #group: compat passwd: files shadow: files group: files
 
 - The glibc has hard-coded absolute paths for some configuration files like the /etc/resolv.conf file. On a closed system (like Android) these files doesn't necessarily exist and without them DNS lookups will fail. Normally, the files can't be written without root privileges. If becoming root is not an option, glibc must be customized to look at a different location for these files. Keep in mind that this is only necessary if the program makes use of glibc functions which require these files. But virtually every program that connects to the internet uses `gethostbyname` and therefore needs a resolv.conf.
 

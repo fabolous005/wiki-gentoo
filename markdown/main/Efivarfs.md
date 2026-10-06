@@ -16,12 +16,16 @@ license: CC BY-SA 4.0
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
 
+**Resources**
+
 The efivarfs is a filesystem in the Linux [kernel](https://wiki.gentoo.org/wiki/Kernel) that enables users to create, delete, and modify [(U)EFI](https://wiki.gentoo.org/wiki/UEFI) variables. efivarfs is typically (and automatically) mounted to /sys/firmware/efi/efivars; if it needs to be mounted manually the following command can be used:
 
 `root #``mount -t efivarfs none /sys/firmware/efi/efivars`
 ### Introduction
 
 efivarfs was created to address the shortcomings of using entries in [sysfs](https://wiki.gentoo.org/wiki/Sysfs) to maintain EFI variables: the old sysfs EFI variables code only supported variables of up to 1024 bytes. This was originally a limitation in version 0.99 of the EFI specification which was was removed before any full releases<sup>[\[1\]](https://wiki.gentoo.org#cite_note-Kernel_Docs-1)</sup>.
+
+### Kernel
 
 `CONFIG_EFIVAR_FS` support needs to be enabled:
 

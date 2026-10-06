@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Asterisk
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-01-01"
-fingerprint: ee40495c598638c4
+fingerprint: ee40595c598639cc
 license: CC BY-SA 4.0
 ---
 
 # Asterisk
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -21,6 +23,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [net-misc/asterisk](https://packages.gentoo.org/packages/net-misc/asterisk)
+            
+            Asterisk: A Modular Open Source PBX System
 
 | [+caps](https://packages.gentoo.org/useflags/+caps) | Use Linux capabilities library to control privilege | 
 | [+ssl](https://packages.gentoo.org/useflags/+ssl) | Add support for SSL/TLS connections (Secure Socket Layer / Transport Layer Security) | 
@@ -64,12 +71,10 @@ license: CC BY-SA 4.0
 
 The [net-misc/asterisk](https://packages.gentoo.org/packages/net-misc/asterisk) supports the [VOICEMAIL\_STORAGE](https://packages.gentoo.org/useflags/search?q=voicemail_storage) [USE\_EXPAND](https://devmanual.gentoo.org/general-concepts/use-flags/#use_expand-and-arch-use-flags) variable that is definable in [/etc/portage/make.conf](https://wiki.gentoo.org/wiki//etc/portage/make.conf):
 
-**`/etc/portage/package.use/astertrisk`**
-
-**Extended USE flags for Asterisk**
+FILE **`/etc/portage/package.use/astertrisk`****Extended USE flags for Asterisk**
 
 ```
- VOICEMAIL_STORAGE: file imap odbc
+net-misc/asterisk VOICEMAIL_STORAGE: file imap odbc
 ```
 ### Emerge
 
@@ -81,5 +86,7 @@ Install [net-misc/asterisk](https://packages.gentoo.org/packages/net-misc/asteri
 ## Usage
 
 ## Testing
+
+The information in this section is probably **outdated**. You can help the Gentoo community by verifying and [updating this section](https://wiki.gentoo.org/index.php?title=Asterisk&action=edit).
 
 If no PBX hardware phones are available, [linphone](https://wiki.gentoo.org/wiki/Linphone) can be used to test the setup. This is a much less expensive solution than purchasing PBX hardware.

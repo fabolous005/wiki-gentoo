@@ -5,15 +5,23 @@ url: https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/Port_Fedora_U
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2018-11-09"
-fingerprint: "362c973a0abbb9c9"
+fingerprint: "302c853a0ab9b148"
 license: CC BY-SA 4.0
 ---
 
 # Google Summer of Code/2012/Ideas/Port Fedora UEFI Support
 
+[Google Summer of Code](https://wiki.gentoo.org/wiki/Google_Summer_of_Code) |
+
+[2012](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012) |
+
+[Ideas](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+## [Port Fedora UEFI Support]
 
 Computer manufacturers are adopting UEFI as a BIOS replacement on amd64 systems, but Gentoo is currently unable to boot on such systems using GRUB 0.97. Intel wrote patches for UEFI support that were adopted by Fedora's GRUB fork. Porting those patches from [Fedora's GRUB fork](https://pkgs.fedoraproject.org/gitweb/?p=grub.git;a=summary) to sys-boot/grub is necessary if sys-boot/grub is to remain a viable bootloader in Gentoo.
 

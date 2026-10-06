@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Apple_MacBook_Pro_13-inch_(mid_2010)
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-07-20"
-fingerprint: ef5ab96e5baaa588
+fingerprint: ef4ab96e5baab508
 license: CC BY-SA 4.0
 ---
 
@@ -111,6 +111,13 @@ Configuring the kernel for most recent MacBook systems is relatively simple. Spe
 
 **iSight driver (`CONFIG_SND_ISIGHT`)**
 
+```
+Device Drivers  --->
+   <*> Sound card support  --->
+      <*>   Advanced Linux Sound Architecture  --->
+         [*]   FireWire sound devices  --->
+            <*>   Apple iSight microphone
+```
 ### Wireless drivers
 
 See the [wireless driver section](https://wiki.gentoo.org/wiki/Apple_Macbook_Pro_Retina#Wireless) from the MacBook Pro Retina article for proper wireless driver configuration. The writer of *this* article has verified the kernel options listed there will work for the 13-inch, Mid 2010 MacBook Pro. There is no need to repeat them here.

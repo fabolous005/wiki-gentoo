@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki//etc/portage/profile/package.provided
 hostname: gentoo.org
 sitename: "/etc/portage/profile/package.provided"
 date: "2023-09-22"
-fingerprint: "3f74323fae4f8ca5"
+fingerprint: "3734323eac5fbda5"
 license: CC BY-SA 4.0
 ---
 
@@ -35,6 +35,14 @@ Portage will not attempt to update a package that is listed in /etc/portage/prof
 
 **package.provided example**
 
+```
+# To take care of the kernel
+sys-kernel/vanilla-sources-4.0.2
+# To install a special copy of QT
+dev-qt/qtcore-5.4.1
+# To have modular X but packages want monolithic
+x11-base/xorg-x11-7.4-r2
+```
 ## External resources
 
 - [https://forums.gentoo.org/viewtopic-t-1069622.html](https://forums.gentoo.org/viewtopic-t-1069622.html) — Forum talk about drawbacks of package.provided

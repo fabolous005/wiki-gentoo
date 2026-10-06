@@ -15,6 +15,10 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+*Not to be confused with[window manager](https://wiki.gentoo.org/wiki/Window_manager).*
+
+**Resources**
+
 A **display manager** (**DM**), sometimes known as **login manager**, presents the user with a graphical login screen to start a GUI session, either [X](https://wiki.gentoo.org/wiki/Xorg) or [Wayland](https://wiki.gentoo.org/wiki/Wayland).
 
 A display manager is not mandatory. X or Wayland can be started from a [shell](https://wiki.gentoo.org/wiki/Shell) in a [VT](https://wiki.gentoo.org/wiki/Terminal_emulator), but a DM can provide extra or useful functionality.

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/GVfs
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-10-12"
-fingerprint: ee01795cd89e39cc
+fingerprint: ee01595cd89e39cc
 license: CC BY-SA 4.0
 ---
 
@@ -23,6 +23,11 @@ From Gentoo Wiki
 
 ### USE Flags
 
+
+### USE flags for
+            [gnome-base/gvfs](https://packages.gentoo.org/packages/gnome-base/gvfs)
+            
+            Virtual filesystem implementation for GIO
 
 | [+gcr](https://packages.gentoo.org/useflags/+gcr) | Enables keystore handling using app-crypt/gcr | 
 | [+http](https://packages.gentoo.org/useflags/+http) | Enable the HTTP/DAV backend using net-libs/libsoup | 

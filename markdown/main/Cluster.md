@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Cluster
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-03-14"
-fingerprint: "2fd353143b214db8"
+fingerprint: "2fd373143b214db8"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 A **cluster'** is a set of computers that cooperate together to provide some service or perform some action.
 

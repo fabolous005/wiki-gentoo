@@ -24,6 +24,11 @@ license: CC BY-SA 4.0
 ### USE flags
 
 
+### USE flags for
+            [net-misc/bird](https://packages.gentoo.org/packages/net-misc/bird)
+            
+            A routing daemon implementing OSPF, RIPv2 & BGP for IPv4 & IPv6
+
 | [+client](https://packages.gentoo.org/useflags/+client) | Build the ncurses/readline full featured CLI | 
 | [+filecaps](https://packages.gentoo.org/useflags/+filecaps) | Use Linux file capabilities to control privilege rather than set\*id (this is orthogonal to USE=caps which uses capabilities at runtime e.g. libcap) | 
 | [custom-cflags](https://packages.gentoo.org/useflags/custom-cflags) | Build with user-specified CFLAGS (unsupported) | 

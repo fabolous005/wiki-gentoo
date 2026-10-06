@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/BOINC
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-05-03"
-fingerprint: fe06b958d24f0986
+fingerprint: fe06bd78d26f8986
 license: CC BY-SA 4.0
 ---
 
@@ -27,8 +27,18 @@ To run some projects, you need vsyscall emulation enabled:
 
 **Enable vsyscall support**
 
+```
+Processor type and features --->
+    vsyscall table for legacy applications (None) --->
+        (X) Emulate
+```
 ### USE flags
 
+
+### USE flags for
+            [sci-misc/boinc](https://packages.gentoo.org/packages/sci-misc/boinc)
+            
+            The Berkeley Open Infrastructure for Network Computing
 
 | [X](https://packages.gentoo.org/useflags/X) | Add support for X11 | 
 | [cuda](https://packages.gentoo.org/useflags/cuda) | Enable NVIDIA CUDA support (computation on GPU) | 

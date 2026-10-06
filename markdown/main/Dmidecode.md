@@ -24,6 +24,14 @@ dmidecode is a software tool that enables extraction of detailed hardware inform
 To install dmidecode, you can configure the following USE flag:
 
 
+### USE flags for
+            [sys-apps/dmidecode](https://packages.gentoo.org/packages/sys-apps/dmidecode)
+            
+            DMI (Desktop Management Interface) table related utilities
+
+| [selinux](https://packages.gentoo.org/useflags/selinux) | !!internal use only!! Security Enhanced Linux support, this must be set by the selinux profile or breakage will occur | 
+| [verify-sig](https://packages.gentoo.org/useflags/verify-sig) | Verify upstream signatures on distfiles | 
+
 ### Emerge
 
 To install dmidecode using the Portage package manager, run the following command:

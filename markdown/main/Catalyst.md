@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Catalyst
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-08-03"
-fingerprint: "9c2cbe3c67ef5ba0"
+fingerprint: "1c2c3e3e67ef5ba1"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+*Not to be confused with[AMD Catalyst, the old ATi graphics driver](https://wiki.gentoo.org/wiki/Fglrx).*
 
 **catalyst** is a tool to build [stage files](https://wiki.gentoo.org/wiki/Stage_file) and [live-images](https://wiki.gentoo.org/wiki/Live_image) for Gentoo. catalyst allows the creation of made-to-measure Gentoo installation files and is used [internally](https://wiki.gentoo.org/wiki/Project:RelEng) to build [official Gentoo Linux releases](https://get.gentoo.org).
 
@@ -34,6 +36,11 @@ Designed with situations when more advanced features are required in mind, catal
 ### USE flags
 
 
+### USE flags for
+            [dev-util/catalyst](https://packages.gentoo.org/packages/dev-util/catalyst)
+            
+            Release metatool used for creating releases based on Gentoo Linux
+
 ### Emerge
 
 As [dev-util/catalyst](https://packages.gentoo.org/packages/dev-util/catalyst) is an internal project mostly used for Gentoo needs, RelEng uses catalyst built directly from [Git](https://wiki.gentoo.org/wiki/Git).
@@ -42,6 +49,9 @@ As [dev-util/catalyst](https://packages.gentoo.org/packages/dev-util/catalyst) i
 
 **package.accept\_keyword/catalyst**
 
+```
+dev-util/catalyst **
+```
 To install catalyst run:
 
 `root #``emerge --ask dev-util/catalyst`
@@ -162,10 +172,38 @@ Here is a quick overview of how a modified spec file should look like for a user
 
 **amd64 stage1 spec file from RelEng**
 
+```
+subarch: amd64
+target: stage1
+version_stamp: openrc-@TIMESTAMP@
+rel_type: 23.0-default
+profile: default/linux/amd64/23.0
+snapshot_treeish: @TREEISH@
+source_subpath: 23.0-default/stage3-amd64-openrc-latest
+compression_mode: pixz
+update_seed: yes
+update_seed_command: --update --deep --newuse @world
+portage_confdir: @REPO_DIR@/releases/portage/stages
+portage_prefix: releng
+```
 **`stage1.spec`**
 
 **amd64 stage1 spec file modified for use with a specific snapshot and version.**
 
+```
+subarch: amd64
+target: stage1
+version_stamp: openrc-2024.07.02
+rel_type: 23.0-default
+profile: default/linux/amd64/23.0
+snapshot_treeish: e7b9afdd137f25a545a1f56ce1ca4c1d7be16160
+source_subpath: 23.0-default/stage3-amd64-openrc-latest
+compression_mode: pixz
+update_seed: yes
+update_seed_command: --update --deep --newuse @world
+portage_confdir: /var/tmp/catalyst/releng/releases/portage/stages
+portage_prefix: releng
+```
 #### .spec file option list
 
 The following table provides a list of .spec file options and their descriptions.
@@ -194,6 +232,7 @@ On the stage3.spec file, `source_subpath` value needs to reference the stage 1 f
 
 This is the target's /etc/portage which is almost always needed to be set by the user. It's highly recommended that a user uses the RelEng defaults by cloning them with [Git](https://wiki.gentoo.org/wiki/Git).
 
+`user $``git clone -o upstream` [https://github.com/gentoo/releng.git](https://github.com/gentoo/releng.git)
 Where this is stored doesn't matter as long as root can access it, the most common locations are in the user home directory or in /var/tmp/catalyst/releng.
 
 Then point the `portage_confdir` option to the best defaults for the needed usage, below is listed the different types the RelEng commit hosts and when to use them:
@@ -218,6 +257,9 @@ In some configurations, such as multilib stages, multiple interpreters may be re
 
 **amd64 spec interpreter definition.**
 
+```
+interpreter: /usr/bin/qemu-x86_64 /usr/bin/qemu-i386
+```
 #### Custom profiles
 
 Custom profiles can also be used with catalyst first, a user will need to create the custom profile on their system using the article at [Profile\_(Portage)](<https://wiki.gentoo.org/wiki/Profile_(Portage)>) and have tested it works.
@@ -226,6 +268,12 @@ Inside the spec file, the following will be required:
 
 **`stage1-openrc.spec`**
 
+```
+# Tell catalyst about the repo
+repos: /var/db/repos/local
+# Tell catalyst about the custom profile
+profile: local:my-super-duper-cool-profile
+```
 ### Invocation
 
 Use `catalyst --help` to see all available command line options (with short explanations)
@@ -297,6 +345,14 @@ Setting how many job running simultaneously is set in `/etc/catalyst.conf`
 
 **catalyst.conf**
 
+```
+# Integral value passed to emerge as the parameter to --jobs and is used to
+# define MAKEOPTS during the target build.
+jobs = 4
+# Floating-point value passed to emerge as the parameter to --load-average and
+# is used to define MAKEOPTS during the target build.
+# load-average = 4.0
+```
 #### Start the build
 
 Once the specs have been reviewed, start catalyst by running the following command:

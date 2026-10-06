@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Complete_Virtual_Mail_Server/Web_Access
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-05-06"
-fingerprint: a31b291849ba67c0
+fingerprint: a31b291849ba67d0
 license: CC BY-SA 4.0
 ---
 
@@ -25,6 +25,11 @@ Here there are several options available. Use a local, per vhost based SQLite st
 
 ### USE flags
 
+
+### USE flags for
+            [mail-client/roundcube](https://packages.gentoo.org/packages/mail-client/roundcube)
+            
+            Browser-based multilingual IMAP client with an application-like user interface
 
 | [change-password](https://packages.gentoo.org/useflags/change-password) | Allow users to change passwords through Roundcube | 
 | [enigma](https://packages.gentoo.org/useflags/enigma) | Add dependencies to support server-side GnuPG signing and/or encryption through the enigma plugin | 
@@ -180,6 +185,7 @@ Starting with Roundcube version 0.6, Roundcube needs to have the fully qualified
 **Setup fully qualified folder names**
 
 ```
+// NOTE: Use folder names with namespace prefix (INBOX. on Courier-IMAP)
 -$rcmail_config['drafts_mbox'] = 'Drafts';
 +$rcmail_config['drafts_mbox'] = 'INBOX.Drafts';
  

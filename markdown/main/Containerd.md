@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Containerd
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-05-21"
-fingerprint: c739981d09e27305
+fingerprint: c739985d09e27305
 license: CC BY-SA 4.0
 ---
 
@@ -22,6 +22,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [app-containers/containerd](https://packages.gentoo.org/packages/app-containers/containerd)
+            
+            A daemon to control runC
 
 | [+cri](https://packages.gentoo.org/useflags/+cri) | Support for Kubernetes CRI | 
 | [+seccomp](https://packages.gentoo.org/useflags/+seccomp) | Enable seccomp (secure computing mode) to perform system call filtering at runtime to increase security of programs | 

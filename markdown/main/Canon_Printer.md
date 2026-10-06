@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Canon_Printer
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-08-31"
-fingerprint: ba52f618e6ec1bb6
+fingerprint: b252f618e6ec1bb6
 license: CC BY-SA 4.0
 ---
 
 # Canon Printer
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

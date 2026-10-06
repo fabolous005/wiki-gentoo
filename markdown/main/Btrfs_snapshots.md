@@ -5,11 +5,15 @@ url: https://wiki.gentoo.org/wiki/Btrfs/snapshots
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-07-09"
-fingerprint: "3f136b5824bf13b8"
+fingerprint: "3f176b5824bf13b8"
 license: CC BY-SA 4.0
 ---
 
 # Btrfs/snapshots
+
+From Gentoo Wiki
+
+\< [Btrfs](https://wiki.gentoo.org/wiki/Btrfs)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -17,9 +21,7 @@ license: CC BY-SA 4.0
 
 This page proposes a script to **make automatic snapshots with [Btrfs](https://wiki.gentoo.org/wiki/Btrfs)** filesystem, using  btrfs subvolume list-new function to create snapshots only when files have changed, so as to create fewer snapshots.
 
-**`/mnt/pool/snapshots/snapshot_home.sh`**
-
-**Automatic incremental snapshots**
+FILE **`/mnt/pool/snapshots/snapshot_home.sh`****Automatic incremental snapshots**
 
 ```
 #!/bin/bash
@@ -56,9 +58,7 @@ echo "Backup finished at $(date +%Y.%m.%d-%H.%M.%S)"
 ```
 It is recommended to schedule the /mnt/pool/snapshots/snapshot\_home.sh with cron.
 
-**`/etc/cron.hourly/autosnap.sh`**
-
-**hourly cron script**
+FILE **`/etc/cron.hourly/autosnap.sh`****hourly cron script**
 
 ```
 #!/bin/bash

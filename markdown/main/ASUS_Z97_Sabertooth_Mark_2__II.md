@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/ASUS_Z97_Sabertooth_Mark_2_(II)
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-22"
-fingerprint: a413051b9cefca2b
+fingerprint: a413051b186fca2b
 license: CC BY-SA 4.0
 ---
 
@@ -16,6 +16,8 @@ From Gentoo Wiki
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 ## General Information
 

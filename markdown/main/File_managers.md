@@ -5,15 +5,19 @@ url: https://wiki.gentoo.org/wiki/File_managers
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-05-01"
-fingerprint: a8d7f65e138572f4
+fingerprint: a8d7f65e528572f4
 license: CC BY-SA 4.0
 ---
 
 # File managers
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 This article provides a list of file managers available in Gentoo.
 

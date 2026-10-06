@@ -166,6 +166,11 @@ Create file /boot/NWBB/grub-initial.cfg and use the UUID from above to let GRUB 
 
 **`/boot/NWBB/grub-initial.cfg`**
 
+```
+search --no-floppy --fs-uuid --set=root be0188a5-1fd3-46fa-a82a-34cdea8ff194
+set prefix=($root)/grub
+configfile /grub/grub.cfg
+```
 Install GRUB to /boot/grub (the default path). Option `--no-nvram` prevents GRUB from setting the Open Firmware `boot-device` nvram variable. Since GRUB doesn't know about the CHRP script on the NewWorld Bootblock, it would set the wrong value anyway.
 
 `root #``grub-install --target=powerpc-ieee1275 --no-nvram`
@@ -176,6 +181,12 @@ Now create a list of modules to be included in the GRUB image.
 
 **`/boot/NWBB/grub_mod-minimal.list`**
 
+```
+search_fs_uuid.mod search_fs_file.mod search_label.mod search.mod
+part_apple.mod
+fshelp.mod ext2.mod
+halt.mod reboot.mod echo.mod
+```
 The command grub-mkimage will create a minimal grub bootimage that includes these modules and the initial grub.cfg:
 
 `root #``` grub-mkimage --prefix=/boot/grub --format=powerpc-ieee1275 --config=/boot/NWBB/grub-initial.cfg --output=/boot/NWBB/grub.img `cat /boot/NWBB/grub_mod-minimal.list` ``

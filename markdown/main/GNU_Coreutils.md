@@ -33,6 +33,11 @@ The [sys-apps/coreutils](https://packages.gentoo.org/packages/sys-apps/coreutils
 
 The package offers a couple of [USE flags](https://wiki.gentoo.org/wiki/USE_flag).
 
+### USE flags for
+            [sys-apps/coreutils](https://packages.gentoo.org/packages/sys-apps/coreutils)
+            
+            Standard GNU utilities (chmod, cp, dd, ls, sort, tr, head, wc, who,...)
+
 | [+openssl](https://packages.gentoo.org/useflags/+openssl) | Use openssl libcrypto hash routines for hash functions | 
 | [+split-usr](https://packages.gentoo.org/useflags/+split-usr) | Enable this if /bin and /usr/bin are separate directories | 
 | [acl](https://packages.gentoo.org/useflags/acl) | Add support for Access Control Lists | 

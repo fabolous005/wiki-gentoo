@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/AMD64/FAQ
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-04-09"
-fingerprint: "9fb11a580ca33d9c"
+fingerprint: bfb33a480d232d9e
 license: CC BY-SA 4.0
 ---
 
 # AMD64/FAQ
+
+[AMD64](https://wiki.gentoo.org/wiki/Special:MyLanguage/AMD64)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -19,6 +21,8 @@ license: CC BY-SA 4.0
 The Gentoo AMD64 Frequently Asked Questions article.
 
 **Article status**
+
+- Add instructions for [Cool'n'Quiet/PowerNow/SpeedStep](https://wiki.gentoo.org#How_do_I_use_Cool.27n.27Quiet.2FPowerNow.2FSpeedStep_features.3F) for systemd users
 
 
 
@@ -50,6 +54,10 @@ cd /usr/src/linux
 `root #``make menuconfig`
 **Enabling IA32 emulation**
 
+```
+Executable file formats / Emulations  --->
+  [*] IA32 Emulation
+```
 ### Will using a 64-bit system instead of 32-bit improve performance?
 
 That is a difficult question to answer. In some cases, there may be a performance improvement, in other cases not. For everyday use, there is almost no difference between 64-bit and 32-bit. 64-bit is generally faster when it comes to floating point computing, which is normally the case in multimedia applications and 3D rendering. Linux.com's articles [64-bit performance in Gentoo Linux](https://www.linux.com/news/64-bit-performance-gentoo-linux/) and [64-bit Linux and BSD are maturing steadily](https://www.linux.com/news/64-bit-linux-and-bsd-are-maturing-steadily/) may be of interest. There's also a nice thread, [Article: 64-bit performance in Gentoo Linux](https://forums.gentoo.org/viewtopic-t-349691.html) in the forums.
@@ -82,12 +90,35 @@ Custom kernel users must compile the kernel with support for these features. Ena
 
 **Kernel options for Cool'n'Quiet/PowerNow/SpeedStep**
 
+```
+Power management and ACPI options --->
+  [*] Device power management core functionality
+  [*] ACPI (Advanced Configuration and Power Interface) Support --->
+    <*>   Processor
+    <*>     Thermal Zone
+  CPU Frequency scaling --->
+  [*] CPU Frequency scaling
+         Default CPUFreq governor (ondemand) --->
+  -*-   'performance' governor
+  <*>   'userspace' governor for userspace frequency scaling
+  -*-   'ondemand' cpufreq policy governor
+  <*>   ACPI Processor P-States driver
+  CPU Idle  --->
+    -*- CPU idle PM support
+```
 Then install [sys-power/cpupower](https://packages.gentoo.org/packages/sys-power/cpupower) and edit /etc/conf.d/cpupower with a preferred text editor.
 
 **`/etc/conf.d/cpupower`**
 
 **Example configuration**
 
+```
+# Options when starting cpufreq (given to the `cpupower` program)
+START_OPTS="--governor ondemand"
+  
+# Options when stopping cpufreq (given to the `cpupower` program)
+STOP_OPTS="--governor performance"
+```
 Now run the following command to make sure the cpupower daemon is started every time the system boots:
 
 `root #``rc-update add cpupower boot`

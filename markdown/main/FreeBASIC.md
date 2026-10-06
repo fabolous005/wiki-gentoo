@@ -28,6 +28,10 @@ Then, [accept](https://wiki.gentoo.org/wiki/Knowledge_Base:Accepting_a_keyword_f
 
 **`/etc/portage/package.accept_keywords`**
 
+```
+dev-lang/fbc-bootstrap ~YOUR_CPU_ARCH
+dev-lang/fbc ~YOUR_CPU_ARCH
+```
 Finally, emerge the packages:
 
 `root #``emerge --ask dev-lang/fbc-bootstrap``root #``emerge --ask dev-lang/fbc`

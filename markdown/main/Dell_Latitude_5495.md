@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Dell_Latitude_5495
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-12-20"
-fingerprint: "5f46acc5a73a256d"
+fingerprint: "1e46acc5a73aa56c"
 license: CC BY-SA 4.0
 ---
 
@@ -23,39 +23,39 @@ The Dell Latitude 5495 is a 14" laptop with Ryzen Pro 2500U or 2700U processor.
 
 | Device | Make/model | Status | Vendor ID / Product ID | Kernel driver(s) | Kernel version | Notes | 
 |---|---|---|---|---|---|---|
-| CPU | AMD Ryzen PRO 2500U / 2700U |  | N/A | N/A | 4.19.1 |  | 
-| GPIO | AMD GPIO Pin Controller |  |  | pinctrl\_amd | 4.19.2 |  | 
-| I2C/SMBus Controller | AMD MP2 I2C Controller |  | PCI 1022:15e6 | i2c\_amd\_mp2 |  | Driver is currently not mainlined. Get it from [\[1\]](https://lore.kernel.org/patchwork/project/lkml/list/?submitter=24972) or [\[2\]](https://github.com/Syniurge/i2c-amd-mp2/) | 
-| I2C/SMBus Controller | AMD FCH SMBus Controller |  | PCI 1022:790b | piix4\_smbus | 4.19.1 |  | 
-| TPM | TPM 2.0 |  |  | tcg\_crb, tpm\_tis | 4.19.7 |  | 
-| SATA | AMD FCH SATA Controller |  | PCI 1022:7901 | ahci | 4.19.1 |  | 
-| Video | AMD Radeon Vega graphics |  | PCI 1002:15dd | [amdgpu](https://wiki.gentoo.org/wiki/Amdgpu) | 4.19.1 |  | 
-| Audio | AMD HD Audio |  | PCI 1002:15de | snd\_hda\_intel, snd\_hda\_codec\_realtek | 4.19.1 |  | 
-| Ethernet | Broadcom NetXtreme BCM5762 Gigabit Ethernet |  | PCI 14e4:1687 | tg3 | 4.19.1 |  | 
-| Wireless LAN | Qualcomm Atheros QCA6174 802.11ac |  | [PCI 168c:003e](https://wiki.gentoo.org/wiki/Qualcomm_Atheros_QCA6174) | ath10k\_pci | 4.19.1 |  | 
-| Wireless WAN | Sierra Wireless EM7455 |  | USB 413c:81b6 | cdc\_mbim, qcserial |  |  | 
-| Touchpad | Alps U1 Dual Button |  | I2C 044e:120a | i2c\_hid | 4.19.1 | Touchpad gestures require i2c\_amd\_mp2 to work. See [#Touchpad](https://wiki.gentoo.org#Touchpad) | 
-| SD Card reader | Realtek RTS525A PCI Express Card Reader |  | PCI 10ec:525a | rtsx\_pci, mmc\_realtek\_pci | 4.19.1 |  | 
-| Bluetooth | Qualcomm Atheros Bluetooth controller |  | USB 0cf3:e010 | btusb | 4.19.1 |  | 
-| Webcam | Sunplus Innovation Technology Webcam HD |  | USB 1bcf:2b96 | uvcvideo | 4.19.1 |  | 
-| Smartcard Reader | Broadcom 5880 |  | USB 0a5c:5833 | N/A |  |  | 
-| Fingerprint Reader | Broadcom 5880 |  | USB 0a5c:5833 | N/A |  | [sys-auth/libfprint](https://packages.gentoo.org/packages/sys-auth/libfprint) does not support this, see [\[3\]](https://gitlab.freedesktop.org/libfprint/libfprint/issues/38) [\[4\]](https://gitlab.freedesktop.org/libfprint/libfprint/issues/71) [\[5\]](https://gitlab.freedesktop.org/libfprint/libfprint/issues/88) and others | 
-| Hardware Monitoring |  |  |  | amdgpu, ath10k\_pci, k10temp | 4.19.1 |  | 
-| Hotkeys |  |  |  | dell\_wmi, wmi\_bmof, dell\_smbios, dell\_smo8800, dell\_rbtn | 4.19.1 |  | 
+| CPU | AMD Ryzen PRO 2500U / 2700U | Works | N/A | N/A | 4.19.1 |  | 
+| GPIO | AMD GPIO Pin Controller | Works |  | pinctrl\_amd | 4.19.2 |  | 
+| I2C/SMBus Controller | AMD MP2 I2C Controller | Works | PCI 1022:15e6 | i2c\_amd\_mp2 |  | Driver is currently not mainlined. Get it from [\[1\]](https://lore.kernel.org/patchwork/project/lkml/list/?submitter=24972) or [\[2\]](https://github.com/Syniurge/i2c-amd-mp2/) | 
+| I2C/SMBus Controller | AMD FCH SMBus Controller | Works | PCI 1022:790b | piix4\_smbus | 4.19.1 |  | 
+| TPM | TPM 2.0 | Works |  | tcg\_crb, tpm\_tis | 4.19.7 |  | 
+| SATA | AMD FCH SATA Controller | Works | PCI 1022:7901 | ahci | 4.19.1 |  | 
+| Video | AMD Radeon Vega graphics | Works | PCI 1002:15dd | [amdgpu](https://wiki.gentoo.org/wiki/Amdgpu) | 4.19.1 |  | 
+| Audio | AMD HD Audio | Works | PCI 1002:15de | snd\_hda\_intel, snd\_hda\_codec\_realtek | 4.19.1 |  | 
+| Ethernet | Broadcom NetXtreme BCM5762 Gigabit Ethernet | Works | PCI 14e4:1687 | tg3 | 4.19.1 |  | 
+| Wireless LAN | Qualcomm Atheros QCA6174 802.11ac | Works | [PCI 168c:003e](https://wiki.gentoo.org/wiki/Qualcomm_Atheros_QCA6174) | ath10k\_pci | 4.19.1 |  | 
+| Wireless WAN | Sierra Wireless EM7455 | Not tested | USB 413c:81b6 | cdc\_mbim, qcserial |  |  | 
+| Touchpad | Alps U1 Dual Button | Works | I2C 044e:120a | i2c\_hid | 4.19.1 | Touchpad gestures require i2c\_amd\_mp2 to work. See [#Touchpad](https://wiki.gentoo.org#Touchpad) | 
+| SD Card reader | Realtek RTS525A PCI Express Card Reader | Works | PCI 10ec:525a | rtsx\_pci, mmc\_realtek\_pci | 4.19.1 |  | 
+| Bluetooth | Qualcomm Atheros Bluetooth controller | Works | USB 0cf3:e010 | btusb | 4.19.1 |  | 
+| Webcam | Sunplus Innovation Technology Webcam HD | Works | USB 1bcf:2b96 | uvcvideo | 4.19.1 |  | 
+| Smartcard Reader | Broadcom 5880 | Not tested | USB 0a5c:5833 | N/A |  |  | 
+| Fingerprint Reader | Broadcom 5880 | Unsupported | USB 0a5c:5833 | N/A |  | [sys-auth/libfprint](https://packages.gentoo.org/packages/sys-auth/libfprint) does not support this, see [\[3\]](https://gitlab.freedesktop.org/libfprint/libfprint/issues/38) [\[4\]](https://gitlab.freedesktop.org/libfprint/libfprint/issues/71) [\[5\]](https://gitlab.freedesktop.org/libfprint/libfprint/issues/88) and others | 
+| Hardware Monitoring |  | Works |  | amdgpu, ath10k\_pci, k10temp | 4.19.1 |  | 
+| Hotkeys |  | Works |  | dell\_wmi, wmi\_bmof, dell\_smbios, dell\_smo8800, dell\_rbtn | 4.19.1 |  | 
 
 ### ACPI / Power management
 
 | Function | Status | Kernel driver(s) | Kernel version | BIOS version | Notes | 
 |---|---|---|---|---|---|
-| CPU frequency scaling |  | intel\_pstate | 4.19.1 | 1.2.3 |  | 
-| GPU Powersaving (PowerPlay) |  | amdgpu | 4.19.1 | 1.2.3 |  | 
-| SATA Power Management (ALPM) |  |  | 4.19.2 | 1.2.3 |  | 
-| PCIe Power Management (ASPM) |  |  | 4.19.1 | 1.2.3 | PCIe errors may spam the kernel log unless you disable ASPM through kernel config or with pcie\_aspm=off | 
-| USB Type C Power Delivery |  |  |  |  |  | 
-| Suspend to RAM |  |  | 4.19.7 | 1.2.3 | See [#Suspend](https://wiki.gentoo.org#Suspend) | 
-| Suspend to disk (hibernate) |  |  | 4.19.1 | 1.2.3 | See [#Suspend](https://wiki.gentoo.org#Suspend) | 
-| Display backlight control |  | acpi\_video | 4.19.1 | 1.2.3 |  | 
-| Keyboard backlight control |  |  |  |  |  | 
+| CPU frequency scaling | Yes | intel\_pstate | 4.19.1 | 1.2.3 |  | 
+| GPU Powersaving (PowerPlay) | Yes | amdgpu | 4.19.1 | 1.2.3 |  | 
+| SATA Power Management (ALPM) | Yes |  | 4.19.2 | 1.2.3 |  | 
+| PCIe Power Management (ASPM) | Partial |  | 4.19.1 | 1.2.3 | PCIe errors may spam the kernel log unless you disable ASPM through kernel config or with pcie\_aspm=off | 
+| USB Type C Power Delivery | Not tested |  |  |  |  | 
+| Suspend to RAM | Yes |  | 4.19.7 | 1.2.3 | See [#Suspend](https://wiki.gentoo.org#Suspend) | 
+| Suspend to disk (hibernate) | Yes |  | 4.19.1 | 1.2.3 | See [#Suspend](https://wiki.gentoo.org#Suspend) | 
+| Display backlight control | Yes | acpi\_video | 4.19.1 | 1.2.3 |  | 
+| Keyboard backlight control | Not tested |  |  |  |  | 
 
 ### Extra hardware information
 
@@ -152,7 +152,7 @@ CFLAGS="${COMMON_FLAGS}"
 **`/etc/portage/package.use/00cpu-flags`**
 
 ```
- CPU_FLAGS_X86: aes avx avx2 f16c fma3 mmx mmxext pclmul popcnt sse sse2 sse3 sse4_1 sse4_2 sse4a ssse3
+*/* CPU_FLAGS_X86: aes avx avx2 f16c fma3 mmx mmxext pclmul popcnt sse sse2 sse3 sse4_1 sse4_2 sse4a ssse3
 ```
 ## Required packages
 
@@ -183,3 +183,15 @@ For installing the i2c\_amd\_mp2 out-of-tree driver, see the link in the [table 
 Otherwise, as a workaround, you can use button scrolling, pressing both buttons on the touchpad will cause finger movement to scroll:
 
 **`/etc/X11/xorg.conf.d/40-libinput.conf`**
+
+```
+# Match PS/2 Generic Mouse which is actually the touchpad
+Section "InputClass"
+        Identifier "PS/2 touchpad"
+        MatchIsPointer "on"
+        MatchProduct "PS/2 Generic Mouse"
+        Driver "libinput"
+        Option "MiddleEmulation" "true"
+        Option "ScrollMethod" "button"
+EndSection
+```

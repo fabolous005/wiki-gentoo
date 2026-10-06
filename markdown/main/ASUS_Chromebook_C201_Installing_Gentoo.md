@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/ASUS_Chromebook_C201/Installing_Gentoo
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-29"
-fingerprint: "15871f3f84cf7f74"
+fingerprint: "15831f3f84cf7f74"
 license: CC BY-SA 4.0
 ---
 
@@ -150,7 +150,7 @@ Create the configuration file ("gentoo.its") for the Flattened Image Tree (FIT) 
 **`gentoo.its`**
 
 ```
-;
+/dts-v1/;
 / {
     description = "Linux kernel image with one or more FDT blobs";
     #address-cells = <1>;
@@ -255,3 +255,8 @@ Also keep in mind that the built-in wifi requires [proprietary firmware](https:/
 ## External resources
 
 - PDF: Additional information on FIT images: Joel A Fernandes, [Flattened Image Trees: A powerful kernel image format (PDF)](https://elinux.org/images/f/f4/Elc2013_Fernandes.pdf), [Embedded Linux Wiki](https://elinux.org/Main_Page), February 21, 2013. Retrieved on February 25th, 2019
+
+## References
+
+1. [↑](https://wiki.gentoo.org#cite_ref-1) [Developer mode screen](https://libreboot.org/docs/depthcharge/#developer-mode-screen), [Libreboot documentation on depthcharge](https://libreboot.org/docs/depthcharge). Retrieved on February 25th, 2019
+2. [↑](https://wiki.gentoo.org#cite_ref-2) [Installing Debian On ASUS C201](https://wiki.debian.org/InstallingDebianOn/Asus/C201), [DebianOn](https://wiki.debian.org/InstallingDebianOn). Retrieved on February 26th, 2019

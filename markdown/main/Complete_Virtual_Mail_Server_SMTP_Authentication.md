@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Complete_Virtual_Mail_Server/SMTP_Authenticati
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-05-06"
-fingerprint: fa13e9ba09023fce
+fingerprint: fa03e9ba09003fde
 license: CC BY-SA 4.0
 ---
 
@@ -36,6 +36,11 @@ Ideally, the last option would be the used solution, as one authentication back-
 A key feature of cyrus-sasl that is required is the `crypt` USE flag. It needs to be enabled or crypted passwords from the database cannot be authenticated with. Cyrus-sasl with the correct USE flag should have been pulled in earlier whilst emerging postfix.
 
 
+### USE flags for
+            [dev-libs/cyrus-sasl](https://packages.gentoo.org/packages/dev-libs/cyrus-sasl)
+            
+            The Cyrus SASL (Simple Authentication and Security Layer)
+
 | [authdaemond](https://packages.gentoo.org/useflags/authdaemond) | Add Courier-IMAP authdaemond unix socket support (net-mail/courier-imap, mail-mta/courier) | 
 | [berkdb](https://packages.gentoo.org/useflags/berkdb) | Add support for sys-libs/db (Berkeley DB) | 
 | [gdbm](https://packages.gentoo.org/useflags/gdbm) | Add support for sys-libs/gdbm (GNU database libraries) | 
@@ -61,6 +66,15 @@ Postfix needs a few options to tell it to use sasl in its main.cf. These are not
 
 **Add sasl support to postfix.**
 
+```
+# Postfix to SASL authentication
+broken_sasl_auth_clients = no
+smtpd_sasl_auth_enable = yes
+smtpd_sasl_security_options = noanonymous
+smtpd_sasl_local_domain =
+smtpd_sasl_authenticated_header = yes
+smtpd_recipient_restrictions = permit_sasl_authenticated, permit_mynetworks, reject_unauth_destination
+```
 ## Configuring cyrus-sasl
 
 ### With authdaemond
@@ -74,12 +88,33 @@ Next cyrus-sasl needs to be told to authenticate with authdaemond:
 
 **Authenticate with authdaemond**
 
+```
+pwcheck_method: authdaemond
+mech_list: LOGIN PLAIN
+sql_select: dummy 
+authdaemond_path: /var/lib/courier/authdaemon/socket
+ 
+log_level: 5
+```
 ### With postgresql
 
 **`/etc/sasl2/smtpd.conf`**
 
 **Direct database authentication**
 
+```
+sasl_pwcheck_method: auxprop
+sasl_auxprop_plugin: pgsql
+password_format: crypt
+mech_list: LOGIN PLAIN
+ 
+sql_engine: pgsql
+#sql_hostnames: localhost
+sql_database: postfix
+sql_user: postfix
+sql_passwd: $password
+sql_select: SELECT password FROM mailbox WHERE local_part='%u' AND active='1'
+```
 ## Testing
 
 To verify sasl support telnet can be used to check for the `AUTH` statement:
@@ -142,8 +177,15 @@ Once everything is working as expected, debugging can be disabled (or the line c
 
 **Disable debugging**
 
+```
+log_level: 0
+```
 Optionally, `smtpd_sasl_authenticated_header` can be disabled again. It is very handy for tracking down mailing issues from users. It can however be potentially a security issue, as mentioned above, the users login name is written in the header. On the other hand, if the login name is the *local\_part* of the e-mail address or even the e-mail address then the login name is already known anyway so no big harm there, right? Some caution is advised, but it shouldn't be a huge issue.
 
 **`/etc/postfix/main.cf`**
 
 **Add sasl support to postfix**
+
+```
+smtpd_sasl_authenticated_header = no
+```

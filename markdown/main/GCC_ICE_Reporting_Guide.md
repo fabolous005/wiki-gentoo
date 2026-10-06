@@ -5,15 +5,19 @@ url: https://wiki.gentoo.org/wiki/GCC/ICE_Reporting_Guide
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-01-29"
-fingerprint: "464fe1964239d01"
+fingerprint: "464fa1966238d00"
 license: CC BY-SA 4.0
 ---
 
 # GCC/ICE Reporting Guide
 
+[GCC](https://wiki.gentoo.org/wiki/GCC)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 A guide to debugging **GCC Internal Compiler Errors** (ICEs).
 
@@ -51,24 +55,45 @@ To get more detailed GCC crash reports it is suggested to rebuild it with debugg
 
 **`/etc/portage/env/debugsyms`**
 
+```
+CFLAGS="${CFLAGS} -ggdb3"
+CXXFLAGS="${CXXFLAGS} -ggdb3"
+FEATURES="${FEATURES} splitdebug compressdebug -nostrip"
+```
 **`/etc/portage/env/installsources`**
 
+```
+FEATURES="${FEATURES} installsources"
+```
 **`/etc/portage/env/no-builtin-strlen`**
 
+```
+CFLAGS="${CFLAGS} -fno-builtin-strlen"
+```
 - The next step is to activate those settings for [sys-devel/gcc](https://packages.gentoo.org/packages/sys-devel/gcc), create the following file in /etc/portage/packages.env:
 
 **`/etc/portage/package.env/gcc`**
 
+```
+sys-devel/gcc debugsyms installsources
+```
 - Do the same for [sys-libs/glibc](https://packages.gentoo.org/packages/sys-libs/glibc), however that latter case depends on if Valgrind is used or not. So create **one** of the following files according to the current use case:
 
 **`/etc/portage/package.env/glibc`**
 
 **(package.env settings for sys-libs/glibc for systems using Valgrind)**
 
+```
+# Valgrind requires -fno-builtin-strlen for glibc
+sys-libs/glibc no-builtin-strlen debugsyms installsources
+```
 **`/etc/portage/package.env/glibc`**
 
 **(package.env settings for sys-libs/glibc for systems without Valgrind)**
 
+```
+sys-libs/glibc debugsyms installsources
+```
 - Finally emerge [sys-libs/glibc](https://packages.gentoo.org/packages/sys-libs/glibc) and [sys-devel/gcc](https://packages.gentoo.org/packages/sys-devel/gcc) again:
 
 `root #``emerge --ask -1 sys-libs/glibc sys-devel/gcc`
@@ -322,6 +347,49 @@ Whenever the compilation fails with an LTO error, the very first step is to look
 
 **`/var/tmp/portage/kde-plasma/xdg-desktop-portal-kde-5.27.4.1-r1/temp/build.log`**
 
+```
+(...)
+FAILED: bin/xdg-desktop-portal-kde 
+: && /usr/bin/x86_64-pc-linux-gnu-g++ -O3 -pipe -march=native -fomit-frame-pointer -fopt-info-vec -fcf-protection=return -flto=auto -ffat-lto-objects -fno-operator-names -fno-exceptions -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wnon-virtual-dtor -Woverloaded-virtual -Werror=return-type -Werror=init-self -Wvla -Wdate-time -Wsuggest-override -Wlogical-op -fdiagnostics-color=always -Wl,--enable-new-dtags -flto=auto     -pthread src/CMakeFiles/xdg-desktop-portal-kde.dir/xdg-desktop-portal-kde_autogen/mocs_compilation.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/access.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/accessdialog.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/account.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/appchooser.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/appchooserdialog.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/background.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/dbushelpers.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/desktopportal.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/email.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/filechooser.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/globalshortcuts.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/inhibit.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/notification.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/notificationinhibition.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/outputsmodel.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/print.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/quickdialog.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/remotedesktop.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/remotedesktopdialog.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/request.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/screencast.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/screencasting.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/screencastwidget.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/screenchooserdialog.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/screenshot.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/screenshotdialog.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/session.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/settings.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/userinfodialog.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/utils.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/waylandintegration.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/xdg-desktop-portal-kde.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/portalicon.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/dynamiclauncher.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/dynamiclauncherdialog.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/xdgshortcut.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/background_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/notificationinhibition_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/access_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/account_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/settings_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/appchooser_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/desktopportal_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/dynamiclauncher_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/dynamiclauncherdialog_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/email_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/filechooser_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/inhibit_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/notification_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/print_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/remotedesktop_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/remotedesktopdialog_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/request_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/screencast_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/screenshot_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/screenshotdialog_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/session_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/waylandintegration_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/accessdialog_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/kglobalaccel_interface.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/kglobalaccel_component_interface.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/wayland-zkde-screencast-unstable-v1-protocol.c.o src/CMakeFiles/xdg-desktop-portal-kde.dir/qwayland-zkde-screencast-unstable-v1.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/wayland-wayland-protocol.c.o src/CMakeFiles/xdg-desktop-portal-kde.dir/qwayland-wayland.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/user_interface.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/documents_interface.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/fuse_interface.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/fdo_application_interface.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/xdg-desktop-portal-kde_autogen/EWIEGA46WW/qrc_resources.cpp.o -o bin/xdg-desktop-portal-kde  /usr/lib64/libKF5Declarative.so.5.105.0  /usr/lib64/libKF5Notifications.so.5.105.0  /usr/lib64/libKF5WaylandClient.so.5.105.0  lib/libKirigamiFilepicker.a  /usr/lib64/libwayland-client.so  /usr/lib64/libQt5QuickWidgets.so.5.15.8  /usr/lib64/libKF5Package.so.5.105.0  /usr/lib64/libKF5KIOFileWidgets.so.5.105.0  /usr/lib64/libKF5KIOWidgets.so.5.105.0  /usr/lib64/libKF5KIOGui.so.5.105.0  /usr/lib64/libKF5WindowSystem.so.5.105.0  /usr/lib64/libX11.so  /usr/lib64/libKF5JobWidgets.so.5.105.0  /usr/lib64/libKF5Completion.so.5.105.0  /usr/lib64/libKF5Bookmarks.so.5.105.0  /usr/lib64/libKF5XmlGui.so.5.105.0  /usr/lib64/libKF5GlobalAccel.so.5.105.0  /usr/lib64/libKF5IconThemes.so.5.105.0  /usr/lib64/libQt5PrintSupport.so.5.15.8  /usr/lib64/libKF5ItemViews.so.5.105.0  /usr/lib64/libKF5ConfigWidgets.so.5.105.0  /usr/lib64/libKF5GuiAddons.so.5.105.0  /usr/lib64/libQt5WaylandClient.so.5.15.8  /usr/lib64/libKF5WidgetsAddons.so.5.105.0  /usr/lib64/libKF5ConfigGui.so.5.105.0  /usr/lib64/libKF5Codecs.so.5.105.0  /usr/lib64/libKF5Auth.so.5.105.0  /usr/lib64/libQt5Widgets.so.5.15.8  /usr/lib64/libKF5Solid.so.5.105.0  /usr/lib64/libQt5Quick.so.5.15.8  /usr/lib64/libQt5QmlModels.so.5.15.8  /usr/lib64/libQt5Qml.so.5.15.8  /usr/lib64/libKF5KIOCore.so.5.105.0  /usr/lib64/libKF5Service.so.5.105.0  /usr/lib64/libKF5ConfigCore.so.5.105.0  /usr/lib64/libKF5I18n.so.5.105.0  /usr/lib64/libQt5Concurrent.so.5.15.8  /usr/lib64/libQt5Network.so.5.15.8  /usr/lib64/libQt5Xml.so.5.15.8  /usr/lib64/libKF5AuthCore.so.5.105.0  /usr/lib64/libKF5CoreAddons.so.5.105.0  /usr/lib64/libQt5DBus.so.5.15.8  /usr/lib64/libQt5XkbCommonSupport.a  /usr/lib64//libQt5Gui.so  /usr/lib64//libQt5Core.so  /usr/lib64/libxkbcommon.so  /usr/lib64/libGL.so  /usr/lib64/libQt5Gui.so.5.15.8  /usr/lib64/libQt5Core.so.5.15.8 && :
+lto1: internal compiler error: Segmentation fault
+0xd75173 crash_signal
+        /usr/src/debug/sys-devel/gcc-13.0.1_pre20230409-r3/gcc-13-20230409/gcc/toplev.cc:314
+0x7f232bba75df ???
+        /usr/src/debug/sys-libs/glibc-2.37-r1/glibc-2.37/signal/../sysdeps/unix/sysv/linux/x86_64/libc_sigaction.c:0
+0x8bd220 bp_unpack_string(data_in*, bitpack_d*)
+        /usr/src/debug/sys-devel/gcc-13.0.1_pre20230409-r3/gcc-13-20230409/gcc/data-streamer-in.cc:112
+0xc7c27f cl_optimization_stream_in(data_in*, bitpack_d*, cl_optimization*)
+        /usr/src/debug/sys-devel/gcc-13.0.1_pre20230409-r3/build/gcc/options-save.cc:13501
+0xfeb513 streamer_read_tree_bitfields(lto_input_block*, data_in*, tree_node*)
+        /usr/src/debug/sys-devel/gcc-13.0.1_pre20230409-r3/gcc-13-20230409/gcc/tree-streamer-in.cc:562
+0xbe071b lto_read_tree_1
+        /usr/src/debug/sys-devel/gcc-13.0.1_pre20230409-r3/gcc-13-20230409/gcc/lto-streamer-in.cc:1713
+0xbe0c20 lto_read_tree
+        /usr/src/debug/sys-devel/gcc-13.0.1_pre20230409-r3/gcc-13-20230409/gcc/lto-streamer-in.cc:1760
+0xbe0c20 lto_input_tree_1(lto_input_block*, data_in*, LTO_tags, unsigned int)
+        /usr/src/debug/sys-devel/gcc-13.0.1_pre20230409-r3/gcc-13-20230409/gcc/lto-streamer-in.cc:1901
+0xbe0e6b lto_input_scc(lto_input_block*, data_in*, unsigned int*, unsigned int*, bool)
+        /usr/src/debug/sys-devel/gcc-13.0.1_pre20230409-r3/gcc-13-20230409/gcc/lto-streamer-in.cc:1789
+0x83f9d4 lto_read_decls
+        /usr/src/debug/sys-devel/gcc-13.0.1_pre20230409-r3/gcc-13-20230409/gcc/lto/lto-common.cc:1908
+0x83f9d4 lto_file_finalize
+        /usr/src/debug/sys-devel/gcc-13.0.1_pre20230409-r3/gcc-13-20230409/gcc/lto/lto-common.cc:2288
+0x83f9d4 lto_create_files_from_ids
+        /usr/src/debug/sys-devel/gcc-13.0.1_pre20230409-r3/gcc-13-20230409/gcc/lto/lto-common.cc:2298
+0x83f9d4 lto_file_read
+        /usr/src/debug/sys-devel/gcc-13.0.1_pre20230409-r3/gcc-13-20230409/gcc/lto/lto-common.cc:2353
+0x83f9d4 read_cgraph_and_symbols(unsigned int, char const**)
+        /usr/src/debug/sys-devel/gcc-13.0.1_pre20230409-r3/gcc-13-20230409/gcc/lto/lto-common.cc:2801
+0x80e5d6 lto_main()
+        /usr/src/debug/sys-devel/gcc-13.0.1_pre20230409-r3/gcc-13-20230409/gcc/lto/lto.cc:654
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://bugs.gentoo.org/> for instructions.
+lto-wrapper: fatal error: /usr/bin/x86_64-pc-linux-gnu-g++ returned 1 exit status
+compilation terminated.
+/usr/lib/gcc/x86_64-pc-linux-gnu/13/../../../../x86_64-pc-linux-gnu/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+```
 Pay attention to the two double ampersands (`&&`) that enclose the full command line. This is our point of interest, copy what is enclosed in-between and keep it somewhere - it will get used later in this section. For now, just change the working directory for the failed package's one somewhere under /var/tmp/portage. Here:
 
 `root #``cd /var/tmp/portage/kde-plasma/xdg-desktop-portal-kde-5.27.4.1-r1`
@@ -361,12 +429,21 @@ Now, create a file (here named full\_objects\_list) which contains the whole lis
 
 **`'full_objects_list'`**
 
+```
+src/CMakeFiles/xdg-desktop-portal-kde.dir/xdg-desktop-portal-kde_autogen/mocs_compilation.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/access.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/accessdialog.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/account.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/appchooser.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/appchooserdialog.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/background.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/dbushelpers.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/desktopportal.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/email.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/filechooser.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/globalshortcuts.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/inhibit.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/notification.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/notificationinhibition.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/outputsmodel.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/print.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/quickdialog.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/remotedesktop.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/remotedesktopdialog.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/request.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/screencast.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/screencasting.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/screencastwidget.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/screenchooserdialog.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/screenshot.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/screenshotdialog.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/session.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/settings.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/userinfodialog.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/utils.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/waylandintegration.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/xdg-desktop-portal-kde.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/portalicon.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/dynamiclauncher.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/dynamiclauncherdialog.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/xdgshortcut.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/background_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/notificationinhibition_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/access_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/account_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/settings_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/appchooser_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/desktopportal_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/dynamiclauncher_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/dynamiclauncherdialog_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/email_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/filechooser_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/inhibit_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/notification_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/print_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/remotedesktop_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/remotedesktopdialog_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/request_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/screencast_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/screenshot_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/screenshotdialog_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/session_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/waylandintegration_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/accessdialog_debug.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/kglobalaccel_interface.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/kglobalaccel_component_interface.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/wayland-zkde-screencast-unstable-v1-protocol.c.o src/CMakeFiles/xdg-desktop-portal-kde.dir/qwayland-zkde-screencast-unstable-v1.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/wayland-wayland-protocol.c.o src/CMakeFiles/xdg-desktop-portal-kde.dir/qwayland-wayland.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/user_interface.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/documents_interface.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/fuse_interface.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/fdo_application_interface.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/xdg-desktop-portal-kde_autogen/EWIEGA46WW/qrc_resources.cpp.o
+```
 Now transform full\_objects\_list to not only convert relative paths to absolute paths but also put one item of the list per line. Here is tr comes at the rescue (don't forget the final slash in the sed directive!):
 
 `root #``cat full_objects_list | tr ' ' '\n' | sed -e "s:^:/var/tmp/portage/kde-plasma/xdg-desktop-portal-kde-5.27.4.1-r1/work/xdg-desktop-portal-kde-5.27.4.1_build/:" > full_objects_list_fixed` The file full\_objects\_list\_fixed should look like this (one file per line):
 
 **`'full_objects_list'`**
 
+```
+/var/tmp/portage/kde-plasma/xdg-desktop-portal-kde-5.27.4.1-r1/work/xdg-desktop-portal-kde-5.27.4.1_build//src/CMakeFiles/xdg-desktop-portal-kde.dir/xdg-desktop-portal-kde_autogen/mocs_compilation.cpp.o
+/var/tmp/portage/kde-plasma/xdg-desktop-portal-kde-5.27.4.1-r1/work/xdg-desktop-portal-kde-5.27.4.1_build/src/CMakeFiles/xdg-desktop-portal-kde.dir/access.cpp.o 
+/var/tmp/portage/kde-plasma/xdg-desktop-portal-kde-5.27.4.1-r1/work/xdg-desktop-portal-kde-5.27.4.1_build/src/CMakeFiles/xdg-desktop-portal-kde.dir/accessdialog.cpp.o src/CMakeFiles/xdg-desktop-portal-kde.dir/account.cpp.o
+(...)
+```
 Now create a copy of the full\_objects\_list\_fixed and name it bad (the original contents will be needed later):
 
 `root #``cp full_objects_list_fixed bad`

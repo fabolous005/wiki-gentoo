@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Bcachefs/rootfs
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-01-09"
-fingerprint: "1d04ef5a572198ec"
+fingerprint: "3f96eb3857219ac4"
 license: CC BY-SA 4.0
 ---
 
 # bcachefs/rootfs
+
+[Bcachefs](https://wiki.gentoo.org/wiki/Bcachefs)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -47,10 +49,30 @@ For configuring the kernel, following the [manual configuration](https://wiki.ge
 
 **Adding bcachefs support**
 
+```
+File Systems --->
+   <*> bcachefs filesystem support (EXPERIMENTAL)
+      [ ]   bcachefs quota support
+      [ ]   bcachefs erasure coding (RAID5/6) support (EXPERIMENTAL)
+      [*]   bcachefs POSIX ACL support
+      [ ]   bcachefs runtime info
+      [ ]   bcachefs debugging
+      [ ]   bcachefs unit and performance tests
+      [ ]   bcachefs lock time statistics
+      [ ]   disable latency accounting and time stats
+```
 If a lscpu shows **ssse3** and/or **avx2** it is recommended to enable also:
 
 **Adding bcachefs support - Accelerated Cryptographic Algorithms**
 
+```
+-*- Cryptographic API  --->
+    Accelerated Cryptographic Algorithms for CPU (x86)  --->
+        [*] Ciphers: ChaCha20, XChaCha20, XChaCha12 (SSSE3/AVX2/AVX-512VL)
+        [*] Hash functions: Poly1305 (SSE2/AVX2)
+        [*] Hash functions: SHA-224 and SHA-256 (SSSE3/AVX/AVX2/SHA-NI)
+        [*] CRC32c (SSE4.2/PCLMULQDQ)
+```
 After building the Kernel, if the Distribution Kernel config was used, install the initramfs with
 
 `root #``dracut --kver=6.12.16-gentoo`
@@ -60,6 +82,11 @@ An example fstab for a bcachefs rootfs looks like:
 
 **`/etc/fstab`**
 
+```
+/dev/sda1 /boot vfat     defaults 1 2
+/dev/sda2 none  swap     sw       0 0
+/dev/sda3 /     bcachefs defaults 0 0
+```
 and finally finish the Handbook, resuming at [configuring the system](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/System).
 
 ## Userspace Tools

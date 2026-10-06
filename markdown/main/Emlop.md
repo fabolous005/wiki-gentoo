@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Emlop
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-10-27"
-fingerprint: efbec76cd5a9360b
+fingerprint: efbec76cd5a1360a
 license: CC BY-SA 4.0
 ---
 
 # emlop
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

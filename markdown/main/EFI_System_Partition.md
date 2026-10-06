@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/EFI_System_Partition
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-06-09"
-fingerprint: b60dba9e85a38dcc
+fingerprint: "960dba9e85a28dcc"
 license: CC BY-SA 4.0
 ---
 
@@ -15,15 +15,36 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+**Resources**
+
 The **EFI system partition (ESP)** is a [FAT](https://wiki.gentoo.org/wiki/FAT) formatted partition containing the primary [EFI](https://wiki.gentoo.org/wiki/UEFI) [boot loader(s)](https://wiki.gentoo.org/wiki/Bootloader) for installed operating systems.
+
+## Kernel
 
 Advanced partition selection (`CONFIG_PARTITION_ADVANCED`) and EFI GUID Partition support (`CONFIG_EFI_PARTITION`) must be enabled:
 
 **Enable support for GPT**
 
+```
+-*- Enable the block layer --->
+   Partition Types --->
+      [*] Advanced partition selection
+      [*] EFI GUID Partition support
+```
 ISO8859-1 codepage must be enabled too, in order to mount the [FAT](https://wiki.gentoo.org/wiki/FAT) EFI partition:
 
 **Enable ISO8859-1 codepage and support for VFAT**
+
+```
+-*- File Systems --->
+   DOS/FAT/EXFAT/NT Filesystems  --->
+      <*> VFAT (Windows-95) fs support
+      (437) Default codepage for FAT
+      (iso8859-1) Default iocharset for FAT
+   Native Language support --->
+      [*] NLS ISO 8859-1  (Latin 1; Western European Languages)
+```
+## Characteristics
 
 For creation instructions see [Handbook](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/Disks#Creating_the_EFI_system_partition_.28ESP.29).
 
@@ -65,9 +86,15 @@ Number  Start (sector)    End (sector)  Size       Code  Name
 Its filesystem can be created [using the **mkfs.fat** command](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/Disks#What_is_the_EFI_System_Partition_.28ESP.29.3F):
 
 `root #``mkfs.fat -F 32 /dev/sda1`
+## Size considerations
+
 [Gentoo Handbook recommends](https://wiki.gentoo.org/wiki/Handbook:AMD64/Blocks/Disks#Default_partitioning_scheme) to allocating 1 GiB for ESP, which is more than enough for any bootloader payloads like [EFI stub](https://wiki.gentoo.org/wiki/EFI_stub) kernels or Windows.
 
+## Optional: Mount point
+
 An entry in [/etc/fstab](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/System#About_fstab) might be useful for manually [mounting the ESP](https://wiki.gentoo.org/wiki/EFI_stub_kernel#Installation) but is not needed for booting.
+
+## Optional: autofs
 
 Mounting the ESP to /boot/efi/, as was traditionally done, is not recommended. A nested setup complicates implementation of best-practice autofs-style mounts, as establishing the inner autofs will trigger the outer one. Mounting these partitions via autofs (and by extension keeping them unmounted whenever possible) is recommended due to the data integrity and security characteristics of VFAT file systems being effectively nonexistent.
 
@@ -112,6 +139,8 @@ To use the automounter before rebooting, start it manually:
 `root #``/etc/init.d/autofs start`
 There is no need to add these partitions to /etc/fstab.
 
+## Standard layout
+
 There is a standard layout for the ESP. Vendors and distributions are supposed to put their stuff into vendor specific directories.
 
 `user $``tree -L 3 /efi````
@@ -137,6 +166,8 @@ There is a standard layout for the ESP. Vendors and distributions are supposed t
 ```
 Here the Microsoft subtree - and also the Boot subtree<sup>[\[1\]](https://wiki.gentoo.org#cite_note-1)</sup> - was created by an earlier installation of Windows 10. The Boot subtree is the fallback directory. If UEFI can't find any vendor specific directories it will boot from here. In a multiboot environment with properly set up vendor specific subtrees the Boot subtree can be deleted.
 
+## UEFI boot items
+
 Computers with UEFI provide a boot menu for bootloaders on the ESP. This boot menu is a function of the firmware and is not shown by default. Moreover there is no standard of how to get to the boot menu, but the most common way is to hold (or continuously press) a key on UEFI firmware initialization (also POST, power-on self test). Most UEFI firmware vendors will show the boot menu when one of the function keys on the connected keyboard is pressed. The boot menu may also be available from within the firmware setup ("BIOS setup"), which is also accessible when pressing a predefined key. Most commonly `Esc`, `Del`, `F1`, `F2`, `F10`, `F11` and `F12`, and on tablets also the `Volume Up` and `Volume Down` keys are used to either enter the firmware setup or display the boot menu.<sup>[\[2\]](https://wiki.gentoo.org#cite_note-2)</sup> Please consult your system or mainboard manual for the exact keys and further details.
 
 An installation tool will not only manage the bootloader and other required files on the ESP, it will also manage the addition of an "EFI boot entry". EFI boot entries, stored in NVRAM, are like the registration of the bootloader to the firmware. EFI will normally only list bootloaders with a boot entry in the boot menu, therefore it is not sufficient to only copy a bootloader or EFI executable to the ESP. Linux bootloaders will normally automatically add an EFI boot entry on installation of an (U)EFI bootloader, like e.g. GRUB with grub-install.
@@ -156,6 +187,8 @@ Boot2003\* EFI Network   RC
 In case a bootloader is deleted from the ESP, UEFI will normally delete the EFI boot entry as well on startup, and the bootloader will no longer be available from the boot menu, even when the file is afterwards restored, i.e. copied to the same path on the ESP.
 
 One single exception, where no EFI boot entry is required, is the removable media boot path. On internal (fixed) media, such as the internal HDD or SDD, it is also used as the fallback boot path on most UEFI systems.
+
+### Removable media
 
 EFI bootloaders on [removable media](https://wiki.gentoo.org/wiki/Removable_media) are not configured as boot entries, so tools like efibootmgr are not required. Instead the computer firmware identifies removable boot options by looking for a predefined file name unique to the system architecture in use, in a predefined path.[\[3\]](https://wiki.gentoo.org#cite_note-3)
 
@@ -179,6 +212,8 @@ To use the removable media boot path it is sufficient to copy the EFI bootloader
 `root #``cp /efi/EFI/Gentoo/grubx64.efi /efi/EFI/boot/bootx64.efi` The boot manager included in [systemd](https://wiki.gentoo.org/wiki/Systemd), [systemd-boot](https://wiki.gentoo.org/wiki/Systemd/systemd-boot) (formally Gummiboot), will automatically install to the *removable media boot path*. When [sys-apps/systemd](https://packages.gentoo.org/packages/sys-apps/systemd) with the `boot` USE flag is updated, it is necessary to run bootctl again in order to update both bootloader files.
 
 `root #``bootctl update`
+## See also
+
 - [Handbook:AMD64/Installation/Disks#What is the EFI System Partition (ESP)?](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/Disks#What_is_the_EFI_System_Partition_.28ESP.29.3F)
 - [UEFI](https://wiki.gentoo.org/wiki/UEFI) — a firmware standard for boot ROM designed to provide a stable API for interacting with system hardware. On [x86](https://en.wikipedia.org/wiki/x86) it replaced the legacy [BIOS](https://wiki.gentoo.org/wiki/BIOS).
 - [EFI stub](https://wiki.gentoo.org/wiki/EFI_stub)

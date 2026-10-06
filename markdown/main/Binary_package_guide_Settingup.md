@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Binary_package_guide/Settingup
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-08-12"
-fingerprint: ad311a3ea1737f91
+fingerprint: ad201a3ea0537e90
 license: CC BY-SA 4.0
 ---
 
@@ -17,9 +17,13 @@ license: CC BY-SA 4.0
 
 **Gentoo binhost**
 
+**Binary packages**
+
 Portage supports a number of protocols for downloading binary packages: FTP, FTPS, HTTP, HTTPS, and SSH/SFTP. This leaves room for many possible binary package host implementations.
 
 There is, however, no "out-of-the-box" method provided by Portage for distributing binary packages. Depending on the desired setup additional software will need to be installed.
+
+### SSH binary package host
 
 To provide an authenticated approach for binary package mirrors, Portage can be configured to use the SSH protocol to access binary packages.
 
@@ -63,6 +67,8 @@ Portage ignores \~/.ssh/config by default, however you can setup your make.conf 
 ```
 PORTAGE_SSH_OPTS='-F /home/larry/.ssh/config'
 ```
+### NFS exported
+
 When using binary packages on an internal network, it might be easier to export the packages through [NFS](https://wiki.gentoo.org/wiki/Nfs-utils) and mount it on the clients.
 
 There are two ways of doing this:
@@ -78,12 +84,18 @@ The /etc/exports file could look like so:
 
 **Exporting the packages directory**
 
+```
+/var/cache/binpkgs   2001:db8:81::/48(ro,no_subtree_check,root_squash) 192.168.100.0/24(ro,no_subtree_check,root_squash)
+```
 On the clients, the location can then be mounted **at a separate location**. An example /etc/fstab entry would look like so:
 
 **`/etc/fstab`**
 
 **Entry for mounting the packages folder**
 
+```
+binhost:/var/cache/binpkgs      /opt/nfs-binpkgs    nfs    defaults    0 0
+```
 Then configure Portage to know about this:
 
 **`/etc/portage/binrepos.conf/nfs.conf`**
@@ -101,6 +113,8 @@ That is, there are three locations involved in total:
 - client: /opt/nfs-binpkgs is the mount location for NFS with the full set of binpkgs
 - client: /var/cache/binhost/nfs is the local cached copy of any binaries used
 
+#### Setting file permissions
+
 Using the above exports, the client may not discover new binary packages or may fail to emerge them if the file permissions are insufficient. To fix this, change ownership of the exported PKGDIR from the host:
 
 `root #``chown -v nobody:nobody /var/cache/binpkgs`
@@ -110,6 +124,8 @@ Set also the setgid bit so that new packages will inherit the group ownership:
 The ownership will also have to be changed individually (or recursively) for any packages that have already been created at this point.
 
 
+
+### Web based binary package host
 
 A common approach for distributing binary packages is to create a web-based binary package host.
 
@@ -134,6 +150,12 @@ To set up the [Caddy](https://wiki.gentoo.org/wiki/Caddy) HTTP server to provide
 
 **`Caddyfile`**
 
+```
+x.x.x.x:80 { # Replace x.x.x.x with your host's IPv4 address
+    root * /path/to/binhost/var/cache/binpkgs
+    file_server browse # Needed to server 
+}
+```
 Once that is created, run Caddy with:
 
 `root #``caddy run --config /path/to/Caddyfile`
@@ -156,6 +178,30 @@ To setup a web-based binhost utilizing [nginx](https://wiki.gentoo.org/wiki/Ngin
 
 **`/etc/nginx/nginx.conf`**
 
+```
+user nginx nginx;
+worker_processes auto;
+ 
+events {
+	# NGINX refuses to start if the 'events' section is not present. Yet,
+	# NGINX does not seem to care whether this section is non-empty.
+}
+ 
+http {
+	types_hash_max_size 4096;
+	include /etc/nginx/mime.types.nginx;
+ 
+	sendfile on;
+ 
+	server {
+		listen 0.0.0.0;
+		server_name _;
+ 
+		root /path/to/binhost/var/cache/binpkgs;
+		autoindex on; # Not necessarily needed, but it allows users to view available binpackages
+	}
+}
+```
 #### http.server
 
 Python includes a barebones HTTP server by default and is very simple to use. To setup a binhost with this, cd into the `PKGDIR` directory and run:

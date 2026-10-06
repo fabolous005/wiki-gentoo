@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Btrfs/System_Root_Guide
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-09-18"
-fingerprint: "2aaf901da5e14b61"
+fingerprint: abf911da5e16b61
 license: CC BY-SA 4.0
 ---
 
 # Btrfs/System Root Guide
+
+[Btrfs](https://wiki.gentoo.org/wiki/Btrfs)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -34,10 +36,24 @@ The use of the older metadata format for /boot and / partitions allows grub-0.97
 
 **Existing grub.conf**
 
+```
+default 0
+timeout 6
+splashimage=(hd0,0)/boot/grub/splash.xpm.gz
+title Gentoo Linux 3.8.13-gentoo
+root (hd0,0)
+kernel /boot/kernel-3.8.13-gentoo md=2,/dev/sda2,/dev/sdb2 root=/dev/md2
+```
 **`/etc/fstab`**
 
 **Existing fstab**
 
+```
+/dev/md1                /boot           ext3            defaults,noatime        1 2
+/dev/md2                /               ext4            defaults,noatime        0 1
+/dev/md3                /home           ext4            defaults,noatime        0 1
+/dev/md4                /vm             ext4            defaults,noatime        0 1
+```
 ### New layout
 
 - 250MB /boot partition as ext3 with metadata=0.90
@@ -49,6 +65,22 @@ Btrfs has been built into the kernel (not a module) along with lzo compression/d
 
 **Kernel configuration for btrfs**
 
+```
+General setup  --->
+  [*] Initial RAM filesystem and RAM disk (initramfs/initrd) support
+Device Drivers  --->
+  [*] Multiple devices driver support (RAID and LVM)  --->
+    {*}   RAID support
+    [*]     Autodetect RAID arrays during kernel boot
+    <*>     Linear (append) mode
+    <*>     RAID-0 (striping) mode
+    {*}     RAID-1 (mirroring) mode
+    {*}     RAID-10 (mirrored striping) mode
+    {*}     RAID-4/RAID-5/RAID-6 mode
+File systems  --->
+  <*> Btrfs filesystem support
+  [*]   Btrfs POSIX Access Control Lists
+```
 There are a number of places where lzo is part of a module name in the kernel .config.
 
 `root #``cd /usr/src/linux``root #``grep -i lzo .config`
@@ -63,6 +95,15 @@ CONFIG\_DECOMPRESS\_LZO=y
 
 It is unclear what kernel options are pickable to make sure that the lzo module btrfs relies on will be enabled. The likely suspect is `CONFIG_HAVE_KERNEL_LZO` which comes in to play for the compression of the kernel image itself:
 
+```
+General setup  --->
+  Kernel compression mode (Gzip)  --->
+    (X) Gzip
+    ( ) Bzip2
+    ( ) LZMA
+    ( ) XZ
+    ( ) LZO
+```
 The default selection of gzip causes CONFIG\_KERNEL\_LZO to not be set as shown above. There doesn't appear to be a way to control the setting of CONFIG\_HAVE\_KERNEL\_LZO short of editing .config directly.
 
 #### Partitioning
@@ -154,6 +195,13 @@ Other existing filesystem such as /home and /vm will become other subvolumes. We
 
 **additions to existing version**
 
+```
+LABEL=BTRFSMIRROR	/mnt/btrfsmirror	btrfs	defaults,noatime	0 0
+LABEL=BTRFSMIRROR	/mnt/newroot		btrfs	defaults,noatime,compress=lzo,autodefrag,subvol=root	0 0
+LABEL=BTRFSMIRROR	/mnt/newhome		btrfs	defaults,noatime,compress=lzo,autodefrag,subvol=home	0 0
+LABEL=BTRFSMIRROR	/mnt/newdistfiles	btrfs	defaults,noatime,autodefrag,subvol=distfiles	0 0
+LABEL=BTRFSMIRROR	/mnt/newvm		btrfs	defaults,noatime,compress=lzo,subvol=vm	0 0
+```
 `root #``mkfs.btrfs -L BTRFSMIRROR -d raid1 -m raid1 /dev/sdc2 /dev/sdd2````
 WARNING! - Btrfs Btrfs v0.19 IS EXPERIMENTAL
 WARNING! - see http://btrfs.wiki.kernel.org before using
@@ -206,6 +254,17 @@ We edit the /etc/fstab on the new mirror set to reflect the way things should lo
 
 **as it appears on /mnt/newroot mirror**
 
+```
+/dev/md1                /boot           ext3    defaults,noatime                1 2
+#/dev/md2		/		ext4		defaults,noatime	0 1
+#/dev/md3		/home		ext4		defaults,noatime	0 1
+#/dev/md4		/vm		ext4		defaults,noatime	0 1
+LABEL=BTRFSMIRROR	/mnt/btrfsmirror	btrfs	defaults,noatime	0 0
+LABEL=BTRFSMIRROR	/		btrfs	defaults,noatime,compress=lzo,autodefrag,subvol=root	0 0
+LABEL=BTRFSMIRROR	/home		btrfs	defaults,noatime,compress=lzo,autodefrag,subvol=home	0 0
+LABEL=BTRFSMIRROR	/distfiles	btrfs	defaults,noatime,autodefrag,subvol=distfiles	0 0
+LABEL=BTRFSMIRROR	/vm		btrfs	defaults,noatime,compress=lzo,subvol=vm	0 0
+```
 We generate a new mdadm.conf file to include the new /dev/md5 /boot mirror but then edit it to rename that to /dev/md1. The other existing arrays are stubbed out, but the information is there in case the old mirror set is put back on again.
 
 `root #``cd /mnt/newroot/etc``root #``mdadm --detail --scan >mdadm.conf`
@@ -213,6 +272,13 @@ We generate a new mdadm.conf file to include the new /dev/md5 /boot mirror but t
 
 **on /mnt/newroot edited as noted**
 
+```
+#ARRAY /dev/md1 metadata=0.90 UUID=a4e5e7b8:b2ce2666:78a9b883:5f5f67d5
+#ARRAY /dev/md2 metadata=0.90 UUID=881a4c3b:3cc63489:78a9b883:5f5f67d5
+#ARRAY /dev/md3 metadata=1.2 name=whatever:3 UUID=9be86c4f:2b0a9e82:b70f0ccc:1eb9b458
+#ARRAY /dev/md4 metadata=1.2 name=whatever:4 UUID=3f51c3cd:64b9aefa:957dde49:e1130638
+ARRAY /dev/md1 metadata=0.90 UUID=651f4200:d2f48834:c68863d8:e9942ea0
+```
 #### Creating the Initial Ram Filesystem
 
 We will have to use an initial ram filesystem and an embedded init to mount the mirror set. Following the wiki entry for [Early Userspace Mounting](https://wiki.gentoo.org/wiki/Early_Userspace_Mounting), we create the following files in /usr/src/linux/initramfs.
@@ -221,12 +287,76 @@ We will have to use an initial ram filesystem and an embedded init to mount the 
 
 **files to go into the initial ram fs**
 
+```
+# directory structure with files required for sys-fs/btrfs-progs-4.3.1 and newer
+#
+# basic root directories
+dir /proc       755 0 0
+dir /usr        755 0 0
+dir /usr/lib64  755 0 0
+dir /bin        755 0 0
+dir /sys        755 0 0
+dir /var        755 0 0
+dir /lib64      755 0 0
+dir /sbin       755 0 0
+dir /mnt        755 0 0
+dir /mnt/root   755 0 0
+dir /etc        755 0 0
+dir /root       700 0 0
+dir /dev        755 0 0
+# busybox
+file /bin/busybox		/bin/busybox		755 0 0
+#
+# fsck deps
+#
+file /sbin/fsck			/sbin/fsck		755 0 0
+file /lib64/libmount.so.1	/lib64/libmount.so.1	755 0 0
+file /lib64/libblkid.so.1	/lib64/libblkid.so.1	755 0 0
+file /lib64/libc.so.6		/lib64/libc.so.6	755 0 0
+file /lib64/libuuid.so.1	/lib64/libuuid.so.1	755 0 0
+file /lib64/ld-linux-x86-64.so.2  /lib64/ld-linux-x86-64.so.2 755 0 0
+#
+#  fsck.ext4 and added deps
+#
+file /sbin/fsck.ext4		/sbin/fsck.ext4		755 0 0
+file /lib64/libext2fs.so.2	/lib64/libext2fs.so.2	755 0 0
+file /lib64/libcom_err.so.2	/lib64/libcom_err.so.2	755 0 0
+file /lib64/libe2p.so.2		/lib64/libe2p.so.2	755 0 0
+file /lib64/libpthread.so.0	/lib64/libpthread.so.0	755 0 0
+#
+# btrfs utils and added deps
+#
+file /sbin/btrfs		/sbin/btrfs		755 0 0
+file /sbin/btrfs-convert	/sbin/btrfs-convert	755 0 0
+file /sbin/btrfs-find-root	/sbin/btrfs-find-root	755 0 0
+file /sbin/btrfs-image		/sbin/btrfs-image	755 0 0
+file /sbin/btrfs-map-logical	/sbin/btrfs-map-logical	755 0 0
+file /sbin/btrfsck		/sbin/btrfsck		755 0 0
+file /sbin/btrfstune		/sbin/btrfstune		755 0 0
+file /sbin/mkfs.btrfs		/sbin/mkfs.btrfs	755 0 0
+file /lib64/libz.so.1		/lib64/libz.so.1	755 0 0
+file /lib64/liblzo2.so.2	/lib64/liblzo2.so.2	755 0 0
+# if btrfs-progs are compiled with USE=zstd
+file /usr/lib64/libzstd.so.1	/usr/lib64/libzstd.so.1	755 0 0
+#
+#  init script
+#
+file    /init                   /usr/src/linux/initramfs/init             755 0 0
+#
+#  fstab
+#
+file	/etc/fstab		/usr/src/linux/initramfs/fstab	644 0 0
+```
 There's a bit more than minimally necessary there to mount and pivot the root, but it allows us to use the rescue shell in busybox to fsck /boot as necessary and to do btrfs scrub and balance on a cold filesystem if we feel it is necessary. The following minimalist fstab is the key reason for this initial ram filesystem. It allows btrfs to locate the root volume by label name and to enable compression and autodefrag on the initial mount.
 
 **`fstab`**
 
 **minimal fstab for /mnt/root**
 
+```
+/dev/md1		/boot		ext3		defaults,noatime	1 2
+LABEL=BTRFSMIRROR	/mnt/root	btrfs	defaults,noatime,compress=lzo,autodefrag,subvol=root	0 0
+```
 **`init`**
 
 **initramfs init script**
@@ -311,6 +441,15 @@ The init script here was essentially stolen from the early usermount page and ha
 
 **updated grub.conf on /mnt/altboot**
 
+```
+default 0
+timeout 6
+splashimage=(hd0,0)/boot/grub/splash.xpm.gz
+title Gentoo Linux 3.8.13-gentoo
+root (hd0,0)
+kernel /boot/kernel-3.8.13-gentoo root=LABEL=BTRFSMIRROR rootflags=defaults,noatime,compress=lzo,autodefrag,subvol=root selinux=0
+initrd /boot/initrd_btrfs.cpio.gz
+```
 It would be a good idea to balance the new btrfs filesystems before booting into the new mirror set. It is not crucial to do it now, but it will speed up performance of the initial boot. The balance can just as easily be done on the live volumes after the new mirror set is booted. Balancing everything on the new 2tb set will probably take a good bit of an overnight depending on the amount of space used.
 
 `root #``btrfs fi balance /mnt/newroot``root #``btrfs fi balance /mnt/newhome``root #``btrfs fi balance /mnt/newdistfiles``root #``btrfs fi balance /mnt/newvm`
@@ -364,3 +503,13 @@ I was able to correct the boot with adding appropriate **rootflags=device=/dev/s
 **`grub.conf`**
 
 **updated grub.conf on /mnt/altboot**
+
+```
+default 0
+timeout 6
+splashimage=(hd0,0)/boot/grub/splash.xpm.gz
+title Gentoo Linux 3.18.4
+root (hd0,0)
+kernel /boot/kernel-3.18.4 root=LABEL=root rootflags=device=/dev/sda3,device=/dev/sdb3,defaults,noatime,compress=lzo rootfstype=btrfs
+initrd /boot/initrd_btrfs.cpio.gz
+```

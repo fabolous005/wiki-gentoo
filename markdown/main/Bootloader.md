@@ -5,15 +5,19 @@ url: https://wiki.gentoo.org/wiki/Bootloader
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-08-14"
-fingerprint: df83b01e00b0bfac
+fingerprint: df87b01e08b03fac
 license: CC BY-SA 4.0
 ---
 
 # Bootloader
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 A **bootloader** is a program that, in the Linux context, finds and runs the operating system kernel when the system is started. It typically provides a choice between multiple operating systems, and the ability to customize the arguments it will be launched with.
 

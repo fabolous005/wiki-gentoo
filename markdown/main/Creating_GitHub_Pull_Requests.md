@@ -139,6 +139,12 @@ Add the following to gpg.conf:
 
 **General GPG Setup**
 
+```
+keyserver hkps://keys.gentoo.org
+keyserver-options no-honor-keyserver-url
+cert-digest-algo SHA512
+default-preference-list SHA512 SHA384 SHA256 SHA224 AES256 AES192 AES CAST5 ZLIB BZIP2 ZIP Uncompressed
+```
 Now to generate the key:
 
 `user $``gpg --full-generate-key`
@@ -222,6 +228,8 @@ A bot automatically picks up bug reports if the link(s) to the bug in question a
 ### How does it work?
 
 The bot can parse two types of header:
+
+Bug: [https://bugs.gentoo.org/123456](https://bugs.gentoo.org/123456)
 
 will automatically write a message in the bug report **without** closing it.
 

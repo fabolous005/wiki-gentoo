@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Dell_XPS_9365
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-12-20"
-fingerprint: "3e599d266fa231eb"
+fingerprint: "3e598d065da231cf"
 license: CC BY-SA 4.0
 ---
 
@@ -153,13 +153,147 @@ MAKEOPTS="-j4"
 **`/etc/portage/package.use/00video`**
 
 ```
- VIDEO_CARDS: -* intel i965
+*/* VIDEO_CARDS: -* intel i965
 ```
 **`/etc/portage/package.use/00input`**
 
 ```
- INPUT_DEVICES: libinput wacom
+*/* INPUT_DEVICES: libinput wacom
 ```
 ## Kernel Configuration
 
 The following kernel configuration is based on the 4.17.10 Linux kernel, available from [sys-kernel/gentoo-sources](https://packages.gentoo.org/packages/sys-kernel/gentoo-sources). This configuration is based on the default set of options, meaning any options not specified are assumed to be left as default.
+
+```
+[*] Enable the block layer --->
+    Partition Types --->
+        [*] Advanced partition selection
+            [*] PC BIOS (MSDOS partition tables) support
+            [*] EFI GUID Partition support
+Processor type and features --->
+    [*] Intel Low Power Subsystem Support
+    [*] CPU microcode loading support
+        [*] Intel microcode loading support
+    [*] EFI runtime service support
+        [*] EFI stub support ***TODO: IF STUB-LOADING NEEDED***
+            [ ] EFI mixed-mode support
+Power management and ACPI options --->
+    [*] Suspend to RAM and standby
+    [*] Hibernation (aka 'suspend to disk')
+    [*] ACPI (Advanced Configuration and Power Interface) Support --->
+        <*> AC Adapter
+        <*> Battery
+        -*- Button
+        -*- Video
+        <*> Fan
+        [*] Dock
+        -*- Processor
+        <*> Thermal Zone
+    -*- CPU Frequency scaling --->
+        Default CPUFreq governor (performance) --->
+        -*- 'performance' governor
+        <*> 'powersave' governor
+        < > 'userspace' governor for userspace frequency scaling
+        < > 'ondemand' cpufreq governor
+        < > 'conservative' cpufreq governor
+        [ ] 'schedutil' cpufreq governor
+        -*- Intel P state control
+        < > ACPI Processor P-States driver
+    [*] Cpuidle Driver for Intel Processors
+Bus options (PCI etc.) --->
+    [*] PCI support
+    [*] PCI Express Port Bus support
+    [*]     PCI Express Hotplug driver
+    [*] Support for PCI Hotplug --->
+        [*] ACPI PCI Hotplug driver
+        [*] SHPC PCI Hotplug driver
+-*- Networking support --->
+    -*- Wireless --->
+    <*> Bluetooth subsystem support --->
+        [*] Bluetooth Classic (BR/EDR) features
+        <M>     RFCOMM protocol support
+        <*>     HIDP protocol support
+        [*]     Bluetooth High Speed (HS) features
+        [*] Bluetooth Low Energy (LE) features
+        Bluetooth device drivers --->
+            <*> HCI USB driver
+Device Drivers --->
+    NVME Support --->
+        <*> NVM Express block device
+    Misc devices --->
+        <*> Realtek PCI-E card reader
+    I2C support --->
+        I2C Hardware Bus support --->
+            <*> Intel 82801 (ISH/PCH)
+    Network device support --->
+        [*] Wireless LAN --->
+            [*] Intel devices
+            <M>     Intel Wireless WiFi Next Gen AGN - Wireless-N/Advanced-N/Ultimate-N (iwlwifi)
+            < >         Intel Wireless WiFi DVM Firmware support
+            <M>         Intel Wireless WiFi MVM Firmware support
+    -*- Generic Thermal sysfs driver --->
+        (0) Emergency poweroff delay in milli-seconds
+        [*] Expose thermal sensors as hwmon device
+        -*- Enable writable trip points
+        Default Thermal governor (step_wise) --->
+        [*] Fair-share thermal governor
+        -*- Step_wise thermal governor
+        [*] Bang Bang thermal governor
+        -*- User_space thermal governor
+        [ ] Thermal emulation mode support
+        <M> Intel PowerClamp idle injection driver
+        <M> X86 package temperature thermal driver
+        < > Intel SoCs DTS thermal driver
+        ACPI INT340X thermal drivers --->
+            <*> ACPI INT340X thermal drivers
+        <*> Intel PCH Thermal Reporting Driver
+    Multifunction device drivers --->
+        <*> Intel Low Power Subsystem support in PCI mode
+    <*> Multimedia support --->
+        [*] Cameras/video grabbers support
+        [*] Media USB Adapters --->
+            [*] USB Video Class (UVC)
+        [*] Autoselect ancillary drivers (tuners, sensors, i2c, spi, frontends)
+    Graphics support --->
+        <*> /dev/agpart (AGP Support) --->
+            < > AMD Opteron/Athlon64 on-CPU GART support
+            <*> Intel 440LX/BX/GX, I8xx and E7x05 chipset support
+            < > SiS chipset support
+            < > VIA chipset support
+        [ ] Laptop Hybrid Graphics - GPU switching support
+        <*> Direct Rendering Manager (XFree86 4.1.0 and higher DRI support) --->
+            [*] Enable legacy fbdev support for your modesetting driver
+            [ ] Allow to specify an EDID data set instead of probing for it
+            < > ATI Radeon
+            < > AMD GPU
+            < > Nouveau (NVIDIA) cards
+            <*> Intel 8xx/9xx/G3x/G4x/HD Graphics
+            -*- Backlight & LCD device support --->
+            [ ] Bootup logo ---
+    <*> Sound card support --->
+        <*> Advanced Linux Sound Architecture --->
+            [*] PCI sound devices --->
+            HD-Audio --->
+                <*> HD Audio PCI
+                <*> Build Realtek HD-audio codec support
+                -*- Enable generic HD-audio codec parser
+                (0) Default time-out for HD-audio power-save mode
+    HID support --->
+        -*- HID bus support
+        [*]     Battery level reporting for HID devices
+                Special HID drivers --->
+                    < > DISABLE ALL UNNEEDED DEVICES
+                    <*> HID Multitouch panels
+            (2048) Pre-allocated buffer size for HD-audio driver
+    [*] USB support --->
+        <*> xHCI HCD (USB 3.0) support
+        <M> EHCI HCD (USB 2.0) support
+        <M> OHCI HCD (USB 1.1) support
+    <*> MMC/SD/SDIO card support --->
+        <*> Realtek PCI-E SD/MMC Card Interface Driver
+    [*] Generic powercap sysfs driver --->
+        <*> Intel RAPL Support
+Firmware Drivers --->
+    EFI (Extensible Firmware Interface) Support --->
+        <*> EFI Variable Support via sysfs
+```

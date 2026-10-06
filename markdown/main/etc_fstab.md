@@ -5,18 +5,24 @@ url: https://wiki.gentoo.org/wiki//etc/fstab
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-03-03"
-fingerprint: be09409bbfd419f9
+fingerprint: be0b409bafc619f9
 license: CC BY-SA 4.0
 ---
 
 # /etc/fstab
+
+[/etc](https://wiki.gentoo.org/wiki/Special:MyLanguage//etc)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
 
+**Resources**
+
 The **fstab** (**f**ile **s**ystem **tab**le) file (/etc/fstab) is a configuration file that defines how and where the main [filesystems](https://wiki.gentoo.org/wiki/Filesystem) are to be mounted, especially at boot time.
+
+## Syntax
 
 Each line of /etc/fstab contains the necessary settings to mount one partition, drive or network share. The line has six columns, separated by whitespaces or tabs. The columns are as follows:
 
@@ -31,9 +37,14 @@ An example for the root device:
 
 **`/etc/fstab`**
 
+```
+/dev/sda1   /   ext4   defaults   0   1
+```
 Special characters can be escaped by using their octal representation from an ASCII table. For example, if the name of the mount point contains spaces or tabs these can be escaped as \040 and \011 respectively.
 
 For more detailed information see man 5 fstab.
+
+## UUIDs and labels
 
 In the first column, a [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier) can be used instead of a device file:
 
@@ -41,19 +52,30 @@ In the first column, a [UUID](https://en.wikipedia.org/wiki/Universally_unique_i
 
 **Using a UUID for the root partition**
 
+```
+UUID=339df6e7-91a8-4cf9-a43f-7f7b3db533c6   /   ext4   defaults   0   1
+```
 Alternatively, a LABEL can be used:
 
 **`/etc/fstab`**
 
 **Using a label for the root partition**
 
+```
+LABEL=Gentoo   /   ext4   defaults   0   1
+```
 Depending on the partition table (e.g. the GUID Partition Table "GPT"), PARTLABEL can be used:
 
 **`/etc/fstab`**
 
 **Using a label for the root partition**
 
+```
+PARTLABEL=Gentoo   /   ext4   defaults   0   1
+```
 Please read [this](https://wiki.gentoo.org/wiki/Removable_media#UUIDs_and_labels) for details on how to retrieve UUIDs and labels.
+
+## Services
 
 The following [OpenRC](https://wiki.gentoo.org/wiki/OpenRC) services read the fstab to mount or manage the filesystems:
 
@@ -70,6 +92,8 @@ These services supplement the fstab, if the filesystems are not explicitly state
 Check that they are enabled to start at boot time:
 
 `root #``rc-update show`
+## See also
+
 - [AutoFS](https://wiki.gentoo.org/wiki/AutoFS) — a program that uses the Linux [kernel](https://wiki.gentoo.org/wiki/Kernel) automounter to automatically [mount](https://wiki.gentoo.org/wiki/Mount) [filesystems](https://wiki.gentoo.org/wiki/Filesystem) on demand.
 - [Disk Quotas (Security Handbook)](https://wiki.gentoo.org/wiki/Security_Handbook/User_and_group_limitations#Quotas)
 - [fstab (AMD64 Handbook)](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/System#About_fstab)

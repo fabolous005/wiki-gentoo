@@ -6,7 +6,7 @@ hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-12-18"
 tags: ['https://cs.opensource.google/go/go/+/refs/tags/go1.20.5:src/os/readfrom_linux.go']
-fingerprint: "35102878d0e31b21"
+fingerprint: "3510387850e31d21"
 license: CC BY-SA 4.0
 ---
 
@@ -15,6 +15,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 **Deduplication** is a mechanism for reducing the space taken by multiple identical copies of a file are stored on a [filesystem](https://wiki.gentoo.org/wiki/Filesystem).
 
@@ -86,6 +88,10 @@ Portage 3.0.48 and newer will also avoid overwriting files on the live filesyste
 
 The obvious benefit of deduplication and copy-on-write is to regain valuable storage space. It might be argued that *in-band* copy-on-write may also be beneficial for reducing wear on [SSD](https://wiki.gentoo.org/wiki/SSD) storage by reducing writes to the device, similar to [Portage TMPDIR on tmpfs](https://wiki.gentoo.org/wiki/Portage_TMPDIR_on_tmpfs). However, a wear reducing factor is uncertain when a write operation has already occurred, which is always the case when using *out-of-band* deduplication tools.
 
+## Practical use scenarios
+
+### Portage hooks
+
 Deduplication can be hooked into `pkg_postinst` for specified packages using the [standard portage facilities](https://wiki.gentoo.org/wiki/Handbook:X86/Full/Portage). For example, to deduplicate the Linux kernels from package [sys-kernel/gentoo-sources](https://packages.gentoo.org/packages/sys-kernel/gentoo-sources) after emerging each new version, a portage environment can be added under [/etc/portage/package.env](https://wiki.gentoo.org/wiki//etc/portage/package.env). This will save space for unchanged files of each installed kernel source version under /usr/src/.
 
 The following example uses [duperemove](https://wiki.gentoo.org/wiki/Duperemove):
@@ -98,6 +104,8 @@ function post_pkg_postinst() {
     duperemove -r -d -h -q /usr/src/
 }
 ```
+### Genkernel hooks
+
 Additionally, after running genkernel from [sys-kernel/genkernel](https://packages.gentoo.org/packages/sys-kernel/genkernel), deduplication can be configured in /etc/genkernel.conf:
 
 **`/etc/genkernel.conf`**

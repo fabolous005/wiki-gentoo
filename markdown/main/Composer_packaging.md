@@ -94,10 +94,33 @@ All Composer packages should have a composer.json file that lists its dependenci
 
 **`composer.json`**
 
+```
+  "require": {
+    "php": "^5.3.2 || ^7.0",
+    "justinrainbow/json-schema": "^1.6 || ^2.0 || ^3.0 || ^4.0",
+    "composer/ca-bundle": "^1.0",
+    "composer/semver": "^1.0",
+    "composer/spdx-licenses": "^1.0",
+    "seld/jsonlint": "^1.4",
+    "symfony/console": "^2.7 || ^3.0",
+    "symfony/finder": "^2.7 || ^3.0",
+    "symfony/process": "^2.7 || ^3.0",
+    "symfony/filesystem": "^2.7 || ^3.0",
+    "seld/phar-utils": "^1.0",
+    "seld/cli-prompt": "^1.0",
+    "psr/log": "^1.0"
+  },
+```
 Another field, `require-dev` specifies the "developer" dependencies. These often include the things needed to build documentation or run tests. Often they'll be hidden behind `USE=doc` or `USE=test` in your ebuild.
 
 **`composer.json`**
 
+```
+  "require-dev": {
+    "phpunit/phpunit": "^4.5 || ^5.0.5",
+    "phpunit/phpunit-mock-objects": "^2.3 || ^3.0"
+  },
+```
 The version bounds listed in the composer.json files are often too strict. Unless you have a good reason to believe them, a good general rule is to respect upstream's lower bounds, but to ignore any upper bounds.
 
 ## Tests
@@ -109,7 +132,7 @@ Often you can fix this by copying the package's `autoload.php` file into both th
 **`symfony-yaml-2.1.0.ebuild`**
 
 ```
-() {
+src_prepare() {
     default
     if use test; then
         cp "${FILESDIR}"/autoload.php "${S}"/autoload-test.php || die

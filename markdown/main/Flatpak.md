@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Flatpak
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-05-07"
-fingerprint: b40758785da3f9c4
+fingerprint: b4075a7a4da3f9c4
 license: CC BY-SA 4.0
 ---
 
@@ -28,12 +28,19 @@ File systems  --->
    [*] FUSE (Filesystem in Userspace) support 
 ```
 [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for <code>CONFIG_FUSE_FS</code> to find this item.
- Security options  --->
+**Optional, recommended - Enable[Landlock](https://landlock.io/) sandbox (`CONFIG_SECURITY_LANDLOCK=y`)**
+
+Security options  --->
    \[\*\] Landlock support [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for \<code>CONFIG\_SECURITY\_LANDLOCK\</code> to find this item.
    (landlock,yama) Ordered list of enabled LSMs [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for \<code>CONFIG\_LSM\</code> to find this item.
 
 ### USE flags
 
+
+### USE flags for
+            [sys-apps/flatpak](https://packages.gentoo.org/packages/sys-apps/flatpak)
+            
+            Linux application sandboxing and distribution framework
 
 | [X](https://packages.gentoo.org/useflags/X) | Add support for X11 | 
 | [doc](https://packages.gentoo.org/useflags/doc) | Add extra documentation (API, Javadoc, etc). It is recommended to enable per package instead of globally | 
@@ -50,6 +57,7 @@ Xorg session users will want X enabled.
 `root #``emerge --ask sys-apps/flatpak`
 ### Add flathub repository
 
+`user $``flatpak remote-add --user --if-not-exists flathub` [https://flathub.org/repo/flathub.flatpakrepo](https://flathub.org/repo/flathub.flatpakrepo)
 ## Configuration
 
 ### Files

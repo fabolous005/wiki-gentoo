@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Detox
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-05-13"
-fingerprint: ee9574792bf3bb9d
+fingerprint: e69574792bd3bb1d
 license: CC BY-SA 4.0
 ---
 
@@ -23,6 +23,13 @@ detox is a utility that safely removes spaces and strange characters from filena
 
 ### USE flags
 
+
+### USE flags for
+            [app-misc/detox](https://packages.gentoo.org/packages/app-misc/detox)
+            
+            Safely remove spaces and strange characters from filenames
+
+| [test](https://packages.gentoo.org/useflags/test) | Enable dependencies and/or preparations necessary to run tests (usually controlled by FEATURES=test but can be toggled independently) | 
 
 ### Emerge
 

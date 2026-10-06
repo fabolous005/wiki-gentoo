@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Crossdev
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-06-27"
-fingerprint: e8c5aea26c69b82
+fingerprint: e8c5aaa26c69b82
 license: CC BY-SA 4.0
 ---
 
@@ -230,6 +230,7 @@ aarch64-unknown-linux-gnu-emerge -v1 @system
 
 First, download a desired stage3 archive, which matches your architecture and environment. For aarch64-unknown-linux-musl, that would be:
 
+`root #``wget` [https://gentoo.osuosl.org/releases/arm64/autobuilds/current-stage3-arm64-musl-llvm/stage3-arm64-musl-llvm-XXXXXXXXXXXXXXXX.tar.xz](https://gentoo.osuosl.org/releases/arm64/autobuilds/current-stage3-arm64-musl-llvm/stage3-arm64-musl-llvm-XXXXXXXXXXXXXXXX.tar.xz) -O stage3-arm64-musl-llvm-latest.tar.xz
 Then unpack it into the target root directory (which **must be empty**):
 
 `root #``tar -xJpf stage3-arm64-musl-llvm-latest.tar.xz -C /usr/aarch64-unknown-linux-musl --exclude=dev --skip-old-files`
@@ -408,4 +409,9 @@ If satisfied, execute without `--dryrun` option.
 - [Catalyst](https://wiki.gentoo.org/wiki/Catalyst) — a tool to build [stage files](https://wiki.gentoo.org/wiki/Stage_file) and [live-images](https://wiki.gentoo.org/wiki/Live_image) for Gentoo
 - [Creating a cross-compiler (Embedded Handbook)](https://wiki.gentoo.org/wiki/Embedded_Handbook/General/Creating_a_cross-compiler)
 - [New Musl Stages Creation (Catalyst)](https://wiki.gentoo.org/wiki/Catalyst/New_Musl_Stages_Creation)
-- [Joshua Kinard (kumba)](https://wiki.gentoo.org/wiki/User:Kumba)
+- [Joshua Kinard (kumba)](https://wiki.gentoo.org/wiki/User:Kumba) - original crossdev author.
+
+## References
+
+1. [↑](https://wiki.gentoo.org#cite_ref-1) Gentoo Gitweb: ["Crossdev Script"](https://gitweb.gentoo.org/proj/crossdev.git/tree/crossdev)
+2. [↑](https://wiki.gentoo.org#cite_ref-2) crossdev was originally written by: [Joshua Kinard (kumba)](https://wiki.gentoo.org/wiki/User:Kumba)

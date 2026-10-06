@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Dell_Inspiron_3195
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-29"
-fingerprint: "4f442dc5e3b226ad"
+fingerprint: f462d85e7b206ad
 license: CC BY-SA 4.0
 ---
 
 # Dell Inspiron 3195
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -22,18 +24,18 @@ The Dell Inspiron 11 3000 (3195) is an 11" 2-in-1 laptop (keyboard and touchscre
 
 | Device | Make/model | Status | PCI IDs | 
 |---|---|---|---|
-| CPU (APU) | AMD A9-9420e Processor with Radeon(TM) R5 Graphics |  |  | 
-| SMBus Controller | FCH SMBus Controller |  | 1022:790b | 
-| SATA | FCH SATA Controller \[AHCI mode\] |  | 1022:7901 | 
-| Video / GPU | AMD/ATI Stoney Radeon R2/R3/R4/R5 Graphics |  | 1002:98e4 | 
-| Touchscreen | ELAN Touchscreen |  |  | 
-| Touchpad | ? |  |  | 
-| Audio | AMD Audio |  | 1002:15b3 | 
-| Audio | AMD Family 15h (Models 60h-6fh) Audio Controller |  | 1022:157a | 
-| Wireless | Qualcomm Atheros QCA9565 / AR9565 Wireless Network Adapter |  | 168c:0036 | 
-| Bluetooth | 0x0cf3 0xe005 Qualcomm Atheros Communications |  |  | 
-| Webcam | Vendor CNFHH46P34343016D440 |  |  | 
-| Microphone |  |  |  | 
+| CPU (APU) | AMD A9-9420e Processor with Radeon(TM) R5 Graphics | Works |  | 
+| SMBus Controller | FCH SMBus Controller | Works | 1022:790b | 
+| SATA | FCH SATA Controller \[AHCI mode\] | Works | 1022:7901 | 
+| Video / GPU | AMD/ATI Stoney Radeon R2/R3/R4/R5 Graphics | Works | 1002:98e4 | 
+| Touchscreen | ELAN Touchscreen | Works |  | 
+| Touchpad | ? | Works |  | 
+| Audio | AMD Audio | Works | 1002:15b3 | 
+| Audio | AMD Family 15h (Models 60h-6fh) Audio Controller | Works | 1022:157a | 
+| Wireless | Qualcomm Atheros QCA9565 / AR9565 Wireless Network Adapter | Works | 168c:0036 | 
+| Bluetooth | 0x0cf3 0xe005 Qualcomm Atheros Communications | Works |  | 
+| Webcam | Vendor CNFHH46P34343016D440 | Works |  | 
+| Microphone |  | Works |  | 
 
 **Notes**:
 

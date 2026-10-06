@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/ASUSTek_ROG_Zephyrus_G14_GA401
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-06-03"
-fingerprint: "4f960c118616cb9d"
+fingerprint: "6f960811c616cb9d"
 license: CC BY-SA 4.0
 ---
 
@@ -588,6 +588,16 @@ TODO
 
 **MediaTek 7961, 5.15.0**
 
+```
+[*] Networking support  --->
+    [*]   Wireless  --->
+        <*>   Generic IEEE 802.11 Networking Stack (mac80211)
+Device Drivers  --->
+    [*] Network device support
+    [*] Wireless LAN --->
+        [*] MediaTek devices
+        <M> MediaTek MT7921E (PCIe) support
+```
 You'll also need the firmware:
 
 `root #``emerge --ask linux-firmware`
@@ -595,6 +605,12 @@ You'll also need the firmware:
 
 **CPU Frequency Scaling**
 
+```
+Power management and ACPI options  --->
+    CPU Frequency scaling  ---> 
+    [*] CPU Frequency scaling
+    <*>   ACPI Processor P-States driver
+```
 ### Sensors
 
 `root #``emerge --ask asus-wmi-sensors`
@@ -602,6 +618,27 @@ You'll also need the firmware:
 
 **Touchpad**
 
+```
+Cryptographic API --->                                                                                                                             
+  Hardware crypto devices --->  
+    Support for AMD Secure Processor --->
+      Secure Processor device driver --->
+         [*] Platform Security Processor (PSP) device
+Device Drivers  --->
+  I2C support  --->
+    [*] I2C support  --->
+      I2C Hardware Bus support  --->
+            <M> Intel PIIX4 and compatible (ATI/AMD/Serverworks/Broadcom/SMSC)
+            <M> Synopsys DesignWare Platform
+            [*] AMD PSP I2C semaphore support
+            <M> Synopsys DesignWare PCI
+Device Drivers  --->
+  Input device support  --->
+    [*] Generic input layer (needed for keyboard, mouse, ...)  --->
+      [*] Mice (INPUT_MOUSE)  --->
+        [M] PS/2 mouse  --->
+            [*] Synaptics PS/2 mouse protocol extension
+```
 ### Sound Chip
 
 - Works

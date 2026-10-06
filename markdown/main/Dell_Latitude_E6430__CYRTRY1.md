@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Dell_Latitude_E6430_(CYRTRY1)
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-29"
-fingerprint: ef12197c677790a8
+fingerprint: ef12195c67b790a8
 license: CC BY-SA 4.0
 ---
 
@@ -15,22 +15,26 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+**Resources**
+
 ## Hardware
+
+See [Linux Hardware Probe #4e38982788 of Dell Latitude E6430](https://linux-hardware.org/?probe=4e38982788)
 
 | Device | Make/model | Status | Vendor ID / Product ID | Kernel driver(s) | Notes | 
 |---|---|---|---|---|---|
-| CPU | Intel [i7-3740QM](https://ark.intel.com/products/70847/Intel-Core-i7-3740QM-Processor-6M-Cache-up-to-3_70-GHz) |  | N/A | N/A | - | 
-| SATA Controller | Intel Corporation 7 Series Chipset Family 6-port SATA Controller \[AHCI mode\] |  | 8086:1e03 | AHCI | - | 
-| Video card | Intel Corporation 3rd Gen Core processor Graphics Controller |  | 8086:0166 | [i915](https://wiki.gentoo.org/wiki/Intel) | - | 
-| Video card | [NVIDIA Corporation GF108GLM \[NVS 5200M\]](http://www.nvidia.com/object/nvs_techspecs.html) |  | 10de:0dfc | [nouveau](https://wiki.gentoo.org/wiki/Nouveau) | - | 
-| Ethernet | Intel Corporation 82579LM Gigabit Network Connection |  | [8086:1502](https://cateee.net/lkddb/web-lkddb/E1000E.html) | [e1000e](https://wiki.gentoo.org/index.php?title=E1000e&action=edit&redlink=1) | - | 
-| WLAN | [Intel Corporation Centrino Advanced-N 6205 \[Taylor Peak](https://linux-hardware.org/?id=pci:8086-0082-8086-1321)\] |  | 8086:0082 | [iwlwifi](https://wiki.gentoo.org/wiki/Iwlwifi) | [iwldvm](https://wireless.wiki.kernel.org/en/users/drivers/iwlwifi?s%5b%5d=iwldvm#firmware) | 
-| Touchpad | [AlpsPS/2 ALPS DualPoint TouchPad](https://wiki.gentoo.org/wiki/Alps_PS/2) |  | 0002:0008 | MOUSE\_PS2\_ALPS | - | 
-| USB Controller | Intel Corporation 7 Series/C210 Series Chipset Family USB xHCI Host Controller |  | 8086:1e31 | xhci\_hcd | - | 
-| USB Controller | Intel Corporation 7 Series/C210 Series Chipset Family USB Enhanced Host Controller #2 |  | 8086:1e2d | ehci-pci | - | 
-| USB Controller | Intel Corporation 7 Series/C210 Series Chipset Family USB Enhanced Host Controller #1 |  | 8086:1e26 | ehci-pci | - | 
-| SD Host controller | O2 Micro, Inc. OZ600FJ0/OZ900FJ0/OZ600FJS SD/MMC Card Reader Controller |  | 1217:8221 | [sdhci\_pci](https://cateee.net/lkddb/web-lkddb/MMC_SDHCI_PCI.html) | - | 
-| WWAN | [Dell wireless modem DW5560](https://wiki.gentoo.org/wiki/Dell_wireless_modem_DW5560) |  | 413c:818e | cdc\_mbim | - | 
+| CPU | Intel [i7-3740QM](https://ark.intel.com/products/70847/Intel-Core-i7-3740QM-Processor-6M-Cache-up-to-3_70-GHz) | Works | N/A | N/A | - | 
+| SATA Controller | Intel Corporation 7 Series Chipset Family 6-port SATA Controller \[AHCI mode\] | Works | 8086:1e03 | AHCI | - | 
+| Video card | Intel Corporation 3rd Gen Core processor Graphics Controller | Works | 8086:0166 | [i915](https://wiki.gentoo.org/wiki/Intel) | - | 
+| Video card | [NVIDIA Corporation GF108GLM \[NVS 5200M\]](http://www.nvidia.com/object/nvs_techspecs.html) | Not tested | 10de:0dfc | [nouveau](https://wiki.gentoo.org/wiki/Nouveau) | - | 
+| Ethernet | Intel Corporation 82579LM Gigabit Network Connection | Works | [8086:1502](https://cateee.net/lkddb/web-lkddb/E1000E.html) | [e1000e](https://wiki.gentoo.org/index.php?title=E1000e&action=edit&redlink=1) | - | 
+| WLAN | [Intel Corporation Centrino Advanced-N 6205 \[Taylor Peak](https://linux-hardware.org/?id=pci:8086-0082-8086-1321)\] | Works | 8086:0082 | [iwlwifi](https://wiki.gentoo.org/wiki/Iwlwifi) | [iwldvm](https://wireless.wiki.kernel.org/en/users/drivers/iwlwifi?s%5b%5d=iwldvm#firmware) | 
+| Touchpad | [AlpsPS/2 ALPS DualPoint TouchPad](https://wiki.gentoo.org/wiki/Alps_PS/2) | Works | 0002:0008 | MOUSE\_PS2\_ALPS | - | 
+| USB Controller | Intel Corporation 7 Series/C210 Series Chipset Family USB xHCI Host Controller | Works | 8086:1e31 | xhci\_hcd | - | 
+| USB Controller | Intel Corporation 7 Series/C210 Series Chipset Family USB Enhanced Host Controller #2 | Works | 8086:1e2d | ehci-pci | - | 
+| USB Controller | Intel Corporation 7 Series/C210 Series Chipset Family USB Enhanced Host Controller #1 | Works | 8086:1e26 | ehci-pci | - | 
+| SD Host controller | O2 Micro, Inc. OZ600FJ0/OZ900FJ0/OZ600FJS SD/MMC Card Reader Controller | Works | 1217:8221 | [sdhci\_pci](https://cateee.net/lkddb/web-lkddb/MMC_SDHCI_PCI.html) | - | 
+| WWAN | [Dell wireless modem DW5560](https://wiki.gentoo.org/wiki/Dell_wireless_modem_DW5560) | Not tested | 413c:818e | cdc\_mbim | - | 
 
 On the manufacturer's internet site the hardware components are listed on the [support page](http://www.dell.com/support/home/us/en/dedhs1/product-support/servicetag/CYRTRY1/configuration#subSectionB) in the Components section.
 Hardware detection shown below is done running the laptop under [SystemRescueCd-x86-5.0.0](https://www.system-rescue.org/Download/) in UEFI boot mode.

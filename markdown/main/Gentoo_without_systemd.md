@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Gentoo_without_systemd
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-09-13"
-fingerprint: c23b32fe2f63975b
+fingerprint: c03b32fe2f63875b
 license: CC BY-SA 4.0
 ---
 
@@ -45,12 +45,17 @@ Current profile settings are usually enough to avoid systemd on a Gentoo system 
 
 This is set via the profile so no changes are need.
 
+### Package masking systemd
+
 The best assurance that systemd will not be installed is [masking the package](https://wiki.gentoo.org/wiki//etc/portage/package.mask) altogether:
 
 **`/etc/portage/package.mask/systemd`**
 
 **package.mask directory example**
 
+```
+sys-apps/systemd
+```
 If an emerge command for any reason (including odd USE flag combinations) tries to pull sys-apps/systemd as a dependency, the package mask will cause a blocker that Portage cannot resolve (i.e. the output of emerge will show `[blocks B      ]`), and make the emerge command fail. The administrator can then look at the blocker messages and figure out what to do, which in some cases might mean to just give up and not install [certain packages](https://wiki.gentoo.org/wiki/Gentoo_without_systemd#harddep).
 
 ## systemd unit files
@@ -70,11 +75,13 @@ Or alternatively, write a Portage postsync hook in /etc/portage/postsync.d:
 **`/etc/portage/postsync.d/10systemd`**
 
 ```
- -rf /lib/systemd/*/*.service /usr/lib/systemd/*/*.service
+rm -rf /lib/systemd/*/*.service /usr/lib/systemd/*/*.service
 ```
 For information about `INSTALL_MASK` or postsync hooks, please consult man make.conf and man portage, respectively.
 
 ## Troubleshooting
+
+### Packages that unconditionally require systemd
 
 As long as systemd is [package masked](https://wiki.gentoo.org/wiki/Gentoo_without_systemd#pkgmask), it's impossible to install packages with a "hard" dependency on it. Cases like this almost always happen by upstream's choice, so there is little Gentoo can do in a packager and distributor role to avoid that, short of developing a Gentoo-specific patch set and committing to its long-term maintenance across upstream's releases. So the most advisable course of action for a solution is to try contacting the upstream developer team directly: filing a bug report, contributing a patch, etc. Interested people must be aware that upstream's openness to accept such kinds of patches or bug reports may vary widely from project to project.
 
@@ -105,3 +112,8 @@ Nevertheless, if systemd is accidentally installed, it is advised to get in touc
 - [without-systemd](https://github.com/KenjiBrown/without-systemd) overlay, containing replacements for [sys-apps/systemd-utils](https://packages.gentoo.org/packages/sys-apps/systemd-utils)
 - [A thread in the Gentoo Forums](https://forums.gentoo.org/viewtopic-t-1074786.html) about using the `INSTALL_MASK` variable to prevent installation of systemd unit files.
 - [Funtoo Linux Optimization Proposal: No-systemd system](https://www.funtoo.org/FLOP:No-systemd_system)
+
+## References
+
+1. [↑](https://wiki.gentoo.org#cite_ref-1) Gentoo website, News section, ["Gentoo GNOME 3.30 for all init systems"](https://www.gentoo.org/news/2019/03/27/gnome-330-openrc.html), March 27th, 2019 .
+2. [↑](https://wiki.gentoo.org#cite_ref-2) News item ["systemd sysv-utils blocker resolution"](https://www.gentoo.org/support/news-items/2018-01-23-systemd-blocker.html), January 1st, 2018. Retrieved on September 22nd, 2018.

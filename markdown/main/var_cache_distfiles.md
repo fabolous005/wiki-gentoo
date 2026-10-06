@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki//var/cache/distfiles
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2021-12-29"
-fingerprint: "2753b21db6b713a0"
+fingerprint: "27d3ba5dbeb713a0"
 license: CC BY-SA 4.0
 ---
 
 # /var/cache/distfiles
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

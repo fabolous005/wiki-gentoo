@@ -5,15 +5,19 @@ url: https://wiki.gentoo.org/wiki/Gentoo_NetBSD
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2017-04-20"
-fingerprint: "509cbaf0c88b2376"
+fingerprint: "50bcfbf0c88b6376"
 license: CC BY-SA 4.0
 ---
 
 # Gentoo NetBSD
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Deprecated article**
 
 As of **April 20, 2017**, this article is **deprecated (obsolete)**. Contents are <u>no longer relevant</u>, and are intended for historical reference only!
 

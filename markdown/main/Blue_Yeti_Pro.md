@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Blue_Yeti_Pro
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-07-04"
-fingerprint: "5743367c61b3392c"
+fingerprint: "5f421a5cd4b3392c"
 license: CC BY-SA 4.0
 ---
 
 # Blue Yeti Pro
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -25,14 +27,21 @@ Getting the Blue Yeti Pro operational in Gentoo requires the USB Audio/MIDI driv
 
 | Device | Make/model | Status | Bus ID | Kernel driver(s) | Kernel version | Notes | 
 |---|---|---|---|---|---|---|
-| USB microphone | Blue Yeti Pro |  | `074d:0002` | snd-usb-audio (when built as a module) | 4.4.1 | Enable kernel option `SND_USB_AUDIO` in the kernel. | 
+| USB microphone | Blue Yeti Pro | Works | `074d:0002` | snd-usb-audio (when built as a module) | 4.4.1 | Enable kernel option `SND_USB_AUDIO` in the kernel. | 
 
 ## Installation
 
 ### Kernel
 
-**Enable support for`SND_USB_AUDIO`**
+KERNEL **Enable support for `SND_USB_AUDIO`**
 
+```
+Device Drivers -->
+   Sound card support -->
+      Advanced Linux Sound Architecture -->
+         USB sound devices -->
+            <*> USB Audio/MIDI driver
+```
 ## Configuration
 
 Simply use the application of choice to select the Blue Yeti microphone as the system's input device.

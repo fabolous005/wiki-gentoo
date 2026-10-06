@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Ejabberd
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-08-10"
-fingerprint: ed10b15cd98e79e6
+fingerprint: e970b15cd98e79ee
 license: CC BY-SA 4.0
 ---
 
@@ -22,6 +22,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [net-im/ejabberd](https://packages.gentoo.org/packages/net-im/ejabberd)
+            
+            Robust, scalable and extensible XMPP server
 
 | [+stun](https://packages.gentoo.org/useflags/+stun) | Enable STUN/TURN support | 
 | [captcha](https://packages.gentoo.org/useflags/captcha) | Support for CAPTCHA Forms (XEP-158) on registration | 
@@ -51,20 +56,33 @@ Adding various modules through USE flags will trigger things like: [dev-lang/erl
 
 ### Files
 
+**outdated**. You can help the Gentoo community by verifying and
+
+[updating this section](https://wiki.gentoo.org/index.php?title=Ejabberd&action=edit).
+
 In /etc/jabber/ejabberd.cfg put:
 
 **`/etc/jabber/ejabberd.cfg`**
 
+```
+:{acl, admin, {user, "bob", "süpercomputer"}}.
+```
 And:
 
 **`/etc/jabber/ejabberd.cfg`**
 
+```
+:{hosts, ["foo.bar"]}.
+```
 Where foo.bar is what is required for the accounts, like bob@foo.bar (so the server should be available at foo.bar. If not, clientside configuration needs extra server parameter).
 
 In /etc/jabber/ejabberctl.cfg put:
 
 **`/etc/jabber/ejabberctl.cfg`**
 
+```
+:ERLANG_NODE=ejabberd
+```
 So the node will be called ejabberd@süpercomputer while süpercomputer is the one configured in /etc/conf.d/hostname If this is changed, remember to issue:
 
 `root #``rc-service hostname restart`

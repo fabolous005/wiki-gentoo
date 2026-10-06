@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Cvechecker
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-01-26"
-fingerprint: b18955cf84679e57
+fingerprint: b18955cf84639e57
 license: CC BY-SA 4.0
 ---
 
 # cvechecker
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Gentoo-gpg-faq
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2019-02-01"
-fingerprint: "7f8d8e77d37f7056"
+fingerprint: "5f8d8e77d37b7054"
 license: CC BY-SA 4.0
 ---
 
 # Gentoo-gpg-faq
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

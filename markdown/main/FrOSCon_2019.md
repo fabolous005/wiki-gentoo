@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/FrOSCon_2019
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2019-05-05"
-fingerprint: "54bfbe4816a3237b"
+fingerprint: "54bfbe4816a32379"
 license: CC BY-SA 4.0
 ---
 
 # FrOSCon 2019
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

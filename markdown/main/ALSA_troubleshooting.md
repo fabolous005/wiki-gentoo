@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/ALSA/troubleshooting
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-07-30"
-fingerprint: f40ec81d38427799
+fingerprint: f40ed81518c27789
 license: CC BY-SA 4.0
 ---
 
 # ALSA/troubleshooting
+
+[ALSA](https://wiki.gentoo.org/wiki/ALSA)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -70,6 +72,10 @@ Try explicitly specifying defaults in the configuration:
 
 **`~/.asoundrc`**
 
+```
+defaults.pcm.card <number of default sound card>
+defaults.ctl.card <default sound card>
+```
 Note that, since Firefox 52 (released in 2017), support for direct output to ALSA has been dropped, and PulseAudio has been made a hard requirement. To address this, enable Firefox's [pulseaudio](https://packages.gentoo.org/useflags/pulseaudio) [flag and install](https://wiki.gentoo.org/wiki/USE_flag) [apulse](https://wiki.gentoo.org/wiki/Apulse), which provides Pulse emulation for ALSA
 
 
@@ -81,6 +87,48 @@ To force the use of dmix instead of direct audio output (which is what most thin
 
 **`~/.asoundrc`**
 
+```
+pcm.dmixed {
+    type asym
+    playback.pcm {
+        type dmix
+        ipc_key 5678293
+        ipc_perm 0660
+        ipc_gid audio
+ 
+        slave {
+            channels 2
+            pcm {
+                format S16_LE # S32_LE
+                rate 48000 # Can also be 44100
+                type hw
+                card 1 # Specify card number as appropriate
+                device 7 # Specify device number as appropriate
+                subdevice 0
+            }
+ 
+            period_size 1024
+            buffer_size 8192
+        }
+ 
+        bindings {
+            0 0
+            1 1
+# Uncomment below if using 6 channel
+#           2 2
+#           3 3
+#           4 4
+#           5 5
+        }
+    }
+    capture.pcm "hw:0"
+}
+ 
+pcm.!default {
+    type plug
+    slave.pcm "dmixed"
+}
+```
 Use of \~/.asoundrc is immediate: as long as use of a specific device is not being forced by any applications, applications will either begin to produce audio output immediately, or will require a restart. One of the best tests is to open a browser, go to YouTube, open a terminal, and use an audio or video player to try to play an audio or video file: success is indicated by an absence of errors (e.g. "Device or resource busy").
 
 
@@ -92,6 +140,46 @@ This issue can be circumvented by creating a virtual device which downmixes 5.1 
 
 **`~/.asoundrc`**
 
+```
+pcm.downmix {
+    type route
+ 
+    slave {
+        # The sound card output to be used
+        pcm surround40
+        # Real number of output channels
+        channels 4
+    }
+ 
+# ttable.A.B G
+# where A - input channel
+#       B - output channel
+#       G - volume gain (1.0 = original)
+ 
+# Copy channels 0-3
+    ttable.0.0 1
+    ttable.1.1 1
+    ttable.2.2 1
+    ttable.3.3 1
+ 
+# Mix channel 4 (center) into front speakers, and a bit (0.3) into rear ones
+    ttable.4.0 1.0
+    ttable.4.1 1.0
+    ttable.4.2 0.3
+    ttable.4.3 0.3
+ 
+# Mix channel 5 (subwoofer) mostly (0.6) into rear speakers, and a bit (0.3) into front ones
+    ttable.5.0 0.3
+    ttable.5.1 0.3
+    ttable.5.2 0.6
+    ttable.5.3 0.6
+}
+ 
+ctl.downmix {
+    type hw
+    card 0
+}
+```
 
 ### HDMI output from aplay has incorrect speaker channels
 
@@ -101,6 +189,26 @@ To address these issues with minimal alterations to the PCM streams, remap the s
 
 **`/etc/asound.conf`**
 
+```
+pcm.myHDMI {
+    type plug
+    slave {
+        pcm "hw:1,7"
+        format S32_LE
+        channels 6
+    }
+    ttable {
+        0.0= 1
+        1.1= 1
+        2.4= 1
+        3.5= 1
+        4.2= 1
+        5.3= 1
+        6.6= 1
+        7.7= 1
+    }
+}
+```
 
 ### Weak center channel on PCM 5.1 live music
 
@@ -141,6 +249,9 @@ Sometimes, to get a headset jack working, additional model information needs to 
 
 **`/etc/modprobe.d/alsa.conf`**
 
+```
+options snd-hda-intel model=headset-mic
+```
 More information can be found in [this section of the Linux kernel documentation](https://www.kernel.org/doc/html/latest/sound/hd-audio/models.html).
 
 
@@ -159,6 +270,10 @@ To fix the issue, add `TEST=="@sbindir@/alsactl"` to /lib/udev/rules.d/90-alsa-r
 
 **`/lib/udev/rules.d/90-alsa-restore.rules`**
 
+```
+TEST!="/etc/alsa/state-daemon.conf", TEST=="@sbindir@/alsactl", RUN+="/usr/sbin/alsactl restore $attr{device/number}"
+TEST=="/etc/alsa/state-daemon.conf", TEST=="@sbindir@/alsactl", RUN+="/usr/sbin/alsactl nrestore $attr{device/number}"
+```
 For further details and discussion, refer to [this discussion on alsa-devel](https://patchwork.kernel.org/project/alsa-devel/patch/1482964275.11185.34.camel@users.sourceforge.net/) and [this discussion on bugs.debian.org](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=636437).
 
 

@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Foldingathome
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2020-07-19"
-fingerprint: e241af4b1dfbb2c6
+fingerprint: e245af4b1dbbe3c5
 license: CC BY-SA 4.0
 ---
 
 # Foldingathome
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -66,10 +68,38 @@ When suspending or hibernating without stopping the foldingathome service OpenCl
 
 ### Service files:
 
-**`/etc/systemd/system/Stop_Foldingathome_before_Hibernate.service`**
+FILE **`/etc/systemd/system/Stop_Foldingathome_before_Hibernate.service`**
 
-**`/etc/systemd/system/Start_Foldingathome_after_Hibernate.service`**
+```
+[Unit]
+Description=Stop foldingathome before hibernate
+Before=suspend.target
+Before=hibernate.target
+Before=hybrid-sleep.target
+[Service]
+ExecStart=/bin/bash -c "/bin/systemctl stop foldingathome"
+ExecStartPost=/bin/sleep 10
+[Install]
+WantedBy=suspend.target
+WantedBy=hibernate.target
+WantedBy=hybrid-sleep.target
+```
+FILE **`/etc/systemd/system/Start_Foldingathome_after_Hibernate.service`**
 
+```
+[Unit]
+Description=Restart foldingathome after hibernate
+#After=suspend.target
+After=hibernate.target
+#After=hybrid-sleep.target
+[Service]
+Type=simple
+ExecStart=/bin/systemctl start foldingathome
+[Install]
+#WantedBy=suspend.target
+WantedBy=hibernate.target
+#WantedBy=hybrid-sleep.target
+```
 #### enable the 2 service-units:
 
 `root #````
@@ -84,8 +114,39 @@ systemctl enable Start_Foldingathome_after_Hibernate.service
 
 #### System-sleep script:
 
-**`/lib/systemd/system-sleep/suspend-resume.sh`**
+FILE **`/lib/systemd/system-sleep/suspend-resume.sh`**
 
+```
+#!/bin/bash
+echo $1/$2 
+case $1/$2 in
+   pre/hibernate)
+	echo "Going to $1 $2..."
+	# flush caches before hibernating to save time on sleep/wakeup
+	sync
+	echo 1 > /proc/sys/vm/drop_caches
+	sync
+	echo 2 > /proc/sys/vm/drop_caches
+	sync
+	echo 3 > /proc/sys/vm/drop_caches
+	sync
+   ;;
+   post/hibernate)
+	echo "Waking up from $1 $2..."
+   ;;
+   pre/suspend)
+	echo "Going to $2..."
+   ;;
+   post/suspend)
+	echo "Waking up from $2..."
+	# reload the nvidia_uvm module to enable cuda again after resume from suspend
+ 
+	rmmod nvidia_uvm
+	modprobe nvidia_uvm
+	systemctl start foldingathome
+   ;;
+esac
+```
 #### make the script executable.
 
 `root #````

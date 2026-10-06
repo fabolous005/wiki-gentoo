@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Git/Local_bare_repo
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-08-22"
-fingerprint: b5f9585e4ca1fa40
+fingerprint: b5f9d85e4ca1fa40
 license: CC BY-SA 4.0
 ---
 
 # Git/Local bare repo
+
+[Git](https://wiki.gentoo.org/wiki/Git)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -54,7 +56,7 @@ Add the public keys for all the clients to `/srv/git/.ssh/authorized_keys`
 **`/srv/git/.ssh/authorized_keys`**
 
 ```
- AAAAC3NzaC1lZDI1NTE5AAAAGHghgGGUYdtdttyUYTduytdTtDuytduytDUytduyDtdu larry@clientone
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAGHghgGGUYdtdttyUYTduytdTtDuytduytDUytduyDtdu larry@clientone
 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAguUGIUyugGYIUUHtfpkJopjIOojPIJIUUHOIUHOuihou sally@clienttwo
 ```
 Now initialize the base repo(s). It is necessary to run the following commands as the *git* user. Since this user's shell does not allow interactive logins, it is necessary to pass the `--shell` option to `su` which temporarily overrides the default shell.
@@ -72,8 +74,10 @@ Note the `--bare` flag passed to the `git init` command. It is necessary to init
 
 There is not much to do on the client side other than to clone new repos into a local working tree, and to add existing repos as a new remote. To clone a new repo:
 
+`user $``git clone` [ssh://git@gitserver/srv/git/my_new_project.git](ssh://git@gitserver/srv/git/my_new_project.git)
 This will automatically add the bare repo on *gitserver* as the default remote. To push an existing repo onto the bare repo and set it as a new remote:
 
+`user $``git remote add lan` [ssh://git@gitserver/srv/git/my_existing_project.git](ssh://git@gitserver/srv/git/my_existing_project.git)
 `user $``git remote -v`
 lan	ssh://git@gitserver/srv/git/my\_existing\_project.git (fetch)
 lan	ssh://git@gitserver/srv/git/my\_existing\_project.git (push)

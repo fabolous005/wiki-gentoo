@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/CVMFS
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2019-09-06"
-fingerprint: "6d57b3ddd6a23b94"
+fingerprint: "6d57b1dddea23b90"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 CVMFS is a FUSE module which implements an HTTP read-only filesystem.
 
@@ -35,6 +37,19 @@ Note that in order to use genkernel to generate Linux kernel and initramfs, with
 ```
 `root #````
  genkernel --menuconfig all
+```
+```
+File systems  --->
+      [*] FUSE (Filesystem in Userspace) support
+      [*] miscellaneous filesystems  --->
+       [*]   Aufs (Advanced multi layered unification filesystem) support
+       [*]     Detect direct branch access (bypassing aufs)
+       [*]     NFS-exportable aufs
+       [*]     Readdir in userspace
+       [*]     Show whiteouts
+       [*]     Ramfs (initramfs/rootfs) as an aufs branch
+       [*]     Fuse fs as aufs branch
+       [ ]     Debug aufs
 ```
 ### Apache server configuration
 
@@ -110,6 +125,13 @@ Create /etc/cvmfs/default.local to set base options of cvmfs client:
 
 **minimal sample of config**
 
+```
+CVMFS_REPOSITORIES=your.cvmfs.repo
+CVMFS_CACHE_BASE = /path/to/your/cache
+CVMFS_RELOAD_SOCKETS = /path/to/your/cache
+CVMFS_SERVER_URL = http://cvmfs-stratum-one.cern.ch/cvmfs/your.cvmfs.repo
+CVMFS_HTTP_PROXY = DIRECT
+```
 Then, use the cvmfs2 command line to mount cvmfs to local for example:
 
 `root #``cvmfs2 -o config=/etc/cvmfs/default.local your.cvmfs.repo path/to/mount/cvmfs`

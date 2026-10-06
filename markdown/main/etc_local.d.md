@@ -11,10 +11,14 @@ license: CC BY-SA 4.0
 
 # /etc/local.d
 
+[/etc](https://wiki.gentoo.org/wiki//etc)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+
+**Resources**
 
 **/etc/local.d/** can contain small programs or light scripts to be run when the local service is started or stopped. The local service is part of [OpenRC](https://wiki.gentoo.org/wiki/OpenRC).
 

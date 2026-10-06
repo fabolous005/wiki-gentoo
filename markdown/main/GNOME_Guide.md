@@ -11,6 +11,8 @@ license: CC BY-SA 4.0
 
 # GNOME/Guide
 
+[GNOME](https://wiki.gentoo.org/wiki/Special:MyLanguage/GNOME)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
@@ -43,6 +45,11 @@ According to GNOME upstream, GNOME 40 is written with the systemd init system in
 
 ### USE Flags
 
+
+### USE flags for
+            [gnome-base/gnome](https://packages.gentoo.org/packages/gnome-base/gnome)
+            
+            Meta package for GNOME, merge this package to install
 
 | [+bluetooth](https://packages.gentoo.org/useflags/+bluetooth) | Enable Bluetooth Support | 
 | [+classic](https://packages.gentoo.org/useflags/+classic) | Install gnome-extra/gnome-shell-extensions for the Gnome Shell Classic mode | 
@@ -118,6 +125,9 @@ In /etc/conf.d/display-manager set DISPLAYMANAGER to "gdm"
 
 **`/etc/conf.d/display-manager`**
 
+```
+DISPLAYMANAGER="gdm"
+```
 To start on boot, add display-manager to the default runlevel:
 
 `root #````
@@ -151,6 +161,8 @@ Now start the graphical environment by issuing startx as a normal user:
 If all goes well GNOME should happily provide a greeting. Congratulations on setting up GNOME!
 
 ## Privacy
+
+### Removing GNOME online accounts in the control center
 
 Some users might be concerned about the fact that there is an *online accounts* section is the GNOME control center, which enables the user to connect the system to various services like Google, Microsoft, etc. In Portage, a USE flag can be set to remove this functionality:
 
@@ -248,6 +260,11 @@ To make all users of the wheel group administrators, create a copy of /usr/share
 
 **Administrator wheel group**
 
+```
+polkit.addAdminRule(function(action, subject) {
+    return ["unix-group:wheel"];
+});
+```
 The [Polkit](https://wiki.gentoo.org/wiki/Polkit) page provides more details on rules configuration.
 
 ### GNOME hotspot
@@ -259,13 +276,23 @@ In order for gnome-hotspot to work, the wireless card must support [AP (access p
 **Connection Sharing and Access Point Support**
 
 ```
- connection-sharing
+net-misc/networkmanager connection-sharing
 net-wireless/wpa_supplicant ap
 ```
 In addition, the following kernel options are necessary:
 
 **NAT options (locations for kernel 4.14)**
 
+```
+Networking support (NET [=y])
+    Networking options --->
+        Network packet filtering framework (Netfilter) (NETFILTER [=y]) --->
+            IP: Netfilter Configuration --->
+                <*/M> IPv4 NAT (CONFIG_NF_NAT_IPv4)
+                <*/M> IPv4 masquerade support
+                <*/M> IP tables support (required for filtering/masq/NAT) (IP_NF_IPTABLES [=y])
+                <*/M> iptables NAT support
+```
 ## Removal
 
 ### Unmerge
@@ -315,12 +342,13 @@ For example when using Evolution to sign emails with PGP, the private key needs 
 **`~/.gnupg/gpg.conf`**
 
 ```
- loopback
+use-agent
+pinentry-mode loopback
 ```
 **`~/.gnupg/gpg-agent.conf`**
 
 ```
- /usr/bin/pinentry-gnome3
+pinentry-program /usr/bin/pinentry-gnome3
 ```
 ### Nautilus is not showing thumbnails for .mp4 video files
 
@@ -329,7 +357,7 @@ The `ffmpeg` USE flag is not enabled globally in default `desktop/gnome` profile
 **`/etc/portage/package.use`**
 
 ```
- ffmpeg
+media-plugins/gst-plugins-meta ffmpeg
 ```
 Emerge @world with `--changed-use` (-U) flag:
 

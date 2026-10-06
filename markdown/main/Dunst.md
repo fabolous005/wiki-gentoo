@@ -6,7 +6,7 @@ hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-10-26"
 tags: ['Release v1.5.0 · dunst-project/dunst']
-fingerprint: "763dfc4e9fa75baa"
+fingerprint: "763ddc4e9fa75baa"
 license: CC BY-SA 4.0
 ---
 
@@ -23,6 +23,11 @@ license: CC BY-SA 4.0
 
 ### Review the USE flags
 
+
+### USE flags for
+            [x11-misc/dunst](https://packages.gentoo.org/packages/x11-misc/dunst)
+            
+            Lightweight replacement for common notification daemons
 
 | [+X](https://packages.gentoo.org/useflags/+X) | Add support for X11 | 
 | [+completions](https://packages.gentoo.org/useflags/+completions) | Install shell completions (for bash, fish and zsh) | 
@@ -48,12 +53,18 @@ In order to avoid confusion other notification daemons could be removed, e.g. [x
 
 **Start Dunst with Sway**
 
+```
+exec dunst &
+```
 #### Start with Hyprland
 
 **`~/.config/hypr/hyprland.conf`**
 
 **Start Dunst with Hyprland**
 
+```
+exec-once = dunst &
+```
 ## Configuration
 
 After the installation there is a working configuration file /etc/xdg/dunst/dunstrc. Edit this file to customize the settings for all users, or copy it to $XDG\_CONFIG\_HOME/dunst/dunstrc for setting for a single user.
@@ -91,3 +102,6 @@ All currently displayed notification can be cleared as:
 After modifying the configuration file use the killall dunst command, to apply new configuration:
 
 `user $``killall dunst`
+## References
+
+1. [↑](https://wiki.gentoo.org#cite_ref-1) [Release v1.5.0 · dunst-project/dunst](https://github.com/dunst-project/dunst/releases/tag/v1.5.0), GitHub. Retrieved on March 10, 2022

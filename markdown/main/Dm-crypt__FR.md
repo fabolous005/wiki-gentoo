@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Dm-crypt_(FR)
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-08-29"
-fingerprint: df54451b158691e9
+fingerprint: df54451b958691e9
 license: CC BY-SA 4.0
 ---
 
@@ -43,14 +43,41 @@ Ensuite, le noyau Linux doit prendre en charge l'ensemble des API cryptographiqu
 
 **Activation des fonctions de l'API cryptographique**
 
+```
+[*] Cryptographic API --->
+    <*> XTS support
+    <*> SHA224 and SHA256 digest algorithm
+    <*> AES cipher algorithms
+    <*> AES cipher algorithms (x86_64)
+    <*> User-space interface for hash algorithms
+    <*> User-space interface for symmetric key cipher algorithms
+```
 Si le système de fichiers racine est également chiffré, il faut créer un système de fichiers ram initial dans lequel le système de fichiers racine est déchiffré avant d'être monté. Cela nécessite donc la prise en charge d'initramfs :
 
 **Activation de la prise en charge de l'initramfs**
 
+```
+General setup  --->
+    [*] Initial RAM filesystem and RAM disk (initramfs/initrd) support
+```
 Si vous utilisez l'option de chiffrement *tcrypt* (mode de compatibilité TrueCrypt/tcplay/VeraCrypt), les éléments suivants devront également être ajoutés au noyau. Sinon, cryptsetup renverra les erreurs suivantes : "*device-mapper : reload ioctl failed : Invalid argument*" et "*Kernel doesn't support TCRYPT compatible mapping*".
 
 **Activation de la prise en charge de tcrypt (mode de compatibilité TrueCrypt/tcplay/VeraCrypt)**
 
+```
+Device Drivers --->
+    [*] Block Devices ---> 
+        <*> Loopback device support 
+File systems ---> 
+     <*> FUSE (Filesystem in Userspace) support 
+[*] Cryptographic API ---> 
+     <*> RIPEMD-160 digest algorithm 
+     <*> SHA384 and SHA512 digest algorithms 
+     <*> Whirlpool digest algorithms 
+     <*> LRW support 
+     <*> Serpent cipher algorithm 
+     <*> Twofish cipher algorithm
+```
 ### Installation de cryptsetup
 
 Le paquet [sys-fs/cryptsetup](https://packages.gentoo.org/packages/sys-fs/cryptsetup) fournit la commande cryptsetup, qui est utilisée pour ouvrir ou fermer l'espace de stockage chiffré ainsi que pour gérer les phrases de passe ou les clés qui lui sont associées.
@@ -242,6 +269,25 @@ Jusqu'à présent, l'article se concentrait sur la configuration manuelle et le 
 
 **Ouverture automatique de deux systèmes de fichiers chiffrés**
 
+```
+# Definition for /dev/mapper/home (for /home)
+target=home
+source=UUID="abcdef12-321a-a324-a88c-cac412befd98"
+key=/etc/keys/home.key
+ 
+# Definition for /dev/mapper/local (for /usr/local)
+target=local
+source=UUID="fedcba34-4823-b423-a94c-cadbefda2943"
+key=/etc/keys/local.key
+ 
+# Using an encrypted partition as key source.
+target=other
+source=UUID="ff24303e-49e1-4d13-b8ad-fc6b7e1d8174"
+key=/keys/other.key                                # Relative to the root of the encrypted partition.
+remdev=/dev/mapper/home                            # The recently decrypted partition.
+ 
+# An empty line is important at the end of the file
+```
 ### Configuration de fstab
 
 L'étape suivante consiste à configurer /etc/fstab pour monter automatiquement les systèmes de fichiers (déchiffrés) dès qu'ils sont disponibles. Il est recommandé de commencer par obtenir l'UUID du système de fichiers décrypté (monté) :
@@ -255,6 +301,10 @@ Mettez ensuite à jour le fichier /etc/fstab en conséquence :
 
 **Automounting the decrypted file systems**
 
+```
+UUID="4321421a-4321-a6c9-de52-ba6421efab76"   /home        ext4   defaults   0   0
+UUID="bdef2432-3bd1-4ab4-523d-badcf234a342"   /usr/local   ext4   defaults   0   0
+```
 ### Ajout de l'initscript à bootlevel
 
 N'oubliez pas de lancer le service init dmcrypt au démarrage :

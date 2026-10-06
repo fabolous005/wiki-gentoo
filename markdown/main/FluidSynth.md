@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/FluidSynth
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-02-23"
-fingerprint: "7e42c35cdd0639e0"
+fingerprint: "7e42c31cdd0638e0"
 license: CC BY-SA 4.0
 ---
 
@@ -21,6 +21,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [media-sound/fluidsynth](https://packages.gentoo.org/packages/media-sound/fluidsynth)
+            
+            Software real-time synthesizer based on the Soundfont 2 specifications
 
 | [+readline](https://packages.gentoo.org/useflags/+readline) | Enable support for libreadline, a GNU line-editing library that almost everyone wants | 
 | [+sndfile](https://packages.gentoo.org/useflags/+sndfile) | Add support for libsndfile | 
@@ -52,6 +57,10 @@ FluidSynth looks for a configuration file at \~/.fluidsynth. For example:
 
 **`~/.fluidsynth`**
 
+```
+set audio.driver pipewire
+set audio.jack.autoconnect True
+```
 To list available settings and their current values, use `-o help`:
 
 `user $``fluidsynth -o help`

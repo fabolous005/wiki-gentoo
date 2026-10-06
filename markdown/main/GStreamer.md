@@ -11,6 +11,8 @@ license: CC BY-SA 4.0
 
 # GStreamer
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
@@ -23,6 +25,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [media-libs/gstreamer](https://packages.gentoo.org/packages/media-libs/gstreamer)
+            
+            Open source multimedia framework
 
 | [+caps](https://packages.gentoo.org/useflags/+caps) | Use Linux capabilities library to control privilege | 
 | [+introspection](https://packages.gentoo.org/useflags/+introspection) | Add support for GObject based introspection | 
@@ -42,6 +49,11 @@ A number of plugins are available for GStreamer. The Gentoo repository provides 
 
 However, rather than installing plugins individually, users can instead install the [media-plugins/gst-plugins-meta](https://packages.gentoo.org/packages/media-plugins/gst-plugins-meta) package, which has the following USE flags:
 
+
+### USE flags for
+            [media-plugins/gst-plugins-meta](https://packages.gentoo.org/packages/media-plugins/gst-plugins-meta)
+            
+            Meta ebuild to pull in gst plugins for apps
 
 | [X](https://packages.gentoo.org/useflags/X) | Add support for X11 | 
 | [a52](https://packages.gentoo.org/useflags/a52) | Enable support for decoding ATSC A/52 streams used in DVD | 

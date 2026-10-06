@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/GPD_Pocket
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-28"
-fingerprint: "9f85125b9db63f97"
+fingerprint: "9d85105b9db63f97"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 This article provides instructions on getting Gentoo operational on the GPD Pocket.
 
@@ -49,6 +51,9 @@ Copy the .config file from Hans de Goede's GitHub repository [https://github.com
 
 This change to the linux-sunxi .config file should help with a funny sound driver problem:
 
+```
+CONFIG_INTEL_ATOMISP=n
+```
 `root #````
 make menuconfig
 ```
@@ -130,6 +135,15 @@ Create the syslinux configuration file:
 
 **`/mnt/sdc1/EFI/BOOT/syslinux.cfg`**
 
+```
+PROMPT 1
+TIMEOUT 50
+DEFAULT gentoo
+LABEL gentoo
+    LINUX ../vmlinuz-4.16.0-gentoo
+    APPEND root=/dev/ram0 fbcon=rotate:1
+    INITRD ../initramfs-4.16.0-gentoo.cpio.gz
+```
 The kernel and the RAM disk will be created next
 
 ### Kernel and Initial RAM Disk
@@ -169,12 +183,31 @@ To begin, create and configure a clean Gentoo VM / Docker Container with the sam
 
 **`/etc/portage/make.conf`**
 
+```
+FEATURES="buildpkg"
+USE="-bindist"
+CPU_FLAGS_X86="mmx mmxext sse sse2 sse3 ssse3 sse4_1 sse4_2 avx aes"
+VIDEO_CARDS="intel"
+PORTDIR="/var/db/repos/gentoo"
+DISTDIR="/mnt/portage/distfiles"
+PKGDIR="/mnt/portage/packages"
+```
 Alter the PORTDIR, DISTDIR and PKGDIR to taste, this configuration is for a [Portage Tree in SquashFS](https://www.brunsware.de/blog/gentoo/portage-tree-squashfs-overlayfs.html) configuration.
 
 The configuration for the GPD Pocket would look something like this, also be aware that the files in /etc/portage/package.use and /etc/portage/package.accept\_keywords on both machines (the VM and your GPD Pocket) should match.
 
 **`/etc/portage/make.conf`**
 
+```
+FEATURES="getbinpkg"
+PORTAGE_BINHOST="ssh://user@hostname:port/mnt/portage/packages"
+USE="-bindist"
+CPU_FLAGS_X86="mmx mmxext sse sse2 sse3 ssse3 sse4_1 sse4_2 avx aes"
+VIDEO_CARDS="intel"
+PORTDIR="/var/db/repos/gentoo"
+DISTDIR="/mnt/portage/distfiles"
+PKGDIR="/mnt/portage/packages"
+```
 ### From Stage3 to boot
 
 OpenSSL and OpenSSH when compiled with the `bindist` use flag will not support wpa\_supplicant which is required for the GPD Pocket to connect to a WiFi network. Emerge these on your VM.
@@ -201,9 +234,14 @@ The GPD Pocket orientation is incorrect (it is obvious when the device is bootin
 
 **`/etc/udev/rules.d/99-goodix-touch.rules`**
 
+```
+ACTION=="add|change", KERNEL=="event[0-9]*", ATTRS{name}=="Goodix Capacitive TouchScreen", ENV{LIBINPUT_CALIBRATION_MATRIX}="0 1 0 -1 0 1"
+```
 The character between add and change is a pipe (|).
 
 ### Configuring the UEFI Boot Menu
+
+[This is probably a good reference](https://wiki.gentoo.org/wiki/Efibootmgr).
 
 ### Setting up the GPD Pocket Fan
 

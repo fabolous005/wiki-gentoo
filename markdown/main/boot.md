@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki//boot
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-08-28"
-fingerprint: "579b1a3d7c2e7f63"
+fingerprint: "579b1afd7e2e7f67"
 license: CC BY-SA 4.0
 ---
 
 # /boot
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

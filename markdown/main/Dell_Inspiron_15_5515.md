@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Dell_Inspiron_15_5515
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-29"
-fingerprint: fe46acd1827a802c
+fingerprint: fe06add582f2902c
 license: CC BY-SA 4.0
 ---
 
 # Dell Inspiron 15 5515
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -23,22 +25,22 @@ The **Dell Inspiron 15 5515** is a laptop manufactured by Dell Technologies.
 
 | Device | Make/model | Status | Vendor ID / Product ID | Kernel driver(s) | Kernel version | Notes | 
 |---|---|---|---|---|---|---|
-| CPU | AMD Ryzen 5 5500U/5700U |  | N/A | N/A | 5.15.26 |  | 
-| Video card | AMD Lucienne \[Radeon Vega 7/8\] |  | 1002:1637 | amdgpu | 5.15.26 |  | 
-| Touchpad | Dell |  | 27C6:0D42 | i2c-hid | 5.15.26 | Requires specific configuration, see below | 
-| Touch screen | Dell |  | 04F3:2C6B | i2c-hid | 5.15.26 | Requires specific configuration, see below | 
-| Fingerprint Reader | Goodix MOC Fingerprint sensor |  | 27C6:639C | N/A | 5.15.26 | Works with [sys-auth/fprintd](https://packages.gentoo.org/packages/sys-auth/fprintd) | 
-| Webcam | Microdia |  | 0C45:6725 | uvcvideo | 5.15.26 |  | 
-| Microphone | Dell |  | N/A | N/A | 5.15.26 |  | 
-| Wi-Fi | [Qualcomm Atheros QCA6174](https://wiki.gentoo.org/wiki/Qualcomm_Atheros_QCA6174) |  | 168C:003E | ath10k\_pci | 5.15.26 |  | 
-| USB | AMD Renoir/Cezanne USB 3.1 |  | 1022:1639 | xhci\_hcd | 5.15.26 |  | 
-| TPM | fTPM 2.0 |  | N/A | tpm\_crb, tpm\_tis | 5.15.26 |  | 
+| CPU | AMD Ryzen 5 5500U/5700U | Works | N/A | N/A | 5.15.26 |  | 
+| Video card | AMD Lucienne \[Radeon Vega 7/8\] | Works | 1002:1637 | amdgpu | 5.15.26 |  | 
+| Touchpad | Dell | Works | 27C6:0D42 | i2c-hid | 5.15.26 | Requires specific configuration, see below | 
+| Touch screen | Dell | Works | 04F3:2C6B | i2c-hid | 5.15.26 | Requires specific configuration, see below | 
+| Fingerprint Reader | Goodix MOC Fingerprint sensor | Works | 27C6:639C | N/A | 5.15.26 | Works with [sys-auth/fprintd](https://packages.gentoo.org/packages/sys-auth/fprintd) | 
+| Webcam | Microdia | Works | 0C45:6725 | uvcvideo | 5.15.26 |  | 
+| Microphone | Dell | Works | N/A | N/A | 5.15.26 |  | 
+| Wi-Fi | [Qualcomm Atheros QCA6174](https://wiki.gentoo.org/wiki/Qualcomm_Atheros_QCA6174) | Works | 168C:003E | ath10k\_pci | 5.15.26 |  | 
+| USB | AMD Renoir/Cezanne USB 3.1 | Works | 1022:1639 | xhci\_hcd | 5.15.26 |  | 
+| TPM | fTPM 2.0 | Works | N/A | tpm\_crb, tpm\_tis | 5.15.26 |  | 
 
 ### Accessories
 
 | Device | Make/model | Status | Vendor ID / Product ID | Kernel driver(s) | Kernel version | Notes | 
 |---|---|---|---|---|---|---|
-| Dock | Dell WD19S |  | N/A | N/A | 5.15.26 | The power button on the dock does not work (it does nothing) | 
+| Dock | Dell WD19S | Works | N/A | N/A | 5.15.26 | The power button on the dock does not work (it does nothing) | 
 
 ### Detailed information
 
@@ -132,20 +134,68 @@ The Atheros driver requires the following firmware:
 
 For the touchpad and touch screen to work correctly, the following drivers are needed:
 
-**Enable support for touchpad and touch screen**
+KERNEL **Enable support for touchpad and touch screen**
 
+```
+Processor type and features  --->
+    [*] AMD ACPI2Platform devices support
+Device Drivers  --->
+    -*- Pin controllers  --->
+        <*> AMD GPIO pin control
+    HID support  --->
+        Special HID drivers  --->
+            <*> HID Multitouch panels
+        I2C HID support  --->
+            <*> HID over I2C transport layer
+    I2C support  --->
+        I2C Hardware Bus support  --->
+            <*> AMD MP2 PCIe
+            <*> Synopsys DesignWare Platform
+            <*> Synopsys DesignWare PCI
+    Input device support  --->
+        Mice  --->
+            <*> ELAN I2C Touchpad support
+            [*] Enable I2C support
+            [*] Enable SMbus support
+```
 #### Webcam
 
 For the webcam, the following drivers are required:
 
-**Enable support for the webcam**
+KERNEL **Enable support for the webcam**
 
+```
+Device Drivers  --->
+    [*] Multimedia support  --->
+        [*] Filter media drivers
+            Media Device Types  --->
+                [*] Cameras and video grabbers
+            Video4Linux options  --->
+                [*] V4L2 sub-device userspace API
+            Media Drivers  --->
+                [*] USB Video Class (UVC)
+                [*]   UVC input events device support
+```
 #### Sound & Microphone
 
 For sound and the microphone to work, you need to enable the AMD Renoir audio drivers:
 
-**Enable audio support**
+KERNEL **Enable audio support**
 
+```
+Device Drivers  --->
+     <*> Sound card support  --->
+        <*>   Advanced Linux Sound Architecture  --->
+            [*]   PCI sound devices  --->
+            HD-Audio  --->
+                <*> HD Audio PCI
+                <*> Build Realtek HD-audio codec support
+                <*> Build HDMI/DisplayPort HD-audio codec support
+            <*> ALSA for SoC audio support  --->
+                <*> AMD Audio Coprocessor-v3.x support
+                <*> AMD Audio Coprocessor - Renoir support
+                <*>   AMD Renoir support for DMIC
+```
 ## Configuration
 
 ### F keys

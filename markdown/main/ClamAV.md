@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/ClamAV
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-07-25"
-fingerprint: "970db87a07a721e0"
+fingerprint: "970db87e07e721e0"
 license: CC BY-SA 4.0
 ---
 
@@ -29,6 +29,11 @@ This is often accomplished by an application or service calling ClamAV as part o
 
 ### USE flags
 
+
+### USE flags for
+            [app-antivirus/clamav](https://packages.gentoo.org/packages/app-antivirus/clamav)
+            
+            Clam Anti-Virus Scanner
 
 | [+clamapp](https://packages.gentoo.org/useflags/+clamapp) | Build applications (clamscan, clamd, clamdscan, clamonacc (also has its own USE flag), sigtool, clambc, clamav-milter (also requires milter USE flag), clamdtop, clamsubmit, clamconf). | 
 | [+system-mspack](https://packages.gentoo.org/useflags/+system-mspack) | Use dev-libs/libmspack instead of the version bundled with ClamAV | 
@@ -132,6 +137,14 @@ This works "out of the box" after configuring amavis to use clamdscan --fdpass t
 
 **`/etc/amavisd.conf`**
 
+```
+# Use clamdscan with the --fdpass option so that the "clamav" user doesn't      
+# need to be able to read amavis's private working directory.                   
+@av_scanners = (
+  ['ClamAV-clamdscan', 'clamdscan', "--fdpass --stdout --no-summary {}",
+    [0], qr/:.*\sFOUND$/m, qr/^.*?: (?!Infected Archive)(.*) FOUND$/m ],                              
+);
+```
 Contrary to many how-to documents scattered about the internet, *it is not required to change any users or groups to make amavisd-new work with ClamAV.*
 
 ### On-access file scanning
@@ -140,10 +153,20 @@ On Linux systems ClamAV is able to use the [fanotify](https://man7.org/linux/man
 
 **Enable fanotify**
 
+```
+File Systems --->
+	[*] Filesystem wide access notification
+	[*]	fanotify permissions checking
+```
 In the following example the /home directory will be recursively watched by clamonacc:
 
 **`/etc/clamd.conf`**
 
+```
+OnAccessPrevention yes
+OnAccessIncludePath /home
+OnAccessExcludeUname clamav
+```
 Download an eicar test file to a location within the include path.
 
 `user $``wget https://secure.eicar.org/eicar.com`

@@ -11,6 +11,8 @@ license: CC BY-SA 4.0
 
 # GIMP
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
@@ -25,6 +27,11 @@ If the GIMP help pages (documentation) is desired, then also emerge the [app-doc
 `root #``emerge --ask app-doc/gimp-help`
 ### USE flags
 
+
+### USE flags for
+            [media-gfx/gimp](https://packages.gentoo.org/packages/media-gfx/gimp)
+            
+            GNU Image Manipulation Program
 
 | [X](https://packages.gentoo.org/useflags/X) | Add support for X11 | 
 | [aalib](https://packages.gentoo.org/useflags/aalib) | Add support for media-libs/aalib (ASCII-Graphics Library) | 
@@ -69,9 +76,7 @@ For some GIMP plugins that are included in the Portage tree, please see the [GIM
 
 If non-white fonts look terrible in GIMP, try turning off sub-pixel hinting by creating fonts.conf in the GIMP user configuration directory (e.g. $HOME/.gimp-2.8/).
 
-**`$HOME/.gimp-2.8/fonts.conf`**
-
-**Turns off sub-pixel hinting for GIMP**
+FILE **`$HOME/.gimp-2.8/fonts.conf`****Turns off sub-pixel hinting for GIMP**
 
 ```
 <fontconfig>

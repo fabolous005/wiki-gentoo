@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Google_Season_of_Docs/2019/Ideas
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2019-03-31"
-fingerprint: b5f0205526a287f8
+fingerprint: b5b02043a6a287e8
 license: CC BY-SA 4.0
 ---
 
 # Google Season of Docs/2019/Ideas
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -19,7 +21,13 @@ license: CC BY-SA 4.0
 
 ## Ideas
 
+Adding Ideas
 
+First, open [this link](http://wiki.gentoo.org/index.php?preload=Google_Season_of_Docs/2019/Ideas/Template_Idea&action=edit&title=Google_Season_of_Docs/2019/Ideas/My_new_idea) in a new tab/window. Change the title *My\_new\_idea* in the URL to the actual title (use underscores instead of spaces), load the page again, fill in all the information and save the article. Then, edit this page and include a link to it.
+
+
+
+## [PMS Rationale](https://wiki.gentoo.org/wiki/Google_Season_of_Docs/2019/Ideas/PMS_Rationale)
 
 [PMS](https://wiki.gentoo.org/wiki/Project:Package_Manager_Specification) is the specification behind Gentoo's ebuild and repository format. It is rather good as a specification goes, and we manage to fix issues and update the technical part. What is lacking is a extensive rationale section covering all the decisions made in the past.
 

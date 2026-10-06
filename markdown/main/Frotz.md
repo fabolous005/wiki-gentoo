@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Frotz
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-01-04"
-fingerprint: "562a2b3cc7a7abc9"
+fingerprint: d62a2b3cc7a7abc9
 license: CC BY-SA 4.0
 ---
 
@@ -31,12 +31,20 @@ By modern convention, Z-Machine programs end in .z1, .z2, .z3, .z4, .z5, .z6, .z
 ### USE flags
 
 
+### USE flags for
+            [games-engines/frotz](https://packages.gentoo.org/packages/games-engines/frotz)
+            
+            Interpreter for Z-code based text games
+
 ### Emerge
 
 Optional sound support exists but most Z-machine games don't actually use it. The easiest way to install frotz is to install it without sound support:
 
 **`/etc/portage/package.use/frotz`**
 
+```
+games-engines/frotz modplug -sound -sdl
+```
 `root #``emerge --ask games-engines/frotz`
 
 

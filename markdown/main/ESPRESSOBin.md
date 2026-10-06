@@ -443,6 +443,12 @@ something like the following:
 
 **`extlinux.conf`**
 
+```
+LABEL Gentoo arm64 espressobin
+        KERNEL ../vmlinuz-5.10.14-aarch64-x0
+        APPEND console=ttyMV0,115200 earlycon=ar3700_uart,0xd0012000 root=/dev/mmcblk0p1 rw rootfstype=ext4 rootwait net.ifnames=0 biosdevname=0
+        FDT ../dtbs/5.10.14-aarch64-x0/marvell/armada-3720-espressobin.dtb
+```
 Create a file similar to the above under `/boot/extlinux`. Be sure to use tabs for indenting:
 
 `user $````
@@ -470,6 +476,9 @@ Make sure the ttyS serial port lines are commented, then find this line at the b
 
 **`/etc/inittab`**
 
+```
+T0:12345:respawn:/sbin/agetty 115200 ttyMV0 vt100
+```
 Save and exit the file. This ensures Gentoo will launch a login getty on the correct serial interface.
 
 ### Network Setup
@@ -530,6 +539,24 @@ The corresponding Gentoo network config needs all of these enabled, however, onl
 
 **`/etc/conf.d/net`**
 
+```
+# This blank configuration will automatically use DHCP for any net.*
+# scripts in /etc/init.d.  To create a more complete configuration,
+# please review /usr/share/doc/openrc*/net.example* and save your configuration
+# in /etc/conf.d/net (this file :]!).
+dns_domain_lo="your.domain"
+config_eth0=null
+config_lan1="192.168.10.29 netmask 255.255.255.0 brd 192.168.10.255"
+routes_lan1="default via 192.168.10.1"
+dns_domain_lan1="your.domain"
+dns_servers_lan1="8.8.8.8"
+rc_net_lan1_need="net.eth0"
+# The network scripts are now part of net-misc/netifrc
+# In order to avoid sys-apps/openrc-0.12 from removing
+# this file, this comment was
+# added; you can safely remove this comment.  Please see
+# /usr/share/doc/netifrc*/README* for more information.
+```
 ### Root Password
 
 There are several ways to generate a password hash for /etc/shadow; usually it suffices to copy the hash from another system.
@@ -546,6 +573,9 @@ Instead of copying the hash, you can also use openssl to generate a fresh one:
 
 **`/mnt/gentoo/etc/shadow`**
 
+```
+root:<hash_output>:10770:0:::::
+```
 The password can always be changed once you are logged in.
 
 ### /etc/fstab
@@ -557,6 +587,10 @@ Edit /mnt/gentoo/etc/fstab to match.
 `root #``nano -w  /mnt/gentoo/etc/fstab`
 **`/mnt/gentoo/etc/fstab`**
 
+```
+/swapfile               none            swap            sw              0 0
+/dev/mmcblk0p1          /               ext4            noatime         0 1
+```
 ## Boot the Board to Test
 
 Unmount the microSD card.

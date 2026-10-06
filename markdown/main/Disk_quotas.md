@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Disk_quotas
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-11-22"
-fingerprint: a481b838acd7a9a0
+fingerprint: a481b938a8d7a9a0
 license: CC BY-SA 4.0
 ---
 
@@ -27,8 +27,21 @@ Kernel support is required for disk quotas, if support for journaled quotas is r
 
 **Enable support for disk quotas**
 
+```
+File systems  --->
+  [*] Quota support
+  [*] Report quota messages through netlink interface
+  [ ] Print quota warnings to console (OBSOLETE)
+  ...
+  <*> Quota format vfsv0 and vfsv1 support
+```
 ### USE flags
 
+
+### USE flags for
+            [sys-fs/quota](https://packages.gentoo.org/packages/sys-fs/quota)
+            
+            Linux quota tools
 
 | [ldap](https://packages.gentoo.org/useflags/ldap) | Add LDAP support (Lightweight Directory Access Protocol) | 
 | [netlink](https://packages.gentoo.org/useflags/netlink) | Compile daemon receiving quota messages via netlink | 
@@ -49,6 +62,15 @@ To enable quotas, some configuration is required by editing /etc/fstab and enabl
 `root #``$EDITOR /etc/fstab`
 **`/etc/fstab`**
 
+```
+# <DEV>    <MNTPOINT> <FSTYPE> <MNTOPTIONS>                     <DUMP> <PASS>
+# example line for just usrquota support
+/dev/sda8  /mnt/eg1   ext4     noatime,usrquota                      0 2
+# example line for grpquota 
+/dev/sda9  /mnt/eg2   ext4     noatime,grpquota                      0 2
+# example line for usrquota, grpquota and journaled quota support
+/dev/sda10 /home      ext4     noatime,usrquota,grpquota,jqfmt=vfsv0 0 2
+```
 After /etc/fstab has been edited accordingly, the file-systems need to be remounted. Repeat the following mount command example below for every file-system that has been edited and enabled for quotas.
 
 `root #``mount -o remount /home`

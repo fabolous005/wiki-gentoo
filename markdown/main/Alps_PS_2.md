@@ -11,17 +11,29 @@ license: CC BY-SA 4.0
 
 # Alps PS/2
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
 To get the [Alps touchpad](https://www.notebookcheck.net/fileadmin/_processed_/csm_DSC04158_43a71e3d78.jpg) working, the kernel option **ALPS PS/2 mouse protocol extension** ( `CONFIG_MOUSE_PS2_ALPS` ) needs to be activated.
 
-**linux-4.19**
+KERNEL **linux-4.19**
 
+```
+Device Drivers  --->
+    Input device support  --->
+    -*- Generic input layer (needed for keyboard, mouse, ...)
+    [*]   Mice  ---> 
+        --- Mice
+        <*>   PS/2 mouse
+        [*]     ALPS PS/2 mouse protocol extension
+        [ ]     BYD PS/2 mouse protocol extension
+```
 It can be operated using the [libinput](https://wiki.gentoo.org/wiki/Libinput) driver and the default configuration as set in /usr/share/X11/xorg.conf.d/40-libinput.conf should work sufficiently in most cases.  Customization can be done via /etc/X11/xorg.conf.d/30-touchpad.conf.
 
-**`/etc/X11/xorg.conf.d/30-touchpad.conf`**
+FILE **`/etc/X11/xorg.conf.d/30-touchpad.conf`**
 
 ```
 Section "InputClass"

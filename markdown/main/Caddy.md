@@ -22,6 +22,11 @@ license: CC BY-SA 4.0
 ### USE flags
 
 
+### USE flags for
+            [www-servers/caddy](https://packages.gentoo.org/packages/www-servers/caddy)
+            
+            Fast and extensible multi-platform HTTP/1-2-3 web server with automatic HTTPS
+
 | [+filecaps](https://packages.gentoo.org/useflags/+filecaps) | Use Linux file capabilities to control privilege rather than set\*id (this is orthogonal to USE=caps which uses capabilities at runtime e.g. libcap) | 
 | [dns-alidns](https://packages.gentoo.org/useflags/dns-alidns) | Adds module which allows to manage Aliyun DNS zones using Caddy https://caddyserver.com/docs/modules/dns.providers.alidns | 
 | [dns-azure](https://packages.gentoo.org/useflags/dns-azure) | Adds module which allows to manage Azure hosted DNS zones using Caddy https://caddyserver.com/docs/modules/dns.providers.azure | 
@@ -67,18 +72,35 @@ To configure a basic HTTP server that responds with simple text, using a Caddyfi
 
 **`Caddyfile`**
 
+```
+localhost {
+    respond "Hello, Gentoo!"
+}
+```
 ### Using a domain
 
 For a more real-world setup where you have a domain you would like to host a web server on, the config will look like the following:
 
 **`Caddyfile`**
 
+```
+example.com {
+    root * /var/www/example.com # the root of the website
+    tls webmaster@example.com # email on the HTTPS certificate
+    file_server # enables a static file server
+}
+```
 ### Reverse proxies
 
 Caddy allows you to use a reverse proxy to allow HTTPS connections over the Internet without having port conflicts. For reverse proxying a web server listening on port `8080` using Caddy, the following config will allow you to do so:
 
 **`Caddyfile`**
 
+```
+sub.example.com {
+    reverse_proxy :8080
+}
+```
 ## Usage
 
 ### Services
@@ -114,5 +136,11 @@ Caddy config can be reloaded in a zero-downtime fashion. To reload Caddy from th
 or for reloading the service:
 
 `root #``rc-service caddy reload``root #``systemctl reload caddy`
+## See also
+
 - [Apache](https://wiki.gentoo.org/wiki/Apache) — an efficient, extensible [web server](https://wiki.gentoo.org/wiki/Category:Web_Servers). It is one of the most popular web servers used the Internet.
 - [Nginx](https://wiki.gentoo.org/wiki/Nginx) — a robust, small, high performance [web server](https://wiki.gentoo.org/wiki/Category:Web_servers) and reverse proxy server.
+
+## References
+
+1. [↑](https://wiki.gentoo.org#cite_ref-1) [The Caddyfile — Caddy Documentation](https://caddyserver.com/docs/caddyfile), caddyserver. Retrieved on May 24, 2024

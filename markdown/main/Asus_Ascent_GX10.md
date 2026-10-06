@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Asus_Ascent_GX10
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-07-24"
-fingerprint: "618f15725de70506"
+fingerprint: "6f0f0954d5e739c4"
 license: CC BY-SA 4.0
 ---
 
@@ -30,6 +30,7 @@ From there, follow the x86\_64 handbook. small differences from the handbook:
 **enable flags**
 
 ```
+/etc/portage/make.conf:
 MAKEOPTS="-j21"
 ACCEPT_KEYWORDS="~arm64"
 CUDA_TARGETS_SM="121"
@@ -39,4 +40,21 @@ I used the kernel config from the pre-installed device but with the current acti
 
 **Enabling build in drivers for nvme and filesystem**
 
+```
+Device Drivers --->
+  NVME Support --->
+    <*> NVM Express block device
+    <*> NVMe multipath support
+    <*> NVMe hardware monitoring
+    <*> NVMe Target support
+      <*> NVMe Target Passthrough support
+      <*> NVMe loopback device support
+File Systems --->
+  <*> XFS filesystem support
+    <*> Support deprecated V4 (crc=0) format
+    <*> Support deprecated case-insensitive ascii (ascii-ci=1) format
+    <*> XFS Quota support
+    <*> XFS POSIX ACL support
+    <*> XFS Realtime subvolume support
+```
 Resume usage like any other gentoo installation.

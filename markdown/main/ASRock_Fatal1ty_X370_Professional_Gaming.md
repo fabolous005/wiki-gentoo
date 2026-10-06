@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/ASRock_Fatal1ty_X370_Professional_Gaming
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-22"
-fingerprint: "3f87db570b97c987"
+fingerprint: "3f87db570b17c987"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 The ASRock Fatal1ty X370 Professional Gaming motherboard is a moderate quality gaming motherboard for first generation Ryzen systems (socket AM4). It includes 10 SATA ports, PCI3 4x M.2 socket for NVMe solid state drives, a built in Wi-Fi controller, and two onboard NICs. Because of the emphesis on gaming, it includes two onboard RGB headers and a higher quality integrated sound card.
 
@@ -36,6 +38,11 @@ Which means `CONFIG_SENSORS_NCT6775` should be enabled in the kernel:
 
 **Enable`CONFIG_SENSORS_NCT6775` support**
 
+```
+Device Drivers  --->
+   -*- Hardware Monitoring support  --->
+      <*>   Nuvoton NCT6775F and compatibles
+```
 ## See also
 
 - [Ryzen](https://wiki.gentoo.org/wiki/Ryzen) — a multithreaded, high performance processor manufactured by AMD.

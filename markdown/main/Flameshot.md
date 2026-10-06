@@ -167,6 +167,9 @@ Flameshot works the best with dbus, so make the session dbus aware. Refer to [Wi
 
 **`~/.xinitrc`**
 
+```
+exec dbus-launch --exit-with-session i3
+```
 ### Flameshot does not start on a Wayland Compositor
 
 Flameshot requires some packages to be installed in order to work properly with Wayland compositors.

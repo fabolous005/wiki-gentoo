@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Doas
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-12-22"
-fingerprint: bab9ddf9632db2b1
+fingerprint: aa999df9eb2dd2b9
 license: CC BY-SA 4.0
 ---
 
@@ -22,6 +22,11 @@ The **doas** command provides a way to perform commands as another user. It aims
 
 ### USE flags
 
+
+### USE flags for
+            [app-admin/doas](https://packages.gentoo.org/packages/app-admin/doas)
+            
+            Run commands as super/another user (alt sudo) (unofficial port from OpenBSD)
 
 ### Emerge
 
@@ -46,12 +51,19 @@ A simple skeleton configuration could be to specify a rule which allows all user
 
 **Allow all users in the wheel group to execute any command as root**
 
+```
+permit :wheel
+```
 It's also possible to deny certain actions to specified users. The ruleset is evaluated in a hierarchical manner, thus adding a new rule can override the previous one:
 
 **`/etc/doas.conf`**
 
 **Deny a user to execute a command**
 
+```
+permit :wheel
+deny larry cmd fdisk
+```
 The user larry is part of the wheel group and therefore may perform actions available to root, but the second rule denies this user access to the fdisk command.
 
 ### Authentication
@@ -62,6 +74,9 @@ The nopass keyword provides the ability for users in a certain group to perform 
 
 **Allow all users in the wheel group to perform actions as root without authentication**
 
+```
+permit nopass :wheel
+```
 #### Persist
 
 Using the persist keyword doas can remember an authenticated user and will not require confirmation by password for a time period of five minutes after the last doas command was entered in the terminal window:
@@ -70,6 +85,9 @@ Using the persist keyword doas can remember an authenticated user and will not r
 
 **Do not require passwords for five minutes for all users in the wheel group**
 
+```
+permit persist :wheel
+```
 Note: Persist support is enabled via the `persist` USE flag on [app-admin/doas](https://packages.gentoo.org/packages/app-admin/doas)
 
 ### Commands
@@ -82,6 +100,9 @@ A rule can be specified to allow a certain user to use a command only available 
 
 **Allow a user to use the reboot command without a password**
 
+```
+permit nopass larry cmd /sbin/reboot
+```
 This allows the user larry to execute `doas /sbin/reboot` without having to enter a password. This may allow users to use restricted commands without providing complete root access.
 
 ### Environment variables
@@ -92,14 +113,23 @@ By default, doas creates a new environment for the program. This behavior may be
 
 **Preserve LANG, LC\_ALL, and PATH**
 
+```
+permit setenv { LANG LC_ALL PATH } :wheel
+```
 **`/etc/doas.conf`**
 
 **Override PATH**
 
+```
+permit setenv { PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin } :wheel
+```
 **`/etc/doas.conf`**
 
 **Preserve all environment variables**
 
+```
+permit keepenv :wheel
+```
 ### Testing
 
 A configuration file can be tested as follows:
@@ -123,6 +153,9 @@ The doas can not only be used to perform actions with root privileges, it also a
 
 **Allow a user to perform actions as another user**
 
+```
+permit nopass larry as postgres
+```
 By adding this rule, the user larry is allowed to perform actions as the postgres user without having to enter a password.
 
 ### Bash tab completion

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2013
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2018-01-05"
-fingerprint: "15169ce044f7039e"
+fingerprint: "35369ce044f6039e"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Archived article**
 
 This article is **archived (obsolete)**. Contents are surely incorrect for current usage, and are intended for historical reference only. *Page archived as of **2013**.*
 
@@ -32,6 +34,10 @@ Welcome to the Gentoo Wiki portal on Google's Summer of Code 2013.
 Here, you will find all information on Gentoo's participation in this year's edition, how to apply for a project, what ideas we have and who to contact with any questions.
 
 Quick links:
+
+![IconStore.png](https://wiki.gentoo.org/images/9/99/IconStore.png)
+
+[Project Ideas](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2013/Ideas)
 
 
 

@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Catalyst/Stage_Creation
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-05-10"
-fingerprint: "7088323d6f0ed372"
+fingerprint: "788872392f0ed3f2"
 license: CC BY-SA 4.0
 ---
 
 # Catalyst/Stage Creation
+
+[Catalyst](https://wiki.gentoo.org/wiki/Catalyst)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -43,6 +45,11 @@ Edit /usr/share/catalyst/arch/x86.toml to change the default cflags that works b
 
 **x86.toml**
 
+```
+[x86.pentium3]
+COMMON_FLAGS = "-Os -march=pentium3 -pipe -fomit-frame-pointer"
+CPU_FLAGS_X86 = [ "mmx", "mmxext", "sse",]
+```
 This example shows how to set the CPU instructions that the target supports and the use of CFLAGS to lower RAM usage at the cost of some CPU time.
 
 ### \~Arch Packages
@@ -52,6 +59,9 @@ To pull in packages from \~x86, it is possible to use the /var/tmp/catalyst/conf
 `root #``mkdir -p /var/tmp/catalyst/config/stages/package.accept_keywords``root #``nano /var/tmp/catalyst/config/stages/package.accept_keywords/stage4`
 **`/var/tmp/catalyst/config/stages/package.keywords/stage4`**
 
+```
+sys-kernel/gentoo-sources ~x86
+```
 As shown, this works very similarly to adding testing packages in Portage. See [/etc/portage/package.accept keywords](https://wiki.gentoo.org/wiki//etc/portage/package.accept_keywords) for further information.
 
 ## Build Stage1
@@ -74,6 +84,9 @@ You will see output that states the Gentoo Portage snapshot name and it will loo
 
 **Output example**
 
+```
+NOTICE:catalyst:Creating gentoo tree snapshot 0c5fd9cca1edc63e36234b3dc91c46db24647309 from /var/tmp/catalyst/repos/gentoo.git
+```
 In this example take note of **0c5fd9cca1edc63e36234b3dc91c46db24647309** as it will be needed for the spec file.
 
 ### Stage1 Spec File
@@ -85,6 +98,20 @@ Catalyst *spec* files are located at /var/tmp/catalyst:
 
 **stage1-Pentium3-openrc.spec**
 
+```
+subarch: Pentium3
+target: stage1
+version_stamp: openrc-@Timestamp@
+rel_type: default
+profile: default/linux/x86/23.0
+snapshot_treeish: 0c5fd9cca1edc63e36234b3dc91c46db24647309
+source_subpath: default/stage3-i686-openrc
+compression_mode: pixz
+update_seed: yes
+update_seed_command: --update --deep --newuse @world
+portage_confdir: /var/tmp/catalyst/config/stages
+portage_prefix: releng
+```
 Now, build the stage1:
 
 `root #``catalyst -f stage1-Pentium3-openrc.spec`
@@ -95,6 +122,18 @@ Now, build the stage1:
 
 **stage1-Pentium3-openrc.spec**
 
+```
+subarch: pentium3
+target: stage3
+version_stamp: openrc-@TIMESTAMP@
+rel_type: default
+profile: default/linux/x86/23.0
+snapshot_treeish: 0c5fd9cca1edc63e36234b3dc91c46db24647309
+source_subpath: default/stage1-i686-openrc-@TIMESTAMP@
+compression_mode: pixz
+portage_confdir: /var/tmp/catalyst/stages
+portage_prefix: releng
+```
 In this stage Catalyst will use the stage1 built earlier to build a full stage3 for the target system.
 
 `root #``catalyst -f stage3-Pentium3-openrc.spec`
@@ -107,6 +146,35 @@ This is the stage where packages and other settings can be applied to the stage 
 
 **stage4-Pentium3-openrc.spec**
 
+```
+subarch: pentium3
+version_stamp: openrc-@TIMESTAMP@
+target: stage4
+rel_type: default 0c5fd9cca1edc63e36234b3dc91c46db24647309
+profile: default/linux/x86/23.0
+snapshot_treeish:
+source_subpath: default/stage3-pentium3-openrc-@TIMESTAMP@
+portage_confdir: /var/tmp/catalyst/config/portage/stages
+repos: /var/db/repos/some_overlay
+stage4/use:
+-qt5
+-ipv6
+gtk
+gtk3
+stage4/packages:
+        net-misc/dhcpcd
+        sys-kernel/gentoo-sources
+        sys-devel/llvm
+        dev-util/cmake
+        app-misc/neofetch
+        app-misc/screen
+        sys-boot/grub
+stage4/rcadd: dbus|default display-manager|default
+stage4/empty: /var/cache/distfiles /usr/src/linux
+stage4/rm: /root/.bash_history
+stage4/fsscript: /path/to/file/fsscript.sh
+stage4/root_overlay: /root/stage4-overlay
+```
 ### repos
 
 Allows additional overlays to be added to the stage4 build, this is useful when using ebuilds not part of the default ::gentoo repository. Multiple repositories can be added when separated by spaces.
@@ -121,6 +189,17 @@ Optionally, in this section you can also specify options, similar to how you wou
 
 **--getbinpkg example**
 
+```
+stage4/packages:
+    --getbinpkg
+        net-misc/dhcpcd
+        sys-kernel/gentoo-sources
+        sys-devel/llvm
+        dev-util/cmake
+        app-misc/neofetch
+        app-misc/screen
+        sys-boot/grub
+```
 Extra spec file configuration is required for this to work correctly.
 
 ### stage4/use
@@ -182,6 +261,9 @@ And create the file:
 
 **`/root/stage4-overlay/etc/fstab`**
 
+```
+LABEL=EFI		/boot/efi	vfat		noauto,noatime		0 2
+```
 ### Build
 
 `root #``catalyst -f stage4-Pentium3-openrc.spec`

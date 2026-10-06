@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Binfmt_misc
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-07-13"
-fingerprint: ab612054a552fed6
+fingerprint: ab612054a552fec6
 license: CC BY-SA 4.0
 ---
 
@@ -25,6 +25,10 @@ Enable miscellaneous binary formats with `CONFIG_BINFMT_MISC=m` or `CONFIG_BINFM
 
 **Enable CONFIG\_BINFMT\_MISC**
 
+```
+Executable file formats  --->
+  <*> Kernel support for MISC binaries
+```
 ## Configuration
 
 ### Binary format handlers

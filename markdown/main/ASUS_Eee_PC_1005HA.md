@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/ASUS_Eee_PC_1005HA
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-29"
-fingerprint: "14878959d5a795d1"
+fingerprint: "1e05895dd5a395c0"
 license: CC BY-SA 4.0
 ---
 
@@ -63,6 +63,20 @@ The CPU is an Intel Atom N280 (or N270 on some revisions).
 
 **Processor support**
 
+```
+Processor type and features --->
+    [*] Symmetric multi-processing support
+    Processor Family (Intel Atom) --->
+    ...
+    (2) Maximum number of CPUs
+    [*] SMT (Hyperthreading) aware nice priority and policy support
+    ...
+    [*] Machine Check / overheating reporting
+    [*]   Intel MCE features
+    ...
+    <*> /dev/cpu/microcode - microcode support
+    [*]   Intel microcode patch loading support
+```
 To update the processor microcode, install [sys-apps/microcode-ctl](https://packages.gentoo.org/packages/sys-apps/microcode-ctl).
 
 `root #``emerge --ask sys-apps/microcode-ctl`
@@ -88,26 +102,70 @@ The Ethernet card is an Atheros AR8132.
 
 **Gigabit Ethernet**
 
+```
+Device Drivers --->
+    [*] Network device support --->
+	[*] Ethernet (1000Mbit) --->
+            [M] Atheros L1C Gigabit Ethernet Support
+```
 ### Wireless
 
 The wireless card is an Atheros AR9285 (PCI-Express).
 
 **Wireless support**
 
+```
+[*] Networking Support --->
+    -*- Wireless --->
+	<*> cfg80211 - wireless configuration API
+        ...
+        <*> Generic IEEE 802.11 Networking Stack (mac80211)
+Device Drivers --->
+    [*] Network device support --->
+        [*] Wireless LAN --->
+	    [M] Atheros Wireless Cards --->
+                [M] Atheros 802.11n wireless cards support
+                    [*] Atheros ath9k PCI/PCIe bus support
+```
 ### Sound
 
 The sound card is a Realtek ALC269 (Intel ICH7 Family).
 
 **Sound card support**
 
+```
+Device Drivers --->
+    <M> Sound Card Support --->
+        <M> Advanced Linux Sound Architecture --->
+            [*] PCI Sound Devices --->
+		[M] Intel HD Audio --->
+                    [*] Build Realtek HD-audio codec support
+```
 See also the [ALSA](https://wiki.gentoo.org/wiki/ALSA) guide.
 
 ### Webcam
 
 **Webcam support**
 
+```
+Device Drivers --->
+    [M] Multimedia Support --->
+        [M] Video For Linux
+	...
+        [*] Video Capture Adapters --->
+            [*] Autoselect pertinent encoders/decoders and other helper chips
+	    ...
+            [*] V4L USB Devices --->
+                <M> USB Video Class (UVC)
+                [*]   UVC input events device support
+```
 ### ACPI, LEDs and hotkeys
 
+```
+Device Drivers --->
+    [*] X86 Platform Specific Device Drivers --->
+        <M> Eee PC Hotkey Driver
+```
 ### Bluetooth
 
 Bluetooth is provided by a Broadcom BT-253, connected using USB. Follow the instructions given in the [Gentoo Linux Bluetooth Guide](https://wiki.gentoo.org/wiki/Bluetooth).
@@ -118,6 +176,15 @@ The TouchPad is a Synaptics PS/2 TouchPad.
 
 **TouchPad support**
 
+```
+Device Drivers --->
+    Input device support --->
+        <*> Mouse interface
+        ...
+        [*] Mice --->
+            <*> PS/2 mouse
+              [*] Synaptics PS/2 mouse protocol extension
+```
 Enable two-finger scrolling in X:
 
 **`/etc/X11/xorg.conf.d/10-synaptics`**

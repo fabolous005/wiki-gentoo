@@ -11,9 +11,13 @@ license: CC BY-SA 4.0
 
 # Alienware 13
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 ## Hardware
 

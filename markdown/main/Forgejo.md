@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Forgejo
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-12-08"
-fingerprint: efb4323d87bb7fe1
+fingerprint: ee685cfae7992ee0
 license: CC BY-SA 4.0
 ---
 
@@ -42,10 +42,21 @@ Once downloaded, create and copy the token via GUI as described [here](https://f
 
 Register the runner:
 
+`user $``./forgejo-runner-* register --no-interactive --token <OBTAINED TOKEN> --name self-hosted --instance` [http://\[::1\]:3001/](http://[::1]:3001/)
 Once registered, create the minimal configuration file:
 
 **`config.yml`**
 
+```
+log:
+  level: info
+runner:
+  timeout: 1h
+  labels:
+    - self-hosted
+cache:
+  enabled: false
+```
 And launch the runner as a daemon:
 
 `user $``./forgejo-runner-* --config config.yml daemon`
@@ -53,6 +64,14 @@ To test that everything works, push the following file to the repository:
 
 **`.forgejo/workflows/demo.yaml`**
 
+```
+on: [push]
+jobs:
+  test:
+    runs-on: self-hosted
+    steps:
+      - run: echo Works
+```
 ## SELinux policy
 
 ### Current state
@@ -76,20 +95,178 @@ The policies were tested in the following profiles:
 
 | Profile name | Status | Forgejo's version | Forgejo runner's version | Notes | 
 |---|---|---|---|---|
-| default/linux/arm64/23.0/musl/hardened/selinux |  | 9.0.2 | 5.0.3 |  | 
+| default/linux/arm64/23.0/musl/hardened/selinux | Works | 9.0.2 | 5.0.3 |  | 
 
 ### Forgejo's policy
 
 **`forgejo.te`**
 
+```
+# License: 0BSD
+policy_module(forgejo, 1.0)
+gen_require(`
+  attribute file_type, non_security_file_type, non_auth_file_type;
+  role user_r;
+  type user_t;
+  type user_devpts_t;
+  type sshd_t;
+  type bin_t;
+  type node_t;
+  type ntop_port_t;
+  type git_exec_t;
+  type urandom_device_t;
+  type shell_exec_t;
+  type home_root_t;
+  type ssh_exec_t;
+  type user_home_dir_t;
+  type ssh_home_t;
+  type net_conf_t;
+  type tmp_t;
+')
+##
+# Type declarations.
+#
+  type forgejo_t;
+  type forgejo_exec_t;
+  type forgejo_config_t;
+  type forgejo_www_t;
+  domain_type(forgejo_t)
+  domain_entry_file(forgejo_t, forgejo_exec_t)
+  typeattribute forgejo_config_t file_type, non_security_file_type, non_auth_file_type;
+  typeattribute forgejo_www_t file_type, non_security_file_type, non_auth_file_type;
+##
+# Domain transition (user_t -> forgejo_t).
+#
+  domtrans_pattern(user_t, forgejo_exec_t, forgejo_t)
+  role user_r types forgejo_t;
+  # Allow to run the binary file of Forgejo.
+  allow user_t forgejo_exec_t:file mmap_exec_file_perms;
+##
+# Data files.
+#
+  allow forgejo_t forgejo_www_t:file { map execute execute_no_trans manage_file_perms };
+  allow forgejo_t forgejo_www_t:lnk_file { create getattr unlink };
+  allow forgejo_t forgejo_www_t:dir manage_dir_perms;
+  allow user_t forgejo_www_t:dir list_dir_perms;
+  # Self-utilization
+  allow forgejo_t forgejo_exec_t:file execute_no_trans;
+##
+# Forgejo requirements (external).
+#
+  allow forgejo_t self:fifo_file { read write getattr ioctl };
+  allow forgejo_t self:process { setpgid signal signull sigkill };
+  # External tools
+    allow forgejo_t bin_t:dir search;
+    allow forgejo_t bin_t:file { open read execute execute_no_trans map getattr };
+    allow forgejo_t bin_t:lnk_file read;
+  # PTY
+    # FIXME: Optional?
+      allow forgejo_t sshd_t:fd use;
+    allow forgejo_t user_devpts_t:chr_file { read write ioctl getattr };
+  # TCP
+    allow forgejo_t self:tcp_socket { create bind setopt listen accept getattr read write connect getopt };
+    allow forgejo_t node_t:tcp_socket node_bind;
+    allow forgejo_t ntop_port_t:tcp_socket { name_bind name_connect };
+  # Git
+    allow forgejo_t git_exec_t:file { getattr execute execute_no_trans open read map };
+  # Password creation (admin user creation)
+    allow forgejo_t urandom_device_t:chr_file { open read };
+  # Shell
+    allow forgejo_t shell_exec_t:file { getattr execute execute_no_trans open read map };
+  # SSH keys (always required)
+    allow forgejo_t home_root_t:dir { getattr search };
+    allow forgejo_t user_home_dir_t:dir { getattr search };
+    allow forgejo_t ssh_exec_t:file { getattr execute };
+    allow forgejo_t ssh_home_t:dir { getattr search write add_name remove_name };
+    allow forgejo_t ssh_home_t:file { create open read write getattr rename unlink };
+  # Repo administration
+    allow forgejo_t net_conf_t:file { getattr read open };
+    allow forgejo_t tmp_t:dir { search write add_name create getattr read remove_name open rmdir };
+    allow forgejo_t tmp_t:file { create getattr open read unlink write rename map setattr append ioctl link };
+    allow forgejo_t tmp_t:lnk_file { create unlink };
+```
 **`forgejo.fc`**
 
+```
+/opt/forgejo(/.*)?  gen_context(system_u:object_r:forgejo_www_t)
+/opt/forgejo/forgejo  gen_context(system_u:object_r:forgejo_exec_t)
+```
 ### Forgejo runner's policy
 
 **`forgejo-runner.te`**
 
+```
+# License: 0BSD
+policy_module(forgejo-runner, 1.0)
+gen_require(`
+  attribute file_type, non_security_file_type, non_auth_file_type;
+  role user_r;
+  type user_t;
+  type sshd_t;
+  type user_devpts_t;
+  type ntop_port_t;
+  type home_root_t;
+  type user_home_dir_t;
+  type xdg_cache_t;
+  type xdg_config_t;
+  type bin_t;
+  type shell_exec_t;
+  type git_exec_t;
+  type urandom_device_t;
+')
+##
+# Type declarations.
+#
+  type forgejo_runner_t;
+  type forgejo_runner_exec_t;
+  type forgejo_runner_data_t;
+  domain_type(forgejo_runner_t)
+  domain_entry_file(forgejo_runner_t, forgejo_runner_exec_t)
+  typeattribute forgejo_runner_data_t file_type, non_security_file_type, non_auth_file_type;
+##
+# Domain transition (user_t -> forgejo_runner_t).
+#
+  domtrans_pattern(user_t, forgejo_runner_exec_t, forgejo_runner_t)
+  role user_r types forgejo_runner_t;
+##
+# Data files.
+#
+  allow forgejo_runner_t forgejo_runner_data_t:file { manage_file_perms };
+  allow forgejo_runner_t forgejo_runner_data_t:dir manage_dir_perms;
+  allow user_t forgejo_runner_data_t:dir list_dir_perms;
+  allow user_t forgejo_runner_exec_t:file mmap_exec_file_perms;
+##
+# Requirements (external)
+#
+  allow forgejo_runner_t self:fifo_file { read write ioctl getattr };
+  allow forgejo_runner_t self:process { getsched signal setpgid signull };
+  # PTY
+    allow forgejo_runner_t user_devpts_t:chr_file { read write ioctl };
+    # FIXME: Optional?
+      allow forgejo_runner_t sshd_t:fd use;
+  # TCP
+    allow forgejo_runner_t self:tcp_socket { create connect setopt getopt getattr read write };
+    allow forgejo_runner_t ntop_port_t:tcp_socket name_connect;
+  allow forgejo_runner_t home_root_t:dir { getattr search };
+  allow forgejo_runner_t user_home_dir_t:dir { getattr search };
+  allow forgejo_runner_t xdg_cache_t:dir { getattr search write add_name create read remove_name open rmdir };
+  allow forgejo_runner_t xdg_cache_t:file { create open write getattr read unlink ioctl rename map setattr append link };
+  allow forgejo_runner_t xdg_cache_t:lnk_file { create getattr unlink };
+  allow forgejo_runner_t xdg_config_t:dir search;
+  allow forgejo_runner_t bin_t:dir search;
+  allow forgejo_runner_t bin_t:file { getattr execute execute_no_trans read open map };
+  allow forgejo_runner_t bin_t:lnk_file { read unlink };
+  allow forgejo_runner_t shell_exec_t:file { getattr execute execute_no_trans open read map };
+  # Git
+    allow forgejo_runner_t git_exec_t:file { getattr execute execute_no_trans read open map };
+    allow forgejo_runner_t urandom_device_t:chr_file { open read };
+```
 **`forgejo-runner.fc`**
 
+```
+/opt/forgejo-runner(/.*)?  gen_context(system_u:object_r:forgejo_runner_data_t)
+/opt/forgejo-runner/forgejo-runner  gen_context(system_u:object_r:forgejo_runner_exec_t)
+```
 ### Installation of policies
 
 All .te and .fc files defined above should be in the same directory (forgejo and forgejo-runner can be separated if desired).

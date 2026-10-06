@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Downgrading_a_package_to_removed_version
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-06-15"
-fingerprint: d7a91c8f84f80be2
+fingerprint: d7a95c8f85f80be2
 license: CC BY-SA 4.0
 ---
 
@@ -28,6 +28,7 @@ First, create an ebuild repository ("overlay") locally, where the rescued ebuild
 `root #``eselect repository create local`
 Grab a git clone of the Gentoo repository and store it somewhere convenient, like /home/larry/git/gentoo:
 
+`user $``git clone` [https://anongit.gentoo.org/git/repo/gentoo.git](https://anongit.gentoo.org/git/repo/gentoo.git)
 If a clone already exists, update it:
 
 `user $``git pull`

@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/CSAF_for_Gentoo
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-09-07"
-fingerprint: "1c3bee54deb531f8"
+fingerprint: "143bee54deb531f8"
 license: CC BY-SA 4.0
 ---
 
 # CSAF for Gentoo
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

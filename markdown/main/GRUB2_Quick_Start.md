@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/GRUB2_Quick_Start
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-15"
-fingerprint: b4265f5a00b5b9c1
+fingerprint: b4a65d5a0cb5b9d1
 license: CC BY-SA 4.0
 ---
 
@@ -16,6 +16,8 @@ license: CC BY-SA 4.0
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
 This article provides information on how to get up and running with **[GRUB](https://wiki.gentoo.org/wiki/GRUB)** in the simplest configurations. For a migration from [GRUB Legacy](https://wiki.gentoo.org/wiki/GRUB_Legacy) to GRUB2, see [GRUB2 Migration](https://wiki.gentoo.org/wiki/GRUB2_Migration).
+
+## Installing GRUB software
 
 To install GRUB, first set the `GRUB_PLATFORMS` variable with one or more appropriate values in the system's make.conf. If unset, GRUB will guess which platform to use on the system. It guesses `pc` (which is the MBR style of installation) for **x86**/**amd64** architectures.
 
@@ -49,6 +51,8 @@ GRUB_PLATFORMS="efi-64 pc"
 After the variable is set, emerge the software:
 
 `root #``emerge --ask sys-boot/grub`
+## Activating the GRUB boot loader
+
 Mount /boot if applicable:
 
 `root #``mount /boot`
@@ -71,6 +75,8 @@ Installation finished. No error reported.
 
 The grub-install command accepts a `--target` option to specify which CPU/Platform to install. If unspecified, grub-install will make a guess: on **x86**/**amd64** it will use the `i386-pc` value by default.
 
+## Automatic configuration
+
 GRUB is configured by using the grub-mkconfig program to generate a configuration file.
 
 grub-mkconfig generates the configuration file based on template sections located in /etc/grub.d. The default templates should cover most common boot setups.
@@ -79,6 +85,8 @@ grub-mkconfig generates the configuration file based on template sections locate
 00\_header  10\_linux  20\_linux\_xen  30\_os-prober  40\_custom  41\_custom  README
 
 The behavior of these templates can be controlled by setting variables in /etc/default/grub. See the [GRUB manual](http://www.gnu.org/software/grub/manual/html_node/Simple-configuration.html) for more information.
+
+### Kernel naming scheme
 
 In order for grub-mkconfig to detect the available Linux kernel(s), their names must start with vmlinuz- or kernel-.
 
@@ -95,6 +103,8 @@ Generating grub.cfg ...
 Found linux image: /boot/vmlinuz-3.2.9
 done
 
+### Silent kernel decompression
+
 To silence kernel decompression at boot time, edit /etc/default/grub and add `quiet` to the `GRUB_CMDLINE_LINUX_DEFAULT` variable.
 
 **`/etc/default/grub`**
@@ -104,6 +114,8 @@ To silence kernel decompression at boot time, edit /etc/default/grub and add `qu
 ```
 GRUB_CMDLINE_LINUX_DEFAULT="quiet"
 ```
+### systemd
+
 To boot systemd while using GRUB configure the `GRUB_CMDLINE_LINUX` variable look like this:
 
 **`/etc/default/grub`**
@@ -113,12 +125,31 @@ To boot systemd while using GRUB configure the `GRUB_CMDLINE_LINUX` variable loo
 ```
 GRUB_CMDLINE_LINUX="init=/usr/lib/systemd/systemd"
 ```
+### Loading another operating system
+
 grub-mkconfig can also generate configurations to load *other* operating systems. This requires the [sys-boot/os-prober](https://packages.gentoo.org/packages/sys-boot/os-prober) package.
 
 To boot Windows, the [sys-fs/ntfs3g](https://packages.gentoo.org/packages/sys-fs/ntfs3g) also needs to be installed. It allows for the grub-mkconfig utility to probe NTFS filesystems.
 
+## Manual configuration
+
 Use of grub-mkconfig is not required. The grub.cfg file can be edited manually as well.
 
 Migrating from the GRUB Legacy config format to the GRUB 2 config format is usually quite simple, requiring a few minor syntax changes.
+
+timeout 5
+ 
+title Gentoo Linux 3.2.12
+root (hd0,0)
+kernel /boot/kernel-3.2.12-gentoo root=/dev/sda3
+
+timeout=5
+ 
+menuentry 'Gentoo Linux 3.2.12' {
+    root=hd0,1
+    linux /boot/kernel-3.2.12-gentoo root=/dev/sda3
+}
+
+## See also
 
 - [GRUB](https://wiki.gentoo.org/wiki/GRUB) - The 'full' GRUB article contains more information and an extensive list of resources.

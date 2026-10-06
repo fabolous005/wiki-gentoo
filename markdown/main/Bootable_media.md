@@ -45,7 +45,7 @@ The list of packages included is found in the [catalyst specification file](http
 
 See the [release announcement](https://www.gentoo.org/news/2022/04/03/livegui-artwork-contest.html) for more information.
 
-In the past, some "LiveDVDs" were produced by the loosely affiliated, community run, ["Gentoo Ten" project](https://wiki.gentoo.org/wiki/Project:RelEng/LiveDVD), but the latest effort is a separate endeavor and was created by [Andreas K. Hüttel (dilfridge)](https://wiki.gentoo.org/wiki/User:Dilfridge)
+In the past, some "LiveDVDs" were produced by the loosely affiliated, community run, ["Gentoo Ten" project](https://wiki.gentoo.org/wiki/Project:RelEng/LiveDVD), but the latest effort is a separate endeavor and was created by [Andreas K. Hüttel (dilfridge)](https://wiki.gentoo.org/wiki/User:Dilfridge) .
 
 The **amd64** LiveGUI image can be downloaded from here: [livegui-amd64/](https://distfiles.gentoo.org/releases/amd64/autobuilds/current-livegui-amd64/). The downloaded file will have a name along the lines *livegui-amd64-20240225T170409Z.iso*.
 

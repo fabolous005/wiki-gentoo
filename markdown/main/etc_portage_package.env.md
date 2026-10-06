@@ -45,6 +45,9 @@ This file can then be applied to packages that fail to compile with higher job c
 
 **`/etc/portage/package.env`**
 
+```
+dev-qt/qtwebengine makeopts-jobs-2.conf
+```
 But it is better to limit *EMERGE\_DEFAULT\_OPTS* for Chromium, QtWebEngine, Rust, LibreOffice rather than *MAKEOPTS*.
 
 ### Enable debug information for a specific package
@@ -64,6 +67,9 @@ Next, add an entry to package.env followed by the name of the file created in th
 
 **`/etc/portage/package.env`**
 
+```
+media-gfx/gimp  debug.conf
+```
 ### Build certain packages in a different location
 
 Suppose the Portage build directory is in [tmpfs](https://wiki.gentoo.org/wiki/Portage_TMPDIR_on_tmpfs), but some packages are too large, and run out of space. The `PORTAGE_TMPDIR` can be modified to exclude the packages that are too large.
@@ -77,6 +83,11 @@ PORTAGE_TMPDIR="/var/tmp/notmpfs"
 ```
 Add [large packages](https://wiki.gentoo.org/wiki/Portage_TMPDIR_on_tmpfs#Considering_tmpfs.27_size) to package.env:
 
+```
+app-emulation/qemu-kvm  notmpfs.conf
+app-office/libreoffice  notmpfs.conf debug.conf
+www-client/firefox      notmpfs.conf
+```
 Do not forget to create the /var/tmp/notmpfs directory and change the ownership to the portage user and group.
 
 Notice that it is possible to reference several files in /etc/portage/env for each package. 
@@ -89,7 +100,7 @@ A package-specific file in the [/etc/portage/env](https://wiki.gentoo.org/wiki//
 **`/etc/portage/env/media-gfx/fbida-2.12`**
 
 ```
-() { epatch_user || die; }
+src_prepare() { epatch_user || die; }
 ```
 ## Caveats
 

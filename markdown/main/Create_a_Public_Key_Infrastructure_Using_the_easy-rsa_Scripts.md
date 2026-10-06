@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Create_a_Public_Key_Infrastructure_Using_the_e
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-04-21"
-fingerprint: bf52c21a1d1ceade
+fingerprint: bd73c41a1d1ceade
 license: CC BY-SA 4.0
 ---
 
@@ -44,6 +44,22 @@ parameters (do not leave any of these parameters blank). Change the KEY\_SIZE pa
 
 **`/root/easy-rsa-example/vars`**
 
+```
+# Choices are:
+#   cn_only  - use just a CN value
+#   org      - use the "traditional" Country/Province/City/Org/OU/email/CN format
+set_var EASYRSA_DN      "org"
+# Organizational fields (used with 'org' mode and ignored in 'cn_only' mode.)
+# These are the default values for fields which will be placed in the
+# certificate.  Don't leave any of these fields blank, although interactively
+# you may omit any specific field by typing the "." symbol (not valid for
+# email.)
+set_var EASYRSA_REQ_COUNTRY     "US"
+set_var EASYRSA_REQ_PROVINCE    "CA"
+set_var EASYRSA_REQ_CITY        "SanFrancisco"
+set_var EASYRSA_REQ_ORG         "Fort-Funston"
+set_var EASYRSA_REQ_EMAIL       "mail@host.domain"
+```
 Delete any previously created certificates.
 
 `root #` `./easyrsa init-pki`

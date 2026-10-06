@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Ceph
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-06-25"
-fingerprint: "2d98fe595491d7c4"
+fingerprint: "2d98fe595481d7c4"
 license: CC BY-SA 4.0
 ---
 
 # Ceph
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -17,11 +19,15 @@ license: CC BY-SA 4.0
 
 **Ceph** is a distributed object store and filesystem designed to provide excellent performance, reliability, and scalability. It is designed to have no single point of failure, and scale towards thousands of nodes participating in the distributed object store cluster.
 
+## Use cases
+
 Ceph provides three main storage features:
 
 1. Within a Ceph cluster, pools are made available in which objects can be stored and retrieved. Gateways (such as the Rados Gateway) and other applications can use this to keep their data in a highly available manner.
 2. A pool can be exposed as a file system. Each Ceph cluster can currently hold one file system which can be made accessible by Linux clients. This file system is POSIX compliant and can be used to build highly available NFS services (or directly use the mounted file system).
 3. Rados block devices are stored in the Ceph cluster and can be used to build highly available virtualized infrastructure (for instance virtual guest images on a highly available cluster).
+
+## Resources
 
 In order to support a Ceph cluster, some insights in how Ceph operates as well as its various components is necessary. An [introductory guide to Ceph](https://wiki.gentoo.org/wiki/Ceph/Guide) is available on the wiki which not only explains how Ceph operates, but also introduces an example 3-host setup for Ceph.
 

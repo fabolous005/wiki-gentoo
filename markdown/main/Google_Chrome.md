@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Google_Chrome
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-03-02"
-fingerprint: "6b52168081b755eb"
+fingerprint: "6b5216c081b755eb"
 license: CC BY-SA 4.0
 ---
 
@@ -29,6 +29,11 @@ Currently there are several versions of Google Chrome available in the main Gent
 
 Each of the packages listed above contains the following USE flags:
 
+
+### USE flags for
+            [www-client/google-chrome](https://packages.gentoo.org/packages/www-client/google-chrome)
+            
+            The web browser from Google
 
 ### Accept License
 

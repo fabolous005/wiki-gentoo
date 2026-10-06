@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Fbsplash
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-12-19"
-fingerprint: "3703aaf70b86abdd"
+fingerprint: "5702aa778bc6abdc"
 license: CC BY-SA 4.0
 ---
 
@@ -16,11 +16,15 @@ license: CC BY-SA 4.0
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
 
+**Deprecated article**
+
 This article is
 
 **deprecated (obsolete)**. Contents are
 
 <u>no longer relevant</u>, and are intended for historical reference only!
+
+[Plymouth](https://wiki.gentoo.org/wiki/Plymouth)may be a possible partial substitute for some use-cases.
 
 TLDR:
 
@@ -54,6 +58,27 @@ Enable framebuffer console decorations:
 
 **Kernel framebuffer configuration**
 
+```
+Device Drivers ->
+    Graphics support ->
+        <*> Support for frame buffer devices --->
+            -*-   Enable Video Mode Handling Helpers
+            [ ]   Enable Tile Blitting Support
+            <*>   Userspace VESA VGA graphics support
+            [*]   VESA VGA graphics support 
+            < >   nVidia Framebuffer Support
+            < >   ATI Radeon display support
+            [ ]   Simple framebuffer support
+        Console display driver support --->
+            [*] VGA text console
+            [*]   Enable Scrollback Buffer in System RAM
+            (64)    Scrollback Buffer Size (in KB)
+            <*> Framebuffer Console support
+            -*-   Map the console to the primary display device
+            [ ]   Framebuffer Console Rotation
+            [*]   Support for the Framebuffer Console Decorations
+            [ ] Select compiled-in fonts
+```
 Remember that selecting the type of framebuffer device is important and affects the system. When planning to use open source graphics drivers, the appropriate device should be enabled here. For example, for radeon drive, enable ATI Radeon display support. However, if you are going to install proprietary drivers for the graphics card, you will likely have to rely on either Userspace VESA VGA graphics support or Simple framebuffer support. There is an option for EFI-based Framebuffer Support, too, in case you need it.
 
 Thus, using either [radeon](https://wiki.gentoo.org/wiki/Radeon), [intel](https://wiki.gentoo.org/wiki/Intel), or [nouveau](https://wiki.gentoo.org/wiki/Nouveau) drivers provides a framebuffer capable device which is well implemented into the operating system. For users with the binary nVidia or AMD driver, there are workarounds using simple framebuffer to get frambuffer support.
@@ -62,6 +87,11 @@ Next, enable [Event interface](https://wiki.gentoo.org/wiki/Libinput#Kernel) (`C
 
 **Enabling the Event Interface**
 
+```
+Device Drivers --->
+    Input Device Support --->
+        <*> Event Interface
+```
 ## Usage
 
 General usage scenarios.
@@ -162,6 +192,18 @@ This is a limitation in the device if the resolution you want is not listed amon
 
 **Kernel framebuffer configuration**
 
+```
+Device Drivers ->
+    Graphics support ->
+        <*> Support for frame buffer devices --->
+            -*-   Enable Video Mode Handling Helpers
+            [ ]   Enable Tile Blitting Support
+            < >   Userspace VESA VGA graphics support
+            [ ]   VESA VGA graphics support 
+            < >   nVidia Framebuffer Support
+            < >   ATI Radeon display support
+            [*]   Simple framebuffer support
+```
 
 Then, to the default GRUB configuration, add:
 

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/BIND
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-06-16"
-fingerprint: "92439f5ef0f7b8c4"
+fingerprint: "92439f58f1f6b8c5"
 license: CC BY-SA 4.0
 ---
 
@@ -27,6 +27,11 @@ It is wise to securely configure BIND, which includes only building in support f
 
 ### USE flags
 
+
+### USE flags for
+            [net-dns/bind](https://packages.gentoo.org/packages/net-dns/bind)
+            
+            Berkeley Internet Name Domain - Name Server
 
 | [dnstap](https://packages.gentoo.org/useflags/dnstap) | Enables dnstap packet logging | 
 | [doc](https://packages.gentoo.org/useflags/doc) | Add extra documentation (API, Javadoc, etc). It is recommended to enable per package instead of globally | 
@@ -83,6 +88,16 @@ As root edit /etc/bind/named.conf add an internet service provider's DNS where t
 
 **`/etc/bind/named.conf`**
 
+```
+forwarders {
+		x.x.x.x;	// Your ISP NS
+		x.x.x.x;	// Your ISP NS
+		4.2.2.1;		// Level3 Public DNS
+		4.2.2.2;		// Level3 Public DNS
+		8.8.4.4;		// Google Open DNS
+		8.8.8.8;		// Google Open DNS
+	};
+```
 `root #``rc-service named restart``user $``dig google.com`
 ## See also
 

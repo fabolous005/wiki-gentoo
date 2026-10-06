@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Games
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-01-30"
-fingerprint: "8d2eb819c0e14efc"
+fingerprint: "852eb819c0e14efc"
 license: CC BY-SA 4.0
 ---
 
 # Games
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

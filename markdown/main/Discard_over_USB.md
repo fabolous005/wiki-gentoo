@@ -181,6 +181,9 @@ Use that in a udev rule
 
 **`/etc/udev/rules.d/10-trim.rules`**
 
+```
+ACTION=="add|change", ATTRS{idVendor}=="<VendorID>", ATTRS{idProduct}=="<ProductID>", SUBSYSTEM=="scsi_disk", ATTR{provisioning_mode}="unmap"
+```
 Reboot to test.
 
 `root #``fstrim -av`

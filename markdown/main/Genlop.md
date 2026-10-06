@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Genlop
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-05-02"
-fingerprint: f6059e4894a26103
+fingerprint: f6059e4994a26103
 license: CC BY-SA 4.0
 ---
 
@@ -17,6 +17,7 @@ From Gentoo Wiki
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+**Resources**
 
 **genlop** is a utility for extracting information about emerged ebuilds from Portage log files (/var/log/emerge.log). Genlop is written in Perl.
 

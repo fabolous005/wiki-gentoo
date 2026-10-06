@@ -122,6 +122,16 @@ Below is a config that allowed at least one student to use NetworkManager to con
 
 **`/var/lib/iwd/eduroam.8021x`**
 
+```
+[Security]
+EAP-Method=PEAP
+EAP-Identity=[student_id]@edu.p.lodz.pl
+EAP-PEAP-CACert=/etc/ca-certificates/trust-source/tuLodzRoot.pem
+EAP-PEAP-ServerDomainMask=*.p.lodz.pl
+EAP-PEAP-Phase2-Method=MSCHAPV2
+EAP-PEAP-Phase2-Identity=[student_id]@edu.p.lodz.pl
+EAP-PEAP-Phase2-Password=[password]
+```
 This should work already.
 However just to be safe go to `nmtui` and check the eduroam connection.
 Once you save it the file above should begin with `# Auto-generated from NetworkManager connection "eduroam"`.

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Dell_Precision_3470
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-29"
-fingerprint: "5505627fd0e3b1c7"
+fingerprint: "1604627f94a39247"
 license: CC BY-SA 4.0
 ---
 
@@ -25,15 +25,15 @@ This article is a work in progress as I manage thru the installation and initial
 
 | Device | Make/model | Status | Vendor ID / Product ID | Kernel driver(s) | Kernel version | Notes | 
 |---|---|---|---|---|---|---|
-| CPU | 12th Gen Intel Core i7-1270p |  |  | N/A | 6.1.2 |  | 
-| Video card (integrated) | Intel Iris |  |  |  | 6.1.2 | Note example. | 
-| Video card | Nvidia T550 |  |  | nvidia (propriety) | 6.1.2 | Note example. | 
-| Wifi |  |  |  |  |  |  | 
-| Bluetooth |  |  |  |  |  |  | 
+| CPU | 12th Gen Intel Core i7-1270p | Works |  | N/A | 6.1.2 |  | 
+| Video card (integrated) | Intel Iris | Works |  |  | 6.1.2 | Note example. | 
+| Video card | Nvidia T550 | Works |  | nvidia (propriety) | 6.1.2 | Note example. | 
+| Wifi |  | Works |  |  |  |  | 
+| Bluetooth |  | Works |  |  |  |  | 
 | Sound |  |  |  |  |  |  | 
-| Camera (RGB) | Microdia Integrated Webcam FHD |  | 0c45:6733 |  |  |  | 
-| Camera (IR) |  |  |  |  |  | Using v4l2. /dev/video0 | 
-| Fingerprint Reader | Broadcom ControlVault 3 |  | 0a5c:5843 |  |  | Not recognized by fprintd <sup>[\[1\]](https://wiki.gentoo.org#cite_note-1)</sup> | 
+| Camera (RGB) | Microdia Integrated Webcam FHD | Works | 0c45:6733 |  |  |  | 
+| Camera (IR) |  | Works |  |  |  | Using v4l2. /dev/video0 | 
+| Fingerprint Reader | Broadcom ControlVault 3 | Not working | 0a5c:5843 |  |  | Not recognized by fprintd <sup>[\[1\]](https://wiki.gentoo.org#cite_note-1)</sup> | 
 
 
 
@@ -45,16 +45,31 @@ For installation use kernel 6.1 and above (the 5.15) doesn't work. In order to d
 
 **`/etc/portage/package.accept_keywords/gentoo-kernel`**
 
+```
+~sys-kernel/gentoo-kernel-6.1.2 ~amd64
+~sys-kernel/dist-kernel-6.1.2 ~amd64
+```
 ### Kernel
 
 In order to get the framebuffer working at the earliest time possible (necessary for example if using encrypted LUKS root partition), you should enable the EFI framebuffer support:
 
 **Enable EFI-based Framebuffer Support (CONFIG\_FB\_EFI)**
 
+```
+Device Drivers
+->Graphics support
+   ->Frame buffer Devices
+      ->Support for frame buffer devices [y]
+          ->EFI-based Framebuffer Support [y]
+```
 Alternatively, if you use the distribution kernel, you can create the following file to add the option:
 
 **`/etc/kernel/config.d/100_framebuffer.config`**
 
+```
+#EFI framebuffer support
+CONFIG_FB_EFI=y
+```
 ## Configuration
 
 In order to boot the Gentoo installation media, first you need to disable secure boot.
@@ -82,6 +97,9 @@ This is due to a race condition while loading the kernel modules and Xorg. Pleas
 
 **`/etc/dracut.conf.d/nvidiaoptimus.conf`**
 
+```
+force_drivers+=" i915 "
+```
 Regenerate the initramfs image:
 
 `root #``dracut --force`

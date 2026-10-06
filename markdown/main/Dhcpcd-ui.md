@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Dhcpcd-ui
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-04-30"
-fingerprint: ca11154e998b596e
+fingerprint: c211055e9d8a596e
 license: CC BY-SA 4.0
 ---
 
 # dhcpcd-ui
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -24,6 +26,11 @@ license: CC BY-SA 4.0
 
 To get one of the graphical user interfaces enable the respective USE flag.
 
+
+### USE flags for
+            [net-misc/dhcpcd-ui](https://packages.gentoo.org/packages/net-misc/dhcpcd-ui)
+            
+            Desktop notification and configuration for dhcpcd
 
 | [debug](https://packages.gentoo.org/useflags/debug) | Enable extra debug codepaths, like asserts and extra output. If you want to get meaningful backtraces see https://wiki.gentoo.org/wiki/Project:Quality\_Assurance/Backtraces | 
 | [gtk](https://packages.gentoo.org/useflags/gtk) | Add support for x11-libs/gtk+ (The GIMP Toolkit) | 
@@ -61,8 +68,12 @@ emerge --ask --deselect net-misc/dhcpcd
 
 Uncomment the `controlgroup` line in /etc/dhcpcd.conf:
 
-**`/etc/dhcpcd.conf`**
+FILE **`/etc/dhcpcd.conf`**
 
+```
+# Allow users of this group to interact with dhcpcd via the control socket.
+controlgroup wheel
+```
 Change group and permissions of /etc/dhcpcd.conf in order to make it writable for the user interface:
 
 `root #````

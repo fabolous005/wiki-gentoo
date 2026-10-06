@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Enlightenment
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-11-12"
-fingerprint: ce005b5d48a2394c
+fingerprint: ce005b5d49a2394c
 license: CC BY-SA 4.0
 ---
 
@@ -24,6 +24,11 @@ There has been some confusion over Enlightenment versions. E16, despite being an
 ### USE flags
 
 
+### USE flags for
+            [x11-wm/enlightenment](https://packages.gentoo.org/packages/x11-wm/enlightenment)
+            
+            Enlightenment window manager
+
 | [bluetooth](https://packages.gentoo.org/useflags/bluetooth) | Enable Bluetooth Support | 
 | [connman](https://packages.gentoo.org/useflags/connman) | Add support for net-misc/connman | 
 | [doc](https://packages.gentoo.org/useflags/doc) | Add extra documentation (API, Javadoc, etc). It is recommended to enable per package instead of globally | 
@@ -39,6 +44,11 @@ There has been some confusion over Enlightenment versions. E16, despite being an
 
 All Wayland related modules should be either disabled or enabled, depending on the `wayland` USE flag status.
 
+
+### USE flags for
+            [dev-libs/efl](https://packages.gentoo.org/packages/dev-libs/efl)
+            
+            Enlightenment Foundation Libraries all-in-one package
 
 | [+X](https://packages.gentoo.org/useflags/+X) | Add support for X11 | 
 | [+eet](https://packages.gentoo.org/useflags/+eet) | Enable Eet image loader | 

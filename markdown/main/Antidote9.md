@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Antidote9
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2016-11-29"
-fingerprint: "74a7b970f6c739ec"
+fingerprint: "74a7b970f68739ec"
 license: CC BY-SA 4.0
 ---
 
 # Antidote9
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

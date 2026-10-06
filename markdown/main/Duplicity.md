@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Duplicity
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-09-14"
-fingerprint: aa794946659111ca
+fingerprint: aa7b494665b111ca
 license: CC BY-SA 4.0
 ---
 
@@ -25,6 +25,11 @@ Wrappers like [app-backup/duply](https://packages.gentoo.org/packages/app-backup
 
 ### USE flags
 
+
+### USE flags for
+            [app-backup/duplicity](https://packages.gentoo.org/packages/app-backup/duplicity)
+            
+            Secure backup system using GnuPG to encrypt data
 
 | [debug](https://packages.gentoo.org/useflags/debug) | Enable extra debug codepaths, like asserts and extra output. If you want to get meaningful backtraces see https://wiki.gentoo.org/wiki/Project:Quality\_Assurance/Backtraces | 
 | [s3](https://packages.gentoo.org/useflags/s3) | Support for backing up to the Amazon S3 system | 

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/GNU_Icecat
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-01-16"
-fingerprint: "8644d1181c8738ac"
+fingerprint: "8644d1185c8738ac"
 license: CC BY-SA 4.0
 ---
 
@@ -25,6 +25,11 @@ Icecat is based on [Firefox](https://wiki.gentoo.org/wiki/Firefox).
 
 ### USE flags
 
+
+### USE flags for
+            [www-client/firefox](https://packages.gentoo.org/packages/www-client/firefox)
+            
+            Firefox Web Browser
 
 | [+X](https://packages.gentoo.org/useflags/+X) | Add support for X11 | 
 | [+clang](https://packages.gentoo.org/useflags/+clang) | Use Clang compiler instead of GCC | 

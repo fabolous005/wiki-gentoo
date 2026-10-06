@@ -5,15 +5,21 @@ url: https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2013/Ideas/Puppet_Portag
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2019-01-11"
-fingerprint: b52476ee4ca691cc
+fingerprint: b52676ea4ca291cc
 license: CC BY-SA 4.0
 ---
 
 # Google Summer of Code/2013/Ideas/Puppet Portage module
 
+From Gentoo Wiki
+
+\< [Google Summer of Code](https://wiki.gentoo.org/wiki/Google_Summer_of_Code) | [2013](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2013) | [Ideas](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2013/Ideas)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+## [Puppet Portage module]
 
 **Completed in 2013**
 

@@ -70,6 +70,13 @@ If Wayland support is properly enabled and working, it should contain the line: 
 ### USE flags
 
 
+### USE flags for
+            [dev-util/android-studio](https://packages.gentoo.org/packages/dev-util/android-studio)
+            
+            Android development environment based on IntelliJ IDEA
+
+| [selinux](https://packages.gentoo.org/useflags/selinux) | !!internal use only!! Security Enhanced Linux support, this must be set by the selinux profile or breakage will occur | 
+
 ### Emerge
 
 `root #``emerge --ask dev-util/android-studio`

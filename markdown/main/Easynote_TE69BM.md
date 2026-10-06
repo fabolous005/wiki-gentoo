@@ -11,6 +11,8 @@ license: CC BY-SA 4.0
 
 # Easynote TE69BM
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
@@ -23,10 +25,10 @@ The **Acer (Packard Bell) EasyNote TE69BM** is a laptop.
 
 | Device | Make/model | Status | Vendor ID / Product ID | Kernel driver(s) | Kernel version | Notes | 
 |---|---|---|---|---|---|---|
-| CPU | Intel® Celeron® Processor N2920 |  | N/A | N/A | 5.4.92 |  | 
-| GPU | Atom Processor Z36xxx/Z37xxx Series Graphics & Display |  | N/A | i915 | 5.4.92 |  | 
-| Ethernet | RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller |  | N/A | r8169 | 5.4.92 |  | 
-| Wi-Fi | QCA9565 / AR9565 Wireless Network Adapter |  | N/A | ath9k | 5.4.92 |  | 
+| CPU | Intel® Celeron® Processor N2920 | Works | N/A | N/A | 5.4.92 |  | 
+| GPU | Atom Processor Z36xxx/Z37xxx Series Graphics & Display | Works | N/A | i915 | 5.4.92 |  | 
+| Ethernet | RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller | Works | N/A | r8169 | 5.4.92 |  | 
+| Wi-Fi | QCA9565 / AR9565 Wireless Network Adapter | Works | N/A | ath9k | 5.4.92 |  | 
 
 - ![](https://wiki.gentoo.org/images/thumb/5/5a/Laptop-from-packard-bell--easynote-te69bm.jpg/90px-Laptop-from-packard-bell--easynote-te69bm.jpg) Photo of the laptop
 - ![](https://wiki.gentoo.org/images/thumb/a/af/Easynote-bios-information.jpg/120px-Easynote-bios-information.jpg) Easynote BIOS information
@@ -470,7 +472,7 @@ A third-party [kernel configuration file](https://gitlab.com/vitaly-zdanevich-co
 
 To fix the [screen tearing](https://en.wikipedia.org/wiki/Screen_tearing), the following [Xorg](https://wiki.gentoo.org/wiki/Xorg) configuration file should be created <sup>[\[1\]](https://wiki.gentoo.org#cite_note-1)</sup>:
 
-**`/etc/X11/xorg.conf.d/20-intel.conf`**
+FILE **`/etc/X11/xorg.conf.d/20-intel.conf`**
 
 ```
 Section "Device"

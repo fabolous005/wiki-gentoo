@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Dell_Inspiron_3537
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-29"
-fingerprint: d4c1603edd3a537b
+fingerprint: "54cd483e9d32137f"
 license: CC BY-SA 4.0
 ---
 
@@ -15,18 +15,23 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+**Resources**
+
 ## Hardware
 
 ### Standard
 
 | Device | Make/model | Status | Bus ID | Kernel driver(s) | Kernel version | 
 |---|---|---|---|---|---|
-| CPU | [Intel i7-4500U](https://ark.intel.com/products/75460/Intel-Core-i7-4500U-Processor-4M-Cache-up-to-3_00-GHz) | <sup>[\[table 1\]](https://wiki.gentoo.org#cite_note-wrongturbo-1)</sup> | N/A | N/A | 5.6 | 
-| Video card | Intel Integrated HD 4400 |  | 8086:0a16 | [i915](https://wiki.gentoo.org/wiki/Intel) | 5.6 | 
-| Video card | [AMD Radeon HD 8850M](https://www.amd.com/en-us/products/graphics/notebook/8700m-8800m) |  | 1002:6823 | [radeon](https://wiki.gentoo.org/wiki/Radeon)/[amdgpu](https://wiki.gentoo.org/wiki/Amdgpu) | 5.6 | 
-| Ethernet | Realtek RTL8101E/RTL8102E |  | 10ec:8136 | r8169 | 5.6 | 
-| Touchpad | Synaptics TM2382-001 |  | N/A | [synaptics](https://wiki.gentoo.org/wiki/Synaptics) | 5.6 | 
-| Wireless | Broadcom BCM43142 | <sup>[\[table 2\]](https://wiki.gentoo.org#cite_note-wl-2)</sup> | 14e4:4365 | [wl](https://packages.gentoo.org/packages/net-wireless/broadcom-sta) | 5.6 | 
+| CPU | [Intel i7-4500U](https://ark.intel.com/products/75460/Intel-Core-i7-4500U-Processor-4M-Cache-up-to-3_00-GHz) | Works <sup>[\[table 1\]](https://wiki.gentoo.org#cite_note-wrongturbo-1)</sup> | N/A | N/A | 5.6 | 
+| Video card | Intel Integrated HD 4400 | Works | 8086:0a16 | [i915](https://wiki.gentoo.org/wiki/Intel) | 5.6 | 
+| Video card | [AMD Radeon HD 8850M](https://www.amd.com/en-us/products/graphics/notebook/8700m-8800m) | Works | 1002:6823 | [radeon](https://wiki.gentoo.org/wiki/Radeon)/[amdgpu](https://wiki.gentoo.org/wiki/Amdgpu) | 5.6 | 
+| Ethernet | Realtek RTL8101E/RTL8102E | Works | 10ec:8136 | r8169 | 5.6 | 
+| Touchpad | Synaptics TM2382-001 | Works | N/A | [synaptics](https://wiki.gentoo.org/wiki/Synaptics) | 5.6 | 
+| Wireless | Broadcom BCM43142 | Works <sup>[\[table 2\]](https://wiki.gentoo.org#cite_note-wl-2)</sup> | 14e4:4365 | [wl](https://packages.gentoo.org/packages/net-wireless/broadcom-sta) | 5.6 | 
+
+1. [↑](https://wiki.gentoo.org#cite_ref-wrongturbo_1-0) See [Wrong turbo multipliers](https://wiki.gentoo.org#Wrong_turbo_multipliers)
+2. [↑](https://wiki.gentoo.org#cite_ref-wl_2-0) Requires closed-source binary driver.
 
 ## Firmware
 
@@ -38,6 +43,13 @@ Follow the [intel](https://wiki.gentoo.org/wiki/Intel) and [radeon](https://wiki
 
 **Enable ethernet support**
 
+```
+Device Drivers --->
+  Network device support --->
+    Ethernet Driver Support --->
+      [*] Realtek Devices
+      [*] Realtek 8169 gigabit ethernet support
+```
 ## Configuration
 
 ### Configuring Xorg

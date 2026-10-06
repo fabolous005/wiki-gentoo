@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Filesystem/Access_Control_List_Guide
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-11-22"
-fingerprint: "95669bdae2eefb09"
+fingerprint: "17671bdae2a4fb09"
 license: CC BY-SA 4.0
 ---
 
@@ -25,8 +25,36 @@ Enable *POSIX Access Control Lists* (`CONFIG_*_POSIX_ACL`) for each filesystem t
 
 **Enabling Access Control Lists**
 
+```
+File systems --->
+  <*> Second extended fs support
+  [*]   Ext2 extended attributes
+  [*]     Ext2 POSIX Access Control Lists
+  <*> The Extended 3 (ext3) filesystem
+  [*]   Ext3 POSIX Access Control Lists
+  <*> The Extended 4 (ext4) filesystem
+  [*]   Ext4 POSIX Access Control Lists
+  <*> JFS filesystem support
+  [*]   JFS POSIX Access Control Lists
+  <*> XFS filesystem support
+  [*]   XFS POSIX ACL support
+  <*> Btrfs filesystem support
+  [*]   Btrfs POSIX Access Control Lists
+  <*> F2FS filesystem support
+  [*]   F2FS extended attributes
+  [*]     F2FS Access Control Lists
+```
 ### USE flags
 
+
+### USE flags for
+            [sys-apps/acl](https://packages.gentoo.org/packages/sys-apps/acl)
+            
+            Access control list utilities, libraries, and headers
+
+| [nls](https://packages.gentoo.org/useflags/nls) | Add Native Language Support (using gettext - GNU locale utilities) | 
+| [static-libs](https://packages.gentoo.org/useflags/static-libs) | Build static versions of dynamic libraries as well | 
+| [verify-sig](https://packages.gentoo.org/useflags/verify-sig) | Verify upstream signatures on distfiles | 
 
 ### Emerge
 
@@ -45,6 +73,9 @@ For example, in case of [ext4](https://wiki.gentoo.org/wiki/Ext4) there is the `
 
 **`/etc/fstab`**
 
+```
+/dev/sda1    /    ext4    noatime,user_xattr,acl    0 1
+```
 ## Usage
 
 The [sys-apps/acl](https://packages.gentoo.org/packages/sys-apps/acl) provides setfacl, getfacl, and chacl utilities.

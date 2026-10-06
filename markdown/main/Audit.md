@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Audit
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-01-07"
-fingerprint: e89eb71c17d3b986
+fingerprint: e8deb71c17d3b9a6
 license: CC BY-SA 4.0
 ---
 
 # Audit
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -21,6 +23,11 @@ The Linux Audit System is designed to make Linux compliant with the requirements
 
 ### USE flags
 
+
+### USE flags for
+            [sys-process/audit](https://packages.gentoo.org/packages/sys-process/audit)
+            
+            Userspace utilities for storing and processing auditing records
 
 | [build](https://packages.gentoo.org/useflags/build) | !!internal use only!! DO NOT SET THIS FLAG YOURSELF!, used for creating build images and the first half of bootstrapping \[make stage1\] | 
 | [gssapi](https://packages.gentoo.org/useflags/gssapi) | Enable GSSAPI support | 

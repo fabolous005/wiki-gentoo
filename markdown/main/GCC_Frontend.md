@@ -5,11 +5,15 @@ url: https://wiki.gentoo.org/wiki/GCC/Frontend
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-01-21"
-fingerprint: "861a132d6a7f7a69"
+fingerprint: "863a132d6a7f7a79"
 license: CC BY-SA 4.0
 ---
 
 # GCC/Frontend
+
+From Gentoo Wiki
+
+\< [GCC](https://wiki.gentoo.org/wiki/GCC)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -23,7 +27,7 @@ GCC uses 3 main intermediate representation: [GENERIC](https://gcc.gnu.org/onlin
 
 GCC must have JIT flag:
 
-**`/etc/portage/package.use/gcc`**
+FILE **`/etc/portage/package.use/gcc`**
 
 ```
 sys-devel/gcc jit
@@ -34,7 +38,7 @@ JIT provides both C API and [C++ API](https://gcc.gnu.org/onlinedocs/jit/cp/). O
 
 Create a C file:
 
-**`usingjit.c`**
+FILE **`usingjit.c`**
 
 ```
 #include <libgccjit.h>

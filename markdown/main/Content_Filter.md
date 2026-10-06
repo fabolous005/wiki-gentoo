@@ -6,7 +6,7 @@ url: https://wiki.gentoo.org/wiki/Content_Filter
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-12-19"
-fingerprint: f600934367203871
+fingerprint: f6089b5b63203871
 license: CC BY-SA 4.0
 ---
 
@@ -15,6 +15,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 ## Planning
 
@@ -92,6 +94,28 @@ Now lets start configuring the global settings, for now just change the paramete
 
 **`/etc/dansguardian/dansguardian.conf`**
 
+```
+# this only logs denied requests to cut back on a large log file
+# though you may want to set this parameter to 3 while troubleshooting, to log everything
+loglevel = 1
+# unless you want to use syslog you probably are better off using DansGuardian's internal logger
+loglocation = '/var/log/dansguardian/access.log'
+# DansGuardian listen port
+filterport = 8080
+# if this is a single machine, and DansGuardian is installed on the same machine as Tinyproxy use this IP
+# otherwise place the IP address of the proxy server in place of 127.0.0.1
+proxyip = 127.0.0.1
+# this is the port that the proxy server is listening on
+# earlier in the Tinyproxy setting we chose port 3128
+proxyport = 3128
+# if you have a single machine or a small network you will almost certainly need this set to off
+originalip = off
+# Portage should have already created a dansguardian user and group
+# if not, you should make one, so that DansGuardian can run with its own set of permissions
+# for security reasons mainly
+daemonuser = 'dansguardian'
+daemongroup = 'dansguardian'
+```
 Now that the global configuration has been taken care of, lets configure the per-group settings. If there is a conflict between per-group and global settings, per-group settings will always win; just keep that in mind while configuring and troubleshooting.
 
 Again, lets make a backup of the defaults, just in case:
@@ -101,6 +125,19 @@ Lets configure the first filter group. Again, this is a big file with lots going
 
 **`/etc/dansguardian/dansguardianf1.conf`**
 
+```
+groupmode = 1
+# this just helps log files parse easier
+groupname = 'group_one'
+# I found 50 to block far to much, where as 100 would still block adult sites but
+# allow for example, the wiki on breast cancer
+# this is something you'll need to tweak based on your own needs, the lower the number the more it blocks
+naughtynesslimit = 100
+# this defaults to 0 or off, I wanted to bring it up anyways though
+# if you think you'll need a temporary bypass for whatever reason
+# that feature is available
+bypass = 0
+```
 Under /etc/dansguardian/lists are a set of files that control the mechanics of filtering. There is a lot going on here, usually the defaults are ok. Although a few files are worth noting individually.
 
 - bannedsitelist - here, there is a section to explicitly list sites to be blocked.
@@ -144,6 +181,54 @@ Keep in mind, this is a very minimal config to get you started:
 
 **`/etc/squid/squid.conf`**
 
+```
+# this is the port and interface Squid listens on
+# if you do so you also have to change the dansguardian 'proxyip = 172.16.0.5'
+# http_port 172.16.0.5:3128
+# if you'd rather Squid listen on all interfaces try this instead
+http_port 3128
+# this option forces the location of the cache log
+# the cache log is a kind of general information and error log
+# if Squid has trouble running, this should be one of the first places you look
+cache_log /var/log/squid/cache.log
+# this option forces the location of the access log
+# it keeps track of every client request
+# if you'd rather not have this be logged change the path to /dev/null
+cache_access_log /var/log/squid/access.log
+# Squid keeps a cache of requested objects
+# this option forces the location of the store log
+# which keeps track of what enters and exits the cache
+# if you'd rather not log that make the path none as I've done below
+cache_store_log none
+# strictly speaking this is typically an optional parameter
+# it explicitly states what the hostname of the server is to Squid
+# at the very least this will help logs be easier to read
+visible_hostname squid.mydomain.net
+# some common ports that are used, we'll allow these to talk to our Squid
+acl Safe_ports port 80 21 443 563 70 210 280 488 591 777 1024-65535
+# SSL ports, its nice to have a seporate ACL for them
+acl SSL_ports port 443 563
+# we'll also make a separate ACL for all traffic over the local loopback interface
+acl localhost  src 127.0.0.0/8
+# here we'll group all traffic that is attempting an HTTP CONNECT on our Squid into its own ACL, usually only SSL needs to do this
+acl CONNECT method CONNECT
+# this is the IP of the server running DansGuardian
+acl DansGuardian src 172.16.0.6
+# here we catch all other hosts not listed above, yes we want any client IP address to fall into this ACL as well
+# we'll create a default block rule that will prevent users from bypassing the filter and directly asking Squid to process their request
+# you should enforce this with firewall policy too
+acl ALL src all
+# block access if the destination port doesn't match our Safe_port ACL
+http_access deny !Safe_port
+# long story short, protocols like SSL need to issue a HTTP CONNECT to be able to tunnel other protocols
+# here we're denying HTTP CONNECT to our Squid proxy except for ports we've identified as OK, namely the common SSL ports
+http_access deny CONNECT !SSL_port
+# since DansGuardian will need to use Squid, we'll let it
+http_access allow DansGuardian
+# here we catch everything else and deny them access, remember if users directly connect to Squid they'll bypass the DansGuardian content filter
+# you really should have firewall rules also enforcing this, but in the event something slips past your firewall, hopefully this stops the access instead
+http_access deny ALL
+```
 You can check your configuration file for syntax errors by running:
 
 `root #``squid -k check`
@@ -181,12 +266,20 @@ Now that you decided how to authenticate your users, you'll need to uncomment on
 
 **`/etc/dansguardian/dansguardian.conf`**
 
+```
+#authplugin = '/etc/dansguardian/authplugins/proxy-basic.conf'
+#authplugin = '/etc/dansguardian/authplugins/proxy-digest.conf'
+#authplugin = '/etc/dansguardian/authplugins/proxy-ntlm.conf'
+```
 #### Filter groups
 
 Before you can have multiple filter groups, you'll need to let DansGuardian know how many you'll have by changing this parameter to however many you want, in this example there will be 3:
 
 **`/etc/dansguardian/dansguardian.conf`**
 
+```
+filtergroups = 3
+```
 Each filter group will have its own configuration file named /etc/dansguardian/dansguardianfN.conf
 
 Where *N* is a number assigned to the group, typically you'll need at least a first group or dansguardianf1.conf and by default this is the default group. You should probably make a copy of it to act as a template for further groups:
@@ -199,6 +292,34 @@ Now that you have a filter group template made open the first group with your fa
 
 **`/etc/dansguaridanf1.conf`**
 
+```
+# description in the config file is pretty strait-forwards on what the values should be, you may consider blocking all web traffic for the default group
+# here we allow some filtered traffic, possibly due to a BYOD style network
+groupmode = 1
+# technically this is optional, but giving your groups names will make logs easier to parse
+groupname = 'DEFAULT'
+# if you decide to allow some access to your default group, you'll probably want to set your naughtynesslimit lower
+naughtynesslimit = 50
+# you can leave this section alone and be ok; but keep in mind you can maintain multiple lists and use these options to configure which set a given group should use
+# naturally the more independent lists you manage the more complex it becomes to add a site wide exception or block.
+bannedphraselist = '/etc/dansguardian/lists/bannedphraselist'
+weightedphraselist = '/etc/dansguardian/lists/weightedphraselist'
+exceptionphraselist = '/etc/dansguardian/lists/exceptionphraselist'
+bannedsitelist = '/etc/dansguardian/lists/bannedsitelist'
+greysitelist = '/etc/dansguardian/lists/greysitelist'
+exceptionsitelist = '/etc/dansguardian/lists/exceptionsitelist'
+bannedurllist = '/etc/dansguardian/lists/bannedurllist'
+greyurllist = '/etc/dansguardian/lists/greyurllist'
+exceptionurllist = '/etc/dansguardian/lists/exceptionurllist'
+bannedregexpurllist = '/etc/dansguardian/lists/bannedregexpurllist'
+bannedextensionlist = '/etc/dansguardian/lists/bannedextensionlist'
+bannedmimetypelist = '/etc/dansguardian/lists/bannedmimetypelist'
+picsfile = /etc/dansguardian/lists/pics.disabled
+contentregexplist = '/etc/dansguardian/lists/contentregexplist'
+anonregexplist = '/etc/dansguardian/lists/anonregexplist'
+exceptionregexpurllist = '/etc/dansguardian/lists/exceptionregexpurllist'
+greyregexpurllist = '/etc/dansguardian/lists/greyregexpurllist'
+```
 ## Transparent filtering with Iptables
 
 So you've decided you'd like to setup your machine to transparently filter web content. The most obvious solution for single computer is to use IPTables to redirect traffic. If you don't already have experience with IPTables have a look at the [Gentoo Wiki](https://wiki.gentoo.org/wiki/Iptables) on the subject before proceeding.
@@ -209,10 +330,42 @@ Next, make sure your kernel is configured with [netfilter support for clients](h
 
 **.config-4.4.6**
 
+```
+[*]Networking Support --->
+        Networking Options --->
+            [*] Network packet filtering framework (Netfilter) --->
+                [*] Advanced netfilter configuration
+                    Core Netfilter Configuration --->
+                        *** Xtables targets ***
+                        <M> REDIRECT target support
+                        *** Xtables matches ***
+                        <M> "owner" match support
+```
 **.config-3.7.3**
 
+```
+[*]Networking Support --->
+        Networking Options --->
+            [*] Network packet filtering framework (Netfilter) --->
+                    Core Netfilter Configuration --->
+                        *** Xtables targets ***
+                        <M> REDIRECT target support
+                        *** Xtables matches ***
+                        <M> "user" match support
+```
 **.config-3.12.13**
 
+```
+[*]Networking Support --->
+        Networking Options --->
+            [*] Network packet filtering framework (Netfilter) --->
+                    Core Netfilter Configuration --->
+                        *** Xtables matches ***
+                        <M> "owner" match support
+                    IP: Netfilter Configuration --->
+                        <M> IPv4 NAT
+                        <M>    REDIRECT target support
+```
 We'll also need to find the UID of whatever user your proxy is running under, which should be its own separate UID from both DansGaurdian and any human users:
 
 `root #``grep squid /etc/passwd | awk -F: {'print $3'}` Finally append your IPTables rule list with something like this (put the number you got from the previous grep of /etc/passwd in place of $SQUID):

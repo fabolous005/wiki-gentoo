@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/GTK_themes_in_Qt_applications
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2021-04-21"
-fingerprint: "981d53f9bcb79dd9"
+fingerprint: "981d5359bcb79dd9"
 license: CC BY-SA 4.0
 ---
 
@@ -25,6 +25,9 @@ Set the `gtk` `USE` flag:
 
 **`/etc/portage/package.use`**
 
+```
+dev-qt/qtwidgets gtk
+```
 Now rebuild the package with its new `USE` flag:
 
 `root #``emerge --ask --changed-use --oneshot dev-qt/qtwidgets`
@@ -39,6 +42,10 @@ In some desktop environments, Qt5 does not pick up the configuration. This can s
 Alternatively you could use the [x11-misc/qt5ct](https://packages.gentoo.org/packages/x11-misc/qt5ct) application and set the `QT_QPA_PLATFORMTHEME` environment variable to `qt5ct`. The "oxygen" icon packs may sometimes be necessary.
 
 ### Qt3 / Qt4
+
+**outdated**. You can help the Gentoo community by verifying and
+
+[updating this section](https://wiki.gentoo.org/index.php?title=GTK_themes_in_Qt_applications&action=edit).
 
 Reselecting the preferred theme may be necessary for Qt applications using qtconfig (from [dev-qt/qt3support](https://packages.gentoo.org/packages/dev-qt/qt3support)):
 

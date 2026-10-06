@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/F2FS
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-12-15"
-fingerprint: bd8949b8fbb43ff0
+fingerprint: "7c8909b8f9943bf0"
 license: CC BY-SA 4.0
 ---
 
@@ -23,6 +23,24 @@ license: CC BY-SA 4.0
 
 **Enabling basic F2FS filesystem options**
 
+```
+File systems  --->
+   <*> F2FS filesystem support
+   [ ]   F2FS Status Information
+   [*]   F2FS extended attributes
+   [*]     F2FS Access Control Lists
+   [*]     F2FS Security Labels
+   [ ]   F2FS consistency checking feature
+   [ ]   F2FS fault injection facility
+   [*]   F2FS compression feature
+   [*]     LZO compression support
+   [*]       LZO-RLE compression support
+   [*]     LZ4 compression support
+   [*]       LZ4HC compression support
+   [*]     ZSTD compression support
+   [*]   F2FS IO statistics information
+   [ ]   F2FS unfair rw_semaphore
+```
 When enabling support to the filesystem in the Linux kernel, it is wise to enable at least "F2FS extended attributes" (`F2FS_FS_XATTR`) with "F2FS Access Control Lists" (`CONFIG_F2FS_FS_POSIX_ACL`) and "F2FS Security Labels" (`CONFIG_F2FS_FS_SECURITY`) suboptions.
 
 "F2FS consistency checking feature" (`CONFIG_F2FS_CHECK_FS`) option in the list will enable F2FS's filesystem consistency checking. The checking will occur during run time and will decrease the filesystem's performance. This option provides an advantage when consistency is more important than speed.

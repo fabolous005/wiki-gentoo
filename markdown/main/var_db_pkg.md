@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki//var/db/pkg
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-06-20"
-fingerprint: "1f8fce0fa637a943"
+fingerprint: "1f8f8e0f8637a943"
 license: CC BY-SA 4.0
 ---
 
 # /var/db/pkg
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

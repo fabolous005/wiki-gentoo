@@ -25,8 +25,10 @@ page per title.
 Downloading (when not --list-only) uses trafilatura to fetch each page
 and extract clean Markdown, pruning MediaWiki chrome (language switcher,
 quick-nav boxes, edit-section links, footer/category links). Downloads
-run concurrently (default: one worker per CPU core), are resumable
-(existing output files are skipped unless --force), and retried on
+run concurrently (default: one worker per CPU core), are incremental
+(a page is skipped when its sitemap <lastmod> matches the value recorded
+in state/last_fetched.json from a prior run, or --force is not given and
+the output file already exists with no known lastmod), and retried on
 transient failure; permanently failed URLs are logged for an easy retry.
 
 Usage:
@@ -127,6 +129,19 @@ def get_page_urls(sitemap_url: str):
     return [el.text.strip() for el in root.findall(".//sm:url/sm:loc", NS_SM)]
 
 
+def get_page_urls_with_lastmod(sitemap_url: str):
+    """Like get_page_urls, but also returns each page's <lastmod> (or ''
+    if absent) so callers can detect pages that changed since a prior run."""
+    root = fetch_xml(sitemap_url)
+    out = []
+    for url_el in root.findall(".//sm:url", NS_SM):
+        loc = url_el.find("sm:loc", NS_SM)
+        lastmod = url_el.find("sm:lastmod", NS_SM)
+        if loc is not None and loc.text:
+            out.append((loc.text.strip(), lastmod.text.strip() if lastmod is not None and lastmod.text else ""))
+    return out
+
+
 def title_from_url(u: str):
     m = re.match(r"https://wiki\.gentoo\.org/wiki/(.+)$", u)
     return m.group(1) if m else None
@@ -181,17 +196,24 @@ def get_allpages_nonredirect(ns_id: int, label: str):
 
 
 def build_link_list():
-    rows = []  # (group, title, url)
+    rows = []  # (group, title, url, lastmod)
 
     print(f"Fetching Main namespace (NS {MAIN_NS_ID}) via API (allpages, nonredirects)...", file=sys.stderr)
     main_titles = get_allpages_nonredirect(MAIN_NS_ID, MAIN_GROUP)
     print(f"  API returned {len(main_titles)} non-redirect titles in NS 0", file=sys.stderr)
+
+    print(f"  Fetching NS_0 sitemap for lastmod timestamps...", file=sys.stderr)
+    main_lastmod_by_url = dict(get_page_urls_with_lastmod(
+        f"https://wiki.gentoo.org/sitemap/sitemap-gentoowiki-NS_{MAIN_NS_ID}-0.xml.gz"
+    ))
+
     kept, dropped = 0, 0
     for title in main_titles:
         if has_trailing_lang_code(title):
             dropped += 1
             continue
-        rows.append((MAIN_GROUP, title, title_to_url(title)))
+        url = title_to_url(title)
+        rows.append((MAIN_GROUP, title, url, main_lastmod_by_url.get(url, "")))
         kept += 1
     print(f"  kept {kept}, dropped {dropped} (trailing lang code)", file=sys.stderr)
 
@@ -203,33 +225,34 @@ def build_link_list():
         ns_id = namespace_id_from_sitemap_url(su)
         if ns_id not in SITEMAP_NAMESPACES and ns_id != 560:
             continue
-        pages = get_page_urls(su)
+        pages = get_page_urls_with_lastmod(su)
         print(f"  NS_{ns_id} ({su}): {len(pages)} urls", file=sys.stderr)
 
         if ns_id == 560:
-            for u in pages:
+            for u, lastmod in pages:
                 t = title_from_url(u)
                 if t:
-                    handbook_by_title[t] = u
+                    handbook_by_title[t] = (u, lastmod)
             continue
 
         group = SITEMAP_NAMESPACES[ns_id]
         kept, dropped = 0, 0
-        for u in pages:
+        for u, lastmod in pages:
             title = title_from_url(u)
             if not title:
                 continue
             if has_trailing_lang_code(title):
                 dropped += 1
                 continue
-            rows.append((group, title, u))
+            rows.append((group, title, u, lastmod))
             kept += 1
         print(f"    kept {kept}, dropped {dropped} (trailing lang code) -- NOTE: may still include redirects", file=sys.stderr)
 
     for title in HANDBOOK_FULL_TITLES:
-        u = handbook_by_title.get(title)
-        if u:
-            rows.append((HANDBOOK_GROUP, title, u))
+        entry = handbook_by_title.get(title)
+        if entry:
+            u, lastmod = entry
+            rows.append((HANDBOOK_GROUP, title, u, lastmod))
         else:
             print(f"WARNING: handbook page missing: {title}", file=sys.stderr)
 
@@ -246,9 +269,14 @@ def slugify(title: str) -> str:
 # Download + Markdown conversion (trafilatura)
 # --------------------------------------------------------------------------
 
-def download_one(group, title, url, out_path, force, retries=3):
-    if os.path.exists(out_path) and not force:
-        return ("skipped", title, url, None)
+def download_one(group, title, url, lastmod, out_path, prev_lastmod, force, retries=3):
+    # Trust the file already on disk when: we've never tracked this URL's
+    # lastmod before (prev_lastmod==""), or the current lastmod is unknown
+    # (lastmod==""), or it's tracked and unchanged. Only a *tracked and
+    # changed* lastmod forces a refetch.
+    trust_existing = (not prev_lastmod) or (not lastmod) or (prev_lastmod == lastmod)
+    if os.path.exists(out_path) and not force and trust_existing:
+        return ("skipped", title, url, lastmod, None)
 
     last_err = None
     for attempt in range(1, retries + 1):
@@ -278,12 +306,12 @@ def download_one(group, title, url, out_path, force, retries=3):
                 f.write(md)
                 f.write("\n")
             os.replace(tmp_path, out_path)
-            return ("ok", title, url, None)
+            return ("ok", title, url, lastmod, None)
         except Exception as e:
             last_err = str(e)
             time.sleep(1.5 * attempt)
 
-    return ("failed", title, url, last_err)
+    return ("failed", title, url, lastmod, last_err)
 
 
 def run_downloads(rows, cache_dir, jobs, force, limit):
@@ -291,34 +319,53 @@ def run_downloads(rows, cache_dir, jobs, force, limit):
     state_dir = os.path.join(cache_dir, "state")
     os.makedirs(state_dir, exist_ok=True)
 
+    lastmod_state_path = os.path.join(state_dir, "last_fetched.json")
+    try:
+        with open(lastmod_state_path) as f:
+            lastmod_state = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        lastmod_state = {}
+
     if limit:
         rows = rows[:limit]
 
     tasks = []
-    for group, title, url in rows:
+    for group, title, url, lastmod in rows:
         sub = GROUP_DIRS.get(group, slugify(group))
         out_path = os.path.join(md_dir, sub, slugify(title) + ".md")
-        tasks.append((group, title, url, out_path))
+        tasks.append((group, title, url, lastmod, out_path))
 
-    print(f"\nDownloading {len(tasks)} pages with {jobs} worker(s)...", file=sys.stderr)
+    print(f"\nDownloading {len(tasks)} pages with {jobs} worker(s) "
+          f"(skipping unchanged-since-last-fetch pages)...", file=sys.stderr)
     results = {"ok": [], "skipped": [], "failed": []}
     with ThreadPoolExecutor(max_workers=jobs) as pool:
         futures = {
-            pool.submit(download_one, g, t, u, p, force): (g, t, u)
-            for g, t, u, p in tasks
+            pool.submit(download_one, g, t, u, lm, p, lastmod_state.get(u, ""), force): (g, t, u)
+            for g, t, u, lm, p in tasks
         }
         done = 0
         for fut in as_completed(futures):
-            status, title, url, err = fut.result()
-            results[status].append((title, url, err))
+            status, title, url, lastmod, err = fut.result()
+            results[status].append((title, url, lastmod, err))
             done += 1
             if done % 50 == 0 or done == len(tasks):
                 print(f"  ...{done}/{len(tasks)} processed "
                       f"(ok={len(results['ok'])} skipped={len(results['skipped'])} "
                       f"failed={len(results['failed'])})", file=sys.stderr)
 
+    # Update the lastmod state: anything that downloaded ok (or was already
+    # correctly skipped as unchanged) keeps/gets its current lastmod recorded.
+    for title, url, lastmod, err in results["ok"]:
+        if lastmod:
+            lastmod_state[url] = lastmod
+    for title, url, lastmod, err in results["skipped"]:
+        if lastmod:
+            lastmod_state[url] = lastmod
+    with open(lastmod_state_path, "w") as f:
+        json.dump(lastmod_state, f, indent=2)
+
     with open(os.path.join(state_dir, "failed_urls.txt"), "w") as f:
-        for title, url, err in results["failed"]:
+        for title, url, lastmod, err in results["failed"]:
             f.write(f"{url}\t{err}\n")
 
     with open(os.path.join(state_dir, "run_summary.json"), "w") as f:
@@ -327,7 +374,7 @@ def run_downloads(rows, cache_dir, jobs, force, limit):
                 "ok": len(results["ok"]),
                 "skipped": len(results["skipped"]),
                 "failed": len(results["failed"]),
-                "failed_detail": [{"title": t, "url": u, "error": e} for t, u, e in results["failed"]],
+                "failed_detail": [{"title": t, "url": u, "error": e} for t, u, lm, e in results["failed"]],
             },
             f,
             indent=2,
@@ -361,14 +408,14 @@ def main():
     tsv_path = os.path.join(links_dir, "all_target_links.tsv")
     txt_path = os.path.join(links_dir, "all_target_links.txt")
     with open(tsv_path, "w") as f:
-        for group, title, url in rows:
-            f.write(f"{group}\t{title}\t{url}\n")
+        for group, title, url, lastmod in rows:
+            f.write(f"{group}\t{title}\t{url}\t{lastmod}\n")
     with open(txt_path, "w") as f:
-        for group, title, url in rows:
+        for group, title, url, lastmod in rows:
             f.write(url + "\n")
 
     print(f"\nWrote {len(rows)} URLs to {tsv_path} / {txt_path}", file=sys.stderr)
-    counts = Counter(g for g, _, _ in rows)
+    counts = Counter(g for g, _, _, _ in rows)
     for g, c in counts.items():
         print(f"  {g}: {c} pages")
 

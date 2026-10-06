@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Dell_XPS_15z
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-12-20"
-fingerprint: "6f56172dc3aa786a"
+fingerprint: "6f068b1dc3a23868"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,10 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**outdated**. You can help the Gentoo community by verifying and
+
+[updating this article](https://wiki.gentoo.org/index.php?title=Dell_XPS_15z&action=edit).
 
 This guide will lead you to the most important configuration to have a working box on your **Dell XPS 15z**. This article was highly based on [Alienware M11xR3](http://en.gentoo-wiki.com/wiki/Alienware_M11xR3), thanks to *Philipp Leonhardt*.
 
@@ -186,12 +190,12 @@ USE="${NOTUSE} ${SYSTEM} ${NOTEBOOK} ..."
 **`/etc/portage/package.use/00input`**
 
 ```
- INPUT_DEVICES: evdev synaptics mouse keyboard v4l
+*/* INPUT_DEVICES: evdev synaptics mouse keyboard v4l
 ```
 **`/etc/portage/package.use/00video`**
 
 ```
- VIDEO_CARDS: -* intel nvidia
+*/* VIDEO_CARDS: -* intel nvidia
 ```
 ## GCC CFLAGS and -march=native
 
@@ -217,46 +221,203 @@ This changes was made under Linux/x86 3.3.3-gentoo-sources, using Genkernel.
 
 **Processor**
 
+```
+Processor type and features  --->
+    [*] Idle dynticks system (tickless idle)
+    [*] Symmetric multi-processing support
+        Processor family (Core 2/newer Xeon)  --->
+        Preemption Model (Preemptible Kernel (Low-Latency Desktop))  --->
+    [*] Machine Check / overheating reporting
+    [*]   Intel MCE features
+    < > Dell laptop support
+    <*> /dev/cpu/microcode - microcode support
+    [*]   Intel microcode patch loading support
+    -*- MTRR (Memory Type Range Register) support
+    [*]   MTRR cleanup support
+    (0)     MTRR cleanup enable value (0-1)
+    (1)     MTRR cleanup spare reg num (0-7)
+    Timer frequency (1000 HZ)  --->
+```
 ### Power Management
 
 **Power Management**
 
+```
+Power management and ACPI options  --->
+    [*] Suspend to RAM and standby
+    [*] Run-time PM core functionality
+    [*] ACPI (Advanced Configuration and Power Interface) Support  --->
+        [*]   Deprecated /proc/acpi files
+        [*]   Deprecated power /proc/acpi directories
+        [*]   Deprecated /proc/acpi/event support
+        <*>   AC Adapter
+        <*>   Battery
+        -*-   Button
+        -*-   Video
+        <*>   Fan
+        [*]   Dock
+        <*>   Processor
+        <*>   Processor Aggregator
+        <*>   Thermal Zone
+    [*] CPU Frequency scaling  --->
+        <*>   CPU frequency translation statistics
+            Default CPUFreq governor (ondemand)  --->
+        -*-   'performance' governor
+        <*>   'powersave' governor
+        <*>   'userspace' governor for userspace frequency scaling
+        -*-   'ondemand' cpufreq policy governor
+        <*>   'conservative' cpufreq governor
+                x86 CPU frequency scaling drivers  --->
+            <*> ACPI Processor P-States driver
+    -*- CPU idle PM support
+    [*]   Cpuidle Driver for Intel Processors
+            Memory power savings  --->
+        <*> Intel chipset idle memory power saving driver
+```
 ### PCI Bus Driver
 
 **PCI Bus Options**
 
+```
+Bus options (PCI etc.)  --->
+    [*] PCI support
+    [*]   Support mmconfig PCI config space access
+    [*]   PCI Express support
+    [*]     Root Port Advanced Error Reporting support
+    [*] Message Signaled Interrupts (MSI and MSI-X)
+```
 ### LAN and Wireless Networking
 
 **Networking drivers**
 
+```
+[*] Networking support  ---> 
+    <M>   Bluetooth subsystem support  --->
+        <M>   RFCOMM protocol support
+        [*]     RFCOMM TTY support
+        Bluetooth device drivers  --->
+            <M> HCI USB driver 
+            <M> HCI SDIO driver
+            <M> HCI UART driver 
+            [*]   UART (H4) protocol support
+            [*]   BCSP protocol support 
+            [*]   HCILL protocol support
+            <M> HCI BCM203x USB driver
+            <M> HCI BPA10x USB driver 
+            <M> HCI BlueFRITZ! USB driver 
+            <M> HCI VHCI (Virtual HCI device) driver
+    -*-   Wireless  --->
+        <M>   cfg80211 - wireless configuration API
+        [*]     enable powersave by default
+        [*]     cfg80211 wireless extensions compatibility
+        [*]   Wireless extensions sysfs files
+        <M>   Generic IEEE 802.11 Networking Stack (mac80211)
+              Default rate control algorithm (Minstrel)  --->
+        -*-   Enable LED triggers
+Device Drivers  --->
+    [*] Network device support  --->
+    -*-   Network core driver support
+        [*]   Ethernet driver support  --->
+            [*]   Atheros devices
+            <M>     Atheros L1C Gigabit Ethernet support (EXPERIMENTAL)
+        [*]   Wireless LAN  --->
+            <M>   Intel Wireless WiFi Next Gen AGN - Wireless-N/Advanced-N/Ultimate-N (iwlwifi)
+```
 ### SATA Controller
 
 **AHCI Controller driver**
 
+```
+Device Drivers  --->
+    <*> Serial ATA and Parallel ATA drivers  --->
+        [*]   ATA ACPI Support
+        <*>   AHCI SATA support
+```
 ### FireWire (IEEE 1394)
 
 **Firewire driver**
 
+```
+Device Drivers  --->
+    IEEE 1394 (FireWire) support  --->
+        <*> FireWire driver stack
+        <M>   OHCI-1394 controllers
+```
 ### I2C / SMBus
 
 **I2C SMBus driver**
 
+```
+Device Drivers  --->
+    -*- I2C support  --->
+        [*]   Enable compatibility bits for old user-space
+        <*>   I2C device interface
+        [*]   Autoselect pertinent helper modules
+            I2C Hardware Bus support  --->
+               <M> Intel 82801 (ICH/PCH)
+```
 ### Graphics Card
 
 **Graphic driver**
 
+```
+Device Drivers  --->
+    Graphics support  --->
+        <*> /dev/agpgart (AGP Support)  --->
+            <*>   Intel 440LX/BX/GX, I8xx and E7x05 chipset support
+        (2)   Maximum number of GPUs
+        <*> Direct Rendering Manager (XFree86 4.1.0 and higher DRI support)  --->
+            <*>   Intel 8xx/9xx/G3x/G4x/HD Graphics
+            [*]     Enable modesetting on intel by default
+        -*- Support for frame buffer devices  --->
+            [*]   Enable firmware EDID
+            [*]   Enable Video Mode Handling Helpers
+```
 ### Sound Card
 
 **ALSA Sound Card drivers**
 
+```
+Device Drivers  --->
+    <*> Sound card support  --->
+        <M>   Advanced Linux Sound Architecture  --->
+            [*]   PCI sound devices  --->
+                <M>   Intel HD Audio  --->
+                    (2048) Pre-allocated buffer size for HD-audio driver
+                    [*]   Build Realtek HD-audio codec support
+                    [*]   Build HDMI/DisplayPort HD-audio codec support
+                    [*]   Enable generic HD-audio codec parser
+                    [*]   Aggressive power-saving on
+                    (3)     Default time-out for HD-audio power-save mode
+```
 ### USB Controller
 
 **USB Controller driver**
 
+```
+Device Drivers  --->
+    [*] USB support  --->
+        {*}   Support for Host-side USB
+        [*]     USB runtime power management (autosuspend) and wakeup
+        <*>   xHCI HCD (USB 3.0) support (EXPERIMENTAL)
+        <*>   EHCI HCD (USB 2.0) support
+        <*>   USB Mass Storage support
+```
 ### Card Reader
 
 **SD Card driver**
 
+```
+Device Drivers  --->
+      <M> MMC/SD/SDIO card support  --->
+          <M>   MMC block device driver
+                [*]     Use bounce buffer for simple hosts
+          <M>   SDIO UART/GPS class support
+          <M>   Secure Digital Host Controller Interface support
+          <M>     SDHCI support on PCI bus
+      SCSI device support ---> 
+          [*] Probe all LUNs on each SCSI device
+```
 To proper provide SD Card reader automount option you must create the following file.
 
 **`/etc/local.d/20-sdcard.start`**
@@ -271,6 +432,15 @@ You must also make it runnable with
 
 **Webcam driver**
 
+```
+Device Drivers  --->
+    <M> Multimedia support  --->
+            [*]   Media USB Adapters  --->
+                  <M>   USB Video Class (UVC)
+                  [*]     UVC input events device support
+                  <M>   GSPCA based webcams  --->
+                        <M>   SN9C20X USB Camera Driver
+```
 Test it using mplayer:
 
 `root #``mplayer tv:// -tv driver=v4l2:width=640:height=480:device=/dev/video0 -fps 15 -vf screenshot`
@@ -280,10 +450,16 @@ For GRUB the Sandy Bridge needs some more special kernel parameters to reach the
 
 **`/boot/grub/grub.conf`**
 
+```
+i915.i915_enable_rc6=1 i915.semaphores=1 i915.i915_enable_fbc=1 i915.lvds_downclock=1 pcie_aspm=force
+```
 If you enabled Intel IOMMU support in your kernel config you also need to add this to your kernel command line:
 
 **`/boot/grub/grub.conf`**
 
+```
+intel_iommu=off
+```
 Otherwise bumblebee produces IOMMU Errors on loading the nvidia driver.
 
 ## Power Management Tweaks

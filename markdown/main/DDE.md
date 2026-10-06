@@ -109,10 +109,10 @@ Set proper USE flags for dde-base/dde-meta, as describe below:
 | `multimedia` |  | Install Deepin multimedia suite | 
 | `mutter` |  | Use the WM based on mutter | 
 | `plymouth` |  | Install Deepin themes for [sys-boot/plymouth](https://packages.gentoo.org/packages/sys-boot/plymouth) | 
-| `policykit` |  | Enable PolicyKit authentication support | 
+| `policykit` | Yes | Enable PolicyKit authentication support | 
 | `screensaver` |  | Install Deepin Screensaver module | 
 | `systemd` |  | Run with [Systemd](https://wiki.gentoo.org/wiki/Systemd) | 
-| `terminal` |  | Install dde-extra/deepin-terminal Terminal Emulator | 
+| `terminal` | Yes | Install dde-extra/deepin-terminal Terminal Emulator | 
 | `turbo` |  | Enable DTK Apps Turbo by dde-extra/deepin-turbo | 
 
 For example, to add deepin multimedia suit to the default set of installed applications, do:

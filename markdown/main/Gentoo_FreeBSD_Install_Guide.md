@@ -15,6 +15,8 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+**Archived article**
+
 This article is **archived (obsolete)**. Contents are surely incorrect for current usage, and are intended for historical reference only.
 
 TLDR:
@@ -135,6 +137,10 @@ Then edit make.conf:
 
 **`/etc/portage/make.conf`**
 
+```
+CHOST="i686-gentoo-freebsd6.2"
+FEATURES="collision-protect"
+```
 Now rebuild the system's core packages (optional):
 
 `root #``emerge --ask --emptytree @system`
@@ -151,10 +157,14 @@ Edit /etc/conf.d/clock to define the time zone used previously:
 
 **`/etc/conf.d/clock`**
 
+```
+TIMEZONE="Europe/Brussels"
+```
 ### Install the kernel
 
 If `emerge --emptytree @system`, the sources for the FreeBSD kernel were installed to /usr/src/sys. If that step was skipped it is possible to install the the sources in the following way:
 
+`root #``emerge --ask` [sys-freebsd/freebsd-sources](https://packages.gentoo.org/packages/sys-freebsd/freebsd-sources)
 Configuring and compiling a custom kernel is quite different from compiling Linux, so if you are not familiar with the process we encourage you to have a look at [chapter 8](http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/kernelconfig.html) of the FreeBSD handbook. For now, you can do an installation of the GENERIC kernel, which works on most systems. To begin, enter the source directory for the kernel.
 
 Enter kernel source directory:

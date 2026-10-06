@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Cron
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-02-26"
-fingerprint: "2ca8fb546085bb89"
+fingerprint: "2ca8fb566085bb89"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 This article describes how to setup and use **cron** daemons in Gentoo Linux.
 
@@ -101,6 +103,13 @@ One method is to launch anacron through a cron definition. By default, it instal
 
 **Launching anacron through a cron definition**
 
+```
+# Start anacron every 10 minutes
+*/10 * * * *  root  /usr/sbin/anacron
+ 
+# Alternatively, run the anacron-provided 0anacron script every hour
+# 59 * * * *  root  /etc/cron.hourly/0anacron
+```
 ### System crontab
 
 The post install messages from some of these cron packages instruct the user to run crontab /etc/crontab. The /etc/crontab file is the *system crontab*. A cron installation can use it in conjunction with [sys-process/cronbase](https://packages.gentoo.org/packages/sys-process/cronbase) to run the scripts in /etc/cron.{daily,hourly,weekly,monthly}. Note that only cronie schedules jobs in /etc/crontab automatically. Dcron users will need to run crontab /etc/crontab every time changes are made to the /etc/crontab file. Fcron users need to run emerge --config sys-process/fcron to configure the system crontab.
@@ -155,6 +164,12 @@ To test what was just covered go through the steps of actually inputting a few c
 
 **Create a crons.cron file**
 
+```
+#Mins  Hours  Days   Months  Day of the week
+10     3      1      1       *       /bin/echo "I don't really like cron"
+30     16     *      1,2     *       /bin/echo "I like cron a little"
+*      *      *      1-12/2  *       /bin/echo "I really like cron"
+```
 Now add that crontab to the system with the "new command" from the table above.
 
 `root #``crontab crons.cron`
@@ -173,6 +188,9 @@ For example, to have it run echo "I like anacron" every 5 days, 10 minutes after
 
 **`/etc/anacrontab`**
 
+```
+5 10 wasting-time /bin/echo "I like anacron"
+```
 Anacron exits after all of the jobs in anacrontab have finished. To check to see if these jobs should be performed every day, a cron daemon will be used. The instructions at the end of the next section explain how this should be handled.
 
 ### Editing crontabs
@@ -216,12 +234,36 @@ As mentioned earlier, anacron is used on systems not meant to be run continuousl
 
 **`/etc/anacrontab`**
 
+```
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+# format: period delay job-identifier command
+1       5       cron.daily      run-parts /etc/cron.daily
+7       10      cron.weekly     run-parts /etc/cron.weekly
+30      15      cron.monthly    run-parts /etc/cron.monthly
+```
 The main difference between this and other common crontabs is that with anacron there is no fixed date/hour for the job scheduling, but only the period between every run. When anacron is started, it will check the contents of a set of files in /var/spool/anacron and calculate if the corresponding entry in the configuration file has expired since the last run. If it has, then the command is invoked again.
 
 As a final note, it is important to comment out any overlapping entry in any other cron installed in the system, such as in the following vixie-cron crontab example:
 
 **`/etc/crontab`**
 
+```
+# for cronie
+# Global variables
+SHELL=/bin/bash
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+MAILTO=root
+HOME=/
+  
+# check scripts in cron.hourly, cron.daily, cron.weekly, and cron.monthly
+59  *  * * *    root    rm -f /var/spool/cron/lastrun/cron.hourly
+#9  3  * * *    root    rm -f /var/spool/cron/lastrun/cron.daily
+#19 4  * * 6    root    rm -f /var/spool/cron/lastrun/cron.weekly
+#29 5  1 * *    root    rm -f /var/spool/cron/lastrun/cron.monthly
+#*/10  *  * * * root    test -x /usr/sbin/run-crons && /usr/sbin/run-crons
+@hourly         root    test ! -e /var/spool/cron/lastrun/cron.hourly && touch /var/spool/cron/lastrun/cron.hourly && run-parts --report /etc/cron.hourly
+```
 Without doing this, the daily, weekly, and monthly parts will be executed - at different times - by both the cron daemon and anacron, leading to possible double job executions.
 
 ## Troubleshooting

@@ -22,6 +22,15 @@ In its most basic usage, curl sends a request to a server, and prints the respon
 
 A similar tool is [wget](https://wiki.gentoo.org/wiki/Wget), which is included in the @system set on Gentoo systems.
 
+## Installation
+
+### USE flags
+
+
+### USE flags for
+            [net-misc/curl](https://packages.gentoo.org/packages/net-misc/curl)
+            
+            A Client that groks URLs
 
 | [+adns](https://packages.gentoo.org/useflags/+adns) | Add support for asynchronous DNS resolution | 
 | [+alt-svc](https://packages.gentoo.org/useflags/+alt-svc) | Enable alt-svc support | 
@@ -57,12 +66,18 @@ A similar tool is [wget](https://wiki.gentoo.org/wiki/Wget), which is included i
 | [verify-sig](https://packages.gentoo.org/useflags/verify-sig) | Verify upstream signatures on distfiles | 
 | [zstd](https://packages.gentoo.org/useflags/zstd) | Enable support for ZSTD compression | 
 
+### Emerge
+
 Install [net-misc/curl](https://packages.gentoo.org/packages/net-misc/curl):
 
 `root #``emerge --ask net-misc/curl`
+## Usage
+
+### curl'ing a Web page
+
 To "curl" a web page, call the curl command with the appropriate URL:
 
-```
+`user $``curl` [https://example.com](https://example.com)```
 <!doctype html>
 <html>
 <head>
@@ -107,15 +122,23 @@ To "curl" a web page, call the curl command with the appropriate URL:
 </body>
 </html>
 ```
+### Following redirect responses
+
 By default, curl returns the first response from the server verbatim. This might not always be desirable, for example if the server returns an HTTP 3xx redirect response — which a browser would usually follow transparently — curl will only retrieve that response and do nothing else.
 
 Use the `--location` / `-L` option to instruct curl to follow redirections with a new request when receiving a redirect response.
+
+### Saving files to disk
 
 By default, curl writes its output to the terminal. This may surprise users used to the behavior of [wget](https://wiki.gentoo.org/wiki/Wget), a similar utility. This is often useful when piping the output of curl to another utility.
 
 Files can be saved to disk by specifying the destination file name with the `--output` / `-o` flag:
 
+`user $``curl` [https://example.com](https://example.com) -L -o index.html
 The `--remote-name` / `-O` option saves the file with the same name as on the server. This is most useful when the URL contains a file name. If the file name can not be determined, such as 'default' content where the URL contains no file name, the output is saved as curl\_response.
+
+`user $``curl` [https://example.com/index.html](https://example.com/index.html) -OL
+### Proxies
 
 curl supports proxy configuration as either command line options or environmental variables.
 
@@ -133,13 +156,19 @@ Supported protocols are
 
 
 
+#### Environment variables
+
 The `HTTP_PROXY` (for plaintext HTTP) and/or `HTTPS_PROXY` environment variables need to be set. The `NO_PROXY` variable can be set to a comma-separated list of hosts to exclude.
 
 For example, when using a remote [Squid](https://wiki.gentoo.org/wiki/Squid) on port 3128 for both HTTP and HTTPS:
 
+`user $``export http_proxy=`[http://squid.proxy:3128](http://squid.proxy:3128)
 `user $````
 export https_proxy="${http_proxy}"
 ```
+`user $``curl -v` [https://example.com](https://example.com) # Uses proxy env variable https_proxy == '[http://squid.proxy:3128'](http://squid.proxy:3128')
+#### Command line options
+
 The two main options to control proxy usage are:
 
 - `-x <proxy-string>` / `--proxy`, to set the proxy string to be used.
@@ -148,6 +177,9 @@ The two main options to control proxy usage are:
 
 
 Authentication credentials for proxy servers can be also passed as a command line option, via `-U <user:password>` / `--proxy-user`). For example:
+
+`user $``curl --proxy-user jdoe:secret --proxy` [http://proxy](http://proxy) [https://example.com](https://example.com)
+### Use curl as Portage's FETCHCOMMAND
 
 It's possible to replace the standard [FETCHCOMMAND](https://wiki.gentoo.org/wiki/FETCHCOMMAND) variable in [/etc/portage/make.conf](https://wiki.gentoo.org/wiki//etc/portage/make.conf) (e.g. to use a SOCKS5 Proxy for fetching, which is not supported by standard [wget](https://wiki.gentoo.org/wiki/Wget)):
 

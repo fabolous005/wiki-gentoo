@@ -172,6 +172,8 @@ But git does not support forcing it for git commit. Instead, git commit -s must 
 
 Technically, it's not required to have a key as a non-developer, but metadata/layout.conf in ::gentoo requires signed commits from people pushing. It's therefore easier with tooling to just use gpg and set it up even if technically as a contributor, commits don't need to be signed (as the developer pushing it will sign their commits).
 
+See [Project:Infrastructure/Generating GLEP 63 based OpenPGP keys](https://wiki.gentoo.org/wiki/Project:Infrastructure/Generating_GLEP_63_based_OpenPGP_keys).
+
 ##### Setting it up
 
 To get the GPG key run this command. It should be the top line (starting with pub). If there is more than one key with the UID it will need to be selected manually (from the list of returned keys).
@@ -225,7 +227,7 @@ Before doing anything, make sure the local git tree is in a correct state and th
 
 1. Find a pull request you wish to merge, [https://github.com/gentoo/gentoo/pull/1](https://github.com/gentoo/gentoo/pull/1) as an example.
 2. Ensure your checkout is up to date: `user $``git pull`
-3. Fetch and apply chosen commit:
+3. Fetch and apply chosen commit: `user $``curl -s -L "`[https://github.com/gentoo/gentoo/pull/1.patch](https://github.com/gentoo/gentoo/pull/1.patch)" | git am -sS
 4. You can review the changes with: `user $``git log remotes/origin/master..HEAD``user $``git diff remotes/origin/master..HEAD`
 5. Make sure chosen commit didn't break things `user $``pkgcheck scan --commits`
 6. Push your changes `user $``git push --signed`
@@ -293,7 +295,7 @@ to checkout the pull request.
 
 To graft the historical Gentoo repository onto your current one simply run:
 
-`user $``git fetch historical``user $``git replace --graft 56bd759df1d0c750a065b8c845e93d5dfa6b549d cvs-final-2015-08-08`
+`user $``git remote add historical` [https://anongit.gentoo.org/git/archive/repo/gentoo-2.git](https://anongit.gentoo.org/git/archive/repo/gentoo-2.git)`user $``git fetch historical``user $``git replace --graft 56bd759df1d0c750a065b8c845e93d5dfa6b549d cvs-final-2015-08-08`
 The general syntax of the last command is:
 
 `user $``git replace --graft <first new commit> <last old commit>`
@@ -364,10 +366,18 @@ To utilize the tool, browse to your development repository's location, and add t
 
 **`./.git/config`**
 
+```
+[merge "keywords"]
+name = KEYWORDS merge driver
+driver = merge-driver-ekeyword %O %A %B %P
+```
 And add the following into ./.git/info/attributes
 
 **`./.git/info/attributes`**
 
+```
+*.ebuild merge=keywords
+```
 ## See also
 
 - [Standard git workflow](https://wiki.gentoo.org/wiki/Standard_git_workflow) — describing a **modern git workflow** for contributing to Gentoo, with [pkgcheck](https://wiki.gentoo.org/wiki/Pkgcheck) and [pkgdev](https://wiki.gentoo.org/wiki/Pkgdev)

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/GPU_passthrough_with_virt-manager,_QEMU,_and_K
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-08-02"
-fingerprint: "7e898877c923bbe0"
+fingerprint: "7e898877c923bbe4"
 license: CC BY-SA 4.0
 ---
 
@@ -59,10 +59,36 @@ Unfortunately, the implementation of ACS varies greatly between different CPU or
 
 To enable IOMMU support in kernel:
 
+```
+Device Drivers --->
+  [*] IOMMU Hardware Support --->
+            Generic IOMMU Pagetable Support ----
+      [*]   AMD IOMMU support
+      <*>     AMD IOMMU Version 2 driver
+      [*]   Support for Intel IOMMU using DMA Remapping Devices
+      [*]     Support for Shared Virtual Memory with Intel IOMMU
+      [*]     Enable Intel DMA Remapping Devices by default
+      [*]   Support for Interrupt Remapping
+```
 If  the kernel has CONFIG\_TRIM\_UNUSED\_KSYMS (Trim unused exported kernel symbols) enabled, then there will be a need to whitelist some symbols. Otherwise, error messages of the form Failed to add group \<n> to KVM VFIO device: Invalid argument may occur. See the gentoo forum thread [kernel 4.7.0 breaks pci passthrough \[SOLVED\]](https://forums.gentoo.org/viewtopic-t-1049040-start-0.html) and the kvm mailing list thread [KVM/VFIO passthrough not working when TRIM\_UNUSED\_KSYMS is enabled](https://lore.kernel.org/kvm/13e90f87-9062-a7e4-99c0-5c6f5c16cad2@gmail.com/) (list of symbols to whitelist in the [second post](https://lore.kernel.org/kvm/a43675ef-197d-2bd5-9505-200ac439df6c@redhat.com/)).
 
+```
+[*] Enable loadable module support --->
+    [*]   Trim unused exported kernel symbols
+    (/path/to/whitelist) Whitelist of symbols to keep in ksymtab
+```
 **`/path/to/whitelist`**
 
+```
+vfio_group_get_external_user
+vfio_external_group_match_file
+vfio_group_put_external_user
+vfio_group_set_kvm
+vfio_external_check_extension
+vfio_external_user_iommu_id
+mdev_get_iommu_device
+mdev_bus_type
+```
 Rebuild the kernel.
 
 #### Editing the kernel parameters
@@ -93,6 +119,14 @@ Nvidia in IOMMU Group 13 and AMD Video Card in IOMMU group 15 and 16. Everything
 
 Kernel drivers:
 
+```
+Device Drivers --->
+  <M> VFIO Non-Privileged userpsace driver framework --->
+      [*]   VFIO No-IOMMU support ----
+      <M>   VFIO support for PCI devices
+      [*]     VFIO PCI support for VGA devices
+      < >   Mediated device driver framework
+```
 Search for VGA card IDs and audio device. Run:
 
 `root #``lspci -nn`
@@ -106,11 +140,21 @@ Add PCI IDs for both VGA and audio to VFIO:
 
 **`/etc/modprobe.d/vfio.conf`**
 
+```
+options vfio-pci ids=1002:687f,1002:aaf8
+```
 
 Loading KVM and VFIO kernel modules at boot (systemd):
 
 **`/etc/modules-load.d/vfio-pci.conf`**
 
+```
+vfio
+vfio_iommu_type1
+vfio_pci
+kvm
+kvm_intel
+```
 ## libvirt
 
 Ensure you have [virt-manager](https://wiki.gentoo.org/wiki/Virt-manager) installed.
@@ -149,6 +193,12 @@ Change the home directory for the qemu user:
 
 **`/etc/libvirt/qemu/{vmname}.xml`**
 
+```
+<audio id="1" type="pipewire" runtimeDir="/run/user/1000">
+      <input name="qemuinput"/>
+      <output name="qemuoutput"/>
+    </audio>
+```
 #### Input Devices
 
 One of the easiest ways of dealing with mouse and keyboard issues when using passthrough is through evdev proxy. This allows the ability to switch the mouse and keyboard between the guest and host with special key combinations. First, identify the mouse and keyboard in /dev/input. The easiest way to do this is through the symlink found in /dev/input/by-id/.
@@ -158,6 +208,11 @@ This a list of symlinks to event devices limited to mouse and keyboard entries. 
 
 **`/etc/libvirt/qemu.conf`**
 
+```
+cgroup_device_acl = [ 
+...
+]
+```
 Add the symlinks and then restart libvirtd. Next, edit the XML libvirt uses for the domain. Do this by either through virsh or using virt-manager. With virt-manager, select the XML tab in the Overview option at the top of the device tree. With virsh, enter interactive:
 
 `user $``virsh --connect qemu:///system````
@@ -345,12 +400,12 @@ An example setup is:
 This example uses six displays and often want to rotate between guests. If the monitors are able to auto switch to the active link then this will work. For example, to turn off the main display for Linux and switch to Windows use:
 
 ```
- --output $DISPLAY --off
+xrandr --output $DISPLAY --off
 ```
 If using a WM like i3, setting the hotkey that to $mod4+shift+k. On Windows then it is possible to use the presentation settings to make the change back.
 
 ```
- + p, set secondary monitor
+<windows-key> + p, set secondary monitor
 ```
 ## Troubleshooting
 

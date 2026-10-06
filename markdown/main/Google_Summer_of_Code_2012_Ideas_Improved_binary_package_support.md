@@ -11,9 +11,17 @@ license: CC BY-SA 4.0
 
 # Google Summer of Code/2012/Ideas/Improved binary package support
 
+[Google Summer of Code](https://wiki.gentoo.org/wiki/Google_Summer_of_Code) |
+
+[2012](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012) |
+
+[Ideas](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+## [Improved binary package support]
 
 Gentoo better for derived binary distros. One of them is more intelligent handling of library versions with binpkgs (and installed packages, which are a form of binpkg). For example, it's possible to build a binpkg against an old version of a library, then install it against a new version and have it be broken by default because of a shared-library version bump. It's also possible to break reverse ABI dependencies when upgrading a package, and there is currently no convenient way for package managers to detect such breakage in advance. Ideally, a package would have a way to specify its ABI dependencies in the built state instead of just which versions it can build against from source. It is possible to create an ABI dependency abstraction that is flexible enough to cover all possible kinds of ABI dependencies. Using an ABI abstraction, it will not matter whether or not there exists a specific soname to be referenced by dependencies. See [bug #192319](https://bugs.gentoo.org/show_bug.cgi?id=192319).
 

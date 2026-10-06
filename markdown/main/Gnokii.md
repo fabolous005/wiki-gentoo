@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Gnokii
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2021-11-20"
-fingerprint: fe03a10c99b278ec
+fingerprint: fe07e10899b278ec
 license: CC BY-SA 4.0
 ---
 
@@ -24,6 +24,11 @@ From Gentoo Wiki
 
 ### USE flags
 
+
+### USE flags for
+            [app-mobilephone/gnokii](https://packages.gentoo.org/packages/app-mobilephone/gnokii)
+            
+            User space driver and tools for use with mobile phones
 
 | [+pcsc-lite](https://packages.gentoo.org/useflags/+pcsc-lite) | Enable smartcard support with sys-apps/pcsc-lite | 
 | [X](https://packages.gentoo.org/useflags/X) | Add support for X11 | 
@@ -69,6 +74,15 @@ Setup save the password for PIN login
 
 FILE **`/etc/sms-pin`**
 
+```
+ABORT BUSY
+ABORT ERROR
+ABORT 'NO CARRIER'
+REPORT CONNECT
+TIMEOUT 10
+# Set your pin here
+"" "AT+CPIN=0000
+```
 ## Usage
 
 ### Set PIN to work with gnokii
@@ -106,4 +120,16 @@ done
 ```
 FILE **`cal.ical`**
 
+```
+BEGIN:VCALENDAR
+VERSION:1.0
+BEGIN:VEVENT
+CATEGORIES:MISCELLANEOUS
+SUMMARY:09:00-18:00h New calendar entry
+DTSTART:20080415T210000
+DTEND:20080415T210000
+DALARM:20080414T210000
+END:VEVENT
+END:VCALENDAR
+```
 `user $``gnokii-import.sh``user $``cal.ica`

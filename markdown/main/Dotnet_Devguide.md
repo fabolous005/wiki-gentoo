@@ -43,10 +43,20 @@ This example:
 
 **`NuGet.config`**
 
+```
+<add key="dotnet5" value="https://dnceng.pkgs.visualstudio.com/public/_packaging/dotnet5/nuget/v3/index.json" />
+<add key="dotnet-tools" value="https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-tools/nuget/v3/index.json" />
+```
 translates to:
 
 **`pkg-1.ebuild`**
 
+```
+NUGET_APIS=(
+    "https://dnceng.pkgs.visualstudio.com/public/_packaging/dotnet5/nuget/v3/flat2"
+    "https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-tools/nuget/v3/flat2"
+)
+```
 ### Maintaining individual packages
 
 #### Maintaining .NET SDK

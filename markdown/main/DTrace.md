@@ -51,11 +51,37 @@ If using gentoo-kernel\[hardened\], the following workaround config.d snippet ca
 
 **`/etc/kernel/config.d/50hardened.config`**
 
+```
+# CONFIG_RANDSTRUCT_NONE is not set
+# CONFIG_RANDSTRUCT_FULL is not set
+# CONFIG_RANDSTRUCT_PERFORMANCE is not set
+# CONFIG_RANDSTRUCT is not set
+# CONFIG_GCC_PLUGIN_RANDSTRUCT is not set
+```
 
 A general snippet for DTrace is below:
 
 **`/etc/kernel/config.d/50dtrace.config`**
 
+```
+CONFIG_CUSE=m
+CONFIG_FPROBE=y
+CONFIG_DEBUG_INFO=y
+# CONFIG_DEBUG_INFO_NONE is not set
+CONFIG_DEBUG_INFO_DWARF5=y
+# CONFIG_DEBUG_INFO_REDUCED is not set
+# CONFIG_DEBUG_INFO_COMPRESSED_NONE is not set
+CONFIG_DEBUG_INFO_COMPRESSED_ZLIB=y
+# CONFIG_DEBUG_INFO_COMPRESSED_ZSTD is not set
+# CONFIG_DEBUG_INFO_SPLIT is not set
+CONFIG_DEBUG_INFO_BTF=y
+CONFIG_PAHOLE_HAS_SPLIT_BTF=y
+CONFIG_PAHOLE_HAS_LANG_EXCLUDE=y
+CONFIG_DEBUG_INFO_BTF_MODULES=y
+# CONFIG_MODULE_ALLOW_BTF_MISMATCH is not set
+# CONFIG_GDB_SCRIPTS is not set
+CONFIG_PROBE_EVENTS_BTF_ARGS=y
+```
 ### Userland
 
 Modern versions of DTrace are Extended Berkeley Packet Filter ([eBPF](https://en.wikipedia.org/wiki/eBPF))-based, so there's no need for a separate kernel module, or any patches.

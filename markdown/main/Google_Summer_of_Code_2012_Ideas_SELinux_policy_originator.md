@@ -5,15 +5,23 @@ url: https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas/SELinux_polic
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-04-02"
-fingerprint: ef68cdce93fe6ed2
+fingerprint: ef68c54c93fe6ed2
 license: CC BY-SA 4.0
 ---
 
 # Google Summer of Code/2012/Ideas/SELinux policy originator
 
+[Google Summer of Code](https://wiki.gentoo.org/wiki/Google_Summer_of_Code) |
+
+[2012](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012) |
+
+[Ideas](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2012/Ideas)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+## [SELinux policy originator]
 
 Gentoo Hardened is maturing its SELinux support rapidly. In SELinux, policies are written in a higher abstract format (dictated by the reference policy) and converted to the SELinux-specific rules (like allow, dontaudit, type transitions, etc.). For troubleshooting rights however, it is a very daunting task to find out why a particular rule is set (in other words, to find which higher level rule is causing the SELinux rule to exist).
 

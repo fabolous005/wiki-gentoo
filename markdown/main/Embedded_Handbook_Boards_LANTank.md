@@ -5,13 +5,15 @@ url: https://wiki.gentoo.org/wiki/Embedded_Handbook/Boards/LANTank
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-06"
-fingerprint: "42be3f627fae7074"
+fingerprint: "429e3f626fbe7074"
 license: CC BY-SA 4.0
 ---
 
 # Embedded Handbook/Boards/LANTank
 
 From Gentoo Wiki
+
+\< [Embedded Handbook](https://wiki.gentoo.org/wiki/Embedded_Handbook) | [Boards](https://wiki.gentoo.org/wiki/Embedded_Handbook/Boards)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -29,6 +31,22 @@ CPU info:
 
 FILE **`/proc/cpuinfo`**
 
+```
+machine         : LANDISK
+processor       : 0
+cpu family      : sh4
+cpu type        : SH7751R
+cpu flags       : fpu ptea
+cache type      : split (harvard)
+icache size     : 16KiB (2-way)
+dcache size     : 32KiB (2-way)
+bogomips        : 266.24
+master_clk      : 266.66MHz
+module_clk      : 33.33MHz
+bus_clk         : 133.33MHz
+cpu_clk         : 266.66MHz
+tmu0_clk        : 8.33MHz
+```
 ## Cross compile preparation
 
 Setup:

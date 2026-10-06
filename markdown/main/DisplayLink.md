@@ -6,7 +6,7 @@ hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-01-13"
 categories: ['Linux plugable.com']
-fingerprint: "7a53f5f9f05f7fd"
+fingerprint: "57219b5f9d07bdfd"
 license: CC BY-SA 4.0
 ---
 
@@ -24,6 +24,15 @@ license: CC BY-SA 4.0
 
 Activate the following kernel options:
 
+```
+Device Drivers --->
+    Graphics support --->
+        <*> Direct Rendering Manager (XFree86 4.1.0 and higher DRI support) --->
+            <*> DisplayLink
+        <*> Frame buffer Devices --->
+            <*> Displaylink USB Framebuffer support
+            <*> Provide legacy /dev/fb* device
+```
 After booting into the new kernel the external monitor should show a green background image. That means the kernel module is loaded and the device works, it also creates the device in /dev/fb0.
 
 ### X driver
@@ -33,7 +42,7 @@ For X11 drivers, [x11-drivers/xf86-video-fbdev](https://packages.gentoo.org/pack
 **`/etc/portage/package.use/00video`**
 
 ```
- VIDEO_CARDS: -* fbdev
+*/* VIDEO_CARDS: -* fbdev
 ```
 After setting or altering `VIDEO_CARDS` values remember to update the system using the following command so the changes take effect:
 
@@ -56,7 +65,7 @@ For this method, another input device driver called [x11-drivers/xf86-input-void
 **`/etc/portage/package.use/00input`**
 
 ```
- INPUT_DEVICES: void
+*/* INPUT_DEVICES: void
 ```
 
 
@@ -162,4 +171,11 @@ It is a USB 3.0 adapter comes with 4 ports:
 
 The USB 3.0 port should work if you already have USB 3.0 related kernel configured. To get the Ethernet port work, you need to activate the following kernel options：
 
+```
+Device Drivers --->
+    <*> Network device support --->
+        <*> USB Network Adapters --->
+	    -M- CDC NCM support
+	    <M> CDC MBIM support
+```
 The Ethernet port will be seen as **usb0** network device.

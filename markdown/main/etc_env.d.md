@@ -5,11 +5,15 @@ url: https://wiki.gentoo.org/wiki//etc/env.d
 hostname: gentoo.org
 sitename: "/etc/env.d"
 date: "2023-03-31"
-fingerprint: "1ec39f0ad4a70276"
+fingerprint: "1f979d8ad6a32376"
 license: CC BY-SA 4.0
 ---
 
 # /etc/env.d
+
+From Gentoo Wiki
+
+\< [/etc](https://wiki.gentoo.org/wiki//etc)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

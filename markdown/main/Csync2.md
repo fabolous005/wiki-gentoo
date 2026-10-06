@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Csync2
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2021-02-04"
-fingerprint: "78377d0b1c899986"
+fingerprint: "78376d4f1e899986"
 license: CC BY-SA 4.0
 ---
 
 # Csync2
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -21,7 +23,7 @@ csync2 is a tool for asynchronous file synchronization in clusters.
 
 ### USE flags
 
-*sys-cluster/csync2*correct?
+Cannot load package information. Is the atom *sys-cluster/csync2* correct?
 
 ### Emerge
 
@@ -36,8 +38,17 @@ csync2 is a tool for asynchronous file synchronization in clusters.
 `root #``csync2 -k /etc/csync2/csync2.key_mygroup`
 ### Setup synchronization
 
-**`/etc/csync2/csync2.cfg`**
+FILE **`/etc/csync2/csync2.cfg`**
 
+```
+group mygroup
+{
+	host hostname1 host2_ip (hostname3); # (hostname3) can only download changes. - #
+	key /etc/csync2/csync2.key_mygroup;  # Identical file for all in group. - #
+	include /mnt/shared;                 # Same list for all. - #
+	exclude /mnt/shared/local*;
+}
+```
 ### Things to note
 
 - All nodes (of a group) share a common key, for example /etc/csync2/csync2.key\_mygroup. This means it has to be **copied** to each node.

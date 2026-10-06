@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Fonts/Console
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-01-01"
-fingerprint: "8752173f088313d1"
+fingerprint: "8652135d18871bd1"
 license: CC BY-SA 4.0
 ---
 
 # Fonts/Console
+
+[Fonts](https://wiki.gentoo.org/wiki/Fonts)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -23,6 +25,15 @@ If a manual kernel configuration is created, a font can also be selected in the 
 
 **Enable Terminus 16x32 font**
 
+```
+Device Drivers  --->
+    Graphics support  --->
+        Console display driver support  --->
+            [*] Framebuffer Console support
+Library routines  --->
+    [*] Select compiled-in fonts
+        [*] Terminus 16x32 font (not supported by all drivers)
+```
 ## OpenRC
 
 In order to use a specific font in the console, set the `consolefont` variable in /etc/conf.d/consolefont to the name of a file found in /usr/share/consolefonts/ (without the .psfu.gz suffix).

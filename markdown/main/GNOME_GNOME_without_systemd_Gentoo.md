@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/GNOME/GNOME_without_systemd/Gentoo
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-04-27"
-fingerprint: da51937b8fa38986
+fingerprint: da75937b0fa38984
 license: CC BY-SA 4.0
 ---
 
@@ -87,6 +87,10 @@ Once GNOME is emerged, change the `DISPLAYMANAGER` value in the display-manager 
 
 **Specify the GNOME display manager, as follows**
 
+```
+CHECKVT=7
+DISPLAYMANAGER="gdm"
+```
 Leave the rest of the file as-is.
 
 Then, set dbus, display-manager, and openrc-settingsd to come up in the default runlevel:
@@ -165,3 +169,7 @@ Finally, reboot the system to complete the uninstall (to a textual login, in thi
 ## External resources
 
 - The project's [sticky support thread](https://forums.gentoo.org/viewtopic-t-1094796.html) on the Gentoo Forums.
+
+## References
+
+1. [↑](https://wiki.gentoo.org#cite_ref-gnome_openrc_1-0) Raudsepp, Mart. Gentoo Blogs: ["Gentoo GNOME 3.30 for all init systems"](https://blogs.gentoo.org/leio/2019/03/26/gnome-3-30/), March 26th, 2019. Retrieved April 26th 2019.

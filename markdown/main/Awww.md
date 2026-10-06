@@ -5,16 +5,20 @@ url: https://wiki.gentoo.org/wiki/Awww
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-01-13"
-fingerprint: "2bd554950395dbf5"
+fingerprint: "2fd514870b95f9f4"
 license: CC BY-SA 4.0
 ---
 
 # awww
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+
+**Resources**
 
 *Formerly known as swww.*
 

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Alacritty
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-11"
-fingerprint: "9f42db5f82a7a3cb"
+fingerprint: "9f42db5f82a7ebcb"
 license: CC BY-SA 4.0
 ---
 
@@ -21,6 +21,11 @@ Alacritty is written in [Rust](<https://en.wikipedia.org/wiki/Rust_(programming_
 
 ## USE flags
 
+
+### USE flags for
+            [x11-terms/alacritty](https://packages.gentoo.org/packages/x11-terms/alacritty)
+            
+            GPU-accelerated terminal emulator
 
 ## Installation
 
@@ -107,7 +112,8 @@ This will change the font to one provided by [media-fonts/hack](https://packages
 
 The easiest way is to code Alacritty theme directory and include the relevant theme :
 
-`user $``mkdir -p ~/.config/alacritty/themes` For example, with Gruvbox Light:
+`user $``mkdir -p ~/.config/alacritty/themes` `user $``git clone --branch yaml` [https://github.com/alacritty/alacritty-theme](https://github.com/alacritty/alacritty-theme) ~/.config/alacritty/themes
+For example, with Gruvbox Light:
 
 **`~/.config/alacritty/alacritty.yml`**
 
@@ -160,6 +166,9 @@ To modify `ls` to have colorful output, add the following in `/etc/DIR_COLORS`
 
 **`/etc/DIR_COLORS`**
 
+```
+TERM alacritty
+```
 See [related GitHub issue](https://github.com/alacritty/alacritty/issues/2210).
 
 ### Window title

@@ -5,13 +5,15 @@ url: https://wiki.gentoo.org/wiki/GIMP/Plugins
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2020-10-24"
-fingerprint: "2d999f1cfcf20541"
+fingerprint: "2d9d9f1cfcf20541"
 license: CC BY-SA 4.0
 ---
 
 # GIMP/Plugins
 
 From Gentoo Wiki
+
+\< [GIMP](https://wiki.gentoo.org/wiki/GIMP)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

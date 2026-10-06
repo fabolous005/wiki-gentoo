@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/DKMS
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-12-04"
-fingerprint: "5693323e84e23f21"
+fingerprint: "5693323e8ce23f21"
 license: CC BY-SA 4.0
 ---
 
@@ -29,6 +29,13 @@ DKMS supports:
 To use DKMS, install the [sys-kernel/dkms](https://packages.gentoo.org/packages/sys-kernel/dkms) package:
 
 `root #``emerge --ask sys-kernel/dkms`
+
+### USE flags for
+            [sys-kernel/dkms](https://packages.gentoo.org/packages/sys-kernel/dkms)
+            
+            Dynamic Kernel Module Support
+
+| [systemd](https://packages.gentoo.org/useflags/systemd) | Enable use of systemd-specific libraries and features like socket activation or session tracking | 
 
 ## Configuration
 

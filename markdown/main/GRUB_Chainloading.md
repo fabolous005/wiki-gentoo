@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/GRUB/Chainloading
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-01-28"
-fingerprint: "1e86e91baf6ebd95"
+fingerprint: "1484c33baf64b595"
 license: CC BY-SA 4.0
 ---
 
 # GRUB/Chainloading
+
+[GRUB](https://wiki.gentoo.org/wiki/GRUB)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -25,6 +27,11 @@ It is possible to load a grub configuration file from another filesystem, using 
 
 **Chainloading another GRUB configuration file**
 
+```
+search --no-floppy --fs-uuid --set=root 00000000-0000-0000-0000-000000000000
+set prefix=($root)/grub
+configfile /grub/grub.cfg
+```
 ## ISO images
 
 The new ISO (or loop) chainload mechanism makes chainloading a breeze. It is possible to chainload ISO images (LiveCD/DVDs) with GRUB Legacy, however there exists no way to pass kernel cmdline arguments before boot. In any case, the ISO images in question should be built keeping kernel cmdline arguments in mind.
@@ -37,12 +44,46 @@ To chainload an ISO with custom or default kernel command line arguments, an ent
 
 **Example entry for chainloading an ISO file**
 
+```
+menuentry "SYSRESCUECD" {
+	set iso=/systemrescuecd-x86-3.8.1.iso
+	loopback loop ${iso}
+	linux  (loop)/isolinux/rescue64 nomodeset vga=791 docache setkmap=fr isoloop=${iso}
+	initrd (loop)/isolinux/initram.igz
+}
+```
 For a permanent and automatic entry to GRUB2's grub.cfg file, a custom script could be added to the /etc/grub.d script location:
 
 **`/etc/grub.d/40_custom`**
 
 **Custom script to load a CD**
 
+```
+#!/bin/sh
+exec tail -n +3 $0
+menuentry "GRUB4DOS" {
+	linux /grub4dos-0.4.4/grub.exe --config-file=/menu.lst
+}
+menuentry "SYSRESCUECD" {
+	set iso=/systemrescuecd-x86-3.8.1.iso
+	loopback loop ${iso}
+	linux  (loop)/isolinux/rescue64 nomodeset vga=791 docache setkmap=fr isoloop=${iso}
+	initrd (loop)/isolinux/initram.igz
+}
+menuentry "STG3-AMD64" {
+	set cmdline="dokeymap looptype=squashfs loop=/image.squashfs cdroot"
+	loopback loop /stg3-amd64-<DATE>.iso
+	linux  (loop)/isolinux/gentoo $cmdline root=/dev/ram0 init=/linuxrc initrd=gentoo.igz
+	initrd (loop)/isolinux/gentoo.igz
+}
+menuentry "gentoo installation iso" {
+        set iso=/install-x86-minimal-DATETIME.iso
+        bootoptions="isoboot=$iso root=/dev/ram0 init=/linuxrc dokeymap looptype=squashfs loop=/image.squashfs cdroot vga=791"
+        loopback loop ${iso}
+        linux  (loop)/boot/gentoo $bootoptions
+        initrd (loop)/boot/gentoo.igz
+}
+```
 Do not forget to make the script executable:
 
 `root #``chmod +x /etc/grub.d/40_custom`
@@ -58,6 +99,13 @@ Something as simple as the following example is enough to boot another disk that
 
 **Chainloading another bootloader**
 
+```
+menuentry "Custom Super Bootloader Example" {
+     insmod part_msdos
+     insmod chain
+     chainloader (hd1,1)+1
+}
+```
 ## TrueCrypt
 
 Chainloading the TrueCrypt bootloader on a *separate* disk is relatively simple and can be done in GRUB2 like any other bootloader:
@@ -66,6 +114,16 @@ Chainloading the TrueCrypt bootloader on a *separate* disk is relatively simple 
 
 **Chainloading TrueCrypt bootloader on a separate disk**
 
+```
+title Windows7-TrueCrypt-BIOS/MBR
+find --set-root /truecrypt_rescue_image.iso
+map --mem /truecrypt_rescue_image.iso (hd32)
+map (hd0) (hd1)
+map (hd1) (hd0)
+map --hook
+root (hd32)
+chainloader (hd32)
+```
 Chainloading a disk with TrueCrypt in the MBR or a rescue CD image located in encrypted partitions is not possible with GRUB2 (see [bug #385619](https://bugs.gentoo.org/show_bug.cgi?id=385619)). Use either [GRUB Legacy](https://wiki.gentoo.org/wiki/GRUB_Legacy) or [GRUB4DOS](https://github.com/chenall/grub4dos) as workaround. GRUB4DOS has an interface very similar to GRUB Legacy and a menu.lst entry which can be used to chainload the TrueCrypt bootloader or to boot a rescue CD (from an encrypted partition on the same disk).
 
 Another workaround is to boot from TrueCrypt as the main boot loader and then hit the `Esc` to chainload the following partition (if one exists) or the following disk. Then have GRUB2 installed on the partition instead of in the MBR itself so that GRUB2 is chainloaded.
@@ -84,18 +142,44 @@ For instance, to boot Windows 7, add the following to the grub.cfg file:
 
 **Windows 7 example**
 
+```
+menuentry "Windows 7 BIOS MBR" {
+     insmod part_msdos
+     insmod ntldr
+     insmod ntfs
+     ntldr (hd0,msdos1)/bootmgr
+}
+```
 A Windows XP example:
 
 **`/etc/grub.d/40_custom`**
 
 **Windows XP example**
 
+```
+menuentry "Windows XP BIOS MBR" {
+     insmod part_msdos
+     insmod ntldr
+     insmod ntfs
+     ntldr (hd0,msdos1)/ntldr
+}
+```
 Instead of using GRUB2's device syntax, the UUID of the partition containing the Windows bootloader can be used like so:
 
 **`/etc/grub.d/40_custom`**
 
 **UUID example**
 
+```
+menuentry "Windows 10" {
+     insmod ntfs
+     insmod ntldr
+     insmod part_msdos
+     insmod search_fs_uuid
+     search --no-floppy --fs-uuid --set=root 1AECC5A1ECC57811
+     ntldr /bootmgr
+}
+```
 Filesystem UUIDs can be obtained with blkid.
 
 An entry for a GPT hybrid MBR works a bit different than the previous BIOS-MBR examples. Booting multiple versions of Windows can be achieved with remapping and/or hiding partitions with GRUB2's `parttool` option:
@@ -104,12 +188,29 @@ An entry for a GPT hybrid MBR works a bit different than the previous BIOS-MBR e
 
 **Example for GPT hybrid MBR**
 
+```
+menuentry "Windows 7 BIOS MBR" {
+     insmod part_msdos
+     insmod chain
+     parttool hd1,msdos1 hidden+ boot-
+     parttool hd1,msdos2 hidden- boot+
+     chainloader (hd1,msdos2)+1
+}
+```
 Remapping the devices to set the primary boot disk to other disks can be achieved by using the `drivemap` option like so:
 
 **`/etc/grub.d/40_custom`**
 
 **Remapping devices example**
 
+```
+menuentry "Windows 7 BIOS MBR" {
+     insmod part_msdos
+     insmod chain
+     drivemap hd0 hd1
+     chainloader (hd1,msdos2)+1
+}
+```
 #### Probing
 
 GRUB2 is capable of automatically finding Windows partitions and assigning the root partitions. The Windows partition must first be mounted before the probe will be successful. See notes at the end of this section concerning missing C:\bootmgr and C:\Boot files and folders; it is wise to make sure these folders do exist before trying to boot Windows using GRUB2.
@@ -128,6 +229,18 @@ From the output provided by the above two commands, the `search` line within GRU
 
 **Constructing the search line**
 
+```
+menuentry 'Microsoft Windows 7 or Windows 8 (on sdb1)' --class windows {
+        insmod part_msdos
+        insmod ntfs
+        insmod search_fs_uuid
+        insmod ntldr
+        search --fs-uuid --set=root --hint-bios=hd1,msdos1 --hint-efi=hd1,msdos1 --hint-baremetal=ahci1,msdos1 2ABF87DC395CFC02
+        drivemap (hd1,msdos1) (hd0,msdos1)
+        #Or, "drivemap (hd1,msdos2) (hd0,msdos1)" for those with Windows installed on sdb2)
+        ntldr /bootmgr
+}
+```
 Seeing a boot error message concerning a missing bootmgr file after attempting to boot one of the previously mentioned grub.cfg entries is the indication the C:\Boot folder is missing. This happens when using Windows 8 since the C:\Boot folder does not seem to be generated by default.
 
 ### Dual-booting Windows on UEFI with GPT
@@ -138,6 +251,15 @@ In the case the Windows bootloader was overwritten with GRUB2 or if bootmgr does
 
 **UEFI dual-boot**
 
+```
+menuentry "Windows 7 UEFI/GPT" {
+    insmod part_gpt
+    insmod search_fs_uuid
+    insmod chain
+    search --fs-uuid --no-floppy --set=root 28cf-35de
+    chainloader ($root)/EFI/MICROSOFT/BOOT/bootmgfw.efi
+}
+```
 ### See also
 
 - [UEFI Dual boot with Windows 7/8](https://wiki.gentoo.org/wiki/UEFI_Dual_boot_with_Windows_7/8) — describes how to dual boot Microsoft Windows on a UEFI computer.

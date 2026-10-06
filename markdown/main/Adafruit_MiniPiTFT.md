@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Adafruit_MiniPiTFT
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2021-03-11"
-fingerprint: "4a85bd44b8e379d3"
+fingerprint: "4a85fd4430e379d3"
 license: CC BY-SA 4.0
 ---
 
@@ -31,6 +31,9 @@ Original source: [https://learn.adafruit.com/adafruit-mini-pitft-135x240-color-t
 
 correct kernel options should already be set ; in doubt, make sure you have
 
+```
+CONFIG_FB_TFT_ST7789V=m
+```
 ## Software packages
 
 \# emerge dev-vcs/git
@@ -70,16 +73,35 @@ The console font needs to be changed. For OpenRC:
 
 **`/etc/conf.d/consolefont`**
 
+```
+consolefont="ter-u12n"
+```
 note: I have yet to find the 6x12 terminus font if that's not it.
 
 add the correct options in /boot/cmdline.txt:
 
 **`/boot/cmdline.txt`**
 
+```
+fbcon=map:10 fbcon=font:VGA8x8 BLANK_TIME=0
+```
 edit /boot/config.txt:
 
 **`/boot/config.txt`**
 
+```
+hdmi_force_hotplug=1
+hdmi_group=2
+hdmi_mode=87
+#dtoverlay=vc4-fkms-v3d
+hdmi_cvt=WIDTH HEIGHT 60 1 0 0 0"
+hdmi_force_hotplug=1  # required for cases when HDMI is not plugged in!
+dtparam=spi=on
+dtparam=i2c1=on
+dtparam=i2c_arm=on
+{overlay}
+overscan=0
+```
 `root #````
 echo "/usr/local/bin/fbcp \&" > /etc/local.d/rpi-tft
 ```

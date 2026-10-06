@@ -5,15 +5,19 @@ url: https://wiki.gentoo.org/wiki/AC1200_Wireless_Adapters
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-02-28"
-fingerprint: b49b9d5f99e51a27
+fingerprint: "349b9d5f99e51aa6"
 license: CC BY-SA 4.0
 ---
 
 # AC1200 Wireless Adapters
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 ## Finding an adapter
 
@@ -69,11 +73,34 @@ The table below lists AC1200 USB 3.0 adapters tested and working with Linux 3.18
 
 ### Kernel configuration
 
+KERNEL
+
+```
+[*] Networking support --->
+      <*>   Wireless --->
+              <*>   cfg80211 - wireless configuration API
+              <*>   Generic IEEE 802.11 Networking Stack (mac80211)
+      <*>   RF switch subsystem support --->
+    Device Drivers --->
+      [*] Network device support --->
+            [*]   Wireless LAN --->
+                    <M>   Realtek rtlwifi family of devices --->
+                            <M>   Realtek RTL8821AE/RTL8812AE Wireless Network Adapter
+                            <M>   Realtek RTL8192CU/RTL8188CU USB Wireless Network Adapter
+      [*] Staging drivers --->
+            <M>   Support for rtllib wireless devices
+            <M>     Support for rtllib CCMP crypto
+            <M>     Support for rtllib TKIP crypto
+            <M>     Support for rtllib WEP crypto
+            <M>   Realtek RTL8723AU Wireless LAN NIC driver
+            [*]     Realtek RTL8723AU AP mode
+            [*]     Realtek RTL8723AU BlueTooth Coexistence
+```
 ### Scripted installation
 
 Create the following installation script which performs the actions from the manual installation below:
 
-**`/root/rtlscript.sh`**
+FILE **`/root/rtlscript.sh`**
 
 ```
 #!/bin/bash

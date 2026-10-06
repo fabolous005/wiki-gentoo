@@ -6,7 +6,7 @@ hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-15"
 categories: ['[1]']
-fingerprint: b79e3997e4d691cd
+fingerprint: "369e3997c49691cd"
 license: CC BY-SA 4.0
 ---
 
@@ -69,6 +69,17 @@ Raspberry Pi kernel distribution<sup>[\[5\]](https://wiki.gentoo.org#cite_note-5
 
 **Enabling appropriate modules**
 
+```
+Device Drivers --->
+  Graphics support --->
+    <M> DRM support for HX8357D display panels
+    <M> DRM support for ILI9225 display panels
+    <M> DRM support for ILI9341 display panels
+    <M> DRM support for Sitronix ST7715R/ST7735R display panels
+  Staging drivers --->
+    <M>  Support for small TFT LCD display modules --->
+        (Choose either all there or just yours)
+```
 ## Framebuffer console set-up
 
 Append `fbcon=map:10 fbcon=font:VGA8x8` to kernel command line either during build time or to the file /boot/cmdline.txt.
@@ -123,7 +134,7 @@ Following files should be created to configure PiTFT with X11 system. First one 
 **`/etc/X11/xorg.conf.d/98-PiTFT.conf`**
 
 ```
- "Device"
+Section "Device"
     Identifier "PiTFT"
     Driver "fbdev"
     Option "fbdev" "/dev/fb0" #change fb0 to your framebuffer device!
@@ -141,7 +152,7 @@ Second file provides the calibration for the PiTFT as a touchscreen.
 **`/etc/X11/xorg.conf.d/99-calibration.conf`**
 
 ```
- "InputClass"
+Section "InputClass"
    Identifier      "calibration"
    MatchProduct    "stmpe-ts"
    MatchDevicePath "/dev/input/event0"

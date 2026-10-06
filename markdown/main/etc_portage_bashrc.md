@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki//etc/portage/bashrc
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-08-24"
-fingerprint: bc85be3baea18214
+fingerprint: bc85be3faea18214
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+*Not to be confused with[the ".bashrc" Bash configuration file](https://wiki.gentoo.org/wiki/Bash#.bashrc).*
 
 The **/etc/portage/bashrc** file is a global bashrc file referenced by Portage. It is similar to the bashrc files under [/etc/portage/env/](https://wiki.gentoo.org/wiki//etc/portage/env), except that it's sourced for every package. It can either be used to setup a global environment common to all ebuilds, or as an alternative to the /etc/portage/env files (allowing Portage administrators to handle all the necessary conditional code manually), or to set up ebuild phase hooks (to perform specific actions at various stages of package installation, updates, or removal).
 
@@ -50,7 +52,7 @@ Portage automatically calls certain functions inside /etc/portage/bashrc if they
 **`/etc/portage/bashrc`**
 
 ```
-() {
+pre_pkg_setup() {
   echo "your code here"
 }
 ```
@@ -59,7 +61,7 @@ Two additional hook functions are also available: `register_die_hook`, called wh
 **`/etc/portage/bashrc`**
 
 ```
- mySuccessHook
+register_success_hook mySuccessHook
 mySuccessHook() {
     echo "success!"
 }

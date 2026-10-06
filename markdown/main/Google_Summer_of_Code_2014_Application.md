@@ -31,6 +31,8 @@ We intend to recruit enthusiastic, experienced, high-quality Gentoo developers t
 
 ### What is the URL for your Ideas list?
 
+[https://wiki.gentoo.org/wiki/Google\_Summer\_of\_Code/2014/Ideas](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2014/Ideas)
+
 ### What is the main development mailing list for your organization?
 
 gentoo-dev@lists.gentoo.org

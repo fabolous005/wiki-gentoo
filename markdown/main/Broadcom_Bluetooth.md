@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Broadcom_Bluetooth
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-04-18"
-fingerprint: "5c20f21d52bb1540"
+fingerprint: "5c20fa1d52ab1500"
 license: CC BY-SA 4.0
 ---
 
@@ -15,6 +15,8 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+**Resources**
+
 This article details setup for Broadcom Bluetooth 4.x devices mostly based on BCM20702, BCM4354, and BCM4356 chipsets. These bluetooth chipsets are also used in various devices including USB-dongles, hybrid WIFI+Bluetooth embedded chipsets, etc.
 
 ## Hardware
@@ -23,8 +25,8 @@ Mostly complete list of supported devices can be [found upstream](https://github
 
 | Device | Make/model | Status | Vendor ID / Product ID | Kernel driver(s) | Kernel version | Notes | 
 |---|---|---|---|---|---|---|
-| USB Dongle | Asus BT-400 USB |  | `0b05:17cb` | btbcm | 4.2 | Requires firmware | 
-| USB Dongle | Targus ACB75AU |  | `0a5c:21e8` | btbcm | 3.4+ | Requires firmware brcm/BCM20702A1-0a5c-21e8.hcd | 
+| USB Dongle | Asus BT-400 USB | Works | `0b05:17cb` | btbcm | 4.2 | Requires firmware | 
+| USB Dongle | Targus ACB75AU | Works | `0a5c:21e8` | btbcm | 3.4+ | Requires firmware brcm/BCM20702A1-0a5c-21e8.hcd | 
 
 ## Security considerations
 
@@ -38,6 +40,14 @@ Broadcom Bluetooth devices require the `btbcm` kernel module, which can be built
 
 **Broadcom Bluetooth support**
 
+```
+[*] Networking support  --->
+    <M>   Bluetooth subsystem support  --->
+        Bluetooth device drivers  --->
+            <M> HCI USB driver
+            [*]   Broadcom protocol support
+            [*] Broadcom protocol support
+```
 ### Firmware
 
 Mostly Broadcom Bluetooth stack requires external firmware, supplied with Windows drivers. This can be verified by using following commands:

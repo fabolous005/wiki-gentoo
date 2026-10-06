@@ -177,6 +177,28 @@ Create the following configuration file (replace **plughw:0,5** and **plughw:0,1
 
 **`/etc/pipewire/pipewire.conf.d/alsa.conf`**
 
+```
+context.objects = [
+  { factory = adapter
+    args = {
+      factory.name	= api.alsa.pcm.sink
+      node.name		= "alsa-sink"
+      node.description	= "PCM Sink"
+      media.class	= "Audio/Sink"
+      api.alsa.path	= "plughw:0,5"
+    }
+  }
+  { factory = adapter
+    args = {
+      factory.name	= api.alsa.pcm.source
+      node.name		= "alsa-source"
+      node.description	= "PCM Source"
+      media.class	= "Audio/Source"
+      api.alsa.path	= "plughw:0,1"
+    }
+  }
+]
+```
 Install [media-video/pipewire](https://packages.gentoo.org/packages/media-video/pipewire) with the following USE flags: **sound-server**, **pipewire-alsa**, **bluetooth** (optional).
 
 Add the user to the following groups: **audio**, **pipewire**.

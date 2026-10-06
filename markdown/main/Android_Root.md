@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Android/Root
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-04-05"
-fingerprint: bf072414ed4339c0
+fingerprint: bf072414fd433dc0
 license: CC BY-SA 4.0
 ---
 
 # Android/Root
+
+[Android](https://wiki.gentoo.org/wiki/Android)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

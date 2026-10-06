@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Feh
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-07-24"
-fingerprint: "7884185a708059cc"
+fingerprint: "7884185870a059ec"
 license: CC BY-SA 4.0
 ---
 
@@ -21,6 +21,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [media-gfx/feh](https://packages.gentoo.org/packages/media-gfx/feh)
+            
+            A fast, lightweight imageviewer using imlib2
 
 | [curl](https://packages.gentoo.org/useflags/curl) | Add support for client-side URL transfer library | 
 | [debug](https://packages.gentoo.org/useflags/debug) | Enable extra debug codepaths, like asserts and extra output. If you want to get meaningful backtraces see https://wiki.gentoo.org/wiki/Project:Quality\_Assurance/Backtraces | 

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Full_Source_Bootstrap
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-04-24"
-fingerprint: "65d33cd1d36e3cc3"
+fingerprint: "65d33cd0d36e2ce3"
 license: CC BY-SA 4.0
 ---
 
@@ -23,12 +23,13 @@ From Gentoo Wiki
 
 First, download from fosslinux:
 
-`user $``cd live-bootstrap`
+`user $``git clone --depth=1 --recursive` [https://github.com/fosslinux/live-bootstrap](https://github.com/fosslinux/live-bootstrap)`user $``cd live-bootstrap`
 Then download the required files:
 
 `user $``./download-distfiles.sh`
 If this does not work, try downloading from [link](https://github.com/fosslinux/live-bootstrap/wiki/Mirrors):
 
+`user $``./download-distfiles.sh` [https://live-bootstrap.stikonas.eu/](https://live-bootstrap.stikonas.eu/)
 Now bootstrap from scratch:
 
 `root #``./rootfs.py -c --external-sources --cores $(nproc)`

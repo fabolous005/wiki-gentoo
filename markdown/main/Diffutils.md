@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Diffutils
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-05"
-fingerprint: "373eba18dba0ce29"
+fingerprint: "173eba58dba0ce29"
 license: CC BY-SA 4.0
 ---
 
@@ -22,6 +22,14 @@ license: CC BY-SA 4.0
 ### USE flags
 
 
+### USE flags for
+            [sys-apps/diffutils](https://packages.gentoo.org/packages/sys-apps/diffutils)
+            
+            Tools to make diffs and compare files
+
+| [nls](https://packages.gentoo.org/useflags/nls) | Add Native Language Support (using gettext - GNU locale utilities) | 
+| [verify-sig](https://packages.gentoo.org/useflags/verify-sig) | Verify upstream signatures on distfiles | 
+
 ### Emerge
 
 `root #``emerge --ask sys-apps/diffutils`
@@ -31,8 +39,20 @@ The two files used in the examples are:
 
 **`one`**
 
+```
+Hello, World!
+Second Line
+Gentoo Linux
+Another Line
+```
 **`two`**
 
+```
+Goodbye, World!
+Second Line
+Gentoo Linux
+Different Line
+```
 ### cmp
 
 cmp is used to compare two files byte by byte and reports the first byte difference.
@@ -139,3 +159,10 @@ Another Line	| Different Line
 This should now be in the output file:
 
 **`output`**
+
+```
+Hello, World!
+Second Line
+Gentoo Linux
+Different Line
+```

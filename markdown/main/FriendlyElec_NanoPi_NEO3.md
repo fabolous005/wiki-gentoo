@@ -51,7 +51,11 @@ other details could be found in [Embedded Handbook](https://wiki.gentoo.org/wiki
 
 U-boot only contains an image for NanoPi R2S, which requires a few modifications to run properly. Also, fancy stuff like boot from pxe, etc .. makes no sense because the device needs an SDcard anyway. In order to compile everything, it could be useful to download the latest ARM firmware first:
 
+[git clone https://github.com/ARM-software/arm-trusted-firmware](https://github.com/ARM-software/arm-trusted-firmware)
+
 and then u-boot (may be useful to add -d 5 to limit the history): see [here](https://github.com/u-boot/u-boot) on github
+
+[Embedded Handbook/Bootloaders/Das U-Boot](https://wiki.gentoo.org/wiki/Embedded_Handbook/Bootloaders/Das_U-Boot)
 
 This is where it becomes tricky, in order to understand, The following boot steps are important:
 

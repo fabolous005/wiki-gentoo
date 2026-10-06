@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Dokuwiki
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-01-21"
-fingerprint: a78db84b93fb5df3
+fingerprint: a7a59842b3fb4ff3
 license: CC BY-SA 4.0
 ---
 
 # Dokuwiki
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -21,6 +23,11 @@ DokuWiki is a wiki system based on files instead of a database. The file-based a
 
 ### USE flags
 
+
+### USE flags for
+            [www-apps/dokuwiki](https://packages.gentoo.org/packages/www-apps/dokuwiki)
+            
+            DokuWiki is a simple to use Wiki aimed at a small company's documentation needs
 
 ### Emerge
 

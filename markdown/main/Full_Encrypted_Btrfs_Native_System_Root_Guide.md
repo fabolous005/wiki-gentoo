@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Full_Encrypted_Btrfs/Native_System_Root_Guide
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-09-25"
-fingerprint: "9e71081ba50f86dd"
+fingerprint: "9e700a1ba50783dd"
 license: CC BY-SA 4.0
 ---
 
@@ -200,10 +200,21 @@ Check that /etc/mtab contains the following lines and if not, add them:
 
 **`/etc/mtab`**
 
+```
+/dev/mapper/luks-1 / btrfs rw,noatime,compress=lzo,autodefrag,subvol=activeroot 0 0
+/dev/mapper/luks-1 /home btrfs rw,noatime,compress=lzo,autodefrag,subvol=home 0 0
+/dev/mapper/luks-1 /boot btrfs rw,noatime,compress=lzo,autodefrag,subvol=boot 0 0
+```
 Next change /etc/fstab to this:
 
 **`/etc/mtab`**
 
+```
+LABEL=BTROOT    /mnt/btrfsmirror    btrfs    defaults,noatime,compress=lzo,autodefrag    0 0
+LABEL=BTROOT    /                   btrfs    defaults,noatime,compress=lzo,autodefrag,subvol=activeroot    0 0
+LABEL=BTROOT    /home               btrfs    defaults,noatime,compress=lzo,autodefrag,subvol=home    0 0
+LABEL=BTROOT    /boot               btrfs    defaults,noatime,subvol=boot    0 0
+```
 ### Remove md array configuration
 
 Edit /etc/mdadm.conf and remove your array from it.
@@ -215,10 +226,28 @@ Now we'll create the kernel with the required configuration.
 `root #``genkernel --luks --btrfs --oldconfig --save-config --menuconfig --install --bootloader=grub2 --udev all`
 **Enabling device mapper and crypt target**
 
+```
+[*] Enable loadable module support
+    Device Drivers --->
+        [*] Multiple devices driver support (RAID and LVM) --->
+            <*> Device mapper support
+            <*> Crypt target support
+```
 **Enabling cryptographic API functions for the cipher you used**
 
+```
+[*] Cryptographic API --->
+    <*> SHA224 and SHA256 digest algorithm
+    <*> XTS support
+    <*> AES cipher algorithms
+    <*> AES cipher algorithms (x86_64)
+```
 **Enabling initramfs support**
 
+```
+General setup  --->
+    [*] Initial RAM filesystem and RAM disk (initramfs/initrd) support
+```
 ### Dracut
 
 Next step is to create a new intitramfs
@@ -240,6 +269,12 @@ Now /etc/default/grub should look like this (i use systemd!):
 
 **`/etc/default/grub`**
 
+```
+...
+GRUB_ENABLE_CRYPTODISK=y
+GRUB_CMDLINE_LINUX_DEFAULT="real_init=/usr/lib/systemd/systemd rd.luks=1 rd.luks.key=/root/secretkey rd.luks.uuid=luks-e57c4e30-7b2e-457a-af9b-3270d085aae2"
+...
+```
 #### Generate grub.cfg
 
 We'll use grub2-mkconfig to generate the grub.cfg
@@ -317,6 +352,12 @@ Append `rd.luks.uuid` for /dev/sdb2 to `GRUB_CMDLINE_LINUX_DEFAULT` in /etc/defa
 
 **`/etc/default/grub`**
 
+```
+...
+GRUB_ENABLE_CRYPTODISK=y
+GRUB_CMDLINE_LINUX_DEFAULT="real_init=/usr/lib/systemd/systemd rd.luks=1 rd.luks.key=/root/secretkey rd.luks.uuid=luks-e57c4e30-7b2e-457a-af9b-3270d085aae2 rd.luks.uuid=luks-26ab8aed-7c84-4993-bfe4-579c83c96b05"
+...
+```
 ### Generate grub.cfg
 
 Recreate the grub.cfg
@@ -326,12 +367,24 @@ grub2-mkconfig will generate the following broken lines in different places:
 
 **`/boot/grub/grub.cfg`**
 
+```
+cryptomount -u 26ab8aed7c844993bfe4579c83c96b05
+a044adcaa23b400bad6ca256a9509c75
+set root='cryptouuid/26ab8aed7c844993bfe4579c83c96b05
+cryptouuid/a044adcaa23b400bad6ca256a9509c75'
+```
 You've to search and fix them.
 
 I'm not sure how they should look like, but this is how they look on my working system:
 
 **`/boot/grub/grub.cfg`**
 
+```
+cryptomount -u 26ab8aed7c844993bfe4579c83c96b05
+cryptomount -u a044adcaa23b400bad6ca256a9509c75
+set root='cryptouuid/26ab8aed7c844993bfe4579c83c96b05'
+set root='cryptouuid/a044adcaa23b400bad6ca256a9509c75'
+```
 Also check the UUIDs are correct!
 
 ### Install grub2 into MBR
@@ -386,6 +439,10 @@ Example of /etc/crypttab
 
 **`/etc/crypttab`**
 
+```
+luks-1.1 UUID=e57c4e30-7b2e-457a-af9b-3270d085aae2 /root/secretkey luks
+luks-1.2 UUID=26ab8aed-7c84-4993-bfe4-579c83c96b05 /root/secretkey luks
+```
 Now include it into the initramfs.
 
 `root #``dracut -f -I /root/secretkey -I /etc/crypttab`

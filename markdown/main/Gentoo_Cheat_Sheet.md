@@ -97,6 +97,9 @@ To prevent Portage from automatically updating a package, add a line into a the 
 
 **`/etc/portage/package.mask`**
 
+```
+<www-client/firefox-96.0.1
+```
 See [/etc/portage/package.mask](https://wiki.gentoo.org/wiki//etc/portage/package.mask) for more details on package masking.
 
 #### Install only some packages in a group
@@ -334,6 +337,9 @@ This trick also works in conjunction with eix. eix-update can use metadata cache
 
 **`/etc/eixrc/00-eixrc`**
 
+```
+OVERLAY_CACHE_METHOD="assign"
+```
 ### Search packages in Portage by regular expressions
 
 To search packages in Portage, along with installed version, by regular expressions:

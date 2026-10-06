@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Falkon
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-05-18"
-fingerprint: ce40571151dfb16c
+fingerprint: ce50575151dfb16c
 license: CC BY-SA 4.0
 ---
 
 # Falkon
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -21,6 +23,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [www-client/falkon](https://packages.gentoo.org/packages/www-client/falkon)
+            
+            Cross-platform web browser using QtWebEngine
 
 | [+X](https://packages.gentoo.org/useflags/+X) | Add support for X11 | 
 | [dbus](https://packages.gentoo.org/useflags/dbus) | Enable dbus support for anything that needs it (gpsd, gnomemeeting, etc) | 

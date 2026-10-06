@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Chess
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-11-22"
-fingerprint: b5924738107684f
+fingerprint: b5925738107684f
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 This article helps players explore their options for the classic board game chess.
 

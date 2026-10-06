@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Gentoo_BSD/Developer_Notes
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2019-01-09"
-fingerprint: "9fc27a6b8d250fa9"
+fingerprint: "97c07a6b8d250fa9"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Deprecated article**
 
 As of **April 20, 2017**, this article is **deprecated (obsolete)**. Contents are <u>no longer relevant</u>, and are intended for historical reference only!
 

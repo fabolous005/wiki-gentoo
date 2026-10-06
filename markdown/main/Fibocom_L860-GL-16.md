@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Fibocom_L860-GL-16
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-09-04"
-fingerprint: "3d0cba55c93b178b"
+fingerprint: "3d0cba55c90b178b"
 license: CC BY-SA 4.0
 ---
 
@@ -82,7 +82,7 @@ Lenovo ships some fcc unlock tool for Ubuntu, but this solution did not work in 
 
 Checkout and build the third party fcc unlocking tool for modem [here](https://github.com/xmm7360/xmm7360-usb-modeswitch/tree/master/fcc_unlock). The process is very simple
 
-`root #``cd /tmp/t``root #``rm -rf *``root #``cd xmm7360-usb-modeswitch/fcc_unlock``root #``touch sha-256.h``root #``make``root #``cp fcc_unlcok /usr/local/bin/`
+`root #``cd /tmp/t``root #``rm -rf *``root #``git clone` [https://github.com/xmm7360/xmm7360-usb-modeswitch](https://github.com/xmm7360/xmm7360-usb-modeswitch)`root #``cd xmm7360-usb-modeswitch/fcc_unlock``root #``touch sha-256.h``root #``make``root #``cp fcc_unlcok /usr/local/bin/`
 At the present moment you can try to unlock your modem (command can fail, just run it again and again and again, it'll successful or your modem completely hungs you should reboot your Laptop):
 
 `root #``./fcc_unlock`
@@ -98,6 +98,17 @@ After that I wrote some wrapper for unlocking:
 
 **`/usr/local/fcc_unlock_wrapper`**
 
+```
+#!/bin/bash
+OUTPUT="/dev/wwan0at0,crnl"
+/usr/local/bin/fcc_unlock
+sleep 5
+echo 'at@nvm:fix_cat_fcclock.fcclock_mode?' | socat - ${OUTPUT}
+echo 'at@nvm:fix_cat_fcclock.fcclock_mode=0' | socat - ${OUTPUT}
+echo 'at@store_nvm(fix_cat_fcclock)' | socat - ${OUTPUT}
+echo 'AT+CFUN?' | socat - ${OUTPUT}
+echo 'AT+CFUN=1,0' | socat - ${OUTPUT}
+```
 If unlocking process will be successful you should restart ModemManager and after few seconds your device appeared in unlocked state:
 
 `root #``mmcli -m 0````
