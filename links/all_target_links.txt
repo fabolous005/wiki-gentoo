@@ -1504,6 +1504,7 @@ https://wiki.gentoo.org/wiki/Lenovo_Ideapad_330_(Ryzen)
 https://wiki.gentoo.org/wiki/Lenovo_Ideapad_Slim_7
 https://wiki.gentoo.org/wiki/Lenovo_Legion_Go
 https://wiki.gentoo.org/wiki/Lenovo_Legion_Y520_15IKBN
+https://wiki.gentoo.org/wiki/Lenovo_ThinkBook_14_G6
 https://wiki.gentoo.org/wiki/Lenovo_ThinkBook_15_G2_ITL
 https://wiki.gentoo.org/wiki/Lenovo_ThinkPad_C13_Yoga_Chromebook_(Gen_1)
 https://wiki.gentoo.org/wiki/Lenovo_ThinkPad_E485

@@ -4,8 +4,8 @@ title: wgetpaste
 url: https://wiki.gentoo.org/wiki/Wgetpaste
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2025-09-09"
-fingerprint: "35a88d5d03a79ac1"
+date: "2026-10-06"
+fingerprint: "35a8895d03a79ac1"
 license: CC BY-SA 4.0
 ---
 
@@ -33,6 +33,13 @@ wgetpaste is written in [bash](https://wiki.gentoo.org/wiki/Bash) and only requi
 wgetpaste currently has just one use flag, for using SSL/TLS or not:
 
 
+### USE flags for
+            [app-text/wgetpaste](https://packages.gentoo.org/packages/app-text/wgetpaste)
+            
+            Command-line interface to various pastebins
+
+| [+ssl](https://packages.gentoo.org/useflags/+ssl) | Add support for SSL/TLS connections (Secure Socket Layer / Transport Layer Security) | 
+
 ### Emerge
 
 Install [app-text/wgetpaste](https://packages.gentoo.org/packages/app-text/wgetpaste):
@@ -51,6 +58,18 @@ Install [app-text/wgetpaste](https://packages.gentoo.org/packages/app-text/wgetp
 
 **`~/.wgetpaste.d/main.conf`**
 
+```
+# Always pass pastes through app-text/ansifilter
+NOANSI=1
+# Give raw links which can immediately be used for patches, etc
+RAW=1
+# Optionally default to gists
+#DEFAULT_SERVICE=gists
+# Default gists to secret
+PUBLIC_gists='false'
+# Provide github gist authorization token
+HEADER_gists="Authorization: token XXXX"
+```
 There is also an [example configuration file](http://wgetpaste.zlin.dk/wgetpaste.example) available from upstream, and an [advanced configuration example](https://wgetpaste.zlin.dk/zlin.conf) showing how to add a new service.
 
 ### Github gists
@@ -59,6 +78,9 @@ The gists service requires a valid API token. Generate it on the [Github website
 
 **`~/.wgetpaste.d/gists.conf`**
 
+```
+HEADER_gists="Authorization: token abcdef..."
+```
 A gist **must** be set to public or private by setting the `PUBLIC_gists` variable either in the config file, or on the command-line, thus (for Bash):
 
 `user $``PUBLIC_gists=false wgetpaste -s gists <path-to-file>`
@@ -134,7 +156,7 @@ Different paste services have different constraints, such as allowable size, ret
 
 ### Posting a file
 
-To post a file, simply run wgetpaste followed by the filename, not forgetting to specify a paste service if somthing other than the default is required.
+To post a file, simply run wgetpaste followed by the filename, not forgetting to specify a paste service if something other than the default is required.
 
 For example, run the following command to create a paste of the system's Xorg configuration:
 

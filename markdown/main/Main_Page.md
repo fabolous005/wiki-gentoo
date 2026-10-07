@@ -4,8 +4,8 @@ title: Gentoo Wiki
 url: https://wiki.gentoo.org/wiki/Main_Page
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-04"
-fingerprint: d0b2f84276874365
+date: "2026-10-06"
+fingerprint: f036f803f6976354
 license: CC BY-SA 4.0
 ---
 
@@ -21,6 +21,8 @@ license: CC BY-SA 4.0
 
 Larry the Cow beckons you to explore the Gentoo wiki!
 
+## Available documentation
+
 To find information use the search box on the top right corner of the screen, or categorically browse the wiki using the [Documentation topic](https://wiki.gentoo.org#Documentation_topics) links provided below.
 
 Both official Gentoo project documentation as well as community-contributed content can be found here. The vast majority of documentation is publicly editable. Official documents have a *Handbook:* or *Project:* prefix (only developers can edit them). Community members can leave comments/feedback for these pages via their respective *Discussion* pages.
@@ -32,6 +34,8 @@ Most importantly, the **Gentoo Handbook** is among the best documents found on t
 ### Documentation topics
 
 ### Contributing
+
+## News
 
 #### February 18, 2026: Wiki server overwhelmed by scrapers
 
@@ -45,9 +49,13 @@ Here's to a productive new year for the wiki in 2026!
 
 [2025 in retrospect - gentoo.org](https://www.gentoo.org/news/2026/01/05/new-year.html)
 
+### Wiki development details
+
 - **115** active and **150** retired developers
 - **170** active official projects
 - **98** active users on the wiki
+
+## Getting started
 
 Anyone is welcome to edit or create pages on this wiki.
 
@@ -59,8 +67,10 @@ For questions *related to using or editing the documentation on the <u>wiki</u>*
 
 **Please note**: For *general Gentoo support*, such as getting advice on a particular Handbook section or other generic support questions, please get in touch with our [support community](https://www.gentoo.org/support/) instead. General support is *<u>not</u>* provided by the wiki project.
 
+## Recently added pages
+
+- [19:24, 6 October 2026](https://wiki.gentoo.org/index.php?title=Lenovo_ThinkBook_14_G6&oldid=1459033) [Lenovo ThinkBook 14 G6](https://wiki.gentoo.org/wiki/Lenovo_ThinkBook_14_G6) ([hist](https://wiki.gentoo.org/index.php?title=Lenovo_ThinkBook_14_G6&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Lenovo_ThinkBook_14_G6&action=edit)) \[2,616 bytes\] [Trickygnome](https://wiki.gentoo.org/wiki/User:Trickygnome) ([talk](https://wiki.gentoo.org/index.php?title=User_talk:Trickygnome&action=edit&redlink=1) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Trickygnome))  (Created page with "{{stub}}  {{ProductPage|Lenovo|laptops|AMD64}} {{InfoBox stack |{{InfoBox homepage|https://psref.lenovo.com/Product/ThinkBook/ThinkBook\_14\_G6\_IRL}} |{{InfoBox odoc|https://pcs...")
+- [19:35, 5 October 2026](https://wiki.gentoo.org/index.php?title=Network_management/es&oldid=1458956) [Network management/es](https://wiki.gentoo.org/wiki/Network_management/es) ([hist](https://wiki.gentoo.org/index.php?title=Network_management/es&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Network_management/es&action=edit)) \[6,926 bytes\] [Nimiux](https://wiki.gentoo.org/wiki/User:Nimiux) ([talk](https://wiki.gentoo.org/wiki/User_talk:Nimiux) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Nimiux))  (Created page with "== Referencias ==")
+- [08:22, 5 October 2026](https://wiki.gentoo.org/index.php?title=Network_management/en&oldid=1458773) [Network management/en](https://wiki.gentoo.org/wiki/Network_management/en) ([hist](https://wiki.gentoo.org/index.php?title=Network_management/en&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Network_management/en&action=edit)) \[5,021 bytes\] [FuzzyBot](https://wiki.gentoo.org/wiki/User:FuzzyBot) ([talk](https://wiki.gentoo.org/index.php?title=User_talk:FuzzyBot&action=edit&redlink=1) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/FuzzyBot))  (Updating to match new version of source page)
+- [07:56, 5 October 2026](https://wiki.gentoo.org/index.php?title=List_of_software_for_Wayland/en&oldid=1458703) [List of software for Wayland/en](https://wiki.gentoo.org/wiki/List_of_software_for_Wayland/en) ([hist](https://wiki.gentoo.org/index.php?title=List_of_software_for_Wayland/en&action=history) | [edit](https://wiki.gentoo.org/index.php?title=List_of_software_for_Wayland/en&action=edit)) \[18,452 bytes\] [FuzzyBot](https://wiki.gentoo.org/wiki/User:FuzzyBot) ([talk](https://wiki.gentoo.org/index.php?title=User_talk:FuzzyBot&action=edit&redlink=1) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/FuzzyBot))  (Updating to match new version of source page)
 - [11:36, 4 October 2026](https://wiki.gentoo.org/index.php?title=REAPER&oldid=1458506) [REAPER](https://wiki.gentoo.org/wiki/REAPER) ([hist](https://wiki.gentoo.org/index.php?title=REAPER&action=history) | [edit](https://wiki.gentoo.org/index.php?title=REAPER&action=edit)) \[1,936 bytes\] [Chiron8](https://wiki.gentoo.org/wiki/User:Chiron8) ([talk](https://wiki.gentoo.org/index.php?title=User_talk:Chiron8&action=edit&redlink=1) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Chiron8))  (Initial stub for REAPER)  originally created as "Reaper"
-- [11:32, 4 October 2026](https://wiki.gentoo.org/index.php?title=Ostree_rootfs&oldid=1458505) [Ostree rootfs](https://wiki.gentoo.org/wiki/Ostree_rootfs) ([hist](https://wiki.gentoo.org/index.php?title=Ostree_rootfs&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Ostree_rootfs&action=edit)) \[5,723 bytes\] [Vrtrahan](https://wiki.gentoo.org/index.php?title=User:Vrtrahan&action=edit&redlink=1) ([talk](https://wiki.gentoo.org/index.php?title=User_talk:Vrtrahan&action=edit&redlink=1) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Vrtrahan))  (Initial empty commit, will be modified later)
-- [04:41, 4 October 2026](https://wiki.gentoo.org/index.php?title=Terminal_emulator/zh-cn&oldid=1458488) [Terminal emulator/zh-cn](https://wiki.gentoo.org/wiki/Terminal_emulator/zh-cn) ([hist](https://wiki.gentoo.org/index.php?title=Terminal_emulator/zh-cn&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Terminal_emulator/zh-cn&action=edit)) \[11,514 bytes\] [Mantic](https://wiki.gentoo.org/wiki/User:Mantic) ([talk](https://wiki.gentoo.org/wiki/User_talk:Mantic) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Mantic))  (Created page with "终端模拟器")
-- [23:14, 1 October 2026](https://wiki.gentoo.org/index.php?title=QEMU/Files&oldid=1458355) [QEMU/Files](https://wiki.gentoo.org/wiki/QEMU/Files) ([hist](https://wiki.gentoo.org/index.php?title=QEMU/Files&action=history) | [edit](https://wiki.gentoo.org/index.php?title=QEMU/Files&action=edit)) \[3,747 bytes\] [Egberts](https://wiki.gentoo.org/wiki/User:Egberts) ([talk](https://wiki.gentoo.org/wiki/User_talk:Egberts) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Egberts))  (Created page with "A complete list of files used by QEMU command.  == Files ==  === Configuration files ===  QEMU uses the following files and directories for configuration:  {| class="table tab...")
-- [19:45, 1 October 2026](https://wiki.gentoo.org/index.php?title=Drive_Migration_or_Switching_Laptops&oldid=1458331) [Drive Migration or Switching Laptops](https://wiki.gentoo.org/wiki/Drive_Migration_or_Switching_Laptops) ([hist](https://wiki.gentoo.org/index.php?title=Drive_Migration_or_Switching_Laptops&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Drive_Migration_or_Switching_Laptops&action=edit)) \[3,578 bytes\] [Trickygnome](https://wiki.gentoo.org/wiki/User:Trickygnome) ([talk](https://wiki.gentoo.org/index.php?title=User_talk:Trickygnome&action=edit&redlink=1) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Trickygnome))  (Created page with "'''Moving an SSD or hard disk to a new laptop''' means transplanting an existing Gentoo installation into different hardware while preserving the world set, toolchain, kernel,...")
