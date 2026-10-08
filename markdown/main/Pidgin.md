@@ -4,12 +4,14 @@ title: Pidgin
 url: https://wiki.gentoo.org/wiki/Pidgin
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2024-04-25"
+date: "2026-10-07"
 fingerprint: "7e01d94c408279d8"
 license: CC BY-SA 4.0
 ---
 
 # Pidgin
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -21,6 +23,11 @@ Pidgin is an easy to use and free chat client that supports AIM, Google Talk, IC
 
 ### USE flags
 
+
+### USE flags for
+            [net-im/pidgin](https://packages.gentoo.org/packages/net-im/pidgin)
+            
+            GTK Instant Messenger client
 
 | [+gstreamer](https://packages.gentoo.org/useflags/+gstreamer) | Enables voice and video sessions | 
 | [+gui](https://packages.gentoo.org/useflags/+gui) | Enable support for a graphical user interface | 

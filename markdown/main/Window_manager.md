@@ -16,6 +16,8 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+*Not to be confused with[display manager](https://wiki.gentoo.org/wiki/Display_manager).*
+
 A **window manager** (WM) manages the creation, manipulation, and destruction of on-screen windows and window decorations in a GUI environment.
 
 When using [X](https://wiki.gentoo.org/wiki/X), a window manager is usually wanted. This might be provided by a [desktop environment](https://wiki.gentoo.org/wiki/Desktop_environment), or as standalone software.

@@ -4,7 +4,7 @@ title: chrony
 url: https://wiki.gentoo.org/wiki/Chrony
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-09-01"
+date: "2026-10-07"
 fingerprint: ee887978f006acc6
 license: CC BY-SA 4.0
 ---
@@ -100,7 +100,7 @@ pool pool.ntp.org iburst auto_offline
 ```
 This tells chronyd that the machine will be assumed to have gone offline when 2 requests have been sent to it without receiving a response.
 
-Use the chronyc online command to re-enable polling (See below)
+Use the chronyc online command to re-enable polling (see below).
 
 ### Enable Network Time Security (NTS)
 
@@ -328,7 +328,7 @@ log tracking rtc
 
 ### chronyc Client Interface Tool
 
-chronyc is a command-line interface program which can be used to monitor chronyd's performance and to change various operating parameters whilst it is running. A full list of commands can be found in the manual, man 1 chronyc
+chronyc is a command-line interface program which can be used to monitor chronyd's performance and to change various operating parameters whilst it is running. A full list of commands can be found in the [chronyc(1)](https://man.archlinux.org/man/chronyc.1.en) [man-page.](https://wiki.gentoo.org/wiki/Special:MyLanguage/man_page)
 
 Examples:
 

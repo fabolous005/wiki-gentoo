@@ -4,8 +4,8 @@ title: irssi
 url: https://wiki.gentoo.org/wiki/Irssi
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2024-04-25"
-fingerprint: "528ac8b80e8b81dd"
+date: "2026-10-07"
+fingerprint: "528ac9b80e8b81dd"
 license: CC BY-SA 4.0
 ---
 
@@ -22,6 +22,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [net-irc/irssi](https://packages.gentoo.org/packages/net-irc/irssi)
+            
+            A modular textUI IRC client with IPv6 support
 
 | [+perl](https://packages.gentoo.org/useflags/+perl) | Add optional support/bindings for the Perl language | 
 | [+proxy](https://packages.gentoo.org/useflags/+proxy) | Adds support for a loadable IRC proxy module | 
@@ -46,6 +51,14 @@ For changes to remain persistent over restarts, modify the configuration file fo
 
 **Example configuration**
 
+```
+...
+settings = {
+  ...
+  core = { real_name = "Larry The Cow"; user_name = "larrytc"; nick = "larry"; };
+  ...
+};
+```
 ## Usage
 
 As mentioned above irssi is started by invoking:

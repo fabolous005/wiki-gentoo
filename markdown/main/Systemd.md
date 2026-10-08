@@ -4,8 +4,8 @@ title: systemd
 url: https://wiki.gentoo.org/wiki/Systemd
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-08-09"
-fingerprint: "9708f07e29038bc2"
+date: "2026-10-07"
+fingerprint: "9708f07e2103abc6"
 license: CC BY-SA 4.0
 ---
 
@@ -57,24 +57,98 @@ systemd makes use of many modern Linux kernel features. When using [sys-kernel/g
 
 **Quick setup using gentoo-sources**
 
+```
+Gentoo Linux --->
+   Support for init systems, system and service managers --->
+      [*] systemd
+```
 To configure the kernel options manually (which is the only option when not using [sys-kernel/gentoo-sources](https://packages.gentoo.org/packages/sys-kernel/gentoo-sources)), the following kernel configuration options are required or recommended:
 
 **Mandatory options**
 
+```
+General setup  --->
+	[*] Control Group support --->
+		[*]   Support for eBPF programs attached to cgroups
+	[ ] Enable deprecated sysfs features to support old userspace tools
+	[*] Configure standard kernel features (expert users)  --->
+		[*] open by fhandle syscalls
+		[*] Enable eventpoll support
+		[*] Enable signalfd() system call
+		[*] Enable timerfd() system call
+	[*] Enable bpf() system call
+[*] Networking support --->
+	Networking options --->
+		[*] Unix domain sockets
+Device Drivers  --->
+	Generic Driver Options  --->
+		[*] Maintain a devtmpfs filesystem to mount at /dev
+File systems  --->
+	[*] Inotify support for userspace
+	Pseudo filesystems  --->
+		[*] /proc file system support
+		[*] sysfs file system support
+```
 **Recommended options**
 
+```
+General setup  --->
+	[*] Namespaces support  --->
+		[*] Network namespace
+[*] Enable the block layer  --->
+	[*] Block layer SG support v4
+Processor type and features  --->
+	[*] Enable seccomp to safely compute untrusted bytecode
+Networking support --->
+	Networking options --->
+		<*> The IPv6 protocol
+Device Drivers  --->
+	Generic Driver Options  --->
+		()  path to uevent helper
+		[ ] Fallback user-helper invocation for firmware loading
+	Firmware Drivers  --->
+		[*] Export DMI identification via sysfs to userspace
+File systems --->
+	<*> Kernel automounter support (supports v3, v4 and v5)
+	Pseudo filesystems --->
+		[*] Tmpfs virtual memory file system support (former shm fs)
+		[*]   Tmpfs POSIX Access Control Lists
+		[*]   Tmpfs extended attributes
+```
 For UEFI systems also enable the following:
 
 **UEFI support**
 
+```
+[*] Enable the block layer  --->
+	Partition Types  --->
+		[*] Advanced partition selection
+		[*]   EFI GUID Partition support
+Processor type and features  --->
+	[*] EFI runtime service support
+Device Drivers  --->
+        Firmware Drivers  --->
+                EFI (Extensible Firmware Interface) Support -->
+	                <*> EFI Variable Support via sysfs
+```
 If the system is using the BFQ scheduler, it's recommended by BFQ upstream to enable hierarchical scheduling support:
 
 **BFQ scheduler**
 
+```
+IO Schedulers  --->
+	<*> BFQ I/O scheduler
+        [*]   BFQ hierarchical scheduling support
+```
 For an up-to-date list, see section "REQUIREMENTS" in the upstream [README](https://github.com/systemd/systemd/blob/main/README) file.
 
 ### USE flags
 
+
+### USE flags for
+            [sys-apps/systemd](https://packages.gentoo.org/packages/sys-apps/systemd)
+            
+            System and service manager for Linux
 
 | [+dns-over-tls](https://packages.gentoo.org/useflags/+dns-over-tls) | Enable DNS-over-TLS support | 
 | [+gcrypt](https://packages.gentoo.org/useflags/+gcrypt) | Enable use of dev-libs/libgcrypt for various features | 
@@ -174,6 +248,9 @@ When the GRUB configuration file is written by hand (experts only), append the `
 
 **Example GRUB2 configuration fragment**
 
+```
+linux /vmlinuz-3.10.9 root=UUID=508868e4-54c6-4e6b-84b0-b3b28b1656b6 init=/lib/systemd/systemd
+```
 #### YABOOT
 
 Yaboot is a boot loader for PowerPC-based hardware running Linux, particularly New World ROM Macintosh systems.
@@ -184,6 +261,14 @@ The `init=/lib/systemd/systemd` argument should be added directly after the kern
 
 **Example yaboot config for systemd**
 
+```
+image=/vmlinux 
+   append="init=/lib/systemd/systemd" 
+   label=Linux 
+   read-only 
+   initrd=/initramfs 
+   initrd-size=8192
+```
 For the changes to take effect, the ybin command must be run each time the yaboot.conf file is modified.
 
 #### In-kernel config
@@ -253,7 +338,7 @@ After doing any of the above, update the environment so the changes will take ef
 `root #``env-update && source /etc/profile`
 ### Time and date
 
-Time, date, and timezone can be set using the timedatectl utility. That will also allow users to set up synchronization without needing to rely on [net-misc/ntp](https://packages.gentoo.org/packages/net-misc/ntp) or other providers than systemd's own implementation.
+Time, date, and timezone can be set using the timedatectl utility. That will also allow users to set up synchronization without needing to rely on [net-misc/chrony](https://packages.gentoo.org/packages/net-misc/chrony) or other providers than systemd's own implementation.
 
 To learn how to use timedatectl simply run:
 
@@ -266,6 +351,12 @@ Automatic module loading is configured in a different file, or rather directory 
 
 **Example file for the virtualbox modules**
 
+```
+vboxdrv
+vboxnetflt
+vboxnetadp
+vboxpci
+```
 ### Automatic mounting of partitions at boot
 
 Systemd is capable of automatically mounting various partitions to standardized location via `systemd-gpt-auto-generator`. This makes it possible to boot and automatically mount essential partitions without an [fstab](https://wiki.gentoo.org/wiki/Fstab) and without a `root=` paramter on the [kernel command line](https://wiki.gentoo.org/wiki/Kernel/Command-line_parameters). To use this capability, first systemd must be included in the [initramfs](https://wiki.gentoo.org/wiki/Initramfs), this is the case by default for initramfs images generated with [Dracut](https://wiki.gentoo.org/wiki/Dracut) on systems with systemd installed. And second, each partition must have the correct `Partition Type GUID`. A list of the most important GUIDs can be found in the `systemd-gpt-auto-generator` manual, the full list can be found on [wikipedia](https://en.wikipedia.org/wiki/GUID_Partition_Table#Partition_type_GUIDs).
@@ -338,7 +429,11 @@ Repeat the above steps for any additional partitions of which the `Partition Typ
 
 systemd is compatible with various [network management](https://wiki.gentoo.org/wiki/Network_management) tools.
 
+#### systemd-networkd
+
 See the [systemd/systemd-networkd](https://wiki.gentoo.org/wiki/Systemd/systemd-networkd) article for details on setting up a wired network on systemd systems.
+
+#### systemd-resolved
 
 See the [systemd/systemd-resolved](https://wiki.gentoo.org/wiki/Systemd/systemd-resolved) article for details on setting up address name resolution (DNS) on systemd systems.
 
@@ -739,6 +834,15 @@ Make sure that `CONFIG_DEBUG_KERNEL`, `CONFIG_SCHED_DEBUG`, and `CONFIG_SCHEDSTA
 
 **Enable systemd-bootchart support**
 
+```
+File systems  --->
+	Pseudo filesystems --->
+	[*] /proc file system support
+Kernel hacking  --->
+	[*] Kernel debugging
+	[*] Collect scheduler debugging info
+	[*] Collect scheduler statistics
+```
 Next, enable systemd-bootchart.service:
 
 `root #``systemctl enable systemd-bootchart`
@@ -753,6 +857,13 @@ There is *no need* to add `unix-dgram('/dev/log');` to the /etc/syslog-ng/syslog
 
 **`/etc/syslog-ng/syslog-ng.conf`**
 
+```
+# default config for openrc
+#source src { system(); internal(); };
+ 
+# systemd
+source src { systemd-journal(); internal(); };
+```
 ### sys-fs/cryptsetup configuration
 
 systemd does not seem to respect /etc/conf.d/dmcrypt (see [bug #429966](https://bugs.gentoo.org/show_bug.cgi?id=429966)) so it needs to be configured through the /etc/crypttab file:
@@ -761,6 +872,9 @@ systemd does not seem to respect /etc/conf.d/dmcrypt (see [bug #429966](https://
 
 **Configuration file for encrypted block devices**
 
+```
+crypt-home UUID=c25dd0f3-ecdd-420e-99a8-0ff2eaf3f391 -
+```
 Make sure to enable the `cryptsetup` USE flag for [sys-apps/systemd](https://packages.gentoo.org/packages/sys-apps/systemd). It will install /lib/systemd/system-generators/systemd-cryptsetup-generator that will automatically create a service (`cryptsetup@crypt-home.service` for above example) for each entry on boot.
 
 ### Check for units that failed to start
@@ -818,3 +932,9 @@ Many optional systemd binaries can be built by setting certain use flags. An inc
 - [Comparison of init systems](https://wiki.gentoo.org/wiki/Comparison_of_init_systems) — compares and contrasts **[init systems](https://wiki.gentoo.org/wiki/Init_system)** for Unix(like) [OSs](https://en.wikipedia.org/wiki/Operating_system)
 - [Hard dependencies on systemd](https://wiki.gentoo.org/wiki/Hard_dependencies_on_systemd) — a (possibly partial) list of packages in Gentoo's repository that unconditionally require [systemd]
 - [OpenRC to systemd Cheatsheet](https://wiki.gentoo.org/wiki/OpenRC_to_systemd_Cheatsheet) — list of commands commonly used in OpenRC and its equivalent systemd command.
+
+## External resources
+
+## References
+
+1. [↑](https://wiki.gentoo.org#cite_ref-1) [https://forums.gentoo.org/viewtopic-t-977530-postdays-0-postorder-asc-start-25.html](https://forums.gentoo.org/viewtopic-t-977530-postdays-0-postorder-asc-start-25.html) Retrieved on March 12th, 2016

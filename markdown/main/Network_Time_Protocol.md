@@ -4,16 +4,22 @@ title: Network Time Protocol
 url: https://wiki.gentoo.org/wiki/Network_Time_Protocol
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-02-20"
-fingerprint: f56d7f36e0892ad0
+date: "2026-10-07"
+fingerprint: d56d7f36e0882ac0
 license: CC BY-SA 4.0
 ---
 
 # Network Time Protocol
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
+
+*Not to be confused with[the ntp package](https://wiki.gentoo.org/wiki/Ntp).*
 
 The Network Time Protocol (NTP) is used to synchronize the [system time](https://wiki.gentoo.org/wiki/System_time) with other devices over the network. This  happens in a client-server model.
 
@@ -25,7 +31,6 @@ Following implementations of the Network Time Protocol are currently available:
 |---|---|---|
 | [chrony](https://wiki.gentoo.org/wiki/Chrony) | [net-misc/chrony](https://packages.gentoo.org/packages/net-misc/chrony) | Versatile implementation of the Network Time Protocol. | 
 | clockspeed | [net-misc/clockspeed](https://packages.gentoo.org/packages/net-misc/clockspeed) | Simple Network Time Protocol (NTP) client. | 
-| [ntp](https://wiki.gentoo.org/wiki/Ntp) | [net-misc/ntp](https://packages.gentoo.org/packages/net-misc/ntp) | Suite of tools utilizing Network Time Protocol. | 
 | ntpsec | [net-misc/ntpsec](https://packages.gentoo.org/packages/net-misc/ntpsec) | NTP reference implementation, refactored. | 
 | [openntpd](https://wiki.gentoo.org/wiki/Openntpd) | [net-misc/openntpd](https://packages.gentoo.org/packages/net-misc/openntpd) | Lightweight NTP server ported from OpenBSD. | 
 | sntpd | [net-misc/sntpd](https://packages.gentoo.org/packages/net-misc/sntpd) | NTP (RFC-1305 and RFC-4330) client and server for unix(like) systems. | 

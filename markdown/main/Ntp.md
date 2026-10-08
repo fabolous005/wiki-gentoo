@@ -4,8 +4,8 @@ title: ntp
 url: https://wiki.gentoo.org/wiki/Ntp
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-02-20"
-fingerprint: d7289559700428e3
+date: "2026-10-07"
+fingerprint: d5289559f00028e3
 license: CC BY-SA 4.0
 ---
 
@@ -16,12 +16,39 @@ license: CC BY-SA 4.0
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
 
+*Not to be confused with[Network Time Protocol - see the NTP meta article](https://wiki.gentoo.org/wiki/Network_Time_Protocol).*
+
+**Archived article**
+
+This article is
+
+**archived (obsolete)**. Contents are surely incorrect for current usage, and are intended for historical reference only.
+
+*Page archived as of**2026-10-07**.*
+
+[net-misc/ntp](https://packages.gentoo.org/packages/net-misc/ntp)is planned for removal from Gentoo on 2027-01-04 -
+
+[bug #962880](https://bugs.gentoo.org/show_bug.cgi?id=962880). Please see
+
+[Network Time Protocol](https://wiki.gentoo.org/wiki/Network_Time_Protocol)for a list of alternatives.
+
+TLDR:
+
+**Do not use this article!**
+
+
+
 [net-misc/ntp](https://packages.gentoo.org/packages/net-misc/ntp) is a suite of tools utilizing [Network Time Protocol](https://wiki.gentoo.org/wiki/Network_Time_Protocol). Their purpose is to keep the system clock in time.
 
 ## Installation
 
 ### USE flags
 
+
+### USE flags for
+            [net-misc/ntp](https://packages.gentoo.org/packages/net-misc/ntp)
+            
+            Network Time Protocol suite/programs
 
 | [+threads](https://packages.gentoo.org/useflags/+threads) | Add threads support for various packages. Usually pthreads | 
 | [caps](https://packages.gentoo.org/useflags/caps) | Use Linux capabilities library to control privilege | 
@@ -90,6 +117,12 @@ In /etc/ntp.conf the servers that will be used to synchronize the local time for
 
 **`/etc/ntp.conf`**
 
+```
+server 0.gentoo.pool.ntp.org
+server 1.gentoo.pool.ntp.org
+server 2.gentoo.pool.ntp.org
+server 3.gentoo.pool.ntp.org
+```
 By default the configuration uses the Gentoo NTP servers. A list of available servers can be found on [ntp.org](http://www.pool.ntp.org/en/#top). A private server can also be used.
 
 #### Network not always available?
@@ -98,12 +131,19 @@ On systems where a network connection is not always available at boot (laptops, 
 
 **`/etc/ntp.conf`**
 
+```
+server 127.127.1.0
+fudge  127.127.1.0 stratum 10
+```
 This sets localhost as a server with low priority, so that the ntp daemon will start properly even without a network connection and will switch to using network servers when a network connection has been (re)established.
 
 #### Solving "Exiting, name server cannot be used: Temporary failure in name resolution (-3) \* Failed to set clock"
 
 **`/etc/local.d/ntp.start`**
 
+```
+(sleep 15; ntpdate -b -u 0.gentoo.pool.ntp.org > /dev/null)&
+```
 Make this file executable by **chmod +x ntp.start**
 
 Explanation:
@@ -128,14 +168,30 @@ To prevent the  server from being used in [Denial of Service attacks](https://ww
 
 **`/etc/ntp.conf`**
 
+```
+# Default configuration:
+# - Allow only time queries, at a limited rate, sending KoD when in excess.
+restrict default nomodify nopeer noquery limited kod
+restrict 127.0.0.1
+```
 Access to NTP service allowed only from the 192.0.2.0/24 network:
 
 **`/etc/ntp.conf`**
 
+```
+# To allow machines within the local network to synchronize
+# their clocks with this server, but ensure they are
+# not allowed to configure the server or used as peers
+# to synchronize against
+restrict 192.0.2.0 mask 255.255.255.0 nomodify nopeer notrap
+```
 To deny access to monlist functionality, used for querying traffic stats, but which may also be exploited in a [Denial of Service attack](https://en.wikipedia.org/wiki/Denial-of-service_attack):
 
 **`/etc/ntp.conf`**
 
+```
+disable monitor
+```
 #### Usage
 
 ##### OpenRC

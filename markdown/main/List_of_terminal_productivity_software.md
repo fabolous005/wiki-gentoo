@@ -4,7 +4,7 @@ title: List of terminal productivity software
 url: https://wiki.gentoo.org/wiki/List_of_terminal_productivity_software
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-08-28"
+date: "2026-10-07"
 fingerprint: "54db4f5a40ac2bb8"
 license: CC BY-SA 4.0
 ---
@@ -95,7 +95,7 @@ If you have the skills to maintain ebuilds and want to see Gentoo support more t
 
 | Name | Package | Description | 
 |---|---|---|
-| iamb | [net-im/iamb::guru](https://github.com/gentoo-mirror/guru/tree/master/net-im/iamb) | A [Matrix](<https://en.wikipedia.org/wiki/Matrix_(protocol)>) client for the terminal that uses Vim keybindings. | 
+| [iamb](https://wiki.gentoo.org/wiki/Iamb) | [net-im/iamb::guru](https://github.com/gentoo-mirror/guru/tree/master/net-im/iamb) | A [Matrix](<https://en.wikipedia.org/wiki/Matrix_(protocol)>) client for the terminal that uses Vim keybindings. | 
 | [irssi](https://wiki.gentoo.org/wiki/Irssi) | [net-irc/irssi](https://packages.gentoo.org/packages/net-irc/irssi) | A modular highly scriptable terminal-based IRC client with a long history. | 
 | Profanity | [net-im/profanity](https://packages.gentoo.org/packages/net-im/profanity) | A ncurses-based [XMPP](https://wiki.gentoo.org/wiki/XMPP) client inspired by irssi. | 
 | signal-cli-bin | [net-im/signal-cli-bin](https://packages.gentoo.org/packages/net-im/signal-cli-bin) | Send and receive SMS-like end-to-end encrypted messages over the Signal network. | 

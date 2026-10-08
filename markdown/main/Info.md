@@ -4,7 +4,7 @@ title: Info
 url: https://wiki.gentoo.org/wiki/Info
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-07-28"
+date: "2026-10-07"
 fingerprint: "8c08bb212aa57994"
 license: CC BY-SA 4.0
 ---
@@ -14,11 +14,6 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
-
-**Resources**
-
-- Rework to be less verbose.
-- etc.
 
 ![](https://wiki.gentoo.org/images/thumb/a/ab/Pinfo.png/300px-Pinfo.png)
 
@@ -32,9 +27,13 @@ It is a real advantage to have documentation present on a system in a standardiz
 
 ## Installation
 
-
 ### USE flags
 
+
+### USE flags for
+            [sys-apps/texinfo](https://packages.gentoo.org/packages/sys-apps/texinfo)
+            
+            The GNU info program and utilities
 
 | [+standalone](https://packages.gentoo.org/useflags/+standalone) | Build standalone version that survives all Portage bugs | 
 | [nls](https://packages.gentoo.org/useflags/nls) | Add Native Language Support (using gettext - GNU locale utilities) | 
@@ -51,6 +50,11 @@ Install [sys-apps/texinfo](https://packages.gentoo.org/packages/sys-apps/texinfo
 `root #``emerge --ask sys-apps/texinfo`
 ### Pinfo
 
+
+### USE flags for
+            [app-text/pinfo](https://packages.gentoo.org/packages/app-text/pinfo)
+            
+            Hypertext info and man viewer based on (n)curses
 
 pinfo ([app-text/pinfo](https://packages.gentoo.org/packages/app-text/pinfo)) is a colorized alternative to the info viewer, with enhanced browsing facilities. If desired, this could be installed instead of or in parallel to [sys-apps/texinfo](https://packages.gentoo.org/packages/sys-apps/texinfo) (in which case substitute pinfo for info when following the rest of this document):
 
@@ -166,7 +170,6 @@ The /usr/share/info/dir file is used when info is run with no parameters. It con
 
 In order to make things easier for those that wish to browse info pages through a more friendly graphical interface, the following tools are available:
 
-- [app-text/info2html](https://packages.gentoo.org/packages/app-text/info2html) - Convert info pages to a browse-able HTML format
 - [app-text/pinfo](https://packages.gentoo.org/packages/app-text/pinfo) - ncurses based info viewer
 - [app-text/tkinfo](https://packages.gentoo.org/packages/app-text/tkinfo) - A tcl/tk based info browser
 - [app-vim/info](https://packages.gentoo.org/packages/app-vim/info) - A vim based info browser
@@ -175,12 +178,9 @@ The KDE browser Konqueror also allows users to browse info pages through the `in
 
 ## Additional documentation
 
-- The info command can be used to view its own documentation:
+- The info command can be used to view its own documentation available at info info.
+- There is also documentation available in the man page [info(1)](https://man.archlinux.org/man/info.1.en)
 
-`user $``info info`
-- There is also documentation available in the man pages:
-
-`user $``man info`
 ## See also
 
 - [Man page](https://wiki.gentoo.org/wiki/Man_page) — contains system reference documentation. It is found on most Unix-like systems.

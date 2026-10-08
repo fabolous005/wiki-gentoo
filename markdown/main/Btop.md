@@ -4,8 +4,8 @@ title: btop
 url: https://wiki.gentoo.org/wiki/Btop
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-06-13"
-fingerprint: bea757620c39d9f1
+date: "2026-10-07"
+fingerprint: bfa7576a0c3bd9b1
 license: CC BY-SA 4.0
 ---
 
@@ -46,6 +46,20 @@ optional arguments:
   --debug               start in DEBUG mode: shows microsecond timer for information collect
                         and screen draw functions and sets loglevel to DEBUG
 ```
+## Configuration
+
+All of the configuration files are stored in $XDG\_CONFIG\_HOME/btop or $HOME/.config/btop.
+
+**`~/.config/btop/btop.conf`**
+
+```
+color_theme = "Default"
+theme_background = True
+truecolor = True
+...
+```
+The config file should be automatically generated when not found.
+
 ## GPU monitoring
 
 ### Intel GPU

@@ -4,7 +4,7 @@ title: qemu-img
 url: https://wiki.gentoo.org/wiki/Qemu-img
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-02"
+date: "2026-10-07"
 fingerprint: "5170f751cf08982"
 license: CC BY-SA 4.0
 ---
@@ -138,7 +138,7 @@ A list of all environment variables that are read and checked by the qemu-img co
 
 ### Files
 
-qemu-img does not use a configuration file such as /etc/qemu-img.cfg or \~/.qemu-img.
+qemu-img does not use a configuration file such as /etc/qemu-img.cfg nor \~/.qemu-img.
 
 Files that may be read by the host operating system or accessed by qemu-img include:
 

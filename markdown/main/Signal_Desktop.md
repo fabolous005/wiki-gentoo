@@ -4,7 +4,7 @@ title: Signal Desktop
 url: https://wiki.gentoo.org/wiki/Signal_Desktop
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-08-05"
+date: "2026-10-07"
 fingerprint: b22ef49e2771d1dc
 license: CC BY-SA 4.0
 ---
@@ -21,6 +21,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [net-im/signal-desktop-bin](https://packages.gentoo.org/packages/net-im/signal-desktop-bin)
+            
+            Allows you to send and receive messages of Signal Messenger on your computer
 
 ### Emerge
 
@@ -60,6 +65,11 @@ If selecting the "Add attachment" icon (the 'paperclip' icon) has no effect, and
 
 **`~/$XDG_CONFIG_DIR/xdg-desktop-portal/portals.conf`**
 
+```
+[preferred]
+default=wlr;gtk;gnome
+org.freedesktop.impl.portal.FileChooser=gtk
+```
 ## Removal
 
 Deselect Signal Desktop by issuing:

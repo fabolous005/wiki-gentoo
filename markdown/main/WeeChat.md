@@ -4,8 +4,8 @@ title: WeeChat
 url: https://wiki.gentoo.org/wiki/WeeChat
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2024-12-13"
-fingerprint: "3550fd1008aa7955"
+date: "2026-10-07"
+fingerprint: "3570fd1808aa7855"
 license: CC BY-SA 4.0
 ---
 
@@ -21,6 +21,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [net-irc/weechat](https://packages.gentoo.org/packages/net-irc/weechat)
+            
+            Portable and multi-interface IRC client
 
 | [+alias](https://packages.gentoo.org/useflags/+alias) | Enable plugin for alias control | 
 | [+buflist](https://packages.gentoo.org/useflags/+buflist) | Enable buflist plugin | 
@@ -197,10 +202,10 @@ The [part](https://weechat.org/files/doc/stable/weechat_user.en.html#option_irc.
 Alternatively, these messages can be nullified in order to not share any information when leaving a channel or disconnecting from a network:
 
 ```
-/set irc.server_default.msg_part "Ciao!"
+/set irc.server_default.msg_part ""
 ```
 ```
-/set irc.server_default.msg_quit "Connection severed."
+/set irc.server_default.msg_quit ""
 ```
 ### Relay
 

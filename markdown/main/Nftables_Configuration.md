@@ -4,12 +4,14 @@ title: Nftables/Configuration
 url: https://wiki.gentoo.org/wiki/Nftables/Configuration
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-09-30"
-fingerprint: d53af3d18b03a1ab
+date: "2026-10-07"
+fingerprint: d53af3d54b03a7ab
 license: CC BY-SA 4.0
 ---
 
 # Nftables/Configuration
+
+[Nftables](https://wiki.gentoo.org/wiki/Nftables)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -55,11 +57,7 @@ The main.nft file is used on this page as the administrator-maintained nft comma
 
 ## OpenRC
 
-Gentoo's [net-firewall/nftables](https://packages.gentoo.org/packages/net-firewall/nftables) package provides an OpenRC service.
-
-OpenRC supports both the **Direct File** and **Saved State** administrative models.
-
-
+OpenRC supports both the **Direct File** and **Saved State** administrative models. Gentoo's [net-firewall/nftables](https://packages.gentoo.org/packages/net-firewall/nftables) package provides an OpenRC service.
 
 ### Files
 
@@ -69,8 +67,6 @@ OpenRC supports both the **Direct File** and **Saved State** administrative mode
 | /var/lib/nftables/rules-save | Persistent nftables ruleset. Created or updated by /etc/init.d/nftables save. Loaded at boot by /etc/init.d/nftables start or manually by /etc/init.d/nftables reload. Path specified by NFTABLES\_SAVE= in /etc/conf.d/nftables | 
 | /etc/init.d/nftables | OpenRC service script for loading and saving the persistent **nftables** ruleset. | 
 | /etc/conf.d/nftables | OpenRC configuration for nftables. NFTABLES\_SAVE= specifies the persistent ruleset file. Used by /etc/init.d/nftables | 
-
-
 
 ### Services
 
@@ -85,6 +81,15 @@ Update the quoted filepath in NFTABLES\_SAVE key in nftables init configuration 
 
 **nftables OpenRC init service configuration file**
 
+```
+# /etc/conf.d/nftables
+...
+# Location in which nftables initscript will save set rules on 
+# service shutdown
+# NFTABLES_SAVE="/var/lib/nftables/rules-save"
+NFTABLES_SAVE="/etc/nftables/nftables.nft"
+...
+```
 
 Test the command file:
 
@@ -267,6 +272,10 @@ To save the current state of live nftables into its saved state file at /etc/ini
 
 **Nftables init configuration for OpenRC**
 
+```
+# Save state on stopping nftables
+SAVE_ON_STOP="yes"
+```
 This will save its current ruleset to re-use at next boot.
 
 
@@ -305,6 +314,9 @@ Add or change rc\_use= value to "logger"
 
 **nftables OpenRC configuration file**
 
+```
+rc_use="logger"
+```
 
 Next, update OpenRC:
 
@@ -327,6 +339,14 @@ Flushing an entire ruleset before loading a new one:
 
 **nftables OpenRC init service configuration file**
 
+```
+### Editing /etc/systemd/system/nftables.service.d/override.conf
+### Anything between here and the comment below will become the contents of the drop-in file
+[Service]
+ExecStart=/sbin/nft 'flush ruleset; include "/etc/nftables/nftables.nft"'
+ExecReload=/sbin/nft 'flush ruleset; include "/etc/nftables/rules/main.nft"'
+### Edits below this comment will be discarded
+```
 
 Reload the new service file to accept the change:
 
@@ -346,6 +366,14 @@ Other network engineers want to selective flush their own rules.
 
 **nftables OpenRC init service configuration file**
 
+```
+### Editing /etc/systemd/system/nftables.service.d/override.conf
+### Anything between here and the comment below will become the contents of the drop-in file
+[Service]
+ExecStart=/sbin/nft -f /etc/nftables/nftables.nft
+ExecReload=/sbin/nft -f /etc/nftables/nftables.nft
+### Edits below this comment will be discarded
+```
 
 Reload the new service file to accept the change:
 
@@ -374,6 +402,15 @@ Insert or clone in \[Service\] and both ExecStart= and ExecReload= with your new
 
 **nftables systemd init service configuration file**
 
+```
+### Editing /etc/systemd/system/nftables.service.d/override.conf
+### Anything between here and the comment below will become the contents of the drop-in file
+[Service]
+ExecStart=/sbin/nft -f /etc/nftables/nftables.nft
+ExecReload=/sbin/nft -f /etc/nftables/nftables.nft
+ExecStop=/sbin/nft -f /etc/nftables/panic-block-hard.nft
+### Edits below this comment will be discarded
+```
 
 Reload the new service file:
 
@@ -408,6 +445,12 @@ The include command keyword includes that other command file.
 
 **Main nftables command file**
 
+```
+#!/sbin/nft -f
+include "/etc/nftables/rules/file1.nft"
+include "/etc/nftables/rules/file2.nft"
+include "/etc/nftables/rules/file3.nft"
+```
 
 
 #### Organize by single-flow
@@ -416,12 +459,26 @@ The include command keyword includes that other command file.
 
 **Main nftables command file - Single flow**
 
+```
+#!/sbin/nft -f
+include "/etc/nftables/rules/inet-ingress.nft"
+include "/etc/nftables/rules/inet-input.nft"
+include "/etc/nftables/rules/inet-forward.nft"
+include "/etc/nftables/rules/inet-output.nft"
+include "/etc/nftables/rules/inet-egress.nft"
+```
 #### Organize by functional flow
 
 **`/etc/nftables/rules/main.nft`**
 
 **Main nftables command file - by functional flow**
 
+```
+#!/sbin/nft -f
+include "/etc/nftables/rules/inbound-ssh.nft"
+include "/etc/nftables/rules/forward-proxy.nft"
+include "/etc/nftables/rules/outbound-dns-query.nft"
+```
 #### Directory pickup
 
 Use a glob pattern such as "\*.nft" to include multiple nftables command files from a directory.
@@ -430,6 +487,11 @@ Use a glob pattern such as "\*.nft" to include multiple nftables command files f
 
 **Main nftables command file - Directory Read All**
 
+```
+#!/sbin/nft -f
+# Read all command files in a single directory
+include "/etc/nftables/rules.d/*.nft"
+```
 
 
 Matching files are loaded in C-locale collation lexicographic order.

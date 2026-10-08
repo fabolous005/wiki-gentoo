@@ -4,8 +4,8 @@ title: Firefox/troubleshooting
 url: https://wiki.gentoo.org/wiki/Firefox/troubleshooting
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-06"
-fingerprint: "8f0cd1d72dc7bbc6"
+date: "2026-10-07"
+fingerprint: "8f4cd1d72d4fbbe6"
 license: CC BY-SA 4.0
 ---
 
@@ -164,36 +164,42 @@ In **about:config** try to toggle **media.rdd-process.enabled** (default is true
 
 ## Audio
 
-### Lack of sound (www-client/firefox-bin)
+### General
 
-[www-client/firefox-bin](https://packages.gentoo.org/packages/www-client/firefox-bin) expects [PulseAudio](https://wiki.gentoo.org/wiki/PulseAudio). [ALSA](https://wiki.gentoo.org/wiki/ALSA)-only systems might work around this limitation by using [media-sound/apulse](https://packages.gentoo.org/packages/media-sound/apulse). For this to work, modify Firefox sandbox settings by going to `about:config` and adding /dev/snd/ (note the trailing slash) to the `security.sandbox.content.write_path_whitelist` option.
-
-If storing ALSA settings in $HOME, also, be sure to add $HOME/.asoundrc to the `security.sandbox.content.write_path_whitelist` option. Whitelist path could be separated by comma.
-
-Since around Firefox 58 there is additional modification needed to work around seccomp sandbox: `security.sandbox.content.syscall_whitelist = 16` It is now possible to go ahead and create alias for running Firefox through apulse:
-
-`user $``alias firefox='apulse firefox-bin'`
-### Lack of sound when using PipeWire (www-client/firefox)
-
-**Problem:** System sound is working properly, but Firefox itself is unable to provide sound playback.
-
-**Cause:** The [www-client/firefox](https://packages.gentoo.org/packages/www-client/firefox) package has support for three audio backends: ALSA, JACK and PulseAudio. With [PipeWire](https://wiki.gentoo.org/wiki/PipeWire) becoming the standard audio backend on Linux, support for ALSA (via the `alsa` USE flag) or PulseAudio (via the `pulseaudio` USE flag) may not be enabled by the target [desktop profile](<https://wiki.gentoo.org/wiki/Profile_(Portage)>). The default audio backend for Firefox can be checked under `about:support#media` under **Audio Backend**:
-
-![](https://wiki.gentoo.org/images/thumb/9/9d/Firefox_audio_backend_screenshot.png/300px-Firefox_audio_backend_screenshot.png)
-
-**Solution:** Enable the `pulseaudio` USE flag for Firefox and then recompile Firefox. Be sure to follow the steps detailed in the [PipeWire article](https://wiki.gentoo.org/wiki/PipeWire#USE_flags) to setup pipewire-alsa.
-
-### Sound crackling when using Pipewire or JACK (www-client/firefox)
-
-**Problem:** System sound is crackling.
-
-**Cause:** The [www-client/firefox](https://packages.gentoo.org/packages/www-client/firefox) package has support for two audio backends: JACK and PulseAudio. When using Pipewire, see [Arch Linux forum post on the issue](https://bbs.archlinux.org/viewtopic.php?id=280654). When using JACK, in the Configure dialog of [media-sound/qjackctl](https://packages.gentoo.org/packages/media-sound/qjackctl) or [media-sound/cadence](https://packages.gentoo.org/packages/media-sound/cadence), to set **Buffer Size: 1024** and **Periods/Buffer: 8** works fine for me.
-
-### Speech dispatcher library missing
+#### Speech dispatcher library missing
 
 Some webpages may result in Firefox giving a notice that "You can’t use speech synthesis because the Speech Dispatcher library is missing.”<sup>[\[5\]](https://wiki.gentoo.org#cite_note-5)</sup> To fix this,
 
 `root #``emerge --ask app-accessibility/speech-dispatcher`
+### www-client/firefox-bin
+
+#### Lack of sound
+
+[www-client/firefox-bin](https://packages.gentoo.org/packages/www-client/firefox-bin) expects [PulseAudio](https://wiki.gentoo.org/wiki/PulseAudio). [ALSA](https://wiki.gentoo.org/wiki/ALSA)-only systems might work around this by using [apulse](https://wiki.gentoo.org/wiki/Apulse). For this to work, modify Firefox sandbox settings by going to about:config and adding /dev/snd/ (note the trailing slash) to the `security.sandbox.content.write_path_whitelist` option.
+
+If storing ALSA settings in $HOME, be sure to add $HOME/.asoundrc to the `security.sandbox.content.write_path_whitelist` option. Paths in the whitelist path can be separated by commas.
+
+Since around Firefox 58 there is additional modification needed to work around the seccomp sandbox: `security.sandbox.content.syscall_whitelist = 16`.
+
+Once the relevant configuration is in place, create an alias for running Firefox via apulse:
+
+`user $``alias firefox='apulse firefox-bin'`
+### www-client/firefox
+
+#### Lack of sound when using PipeWire
+
+Firefox supports [multiple audio backends](https://github.com/mozilla/cubeb#supported-backends--status), via the [cubeb](https://github.com/mozilla/cubeb) library. The audio backend being used by Firefox can be checked via about:support#media, under "Audio Backend":
+
+![](https://wiki.gentoo.org/images/thumb/9/9d/Firefox_audio_backend_screenshot.png/300px-Firefox_audio_backend_screenshot.png)
+
+The main audio backend for Firefox on Linux is the [Rust](https://wiki.gentoo.org/wiki/Rust)-based [PulseAudio](https://wiki.gentoo.org/wiki/PulseAudio) backend, `pulse-rust`. When this backend is in use, PipeWire users need to ensure that the `pipewire-pulse` service is enabled and active. Refer to [the "User services" section of the "PipeWire" page](https://wiki.gentoo.org/wiki/PipeWire#User_services) for more information.
+
+#### Crackling when using PipeWire or JACK
+
+When using PipeWire, refer to [this Arch Linux forum post on the issue](https://bbs.archlinux.org/viewtopic.php?id=280654).
+
+When using JACK, in the "Configure" dialog of [media-sound/qjackctl](https://packages.gentoo.org/packages/media-sound/qjackctl) or [media-sound/cadence](https://packages.gentoo.org/packages/media-sound/cadence), set `Buffer Size` to `1024` and and `Periods/Buffer` to `8`.
+
 ## Crashes
 
 If Firefox crashes for no apparent reason every few minutes with an error message like `ABORT: X_GLXDestroyContext: GLXBadContext; 15 requests ago` it might help to add the Firefox user(s) to the video group:
