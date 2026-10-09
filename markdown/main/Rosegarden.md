@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Rosegarden
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-02-13"
-fingerprint: dec0731941a77ebc
+fingerprint: de807319c9a77cbe
 license: CC BY-SA 4.0
 ---
 
@@ -37,6 +37,9 @@ Each of the above kernel configuration options can instead be built as a module 
 
 **`sequencer.conf`**
 
+```
+snd-seq-midi
+```
 ### Software synth
 
 Install a software synth that can be used by Rosegarden. [Qsynth](https://wiki.gentoo.org/wiki/Qsynth) ([media-sound/qsynth](https://packages.gentoo.org/packages/media-sound/qsynth)) is a [Qt](https://wiki.gentoo.org/wiki/Qt) GUI frontend to [FluidSynth](https://wiki.gentoo.org/wiki/FluidSynth) ([media-sound/fluidsynth](https://packages.gentoo.org/packages/media-sound/fluidsynth)).
@@ -65,6 +68,6 @@ See the [TiMidity++ article section on converting MIDI to mp3](https://wiki.gent
 
 ## See also
 
-- [JACK](https://wiki.gentoo.org/wiki/JACK) — describes the setup of a playing sound with **JACK** (**J**ACK **A**udio **C**onnection **K**it).
+- [JACK](https://wiki.gentoo.org/wiki/JACK) — a sound server for professional audio production that provides low-latency communication for applications that implement the JACK API
 - [MIDI](https://wiki.gentoo.org/wiki/MIDI) — a set of technical specifications that enable devices to interoperate in order to work with a digital representation of music
 - [PipeWire](https://wiki.gentoo.org/wiki/PipeWire) — low-latency, graph-based, processing engine and server, for interfacing with audio and video devices.

@@ -15,6 +15,10 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+[checking over the content](https://wiki.gentoo.org/index.php?title=MIDI_controller_guide&action=edit)(
+
+[how to get started](https://wiki.gentoo.org/wiki/Gentoo_Wiki:Contributor%27s_guide)).
+
 **MIDI controllers** include a vast assortment of musical equipment including keyboards, pads, pot/fader controls and much more.
 
 These devices can be connected to a computer (e.g. via [USB](https://wiki.gentoo.org/wiki/USB)) to trigger and control sound and video for live performances, recording, etc.

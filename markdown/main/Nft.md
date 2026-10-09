@@ -4,7 +4,7 @@ title: Nft
 url: https://wiki.gentoo.org/wiki/Nft
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-09-29"
+date: "2026-10-08"
 fingerprint: b51ff559c705837f
 license: CC BY-SA 4.0
 ---
@@ -23,10 +23,10 @@ license: CC BY-SA 4.0
 
 **nft** reads nftables from the command line, a file, or standard input.
 
-See [Nftables](https://wiki.gentoo.org/wiki/Nftables) for nftables file content and handling.
-See [Nftables/Configuration service](https://wiki.gentoo.org/wiki/Nftables/Configuration#Service) for Gentoo service configuration (OpenRC/systemd/sysvinit).
-
 ## Usage
+
+To install **nft**, see [Nftables installation](https://wiki.gentoo.org/wiki/Nftables#Installation).
+See [Nftables/Configuration service](https://wiki.gentoo.org/wiki/Nftables/Configuration#Service) for Gentoo service configuration (OpenRC/systemd/sysvinit).
 
 ### Invocation
 

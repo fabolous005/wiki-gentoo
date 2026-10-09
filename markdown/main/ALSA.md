@@ -522,7 +522,7 @@ Refer to the [ALSA/troubleshooting](https://wiki.gentoo.org/wiki/ALSA/troublesho
 - [Power management/Soundcard](https://wiki.gentoo.org/wiki/Power_management/Soundcard) — describes the setup of [power management](https://wiki.gentoo.org/wiki/Power_management) of [sound devices](https://wiki.gentoo.org/wiki/Category:Sound_devices).
 - [PipeWire](https://wiki.gentoo.org/wiki/PipeWire) — low-latency, graph-based, processing engine and server, for interfacing with audio and video devices.
 - [PulseAudio](https://wiki.gentoo.org/wiki/PulseAudio) — a multi-platform, open source, *sound server* that provides a number of features on top of the low-level audio interface [ALSA]
-- [JACK](https://wiki.gentoo.org/wiki/JACK) — describes the setup of a playing sound with **JACK** (**J**ACK **A**udio **C**onnection **K**it).
+- [JACK](https://wiki.gentoo.org/wiki/JACK) — a sound server for professional audio production that provides low-latency communication for applications that implement the JACK API
 
 
 ## External resources

@@ -11,6 +11,8 @@ license: CC BY-SA 4.0
 
 # PipeWire/extra
 
+[PipeWire](https://wiki.gentoo.org/wiki/PipeWire)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)

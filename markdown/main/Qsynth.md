@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Qsynth
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-02-13"
-fingerprint: c739d5900c359c2b
+fingerprint: c73bd5904c359c3b
 license: CC BY-SA 4.0
 ---
 
 # Qsynth
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

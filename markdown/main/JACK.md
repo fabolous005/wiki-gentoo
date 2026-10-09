@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/JACK
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-03-08"
-fingerprint: fe48955878227d17
+fingerprint: fe481d58f8a27d17
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,10 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+[checking over the content](https://wiki.gentoo.org/index.php?title=JACK&action=edit)(
+
+[how to get started](https://wiki.gentoo.org/wiki/Gentoo_Wiki:Contributor%27s_guide)).
 
 JACK, **J**ACK **A**udio **C**onnection **Kit**, is a sound server for professional audio production that provides low-latency communication for applications that implement the JACK API, such as [Ardour](https://wiki.gentoo.org/wiki/Ardour) and [mpv](https://wiki.gentoo.org/wiki/Mpv).
 
@@ -45,6 +49,11 @@ JACK is the original implementation, it uses a C API and has built-in Linux MIDI
 
 ### USE flags
 
+
+### USE flags for
+            [media-sound/jack2](https://packages.gentoo.org/packages/media-sound/jack2)
+            
+            Jackdmp jack implemention for multi-processor machine
 
 | [+alsa](https://packages.gentoo.org/useflags/+alsa) | Add support for media-libs/alsa-lib (Advanced Linux Sound Architecture) | 
 | [+classic](https://packages.gentoo.org/useflags/+classic) | Enable building of jackd | 
@@ -99,6 +108,8 @@ JACK can be configured using the jack\_control utility. A basic configuration sc
 To determine the appropriate playback device (instead of hw:2,0):
 
 `user $``aplay -l`
+### Bridging
+
 JACK can route sound which was sent to other sound systems like [PulseAudio](https://wiki.gentoo.org/wiki/PulseAudio)<sup>[\[2\]](https://wiki.gentoo.org#cite_note-2)</sup> and [ALSA](https://wiki.gentoo.org/wiki/ALSA) through itself.
 
 #### ALSA
@@ -115,12 +126,24 @@ The snd-aloop is the Loopback virtual sound card. This will be used as the defau
 
 Activate the following kernel options:
 
+```
+Device Drivers --->
+    <M> Sound card support
+        <M> Advanced Linux Sound Architecture --->
+            <*> Generic Sound Devices --->
+                <M> Generic loopback driver (PCM)
+```
 To configure the Loopback as the default ALSA sound card, we need to create the file /etc/modprobe.d/alsa.conf. Example with several sound cards, it's probably an overkill due to the evolution of the default ALSA configuration, but it has been working from years on several computers with very minor changes. It can also be used in other cases when the computer have several sound cards and a constancy order between reboot is a must.
 
 Sound card 0 is the Loopback virtual device, sound card 1 and 2 are the built-in audio card which have 2 devices, one being the HDMI, sound card 3 is for an USB card.
 
 **`/etc/modprobe.d/alsa.conf`**
 
+```
+# Alsa kernel modules' configuration file.
+options snd slots=snd-aloop,snd-hda-intel,snd-hda-intel,snd-usb-audio
+options snd-hda-intel index=1,2 model=1002:1637,1022:15e3
+```
 The cards index start from 0. For more details about that file, see [Alsa Opensrc Org support page for multiple sound cards configuration](https://alsa.opensrc.org/MultipleCards).
 
 To get the model strings, use lspci (or lsusb for USB cards):
@@ -139,12 +162,20 @@ We instruct the kernel to load the virtual sound card:
 
 **`/etc/modules-load.d/alsa.conf`**
 
+```
+snd-aloop
+```
 ###### Jack ALSA plugin
 
 The jack ALSA plugin provide a better and more elegant solution than the previous ones like the zita-ajbridge (see [Using an ALSA Loopback device and zita-ajbridge](https://web.archive.org/web/20220314041206/https://proaudio.tuxfamily.org/wiki/index.php?title=DAW_Digital_Audio_Workstation#Using_an_ALSA_Loopback_device_and_zita-ajbridge) on the ProAudio Gentoo overlay wiki - the author of zita-ajbridge will maybe disagree on that...).
 
 Installation:
 
+
+### USE flags for
+            [media-plugins/alsa-plugins](https://packages.gentoo.org/packages/media-plugins/alsa-plugins)
+            
+            ALSA extra plugins
 
 | [+mix](https://packages.gentoo.org/useflags/+mix) | Enables upmix and vdownmix plugin | 
 | [+usb_stream](https://packages.gentoo.org/useflags/+usb_stream) | Enables usb\_stream plugin | 
@@ -165,6 +196,29 @@ Configuration:
 
 **`~/.asoundrc`**
 
+```
+pcm.!default {
+    type plug
+    slave { pcm "jack" }
+}
+ 
+pcm.jack {
+    type jack
+    playback_ports {
+        0 system:playback_1
+        1 system:playback_2
+    }
+    capture_ports {
+        0 system:capture_1
+        1 system:capture_2
+    }
+}
+ 
+ctl.mixer0 {
+    type hw
+    card 0
+}
+```
 That file is necessary when using qjackctl or the command line to manage the JACK server. Cadence will manage it for You: On its `System` tab, select `Bridge Type: ALSA -> Jack (Plugin)`.
 
 Now, You can configure JACK to use the wanted and real sound card as usual, and all the ALSA applications will be available as per magic into the JACK graph.

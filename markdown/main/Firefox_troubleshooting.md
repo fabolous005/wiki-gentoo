@@ -4,8 +4,8 @@ title: Firefox/troubleshooting
 url: https://wiki.gentoo.org/wiki/Firefox/troubleshooting
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-07"
-fingerprint: "8f4cd1d72d4fbbe6"
+date: "2026-10-08"
+fingerprint: cf4cd1d72d4fbbe6
 license: CC BY-SA 4.0
 ---
 
@@ -101,11 +101,13 @@ Some ways of testing whether a profile is the source of a problem include:
 
 ## Video and graphics
 
-### Green video screen (YouTube)
+### General
+
+#### Green video screen (YouTube)
 
 If disabling (graphics) acceleration in settings does not work, disabling the equivalent options under `about:config` like `layers.acceleration.force-enabled` (85.0) might.
 
-### Screen tearing / stuttering smooth scrolling
+#### Screen tearing / stuttering smooth scrolling
 
 Build [www-client/firefox](https://packages.gentoo.org/packages/www-client/firefox) with the `hwaccel` *USE* flag , then check the **Compositing** value of the `about:support#graphics` table for WebRender.
 
@@ -115,52 +117,59 @@ Systems with [Wayland](https://wiki.gentoo.org/wiki/Wayland) support should not 
 
 If WebRender is enabled, then the problem could be with the video drivers. For example about [Intel](https://wiki.gentoo.org/wiki/Intel#Screen_tearing).
 
-### gtk+:3 pulls in D-Bus
+#### gtk+:3 pulls in D-Bus
 
 Since version ≥53.0, Firefox has dropped [gtk+](https://wiki.gentoo.org/wiki/GTK):2 support urging [Larry](https://wiki.gentoo.org/wiki/Larry_the_cow) to use gtk+:3. This, however, by default, pulls-in dependencies like [D-Bus](https://wiki.gentoo.org/wiki/D-Bus) unconditionally. This can be avoided by using a [patch from BSD](https://forums.gentoo.org/viewtopic-t-1060964-start-38-highlight-BSD%20maintain%20a%20patch.html) available in [bug #669234](https://bugs.gentoo.org/show_bug.cgi?id=669234) or the [mv overlay](https://github.com/gentoo-mirror/mv/tree/master/x11-libs/gtk%2B).
 
 Please note that, when running Firefox under native Wayland (i.e. not using XWayland), [Firefox will implicitly try to use D-Bus to enable its remote control feature](https://utcc.utoronto.ca/~cks/space/blog/unix/FirefoxDBusRemoteControl) and crash, likely with a segfault, due to the lack of D-Bus. Thus, it is necessary to invoke Firefox with the `--no-remote` command-line argument or `MOZ_NO_REMOTE` environment variable set (to anything).
 
-### KDE Plasma integration: "failed to connect to the native host"
+#### KDE Plasma integration: "failed to connect to the native host"
 
 If using [www-client/firefox-bin](https://packages.gentoo.org/packages/www-client/firefox-bin), Plasma integration might not work by default due to org.kde.plasma.browser\_integration.json getting installed in an unexpected directory, /usr/lib64/mozilla instead of /usr/lib/mozilla). Refer to [bug #687736](https://bugs.gentoo.org/show_bug.cgi?id=687736) for details.
 
 As a workaround, create a symlink:
 
 `root #``ln -s /usr/lib64/mozilla /usr/lib/mozilla`
-### "Failed to load cursor theme Adwaita" under Wayland
-
-This happens when Firefox attempts to find a cursor theme in /usr/local/share/icons/ which doesn't exist. Refer to [this forums post](https://forums.gentoo.org/viewtopic.php?p=8769434#p8769434) for the fix.
-
-### Touchpad scrolling feels too fast on Wayland
-
-Change the option `apz.gtk.pangesture.delta_mode` from 0 to 2. Further tweaks are discussed in [this Mozilla bugtracker thread](https://bugzilla.mozilla.org/show_bug.cgi?id=1752862).
-
-### Windows decorations missing in Fluxbox since FF-91.3.0
+#### Windows decorations missing in Fluxbox since FF-91.3.0
 
 - [https://forums.gentoo.org/viewtopic-t-1141870.html](https://forums.gentoo.org/viewtopic-t-1141870.html) Solved in 91.9.0esr and back with 102.3.0esr (64-bit)
 
 Once in a while this happens. What might then help is to [restart fluxbox with the menu](https://sourceforge.net/p/fluxbox/bugs/1111/#3efa).
 
-### Green artifacts on a video only with hardware acceleration
+#### No video with supported format and MIME type found
 
-Try setting **media.navigator.mediadatadecoder\_vpx\_enabled** to false in `about:config`.
+In **about:config** try to toggle **media.rdd-process.enabled** (default is true).
 
-### Hardware acceleration not working
+### Hardware acceleration
 
-Make sure [media-video/libva-utils](https://packages.gentoo.org/packages/media-video/libva-utils) and [sys-apps/pciutils](https://packages.gentoo.org/packages/sys-apps/pciutils) are installed. Make sure vaapi works outside Firefox first with **vainfo** program. Try a different program to confirm vaapi works there, e.g. **mpv --hwdec=vaapi**.
+#### Hardware acceleration not working
 
-Debug the issue with **MOZ\_LOG="PlatformDecoderModule:5" firefox**. On startup this will show a handshake between Firefox and the vaapi system - the browser inquires which codecs are supported by hardware. You'll see a list of the codecs followed by SW or HW.
+Make sure [media-video/libva-utils](https://packages.gentoo.org/packages/media-video/libva-utils) and [sys-apps/pciutils](https://packages.gentoo.org/packages/sys-apps/pciutils) are installed, then test whether VAAPI works outside Firefox by running the vainfo program and possibly other programs, e.g. mpv --hwdec=vaapi.
 
-You may attempt to force Firefox to use hardware acceleration by setting the about:config flag **media.hardware-video-decoding.force-enabled** to true.
+If further debugging is needed, start Firefox from the command line with the `MOZ_LOG` environment variable set, e.g.:
 
-### Hardware acceleration not working within a sandbox
+`user $``MOZ_LOG="PlatformDecoderModule:5" firefox`
+On startup, this will output a variety of information to the terminal.
+
+To force Firefox to use hardware acceleration, in about:config, set the value of `media.hardware-video-decoding.force-enabled` to true.
+
+#### Hardware acceleration not working within a sandbox
 
 When using an external sandbox application, such as [sys-apps/bubblewrap](https://packages.gentoo.org/packages/sys-apps/bubblewrap) or [sys-apps/firejail](https://packages.gentoo.org/packages/sys-apps/firejail), make sure that hardware acceleration works **outside** the sandboxing. Hardware acceleration will require more `ro` access permissions from /dev and /sys.
 
-### No video with supported format and MIME type found
+#### Green artifacts on a video only with hardware acceleration
 
-In **about:config** try to toggle **media.rdd-process.enabled** (default is true).
+Try setting **media.navigator.mediadatadecoder\_vpx\_enabled** to false in `about:config`.
+
+### Wayland
+
+#### "Failed to load cursor theme Adwaita"
+
+This happens when Firefox attempts to find a cursor theme in /usr/local/share/icons/ which doesn't exist. Refer to [this forums post](https://forums.gentoo.org/viewtopic.php?p=8769434#p8769434) for the fix.
+
+#### Touchpad scrolling feels too fast
+
+Change the option `apz.gtk.pangesture.delta_mode` from 0 to 2. Further tweaks are discussed in [this Mozilla bugtracker thread](https://bugzilla.mozilla.org/show_bug.cgi?id=1752862).
 
 ## Audio
 

@@ -4,12 +4,14 @@ title: Nftables/Ruleset
 url: https://wiki.gentoo.org/wiki/Nftables/Ruleset
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-01"
-fingerprint: a5bd98fe670f210d
+date: "2026-10-08"
+fingerprint: bc95d95ec18d754f
 license: CC BY-SA 4.0
 ---
 
 # Nftables/Ruleset
+
+[Nftables](https://wiki.gentoo.org/wiki/Nftables)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -109,9 +111,33 @@ Sample table syntax
 
 ### Address families
 
+Address families classify tables by the network protocol or packet-processing path they handle.
+
+The ip family handles IPv4 traffic. The ip6 family handles IPv6 traffic. The inet family handles both IPv4 and IPv6 traffic. The arp, bridge, and netdev families handle other packet-processing paths.
+
+Each table belongs to one address family. The family limits the protocols, hooks, and other nftables features available to the table.
+
 ### Table declaration
 
+A table declaration creates a table and assigns it an address family.
+
+The basic syntax is:
+
+The family specifies the address family. The table\_name identifies the table within that family.
+
+For example:
+
+The inet family allows the table to contain rules for both IPv4 and IPv6 traffic.
+
 ### Table management
+
+Tables are managed with the nft command.
+
+The nft command can create, list, flush, rename, and delete tables. Table management operates on the active kernel ruleset.
+
+A table can be created explicitly with nft add table or declared as part of a command file. An existing table can contain chains, sets, maps, flowtables, and other nftables objects.
+
+Deleting a table also deletes the objects contained by that table. Flushing a table removes its contained objects while leaving the table itself in place.
 
 ## Rules
 
@@ -140,24 +166,35 @@ For chain types, declaration, properties, lifecycle, relationships, and processi
 
 ## Sets
 
-Sets contain collections of values that can be matched by rules.
+Sets group values for use by rules.
 
-Sets are useful for:
+A set contains elements of a single data type. A rule can match a packet value against multiple set elements with one match.
 
-- large numbers of IP addresses;
-- groups of ports treated as a single set; and
-- interfaces sharing a conceptual network boundary, such as a LAN, DMZ, or failover WAN.
-
-
-They can reduce rule duplication when the same match applies to multiple addresses, ports, interfaces, or other values.
+Sets commonly contain IP addresses, network addresses, ports, or interface names. Sets can also contain other data types supported by nftables.
 
 ### Named sets
 
+Named sets have an administrator-defined name.
+
+A named set can be referenced by multiple rules. Its elements can be modified without modifying the rules that reference the set.
+
 ### Anonymous sets
+
+Anonymous sets have no name.
+
+An anonymous set belongs to the rule that defines it. Its elements cannot be managed independently by name.
 
 ### Set elements
 
+Set elements are the values contained in a set.
+
+A set element can contain a single value or an interval of values. Named-set elements can be added, deleted, or replaced independently of rules that reference the set.
+
 ### Intervals
+
+Intervals represent ranges of values within a set.
+
+An interval set can match a range of addresses, ports, or other ordered values without listing each value individually.
 
 ## Maps
 

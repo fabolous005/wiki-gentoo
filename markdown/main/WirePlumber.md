@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/WirePlumber
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-08-24"
-fingerprint: beacb35b4ca27bc6
+fingerprint: b668135b6ca27bc4
 license: CC BY-SA 4.0
 ---
 
@@ -26,12 +26,23 @@ license: CC BY-SA 4.0
 
 
 
+## Installation
+
+### Kernel
+
 Device Drivers  --->
   \<\*> Sound card support [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for \<code>CONFIG\_SOUND\</code> to find this item.  --->
     \<\*> Advanced Linux Sound Architecture [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for \<code>CONFIG\_SND\</code> to find this item.  --->
       -\*-  Sound Proc FS Support [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for \<code>CONFIG\_SND\_PROC\_FS\</code> to find this item.
       \[\*\]    Verbose procfs contents [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for \<code>CONFIG\_SND\_VERBOSE\_PROCFS\</code> to find this item.
 
+### USE flags
+
+
+### USE flags for
+            [media-video/wireplumber](https://packages.gentoo.org/packages/media-video/wireplumber)
+            
+            Replacement for pipewire-media-session
 
 | [+doc](https://packages.gentoo.org/useflags/+doc) | Add extra documentation (API, Javadoc, etc). It is recommended to enable per package instead of globally | 
 | [elogind](https://packages.gentoo.org/useflags/elogind) | Enable session tracking via sys-auth/elogind | 
@@ -39,20 +50,34 @@ Device Drivers  --->
 | [systemd](https://packages.gentoo.org/useflags/systemd) | Enable use of systemd-specific libraries and features like socket activation or session tracking | 
 | [test](https://packages.gentoo.org/useflags/test) | Enable dependencies and/or preparations necessary to run tests (usually controlled by FEATURES=test but can be toggled independently) | 
 
+### Emerge
+
 `root #``emerge --ask media-video/wireplumber`
+## Configuration
+
 Generally, WirePlumber should work "out of the box", without any need for manual configuration.
+
+### Files
 
 If manual configuration is required, a sample WirePlumber configuration file is available at /usr/share/wireplumber/wireplumber.conf; this file can be copied to $XDG\_CONFIG\_HOME/wireplumber/ and modified as required. The $XDG\_CONFIG\_HOME/wireplumber/ directory might need to be created manually.
 
 WirePlumber state is stored in $XDG\_STATE\_HOME/wireplumber/<sup>[\[1\]](https://wiki.gentoo.org#cite_note-1)</sup>.
 
+### Services
+
+#### systemd
+
 `user $``systemctl --user enable --now wireplumber.service`
+#### OpenRC
+
 To enable the WirePlumber service:
 
 `user $``rc-update --user add wireplumber default`
 To start the service without enabling it:
 
 `user $``rc-service --user wireplumber start`
+## Usage
+
 WirePlumber is controlled by [wpctl(1)](https://man.archlinux.org/man/wpctl.1.en)[. As of WirePlumber 0.5.15:](https://wiki.gentoo.org/wiki/Special:MyLanguage/man_page)
 
 `user $``wpctl -h`
@@ -77,6 +102,8 @@ Help Options:
 Pass -h after a command to see command-specific options
 
 The special identifiers `@DEFAULT_SINK@`, `@DEFAULT_AUDIO_SINK@`, `@DEFAULT_SOURCE@`, `@DEFAULT_AUDIO_SOURCE@`, and `@DEFAULT_VIDEO_SOURCE@` can be used when an ID is required; refer to the [wpctl(1)](https://man.archlinux.org/man/wpctl.1.en) [man page for details.](https://wiki.gentoo.org/wiki/Special:MyLanguage/man_page)
+
+### Examples
 
 Get information about current PipeWire state, including node IDs and currently active devices:
 
@@ -108,11 +135,21 @@ List only the `Id` and `Value` fields for current settings:
 Save current settings:
 
 `user $``wpctl settings --save`
+## Troubleshooting
+
 Refer to the [WirePlumber/troubleshooting](https://wiki.gentoo.org/wiki/WirePlumber/troubleshooting) page.
 
+## See also
+
 - [PipeWire](https://wiki.gentoo.org/wiki/PipeWire) — low-latency, graph-based, processing engine and server, for interfacing with audio and video devices.
+
+## External resources
 
 - [WirePlumber, the PipeWire session manager](https://www.collabora.com/news-and-blog/blog/2020/05/07/wireplumber-the-pipewire-session-manager/) - General introduction to WirePlumber
 - [WirePlumber](https://wiki.archlinux.org/title/WirePlumber) - ArchWiki page
 - ["Well-known features"](https://pipewire.pages.freedesktop.org/wireplumber/daemon/configuration/features.html) - List of some of the WirePlumber features that can be enabled or disabled.
 - ["Well-known settings"](https://pipewire.pages.freedesktop.org/wireplumber/daemon/configuration/settings.html) - List of WirePlumber settings that can be configured statically or dynamically.
+
+## References
+
+1. [↑](https://wiki.gentoo.org#cite_ref-1) [WirePlumber 0.15.5 documentation: "Location of state files"](https://pipewire.pages.freedesktop.org/wireplumber/daemon/locations.html#location-of-state-files). Retrieved on 2026-08-24.

@@ -1676,6 +1676,7 @@ https://wiki.gentoo.org/wiki/MariaDB_Galera_Cluster
 https://wiki.gentoo.org/wiki/Master_Boot_Record
 https://wiki.gentoo.org/wiki/Mastermirror
 https://wiki.gentoo.org/wiki/Matlab
+https://wiki.gentoo.org/wiki/Matrix
 https://wiki.gentoo.org/wiki/Maven
 https://wiki.gentoo.org/wiki/Mdadm
 https://wiki.gentoo.org/wiki/Mdev
@@ -1815,6 +1816,7 @@ https://wiki.gentoo.org/wiki/Nginx/Module_packaging_guide
 https://wiki.gentoo.org/wiki/Niri
 https://wiki.gentoo.org/wiki/Nload
 https://wiki.gentoo.org/wiki/Nmap
+https://wiki.gentoo.org/wiki/Nnn
 https://wiki.gentoo.org/wiki/No_homepage
 https://wiki.gentoo.org/wiki/Node.js
 https://wiki.gentoo.org/wiki/Non_root_Xorg

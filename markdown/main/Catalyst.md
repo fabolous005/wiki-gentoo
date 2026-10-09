@@ -4,8 +4,8 @@ title: Catalyst
 url: https://wiki.gentoo.org/wiki/Catalyst
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-08-03"
-fingerprint: "1c2c3e3e67ef5ba1"
+date: "2026-10-08"
+fingerprint: "1c2c3e3c67ef5ba1"
 license: CC BY-SA 4.0
 ---
 
@@ -80,6 +80,7 @@ The following table provides a list of catalyst.conf file options and their desc
 |---|---|
 | `digests` | Creates a .DIGESTS file containing the hash output from each of the selected hashes. Example: `digests = ["blake2b", "sha512"]` | 
 | `envscript` | Environment script sourced by catalyst at runtime. Example: `envscript = "/etc/catalyst/catalystrc"`. For more details about this option, please check [Files](https://wiki.gentoo.org/wiki/Catalyst#Files) section above. | 
+| `envvars` | Names of environment variables to pass from the environment that invokes catalyst into the chroot and other commands. Example: `envvars = ["ACCESS_KEY_ID", "SECRET_ACCESS_KEY"]`. Using envscript may be preferable to ensure the values remain consistent unless those values are sensitive. Be aware that the values will be logged when catalyst is invoked with the --debug option. | 
 | `options` | `options` sets the below listed build-time options for catalyst. Example: `options = ["ccache", "keepwork"]` | 
 | `port_logdir` | This directory is where all build logs will be kept; it is automatically cleaned of ALL files over 7 days old. If left undefined the logs will remain in the build directory and get cleaned every time a stage build is restarted. Example: `port_logdir = "/var/tmp/catalyst/logs"` | 
 | `var_tmpfs_portage` | This will mount a tmpfs for /var/tmp/portage so building takes place in RAM this feature requires a pretty large tmpfs ({open,libre}office needs \~8 GiB to build) WARNING: If you use too much RAM everything will fail horribly and it's not going to be our fault. Sets size of /var/tmp/portage tmpfs in gigabytes. Example: `var_tmpfs_portage = 16` | 

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Wiremix
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-05-27"
-fingerprint: b208bd31a923daef
+fingerprint: b200dd300922d8ef
 license: CC BY-SA 4.0
 ---
 
@@ -26,6 +26,13 @@ wiremix's interface is more or less a clone of the wonderful ncpamixer which was
 
 ### USE flags
 
+
+### USE flags for
+            [media-sound/wiremix](https://packages.gentoo.org/packages/media-sound/wiremix)
+            
+            A TUI mixer for PipeWire
+
+| [debug](https://packages.gentoo.org/useflags/debug) | Enable extra debug codepaths, like asserts and extra output. If you want to get meaningful backtraces see https://wiki.gentoo.org/wiki/Project:Quality\_Assurance/Backtraces | 
 
 ### Emerge
 

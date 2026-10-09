@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/REAPER
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-10-04"
-fingerprint: fcc39c9cc9e5397c
+fingerprint: fcc39c9849e5797c
 license: CC BY-SA 4.0
 ---
 
 # REAPER
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -24,6 +26,11 @@ Although REAPER is proprietary, Cockos offers a fully functional indefinite eval
 ### USE flags
 
 
+### USE flags for
+            [media-sound/reaper-bin](https://packages.gentoo.org/packages/media-sound/reaper-bin)
+            
+            Digital audio workstation
+
 | [+jack](https://packages.gentoo.org/useflags/+jack) | Add support for the JACK Audio Connection Kit | 
 | [ffmpeg](https://packages.gentoo.org/useflags/ffmpeg) | Enable ffmpeg/libav-based audio/video codec support | 
 | [mp3](https://packages.gentoo.org/useflags/mp3) | Add support for reading mp3 files | 
@@ -33,10 +40,11 @@ Although REAPER is proprietary, Cockos offers a fully functional indefinite eval
 
 To install [media-sound/reaper-bin](https://packages.gentoo.org/packages/media-sound/reaper-bin), Portage requires accepting the Cockos license agreement:
 
-**`/etc/portage/package.license/media-sound`**
+FILE **`/etc/portage/package.license/media-sound`****Accepting REAPER's license**
 
-**Accepting REAPER's license**
-
+```
+media-sound/reaper-bin Cockos
+```
 ### Emerge
 
 Install REAPER:

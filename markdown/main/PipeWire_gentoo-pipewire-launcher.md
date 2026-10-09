@@ -5,17 +5,21 @@ url: https://wiki.gentoo.org/wiki/PipeWire/gentoo-pipewire-launcher
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-10-03"
-fingerprint: be2beaf22a03ab94
+fingerprint: "3e2beaf22e23bb94"
 license: CC BY-SA 4.0
 ---
 
 # PipeWire/gentoo-pipewire-launcher
+
+[PipeWire](https://wiki.gentoo.org/wiki/PipeWire)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
 Those not willing or able to use the [OpenRC](https://wiki.gentoo.org/wiki/OpenRC)/[systemd](https://wiki.gentoo.org/wiki/Systemd) user services for [PipeWire](https://wiki.gentoo.org/wiki/PipeWire) and [WirePlumber](https://wiki.gentoo.org/wiki/WirePlumber) can instead use gentoo-pipewire-launcher.
+
+## Prerequisites
 
 - `XDG_RUNTIME_DIR`
 
@@ -34,6 +38,8 @@ This variable is usually set automatically by desktop environments such as GNOME
 
 For further information, refer to [this section of the "D-Bus" page](https://wiki.gentoo.org/wiki/D-Bus#Manual).
 
+## gentoo-pipewire-launcher
+
 gentoo-pipewire-launcher is a convenience script for systems not running systemd, e.g. OpenRC systems. It will only be installed if the [systemd](https://packages.gentoo.org/useflags/systemd) [USE flag is not enabled.](https://wiki.gentoo.org/wiki/USE_flag)
 
 As documented in the gentoo-pipewire-launcher(1) man page, the gentoo-pipewire-launcher script starts:
@@ -50,30 +56,47 @@ gentoo-pipewire-launcher supports logging, via ${XDG\_CONFIG\_HOME}/gentoo-pipew
 
 gentoo-pipewire-launcher sources the gentoo-pipewire-launcher.conf file, such that the conf file can be used to add variables (e.g. `PIPEWIRE_DEBUG=4`) to the environment of the PipeWire and WirePlumber processes it starts.
 
+## GUI environments
+
 Gentoo's PipeWire package installs the /etc/xdg/autostart/pipewire.desktop autostart file. However, not all GUI environments make use of autostart files:  Plasma, GNOME, XFCE and Cinnamon do, but various window managers (such as Fluxbox) do not. Environments which make use of autostart files *must not* start PipeWire from some other location (e.g. the configuration file for that environment).
 
 If XDG autostart is not being used, a call to gentoo-pipewire-launcher needs to be added to whichever file is used for starting programs at [window manager](https://wiki.gentoo.org/wiki/Window_manager) startup, e.g. for i3:
 
 **`~/.config/i3/config`**
 
+```
+exec gentoo-pipewire-launcher &
+```
 For [Hyprland](https://wiki.gentoo.org/wiki/Hyprland), edit \~/.config/hypr/hyprland.lua to add:
 
 **`~/.config/hypr/hyprland.lua`**
 
+```
+hl.on("hyprland.start", function() hl.exec_cmd("gentoo-pipewire-launcher") end)
+```
 For [Sway](https://wiki.gentoo.org/wiki/Sway), edit \~/.config/sway/config to add:
 
 **`~/.config/sway/config`**
 
+```
+exec gentoo-pipewire-launcher restart &
+```
 For [dwm](https://wiki.gentoo.org/wiki/Dwm), edit \~/.dwm/dwmrc to add:
 
 **`~/.dwm/dwmrc`**
 
 ```
- &
+gentoo-pipewire-launcher &
 ```
 For [Wayfire](https://wiki.gentoo.org/wiki/Wayfire), edit \~/.config/wayfire.ini to add:
 
 **`~/.config/wayfire.ini`**
+
+```
+[autostart]
+pipewire = gentoo-pipewire-launcher
+```
+## Restarting PipeWire and WirePlumber
 
 To restart PipeWire and WirePlumber under OpenRC, e.g. to pick up configuration changes, run gentoo-pipewire-launcher with the `restart` argument to have it first shut down the existing instances from within the relevant D-Bus session:
 

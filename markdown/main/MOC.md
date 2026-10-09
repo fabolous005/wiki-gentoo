@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/MOC
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-02-17"
-fingerprint: f58cfd4ae9a68f93
+fingerprint: "708454592b868fd6"
 license: CC BY-SA 4.0
 ---
 
 # MOC
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -46,8 +48,11 @@ transparent-background
 white\_theme
 yellow\_red\_theme
 
-**`~/.config/moc`**
+FILE **`~/.config/moc`**
 
+```
+Theme = green_theme
+```
 ## Usage
 
 ### Invocation
@@ -106,3 +111,72 @@ To start the player with a directory:
 
 `user $``mocp ~/Music`
 Control the player with keyboard [MOC shortcuts](https://gist.github.com/chiragparekh/8868544a8b3cc4d6d6ba):
+
+FILE 
+
+```
+List of MOC Keys
+  enter  -- starts playing
+  s      -- stops playing
+  n      -- plays next item from the playlist
+  b      -- plays previous item from the playlist
+  space  -- pause
+  p      -- pause
+  S      -- plays at random
+  R      -- repeats the same song in a loop, 
+	    Next (X button below) must be OFF
+  X      -- switches to play sequentially
+  o      -- plays a file from the Internet
+  u      -- moves playlist item up
+  j      -- moves playlist item down
+  Ctrl+u -- adds the URL to the playlist
+  g      -- searches marked string in file names
+  /      -- searches marked string in file names
+  r      -- rereads the directory
+  T      -- switches to the theme selection menu
+  f      -- toggles display mode of song titles
+  TAB    -- switches marker bar between the playlist 
+	    and the file manager panels
+  l      -- switches between displaying the playlist 
+            or the file manager panel
+  P      -- switches full path in the playlist
+  H      -- toggles hidden files view
+  Ctrl-t -- toggles song duration time 
+  Ctrl-f -- toggles format file view
+  m      -- moves to directory entered in config file 
+  G      -- moves to directory with currently played file
+  i      -- moves to marked directory
+  U      -- moves to upper directory
+  a      -- adds a file to the playlist
+  A      -- adds a directory recursively to the playlist
+  C      -- clears the playlist
+  V      -- saves the playlist
+  d      -- removes marked item from the playlist
+  Y      -- removes all empty items from the playlist
+  < -- decreases volume by 1%
+  ,      -- decreases volume by 5%
+  >      -- increases volume by 1%
+  .      -- increases volume by 5%
+  x      -- toggles the mixer channel
+  ?      -- shows help
+  !      -- goes to a fast dir 1 (set in config file)
+  @      -- goes to a fast dir 2
+  #      -- goes to a fast dir 3
+  $      -- goes to a fast dir 4
+  %      -- goes to a fast dir 5
+  ^      -- goes to a fast dir 6
+  &      -- goes to a fast dir 7
+  *      -- goes to a fast dir 8
+  (      -- goes to a fast dir 9
+  )      -- goes to a fast dir 10
+  F1     -- executes ExecCommand1 (set in config file)
+  F2     -- executes ExecCommand2
+  F3     -- executes ExecCommand3
+  F4     -- executes ExecCommand4
+  F5     -- executes ExecCommand5
+  F6     -- executes ExecCommand6
+  F7     -- executes ExecCommand7
+  F8     -- executes ExecCommand8
+  F9     -- executes ExecCommand9
+  F10    -- executes ExecCommand10
+```

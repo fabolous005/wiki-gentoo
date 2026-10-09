@@ -4,7 +4,7 @@ title: man page
 url: https://wiki.gentoo.org/wiki/Man_page
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-08-17"
+date: "2026-10-08"
 fingerprint: b048fa6922e7ff15
 license: CC BY-SA 4.0
 ---
@@ -105,12 +105,9 @@ Consider for example pages in \~/.local/share/man (respecting the section hierar
 
 **Adding the full local path to`MANPATH` environment variable.**
 
-Reference \~/.local/share/man for mandb to manage the database index cache:
-
-**`~/.manpath`**
-
-**Instructing mandb where to look.**
-
+```
+MANPATH="${HOME}/.local/share/man:${MANPATH}"
+```
 Recreate the database:
 
 `user $``mandb --create --user-db`

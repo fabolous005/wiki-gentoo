@@ -4,8 +4,8 @@ title: Nmap
 url: https://wiki.gentoo.org/wiki/Nmap
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2020-05-05"
-fingerprint: d292d316f597a0ee
+date: "2026-10-08"
+fingerprint: d292d316f597a0ae
 license: CC BY-SA 4.0
 ---
 
@@ -32,6 +32,11 @@ A quick way to add many USE flags at once for Nmap:
 ### USE flags
 
 
+### USE flags for
+            [net-analyzer/nmap](https://packages.gentoo.org/packages/net-analyzer/nmap)
+            
+            Network exploration tool and security / port scanner
+
 | [+nse](https://packages.gentoo.org/useflags/+nse) | Include support for the Nmap Scripting Engine (NSE) | 
 | [libssh2](https://packages.gentoo.org/useflags/libssh2) | Enable SSH support through net-libs/libssh2 | 
 | [ncat](https://packages.gentoo.org/useflags/ncat) | Install the ncat utility | 
@@ -45,7 +50,7 @@ A quick way to add many USE flags at once for Nmap:
 
 ## Usage
 
-Nmap is an extremely powerful tool. Entire books have been written about its use, and there is more information than we could possibly do justice to here. The following section will a brief overview in order to give users a feel for its output. If you'd like a more thorough tutorial, the [man page](https://linux.die.net/man/1/nmap) is an excellent guide.
+Nmap is an extremely powerful tool. Entire books have been written about its use, and there is more information than we could possibly do justice to here. The following section will a brief overview in order to give users a feel for its output. For a more thorough tutorial, the [man page](https://linux.die.net/man/1/nmap) is an excellent guide.
 
 To see if port 80 was open at example.com, run nmap with the `-p` option to specify the port:
 

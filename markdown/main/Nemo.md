@@ -4,12 +4,14 @@ title: Nemo
 url: https://wiki.gentoo.org/wiki/Nemo
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2022-05-01"
-fingerprint: de41d93cd9e73cc4
+date: "2026-10-08"
+fingerprint: dfc55f7cd9c7f88c
 license: CC BY-SA 4.0
 ---
 
 # Nemo
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -21,6 +23,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [gnome-extra/nemo](https://packages.gentoo.org/packages/gnome-extra/nemo)
+            
+            A file manager for Cinnamon, forked from Nautilus
 
 | [+nls](https://packages.gentoo.org/useflags/+nls) | Add Native Language Support (using gettext - GNU locale utilities) | 
 | [exif](https://packages.gentoo.org/useflags/exif) | Add support for reading EXIF headers from JPEG and TIFF images | 
@@ -36,6 +43,13 @@ license: CC BY-SA 4.0
 **Nemo** can be easily installed via emerge:
 
 `root #``emerge --ask gnome-extra/nemo`
+### Additional software
+
+#### Nemo Fileroller
+
+**Nemo Fileroller** extends Nemo's functionality by integrating archive management. To use it, emerge the [gnome-extra/nemo-fileroller](https://packages.gentoo.org/packages/gnome-extra/nemo-fileroller) package.
+
+`root #``emerge --ask nemo-fileroller`
 ## See also
 
 - [File managers](https://wiki.gentoo.org/wiki/File_managers) — a computer program that allows for the manipulation of files and directories on a computer's [filesystem](https://wiki.gentoo.org/wiki/Filesystem).

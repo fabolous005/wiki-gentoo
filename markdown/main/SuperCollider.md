@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/SuperCollider
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-02-17"
-fingerprint: "8e225d5fe9a2f8d6"
+fingerprint: "8622195fa9a2f8d6"
 license: CC BY-SA 4.0
 ---
 
 # SuperCollider
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -21,6 +23,11 @@ SuperCollider is a platform for audio synthesis and algorithmic composition.
 
 ### USE flags
 
+
+### USE flags for
+            [media-sound/supercollider](https://packages.gentoo.org/packages/media-sound/supercollider)
+            
+            Environment and programming language for real time audio synthesis
 
 | [+fftw](https://packages.gentoo.org/useflags/+fftw) | Use FFTW library for computing Fourier transforms | 
 | [+gpl3](https://packages.gentoo.org/useflags/+gpl3) | Build GPL-3 licensed code (recommended) | 

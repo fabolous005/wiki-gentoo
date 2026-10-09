@@ -15,12 +15,21 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+[checking over the content](https://wiki.gentoo.org/index.php?title=TiMidity%2B%2B&action=edit)(
+
+[how to get started](https://wiki.gentoo.org/wiki/Gentoo_Wiki:Contributor%27s_guide)).
+
 **TiMidity++** is a software synthesizer that can interpret MIDI information.
 
 ## Installation
 
 ### USE flags
 
+
+### USE flags for
+            [media-sound/timidity++](https://packages.gentoo.org/packages/media-sound/timidity++)
+            
+            Handy MIDI to WAV converter with OSS and ALSA output support
 
 | [X](https://packages.gentoo.org/useflags/X) | Add support for X11 | 
 | [Xaw3d](https://packages.gentoo.org/useflags/Xaw3d) | Add support for the 3d athena widget set | 
@@ -113,6 +122,9 @@ Even with PulseAudio removed, sound may be blocked when TiMidity++ is run as a s
 
 **`/etc/asound.conf`**
 
+```
+defaults.pcm.dmix.rate 48000
+```
 ## See also
 
 - [MIDI](https://wiki.gentoo.org/wiki/MIDI) — a set of technical specifications that enable devices to interoperate in order to work with a digital representation of music

@@ -4,8 +4,8 @@ title: MPD
 url: https://wiki.gentoo.org/wiki/MPD
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-07-28"
-fingerprint: fe005b58599e39e6
+date: "2026-10-08"
+fingerprint: fe005b58598e39e6
 license: CC BY-SA 4.0
 ---
 
@@ -25,6 +25,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [media-sound/mpd](https://packages.gentoo.org/packages/media-sound/mpd)
+            
+            The Music Player Daemon (mpd)
 
 | [+alsa](https://packages.gentoo.org/useflags/+alsa) | Add support for media-libs/alsa-lib (Advanced Linux Sound Architecture) | 
 | [+curl](https://packages.gentoo.org/useflags/+curl) | Enable web stream listening support via net-misc/curl | 
@@ -81,6 +86,7 @@ license: CC BY-SA 4.0
 | [tremor](https://packages.gentoo.org/useflags/tremor) | Enable support for media-libs/tremor, a fixed-point version of the Ogg Vorbis decoder | 
 | [twolame](https://packages.gentoo.org/useflags/twolame) | Enable MP2 encoding via media-sound/twolame | 
 | [upnp](https://packages.gentoo.org/useflags/upnp) | Enable UPnP port mapping support | 
+| [verify-sig](https://packages.gentoo.org/useflags/verify-sig) | Verify upstream signatures on distfiles | 
 | [vorbis](https://packages.gentoo.org/useflags/vorbis) | Add support for the OggVorbis audio codec | 
 | [wav](https://packages.gentoo.org/useflags/wav) | Support WAV encoding | 
 | [wavpack](https://packages.gentoo.org/useflags/wavpack) | Add support for wavpack audio compression tools | 
@@ -114,6 +120,24 @@ An example of a simple configuration:
 
 **`/etc/mpd.conf`**
 
+```
+music_directory      "/var/lib/mpd/music"
+playlist_directory   "/var/lib/mpd/playlists"
+db_file              "/var/lib/mpd/database"
+log_file             "/var/log/mpd/mpd.log"
+state_file           "/var/lib/mpd/state"
+user                 "mpd"
+bind_to_address      "localhost"
+bind_to_address      "/var/lib/mpd/socket"
+input {
+    plugin   "curl"
+}
+audio_output {
+    type         "alsa"
+    name         "default"
+    mixer_type   "software"
+}
+```
 With this configuration, MPD should be able to run as a system daemon under the `mpd` user, which is the default setting.
 
 
@@ -128,6 +152,19 @@ Sample configuration using PulseAudio output:
 
 **`${XDG_CONFIG_HOME}/mpd/mpd.conf`**
 
+```
+# Recommended location for database
+db_file   "~/.mpd/database"
+# Input
+input {
+    plugin   "curl"
+}
+# PulseAudio output
+audio_output {
+    type   "pulse"
+    name   "Pulse Audio"
+}
+```
 Now it should be possible to start MPD simply by running:
 
 `user $``mpd`
@@ -138,6 +175,12 @@ If MPD was built with the [pipewire](https://packages.gentoo.org/useflags/pipewi
 
 **`/etc/mpd.conf`**
 
+```
+audio_output {
+    type   "pipewire"
+    name   "Pipewire Output"
+}
+```
 
 ### General configuration
 
@@ -266,6 +309,9 @@ Running MPD as a system service under the `mpd` user causes permissions issues. 
 
 **`/etc/mpd.conf`**
 
+```
+user "larry"
+```
 
 ## See also
 

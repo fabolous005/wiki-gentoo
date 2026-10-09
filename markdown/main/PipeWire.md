@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/PipeWire
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-10-04"
-fingerprint: "9f238b5a896638c0"
+fingerprint: "9f238b5889663990"
 license: CC BY-SA 4.0
 ---
 
@@ -16,6 +16,10 @@ license: CC BY-SA 4.0
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
 **Resources**
+
+[pipewire](irc://irc.oftc.net/pipewire)(on
+
+[irc://irc.oftc.net](irc://irc.oftc.net))(registration required)
 
 **PipeWire** is a low-latency, graph-based, processing engine and server, for interfacing with audio and video devices. It can be used to support use-cases currently handled by [ALSA](https://wiki.gentoo.org/wiki/ALSA), [PulseAudio](https://wiki.gentoo.org/wiki/PulseAudio), and/or [JACK](https://wiki.gentoo.org/wiki/JACK), and aims to improve handling of audio and video under Linux.
 
@@ -33,15 +37,25 @@ PipeWire currently ships a PipeWire daemon, an example session manager, tools to
 
 PipeWire users will typically need to install and use [WirePlumber](https://wiki.gentoo.org/wiki/WirePlumber) for session/policy management functionality, such as volume management; refer to that page for details.
 
+## Installation
+
+### Kernel
+
 Device Drivers  --->
   \<\*> Sound card support [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for \<code>CONFIG\_SOUND\</code> to find this item.  --->
     \<\*> Advanced Linux Sound Architecture [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for \<code>CONFIG\_SND\</code> to find this item.  --->
       -\*-  Sound Proc FS Support [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for \<code>CONFIG\_SND\_PROC\_FS\</code> to find this item.
       \[\*\]    Verbose procfs contents [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for \<code>CONFIG\_SND\_VERBOSE\_PROCFS\</code> to find this item.
 
+### Desktop profiles
+
 All desktop profiles now enable PipeWire by default, so no installation should be required.
 
 systemd users need to enable the `wireplumber` service by following [this section](https://wiki.gentoo.org/wiki/PipeWire#systemd).
+
+### Non-desktop profiles
+
+#### USE flags
 
 To use PipeWire as a sound server, specify the [sound-server](https://packages.gentoo.org/useflags/sound-server) [USE flag](https://wiki.gentoo.org/wiki/USE_flag) on [media-video/pipewire](https://packages.gentoo.org/packages/media-video/pipewire)<sup>[\[1\]](https://wiki.gentoo.org#cite_note-1)</sup>.
 
@@ -57,6 +71,11 @@ D-Bus is required for [Bluetooth](https://wiki.gentoo.org/wiki/Bluetooth) suppor
 
 To enable direct screencasting support on applications offering it, specify the [screencast](https://packages.gentoo.org/useflags/screencast) [USE flag on the relevant packages. Otherwise, screencasting support may also be provided through the PulseAudio or JACK compatibility layers.](https://wiki.gentoo.org/wiki/USE_flag)
 
+
+### USE flags for
+            [media-video/pipewire](https://packages.gentoo.org/packages/media-video/pipewire)
+            
+            Multimedia processing graphs
 
 | [+man](https://packages.gentoo.org/useflags/+man) | Build and install man pages | 
 | [X](https://packages.gentoo.org/useflags/X) | Enable audible bell for X11 | 
@@ -92,13 +111,19 @@ To enable direct screencasting support on applications offering it, specify the 
 | [v4l](https://packages.gentoo.org/useflags/v4l) | Enable support for video4linux (using linux-headers or userspace libv4l libraries) | 
 | [zeroconf](https://packages.gentoo.org/useflags/zeroconf) | Support for DNS Service Discovery (DNS-SD) | 
 
+#### Emerge
+
 Once the USE flags have been specified, rebuild the affected packages:
 
 `root #``emerge --ask --verbose --changed-use --update --deep @world`
 Alternatively, PipeWire may be emerged independently, though the previous method is usually what is required:
 
 `root #``emerge --ask media-video/pipewire`
+## Configuration
+
 PipeWire recognizes multiple environment variables that allow settings to be changed, either per-user, or for individual commands: for example, `PIPEWIRE_RUNTIME_DIR`, `PIPEWIRE_MODULE_DIR`, and `DISABLE_RTKIT`. Refer to the [pipewire(1)](https://man.archlinux.org/man/pipewire.1.en) [man page for a complete list.](https://wiki.gentoo.org/wiki/Special:MyLanguage/man_page)
+
+### Audio groups
 
 It's recommended that users are in the `pipewire` group.
 
@@ -111,6 +136,10 @@ In general, for the best experience with fast user switching, users should not b
 To remove a user from the `audio` group:
 
 `root #``usermod -rG audio larry`
+## Sound server configuration
+
+### File locations
+
 Use pw-config to output the current configuration paths, and use pw-config list to list the current configuration.
 
 The default configuration should be fine for most users. This configuration is described in /usr/share/pipewire/pipewire.conf.
@@ -124,13 +153,19 @@ and modify either or both of those files as appropriate.
 
 By default, `XDG_CONFIG_HOME` is \~/.config/. Refer to the [XDG/Base\_Directories](https://wiki.gentoo.org/wiki/XDG/Base_Directories) page for further information.
 
+#### Configuration fragments
+
 Configuration fragments can be specified via a file with a .conf extension (e.g. 90-local.conf) in the following directories<sup>[\[3\]](https://wiki.gentoo.org#cite_note-3)</sup>:
 
 1. /usr/share/pipewire/pipewire.conf.d/
 2. /etc/pipewire/pipewire.conf.d/
 3. ${XDG\_CONFIG\_HOME}/pipewire/pipewire.conf.d/
 
+### User services
+
 User services are available for both systemd and OpenRC. Those not using systemd or OpenRC can instead use [PipeWire/gentoo-pipewire-launcher](https://wiki.gentoo.org/wiki/PipeWire/gentoo-pipewire-launcher).
+
+#### systemd
 
 PipeWire provides socket and service files when built with the [systemd](https://packages.gentoo.org/useflags/systemd) [USE flag.](https://wiki.gentoo.org/wiki/USE_flag)
 
@@ -149,6 +184,8 @@ Enable the `wireplumber` service:
 
 `user $``systemctl --user enable --now wireplumber.service`
 In these cases, the `--now` flag is optional, but probably safe to use, as starting PipeWire with default configuration merely allows using new interfaces and doesn't change the existing ones, i.e. non-PipeWire clients continue using the same libraries and services they were using previously.
+
+#### OpenRC
 
 OpenRC has built-in and enabled by default support for [user services](https://wiki.gentoo.org/wiki/OpenRC#User_services) since version 0.60. As with systemd, they can be used to start and stop PipeWire and [WirePlumber](https://wiki.gentoo.org/wiki/WirePlumber) on login and logout.
 
@@ -174,10 +211,14 @@ rc-service --user pipewire-pulse start
 `user $````
 rc-service --user wireplumber start
 ```
+### PulseAudio server emulation
+
 To confirm PulseAudio server emulation:
 
 `user $``LANG=C pactl info | grep "Server Name"`
 Server Name: PulseAudio (on PipeWire 0.3.39)
+
+#### Multi-user support
 
 Multi-user support requires the UNIX socket interface.
 
@@ -190,7 +231,18 @@ Then edit /etc/pipewire/pipewire-pulse.conf to specify the UNIX socket location,
 
 **PulseAudio UNIX socket**
 
+```
+pulse.properties = {
+    server.address = [
+        "unix:/tmp/pulse-socket"
+    ]
+}
+```
+### Advanced
+
 For information about more advanced PipeWire configuration, refer to the [PipeWire/extra](https://wiki.gentoo.org/wiki/PipeWire/extra) page.
+
+## Usage
 
 A command-line interface to PipeWire is provided by [pw-cli(1)](https://man.archlinux.org/man/pw-cli.1.en)[. This tool can be used to e.g. list the IDs of PipeWire nodes:](https://wiki.gentoo.org/wiki/Special:MyLanguage/man_page)
 
@@ -198,6 +250,8 @@ A command-line interface to PipeWire is provided by [pw-cli(1)](https://man.arch
 and to check the current properties of a given node:
 
 `user $``pw-cli e <node-id> Props`
+### Controlling the volume
+
 Ways to control the volume - which on typical setups will be managed by [WirePlumber](https://wiki.gentoo.org/wiki/WirePlumber) - include:
 
 - [media-sound/pwvucontrol](https://packages.gentoo.org/packages/media-sound/pwvucontrol), a pavucontrol-like GUI.
@@ -209,6 +263,8 @@ Ways to control the volume - which on typical setups will be managed by [WirePlu
 - PulseAudio tools such as [media-sound/pavucontrol](https://packages.gentoo.org/packages/media-sound/pavucontrol) and [pactl(1)](https://man.archlinux.org/man/pactl.1.en)[media-libs/libpulse](https://packages.gentoo.org/packages/media-libs/libpulse)).
 
 - `user $``pw-cli s <node-id> Props '{ mute: false, channelVolumes: [ 0.3, 0.3 ] }'`
+
+### Checking settings
 
 pw-metadata can be used to check the current sample rate and other settings:
 
@@ -241,6 +297,8 @@ Default Channel Map: front-left,front-right
 Default Sink: alsa\_output.usb-Generic\_USB\_Audio-00.pro-output-2
 Default Source: alsa\_input.usb-Focusrite\_Scarlett\_Solo\_USB-00.pro-input-0
 
+### GUI patchbays
+
 GUI patchbays available via the [gentoo](https://repos.gentoo.org/#gentoo) repository include:
 
 - [media-sound/helvum](https://packages.gentoo.org/packages/media-sound/helvum), a [GTK](https://wiki.gentoo.org/wiki/GTK)-based patchbay.
@@ -249,7 +307,11 @@ GUI patchbays available via the [gentoo](https://repos.gentoo.org/#gentoo) repos
 
 Additionally, [coppwr](https://github.com/dimtpap/coppwr) is a low-level patchbay available via [Flatpak](https://wiki.gentoo.org/wiki/Flatpak), [io.github.dimtpap.coppwr](https://flathub.org/en/apps/io.github.dimtpap.coppwr).
 
+### Advanced
+
 For information about more advanced PipeWire usage, refer to the [PipeWire/extra](https://wiki.gentoo.org/wiki/PipeWire/extra) page.
+
+## Replacing JACK
 
 If the [jack-sdk](https://packages.gentoo.org/useflags/jack-sdk) [USE flag is enabled, PipeWire can be used as the server for](https://wiki.gentoo.org/wiki/USE_flag) [JACK](https://wiki.gentoo.org/wiki/JACK) clients; calls to the JACK API will be translated into calls to PipeWire's native API. Clients can be connected via a patchbay interface such as [qjackctl(1)](https://man.archlinux.org/man/qjackctl.1.en)[. Refer to](https://wiki.gentoo.org/wiki/Special:MyLanguage/man_page) [pipewire-jack.conf(5)](https://man.archlinux.org/man/pipewire-jack.conf.5.en) [for information about configuring PipeWire for JACK clients.](https://wiki.gentoo.org/wiki/Special:MyLanguage/man_page)
 
@@ -259,12 +321,18 @@ If the [jack-sdk](https://packages.gentoo.org/useflags/jack-sdk) [USE flag is no
 
 Not every client will necessarily work; some may even ungracefully exit due to missing symbols. Re-configuration of JACK clients might be required.
 
+## Troubleshooting
+
 Refer to [PipeWire/troubleshooting](https://wiki.gentoo.org/wiki/PipeWire/troubleshooting).
+
+## See also
 
 - [WirePlumber](https://wiki.gentoo.org/wiki/WirePlumber) — a modular session / policy manager for [PipeWire]
 - [PulseAudio](https://wiki.gentoo.org/wiki/PulseAudio) — a multi-platform, open source, *sound server* that provides a number of features on top of the low-level audio interface [ALSA](https://wiki.gentoo.org/wiki/ALSA)
 - [ALSA](https://wiki.gentoo.org/wiki/ALSA) — the Linux kernel's API for sound cards, together with an associated software framework
 - [Technical notes on the packaging of PipeWire](https://wiki.gentoo.org/wiki/User:Sam/PipeWire_changes)
+
+## External resources
 
 - [Pipewire Guide](https://github.com/mikeroyal/PipeWire-Guide/blob/main/README.md)
 - [PipeWire FAQ](https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/FAQ)

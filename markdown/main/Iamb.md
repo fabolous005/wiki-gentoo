@@ -4,14 +4,12 @@ title: iamb
 url: https://wiki.gentoo.org/wiki/Iamb
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-07"
-fingerprint: f21167594f7d3bae
+date: "2026-10-08"
+fingerprint: f21147592b7c3faa
 license: CC BY-SA 4.0
 ---
 
 # iamb
-
-From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -44,7 +42,7 @@ The configuration file will be in $XDG\_CONFIG\_HOME/iamb/ or $HOME/.config/iamb
 
 Set up a profile to specify a username and homeserver URL:
 
-FILE **`~/.config/iamb/config.toml`**
+**`~/.config/iamb/config.toml`**
 
 ```
 [profiles.user]
@@ -52,7 +50,7 @@ user_id = "@username:example.com"
 ```
 To use multiple profiles, add them to the configuration file:
 
-FILE **`~/.config/iamb/config.toml`**
+**`~/.config/iamb/config.toml`**
 
 ```
 default_profile = "user"
@@ -65,7 +63,7 @@ user_id = "@anotheruser:example.com"
 
 If the homeserver is in a different domain to the one mentioned in the `user_id`, iamb can use another domain:
 
-FILE **`~/.config/iamb/config.toml`**
+**`~/.config/iamb/config.toml`**
 
 ```
 [profiles.user]
@@ -78,3 +76,7 @@ To use the client, run iamb:
 
 `user $``iamb`
 When starting the client for the first time, be sure to select the correct login option ("password \[p\]" or "SSO \[s\]") for syncing.
+
+Starting the client with specified profile can be done with `--profile` flag.
+
+`user $``iamb --profile anotheruser`

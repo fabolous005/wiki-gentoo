@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/VMPK
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-03-19"
-fingerprint: "6212dc1a410b6c14"
+fingerprint: "62d09c1a410b6c14"
 license: CC BY-SA 4.0
 ---
 
 # VMPK
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -21,6 +23,13 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [media-sound/vmpk](https://packages.gentoo.org/packages/media-sound/vmpk)
+            
+            Virtual MIDI Piano Keyboard
+
+| [dbus](https://packages.gentoo.org/useflags/dbus) | Enable dbus support for anything that needs it (gpsd, gnomemeeting, etc) | 
 
 ### Emerge
 

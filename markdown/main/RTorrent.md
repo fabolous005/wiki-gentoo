@@ -4,8 +4,8 @@ title: rTorrent
 url: https://wiki.gentoo.org/wiki/RTorrent
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2025-03-31"
-fingerprint: "2c9af5792dbf01ec"
+date: "2026-10-08"
+fingerprint: "6c98f57d3dbf05ec"
 license: CC BY-SA 4.0
 ---
 
@@ -22,6 +22,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [net-p2p/rtorrent](https://packages.gentoo.org/packages/net-p2p/rtorrent)
+            
+            BitTorrent Client using libtorrent
 
 | [+ncurses](https://packages.gentoo.org/useflags/+ncurses) | Add ncurses support (console display library) | 
 | [debug](https://packages.gentoo.org/useflags/debug) | Enable extra debug codepaths, like asserts and extra output. If you want to get meaningful backtraces see https://wiki.gentoo.org/wiki/Project:Quality\_Assurance/Backtraces | 
@@ -46,7 +51,7 @@ Install [net-p2p/rtorrent](https://packages.gentoo.org/packages/net-p2p/rtorrent
 `user $``mkdir ~/rtorrent`
 The rTorrent configuration is stored in the user's \~/.rtorrent.rc. A lot can be configured, for this reason, the configuration is divided in sections.
 
-Any configuration should start with using the modernized rTorrent wiki config template. The configuration is loaded from the file \~/.rtorrent.rc by default (that is the hidden file .rtorrent.rc in your user home directory). This configuration uses *0.9.x* syntax and is tested using *0.9.6*.
+Any configuration should start with using the modernized rTorrent wiki config template. The configuration is loaded from the file \~/.rtorrent.rc by default (that is the hidden file .rtorrent.rc in your user home directory). This configuration uses *0.9.x* syntax and is tested using *0.15.7*.
 
 **`/home/larry/.rtorrent.rc`**
 
@@ -102,7 +107,37 @@ network.http.dns_cache_timeout.set = 25
 ##view.sort_current = seeding, greater=d.ratio=
 schedule2 = monitor_diskspace, 15, 60, ((close_low_diskspace, 1000M))
 # Some additional values and commands
-method.insert = system.startup_time, value
+method.insert = system.startup_time, value|const, (system.time)
+method.insert = d.data_path, simple,\
+    "if=(d.is_multi_file),\
+        (cat, (d.directory), /),\
+        (cat, (d.directory), /, (d.name))"
+method.insert = d.session_file, simple, "cat=(session.path), (d.hash), .torrent"
+# Watch directories (add more as you like, but use unique schedule names)
+schedule2 = watch_start, 10, 10, ((load.start_verbose, (cat, (cfg.watch), "start/*.torrent")))
+schedule2 = watch_load, 11, 10, ((load.verbose, (cat, (cfg.watch), "load/*.torrent")))
+# Logging:
+#   Levels = critical error warn notice info debug
+#   Groups = connection_* dht_* peer_* rpc_* storage_* thread_* tracker_* torrent_*
+print = (cat, "Logging to ", (cfg.logfile))
+log.open_file = "log", (cfg.logfile)
+log.add_output = "info", "log"
+##log.add_output = "tracker_debug", "log"
+# Tracker-less torrent and UDP tracker support
+# (conservative settings for 'private' trackers, change for 'public')
+trackers.use_udp.set = no
+# Enable Peer Exchange (PEX)
+protocol.pex.set = no
+# Enable Distributed Hash Table (DHT) and specify the port
+dht.mode.set = disable
+# dht_port = 6881
+# Add DHT nodes periodically every 5 seconds
+## Many times when downloading from public trackers, you might get stuck and not receive any peer connections.
+## Uncommenting the following lines will add additional DHT nodes and can help fix the issue.
+# schedule2 = dht_node_1, 5, 0, "dht.add_node=router.utorrent.com:6881"  
+# schedule2 = dht_node_2, 5, 0, "dht.add_node=dht.transmissionbt.com:6881"  
+# schedule2 = dht_node_3, 5, 0, "dht.add_node=router.bitcomet.com:6881"  
+# schedule2 = dht_node_4, 5, 0, "dht.add_node=dht.aelitis.com:6881"
 ```
 And here is a simple start script that you should use before you tackle auto-starting rTorrent at boot time. First make it work for you, then add the bells and whistles. Copy the script to \~/rtorrent/start, and make it executable using:
 
@@ -206,6 +241,7 @@ You need to re-hash after adding a certificate:
 `root #``c_rehash`
 Try with curl:
 
+`user $``curl` [https://mytracker.net:443](https://mytracker.net:443)
 You should not get a warning regarding the self-signed certificate.
 
 Restart rTorrent. If using the daemon:
@@ -324,7 +360,7 @@ If needed, give access to group members of the configured user. Add this at the 
 **`/etc/init.d/rtorrentd`**
 
 ```
- g+rw ${dtach_tmpfile}
+chmod g+rw ${dtach_tmpfile}
 ```
 Starting *rTorrent* in the background, and run at system boot:
 
@@ -407,6 +443,9 @@ Restart *Konsole*, and create a new profile with the key bindings named "Default
 
 **`~/.Xresources`**
 
+```
+XTerm*vt100.appcursorDefault: true
+```
 `user $``xrdb -merge ~/.Xresources`
 If there's no toolbar, rebuild *XTerm*:
 
@@ -428,7 +467,7 @@ If hashing operations appear a bit heavy, try adding this in the `start_post()` 
 **`/etc/init.d/rtorrentd`**
 
 ```
- -n 5 $(cat ${pidfile}) >/dev/null
+renice -n 5 $(cat ${pidfile}) >/dev/null
 # and/or
 ionice -c 3 -p $(cat ${pidfile})
 ```

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Snapcast
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-07-30"
-fingerprint: b602a95bf1211e96
+fingerprint: b602a95bf1a11c96
 license: CC BY-SA 4.0
 ---
 
@@ -26,6 +26,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [media-sound/snapcast](https://packages.gentoo.org/packages/media-sound/snapcast)
+            
+            Synchronous multi-room audio player
 
 | [+client](https://packages.gentoo.org/useflags/+client) | Build and install Snapcast client component | 
 | [+expat](https://packages.gentoo.org/useflags/+expat) | Enable the use of dev-libs/expat for XML parsing | 
@@ -123,6 +128,9 @@ To set up audio streaming from a [desktop environment](https://wiki.gentoo.org/w
 
 **`/etc/snapserver.conf`**
 
+```
+source = pipewire://?name=PipeWire
+```
 The stream name can be changed from `PipeWire` to whatever name is preferred.
 
 To avoid permissions errors, the Snapcast server needs to be launched from the same desktop where PipeWire is enabled. This should be done via a user service, but if such a service is not yet available, as is the case for OpenRC ([bug #980076](https://bugs.gentoo.org/show_bug.cgi?id=980076)) the server can be started manually.

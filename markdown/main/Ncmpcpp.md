@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Ncmpcpp
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-02-17"
-fingerprint: "1fcd561c736a7dc3"
+fingerprint: "9ec5741873eb7dc2"
 license: CC BY-SA 4.0
 ---
 
 # ncmpcpp
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -23,6 +25,16 @@ ncmpcpp (**N**Curses **M**usic **P**layer **C**lient **P**lus **P**lus) is a [sy
 ### USE flags
 
 
+### USE flags for
+            [media-sound/ncmpcpp](https://packages.gentoo.org/packages/media-sound/ncmpcpp)
+            
+            Featureful ncurses based MPD client inspired by ncmpc
+
+| [clock](https://packages.gentoo.org/useflags/clock) | Enable clock screen | 
+| [outputs](https://packages.gentoo.org/useflags/outputs) | Enable outputs screen | 
+| [taglib](https://packages.gentoo.org/useflags/taglib) | Enable tagging support with taglib | 
+| [visualizer](https://packages.gentoo.org/useflags/visualizer) | Enable visualizer screen with sound wave/frequency spectrum modes | 
+
 ### Emerge
 
 `root #``emerge --ask media-sound/ncmpcpp`
@@ -35,7 +47,7 @@ After installation the user should make a .ncmpcpp directory within their specif
 `user $``mkdir ~/.ncmpcpp && touch ~/.ncmpcpp/config`
 Below is an example of a local user's ncmpcpp configuration file:
 
-**`~/.ncmpcpp/config`**
+FILE **`~/.ncmpcpp/config`**
 
 ```
 ncmpcpp_directory =         "~/.ncmpcpp"

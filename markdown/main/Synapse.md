@@ -4,8 +4,8 @@ title: Synapse
 url: https://wiki.gentoo.org/wiki/Synapse
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2024-05-28"
-fingerprint: "823bf15c9986bc86"
+date: "2026-10-08"
+fingerprint: "823bf15c9d86bc86"
 license: CC BY-SA 4.0
 ---
 
@@ -26,6 +26,11 @@ license: CC BY-SA 4.0
 ### USE flags
 
 
+### USE flags for
+            [net-im/synapse](https://packages.gentoo.org/packages/net-im/synapse)
+            
+            Reference implementation of Matrix homeserver
+
 | [debug](https://packages.gentoo.org/useflags/debug) | Enable extra debug codepaths, like asserts and extra output. If you want to get meaningful backtraces see https://wiki.gentoo.org/wiki/Project:Quality\_Assurance/Backtraces | 
 | [postgres](https://packages.gentoo.org/useflags/postgres) | Add support for the postgresql database | 
 | [selinux](https://packages.gentoo.org/useflags/selinux) | !!internal use only!! Security Enhanced Linux support, this must be set by the selinux profile or breakage will occur | 
@@ -42,6 +47,21 @@ license: CC BY-SA 4.0
 Coturn is software which enables a standard home user to allow their Matrix server to communicate over a Network Address Traversal (NAT) using either [STUN](https://en.wikipedia.org/wiki/STUN) or [TURN](https://en.wikipedia.org/wiki/Traversal_Using_Relays_around_NAT) techniques. NAT is used both as a measure to counteract IPv4 address exhaustion and as a security zone. It is a standard and important component of [SOHO networks](https://en.wikipedia.org/wiki/Small_office/home_office), and subsequently adds a filter for inbound connections to a home server inside a private network.
 
 `root #``emerge --ask net-im/coturn`
+#### PostgreSQL
+
+PostgreSQL is a free and open source relational database management system (RDBMS). It is recomended over sqlite when dealing with a bigger instance.
+
+For installation guide check [PostgreSQL/QuickStart](https://wiki.gentoo.org/wiki/PostgreSQL/QuickStart) and ensure you use [postgres](https://packages.gentoo.org/useflags/postgres) [flag when compiling synapse.](https://wiki.gentoo.org/wiki/USE_flag)
+
+**`/etc/portage/package.use`**
+
+```
+net-im/synapse postgres
+```
+To configure it, check out [Using Postgres - Synapse Wiki](https://element-hq.github.io/synapse/latest/postgres.html)
+
+
+
 ## Configuration
 
 Synapse will not work using an IP address, so even with a static IP it's necessary to have a valid internet hostname. DynuDNS [https://www.dynu.com/en-US/](https://www.dynu.com/en-US/) is free, but any domain name service can be used. Changing the server name is not straightforward once Synapse is installed, and therefore can be configured after a domain name has been obtained.
@@ -103,6 +123,16 @@ Edit /etc/turnserver.conf:
 
 **`/etc/turnserver.conf`**
 
+```
+listening-port=3478
+fingerprint
+use-auth-secret
+static-auth-secret=The32HexCharacterKeyGeneratedAbove
+realm=your.domain.name
+bps-capacity=0
+stale-nonce=600
+no-multicast-peers
+```
 An example config file is at /etc/turnserver.conf.default Edit /etc/synapse/homeserver.yaml with your domain name and keys. To add new users after TLS has been set up disable TLS and TURN as comments. It may not be neccessary to change all the lines noted:
 
 **`/etc/synapse/homeserver.yaml`**

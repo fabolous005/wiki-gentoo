@@ -4,8 +4,8 @@ title: util-linux
 url: https://wiki.gentoo.org/wiki/Util-linux
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-01-07"
-fingerprint: ae19b90f4fe2c7c0
+date: "2026-10-08"
+fingerprint: ae19b90f4fe287c0
 license: CC BY-SA 4.0
 ---
 
@@ -26,6 +26,11 @@ On Linux systems, Gentoo includes the [sys-apps/util-linux](https://packages.gen
 
 ### USE flags
 
+
+### USE flags for
+            [sys-apps/util-linux](https://packages.gentoo.org/packages/sys-apps/util-linux)
+            
+            Various useful Linux utilities
 
 | [+cramfs](https://packages.gentoo.org/useflags/+cramfs) | build mkfs/fsck helpers for cramfs filesystems | 
 | [+hardlink](https://packages.gentoo.org/useflags/+hardlink) | build hardlink program | 

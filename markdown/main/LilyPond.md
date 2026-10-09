@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/LilyPond
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-02-17"
-fingerprint: b6401ade71bf3624
+fingerprint: b6409ade73bf3624
 license: CC BY-SA 4.0
 ---
 
@@ -21,6 +21,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [media-sound/lilypond](https://packages.gentoo.org/packages/media-sound/lilypond)
+            
+            GNU Music Typesetter
 
 | [debug](https://packages.gentoo.org/useflags/debug) | Enable extra debug codepaths, like asserts and extra output. If you want to get meaningful backtraces see https://wiki.gentoo.org/wiki/Project:Quality\_Assurance/Backtraces | 
 | [doc](https://packages.gentoo.org/useflags/doc) | Add extra documentation (API, Javadoc, etc). It is recommended to enable per package instead of globally | 

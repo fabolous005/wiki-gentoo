@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Mpv
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-03-19"
-fingerprint: ee00085c408a39d8
+fingerprint: ee00485c408a39d8
 license: CC BY-SA 4.0
 ---
 
@@ -28,6 +28,11 @@ Hardware video decoding is usually desired. mpv supports both [VAAPI](https://wi
 
 For a complete set of features please refer to the list of USE flags below.
 
+
+### USE flags for
+            [media-video/mpv](https://packages.gentoo.org/packages/media-video/mpv)
+            
+            Media player for the command line
 
 | [+X](https://packages.gentoo.org/useflags/+X) | Add support for X11 | 
 | [+alsa](https://packages.gentoo.org/useflags/+alsa) | Add support for media-libs/alsa-lib (Advanced Linux Sound Architecture) | 
@@ -148,11 +153,15 @@ Advanced real-world configurations from mpv contributors: [\[1\]](https://github
 
 ## Usage
 
+### User scripts and plugins
+
 Core mpv functionality can be extended with [Lua](https://wiki.gentoo.org/wiki/Lua) or [JavaScript](https://en.wikipedia.org/wiki/JavaScript) scripts or [C](<https://en.wikipedia.org/wiki/C_(programming_language)>) plugins.
 
 All scripts and plugins from \~/.config/mpv/scripts/ directory are loaded automatically. Alternatively a script or plugin can be loaded manually via the command line, e.g. `--script=/path/to/script.file`.
 
 Several Lua scripts are shipped with mpv and installed into /usr/share/mpv/lua/ directory. Upstream wiki also has [an extensive list of 3rd party scripts and plugins](https://github.com/mpv-player/mpv/wiki/User-Scripts).
+
+### Terminal emulator
 
 mpv can be run on a directory.
 
@@ -170,6 +179,8 @@ If using a multi-monitor setup, the output to use can be specified via the `--dr
 
 `user $``mpv --vulkan-display-display=help`
 ## Troubleshooting
+
+### Broken playback/crashes after updating FFmpeg/Libav/libass/etc.
 
 FFmpeg/Libav/libass are all known to, from time to time, introduce incompatible, ABI-breaking changes between minor releases. Usually SLOTs of these libraries remain the same between minor releases, i.e. an automatic mpv rebuild isn't triggered. This causes problems with mpv compiled against previous versions of these libraries. These problems vary from broken pieces of functionality to sudden crashes.
 

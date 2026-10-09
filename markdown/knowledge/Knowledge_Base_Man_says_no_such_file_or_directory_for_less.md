@@ -4,12 +4,14 @@ title: man page
 url: https://wiki.gentoo.org/wiki/Man_page#sh:_.2Fusr.2Fbin.2Fless:_No_such_file_or_directory
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-08-17"
+date: "2026-10-08"
 fingerprint: b048fa6922e7ff15
 license: CC BY-SA 4.0
 ---
 
 # man page
+
+[Knowledge Base:Man says no such file or directory for less](https://wiki.gentoo.org/index.php?title=Knowledge_Base:Man_says_no_such_file_or_directory_for_less&redirect=no))
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -105,12 +107,9 @@ Consider for example pages in \~/.local/share/man (respecting the section hierar
 
 **Adding the full local path to`MANPATH` environment variable.**
 
-Reference \~/.local/share/man for mandb to manage the database index cache:
-
-**`~/.manpath`**
-
-**Instructing mandb where to look.**
-
+```
+MANPATH="${HOME}/.local/share/man:${MANPATH}"
+```
 Recreate the database:
 
 `user $``mandb --create --user-db`
