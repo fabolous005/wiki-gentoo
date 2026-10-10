@@ -4,7 +4,7 @@ title: coreboot
 url: https://wiki.gentoo.org/wiki/Coreboot
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-07-15"
+date: "2026-10-09"
 fingerprint: "9e0e941c03fb19ec"
 license: CC BY-SA 4.0
 ---
@@ -17,12 +17,12 @@ license: CC BY-SA 4.0
 
 
 
-**coreboot** is a free and open-source hardware initializing firmware which supports multiple boot ROM payloads. Supported boot ROM payloads range from [UEFI](https://wiki.gentoo.org/wiki/UEFI), [BIOS](https://wiki.gentoo.org/wiki/BIOS) (via the open-source [SeaBIOS](https://www.seabios.org/SeaBIOS)), [Open Firmware](https://wiki.gentoo.org/wiki/Open_Firmware), to [GRUB](https://wiki.gentoo.org/wiki/GRUB) for running a Linux kernel at boot-time.
+**coreboot** is a free and open-source hardware initializing firmware which supports multiple boot ROM payloads. Supported boot ROM payloads range from [UEFI](https://wiki.gentoo.org/wiki/UEFI), [BIOS](https://wiki.gentoo.org/wiki/BIOS) (via the open-source [SeaBIOS](https://www.seabios.org/)), [Open Firmware](https://wiki.gentoo.org/wiki/Open_Firmware), to [GRUB](https://wiki.gentoo.org/wiki/GRUB) for running a Linux kernel at boot-time.
 This guide will cover the installation of coreboot with a SeaBIOS payload on supported devices, the handling of userspace tools, and the use of flashrom.
 
 ## Supported hardware
 
-There are different types of architectures and supported hardware. The fully up-to-date table is available at the following [link](http://www.coreboot.org/Supported_Motherboards). In the table below are some well supported devices which are more or less recently released. If an older device is being used, it may be possible to remove all proprietary binary blobs. For this, use the [libreboot](https://libreboot.org/) guide.
+There are different types of architectures and supported hardware. The fully up-to-date table is available at the following [link](https://doc.coreboot.org/mainboard/index.html). In the table below are some well supported devices which are more or less recently released. If an older device is being used, it may be possible to remove all proprietary binary blobs. For this, use the [libreboot](https://libreboot.org/) guide.
 
 | Hardware | Supported | Blob Free | Native RAM Init | Native Graphics Init | Flashable via Hardware | Flashable via Software | Desoldering needed | 
 |---|---|---|---|---|---|---|---|

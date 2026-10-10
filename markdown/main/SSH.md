@@ -4,8 +4,8 @@ title: SSH
 url: https://wiki.gentoo.org/wiki/SSH
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-03-22"
-fingerprint: b439d55c2c01bfc5
+date: "2026-10-09"
+fingerprint: b479dd583e01bbc5
 license: CC BY-SA 4.0
 ---
 
@@ -32,13 +32,14 @@ SSH is multi-platform, and is very widely used: OpenSSH is installed by default 
 Deployments of Gentoo Linux should already have OpenSSH installed, as the [net-misc/openssh](https://packages.gentoo.org/packages/net-misc/openssh) package is part of the [system set](<https://wiki.gentoo.org/wiki/System_set_(Portage)>). The presence and proper functioning of OpenSSH can be checked by running the ssh command, which should output a usage statement:
 
 `user $``ssh````
-usage: ssh [-46AaCfGgKkMNnqsTtVvXxYy] [-B bind_interface]
-           [-b bind_address] [-c cipher_spec] [-D [bind_address:]port]
-           [-E log_file] [-e escape_char] [-F configfile] [-I pkcs11]
-           [-i identity_file] [-J [user@]host[:port]] [-L address]
-           [-l login_name] [-m mac_spec] [-O ctl_cmd] [-o option] [-p port]
-           [-Q query_option] [-R address] [-S ctl_path] [-W host:port]
-           [-w local_tun[:remote_tun]] destination [command]
+usage: ssh [-46AaCfGgKkMNnqsTtVvXxYyZ] [-B bind_interface] [-b bind_address]
+           [-c cipher_spec] [-D [bind_address:]port] [-E log_file]
+           [-e escape_char] [-F configfile] [-I pkcs11] [-i identity_file]
+           [-J destination] [-L address] [-l login_name] [-m mac_spec]
+           [-O ctl_cmd] [-o option] [-P tag] [-p port] [-R address]
+           [-S ctl_path] [-W host:port] [-w local_tun[:remote_tun]]
+           destination [command [argument ...]]
+       ssh [-Q query_option]
 ```
 If no usage statement is printed, OpenSSH may be corrupt, or not installed. Try re-installation by following the [emerge section](https://wiki.gentoo.org/wiki/SSH#Emerge), just as if rebuilding after a USE flag change. If OpenSSH were uninstalled, this should reinstall it. It should then remain installed, as part of the system set.
 
@@ -46,6 +47,11 @@ If this does not try to install OpenSSH, the package may have been [masked](http
 
 ### USE flags
 
+
+### USE flags for
+            [net-misc/openssh](https://packages.gentoo.org/packages/net-misc/openssh)
+            
+            Port of OpenBSD's free SSH release
 
 | [+pie](https://packages.gentoo.org/useflags/+pie) | Build programs as Position Independent Executables (a security hardening technique) | 
 | [+ssl](https://packages.gentoo.org/useflags/+ssl) | Enable additional crypto algorithms via OpenSSL | 
@@ -103,7 +109,7 @@ Clients need public and private keys. A pair may be created with (of course, **n
 `user $``ssh-keygen -t ed25519`
 Generating public/private ed25519 key pair.
 Enter file in which to save the key (/home/larry/.ssh/id\_ed25519): 
-Enter passphrase (empty for no passphrase): 
+Enter passphrase for "/home/larry/.ssh/id\_ed25519" (empty for no passphrase): 
 Enter same passphrase again: 
 Your identification has been saved in /home/larry/.ssh/id\_ed25519
 Your public key has been saved in /home/larry/.ssh/id\_ed25519.pub
@@ -132,7 +138,7 @@ larry@\<server>'s password:
  
 Number of key(s) added: 1
  
-Now try logging into the machine, with:   "ssh '\<server>'"
+Now try logging into the machine, with: "ssh -i /home/larry/.ssh/id\_ed25519 '\<username>@\<server>'"
 and check to make sure that only the key(s) you wanted were added.
 
 Afterwards a passwordless login should be possible doing:
@@ -152,8 +158,14 @@ See [Using a TPM for your SSH keys](https://wiki.gentoo.org/wiki/Trusted_Platfor
 
 #### Server
 
-The file /etc/ssh/sshd\_config should be set to `PasswordAuthentication no` after the client adds their public key.
+After the client adds their public key, password authentication can be disabled on the server. With the pam USE flag, which is in the default USE flags of all default/linux profiles ([make.defaults](https://github.com/gentoo/gentoo/blob/e20b6dbcdc767615c3645da42d0c06da9c1f5620/profiles/default/linux/make.defaults)), Gentoo already sets `UsePAM yes` and `PasswordAuthentication no` in /etc/ssh/sshd\_config.d/9999999gentoo-pam.conf ([openssh-10.5\_p1.ebuild](https://github.com/gentoo/gentoo/blob/e20b6dbcdc767615c3645da42d0c06da9c1f5620/net-misc/openssh/openssh-10.5_p1.ebuild)). With `UsePAM yes`, PAM authentication is also allowed through keyboard-interactive authentication, which is enabled by default and usually serves an equivalent role to password authentication ([sshd\_config(5)](https://github.com/openssh/openssh-portable/blob/V_10_5_P1/sshd_config.5)). To keep the PAM account and session checks but turn off PAM authentication, set both `PasswordAuthentication` and `KbdInteractiveAuthentication` to `no` ([upstream sshd\_config](https://github.com/openssh/openssh-portable/blob/V_10_5_P1/sshd_config)). For example, put them in a file in /etc/ssh/sshd\_config.d/, which Gentoo's /etc/ssh/sshd\_config includes ([openssh-9.7\_p1-config-tweaks.patch](https://github.com/gentoo/gentoo/blob/e20b6dbcdc767615c3645da42d0c06da9c1f5620/net-misc/openssh/files/openssh-9.7_p1-config-tweaks.patch)):
 
+**`/etc/ssh/sshd_config.d/01_no-passwords.conf`**
+
+```
+PasswordAuthentication no
+KbdInteractiveAuthentication no
+```
 Then [restart the sshd service](https://wiki.gentoo.org/wiki/SSH#Service) to authenticate without passwords.
 
 #### Single machine testing
@@ -163,7 +175,7 @@ The above procedure can be tested out locally:
 `user $``ssh-keygen -t ed25519`
 Generating public/private ed25519 key pair.
 Enter file in which to save the key (/home/larry/.ssh/id\_ed25519): 
-Enter passphrase (empty for no passphrase): 
+Enter passphrase for "/home/larry/.ssh/id\_ed25519" (empty for no passphrase): 
 Enter same passphrase again:
 ...
 
@@ -178,7 +190,7 @@ The [SFTP](https://wiki.gentoo.org/wiki/SFTP) command, a part of SSH, uses the S
 
 ### ssh-agent
 
-OpenSSH comes with ssh-agent, a daemon to cache and prevent from frequent ssh password entries. When run, the environment variable `SSH_AUTH_SOCK` is used to point to ssh-agent's communication socket. The normal way to setup ssh-agent is to run it as the top most process of the user's session. Otherwise the environment variables will not be visible inside the session.
+OpenSSH comes with ssh-agent, a daemon to cache and prevent from frequent ssh password entries. When run, the environment variable `SSH_AUTH_SOCK` is used to point to ssh-agent's communication socket. The normal way to setup ssh-agent is to run it as the top most process of the user's session. Alternatively, as described in the [ssh-agent(1) man page](https://github.com/openssh/openssh-portable/blob/V_10_5_P1/ssh-agent.1), a login session can evaluate the shell commands that ssh-agent prints to set its environment variables (for example `` eval `ssh-agent -s` ``), or a supervising process such as systemd can start ssh-agent via socket activation and communicate the location of its socket to other programs in the user's session.
 
 Depending on the way the graphical user session is configured to launch, it can be tricky to find a suitable way to launch ssh-agent. As an example for the lightdm display manager, edit and change /etc/lightdm/Xsession from:
 
@@ -265,7 +277,9 @@ Per host configuration:
 
 For more information read the [ssh\_config(5)](https://man.archlinux.org/man/ssh_config.5.en) [man page](https://wiki.gentoo.org/wiki/Man_page).
 
-SSH is a commonly attacked service. OpenSSH version 9.7 released a **built-in** *intrusion prevention mechanism*. To configure and activate the brute-force preventing mechanism use following configuration steps.
+### Intrusion prevention
+
+SSH is a commonly attacked service. OpenSSH version 9.8 [added](https://www.openssh.com/txt/release-9.8) a **built-in** *intrusion prevention mechanism*, the `PerSourcePenalties` option. The mechanism is [enabled by default](https://github.com/openssh/openssh-portable/blob/V_10_5_P1/sshd_config.5); to adjust the brute-force preventing mechanism use following configuration steps.
 
 Create /etc/ssh/sshd\_config.d/99\_penalities.conf file with following configuration overwriting the default OpenSSH values:
 
@@ -280,14 +294,14 @@ PerSourcePenaltyExemptList 192.168.0.0/16
 # Default value is 32:128 (IPv4/IPv6)
 PerSourceNetBlockSize 24:64
  
-# Block every occurrence for 3600 seconds
-# Default is crash:90 authfail:5 refuseconnection:10 noauth:1 grace-exceeded:10
-PerSourcePenalties crash:3600 authfail:3600 refuseconnection:3600 noauth:3600 grace-exceeded:3600
+# Refuse penalised sources for up to 3600 seconds; max: caps accumulated penalties (default 10m)
+# Default is crash:90 authfail:5 invaliduser:5 refuseconnection:10 noauth:1 grace-exceeded:10 max:600 min:15
+PerSourcePenalties crash:3600 authfail:3600 invaliduser:3600 refuseconnection:3600 noauth:3600 grace-exceeded:3600 max:3600
 ```
 Restart the OpenSSH daemon.
 
 `root #``rc-service sshd restart`
-Now the OpenSSH daemon blocks every brute-force attack for the configured time of 3600 seconds (1 hour). Adjust the blocking times to your liking.
+Now the OpenSSH daemon refuses connections from a penalised source network for up to the configured 3600 seconds (1 hour), provided `max:3600` is also set: the [maximum refusal time defaults to 10 minutes](https://github.com/openssh/openssh-portable/blob/V_10_5_P1/sshd_config.5) and repeated penalties accumulate only up to it. A penalty [does not affect concurrent connections in progress](https://github.com/openssh/openssh-portable/blob/V_10_5_P1/sshd_config.5). Adjust the blocking times to your liking.
 
 Additional tools such as [sshguard](https://wiki.gentoo.org/wiki/Sshguard) or [fail2ban](https://wiki.gentoo.org/wiki/Fail2ban) help monitor logs and can black list remote IP's which have repeatedly attempted yet failed to authenticate. Utilize them as needed to secure a frequently attacked system.
 
@@ -319,8 +333,6 @@ rc-service sshd restart
 To have the OpenSSH daemon start when the system starts:
 
 `root #``systemctl enable sshd.service`
-Created symlink from /etc/systemd/system/multi-user.target.wants/sshd.service to /usr/lib64/systemd/system/sshd.service.
-
 To start the OpenSSH daemon now:
 
 `root #``systemctl start sshd.service`
@@ -419,19 +431,32 @@ For example, to modify the server's configuration, add following file:
 
 **Help disconnects occur less often (server)**
 
+```
+# The following ClientAlive values will keep an inactive session open for 30 minutes
+ClientAliveCountMax 60
+ClientAliveInterval 30
+#
+# Deactivate TCPKeepAlive
+TCPKeepAlive no
+```
 To modify the client's configuration, add following file:
 
 **`/etc/ssh/ssh_config.d/01_ServerAlive.conf`**
 
 **Help disconnects occur less often (client)**
 
+```
+# The following ServerAlive values will keep an inactive session open for 2 hours
+ServerAliveInterval 60
+ServerAliveCountMax 120
+```
 ### New key does not get used
 
 This scenario covers the case when a key to access a remote system has been created, the public key installed on the remote system, but the remote system is (for some reason) not accessible via ssh. This can happen if the name of the keyfile is not known to ssh.
 
 Confirm which key files ssh is trying by running it with one of the verbose options, as described at the start of the [Troubleshooting section](https://wiki.gentoo.org/wiki/SSH#Troubleshooting). The verbose output will include the names of the keyfiles it is trying, and the one (if any) that actually gets used.
 
-The default key files for the system are listed in the /etc/ssh/ssh\_config, see the commented-out lines containing `IdentityFile` directives.
+The default key files are \~/.ssh/id\_rsa, \~/.ssh/id\_ecdsa, \~/.ssh/id\_ecdsa\_sk, \~/.ssh/id\_ed25519, \~/.ssh/id\_ed25519\_sk and \~/.ssh/id\_mldsa44\_ed25519, as listed under `IdentityFile` in the [ssh\_config(5)](https://github.com/openssh/openssh-portable/blob/V_10_5_P1/ssh_config.5) man page. The commented-out `IdentityFile` lines in /etc/ssh/ssh\_config ([upstream file](https://github.com/openssh/openssh-portable/blob/V_10_5_P1/ssh_config)) show only \~/.ssh/id\_rsa, \~/.ssh/id\_ecdsa and \~/.ssh/id\_ed25519.
 
 There are several ways to use a key with a non-default name.
 
@@ -440,10 +465,15 @@ The key name can be specified on the command line every time:
 `user $``ssh -i ~/.ssh/my_keyfile user@remotesys`
 Alternatively, add following ssh configuration file to add a special case for ssh to the remote system:
 
-**`/etc/ssh/ssh_config/02_remotesys.conf`**
+**`/etc/ssh/ssh_config.d/02_remotesys.conf`**
 
 **Define keyfiles to use for host remotesys**
 
+```
+Host remotesys
+    IdentityFile ~/.ssh/id_rsa
+    IdentityFile ~/.ssh/my_keyfile
+```
 If any are specified, it appears to be necessary to specify *all* the desired keys on a remote host. Read up on the ssh IdentityFile.
 
 ### X11 forwarding, not forwarding, or tunneling
@@ -457,7 +487,7 @@ Test for this scenario perform the following after logging in remotely:
 `user $``echo $DISPLAY`
 localhost:10.0
 
-The output should be something similar to `localhost:10.0` or `localhost2.local:10.0` using server side `X11UseLocalhost no` setting. If the usual `:0.0` is not displayed, check to make sure the `DISPLAY` variable within \~/.bash\_profile is not being unset or re-initializing. If it is, remove or comment out any custom initialization of the `DISPLAY` variable to prevent the code in \~/.bash\_profile from executing during a SSH login:
+The output should be something similar to `localhost:10.0` or `localhost2.local:10.0` using server side `X11UseLocalhost no` setting. If the output is not of the form `hostname:n`, where *n* is a display number of 1 or more, as [ssh(1)](https://github.com/openssh/openssh-portable/blob/V_10_5_P1/ssh.1) sets `DISPLAY` for X11 forwarding, check to make sure the `DISPLAY` variable within \~/.bash\_profile is not being unset or re-initializing. If it is, remove or comment out any custom initialization of the `DISPLAY` variable to prevent the code in \~/.bash\_profile from executing during a SSH login:
 
 `user $``ssh -t larry@localhost2 bash --noprofile`
 Be sure to substitute `larry` in the command above with the proper username.
@@ -479,7 +509,7 @@ Further it functions like normal ssh. So to open a secure shell that can launch 
 `user $``waypipe ssh <user>@<host>`
 ### The current time is displayed for PrintLastLog
 
-By default, /etc/pam.d/system-login runs:
+By default, /etc/pam.d/system-login (from [sys-auth/pambase-20251104](https://gitweb.gentoo.org/proj/pambase.git/snapshot/pambase-20251104.tar.bz2)) runs:
 
 This updates the last login time, before `PrintLastLog` in sshd. In order for `PrintLastLog` to work, this pam line must be disabled. Alternatively, `PrintLastLog` can be disabled and the *silent* option can be removed:
 

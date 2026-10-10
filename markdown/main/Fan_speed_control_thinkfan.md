@@ -4,8 +4,8 @@ title: thinkfan
 url: https://wiki.gentoo.org/wiki/Fan_speed_control/thinkfan
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2024-04-28"
-fingerprint: "9e6717cdec5650ef"
+date: "2026-10-09"
+fingerprint: "9e6317cdac5650ee"
 license: CC BY-SA 4.0
 ---
 
@@ -14,8 +14,6 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
-
-**Resources**
 
 **Thinkfan** is a fan controlling deamon aimed specifically towards IBM/Lenovo Thinkpad [laptops](https://wiki.gentoo.org/wiki/Category:Laptops). It can read multiple sensors, but control only a single fan.
 
@@ -32,7 +30,7 @@ Device Drivers  --->
     [*] X86 Platform Specific Device Drivers  ---> 
         <M>   ThinkPad ACPI Laptop Extras
 ```
-This will create a module called thinkpad\_acpi, which needs to be configured to allow for controlling a fan.
+This will create a module called `thinkpad_acpi`, which needs to be configured to allow for controlling a fan.
 
 Edit or create /etc/modprobe.d/thinkpad.conf as follows:
 

@@ -4,8 +4,8 @@ title: Nnn
 url: https://wiki.gentoo.org/wiki/Nnn
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-08"
-fingerprint: "4ee6d318898e78c2"
+date: "2026-10-09"
+fingerprint: "4ee6d71889ce78c2"
 license: CC BY-SA 4.0
 ---
 
@@ -17,16 +17,13 @@ From Gentoo Wiki
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
-[**nnn**](https://github.com/jarun/nnn) is a small, minimalistic and lightweight terminal based file manager written in C. It is very tiny, and the file size is around **\~150** KiB.
+**Resources**
+
+**nnn** is a small, minimalistic and lightweight terminal based file manager written in C. It is very tiny, and the file size is around **\~150** KiB.
 
 ## Installation
 
-Preferably, you can just emerge **nnn**.
-
-## Emerge
-
-`root #``emerge --ask app-misc/nnn`
-## USE Flags
+### USE Flags
 
 
 ### USE flags for
@@ -45,6 +42,11 @@ Preferably, you can just emerge **nnn**.
 | [qsort](https://packages.gentoo.org/useflags/qsort) | Use Alexey Tourbin's quick sort implementation | 
 | [restorepreview](https://packages.gentoo.org/useflags/restorepreview) | Add pipe to close and restore preview-tui for internal undetached edits | 
 
+### Emerge
+
+To emerge the app, run:
+
+`root #``emerge --ask app-misc/nnn`
 ## Icons
 
 FILE **`/etc/portage/package.use/nnn`**
@@ -59,13 +61,13 @@ To use **nnn**, simply run it in your terminal of choice!
 `user $``nnn`
 ## Plugins
 
-To install **all** plugins on **nnn**, you can run their command.
+To install **all** plugins on **nnn**, run this command.
 
 `user $``sh -c "$(curl -Ls` [https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs](https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs))"
 If you already have plugins installed, this command will attempt to just update them to their latest version.
 
-Plugins are usually installed in the **\~/.config** directory. To be exact, **\~/.config/nnn/plugins**.
+Plugins are usually installed in the \~/.config/nnn/plugins directory.
 
 ## Troubleshooting
 
-You can view **nnn'**s [GitHub](https://github.com/jarun/nnn/wiki/Troubleshooting) page to learn more about troubleshooting.
+Read the **nnn'**s [Troubleshooting](https://github.com/jarun/nnn/wiki/Troubleshooting) page to learn more about troubleshooting.

@@ -4,7 +4,7 @@ title: Synapse
 url: https://wiki.gentoo.org/wiki/Synapse
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-08"
+date: "2026-10-09"
 fingerprint: "823bf15c9d86bc86"
 license: CC BY-SA 4.0
 ---
@@ -19,7 +19,7 @@ license: CC BY-SA 4.0
 
 - Correct handling of TLS certificates
 
-**Synapse** is the official reference implementation of [Matrix](https://matrix.org/) homeserver.
+**Synapse** is the official reference implementation of [Matrix](https://wiki.gentoo.org/wiki/Matrix) homeserver.
 
 ## Installation
 

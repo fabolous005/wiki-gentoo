@@ -4,12 +4,14 @@ title: Nftables/Examples
 url: https://wiki.gentoo.org/wiki/Nftables/Examples
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-09-29"
-fingerprint: e1a2990945815871
+date: "2026-10-09"
+fingerprint: fea8990879805ea8
 license: CC BY-SA 4.0
 ---
 
 # Nftables/Examples
+
+[Nftables](https://wiki.gentoo.org/wiki/Nftables)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -31,12 +33,48 @@ For forwarding between WAN and LAN to work, it needs to be enabled with:
 `root #``sysctl -w net.ipv4.ip_forward = 1`
 **`/etc/nftables/nftables_firewall`**
 
+```
+#!/sbin/nft -f
+flush ruleset
+table ip filter {
+	# allow all packets sent by the firewall machine itself
+	chain output {
+		type filter hook output priority 100; policy accept;
+	}
+	# allow LAN to firewall, disallow WAN to firewall
+	chain input {
+		type filter hook input priority 0; policy accept;
+		iifname "lan0" accept
+		iifname "wan0" drop
+	}
+	# allow packets from LAN to WAN, and WAN to LAN if LAN initiated the connection
+	chain forward {
+		type filter hook forward priority 0; policy drop;
+		iifname "lan0" oifname "wan0" accept
+		iifname "wan0" oifname "lan0" ct state related,established accept
+	}
+}
+```
 ## Basic NAT
 
 The following is an example of nftables rules for setting up basic Network Address Translation (NAT) using masquerade. If we have a static IP, it would be slightly faster to use source nat (SNAT) instead of masquerade. This way the router would replace the source with a predefined IP, instead of looking up the outgoing IP for every packet.
 
 **`/etc/nftables/nftables_nat`**
 
+```
+#!/sbin/nft -f
+flush ruleset
+table ip nat {
+	chain prerouting {
+		type nat hook prerouting priority 0; policy accept;
+	}
+	# for all packets to WAN, after routing, replace source address with primary IP of WAN interface
+	chain postrouting {
+		type nat hook postrouting priority 100; policy accept;
+		oifname "wan0" masquerade
+	}
+}
+```
 ## Typical workstation (separate IPv4 and IPv6)
 
 This is an example of a simple rule set that may be used by a typical workstation or other end user device. It defaults to dropping packets that do not match any of the rules, uses connection tracking to accept packets established or related to traffic initiated by the host, and accepts all ICMP (see note). Further, it assumes that we want to be able to connect to the machine via SSH.
@@ -45,12 +83,93 @@ While counter is used in this example, it isn't required if we're not interested
 
 **`/etc/nftables/nftables.rules`**
 
+```
+#!/sbin/nft -f
+flush ruleset
+# ----- IPv4 -----
+table ip filter {
+	chain input {
+		type filter hook input priority 0; policy drop;
+		ct state invalid counter drop comment "early drop of invalid packets"
+		ct state {established, related} counter accept comment "accept all connections related to connections made by us"
+		iif != lo ip daddr 127.0.0.1/8 counter drop comment "drop connections to loopback not coming from loopback"
+		iif lo accept comment "accept loopback"
+		ip protocol icmp counter accept comment "accept all ICMP types"
+		udp dport mdns ip daddr 224.0.0.251 counter accept comment "IPv4 mDNS"
+		tcp dport 22 counter accept comment "accept SSH"
+		counter comment "count dropped packets"
+	}
+	chain forward {
+		type filter hook forward priority 0; policy drop;
+		counter comment "count dropped packets"
+	}
+	# If we're not counting packets, this chain can be omitted.
+	chain output {
+		type filter hook output priority 0; policy accept;
+		counter comment "count accepted packets"
+	}
+}
+# ----- IPv6 -----
+table ip6 filter {
+	chain input {
+		type filter hook input priority 0; policy drop;
+		ct state {established, related} counter accept comment "accept all connections related to connections made by us"
+		icmpv6 type { nd-neighbor-solicit, nd-router-advert, nd-neighbor-advert } accept
+		ct state invalid counter drop comment "early drop of invalid packets"
+		iif != lo ip6 daddr ::1/128 counter drop comment "drop connections to loopback not coming from loopback"
+		iif lo accept comment "accept loopback"
+		meta l4proto ipv6-icmp counter accept comment "accept all ICMP types"
+		udp dport mdns ip6 daddr ff02::fb counter accept comment "IPv6 mDNS"
+		tcp dport 22 counter accept comment "accept SSH"
+		counter comment "count dropped packets"
+	}
+	chain forward {
+		type filter hook forward priority 0; policy drop;
+		counter comment "count dropped packets"
+	}
+	# If we're not counting packets, this chain can be omitted.
+	chain output {
+		type filter hook output priority 0; policy accept;
+		counter comment "count accepted packets"
+	}
+}
+```
 ## Typical workstation (combined IPv4 and IPv6)
 
 As for the previous example, but uses the inet family to apply rules to both IPv4 and IPv6 packets. So, only one table needs to be maintained.
 
 **`/etc/nftables/nftables.rules`**
 
+```
+#!/sbin/nft -f
+flush ruleset
+table inet filter {
+	chain input {
+		type filter hook input priority 0; policy drop;
+		ct state {established, related} counter accept comment "accept all connections related to connections made by us"
+		icmpv6 type { nd-neighbor-solicit, nd-router-advert, nd-neighbor-advert } accept
+		ct state invalid counter drop comment "early drop of invalid packets"
+		iif lo accept comment "accept loopback"
+		iif != lo ip daddr 127.0.0.1/8 counter drop comment "drop connections to loopback not coming from loopback"
+		iif != lo ip6 daddr ::1/128 counter drop comment "drop connections to loopback not coming from loopback"
+		ip protocol icmp counter accept comment "accept all ICMP types"
+		meta l4proto ipv6-icmp counter accept comment "accept all ICMP types"
+		udp dport mdns ip daddr 224.0.0.251 counter accept comment "IPv4 mDNS"
+		udp dport mdns ip6 daddr ff02::fb counter accept comment "IPv6 mDNS"
+		tcp dport 22 counter accept comment "accept SSH"
+		counter comment "count dropped packets"
+	}
+	chain forward {
+		type filter hook forward priority 0; policy drop;
+		counter comment "count dropped packets"
+	}
+	# If we're not counting packets, this chain can be omitted.
+	chain output {
+		type filter hook output priority 0; policy accept;
+		counter comment "count accepted packets"
+	}
+}
+```
 ## Stateful router example
 
 The following is an example of nftables configuration script for a stateful router.
@@ -139,6 +258,27 @@ or using a custom panic stop by running this nftables commands:
 
 **Custom Panic Stop nftables command file**
 
+```
+flush ruleset
+table inet filter {
+        chain input {
+                type filter hook input priority 0;
+# uncomment 'ct state' if existing connection should remain to finish up (soft_panic)
+#               ct state established,related accept;
+                drop
+        }
+        chain forward {
+                type filter hook forward priority 0;
+                drop
+        }
+        chain output {
+                type filter hook output priority 0;
+# uncomment 'ct state' if existing connection should remain to finish up (soft_panic)
+#               ct state established,related accept;
+                drop
+        }
+}
+```
 `root #``nft -f /etc/nftables/rules/panic-stop.nft`
 ## Passing shell variables to a nft command file
 
@@ -150,13 +290,23 @@ Useful for shell logic in selecting interface or dynamic port.
 
 **Variable-passing nft command file**
 
+```
+flush ruleset
+table inet filter {
+        chain input {
+                type filter hook input priority 0;
+                tcp dport $MY_PORT drop
+                accept
+        }
+}
+```
 Then execute:
 
-`root #``export MY_PORT=22``root #``nft -D $MY_PORT -f /etc/nftables/rules/variable-settings.nft`
+`root #``export THIS_PORT=22``root #``nft -D MY_PORT=$THIS_PORT -f /etc/nftables/rules/variable-settings.nft`
 
 Now all incoming SSH/TCP connections are blocked.
 
-Forgetting that -D $MY\_PORT will result in an error:
+Forgetting that -D MY\_PORT= portion will result in an error:
 
 `root #``nft -f /etc/nftables/rules/variable-passing.nft````
 /etc/nftables/rules/variable-passing.nft:5:28-34: Error: unknown identifier 'MY_PORT'
@@ -169,9 +319,7 @@ Alternatively can do inline assignment directly as:
 
 And supports multiple variables:
 
-`root #``nft -D MY_PORT=22 -D $WAN_INTF -f /etc/nftables/rules/variable-settings.nft`
-
-
+`root #``nft -D MY_PORT=22 -D WAN_INTF=eth2 -f /etc/nftables/rules/variable-settings.nft`
 ## Restrict packets to a process
 
 Example shows how to restrict packets to specific processes using [SELinux](https://wiki.gentoo.org/wiki/SELinux):
@@ -180,6 +328,75 @@ Example shows how to restrict packets to specific processes using [SELinux](http
 
 **Restricting packets to a process**
 
+```
+#!/usr/sbin/nft -f
+# This example file shows how to use secmark labels with the nftables framework.
+# This script is meant to be loaded with `nft -f <file>`
+# You require linux kernel >= 4.20 and nft >= 0.9.3
+# This example is SELinux based, for the secmark objects you require
+# SELinux enabled and a SELinux policy defining the stated contexts
+# For up-to-date information please visit https://wiki.nftables.org
+flush ruleset
+table inet x {
+        secmark ssh_server {
+                "system_u:object_r:ssh_server_packet_t:s0"
+        }
+        secmark dns_client {
+                "system_u:object_r:dns_client_packet_t:s0"
+        }
+        secmark http_client {
+                "system_u:object_r:http_client_packet_t:s0"
+        }
+        secmark https_client {
+                "system_u:object_r:http_client_packet_t:s0"
+        }
+        secmark ntp_client {
+                "system_u:object_r:ntp_client_packet_t:s0"
+        }
+        secmark icmp_client {
+                "system_u:object_r:icmp_client_packet_t:s0"
+        }
+        secmark icmp_server {
+                "system_u:object_r:icmp_server_packet_t:s0"
+        }
+        secmark ssh_client {
+                "system_u:object_r:ssh_client_packet_t:s0"
+        }
+        secmark git_client {
+                "system_u:object_r:git_client_packet_t:s0"
+        }
+        map secmapping_in {
+                type inet_service : secmark
+                elements = { 22 : "ssh_server" }
+        }
+        map secmapping_out {
+                type inet_service : secmark
+                elements = { 22 : "ssh_client", 53 : "dns_client", 80 : "http_client", 123 : "ntp_client", 443 : "http_client", 9418 : "git_client" }
+        }
+        chain y {
+                type filter hook input priority -225;
+                # label new incoming packets and add to connection
+                ct state new meta secmark set tcp dport map @secmapping_in
+                ct state new meta secmark set udp dport map @secmapping_in
+                ct state new ip protocol icmp meta secmark set "icmp_server"
+                ct state new ip6 nexthdr icmpv6 meta secmark set "icmp_server"
+                ct state new ct secmark set meta secmark
+                # set label for est/rel packets from connection
+                ct state established,related meta secmark set ct secmark
+        }
+        chain z {
+                type filter hook output priority 225;
+                # label new outgoing packets and add to connection
+                ct state new meta secmark set tcp dport map @secmapping_out
+                ct state new meta secmark set udp dport map @secmapping_out
+                ct state new ip protocol icmp meta secmark set "icmp_client"
+                ct state new ip6 nexthdr icmpv6 meta secmark set "icmp_client"
+                ct state new ct secmark set meta secmark
+                # set label for est/rel packets from connection
+                ct state established,related meta secmark set ct secmark
+        }
+}
+```
 ## See also
 
 - [nft](https://wiki.gentoo.org/wiki/Nft) — configures and inspects the Linux kernel's nftables packet handling framework

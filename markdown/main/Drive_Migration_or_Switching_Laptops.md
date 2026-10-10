@@ -4,8 +4,8 @@ title: Drive Migration or Switching Laptops
 url: https://wiki.gentoo.org/wiki/Drive_Migration_or_Switching_Laptops
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-01"
-fingerprint: "7d951fb244df9dce"
+date: "2026-10-09"
+fingerprint: "7d955fb24cdf8dce"
 license: CC BY-SA 4.0
 ---
 
@@ -36,8 +36,7 @@ Set these in /etc/portage/make.conf:
 FILE **`/etc/portage/make.conf`**
 
 ```
-# Architecture level — override per target
-ARCH_LEVEL=""
+# Specify generic 64-bit architecture supported by old and new CPU
 COMMON_FLAGS="-O2 -pipe -march=x86-64-v3"
 CFLAGS="${COMMON_FLAGS}"
 CXXFLAGS="${COMMON_FLAGS}"
@@ -142,7 +141,7 @@ Host-only mode control:
 ## 10) GRUB
 
 `root #``grub-install --target=x86_64-efi`
-### LLVM available targets
+## Note: LLVM available targets
 
 `root #``llvm-config --targets-built`
 Some common:

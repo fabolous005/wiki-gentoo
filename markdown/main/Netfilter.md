@@ -4,7 +4,7 @@ title: Netfilter
 url: https://wiki.gentoo.org/wiki/Netfilter
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-01"
+date: "2026-10-09"
 fingerprint: a79bdb11c3309d45
 license: CC BY-SA 4.0
 ---
@@ -218,19 +218,40 @@ Some Netfilter processing occurs outside the conventional IP packet path, includ
 
 ## Legacy and current interfaces
 
-Older xtables/iptables framework has a compatibility layer to nftables, that allows legacy rule interfaces to coexist with nftables.
-
-
+Netfilter supports legacy xtables and current nftables userspace interfaces.
 
 ### iptables framework
 
+The iptables framework configures Netfilter through legacy xtables interfaces.
+
+- iptables and ip6tables manage IPv4 and IPv6 rules.
+- arptables and ebtables manage ARP and Ethernet bridge filtering.
+
 ### nftables framework
 
+The nftables framework configures Netfilter through the Netlink API.
+
+- The [nft](https://wiki.gentoo.org/wiki/Nft) command manages tables, chains, rules, sets, and maps.
+- The inet family handles both IPv4 and IPv6.
+
 ### xtables compatibility
+
+The iptables-nft compatibility frontend translates legacy commands into nftables ruleset operations.
+
+- The iptables-legacy frontend uses the original xtables interfaces.
+- Both implementations can coexist, but maintain separate rulesets.
+
+Use one implementation consistently to simplify firewall administration and diagnostics.
+
+
+
+## Kernel configuration
 
 The kernel CONFIG\_\* options controlling Netfilter families, hooks, protocols, subsystems, and related packet-processing facilities.
 
 The following kernel options enable Netfilter components used by [base chain declaration](https://wiki.gentoo.org/wiki/Nftables/Configuration/Chain#Base_chain_declaration):
+
+### Kernel configurations, sorted by CONFIG\_
 
 Following tables has mapped protocol-family/chain-type/hook-name to kernel configuration items:
 
@@ -240,6 +261,8 @@ Following tables has mapped protocol-family/chain-type/hook-name to kernel confi
 | CONFIG\_NF\_DEFRAG\_IPV4 | IPv4 packet defragmentation | auto-included by CONFIG\_NF\_CONNTRACK | 
 | CONFIG\_NF\_CONNTRACK | connection tracking | inet/filter/prerouting inet/filter/input inet/filter/forward inet/filter/output inet/filter/postrouting ip/filter/prerouting ip/filter/input ip/filter/forward ip/filter/output ip/filter/postrouting ip6/filter/prerouting ip6/filter/input ip6/filter/forward ip6/filter/output ip6/filter/postrouting | 
 | CONFIG\_NF\_NAT | network address translation | inet/nat/prerouting inet/nat/input inet/nat/output inet/nat/postrouting ip/nat/prerouting ip/nat/input ip/nat/output ip/nat/postrouting ip6/nat/prerouting ip6/nat/input ip6/nat/output ip6/nat/postrouting | 
+
+### Kernel configurations, sorted by family/type/hook
 
 The following gives you the required kernel CONFIG\_OPTIONS if you want a specific protocol-family/chain-type/hook-name:
 

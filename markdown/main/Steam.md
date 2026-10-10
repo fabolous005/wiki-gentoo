@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Steam
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-08-31"
-fingerprint: "9c5bbc5e1e02784c"
+fingerprint: "9c53bc7e1e02784c"
 license: CC BY-SA 4.0
 ---
 
@@ -37,6 +37,13 @@ Steam expects that /dev/shm, which requires kernel [tmpfs](https://wiki.gentoo.o
 
 **`/etc/fstab`**
 
+```
+# To limit the size add e.g. size=1G to opts (recommended at least 2G, default is 50%)
+# Please note that lower setting may randomly crash Steam and/or games.
+ 
+#<fs>      <mountpoint>    <type>	<opts>		     <dump/pass>
+shm        /dev/shm        tmpfs        nodev,nosuid,noexec  0 0
+```
 The following kernel option has to be set, otherwise Steam may fail to start with the error message: "The futex facility returned an unexpected error code."
 
 **Allow 32-bit time\_t for Steam's 32-bit compatibility**
@@ -92,6 +99,9 @@ Higher limit can be specified in the /etc/security/limits.conf file or in a conf
 
 **`/etc/security/limits.d/26-steam-nofile.conf`**
 
+```
+*               hard    nofile             524288
+```
 This config will allow all users and groups to use the new limit. To set the new limit to a particular user only, the `*` in the beginning can be replaced with a specific username.
 
 ### max\_map\_count
@@ -109,6 +119,9 @@ A configuration file in the /etc/sysctl.d/ directory can be used to set the limi
 
 **`/etc/sysctl.d/steam.conf`**
 
+```
+vm.max_map_count = 1048576
+```
 ## Installation
 
 The Steam installer downloads and installs the Steam client to the user's home directory. This prevents Portage from managing the Steam client updates or the software installed by it. The Steam client is solely responsible for managing software installation and updates.
@@ -130,18 +143,173 @@ Due to the Proton runtime built into Steam, 32-bit binaries of most dependencies
 
 **`/etc/portage/package.use/steam`**
 
+```
+app-accessibility/at-spi2-core    abi_x86_32
+app-arch/bzip2                    abi_x86_32
+app-arch/lz4                      abi_x86_32
+app-arch/xz-utils                 abi_x86_32
+app-arch/zstd                     abi_x86_32
+app-crypt/p11-kit                 abi_x86_32
+dev-db/sqlite                     abi_x86_32
+dev-lang/rust                     abi_x86_32
+dev-lang/rust-bin                 abi_x86_32
+dev-libs/dbus-glib                abi_x86_32
+dev-libs/elfutils                 abi_x86_32
+dev-libs/expat                    abi_x86_32
+dev-libs/fribidi                  abi_x86_32
+dev-libs/glib                     abi_x86_32
+dev-libs/gmp                      abi_x86_32
+dev-libs/icu                      abi_x86_32
+dev-libs/json-glib                abi_x86_32
+dev-libs/leancrypto               abi_x86_32
+dev-libs/libevdev                 abi_x86_32
+dev-libs/libffi                   abi_x86_32
+dev-libs/libgcrypt                abi_x86_32
+dev-libs/libgpg-error             abi_x86_32
+dev-libs/libgudev                 abi_x86_32
+dev-libs/libgusb                  abi_x86_32
+dev-libs/libpcre2                 abi_x86_32
+dev-libs/libtasn1                 abi_x86_32
+dev-libs/libunistring             abi_x86_32
+dev-libs/libusb                   abi_x86_32
+dev-libs/libxml2                  abi_x86_32
+dev-libs/lzo                      abi_x86_32
+dev-libs/nettle                   abi_x86_32
+dev-libs/nspr                     abi_x86_32
+dev-libs/nss                      abi_x86_32
+dev-libs/openssl                  abi_x86_32
+dev-libs/wayland                  abi_x86_32
+dev-util/glslang                  abi_x86_32
+dev-util/spirv-tools              abi_x86_32
+dev-util/sysprof-capture          abi_x86_32
+dev-util/vulkan-utility-libraries abi_x86_32
+gnome-base/librsvg                abi_x86_32
+gui-libs/libdecor                 abi_x86_32
+llvm-core/clang                   abi_x86_32
+llvm-core/llvm                    abi_x86_32
+media-gfx/graphite2               abi_x86_32
+media-libs/alsa-lib               abi_x86_32
+media-libs/flac                   abi_x86_32
+media-libs/fontconfig             abi_x86_32
+media-libs/freetype               abi_x86_32
+media-libs/glu                    abi_x86_32
+media-libs/harfbuzz               abi_x86_32
+media-libs/lcms                   abi_x86_32
+media-libs/libdisplay-info        abi_x86_32
+media-libs/libepoxy               abi_x86_32
+media-libs/libglvnd               abi_x86_32
+media-libs/libjpeg-turbo          abi_x86_32
+media-libs/libogg                 abi_x86_32
+media-libs/libpng                 abi_x86_32
+media-libs/libpulse               abi_x86_32
+media-libs/libsdl2                abi_x86_32
+media-libs/libsdl3                abi_x86_32
+media-libs/libsndfile             abi_x86_32
+media-libs/libva                  abi_x86_32
+media-libs/libvorbis              abi_x86_32
+media-libs/libwebp                abi_x86_32
+media-libs/mesa                   abi_x86_32
+media-libs/openal                 abi_x86_32
+media-libs/opus                   abi_x86_32
+media-libs/tiff                   abi_x86_32
+media-libs/vulkan-layers          abi_x86_32
+media-libs/vulkan-loader          abi_x86_32 layers
+media-sound/lame                  abi_x86_32
+media-sound/mpg123-base           abi_x86_32
+media-video/pipewire              abi_x86_32
+net-dns/c-ares                    abi_x86_32
+net-dns/libidn2                   abi_x86_32
+net-libs/gnutls                   abi_x86_32
+net-libs/libasyncns               abi_x86_32
+net-libs/libndp                   abi_x86_32
+net-libs/libpsl                   abi_x86_32
+net-libs/nghttp2                  abi_x86_32
+net-libs/nghttp3                  abi_x86_32
+net-libs/ngtcp2                   abi_x86_32
+net-misc/curl                     abi_x86_32
+net-misc/networkmanager           abi_x86_32
+net-print/cups                    abi_x86_32
+sys-apps/dbus                     abi_x86_32
+sys-apps/lm-sensors               abi_x86_32
+sys-apps/systemd                  abi_x86_32
+sys-apps/systemd-utils            abi_x86_32
+sys-apps/util-linux               abi_x86_32
+sys-libs/gdbm                     abi_x86_32
+sys-libs/gpm                      abi_x86_32
+sys-libs/libcap                   abi_x86_32
+sys-libs/libudev-compat           abi_x86_32
+sys-libs/ncurses                  abi_x86_32
+sys-libs/pam                      abi_x86_32
+sys-libs/readline                 abi_x86_32
+sys-libs/zlib                     abi_x86_32
+virtual/glu                       abi_x86_32
+virtual/libelf                    abi_x86_32
+virtual/libiconv                  abi_x86_32
+virtual/libintl                   abi_x86_32
+virtual/libudev                   abi_x86_32
+virtual/libusb                    abi_x86_32
+virtual/opengl                    abi_x86_32
+virtual/zlib                      abi_x86_32
+x11-libs/cairo                    abi_x86_32
+x11-libs/extest                   abi_x86_32
+x11-libs/gdk-pixbuf               abi_x86_32
+x11-libs/gtk+                     abi_x86_32
+x11-libs/libdrm                   abi_x86_32
+x11-libs/libICE                   abi_x86_32
+x11-libs/libpciaccess             abi_x86_32
+x11-libs/libSM                    abi_x86_32
+x11-libs/libvdpau                 abi_x86_32
+x11-libs/libX11                   abi_x86_32
+x11-libs/libXau                   abi_x86_32
+x11-libs/libxcb                   abi_x86_32
+x11-libs/libXcomposite            abi_x86_32
+x11-libs/libXcursor               abi_x86_32
+x11-libs/libXdamage               abi_x86_32
+x11-libs/libXdmcp                 abi_x86_32
+x11-libs/libXext                  abi_x86_32
+x11-libs/libXfixes                abi_x86_32
+x11-libs/libXft                   abi_x86_32
+x11-libs/libXi                    abi_x86_32
+x11-libs/libXinerama              abi_x86_32
+x11-libs/libxkbcommon             abi_x86_32
+x11-libs/libXrandr                abi_x86_32
+x11-libs/libXrender               abi_x86_32
+x11-libs/libXScrnSaver            abi_x86_32
+x11-libs/libxshmfence             abi_x86_32
+x11-libs/libXtst                  abi_x86_32
+x11-libs/libXxf86vm               abi_x86_32
+x11-libs/pango                    abi_x86_32
+x11-libs/pixman                   abi_x86_32
+x11-libs/xcb-util-keysyms         abi_x86_32
+x11-misc/colord                   abi_x86_32
+```
 For users with an Nvidia card using the proprietary drivers, these packages should be added to /etc/portage/package.use/steam with their `abi_x86_32` USE flag enabled as well:
 
 **`/etc/portage/package.use/steam`**
 
+```
+gui-libs/egl-gbm            abi_x86_32
+gui-libs/egl-wayland        abi_x86_32
+gui-libs/egl-wayland2       abi_x86_32
+gui-libs/egl-x11            abi_x86_32
+x11-drivers/nvidia-drivers  abi_x86_32
+```
 Add the steam overlay to package.accept\_keywords:
 
 **`/etc/portage/package.accept_keywords/steam`**
 
+```
+*/*::steam-overlay
+games-util/game-device-udev-rules
+sys-libs/libudev-compat
+```
 Now read Steam's license terms located on /var/db/repos/steam-overlay/licenses/ValveSteamLicense and if you agree with them, then add it to portage:
 
 **`/etc/portage/package.license/steam`**
 
+```
+games-util/steam-launcher ValveSteamLicense
+```
 The overlay enables the Steam runtime by default. If you'd like to rely solely on Gentoo packages, then disable the `steamruntime` USE flag. Use the esteam utility later to scan your installed native Linux games for additional Gentoo packages required by them. Note that Gentoo packages do not cover the entirety of the runtime, so a small number of games may not work.
 
 Once the repository has been added, install the steam-launcher ebuild:
@@ -199,6 +367,7 @@ USE="X" emerge --ask sys-apps/flatpak
 `root #````
 emerge --ask games-util/game-device-udev-rules
 ```
+`user $``flatpak remote-add --if-not-exists flathub` [https://dl.flathub.org/repo/flathub.flatpakrepo](https://dl.flathub.org/repo/flathub.flatpakrepo)
 `user $````
 flatpak install flathub com.valvesoftware.Steam
 ```
@@ -206,6 +375,8 @@ flatpak install flathub com.valvesoftware.Steam
 flatpak run com.valvesoftware.Steam
 ```
 Steam will update itself and install its files in the \~/.var/app/com.valvesoftware.Steam directory.
+
+## Chroot
 
 Steam can be run in a 64-bit [multilib](https://wiki.gentoo.org/wiki/Multilib) [chroot](https://wiki.gentoo.org/wiki/Chroot) on **amd64**. The major advantage of a chroot is that Steam and its dependencies will be isolated from the root filesystem. The Steam browser is no longer supported on 32-bit Linux distributions, so only 64-bit chroot environment is available.[\[4\]](https://wiki.gentoo.org#cite_note-32bitonly-4)
 
@@ -373,6 +544,9 @@ Due to DT\_HASH not being enabled by default since glibc 2.36 then the follow ne
 
 **`/etc/portage/package.use/glibc`**
 
+```
+sys-libs/glibc hash-sysv-compat
+```
 `root #``emerge -1 sys-libs/glibc`
 ## Removal
 

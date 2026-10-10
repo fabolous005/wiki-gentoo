@@ -4,7 +4,7 @@ title: Kernel
 url: https://wiki.gentoo.org/wiki/Kernel
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-05"
+date: "2026-10-09"
 fingerprint: d793193e90e23f21
 license: CC BY-SA 4.0
 ---
@@ -61,7 +61,7 @@ When a completely custom kernel config is required, it is usually better to use 
 
 This allows a kernel config made with [sys-kernel/gentoo-sources](https://packages.gentoo.org/packages/sys-kernel/gentoo-sources) to be transferred to the distribution and kernel allows that config to applied to future updates.
 
-Some consider this a better way to manage the kernel than [sys-kernel/gentoo-sources](https://packages.gentoo.org/packages/sys-kernel/gentoo-sources), because [sys-kernel/gentoo-kernel](https://packages.gentoo.org/packages/sys-kernel/gentoo-kernel) can automatically trigger portage rebuilds of out-of-tree modules such as [x11-drivers/nvidia-driver](https://packages.gentoo.org/packages/x11-drivers/nvidia-driver) with every kernel update, when the `dist-kernel` USE flag is set on those packages.
+Some consider this a better way to manage the kernel than [sys-kernel/gentoo-sources](https://packages.gentoo.org/packages/sys-kernel/gentoo-sources), because [sys-kernel/gentoo-kernel](https://packages.gentoo.org/packages/sys-kernel/gentoo-kernel) can automatically trigger portage rebuilds of out-of-tree modules such as [x11-drivers/nvidia-drivers](https://packages.gentoo.org/packages/x11-drivers/nvidia-drivers) with every kernel update, when the `dist-kernel` USE flag is set on those packages.
 
 This process is described in more detail in the [Distribution kernel savedconfig](https://wiki.gentoo.org/wiki/Distribution_Kernel#Using_savedconfig) section
 

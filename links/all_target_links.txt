@@ -2426,6 +2426,7 @@ https://wiki.gentoo.org/wiki/Steam
 https://wiki.gentoo.org/wiki/Steam/Client_troubleshooting
 https://wiki.gentoo.org/wiki/Steam/Games_troubleshooting
 https://wiki.gentoo.org/wiki/Steam_Controller
+https://wiki.gentoo.org/wiki/Steam_Frame
 https://wiki.gentoo.org/wiki/Steamcmd
 https://wiki.gentoo.org/wiki/Stepping_through_ebuilds
 https://wiki.gentoo.org/wiki/Steve

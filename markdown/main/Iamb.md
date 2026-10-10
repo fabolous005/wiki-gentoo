@@ -4,7 +4,7 @@ title: iamb
 url: https://wiki.gentoo.org/wiki/Iamb
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-08"
+date: "2026-10-09"
 fingerprint: f21147592b7c3faa
 license: CC BY-SA 4.0
 ---
@@ -16,7 +16,7 @@ license: CC BY-SA 4.0
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
 
-**iamb** is a terminal based Matrix client written in [Rust](https://wiki.gentoo.org/wiki/Rust).
+**iamb** is a terminal based [Matrix](https://wiki.gentoo.org/wiki/Matrix) client written in [Rust](https://wiki.gentoo.org/wiki/Rust).
 
 ## Installation
 

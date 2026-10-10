@@ -4,8 +4,8 @@ title: Zswap
 url: https://wiki.gentoo.org/wiki/Zswap
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2025-11-26"
-fingerprint: ae0f1f493ee239e8
+date: "2026-10-09"
+fingerprint: ac0f1e49b6e039e8
 license: CC BY-SA 4.0
 ---
 
@@ -16,6 +16,8 @@ license: CC BY-SA 4.0
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
 
+
+*Not to be confused with[Swap](https://wiki.gentoo.org/wiki/Swap).*
 
 **Zswap** is a lightweight compressed cache for swap pages.
 
@@ -43,19 +45,34 @@ The kernel needs to have swap, frontswap, options for zswap and compression algo
 
 **Enable zswap**
 
+```
+Memory Management options  ---> 
+    [*] Support for paging of anonymous memory (swap) --->
+        [*] Compressed cache for swap pages
+        [ ] Enable the compressed cache for swap pages by default
+        -*- Common API for compressed memory storage
+        Default allocator (zsmalloc) --->
+        < > Low (Up to 2x) density storage for compressed pages
+        < > Up to 3x density storage for compressed pages
+    -*- N:1 compression allocator (zsmalloc)
+    [*] Enable frontswap to cache swap pages if tmem is present (below 6.5)
+Cryptographic API  --->
+    {*}   Deflate compression algorithm
+    -*-   LZO compression algorithm
+    <*>   LZ4 compression algorithm
+    <*>   LZ4HC compression algorithm
+    <*>   Zstd compression algorithm
+```
 ## Interactive configuration
 
 The zswap parameters can be examined as follows:
 
-`root #````
-cd /sys/module/zswap/parameters
-```
-`root #``grep "" *`
-compressor:lzo
-enabled:N
-max\_pool\_percent:20
-same\_filled\_pages\_enabled:Y
-zpool:zbud
+`root #``grep -r . /sys/module/zswap/parameters/`
+/sys/module/zswap/parameters/enabled:N
+/sys/module/zswap/parameters/shrinker\_enabled:Y
+/sys/module/zswap/parameters/max\_pool\_percent:20
+/sys/module/zswap/parameters/compressor:lzo
+/sys/module/zswap/parameters/accept\_threshold\_percent:90
 
 Enabling zswap can be done by writing "1" to the enabled file:
 

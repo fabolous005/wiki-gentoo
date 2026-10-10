@@ -4,8 +4,8 @@ title: Matrix
 url: https://wiki.gentoo.org/wiki/Matrix
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-08"
-fingerprint: b1fdff5c480d4d0e
+date: "2026-10-09"
+fingerprint: b1fdff5c490d4d1e
 license: CC BY-SA 4.0
 ---
 
@@ -44,6 +44,7 @@ Clients with Gentoo ebuilds:
 |---|---|---|---|
 | Element | [www-apps/element](https://packages.gentoo.org/packages/www-apps/element) | Gentoo | A glossy web and desktop client with an emphasis on performance and usability. | 
 | FluffyChat | [net-im/fluffychat-bin::guru](https://github.com/gentoo-mirror/guru/tree/master/net-im/fluffychat-bin) | GURU | Cute instant messaging app for all platforms. | 
+| Fractal | [net-im/fractal](https://packages.gentoo.org/packages/net-im/fractal) | Gentoo | Matrix messaging app for GNOME written in Rust. | 
 | gomkus | [net-im/gomuks::guru](https://github.com/gentoo-mirror/guru/tree/master/net-im/gomuks) | GURU | A client written in Go with various frontends available, including web. | 
 | iamb | [net-im/iamb::guru](https://github.com/gentoo-mirror/guru/tree/master/net-im/iamb) | GURU | A Matrix chat client that uses Vim keybindings written in Rust. | 
 
