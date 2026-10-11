@@ -4,8 +4,8 @@ title: nouveau
 url: https://wiki.gentoo.org/wiki/Nouveau
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-02-20"
-fingerprint: "8e43de1c49b399a5"
+date: "2026-10-10"
+fingerprint: ce43ce1c49b399bc
 license: CC BY-SA 4.0
 ---
 
@@ -56,7 +56,7 @@ Firmware for nouveau cards are distributed in the [sys-firmware/nvidia-firmware]
 **Set`VIDEO_CARDS` to nouveau**
 
 ```
- VIDEO_CARDS: -* nouveau
+*/* VIDEO_CARDS: -* nouveau
 ```
 After setting or altering `VIDEO_CARDS` values remember to update the system using the following command so the changes take effect:
 
@@ -69,6 +69,20 @@ If NVIDIA's proprietary driver has been installed, it will have installed a udev
 
 **Results of obsolete udev rule for nvidia-drivers**
 
+```
+ [   180.669] (II) NOUVEAU(0): EDID vendor "SAM", prod id 430
+ [   180.669] (II) NOUVEAU(0): Using hsync ranges from config file
+ [   180.669] (II) NOUVEAU(0): Using vrefresh ranges from config file
+ [   180.669] (II) NOUVEAU(0): Printing DDC gathered Modelines:
+ [   180.669] (II) NOUVEAU(0): Modeline "1600x1200"x0.0  162.00  1600 1664 1856 2160  1200 1201 1204 1250 +hsync +vsync (75.0 kHz eP)
+ [   180.669] (II) NOUVEAU(0): Modeline "800x600"x0.0   40.00  800 840 968 1056  600 601 605 628 +hsync +vsync (37.9 kHz e)
+ [   180.669] (II) NOUVEAU(0): Modeline "800x600"x0.0   36.00  800 824 896 1024  600 601 603 625 +hsync +vsync (35.2 kHz e)
+ [...]
+ [   180.669] (II) NOUVEAU(0): Modeline "1152x864"x0.0  108.00  1152 1216 1344 1600  864 865 868 900 +hsync +vsync (67.5 kHz e)
+ [   180.669] (II) NOUVEAU(0): Modeline "1280x1024"x0.0  108.00  1280 1328 1440 1688  1024 1025 1028 1066 +hsync +vsync (64.0 kHz e)
+ [   180.669] (II) NOUVEAU(0): Modeline "1280x960"x0.0  108.00  1280 1376 1488 1800  960 961 964 1000 +hsync +vsync (60.0 kHz e)
+ [   180.669] removing GPU device /sys/devices/pci0000:00/0000:00:01.0/0000:01:00.0/drm/card2 /dev/dri/card2
+```
 To prevent this (without uninstalling the [x11-drivers/nvidia-drivers](https://packages.gentoo.org/packages/x11-drivers/nvidia-drivers) package), simply remove/move/rename the udev file /lib/udev/rules.d/99-nvidia.rules so that is no longer taken up by udev (see [Advanced Configuration of udev](https://wiki.gentoo.org/wiki/Udev#Advanced_Configuration)). Note that the next time nvidia-drivers is updated, that file will be re-installed, so consider unmerging nvidia-drivers.
 
 ## Configuration
@@ -98,11 +112,24 @@ NVK is an open-source Vulkan driver based on Nouveau for Kepler and newer NVIDIA
 **Set`VIDEO_CARDS` to nouveau+nvk**
 
 ```
- VIDEO_CARDS: -* nouveau nvk
+*/* VIDEO_CARDS: -* nouveau nvk
 ```
 Again, to apply changes, remember to update the system:
 
 `root #``emerge --ask --changed-use --deep @world`
+## Enabling Zink
+
+The Zink driver is a Gallium driver that emits Vulkan API calls instead of targeting a specific GPU architecture. This can be used to get full desktop OpenGL support on devices that only support Vulkan.
+
+In the context of Nouveau, it is intended to replace the older Nouveau GL drivers on Turing and later cards.
+
+**`/etc/portage/package.use/00video`**
+
+**Set`VIDEO_CARDS` to nouveau+zink+nvk**
+
+```
+*/* VIDEO_CARDS: -* nouveau zink nvk
+```
 ## Switching between Intel GPU and Nouveau
 
 Sometimes users may want to switch between two drivers. One way this matter is handled is through [initramfs](https://wiki.gentoo.org/wiki/Initramfs) and early [Kernel Mode Setting](https://nouveau.freedesktop.org/KernelModeSetting.html).
@@ -111,6 +138,12 @@ For example, if [initramfs](https://wiki.gentoo.org/wiki/Initramfs) is built usi
 
 **`/etc/dracut.conf`**
 
+```
+#add_drivers+=" i915 " # Note leading and trailing spaces
+add_drivers+=" nouveau " # Note leading and trailing spaces
+#force_drivers+=" i915 " # Note leading and trailing spaces
+force_drivers+=" nouveau " # Note leading and trailing spaces
+```
 In kernel mode setting method using [GRUB](https://wiki.gentoo.org/wiki/GRUB), the variable `GRUB_CMDLINE_LINUX_DEFAULT` in /etc/default/grub can be changed to enable or disable either of GPUs by taking the right values.
 
 For instance, to disable i915 and enable nouveau, we will add the following to  `GRUB_CMDLINE_LINUX_DEFAULT` variable: `i915.modeset=0 nouveau.modeset=1`.

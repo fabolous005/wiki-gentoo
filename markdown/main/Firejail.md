@@ -4,7 +4,7 @@ title: Firejail
 url: https://wiki.gentoo.org/wiki/Firejail
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2025-06-30"
+date: "2026-10-10"
 fingerprint: c502101e7475b32c
 license: CC BY-SA 4.0
 ---

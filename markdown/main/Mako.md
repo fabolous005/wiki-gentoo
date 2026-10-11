@@ -4,8 +4,8 @@ title: Mako
 url: https://wiki.gentoo.org/wiki/Mako
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-08-11"
-fingerprint: d44272529c87b8ee
+date: "2026-10-10"
+fingerprint: d42a73529da798ae
 license: CC BY-SA 4.0
 ---
 
@@ -21,6 +21,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [gui-apps/mako](https://packages.gentoo.org/packages/gui-apps/mako)
+            
+            A lightweight notification daemon for Wayland. Works on Sway
 
 | [+icons](https://packages.gentoo.org/useflags/+icons) | Enable support for icons | 
 | [elogind](https://packages.gentoo.org/useflags/elogind) | Enable session tracking via sys-auth/elogind | 
@@ -55,31 +60,57 @@ To get notification content, such as the subject or message, use [makoctl(1)](ht
 **`~/.config/mako/config`**
 
 ```
-=exec curl -d "$(makoctl list | jq -r '.data|..|select(.id?.data=='$id')|.body|.data')" https://ntfy.sh/examplewebhook
+on-notify=exec curl -d "$(makoctl list | jq -r '.data|..|select(.id?.data=='$id')|.body|.data')" https://ntfy.sh/examplewebhook
 ```
 To configure Mako to present notification messages with urgency 'critical' in the center of the screen with a red background:
 
 **`~/.config/mako/config`**
 
+```
+[urgency="critical"]
+anchor=center
+background-color=#ff0000ff
+```
 To configure Mako to handle notifications from a specific application in a specific way:
 
 **`~/.config/mako/config`**
 
-### Usage
+```
+[app-name="Firefox"]
+default-timeout=10000
+```
+## Usage
+
+### Daemon
 
 Mako will run automatically when a notification is emitted via D-Bus activation, so in most cases there is no need to explicitly start it up. A [running session bus](https://wiki.gentoo.org/wiki/D-Bus#The_session_bus) is needed in order to use Mako.
 
-Mako can be started from your GUI's startup file, e.g. \~/.config/sway/config:
+#### OpenRC
+
+[OpenRC user services](https://wiki.gentoo.org/wiki/OpenRC#User_services) can be used to run Mako. Firstly, add the `mako` user service to the `default` runlevel:
+
+`user $``rc-update add -U mako default`
+Then start the `mako` user service:
+
+`user $``rc-service -U mako start`
+#### Manual
+
+Mako can be started from a GUI's startup file, e.g. \~/.config/sway/config:
 
 **`~/.config/sway/config`**
+
+```
+exec mako
+```
+### Control
 
 Mako can be controlled from the command line via [makoctl(1)](https://manpages.debian.org/bookworm/mako-notifier/makoctl.1.en.html). For example, to reload the configuration file:
 
 `user $``makoctl reload`
-To show again the most recent expired notification:
+To show the most recent expired notification:
 
 `user $``makoctl restore`
-To view the history of expired notificactions:
+To view expired notification history:
 
 `user $``makoctl history`
 ## See also

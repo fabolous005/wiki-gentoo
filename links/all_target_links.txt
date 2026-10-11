@@ -1808,6 +1808,11 @@ https://wiki.gentoo.org/wiki/Nftables
 https://wiki.gentoo.org/wiki/Nftables/Configuration
 https://wiki.gentoo.org/wiki/Nftables/Examples
 https://wiki.gentoo.org/wiki/Nftables/Rules
+https://wiki.gentoo.org/wiki/Nftables/Rules/Ip6_saddr
+https://wiki.gentoo.org/wiki/Nftables/Rules/Ip_saddr
+https://wiki.gentoo.org/wiki/Nftables/Rules/Limit
+https://wiki.gentoo.org/wiki/Nftables/Rules/Log
+https://wiki.gentoo.org/wiki/Nftables/Rules/Meter
 https://wiki.gentoo.org/wiki/Nftables/Ruleset
 https://wiki.gentoo.org/wiki/Nftables/Ruleset/Chain
 https://wiki.gentoo.org/wiki/Nftables/Ruleset/Rules
@@ -2452,6 +2457,7 @@ https://wiki.gentoo.org/wiki/Surf
 https://wiki.gentoo.org/wiki/Suspend_and_hibernate
 https://wiki.gentoo.org/wiki/Swap
 https://wiki.gentoo.org/wiki/Sway
+https://wiki.gentoo.org/wiki/Swaybg
 https://wiki.gentoo.org/wiki/Synapse
 https://wiki.gentoo.org/wiki/Synaptics
 https://wiki.gentoo.org/wiki/Syncthing

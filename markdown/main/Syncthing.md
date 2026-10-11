@@ -4,8 +4,8 @@ title: Syncthing
 url: https://wiki.gentoo.org/wiki/Syncthing
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-08-07"
-fingerprint: b6786b5eb3c1aa41
+date: "2026-10-10"
+fingerprint: "9678295eb3c1aac1"
 license: CC BY-SA 4.0
 ---
 
@@ -21,6 +21,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [net-p2p/syncthing](https://packages.gentoo.org/packages/net-p2p/syncthing)
+            
+            Open Source Continuous File Synchronization
 
 | [selinux](https://packages.gentoo.org/useflags/selinux) | !!internal use only!! Security Enhanced Linux support, this must be set by the selinux profile or breakage will occur | 
 | [tools](https://packages.gentoo.org/useflags/tools) | Install stdiscosrv, strelaysrv and other tools to /usr/libexec/syncthing/. | 
@@ -74,6 +79,8 @@ Similarly, using [Firewalld](https://wiki.gentoo.org/wiki/Firewalld) you can all
 `root #``firewall-cmd --zone=public --add-service=syncthing --permanent``root #``firewall-cmd --zone=public --reload`
 Additionally, if using the web interface from remote machines, the port 8384 needs to be allowed. This service is called syncthing-gui in both Firewalld and UFW, respectively. Keep in mind that this shouldn't be done without TLS and proper authentication; a better approach using SSH tunnels is described [below](https://wiki.gentoo.org#Headless_syncthing_with_ssh_tunnel).
 
+Opening the port alone is not enough: by default the GUI only listens on 127.0.0.1:8384, so its [listen address has to be changed](https://github.com/syncthing/syncthing/blob/v2.0.16/man/syncthing-networking.7) as well, for example to 0.0.0.0:8384. The [OpenRC system service](https://github.com/gentoo/gentoo/blob/29d2ef25ce720ff3285ba376654a45512923897d/net-p2p/syncthing/files/syncthing.initd-r5) always starts Syncthing with --gui-address, which [overrides that setting](https://github.com/syncthing/syncthing/blob/v2.0.16/man/syncthing.1), so for this service set SYNCTHING\_GUI\_ADDRESS in /etc/conf.d/syncthing instead. The [OpenRC user service](https://github.com/gentoo/gentoo/blob/29d2ef25ce720ff3285ba376654a45512923897d/net-p2p/syncthing/files/syncthing.initd-user-r2) passes --gui-address too; for it, [set the variable](https://github.com/OpenRC/openrc/blob/0.63.3/sh/openrc-run.sh.in#L253-L283) in \~/.config/rc/conf.d/syncthing.
+
 Refer to the [Syncthing page on firewalls](https://docs.syncthing.net/users/firewall.html) for further information.
 
 ### Sandboxing
@@ -85,16 +92,26 @@ Since Syncthing can access all files by default, it's a good idea to either run 
 ### Invocation
 
 `user $``syncthing --help````
-Usage: syncthing <command>
+Usage: syncthing <command> [flags]
 Flags:
-  -h, --help    Show context-sensitive help.
+  -h, --help           Show context-sensitive help.
+  -C, --config=PATH    Set configuration directory (config and keys)
+                       ($STCONFDIR)
+  -D, --data=PATH      Set data directory (database and logs) ($STDATADIR)
+  -H, --home=PATH      Set configuration and data directory ($STHOMEDIR)
+      --version        Show current version, then exit
 Commands:
-  serve
-    Run Syncthing
-  decrypt <path>
-    Decrypt or verify an encrypted folder
-  cli
-    Command line interface for Syncthing
+  serve                  Run Syncthing (default)
+  cli                    Command line interface for Syncthing
+  browser                Open GUI in browser, then exit
+  decrypt                Decrypt or verify an encrypted folder
+  device-id              Show device ID, then exit
+  generate               Generate key and config, then exit
+  paths                  Show configuration paths, then exit
+  upgrade                Perform or check for upgrade, then exit
+  version                Show current version, then exit
+  debug                  Various debugging commands
+  install-completions    Print commands to install shell completions
 Run "syncthing <command> --help" for more information on a command.
 ```
 ### Running Syncthing as an individual user
@@ -104,8 +121,8 @@ Syncthing can be started as a common user:
 `user $``syncthing`
 It will create the following directories at first use:
 
-- ${HOME}/.config/syncthing
-- Configuration files and security certificates.
+- ${HOME}/.local/state/syncthing
+- Configuration files and security certificates ($XDG\_STATE\_HOME/syncthing instead, if that variable is set to an [absolute path](https://github.com/syncthing/syncthing/blob/v2.0.16/lib/locations/locations.go#L229-L241)). Installations from before [Syncthing 1.27.0](https://github.com/syncthing/syncthing/blob/v2.0.16/man/syncthing-config.5) keep using ${HOME}/.config/syncthing if a configuration already exists there.
 - ${HOME}/Sync
 - The default folder to synchronize.
 
@@ -115,7 +132,7 @@ Syncthing will also fire up a browser page at [http://127.0.0.1:8384](http://127
 
 [Upstream mentions the following commands](https://docs.syncthing.net/users/autostart.html#how-to-set-up-a-system-service) can be used to start syncthing has a system service. Do the following steps when using syncthing in a server to client architecture:
 
-`root #``systemctl enable syncthing@syncthing.service`
+`root #``systemctl enable syncthing@syncthing.service``root #``systemctl start syncthing@syncthing.service`
 This will run the syncthing executable as the syncthing user, which is created when syncthing is installed.
 
 Check the status of the service by issuing:
@@ -134,10 +151,10 @@ User and group with which Syncthing creates and modifies the synced files, can b
 **Changing the default user of syncthing init service**
 
 ```
-# <2.0.14
-#SYNCTHING_USER="syncthing"
-#SYNCTHING_GROUP="syncthing"
-# >=2.0.14 (first known version to use `command_user' instead of `SYNCTHING_USER' and `SYNCTHING_GROUP')
+# 2.0.12 and earlier versions that install confd-r1 (e.g. 2.0.10):
+#SYNCTHING_USER=syncthing
+#SYNCTHING_GROUP=syncthing
+# 2.0.12-r1 and later (e.g. 2.0.16, 2.1.3):
 #command_user="syncthing:syncthing"
 ```
 ### Syncing files with Android

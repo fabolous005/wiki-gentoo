@@ -4,7 +4,7 @@ title: KDE
 url: https://wiki.gentoo.org/wiki/KDE
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-09-28"
+date: "2026-10-10"
 categories: ['kde-apps', 'kde-misc']
 fingerprint: ab1ba24909a3b18c
 license: CC BY-SA 4.0
@@ -84,6 +84,11 @@ Make sure to have configured applicable `VIDEO_CARDS` USE expand settings and ke
 The [kde-plasma/plasma-meta](https://packages.gentoo.org/packages/kde-plasma/plasma-meta) package provides the full Plasma desktop, configurable by a wealth of USE flags:
 
 
+### USE flags for
+            [kde-plasma/plasma-meta](https://packages.gentoo.org/packages/kde-plasma/plasma-meta)
+            
+            Merge this to pull in all Plasma 6 packages
+
 | [+browser-integration](https://packages.gentoo.org/useflags/+browser-integration) | Enable integration with Chrome/Firefox with browser extensions | 
 | [+crash-handler](https://packages.gentoo.org/useflags/+crash-handler) | Pull in kde-plasma/drkonqi for assisted upstream crash reports | 
 | [+display-manager](https://packages.gentoo.org/useflags/+display-manager) | Pull in a graphical display manager | 
@@ -130,6 +135,11 @@ Alternatively, [kde-plasma/plasma-desktop](https://packages.gentoo.org/packages/
 
 Wayland is the default session.
 
+
+### USE flags for
+            [kde-plasma/plasma-login-sessions](https://packages.gentoo.org/packages/kde-plasma/plasma-login-sessions)
+            
+            KDE Plasma login sessions
 
 Users can unset [X](https://packages.gentoo.org/useflags/X) [or](https://wiki.gentoo.org/wiki/USE_flag) [wayland](https://packages.gentoo.org/useflags/wayland) [on this package if they wish to control available login sessions. This will go away in Plasma 6.8 which will be supporting Wayland only.](https://wiki.gentoo.org/wiki/USE_flag)
 
@@ -180,7 +190,7 @@ It requires the following setup:
 **Config lines for KWallet PAM unlocking via SDDM**
 
 ```
-           optional        pam_kwallet5.so
+-auth           optional        pam_kwallet5.so
 -session        optional        pam_kwallet5.so auto_start
 ```
 For unlocking on tty login (no display manager, or like [gui-apps/tuigreet](https://packages.gentoo.org/packages/gui-apps/tuigreet)), edit /etc/pam.d/login accordingly. The user will need to specify the **force\_run** parameter.
@@ -190,7 +200,7 @@ For unlocking on tty login (no display manager, or like [gui-apps/tuigreet](http
 **Config lines for KWallet PAM unlocking via Greetd**
 
 ```
-           optional        pam_kwallet5.so
+-auth           optional        pam_kwallet5.so
 -session        optional        pam_kwallet5.so auto_start force_run
 ```
 #### Disabling KWallet
@@ -217,6 +227,11 @@ Adding wireless networks using [net-misc/networkmanager](https://packages.gentoo
 
 **Administrator wheel group**
 
+```
+polkit.addAdminRule(function(action, subject) {
+    return ["unix-group:wheel"];
+});
+```
 The [Polkit](https://wiki.gentoo.org/wiki/Polkit) wiki page provides more details on rules configuration.
 
 ### Files
@@ -235,7 +250,7 @@ KDE Gear consists of various applications and supporting libraries based on Qt/K
 | KDE | Gentoo | Ebuild repository | Status | 
 |---|---|---|---|
 | KDE Gear 26.04.3 | kde-apps/kde-apps-meta-26.04.3 | gentoo | Stable for **amd64** and **arm64**; testing for **x86** | 
-| KDE Gear 26.08.1 | kde-apps/kde-apps-meta-26.08.1 | gentoo | Testing for **amd64**, **arm64** and **x86** | 
+| KDE Gear 26.08.2 | kde-apps/kde-apps-meta-26.08.2 | gentoo | Testing for **amd64**, **arm64** and **x86** | 
 | KDE Gear 26.08 stable branch | kde-apps/kde-apps-meta-26.08.49.9999 | [KDE](https://wiki.gentoo.org/wiki/KDE/Ebuild_repository) | Live version | 
 | KDE Gear master branch | kde-apps/kde-apps-meta-9999 | [KDE](https://wiki.gentoo.org/wiki/KDE/Ebuild_repository) | Live version | 
 
@@ -295,6 +310,7 @@ As Frameworks are mostly libraries and provide little user functionality, it's n
 |---|---|---|---|
 | KDE Frameworks 6.29.0 | kde-frameworks/\*-6.29.0 | gentoo | Stable for **amd64**, **arm64** and **ppc64**; testing for **loong**, **riscv** and **x86** | 
 | KDE Frameworks 6.30.0 | kde-frameworks/\*-6.30.0 | gentoo | Testing for **amd64**, **arm64**, **loong**, **ppc64**, **riscv** and **x86** | 
+| KDE Frameworks 6.31.0 | kde-frameworks/\*-6.31.0 | gentoo | Testing for **amd64**, **arm64**, **loong**, **ppc64**, **riscv** and **x86** | 
 | KDE Frameworks 6 (master) branch | kde-frameworks/\*-9999 | [KDE](https://wiki.gentoo.org/wiki/KDE/Ebuild_repository) | Live version | 
 
 ## More KDE software

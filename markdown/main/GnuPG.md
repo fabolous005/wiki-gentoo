@@ -4,7 +4,7 @@ title: GnuPG
 url: https://wiki.gentoo.org/wiki/GnuPG
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-09-27"
+date: "2026-10-10"
 fingerprint: a488b39a4bbe2afc
 license: CC BY-SA 4.0
 ---
@@ -77,7 +77,7 @@ GnuPG can be used alone, but integrates with a wide variety of software.
 
 ## Configuration
 
-GPG requires very little or no configuration to actually be used, most configuration tends to be centered around how the gpg-agent and pinentry behave. It is entirely optional, but recommended to adjust the gpg configuration at \~/.gnupg/gpg.conf to increase security.
+GPG requires little or no configuration to actually be used, most configuration tends to be centered around how the gpg-agent and pinentry behave. It is entirely optional, but recommended to adjust the gpg configuration at \~/.gnupg/gpg.conf to increase security.
 
 ### GPG Security
 
@@ -135,7 +135,7 @@ s2k-digest-algo SHA512
 
 [app-crypt/pinentry](https://packages.gentoo.org/packages/app-crypt/pinentry) is a helper application that gpg-agent uses to request the passphrase in a graphical window. It comes in many flavors, including: gtk3, qt6, tty, and curses.
 
-If [app-crypt/pinentry](https://packages.gentoo.org/packages/app-crypt/pinentry) was installed with more than frontend, it is possible to choose between them with the eselect pinentry command:
+If [app-crypt/pinentry](https://packages.gentoo.org/packages/app-crypt/pinentry) was installed with more than one frontend, it is possible to choose between them with the eselect pinentry command:
 
 `root #``eselect pinentry list`
 Available pinentry binary implementations:

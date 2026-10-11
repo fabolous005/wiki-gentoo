@@ -4,8 +4,8 @@ title: SSH jump host
 url: https://wiki.gentoo.org/wiki/SSH_jump_host
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2023-06-06"
-fingerprint: b4727b132db4dba4
+date: "2026-10-10"
+fingerprint: "84426a130d94dbae"
 license: CC BY-SA 4.0
 ---
 
@@ -26,13 +26,27 @@ The idea is to use ProxyCommand to automatically execute the ssh command on remo
 
 ## Configuration
 
+### Single jump
+
 `ProxyJump` hosts can be defined inside each user's SSH config file.
 
 **`~/.ssh/config`**
 
 **ProxyJump Example**
 
+```
+### First jump host. Directly reachable
+Host betajump
+  HostName jumphost1.example.org
+ 
+### Host to jump to via jumphost1.example.org
+Host behindbeta
+  HostName behindbeta.example.org
+  ProxyJump  betajump
+```
 See the corresponding single jump section under Usage below.
+
+### Multiple jump
 
 The same syntax can be used to make jumps over multiple machines:
 
@@ -40,6 +54,21 @@ The same syntax can be used to make jumps over multiple machines:
 
 **Add this text**
 
+```
+### First jump host. Directly reachable
+Host alphajump
+  HostName jumphost1.example.org
+ 
+### Second jumphost. Only reachable via jumphost1.example.org
+Host betajump
+  HostName jumphost2.example.org
+  ProxyJump alphajump
+ 
+### Host only reachable via alphajump and betajump
+Host behindalphabeta
+  HostName behindalphabeta.example.org
+  ProxyJump betajump
+```
 See the corresponding multiple jump section under Usage below.
 
 `user $``ssh behindalphabeta`
@@ -49,6 +78,8 @@ Static jump host list means, that the jump host(s) are known and can be defined 
 
 ## Usage
 
+### Single jump
+
 `user $``ssh behindalpha`
 If usernames on machines differ, specify them by modifying the correspondent `ProxyJump` line:
 
@@ -56,9 +87,14 @@ If usernames on machines differ, specify them by modifying the correspondent `Pr
 
 **Modify correspondent ProxyCommand**
 
+```
+ProxyJump  otheruser@behindalpha
+```
 It works with the scp command, too:
 
 `user $``scp filename behindalphabeta:~/`
+### Multiple jump
+
 The same syntax can be used to make jumps over multiple machines:
 
 `user $``ssh -J user1@host1:port1,user2@host2:port2 user3@host3`
@@ -79,4 +115,5 @@ To ease the connecting even further:
 
 ## See also
 
+- [SSH\_tunneling](https://wiki.gentoo.org/wiki/SSH_tunneling) — a method of connecting to machines on the other side of a gateway machine.
 - [SSH](https://wiki.gentoo.org/wiki/SSH) — the ubiquitous tool for logging into and working on remote machines securely.
