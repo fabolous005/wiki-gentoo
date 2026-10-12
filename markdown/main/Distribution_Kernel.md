@@ -4,7 +4,7 @@ title: Distribution Kernel
 url: https://wiki.gentoo.org/wiki/Distribution_Kernel
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-09-01"
+date: "2026-10-11"
 fingerprint: "5611133e91e3bf01"
 license: CC BY-SA 4.0
 ---

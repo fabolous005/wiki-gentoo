@@ -4,8 +4,8 @@ title: Steam
 url: https://wiki.gentoo.org/wiki/Steam
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-08-31"
-fingerprint: "9c53bc7e1e02784c"
+date: "2026-10-11"
+fingerprint: "9c50bc7e1f82784c"
 license: CC BY-SA 4.0
 ---
 
@@ -189,6 +189,7 @@ llvm-core/clang                   abi_x86_32
 llvm-core/llvm                    abi_x86_32
 media-gfx/graphite2               abi_x86_32
 media-libs/alsa-lib               abi_x86_32
+media-libs/dav1d                  abi_x86_32
 media-libs/flac                   abi_x86_32
 media-libs/fontconfig             abi_x86_32
 media-libs/freetype               abi_x86_32
@@ -310,8 +311,6 @@ Now read Steam's license terms located on /var/db/repos/steam-overlay/licenses/V
 ```
 games-util/steam-launcher ValveSteamLicense
 ```
-The overlay enables the Steam runtime by default. If you'd like to rely solely on Gentoo packages, then disable the `steamruntime` USE flag. Use the esteam utility later to scan your installed native Linux games for additional Gentoo packages required by them. Note that Gentoo packages do not cover the entirety of the runtime, so a small number of games may not work.
-
 Once the repository has been added, install the steam-launcher ebuild:
 
 `root #``emerge --ask games-util/steam-launcher`

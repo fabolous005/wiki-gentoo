@@ -4,8 +4,8 @@ title: Ryzen
 url: https://wiki.gentoo.org/wiki/Ryzen
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-07-26"
-fingerprint: "5e07d957a13edf86"
+date: "2026-10-11"
+fingerprint: "1e07d957a9ae9f86"
 license: CC BY-SA 4.0
 ---
 
@@ -45,52 +45,52 @@ The [sys-apps/cpuid](https://packages.gentoo.org/packages/sys-apps/cpuid) utilit
 
 | Device | µarch | Status | Bus ID | Kernel driver(s) | Kernel version | Latest microcode patch level | Notes | 
 |---|---|---|---|---|---|---|---|
-| Ryzen TR 1900X | Zen |  | N/A | N/A | ? | ? |  | 
-| Ryzen TR 1920X | Zen |  | N/A | N/A | 4.19.44+ | 0x08001137 | For stability use kernel parameters: `processor.max_cstate=1 rcu_nocbs=0-11 idle=nomwait` | 
-| Ryzen TR 1950X | Zen |  | N/A | N/A | 4.19.52+ | 0x8001137 | Firmware blob: amd-ucode/microcode\_amd\_fam17h.bin | 
-| Ryzen TR 2920X | Zen+ |  | N/A | N/A | ? | ? |  | 
-| Ryzen TR 2950X | Zen+ |  | N/A | N/A | ? | 0x0800820d | Firmware blob: amd-ucode/microcode\_amd\_fam17h.bin | 
-| Ryzen TR 2970WX | Zen+ |  | N/A | N/A | ? | ? |  | 
-| Ryzen TR 2990WX | Zen+ |  | N/A | N/A | ? | ? |  | 
-| Ryzen TR 3990X | Zen2 |  | N/A | N/A | 5.4+ | 0x0830104d | Firmware blob: amd-ucode/microcode\_amd\_fam17h.bin | 
-| Ryzen TR PRO 7965WX | Zen4 |  | N/A | N/A | 6.12.31+ | 0x0a10810c | Firmware blob: amd-ucode/microcode\_amd\_fam19h.bin has outdated 0x0a108109 microcode. | 
+| Ryzen TR 1900X | Zen | Unknown | N/A | N/A | ? | ? |  | 
+| Ryzen TR 1920X | Zen | Works | N/A | N/A | 4.19.44+ | 0x08001137 | For stability use kernel parameters: `processor.max_cstate=1 rcu_nocbs=0-11 idle=nomwait` | 
+| Ryzen TR 1950X | Zen | Works | N/A | N/A | 4.19.52+ | 0x8001137 | Firmware blob: amd-ucode/microcode\_amd\_fam17h.bin | 
+| Ryzen TR 2920X | Zen+ | Unknown | N/A | N/A | ? | ? |  | 
+| Ryzen TR 2950X | Zen+ | Works | N/A | N/A | ? | 0x0800820d | Firmware blob: amd-ucode/microcode\_amd\_fam17h.bin | 
+| Ryzen TR 2970WX | Zen+ | Unknown | N/A | N/A | ? | ? |  | 
+| Ryzen TR 2990WX | Zen+ | Unknown | N/A | N/A | ? | ? |  | 
+| Ryzen TR 3990X | Zen2 | Works | N/A | N/A | 5.4+ | 0x0830104d | Firmware blob: amd-ucode/microcode\_amd\_fam17h.bin | 
+| Ryzen TR PRO 7965WX | Zen4 | Works | N/A | N/A | 6.12.31+ | 0x0a10810c | Firmware blob: amd-ucode/microcode\_amd\_fam19h.bin has outdated 0x0a108109 microcode. | 
 
 ### Ryzen 9
 
 | Device | µarch | Status | Bus ID | Kernel driver(s) | Kernel version | Latest microcode patch level | Notes | 
 |---|---|---|---|---|---|---|---|
-| Ryzen 9 7900X and 7950X | Zen 4 |  | N/A | [amdgpu](https://wiki.gentoo.org/wiki/AMDGPU) | 6.0.5 | 0xa601203 | Firmware blob: amd-ucode/microcode\_amd\_fam19h.bin from linux-firmware-20221214. | 
-| Ryzen 9 5950X | Zen 3 |  | N/A | N/A | 5.15.41 | 0xa20120a | Firmware blob: amd-ucode/microcode\_amd\_fam19h.bin from linux-firmware-20220509. | 
-| Ryzen 9 5900X | Zen 3 |  | N/A | N/A | 5.10+ | ? | System booted with 5.10.15 with minor issues, but would recommend 5.13+. Tested with latest 5.15.2 also without issues. Firmware Blob: amd-ucode/microcode\_amd\_fam17h.bin & linux-firmware-20211027 | 
-| Ryzen 9 3950X | Zen 2 |  | N/A | N/A | 5.4.0-rc5 | ? | Earlier version of kernel were not tried(experimental kernel due to AMDGPU drivers are needed for newest AMD video card). Booting with keyboard that requires 2 USB connectors fails at GRUB time. Workaround - disconnect keyboard until kernel is loading. Once kernel started, keyboard can be connected as usual. At this time it's not clear if problem is related to CPU or motherboard of keyboard or combination. On same motherboard/keyboard but with Ryzen 5 - it worked fine. | 
-| Ryzen 9 3900X | Zen 2 |  | N/A | N/A | 5.4.38 | ? | Earlier kernel versions not tested | 
+| Ryzen 9 7900X and 7950X | Zen 4 | Works | N/A | [amdgpu](https://wiki.gentoo.org/wiki/AMDGPU) | 6.0.5 | 0xa601203 | Firmware blob: amd-ucode/microcode\_amd\_fam19h.bin from linux-firmware-20221214. | 
+| Ryzen 9 5950X | Zen 3 | Works | N/A | N/A | 5.15.41 | 0xa20120a | Firmware blob: amd-ucode/microcode\_amd\_fam19h.bin from linux-firmware-20220509. | 
+| Ryzen 9 5900X | Zen 3 | Works | N/A | N/A | 5.10+ | 0x0a201211 | System booted with 5.10.15 with minor issues, but would recommend 5.13+. Tested with latest 5.15.2 also without issues. Firmware Blob: amd-ucode/microcode\_amd\_fam17h.bin & linux-firmware-20211027 | 
+| Ryzen 9 3950X | Zen 2 | Works | N/A | N/A | 5.4.0-rc5 | ? | Earlier version of kernel were not tried(experimental kernel due to AMDGPU drivers are needed for newest AMD video card). Booting with keyboard that requires 2 USB connectors fails at GRUB time. Workaround - disconnect keyboard until kernel is loading. Once kernel started, keyboard can be connected as usual. At this time it's not clear if problem is related to CPU or motherboard of keyboard or combination. On same motherboard/keyboard but with Ryzen 5 - it worked fine. | 
+| Ryzen 9 3900X | Zen 2 | Works | N/A | N/A | 5.4.38 | ? | Earlier kernel versions not tested | 
 
 ### Ryzen 7
 
 | Device | µarch | Status | Bus ID | Kernel driver(s) | Kernel version | Latest microcode patch level | Notes | 
 |---|---|---|---|---|---|---|---|
-| Ryzen 7 9800X3D | Zen 5 |  | N/A | [amdgpu](https://wiki.gentoo.org/wiki/AMDGPU) | 6.10.14+ | 0x0b404023 | Firmware blob: amd-ucode/microcode\_amd\_fam19h.bin from linux-firmware-20241110. | 
-| Ryzen 7 PRO 5850U | Zen 3 |  | N/A | [amdgpu](https://wiki.gentoo.org/wiki/AMDGPU) | 5.10+ | 0x0a50000c | "Cezanne" APU; kernel 5.11 recommended, full support since 5.13 | 
-| Ryzen 7 5800H |  |  |  |  |  |  |  | 
-| Ryzen 7 5700U | Zen 2 |  | N/A | [amdgpu](https://wiki.gentoo.org/wiki/AMDGPU) | 5.15.32+ | 0x8608103 | "Lucienne" APU | 
-| Ryzen 7 5700G | Zen 3 |  | 1002-1638 | [amdgpu](https://wiki.gentoo.org/wiki/AMDGPU) | 5.10.150+ | 0x0a50000c | "Cezanne" APU | 
-| Ryzen 7 4800H | Zen 2 |  | N/A |  | 5.16.15+ | 0x08600106 |  | 
-| Ryzen 7 3700X | Zen 2 |  | N/A | N/A | ? | ? |  | 
-| Ryzen 7 2700X | Zen+ |  | N/A | N/A | 4.4.10+ | 0x08008206 | AGESA 1002c | 
-| Ryzen 7 1800X | Zen |  | N/A | N/A | 4.4.10+ | 0x08001138 | AGESA 0072 | 
-| Ryzen 7 1700X | Zen |  | N/A | N/A | 4.4.10+ | 0x08001129 | ? | 
-| Ryzen 7 1700 | Zen |  | N/A | N/A | 4.4.10+ | 0x08001138 | ? | 
+| Ryzen 7 9800X3D | Zen 5 | Works | N/A | [amdgpu](https://wiki.gentoo.org/wiki/AMDGPU) | 6.10.14+ | 0x0b404023 | Firmware blob: amd-ucode/microcode\_amd\_fam19h.bin from linux-firmware-20241110. | 
+| Ryzen 7 PRO 5850U | Zen 3 | Works | N/A | [amdgpu](https://wiki.gentoo.org/wiki/AMDGPU) | 5.10+ | 0x0a50000c | "Cezanne" APU; kernel 5.11 recommended, full support since 5.13 | 
+| Ryzen 7 5800H |  | Works |  |  |  |  |  | 
+| Ryzen 7 5700U | Zen 2 | Works | N/A | [amdgpu](https://wiki.gentoo.org/wiki/AMDGPU) | 5.15.32+ | 0x8608103 | "Lucienne" APU | 
+| Ryzen 7 5700G | Zen 3 | Works | 1002-1638 | [amdgpu](https://wiki.gentoo.org/wiki/AMDGPU) | 5.10.150+ | 0x0a50000c | "Cezanne" APU | 
+| Ryzen 7 4800H | Zen 2 | Works | N/A |  | 5.16.15+ | 0x08600106 |  | 
+| Ryzen 7 3700X | Zen 2 | Works | N/A | N/A | ? | ? |  | 
+| Ryzen 7 2700X | Zen+ | Works | N/A | N/A | 4.4.10+ | 0x08008206 | AGESA 1002c | 
+| Ryzen 7 1800X | Zen | Works | N/A | N/A | 4.4.10+ | 0x08001138 | AGESA 0072 | 
+| Ryzen 7 1700X | Zen | Works | N/A | N/A | 4.4.10+ | 0x08001129 | ? | 
+| Ryzen 7 1700 | Zen | Works | N/A | N/A | 4.4.10+ | 0x08001138 | ? | 
 
 ### Ryzen 5
 
 | Device | µarch | Status | Bus ID | Kernel driver(s) | Kernel version | Latest microcode patch level | Notes | 
 |---|---|---|---|---|---|---|---|
-| Ryzen 5 5600G | Zen 3 |  | N/A | N/A | ? | ? | ? | 
-| Ryzen 5 3600X | Zen 2 |  | N/A | N/A | 4.19.66+ | 0x08701013 | 1.0.0.4B | 
-| Ryzen 5 1600X | Zen |  | N/A | N/A | ? | ? | ? | 
-| Ryzen 5 1600 | Zen |  | N/A | N/A | 4.4.10+ | 0x08001138 | 1.0.0.4C | 
-| Ryzen 5 1500X | Zen |  | N/A | N/A | ? | ? | ? | 
-| Ryzen 5 1400 | Zen |  | N/A | N/A | ? | ? | ? | 
+| Ryzen 5 5600G | Zen 3 | Works | N/A | N/A | ? | ? | ? | 
+| Ryzen 5 3600X | Zen 2 | Works | N/A | N/A | 4.19.66+ | 0x08701013 | 1.0.0.4B | 
+| Ryzen 5 1600X | Zen | Works | N/A | N/A | ? | ? | ? | 
+| Ryzen 5 1600 | Zen | Works | N/A | N/A | 4.4.10+ | 0x08001138 | 1.0.0.4C | 
+| Ryzen 5 1500X | Zen | Works | N/A | N/A | ? | ? | ? | 
+| Ryzen 5 1400 | Zen | Works | N/A | N/A | ? | ? | ? | 
 
 ## Installation
 
@@ -277,7 +277,7 @@ A problem residing inside the Ryzen processor itself should only affect the very
 **Disabling ASLR**
 
 ```
- = 0
+kernel.randomize_va_space = 0
 ```
 #### Soft freezes on 1st gen Ryzen 7
 

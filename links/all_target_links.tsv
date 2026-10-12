@@ -531,7 +531,7 @@ Gentoo Wiki (Main)	DisplayLink	https://wiki.gentoo.org/wiki/DisplayLink	2025-10-
 Gentoo Wiki (Main)	Display manager	https://wiki.gentoo.org/wiki/Display_manager	2026-09-12T04:35:23Z
 Gentoo Wiki (Main)	Distcc	https://wiki.gentoo.org/wiki/Distcc	2026-09-07T07:52:12Z
 Gentoo Wiki (Main)	Distcc/Cross-Compiling	https://wiki.gentoo.org/wiki/Distcc/Cross-Compiling	2025-10-26T11:38:53Z
-Gentoo Wiki (Main)	Distribution Kernel	https://wiki.gentoo.org/wiki/Distribution_Kernel	2026-09-28T15:41:34Z
+Gentoo Wiki (Main)	Distribution Kernel	https://wiki.gentoo.org/wiki/Distribution_Kernel	2026-10-11T07:31:53Z
 Gentoo Wiki (Main)	Distributions based on Gentoo	https://wiki.gentoo.org/wiki/Distributions_based_on_Gentoo	2026-08-02T16:52:58Z
 Gentoo Wiki (Main)	Distrobox	https://wiki.gentoo.org/wiki/Distrobox	2026-07-03T04:18:47Z
 Gentoo Wiki (Main)	Distrobuilder	https://wiki.gentoo.org/wiki/Distrobuilder	2026-09-18T11:13:28Z
@@ -1661,7 +1661,7 @@ Gentoo Wiki (Main)	Mac Mini (PowerPC G4)	https://wiki.gentoo.org/wiki/Mac_Mini_(
 Gentoo Wiki (Main)	Macbook Pro (early 2011)	https://wiki.gentoo.org/wiki/Macbook_Pro_(early_2011)	2025-01-19T21:28:39Z
 Gentoo Wiki (Main)	Magic SysRq	https://wiki.gentoo.org/wiki/Magic_SysRq	2025-04-07T01:44:01Z
 Gentoo Wiki (Main)	Mailfiltering Gateway	https://wiki.gentoo.org/wiki/Mailfiltering_Gateway	2026-06-15T06:13:14Z
-Gentoo Wiki (Main)	Main Page	https://wiki.gentoo.org/wiki/Main_Page	2026-10-11T00:14:56Z
+Gentoo Wiki (Main)	Main Page	https://wiki.gentoo.org/wiki/Main_Page	2026-10-12T00:14:42Z
 Gentoo Wiki (Main)	Make	https://wiki.gentoo.org/wiki/Make	2025-10-04T16:10:51Z
 Gentoo Wiki (Main)	Mako	https://wiki.gentoo.org/wiki/Mako	2026-10-10T12:55:55Z
 Gentoo Wiki (Main)	Man page	https://wiki.gentoo.org/wiki/Man_page	2026-10-08T17:01:11Z
@@ -1808,6 +1808,7 @@ Gentoo Wiki (Main)	Nftables	https://wiki.gentoo.org/wiki/Nftables	2026-09-28T21:
 Gentoo Wiki (Main)	Nftables/Configuration	https://wiki.gentoo.org/wiki/Nftables/Configuration	2026-10-07T20:56:53Z
 Gentoo Wiki (Main)	Nftables/Examples	https://wiki.gentoo.org/wiki/Nftables/Examples	2026-10-09T22:30:11Z
 Gentoo Wiki (Main)	Nftables/Rules	https://wiki.gentoo.org/wiki/Nftables/Rules	2026-10-10T19:04:49Z
+Gentoo Wiki (Main)	Nftables/Rules/Include	https://wiki.gentoo.org/wiki/Nftables/Rules/Include	2026-10-11T15:45:43Z
 Gentoo Wiki (Main)	Nftables/Rules/Ip6 saddr	https://wiki.gentoo.org/wiki/Nftables/Rules/Ip6_saddr	2026-10-10T20:15:32Z
 Gentoo Wiki (Main)	Nftables/Rules/Ip saddr	https://wiki.gentoo.org/wiki/Nftables/Rules/Ip_saddr	2026-10-10T20:14:26Z
 Gentoo Wiki (Main)	Nftables/Rules/Limit	https://wiki.gentoo.org/wiki/Nftables/Rules/Limit	2026-10-10T19:20:02Z
@@ -2218,7 +2219,7 @@ Gentoo Wiki (Main)	Rust	https://wiki.gentoo.org/wiki/Rust	2026-09-23T22:19:47Z
 Gentoo Wiki (Main)	Rust x86 without SSE2	https://wiki.gentoo.org/wiki/Rust_x86_without_SSE2	2025-01-19T21:32:24Z
 Gentoo Wiki (Main)	Rxvt-unicode	https://wiki.gentoo.org/wiki/Rxvt-unicode	2026-07-25T05:09:59Z
 Gentoo Wiki (Main)	Rygel	https://wiki.gentoo.org/wiki/Rygel	2025-10-04T16:02:12Z
-Gentoo Wiki (Main)	Ryzen	https://wiki.gentoo.org/wiki/Ryzen	2026-07-26T11:09:58Z
+Gentoo Wiki (Main)	Ryzen	https://wiki.gentoo.org/wiki/Ryzen	2026-10-11T06:36:13Z
 Gentoo Wiki (Main)	S390	https://wiki.gentoo.org/wiki/S390	2024-05-20T05:59:22Z
 Gentoo Wiki (Main)	S390/Hercules	https://wiki.gentoo.org/wiki/S390/Hercules	2025-01-19T21:23:27Z
 Gentoo Wiki (Main)	S390/Install	https://wiki.gentoo.org/wiki/S390/Install	2025-01-19T21:24:00Z
@@ -2427,11 +2428,11 @@ Gentoo Wiki (Main)	StarFive VisionFive 2/Catalyst	https://wiki.gentoo.org/wiki/S
 Gentoo Wiki (Main)	StarFive VisionFive 2/Hardware	https://wiki.gentoo.org/wiki/StarFive_VisionFive_2/Hardware	2025-03-01T11:52:40Z
 Gentoo Wiki (Main)	StarFive VisionFive 2/linux kernel config	https://wiki.gentoo.org/wiki/StarFive_VisionFive_2/linux_kernel_config	2025-10-04T16:11:01Z
 Gentoo Wiki (Main)	Static routing	https://wiki.gentoo.org/wiki/Static_routing	2026-01-25T11:09:26Z
-Gentoo Wiki (Main)	Steam	https://wiki.gentoo.org/wiki/Steam	2026-10-09T11:53:23Z
+Gentoo Wiki (Main)	Steam	https://wiki.gentoo.org/wiki/Steam	2026-10-11T07:16:15Z
 Gentoo Wiki (Main)	Steam/Client troubleshooting	https://wiki.gentoo.org/wiki/Steam/Client_troubleshooting	2026-06-21T18:40:56Z
 Gentoo Wiki (Main)	Steam/Games troubleshooting	https://wiki.gentoo.org/wiki/Steam/Games_troubleshooting	2026-08-22T08:23:20Z
 Gentoo Wiki (Main)	Steam Controller	https://wiki.gentoo.org/wiki/Steam_Controller	2026-06-21T18:56:27Z
-Gentoo Wiki (Main)	Steam Frame	https://wiki.gentoo.org/wiki/Steam_Frame	2026-10-09T17:53:26Z
+Gentoo Wiki (Main)	Steam Frame	https://wiki.gentoo.org/wiki/Steam_Frame	2026-10-11T11:02:48Z
 Gentoo Wiki (Main)	Steamcmd	https://wiki.gentoo.org/wiki/Steamcmd	2025-01-19T21:23:17Z
 Gentoo Wiki (Main)	Stepping through ebuilds	https://wiki.gentoo.org/wiki/Stepping_through_ebuilds	2024-11-20T12:07:06Z
 Gentoo Wiki (Main)	Steve	https://wiki.gentoo.org/wiki/Steve	2026-08-24T06:03:37Z

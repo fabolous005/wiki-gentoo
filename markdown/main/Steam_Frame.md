@@ -4,8 +4,8 @@ title: Steam Frame
 url: https://wiki.gentoo.org/wiki/Steam_Frame
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-09"
-fingerprint: "9c86bd3ade053a49"
+date: "2026-10-11"
+fingerprint: "9490b43f4e01324b"
 license: CC BY-SA 4.0
 ---
 
@@ -138,3 +138,105 @@ The most straightforward way to set the global regulatory country code on system
 options cfg80211 ieee80211_regdom=00
 ```
 Replace `00` with your local Wi-Fi regulatory country code.
+
+### Network
+
+The Steam Frame contains two Wi-Fi radios. The first (`wlan0`) is used like a normal Wi-Fi adapter to allow the Steam Frame user to connect to their Wi-Fi while the second (`wlanap`) is setup as an access point (a.k.a hotspot) for the USB dongle to connect to.
+
+When the USB dongle is connected to a typical Linux or Windows desktop running the Steam client, the USB dongle is detected and controlled directly by Steam. Steam will attempt to find and connect to a Steam Frame logged into the same Steam account.
+
+In a typical home network this *should* make PCVR streaming to the Steam Frame a plug n' play experience.
+
+#### Steam Frame access point
+
+By default the Steam Frame access point credentials will be managed by Steam. The Steam managed SSID will be `frame_########` where `#` is a unique set of alpha-numeric characters. The Steam managed password will be 32 alpha-numeric characters.
+
+The IPv4 address of the Steam Frame on its own access point is `10.35.78.1`.
+
+##### Set custom SSID and password
+
+The Steam Frame allows you to set custom credentials to join its access point instead of being managed by Steam. Doing so will allow you to easily connect 6 GHz Wi-Fi devices other than the Steam Frames included USB dongle. Multiple devices can connect to the Steam Frames access point at the same time.
+
+Custom access point credentials could be useful if the required packages that allow the Steam client to automatically configure the USB dongle are not available or when the included USB dongle itself cannot be used for whatever reason.
+
+To configure custom credentials for the Steam Frames access point:
+
+1. While wearing the Steam Frame, select **Steam** (logo on the left of the the bottom bar in the overlay) then select **Steam Settings**
+2. Select **Remote Play** from the left list then scroll down on the right until you find the **Wireless Streaming Adapter (Steam Frame)** section
+3. Set **Connection Management** from **Steam** to **Custom**
+4. Type the **Hotspot SSID** and **Hotspot Password** of your choice in the newly appeared options under **Connection Management**
+  - If you would like to share the Steam Frames Internet connection with all devices connected to its access point then set **Hotspot Client Internet** to **NAT (via HMD Wi-Fi)**
+5. Restart the Steam Frame to apply changes
+
+##### Advanced Wi-Fi settings
+
+The Steam Frame allows you to configure some advanced settings on its access point. Usually these settings can be left on the **Auto** but can benefit from a manual setting in some circumstances.
+
+To configure Advanced Wi-Fi settings for the Steam Frames access point:
+
+1. While wearing the Steam Frame, select **Steam** (logo on the left of the the bottom bar in the overlay) then select **Steam Settings**
+2. Select **Remote Play** from the left list then scroll down on the right until you find the **Wireless Streaming Adapter (Steam Frame)** section
+3. Set the **Show Advanced Wi-Fi Settings** switch to the right
+  - **Status**, **Current Band** and **Current Channel** will show your the current settings of the access point
+4. Set **Channel** and/or **Channel Width** to an option of your choice
+5. Restart the Steam Frame to apply changes
+
+#### PC firewall
+
+In order for the Steam Frame to be used for PCVR streaming. Several ports that Steam and SteamVR use need to be opened. These ports cannot be reconfigured.
+
+If you have not configured a defensive firewall on this system you can most likely skip this entire section.
+
+The Steam Frame already allows every port it needs for PCVR streaming and Steam Remote Play.
+
+##### Steam ports
+
+If a firewall is setup on your Gentoo system then following incoming ports should be allowed on the PC running the Steam client.
+
+| Port | Protocol | Description | Required for PCVR | 
+|---|---|---|---|
+| 10400 | UDP | Streaming VR | Yes | 
+| 10401 | UDP | Streaming VR | Yes | 
+| 27031-27036 | UDP | Streaming 2D | Yes | 
+| 27036 | TCP | Streaming 2D | Yes | 
+| 27040 | TCP | Game file transfer over LAN | No | 
+
+##### Nftables example
+
+If the PC is setup to use nftables as it's firewall with the default input policy set to drop, then a ruleset like this can be used to allow an exception for the required ports the Steam Frame needs to connect to the Steam client.
+
+**`/etc/nftables/sets/steam.nft`**
+
+**Typical ruleset for allowing Steam incoming LAN connections**
+
+```
+table inet filter {
+	set STEAM_INCOMING_PORTS {
+		type inet_proto . inet_service
+		flags interval
+		elements = {
+			udp . 10400-10401, # Steam VR streaming ports (for Steam Frame)
+			udp . 27031-27036, # Steam 2D streaming ports (a.k.a Remote Play)
+			tcp . 27036,
+			tcp . 27040, # Steam game file transfer (optional but useful)
+		}
+	}
+	set STEAM_INCOMING_ADDRS {
+		type ipv4_addr
+		elements = {
+			10.35.78.1, # The address of the Steam Frame when connected directly via USB Dongle
+			# Add any additional ranges/addresses you want Steam to communicate with in your LAN here
+		}
+	}
+}
+```
+The rulesets can be added with the following command
+
+`root #``nft -f /etc/nftables/rules/sets/steam.nft`
+With the rulesets loaded add them as a incoming filter to be accepted
+
+`root #``nft add rule inet filter input ip saddr @STEAM_INCOMING_ADDRS meta l4proto . th dport @STEAM_INCOMING_PORTS accept`
+Finally check that the firewall looks correct
+
+`root #``nft list ruleset`
+The output could look somewhat like this (depending on what other firewall rules existed before)
