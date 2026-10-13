@@ -1759,6 +1759,7 @@ https://wiki.gentoo.org/wiki/MythTV
 https://wiki.gentoo.org/wiki/NILFS
 https://wiki.gentoo.org/wiki/NQP
 https://wiki.gentoo.org/wiki/NTFS
+https://wiki.gentoo.org/wiki/NTPsec
 https://wiki.gentoo.org/wiki/NUT
 https://wiki.gentoo.org/wiki/NVIDIA
 https://wiki.gentoo.org/wiki/NVIDIA/Bumblebee

@@ -4,8 +4,8 @@ title: Minecraft
 url: https://wiki.gentoo.org/wiki/Minecraft
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2025-12-12"
-fingerprint: fd88d35bd091bcd5
+date: "2026-10-12"
+fingerprint: fd80d35fd891bcd5
 license: CC BY-SA 4.0
 ---
 
@@ -41,6 +41,12 @@ To install the official Minecraft launcher ([games-action/minecraft-launcher](ht
 Free/libre software launcher for Minecraft with support for multiple instances, managing modpacks and mods etc.
 
 `root #``emerge --ask games-action/prismlauncher`
+### Fjord Launcher
+
+Fjord Launcher is a soft fork of Prism Launcher with the goal of adding support for alternative authentication servers.
+To emerge it, first enable the [GURU](https://wiki.gentoo.org/wiki/GURU) overlay.
+
+`root #``eselect repository enable guru``root #``emerge --sync guru``root #``emerge --ask games-action/fjordlauncher`
 ### musl-based system
 
 The official launcher is linked to glibc and is therefore not really usable. Prism Launcher can be compiled and run, but it uses the LWJGL binaries provided by Mojang, which are also linked to glibc.
@@ -70,7 +76,7 @@ Jemalloc may not work on the musl-llvm profile; if that is the case, try compili
 
 Installing and running Prism Launcher using [Flatpak](https://wiki.gentoo.org/wiki/Flatpak) also works:
 
-`user $``flatpak install --user flathub org.prismlauncher.PrismLauncher`
+`user $``flatpak remote-add --user --if-not-exists flathub` [https://flathub.org/repo/flathub.flatpakrepo](https://flathub.org/repo/flathub.flatpakrepo)`user $``flatpak install --user flathub org.prismlauncher.PrismLauncher`
 To run Prism Launcher use the following command (it is important to provide the locale, otherwise Minecraft will not start):
 
 `user $``flatpak run --env=LC_ALL=en_US.UTF-8 org.prismlauncher.PrismLauncher`

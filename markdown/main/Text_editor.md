@@ -4,9 +4,9 @@ title: Text editor
 url: https://wiki.gentoo.org/wiki/Text_editor
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-08-19"
+date: "2026-10-12"
 categories: ['app-editors']
-fingerprint: "7e2f529b231f3c48"
+fingerprint: "7e2f529b230f3c48"
 license: CC BY-SA 4.0
 ---
 
@@ -15,6 +15,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 A **text editor** is a program to create and edit text files. Although it is not impossible to edit files without using one, text editors make it easy, and are handy for editing configuration files.
 
@@ -71,7 +73,9 @@ See the [vi](https://wiki.gentoo.org/wiki/Vi) article for more vi(like) editors.
 
 ### Visudo editor
 
-Due to the sensitive nature of /etc/sudoers it may only edited via the visudo command which in turn is limited to a predefined selection of editors. Type man visudo for more information.
+Due to the sensitive nature of /etc/sudoers it may only be edited via the visudo command, which is limited to a predefined selection of editors. Type man visudo for more information.
+
+## Setting system default
 
 The `EDITOR` [environment variable](https://wiki.gentoo.org/wiki/Handbook:AMD64/Working/EnvVar) defines the default text editor for the CLI interface. Gentoo provides methods for setting environment variables globally in /etc/env.d/. Users may override these defaults for a running shell, or in their shell configuration files.
 

@@ -4,7 +4,7 @@ title: SSH
 url: https://wiki.gentoo.org/wiki/SSH
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-09"
+date: "2026-10-13"
 fingerprint: b479dd583e01bbc5
 license: CC BY-SA 4.0
 ---
@@ -311,7 +311,7 @@ Commands to run the SSH server will depend on active init system.
 
 #### OpenRC
 
-Add the OpenSSH daemon to the default runlevel:
+Add the OpenSSH daemon to the `default` runlevel:
 
 `root #``rc-update add sshd default`
 Start the sshd daemon with:

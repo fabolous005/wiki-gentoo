@@ -4,8 +4,8 @@ title: XDG/xdg-desktop-portal
 url: https://wiki.gentoo.org/wiki/XDG/xdg-desktop-portal
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-10"
-fingerprint: b498f05b3b93b9f9
+date: "2026-10-12"
+fingerprint: b49a705b59d3b9f9
 license: CC BY-SA 4.0
 ---
 
@@ -49,7 +49,7 @@ license: CC BY-SA 4.0
 `root #``emerge --ask sys-apps/xdg-desktop-portal`
 After installing [sys-apps/xdg-desktop-portal](https://packages.gentoo.org/packages/sys-apps/xdg-desktop-portal), ensure that one or more implementations appropriate to the system environment are installed (e.g. [gui-libs/xdg-desktop-portal-wlr](https://packages.gentoo.org/packages/gui-libs/xdg-desktop-portal-wlr)).
 
-The following table describes the Portal interfaces (e.g. `org.freedesktop.portal.FileChooser`) implemented by backends (e.g. [gui-libs/xdg-desktop-portal-xapp](https://packages.gentoo.org/packages/gui-libs/xdg-desktop-portal-xapp)). Note that a given environment might implement a particular interface outside of its backend - for example, in [KDE](https://wiki.gentoo.org/wiki/KDE), the `Secret` interface is implemented by [kde-frameworks/kwallet](https://packages.gentoo.org/packages/kde-frameworks/kwallet).
+The following table describes the Portal interfaces (e.g. `org.freedesktop.portal.FileChooser`) implemented by backends (e.g. [gui-libs/xdg-desktop-portal-xapp](https://packages.gentoo.org/packages/gui-libs/xdg-desktop-portal-xapp)). Note that a given environment might implement a particular interface outside of its backend - for example, in KDE, [the `org.freedesktop.portal.Secret` interface](https://wiki.gentoo.org/wiki/D-Bus/reference#Portal) is implemented by [kde-frameworks/kwallet](https://packages.gentoo.org/packages/kde-frameworks/kwallet).
 
 | Interface | [gnome](https://packages.gentoo.org/packages/sys-apps/xdg-desktop-portal-gnome) | [gtk](https://packages.gentoo.org/packages/sys-apps/xdg-desktop-portal-gtk) | [hyprland](https://packages.gentoo.org/packages/sys-apps/xdg-desktop-portal-hyprland) | [kde](https://packages.gentoo.org/packages/kde-plasma/xdg-desktop-portal-kde) | [lxqt](https://packages.gentoo.org/packages/gui-libs/xdg-desktop-portal-lxqt) | [wlr](https://packages.gentoo.org/packages/gui-libs/xdg-desktop-portal-wlr) | [xapp](https://packages.gentoo.org/packages/sys-apps/xdg-desktop-portal-xapp) | 
 |---|---|---|---|---|---|---|---|
@@ -88,7 +88,7 @@ The following table describes the Portal interfaces (e.g. `org.freedesktop.porta
 
 ## Configuration
 
-As described in the [portals.conf(5)](https://man.archlinux.org/man/portals.conf.5.en) [man page,](https://wiki.gentoo.org/wiki/Special:MyLanguage/man_page) **xdg-desktop-portal** is configured via one or more files:
+As described in the [portals.conf(5)](https://man.archlinux.org/man/portals.conf.5.en) [man page, xdg-desktop-portal is configured via one or more files:](https://wiki.gentoo.org/wiki/Special:MyLanguage/man_page)
 
 - $XDG\_CONFIG\_HOME/xdg-desktop-portal/{\*-}portals.conf
 - $XDG\_CONFIG\_DIRS/xdg-desktop-portal/{\*-}portals.conf
@@ -126,11 +126,23 @@ UseIn=gnome;sway;
 ```
 ## Usage
 
-**xdg-desktop-portal** is usually not called manually; instead, other programs call it as required.
+xdg-desktop-portal usually doesn't need to be explicitly started or called; instead, other programs invoke it when required. However, it is possible to explicitly start or call it.
+
+### OpenRC
+
+An `xdg-desktop-portal` [OpenRC user service](https://wiki.gentoo.org/wiki/OpenRC#User_services) is available.
+
+Add the `xdg-desktop-portal` user service to the `default` runlevel:
+
+`user $``rc-update add -U xdg-desktop-portal default`
+Start the `xdg-desktop-portal` user service:
+
+`user $``rc-service -U xdg-desktop-portal start`
+Further `xdg-desktop-portal-*` user services might be available as well (e.g. `xdg-desktop-portal-wlr`).
 
 ### Manual (e.g. for debugging)
 
-However, it can be run manually to debug a configuration, using the `-v` option:
+xdg-desktop-portal can be run manually to debug a configuration, using the `-v` option:
 
 `user $``/usr/libexec/xdg-desktop-portal -v`
 This can be used to display the configuration found by xdg-desktop-portal:
@@ -157,21 +169,9 @@ XDP: Using gtk.portal for org.freedesktop.impl.portal.Notification (config)
 XDP: Using gtk.portal for org.freedesktop.impl.portal.Inhibit (config)
 ...
 
-### OpenRC
-
-Alternatively the OpenRC [user services](https://wiki.gentoo.org/wiki/OpenRC#User_services) can be used to start the portals:
-
-Add `xdg-desktop-portal` user service to `default` runlevel:
-
-`user $``rc-update add -U xdg-desktop-portal default`
-Start the `xdg-desktop-portal` user service:
-
-`user $``rc-service -U xdg-desktop-portal start`
-Further `xdg-desktop-portal-*` user services might be available as well (e.g. `xdg-desktop-portal-wlr`)
-
 ### KDE
 
-In addition to xdg-desktop-portal-kde, the KDE Community Wiki [recommends](https://community.kde.org/Distributions/Packaging_Recommendations) also installing xdg-desktop-portal-gtk, to sync font settings to Flatpak apps when run in Plasma.
+In addition to [kde-plasma/xdg-desktop-portal-kde](https://packages.gentoo.org/packages/kde-plasma/xdg-desktop-portal-kde), the KDE Community Wiki [recommends](https://community.kde.org/Distributions/Packaging_Recommendations) also installing [sys-apps/xdg-desktop-portal-gtk](https://packages.gentoo.org/packages/sys-apps/xdg-desktop-portal-gtk), to sync [font](https://wiki.gentoo.org/wiki/Fonts) settings to [Flatpak](https://wiki.gentoo.org/wiki/Flatpak) apps when run in [Plasma](https://wiki.gentoo.org/wiki/Plasma).
 
 ## Troubleshooting
 
@@ -187,9 +187,9 @@ If portals.conf contains e.g.:
 [preferred]
 default=wlr;gtk
 ```
-to use the -wlr and -gtk backends, yet neither are running (in addition to xdg-desktop-portal itself) once the [window manager](https://wiki.gentoo.org/wiki/Window_manager) (WM) or compositor has started, it might be that the activation environment of the D-Bus session needs to be updated. This should be done after starting the WM/compositor (e.g. in the startup file run by the WM/compositor).
+to use the -wlr and -gtk backends, yet neither are running (in addition to xdg-desktop-portal itself) once the [window manager](https://wiki.gentoo.org/wiki/Window_manager) (WM) or [compositor](https://wiki.gentoo.org/wiki/List_of_software_for_Wayland#Compositors) has started, it might be that the activation environment of the D-Bus session needs to be updated. This should be done after starting the WM/compositor (e.g. in the startup file run by the WM/compositor).
 
-If using systemd, this can be done via:
+If using [systemd](https://wiki.gentoo.org/wiki/Systemd), this can be done via:
 
 `user $````
 dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=<value>
@@ -207,7 +207,7 @@ dbus-update-activation-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=<value>
 `user $````
 /usr/libexec/xdg-desktop-portal -r
 ```
-Or, if using OpenRC [user services](https://wiki.gentoo.org/wiki/OpenRC#User_services):
+Or, if using [OpenRC user services](https://wiki.gentoo.org/wiki/OpenRC#User_services):
 
 `user $````
 dbus-update-activation-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=<value>
@@ -215,7 +215,7 @@ dbus-update-activation-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=<value>
 `user $````
 rc-service --user xdg-desktop-portal restart
 ```
-## See also
+## External resources
 
 - [The xdg-desktop-portal project page](https://flatpak.github.io/xdg-desktop-portal/)
 - The [portals.conf(5)](https://man.archlinux.org/man/portals.conf.5.en)

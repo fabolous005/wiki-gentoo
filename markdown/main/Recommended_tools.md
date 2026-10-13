@@ -4,8 +4,8 @@ title: Recommended tools
 url: https://wiki.gentoo.org/wiki/Recommended_tools
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-09-07"
-fingerprint: "15df5e7a48852bd5"
+date: "2026-10-12"
+fingerprint: "15df5e7a48852b95"
 license: CC BY-SA 4.0
 ---
 
@@ -23,11 +23,15 @@ To reference a new piece of software here, please read the [adding to this page]
 
 This is a "best of kind" list, much more software is available on Gentoo. Use [eix](https://wiki.gentoo.org/wiki/Eix) or browse [packages.gentoo.org](https://packages.gentoo.org/categories) to find **all** applications available on Gentoo.
 
+## Adding to this page
+
 The applications listed here should be widely useful, and of sufficient quality, to merit inclusion.
 
 If you regularly use a desktop software package from the Gentoo repository and can confirm it is of *excellent quality*, *stable*, and of ***broad appeal for common tasks***, please [add it](https://wiki.gentoo.org/wiki/Help:Editing_pages) to the list ! The software should at least be *maintained* (i.e. relatively recent commits to the source; have periodic releases; not have too many reported bugs; most bugs should be getting fixed rather than accumulating, etc.), and preferably be *well documented* and from the stable branch. Please don't use this page just to promote a package because you like it, are an author or have other interest etc.
 
 It is good practice to create a [stub article](https://wiki.gentoo.org/wiki/Help:Starting_a_new_page#Stub_articles) for any package added here that does not have a page already, as anything notable enough to be listed here will also be notable enough to have a dedicated page.
+
+## File management
 
 | Name | Package | Description | 
 |---|---|---|
@@ -36,9 +40,11 @@ It is good practice to create a [stub article](https://wiki.gentoo.org/wiki/Help
 | Midnight Commander | [app-misc/mc](https://packages.gentoo.org/packages/app-misc/mc) | GNU Midnight Commander is a text based file manager. | 
 | n³ | [app-misc/nnn](https://packages.gentoo.org/packages/app-misc/nnn) | Missing terminal file manager for X. | 
 | [ranger](https://wiki.gentoo.org/wiki/Ranger) | [app-misc/ranger](https://packages.gentoo.org/packages/app-misc/ranger) | Console file manager with VI key bindings providing a minimalistic curses interface with a view on the directory hierarchy. | 
-| [Vifm](https://wiki.gentoo.org/wiki/Vifm) | [app-misc/vifm](https://packages.gentoo.org/packages/app-misc/vifm) | Console file manager with vi(m)-like keybindings. Offers familiar navigation for vim junkies. | 
+| [Vifm](https://wiki.gentoo.org/wiki/Vifm) | [app-misc/vifm](https://packages.gentoo.org/packages/app-misc/vifm) | Console file manager with vi(m)-like keybindings. Offers familiar navigation for vim enthusiasts. | 
 
 See also the article on [file managers](https://wiki.gentoo.org/wiki/File_managers#Command_line).
+
+## Hardware management
 
 | Name | Package | Description | 
 |---|---|---|
@@ -59,6 +65,8 @@ See also the article on [file managers](https://wiki.gentoo.org/wiki/File_manage
 
 See also [hardware detection](https://wiki.gentoo.org/wiki/Hardware_detection).
 
+## Network
+
 | Name | Package | Description | 
 |---|---|---|
 | iftop | [net-analyzer/iftop](https://packages.gentoo.org/packages/net-analyzer/iftop) | Display bandwidth usage on an interface. | 
@@ -70,7 +78,11 @@ See also [hardware detection](https://wiki.gentoo.org/wiki/Hardware_detection).
 | Xprobe | [net-analyzer/xprobe](https://packages.gentoo.org/packages/net-analyzer/xprobe) | Active OS fingerprinting tool. This is Xprobe2. | 
 | Yersinia | [net-analyzer/yersinia](https://packages.gentoo.org/packages/net-analyzer/yersinia) | FrameWork for layer 2 protocol attacks. Working on DHCP, STP, IEEE 802.1q and also some other Cisco proprietary network protocols. | 
 
+## Pagers
+
 See the [pager](https://wiki.gentoo.org/wiki/Pager) article.
+
+## Shell environment
 
 | Name | Package | Description | 
 |---|---|---|
@@ -83,6 +95,8 @@ See the [pager](https://wiki.gentoo.org/wiki/Pager) article.
 
 See also [the shell article](https://wiki.gentoo.org/wiki/Shell) for available command-line interpreters.
 
+## System resources
+
 | Name | Package | Description | 
 |---|---|---|
 | atop | [sys-process/atop](https://packages.gentoo.org/packages/sys-process/atop) | Resource-specific view of processes. | 
@@ -93,6 +107,8 @@ See also [the shell article](https://wiki.gentoo.org/wiki/Shell) for available c
 | NCurses Disk Usage (ncdu and ncdu-bin) | [sys-fs/ncdu](https://packages.gentoo.org/packages/sys-fs/ncdu) [sys-fs/ncdu-bin](https://packages.gentoo.org/packages/sys-fs/ncdu-bin) | Curses-based disk usage tool, with easy navigation through the filesystem tree to see du results. | 
 | nmon | [sys-process/nmon](https://packages.gentoo.org/packages/sys-process/nmon) | Nigel's performance MONitor for CPU, memory, network, disks, etc. nmon uses ascii graphics for some informations and is able to log data to csv files. | 
 | pydf | [app-admin/pydf](https://packages.gentoo.org/packages/app-admin/pydf) | Enhanced df (disk free) tool, which uses colors and a semi-graphical representation of disk usage. | 
+
+## Terminal multiplexers
 
 [Terminal](https://wiki.gentoo.org/wiki/Terminal_emulator) multiplexers manage several applications simultaneously on the command line. Often they manage sessions in the background and allow reattaching if a terminal is closed or a connection lost. Some also permit some form of session saving, even across reboots.
 
@@ -106,7 +122,13 @@ See also [the shell article](https://wiki.gentoo.org/wiki/Shell) for available c
 | [tmux](https://wiki.gentoo.org/wiki/Tmux) | [app-misc/tmux](https://packages.gentoo.org/packages/app-misc/tmux) | Terminal multiplexer. Used with the *continuum* and *resurrect* extensions, can restore environment after reboot. | 
 | [zellij](https://wiki.gentoo.org/wiki/Zellij) | [app-misc/zellij](https://packages.gentoo.org/packages/app-misc/zellij) | The latest one among alternatives, written in Rust. | 
 
+## Text editors
+
+## Version control systems
+
 See the [Version control systems](https://wiki.gentoo.org/wiki/Version_control_systems) article.
+
+## Others
 
 | Name | Package | Description | 
 |---|---|---|
@@ -116,6 +138,8 @@ See the [Version control systems](https://wiki.gentoo.org/wiki/Version_control_s
 | Visual Binary Diff (VBinDiff) | [dev-util/vbindiff](https://packages.gentoo.org/packages/dev-util/vbindiff) | Visual diffing tool for binary files. | 
 | Whowatch | [app-admin/whowatch](https://packages.gentoo.org/packages/app-admin/whowatch) | Interactive who-like program that displays information about users currently logged on in real time. | 
 
+## See also
+
 - [Gentoo for Network Admins](https://wiki.gentoo.org/wiki/Gentoo_for_Network_Admins) — a guide for forging Gentoo into a fully-fledged, network-debugging Swiss army knife.
 - [Qt Desktop applications](https://wiki.gentoo.org/wiki/Qt_Desktop_applications) — a list of recommendations for a light-weight, non-[KDE](https://wiki.gentoo.org/wiki/KDE), [Qt](https://wiki.gentoo.org/wiki/Qt)-only desktop environment.
 - [Recommended applications](https://wiki.gentoo.org/wiki/Recommended_applications) — applications recommended for use in a graphical environment ([X11](https://wiki.gentoo.org/wiki/Xorg), [Wayland](https://wiki.gentoo.org/wiki/Wayland))
@@ -123,6 +147,8 @@ See the [Version control systems](https://wiki.gentoo.org/wiki/Version_control_s
 - [Terminal emulator](https://wiki.gentoo.org/wiki/Terminal_emulator) — emulates a video terminal within another display architecture (e.g. in [X](https://wiki.gentoo.org/wiki/X_server)).
 - [Terminal productivity software](https://wiki.gentoo.org/wiki/Terminal_productivity_software) — applications designed to run within the constraints of a text-based terminal window that are typically associated with GUI-based office productivity software
 - [Wayland Desktop Landscape](https://wiki.gentoo.org/wiki/Wayland_Desktop_Landscape) — various desktop related packages for Wayland
+
+### Other lists of command line software
 
 - [Backup](https://wiki.gentoo.org/wiki/Backup) — prevent loss of data by ensuring it can be recovered.
 - [Text editor](https://wiki.gentoo.org/wiki/Text_editor) — a program to create and edit text files.

@@ -4,8 +4,8 @@ title: Firefox/troubleshooting
 url: https://wiki.gentoo.org/wiki/Firefox/troubleshooting
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-08"
-fingerprint: cf4cd1d72d4fbbe6
+date: "2026-10-12"
+fingerprint: "8eccd0d72d4fb3e6"
 license: CC BY-SA 4.0
 ---
 
@@ -109,13 +109,13 @@ If disabling (graphics) acceleration in settings does not work, disabling the eq
 
 #### Screen tearing / stuttering smooth scrolling
 
-Build [www-client/firefox](https://packages.gentoo.org/packages/www-client/firefox) with the `hwaccel` *USE* flag , then check the **Compositing** value of the `about:support#graphics` table for WebRender.
+Check the "Compositing" value in the about:support#graphics table for WebRender.
 
 ![](https://wiki.gentoo.org/images/thumb/4/43/Firefox_Compositing_is_WebRender.png/300px-Firefox_Compositing_is_WebRender.png)
 
-Systems with [Wayland](https://wiki.gentoo.org/wiki/Wayland) support should not have issues with screen tearing.
+(If using [www-client/firefox](https://packages.gentoo.org/packages/www-client/firefox), ensure it's been built with the [hwaccel](https://packages.gentoo.org/useflags/hwaccel) [USE flag enabled. The](https://wiki.gentoo.org/wiki/USE_flag) [www-client/firefox-bin](https://packages.gentoo.org/packages/www-client/firefox-bin) package contains a build provided by upstream, and therefore doesn't have the [hwaccel](https://packages.gentoo.org/useflags/hwaccel) [USE flag available.)](https://wiki.gentoo.org/wiki/USE_flag)
 
-If WebRender is enabled, then the problem could be with the video drivers. For example about [Intel](https://wiki.gentoo.org/wiki/Intel#Screen_tearing).
+If screen tearing occurs even with WebRender enabled, the problem could be with the video driver; refer to the relevant wiki page for that driver (e.g. [this section of the "Intel" page](https://wiki.gentoo.org/wiki/Intel#Screen_tearing)).
 
 #### gtk+:3 pulls in D-Bus
 
@@ -130,15 +130,17 @@ If using [www-client/firefox-bin](https://packages.gentoo.org/packages/www-clien
 As a workaround, create a symlink:
 
 `root #``ln -s /usr/lib64/mozilla /usr/lib/mozilla`
-#### Windows decorations missing in Fluxbox since FF-91.3.0
+#### Windows decorations missing
 
-- [https://forums.gentoo.org/viewtopic-t-1141870.html](https://forums.gentoo.org/viewtopic-t-1141870.html) Solved in 91.9.0esr and back with 102.3.0esr (64-bit)
+In various GUI environments, drawing window decorations is the responsibility of the client, rather than the [window manager](https://wiki.gentoo.org/wiki/Window_manager) (WM). This is known as [Client-Side Decoration](https://en.wikipedia.org/wiki/Client-side_decoration) (CSD).
 
-Once in a while this happens. What might then help is to [restart fluxbox with the menu](https://sourceforge.net/p/fluxbox/bugs/1111/#3efa).
+If window decorations are missing, check the GUI environment's approach to CSD, including whether it supports it.
+
+In the context of [Fluxbox](https://wiki.gentoo.org/wiki/Fluxbox), refer to [this bug](https://sourceforge.net/p/fluxbox/bugs/1111/).
 
 #### No video with supported format and MIME type found
 
-In **about:config** try to toggle **media.rdd-process.enabled** (default is true).
+In about:config, try toggling `media.rdd-process.enabled` (default is true).
 
 ### Hardware acceleration
 

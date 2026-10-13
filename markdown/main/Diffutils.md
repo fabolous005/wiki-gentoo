@@ -4,8 +4,8 @@ title: Diffutils
 url: https://wiki.gentoo.org/wiki/Diffutils
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2024-04-05"
-fingerprint: "173eba58dba0ce29"
+date: "2026-10-12"
+fingerprint: "173aba58dba08c29"
 license: CC BY-SA 4.0
 ---
 
@@ -166,3 +166,6 @@ Second Line
 Gentoo Linux
 Different Line
 ```
+## See also
+
+[Creating a patch](https://wiki.gentoo.org/wiki/Creating_a_patch) — describes how to create a patch for source code.

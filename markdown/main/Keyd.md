@@ -4,7 +4,7 @@ title: keyd
 url: https://wiki.gentoo.org/wiki/Keyd
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-03-29"
+date: "2026-10-12"
 fingerprint: bfc194712d85f9cc
 license: CC BY-SA 4.0
 ---
@@ -14,6 +14,9 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+
+**Resources**
 
 **keyd** is a key remapping daemon that allows the user to map keys per application and globally with support for both [Xorg](https://wiki.gentoo.org/wiki/Xorg) and [Wayland](https://wiki.gentoo.org/wiki/Wayland).
 
@@ -56,7 +59,7 @@ For per application usage there is separate config at \~/.config/keyd/app.conf t
 
 Global configuration activated with "keyd service".
 
-When using OpenRC add the service to the default runlevel.
+When using OpenRC add the service to the `default` runlevel.
 
 `root #````
 rc-update add keyd default
@@ -64,7 +67,7 @@ rc-update add keyd default
 `root #````
 rc-service keyd start
 ```
-keyd distributed with "keyd-application-mapper" script for usage in window environment. Permission to group "keyd" should be granted with following command for user "larry":
+keyd distributed with "keyd-application-mapper" script for usage in window environment. Permission to group `keyd` should be granted with following command for user `larry`:
 
 `root #````
 usermod -aG keyd larry
@@ -92,6 +95,9 @@ Implemented with "oneshot()" action for example "Ctrl+x key":
 
 **`/etc/keyd/default.conf`**
 
+```
+control.x = oneshot(<global layer with some key>)
+```
 ### Clear other layer
 
 Only "clearm()" working for current stable version, that breaks all layers.
@@ -111,7 +117,7 @@ f6 = command(keyd bind reset && chvt 6)
 ```
 ## Security concerns
 
-When a user is granted access to the keyd group, and thereby to /run/keyd.socket, which allows them to send keys system-wide, it creates a breach that may be exploited by any malicious program within that user's environment. This could potentially lead to elevated root access. This vulnerability affects all uinput-based applications that allow arbitrary keys to be sent from user space.
+When a user is granted access to the `keyd` group, and thereby to /run/keyd.socket, which allows them to send keys system-wide, it creates a breach that may be exploited by any malicious program within that user's environment. This could potentially lead to elevated root access. This vulnerability affects all uinput-based applications that allow arbitrary keys to be sent from user space.
 
 ### Wayland security
 
@@ -130,7 +136,7 @@ mkdir -p /root/.config/keyd
 `root #````
 cp /home/larry/.config/keyd/app.conf /root/.config/keyd/app.conf
 ```
-Withdraw permits by removing user from "keyd" group:
+Withdraw permits by removing user from `keyd` group:
 
 `root #````
 gpasswd -d larry keyd
