@@ -4,8 +4,8 @@ title: Firefox
 url: https://wiki.gentoo.org/wiki/Firefox
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-01"
-fingerprint: ee5cd0573883eb67
+date: "2026-10-13"
+fingerprint: de4cd0d53c83eb65
 license: CC BY-SA 4.0
 ---
 
@@ -138,18 +138,18 @@ Search for `font.name`; this will list all settings available in the `font.name`
 
 #### Xinput2 scrolling
 
-This brings touch scrolling and multitouch support for Firefox:
+This brings touch scrolling and multitouch support to Firefox.
 
-`MOZ_USE_XINPUT2` [environment variable](https://wiki.gentoo.org/wiki/Handbook:AMD64/Working/EnvVar) has to be set to a value of `1` in /etc/env.d/80firefox, or just before launching firefox in a shell. for example:
+The `MOZ_USE_XINPUT2` [environment variable](https://wiki.gentoo.org/wiki/Handbook:AMD64/Working/EnvVar) has to be set to a value of `1` in /etc/env.d/80firefox, or just before launching firefox in a shell. For example:
 
 `user $``MOZ_USE_XINPUT2="1" firefox`
-This also *eliminates* the predefined *scroll step size* for touchpad scrolling! All scrolling will be *really* smooth.
+This also eliminates the predefined 'scroll step size' for touchpad scrolling, making scrolling smoother.
 
 Wacom tablets/touchscreens may need [extra configuration](https://wiki.gentoo.org/wiki/Wacom#Xinput2_multitouch) so they emit true touch events for [Xorg](https://wiki.gentoo.org/wiki/Xorg).
 
 #### Multitouch zoom
 
-This only works when the multitouch events reach Firefox, therefore the `Xinput2` activation above has to be done first.
+This only works when multitouch events reach Firefox, so [Xinput2 support](https://wiki.gentoo.org/wiki/Firefox#Xinput2_scrolling) must be enabled.
 
 | Description | about:config option | Value | 
 |---|---|---|
@@ -159,44 +159,29 @@ This only works when the multitouch events reach Firefox, therefore the `Xinput2
 
 ### Middle mouse scroll (autoscroll)
 
-Traditionally in Linux, the middle mouse button is used to paste the currently selected (highlighted) text into a text field. On Windows systems, the middle mouse button in Firefox is used for click-and-drag scrolling up and down the page. This functionality can be enabled in Firefox by opening `about:config` and setting `general.autoScroll = true` value<sup>[\[5\]](https://wiki.gentoo.org#cite_note-5)</sup>:
+Traditionally, in Linux, the middle mouse button is used to paste the currently selected (highlighted) text into a text field. On Windows systems, the middle mouse button in Firefox is used for click-and-drag scrolling up and down the page. This functionality can be enabled in Firefox by opening about:config and setting `general.autoScroll` to true<sup>[\[5\]](https://wiki.gentoo.org#cite_note-5)</sup>.
 
-Middle click-and-drag scrolling should now be enabled.
+Although not necessary, when using click-and-drag scrolling, it's sometimes desirable to disable all other middle-click functionality within Firefox. To disable such functionality, open about:config and set the following values:
 
-Although not necessary, sometimes it is desirable to disable all other middle-click functionality within Firefox when using click-and-drag scrolling. Open `about:config` and set the following values to disable middle-click functionality:
+- `middlemouse.contentLoadURL`: false
+- `middlemouse.openNewWindow`: false
+- `middlemouse.paste`: false
 
-- `middlemouse.contentLoadURL = false`
-- `middlemouse.openNewWindow = false`
-- `middlemouse.paste = false`
+### Increased scrolling distance when using Up/Down
 
-### Bigger scrolling regions for Up/Down
+To increase vertical scroll distance, open about:config and increase the value of `toolkit.scrollbox.verticalScrollDistance` (default is 3).
 
-PageUp/PageDown scroll for a page, Up/Down scroll for a line, many will benefit if Up/Down would scroll for a few lines:
+To increase the minimum line scroll size, open about:config, and increase the value of `mousewheel.min_line_scroll_amount` (default is 1).
 
-| Description | about:config option | Value | 
-|---|---|---|
-| Vertical scroll distance, not for mouse (default is 3) | `toolkit.scrollbox.verticalScrollDistance` | `30` | 
+### Process limits
 
-To increase scrolling size for a mouse also:
+To change the number of allowed content processes, open about:config and set `dom.ipc.processCount`.
 
-| Description | about:config option | Value | 
-|---|---|---|
-| Vertical scroll distance, for mouse and keyboard (default is 1) | `mousewheel.min_line_scroll_amount` | `N` | 
-
-### Threads
-
-Firefox >= 54 \< 66 has 4 threads enabled by default<sup>[\[6\]](https://wiki.gentoo.org#cite_note-6)</sup>. Firefox >= 97 also has fission site isolation enabled by default<sup>[\[7\]](https://wiki.gentoo.org#cite_note-7)</sup>. Adjusting threads now does nothing with fission enabled and the UI option for changing the number of threads is also gone when fission is enabled<sup>[\[8\]](https://wiki.gentoo.org#cite_note-8)</sup>, Number of process per-site<sup>[\[9\]](https://wiki.gentoo.org#cite_note-9)</sup> can be adjusted by modifying the corresponding option in the `about:config` interface:
-
-| Description | about:config option | Value | 
-|---|---|---|
-| Increase the threads | `dom.ipc.processCount` | `N` | 
-| Increase the Number of process per-site | `dom.ipc.processCount.webisolated` | `N` | 
-
-Where `N` is an integer number.
+To change the number of allowed content processes per-site<sup>[\[6\]](https://wiki.gentoo.org#cite_note-6)</sup>, open about:config and set `dom.ipc.processCount.webisolated`.
 
 ### Audio backend
 
-Firefox's cubeb audio library supports a number of different backends.[\[10\]](https://wiki.gentoo.org#cite_note-10)<sup>[\[11\]](https://wiki.gentoo.org#cite_note-11)</sup> A backend can be specified by creating and setting `media.cubeb.backend` in about:config. A selection of available backends is listed below; the 'Value' column indicates the appropriate value for `media.cubeb.backend`, and the 'Status' column indicates the current level of support for that backend:
+Firefox's cubeb audio library supports a number of different backends.[\[7\]](https://wiki.gentoo.org#cite_note-7)<sup>[\[8\]](https://wiki.gentoo.org#cite_note-8)</sup> A backend can be specified by creating and setting `media.cubeb.backend` in about:config. A selection of available backends is listed below; the 'Value' column indicates the appropriate value for `media.cubeb.backend`, and the 'Status' column indicates the current level of support for that backend:
 
 - Tier-1: Actively maintained. Should have CI coverage. Critical for Firefox.
 - Tier-2: Actively maintained by contributors. CI coverage appreciated.
@@ -218,31 +203,35 @@ Obviously, to use Firefox with JACK, [www-client/firefox](https://packages.gento
 
 Normally, URLs that are copied from the address bar get [percent-encoded](https://en.wikipedia.org/wiki/Percent-encoding). This may cause an annoyance when certain non-Latin symbols (such as Cyrillic) get encoded, as they become unreadable to humans.
 
-To disable percent-encoding when copying from the address bar, set the `about:config` option `network.standard-url.escape-utf8` to `false`.
+To disable percent-encoding when copying from the address bar, set the about:config option `network.standard-url.escape-utf8` to `false`.
+
+**Todo:**
+
+- 2026-10-13: Is the following still the case?
 
 ### Special URLs
 
-Firefox includes a few dozen special URLs that can be helpful in determining more information about various Firefox settings. These URLs can be entered into the Super Bar (via copy and paste) to view the special pages. A few of the more significant ones include:
+Firefox includes a few dozen special URLs that can be helpful in determining more information about various Firefox settings. These URLs can be entered into the address bar to view their associated special pages. A few of the more significant ones include:
 
-- `about:addons` - Page for managing extensions.
-- `about:buildconfig` - Page containing build information about the currently running version of Firefox. Use this page to check what compiler flags were set during Firefox's build.
-- `about:cache` - Information about the Network Cache Storage Service.
-- `about:config` - Modify internal browser settings and preferences.
-- `about:memory` - Measure and show memory reports, free memory, etc.
-- `about:networking` - Analyze current network information such as HTTP, socket, and DNS connections.
-- `about:plugins` - List installed plugins such as Widevine Content Decryption Module (DRM software).
-- `about:support` - A page containing technical information that might be useful when trying to solve a problem. Includes information on WebGL, Window Protocol (X11 or Wayland), and compositing graphics backends.
-- `about:telemetry`
+- about:addons - Manage extensions.
+- about:buildconfig - Build information about the currently running version of Firefox. Use this page to check what compiler flags were set when Firefox was built.
+- about:cache - Information about the Network Cache Storage Service.
+- about:config - Modify internal browser settings and preferences.
+- about:memory - Measure and show memory reports, free memory, etc.
+- about:networking - Analyze current network information such as HTTP, socket, and DNS connections.
+- about:plugins - List installed plugins, such as the Widevine Content Decryption Module (DRM software).
+- about:support - Technical information that might be useful when trying to solve a problem. Includes information on WebGL, GUI protocol ([X](https://wiki.gentoo.org/wiki/X) or [Wayland](https://wiki.gentoo.org/wiki/Wayland)), and compositing graphics backends.
+- about:telemetry - Information about performance, hardware, usage and customizations collected and submitted to Mozilla to help improve Firefox.
 
-Finally, `about:about` will display the whole list of Firefox' “about” pages. A description for each page is available at [Firefox and the "about" protocol](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/The_about_protocol).
+Finally, about:about will display the complete list of Firefox "about" pages. For a description of each page, refer to ["Firefox and the 'about' protocol"](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/The_about_protocol).
 
-See also [Firefox chrome:// document URLs](https://superuser.com/questions/392471/firefox-chrome-document-urls).
+See also, [this list of Firefox chrome:// URLs](https://superuser.com/questions/392471/firefox-chrome-document-urls).
 
-### XDG integration
+### XDG file associations
 
-In order to make Firefox use [XDG file associations](https://wiki.gentoo.org/wiki/Default_applications#Setting_the_default_application_via_mimeapps.list_files) set Content Type's Action to /usr/bin/xdg-open.
+In order to make Firefox use [XDG file associations](https://wiki.gentoo.org/wiki/Default_applications#Setting_the_default_application_via_mimeapps.list_files), set Content Type's Action to /usr/bin/xdg-open.
 
-To ensure Firefox is being used by other applications for handling HTTP and HTTPS links, run the following command:
+To ensure Firefox is used by other applications for handling HTTP and HTTPS links, use [xdg-mime(1)](https://wiki.gentoo.org/wiki/XDG/Software#xdg-mime.281.29):
 
 `user $``xdg-mime default firefox.desktop x-scheme-handler/http x-scheme-handler/https text/html`
 ### Running under KDE
@@ -255,11 +244,11 @@ See the dedicated [Color management section](https://wiki.gentoo.org/wiki/Color_
 
 ### Disabling Privacy-Preserving Attribution
 
-To disable the Privacy-Preserving Attribution API added in version 128,[\[12\]](https://wiki.gentoo.org#cite_note-12)[\[13\]](https://wiki.gentoo.org#cite_note-13)<sup>[\[14\]](https://wiki.gentoo.org#cite_note-14)</sup> set `dom.private-attribution.submission.enabled` to false.<sup>[\[15\]](https://wiki.gentoo.org#cite_note-15)</sup> Or compile Firefox with `-telemetry` use flag.
+To disable the Privacy-Preserving Attribution API added in version 128,[\[9\]](https://wiki.gentoo.org#cite_note-9)[\[10\]](https://wiki.gentoo.org#cite_note-10)<sup>[\[11\]](https://wiki.gentoo.org#cite_note-11)</sup> set `dom.private-attribution.submission.enabled` to false.<sup>[\[12\]](https://wiki.gentoo.org#cite_note-12)</sup> Or compile Firefox with `-telemetry` use flag.
 
 ### Disabling AI Chatbots
 
-To disable the AI Chatbot sidebar feature added since version 130,[\[16\]](https://wiki.gentoo.org#cite_note-16)<sup>[\[17\]](https://wiki.gentoo.org#cite_note-17)</sup> set `browser.ml.chat.enabled` to false.[\[18\]](https://wiki.gentoo.org#cite_note-18)
+To disable the AI Chatbot sidebar feature added since version 130,[\[13\]](https://wiki.gentoo.org#cite_note-13)<sup>[\[14\]](https://wiki.gentoo.org#cite_note-14)</sup> set `browser.ml.chat.enabled` to false.[\[15\]](https://wiki.gentoo.org#cite_note-15)
 
 Although the Firefox UI doesn't directly allow users to hide certain entries in the context menu / 'right-click' menu, it's possible to do so via the userChrome.css stylesheet. Refer to [this Reddit post](https://www.reddit.com/r/firefox/comments/1eoo6k7/firefox_context_menu/) for details.
 
@@ -292,7 +281,7 @@ The add-on menu can be accessed by navigating the following menus: Hamburger but
 
 #### uBlock Origin
 
-uBlock Origin is "a wide-spectrum content blocker with CPU and memory efficiency as a primary feature".<sup>[\[19\]](https://wiki.gentoo.org#cite_note-19)</sup> It enables 5 filter lists by default and others are available.
+uBlock Origin is "a wide-spectrum content blocker with CPU and memory efficiency as a primary feature".<sup>[\[16\]](https://wiki.gentoo.org#cite_note-16)</sup> It enables 5 filter lists by default and others are available.
 
 - Mozilla Add-ons page: [https://addons.mozilla.org/en/firefox/addon/ublock-origin/](https://addons.mozilla.org/en/firefox/addon/ublock-origin/)
 - GitHub: [https://github.com/gorhill/uBlock](https://github.com/gorhill/uBlock)
@@ -300,7 +289,7 @@ uBlock Origin is "a wide-spectrum content blocker with CPU and memory efficiency
 
 #### AdNauseam
 
-AdNauseam provides the same functionality as uBlock Origin but also "quietly clicks on every blocked ad"<sup>[\[20\]](https://wiki.gentoo.org#cite_note-20)</sup> with the goal of resisting ad network tracking efforts through obfuscation. Some research in 2021 showed it to be effective for individual users.[\[21\]](https://wiki.gentoo.org#cite_note-21)
+AdNauseam provides the same functionality as uBlock Origin but also "quietly clicks on every blocked ad"<sup>[\[17\]](https://wiki.gentoo.org#cite_note-17)</sup> with the goal of resisting ad network tracking efforts through obfuscation. Some research in 2021 showed it to be effective for individual users.[\[18\]](https://wiki.gentoo.org#cite_note-18)
 
 - Mozilla Add-ons page: [https://addons.mozilla.org/en-GB/firefox/addon/adnauseam/](https://addons.mozilla.org/en-GB/firefox/addon/adnauseam/)
 - Homepage: [https://adnauseam.io/](https://adnauseam.io/)
@@ -343,7 +332,7 @@ Some websites use modal overlays to display pop-ups, such that manually blocking
 
 ### Policies
 
-Custom policies can be configured in Firefox, which is particularly useful in cases where Firefox is set up for an organization or end users. However, it can also be beneficial to block specific content for personal use. [\[22\]](https://wiki.gentoo.org#cite_note-22)
+Custom policies can be configured in Firefox, which is particularly useful in cases where Firefox is set up for an organization or end users. However, it can also be beneficial to block specific content for personal use. [\[19\]](https://wiki.gentoo.org#cite_note-19)
 
 The procedure may vary if the binary has been utilized. For this particular procedure, it is assumed that Firefox has been compiled on the system. To configure custom policies in this scenario, it is necessary to create a JSON file in the following directory:
 
@@ -426,17 +415,17 @@ To add a certificate to the certificate list for all profiles, add the following
 
 ### Font visibility
 
-Having unique fonts installed results in a more unique browser fingerprint. The setting **layout.css.font-visibility** allows one to control which fonts are visible to websites.[\[23\]](https://wiki.gentoo.org#cite_note-23)[\[24\]](https://wiki.gentoo.org#cite_note-24)<sup>[\[25\]](https://wiki.gentoo.org#cite_note-25)</sup> There are 3 options:
+Having unique fonts installed results in a more unique browser fingerprint. The setting **layout.css.font-visibility** allows one to control which fonts are visible to websites.[\[20\]](https://wiki.gentoo.org#cite_note-20)[\[21\]](https://wiki.gentoo.org#cite_note-21)<sup>[\[22\]](https://wiki.gentoo.org#cite_note-22)</sup> There are 3 options:
 
 - 1 - only base system fonts (default with resistFingerprinting)
 - 2 - also fonts from optional language packs
 - 3 - also user-installed fonts (default except with resistFingerprinting)
 
-The add-on Font Fingerprint Defender can also be used to randomize the font fingerprint.[\[26\]](https://wiki.gentoo.org#cite_note-26)
+The add-on Font Fingerprint Defender can also be used to randomize the font fingerprint.[\[23\]](https://wiki.gentoo.org#cite_note-23)
 
 ### Locales
 
-If `privacy.spoof_english` is set to 2, en-US will always be the locale reported to and requested from websites.[\[27\]](https://wiki.gentoo.org#cite_note-27)
+If `privacy.spoof_english` is set to 2, en-US will always be the locale reported to and requested from websites.[\[24\]](https://wiki.gentoo.org#cite_note-24)
 
 ## Hardware acceleration
 

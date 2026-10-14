@@ -4,8 +4,8 @@ title: Minecraft
 url: https://wiki.gentoo.org/wiki/Minecraft
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-12"
-fingerprint: fd80d35fd891bcd5
+date: "2026-10-13"
+fingerprint: fd80d35bd89bbcd5
 license: CC BY-SA 4.0
 ---
 
@@ -56,21 +56,22 @@ The official launcher is linked to glibc and is therefore not really usable. Pri
 It is possible to workaround this issue with the following steps:
 
 `root #``emerge --ask media-libs/openal``root #``emerge --ask media-libs/glfw`
-Add **-Dorg.lwjgl.openal.libname=/usr/lib/libopenal.so.1 -Dorg.lwjgl.glfw.libname=/usr/lib/libglfw.so** to your java arguments (or write the paths in the dedicated interface prism launcher has)
+Add `-Dorg.lwjgl.openal.libname=/usr/lib/libopenal.so.1 -Dorg.lwjgl.glfw.libname=/usr/lib/libglfw.so` to your java arguments (or write the paths in the dedicated interface Prism Launcher has.)
 
 `root #``emerge --ask sys-libs/gcompat::guru`
-with the `libucontext obstack` USE flags (make sure to enable the guru overlay, and use the live ebuild if point releases have issues)
+with the `libucontext obstack` USE flags (make sure to enable the guru overlay, and use the live ebuild if point releases have issues.)
 
-Finally, you can either add **-Dorg.lwjgl.system.allocator=system** to your java arguments and enjoy
+Optionally, you can add `-Dorg.lwjgl.system.allocator=system` to your Java arguments and enjoy! :)
 
-**OR (RECOMMENDED FOR PERFORMANCE)**
+#### Jemalloc
+
+Or, recommended for performance, you may emerge [Jemalloc](https://packages.gentoo.org/packages/dev-libs/jemalloc).
 
 `root #``emerge --ask dev-libs/jemalloc`
-and add **-Dorg.lwjgl.system.jemalloc.libname=/usr/lib/libjemalloc.so.2**  instead.
+You may also add 
+`-Dorg.lwjgl.system.jemalloc.libname=/usr/lib/libjemalloc.so.2` instead.
 
 Jemalloc may not work on the musl-llvm profile; if that is the case, try compiling it with gcc.
-
-
 
 #### Flatpak solution
 

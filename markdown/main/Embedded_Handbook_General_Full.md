@@ -706,7 +706,7 @@ These are the packages that would be merged, in order:
 
 When the build is finished, the binary package is then installed to `ROOT`:
 
-`root #``arm-unknown-linux-gnu-emerge --ask --oneshot --usepkgonly --root=/mnt/root`
+`root #``arm-unknown-linux-gnu-emerge --ask --oneshot --usepkgonly --root=/mnt/root mail-mta/postfix`
 These are the packages that would be merged, in order:
 \[binary  N    \] postfix-3.11.1-r1 to /mnt/root
 

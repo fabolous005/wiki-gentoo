@@ -4,7 +4,7 @@ title: Embedded Handbook/General/Cross-compiling with Portage
 url: https://wiki.gentoo.org/wiki/Embedded_Handbook/General/Cross-compiling_with_Portage
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-03-28"
+date: "2026-10-13"
 fingerprint: "2c853a1e26f19980"
 license: CC BY-SA 4.0
 ---
@@ -76,7 +76,7 @@ These are the packages that would be merged, in order:
 
 When the build is finished, the binary package is then installed to `ROOT`:
 
-`root #``arm-unknown-linux-gnu-emerge --ask --oneshot --usepkgonly --root=/mnt/root`
+`root #``arm-unknown-linux-gnu-emerge --ask --oneshot --usepkgonly --root=/mnt/root mail-mta/postfix`
 These are the packages that would be merged, in order:
 \[binary  N    \] postfix-3.11.1-r1 to /mnt/root
 

@@ -4,8 +4,8 @@ title: Trusted Platform Module/LUKS
 url: https://wiki.gentoo.org/wiki/Trusted_Platform_Module/LUKS
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2025-08-21"
-fingerprint: a715680aef83b4fc
+date: "2026-10-13"
+fingerprint: a715680aef8bbcfc
 license: CC BY-SA 4.0
 ---
 
@@ -19,8 +19,20 @@ license: CC BY-SA 4.0
 
 **Enable support for TPM**
 
+```
+Device Drivers --->
+    Character devices --->
+    [*] TPM Hardware Support --->
+        <*> TPM Interface Specification 1.2 Interface / TPM 2.0 FIFO Interface
+        <*> TPM 2.0 CRB Interface
+```
 ### USE flags
 
+
+### USE flags for
+            [app-crypt/tpm2-tss](https://packages.gentoo.org/packages/app-crypt/tpm2-tss)
+            
+            TCG Trusted Platform Module 2.0 Software Stack
 
 | [+fapi](https://packages.gentoo.org/useflags/+fapi) | Enable feature API (requires openssl as crypto backend) | 
 | [+openssl](https://packages.gentoo.org/useflags/+openssl) | Use dev-libs/openssl as crypto engine | 
@@ -30,6 +42,11 @@ license: CC BY-SA 4.0
 | [static-libs](https://packages.gentoo.org/useflags/static-libs) | Build static versions of dynamic libraries as well | 
 | [test](https://packages.gentoo.org/useflags/test) | Enable dependencies and/or preparations necessary to run tests (usually controlled by FEATURES=test but can be toggled independently) | 
 
+
+### USE flags for
+            [sys-fs/cryptsetup](https://packages.gentoo.org/packages/sys-fs/cryptsetup)
+            
+            Tool to setup encrypted devices with dm-crypt
 
 | [+argon2](https://packages.gentoo.org/useflags/+argon2) | Enable password hashing algorithm from app-crypt/argon2 | 
 | [+openssl](https://packages.gentoo.org/useflags/+openssl) | Use dev-libs/openssl crypto backend | 

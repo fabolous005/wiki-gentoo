@@ -4,7 +4,7 @@ title: ARM hardware list
 url: https://wiki.gentoo.org/wiki/ARM_hardware_list
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-08-10"
+date: "2026-10-13"
 fingerprint: "92ebd06794a82be9"
 license: CC BY-SA 4.0
 ---
@@ -175,6 +175,7 @@ The [hardware probe](https://wiki.gentoo.org/wiki/Hardware_probe) system may be 
 | Wandboard Quad | Board |  [Steve Arnold (nerdboy)](https://wiki.gentoo.org/wiki/User:Nerdboy)  | ARMv7-A | 004-Core GHz 1.000 Cortex-A9 **Freescale i.MX6** | GB 002 DDR3-1066 |  | 
 | ZyXEL NAS326 | Network storage | [omelius](https://wiki.gentoo.org/index.php?title=User:Omelius&action=edit&redlink=1)  | ARMv7-A | 001-Core GHz 1.300 **Marvell Armada 380 MV88F6810** | MB 512 |  | 
 | ZyXEL NSA325 (Marvell Kirkwood) | Network storage | [omelius](https://wiki.gentoo.org/index.php?title=User:Omelius&action=edit&redlink=1)  | ARMv5TE | xxx-Core GHz 1.600 **Marvell Feroceon 88FR131** | MB 512 |  | 
+| Dell XPS 13 9345 | Laptop | [Jdavidson89](https://wiki.gentoo.org/index.php?title=User:Jdavidson89&action=edit&redlink=1)  | ARMv8.7-A | 012-Core GHz 3.4 Qualcomm Oryon **Snapdragon X Elite** | GB 016 LPDDR5X-8448MHz | Uses firmware blobs from linux-firmware(had to manually copy LENOVO 21N1 iris firmware over to xps directory, Wi-Fi, bluetooth, sound, fingerprint reader working, webcam not working might be possible haven't personally tried, using Jens Glathe's kernel 7.2.5. | 
 
 ## See also
 

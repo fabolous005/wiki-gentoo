@@ -4,8 +4,8 @@ title: Network Time Protocol
 url: https://wiki.gentoo.org/wiki/Network_Time_Protocol
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-07"
-fingerprint: d56d7f36e0882ac0
+date: "2026-10-13"
+fingerprint: d56d3f0ee0882ac0
 license: CC BY-SA 4.0
 ---
 
@@ -31,8 +31,8 @@ Following implementations of the Network Time Protocol are currently available:
 |---|---|---|
 | [chrony](https://wiki.gentoo.org/wiki/Chrony) | [net-misc/chrony](https://packages.gentoo.org/packages/net-misc/chrony) | Versatile implementation of the Network Time Protocol. | 
 | clockspeed | [net-misc/clockspeed](https://packages.gentoo.org/packages/net-misc/clockspeed) | Simple Network Time Protocol (NTP) client. | 
-| ntpsec | [net-misc/ntpsec](https://packages.gentoo.org/packages/net-misc/ntpsec) | NTP reference implementation, refactored. | 
-| [openntpd](https://wiki.gentoo.org/wiki/Openntpd) | [net-misc/openntpd](https://packages.gentoo.org/packages/net-misc/openntpd) | Lightweight NTP server ported from OpenBSD. | 
+| [NTPsec](https://wiki.gentoo.org/wiki/NTPsec) | [net-misc/ntpsec](https://packages.gentoo.org/packages/net-misc/ntpsec) | NTP reference implementation, refactored. | 
+| [OpenNTPD](https://wiki.gentoo.org/wiki/OpenNTPD) | [net-misc/openntpd](https://packages.gentoo.org/packages/net-misc/openntpd) | Lightweight NTP server ported from OpenBSD. | 
 | sntpd | [net-misc/sntpd](https://packages.gentoo.org/packages/net-misc/sntpd) | NTP (RFC-1305 and RFC-4330) client and server for unix(like) systems. | 
 
 ## Sync system clock on boot

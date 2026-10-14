@@ -4,8 +4,8 @@ title: Firefox/troubleshooting
 url: https://wiki.gentoo.org/wiki/Firefox/troubleshooting
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-12"
-fingerprint: "8eccd0d72d4fb3e6"
+date: "2026-10-13"
+fingerprint: "8eccd0d72d4fb3e2"
 license: CC BY-SA 4.0
 ---
 
@@ -103,9 +103,9 @@ Some ways of testing whether a profile is the source of a problem include:
 
 ### General
 
-#### Green video screen (YouTube)
+#### Green screen for YouTube videos
 
-If disabling (graphics) acceleration in settings does not work, disabling the equivalent options under `about:config` like `layers.acceleration.force-enabled` (85.0) might.
+If [disabling hardware acceleration](https://wiki.gentoo.org/wiki/Firefox/troubleshooting#.23Safe_mode) doesn't work, try disabling relevant options in about:config, such as `layers.acceleration.force-enabled`.
 
 #### Screen tearing / stuttering smooth scrolling
 
@@ -130,7 +130,7 @@ If using [www-client/firefox-bin](https://packages.gentoo.org/packages/www-clien
 As a workaround, create a symlink:
 
 `root #``ln -s /usr/lib64/mozilla /usr/lib/mozilla`
-#### Windows decorations missing
+#### Window decorations missing
 
 In various GUI environments, drawing window decorations is the responsibility of the client, rather than the [window manager](https://wiki.gentoo.org/wiki/Window_manager) (WM). This is known as [Client-Side Decoration](https://en.wikipedia.org/wiki/Client-side_decoration) (CSD).
 
@@ -157,11 +157,11 @@ To force Firefox to use hardware acceleration, in about:config, set the value of
 
 #### Hardware acceleration not working within a sandbox
 
-When using an external sandbox application, such as [sys-apps/bubblewrap](https://packages.gentoo.org/packages/sys-apps/bubblewrap) or [sys-apps/firejail](https://packages.gentoo.org/packages/sys-apps/firejail), make sure that hardware acceleration works **outside** the sandboxing. Hardware acceleration will require more `ro` access permissions from /dev and /sys.
+When using an external sandbox application, such as [sys-apps/bubblewrap](https://packages.gentoo.org/packages/sys-apps/bubblewrap) or [sys-apps/firejail](https://packages.gentoo.org/packages/sys-apps/firejail), make sure that hardware acceleration works *outside* the sandbox. Hardware acceleration will require more `ro` access permissions from /dev and /sys.
 
 #### Green artifacts on a video only with hardware acceleration
 
-Try setting **media.navigator.mediadatadecoder\_vpx\_enabled** to false in `about:config`.
+Try setting `media.navigator.mediadatadecoder_vpx_enabled` to false in about:config.
 
 ### Wayland
 

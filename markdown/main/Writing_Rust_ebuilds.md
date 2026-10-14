@@ -4,9 +4,9 @@ title: Writing Rust ebuilds
 url: https://wiki.gentoo.org/wiki/Writing_Rust_ebuilds
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-06-21"
+date: "2026-10-13"
 tags: ['0.12.2']
-fingerprint: be6d1a3f8d2181c8
+fingerprint: bfec1a3f8d2181c8
 license: CC BY-SA 4.0
 ---
 
@@ -146,6 +146,22 @@ As the eclass unpacks dependencies into an offline repository and configures car
 
 **`foo-1.0.0-r1.ebuild`**
 
+```
+CRATES="
+ 	adler@1.0.2
+-	autocfg@1.1.0
++	autocfg@1.2.0
+ 	bindgen@0.65.1
+ 	bit_field@0.10.1
+ 	bitflags@1.3.2
+. . .
+# This whole phase is defined as cmake_src_prepare otherwise overrides it;
+# it was not previously required.
++src_prepare() {
++	cargo_update_crates
++	cmake_src_prepare
++ }
+```
 ##### Overriding all crates with a particular name
 
 `paths = [...]` overrides: An array of paths to directories containing a Cargo.toml. cargo will read the Cargo.toml and override any crate with the same name in the dependency graph of the (cargo) package. This **does not** respect version constraints or the lock file. The eclass will automatically configure this for crates in `CRATE_PATHS_OVERRIDE`; crates in this variable are added to `CRATES` by the eclass, though it will not hurt to have them in both.
@@ -154,6 +170,20 @@ Test the package extensively to ensure that no new bugs have been introduced. Th
 
 **`dev-lang/rust-1.54.0.ebuild`**
 
+```
+# Requried to build against openssl-3.*
+CRATE_PATHS_OVERRIDE="
+ 	openssl@0.10.35
+	openssl-sys@0.9.65
+"
+. . .
+src_unpack() {
+	verify-sig_src_unpack
+	cargo_src_unpack
+	# Vendored sources here override crates-io sources (repo) from cargo eclass.
+	sed -i '/\[source.crates-io\]/,+2d' "${ECARGO_HOME}"/config.toml
+}
+```
 The src\_unpack step is only necessary where the package in question overrides crates.io in *its* cargo config.
 
 ## Writing live ebuilds
@@ -210,7 +240,8 @@ If this crate is pulled, the user need to add [virtual/pkgconfig](https://packag
 | Crate | Dependency | Unbundling method | Notes | 
 |---|---|---|---|
 | bzip2-sys | [app-arch/bzip2](https://packages.gentoo.org/packages/app-arch/bzip2) | [Project:Rust/sys crates#bzip2-sys](https://wiki.gentoo.org/wiki/Project:Rust/sys_crates#bzip2-sys) | Uses system libs unless revdeps enable static feature | 
-| jemalloc-sys | [dev-libs/jemalloc](https://packages.gentoo.org/packages/dev-libs/jemalloc) |  |  | 
+| jemalloc-sys | >= [dev-libs/jemalloc-5.3.0](https://packages.gentoo.org/packages/dev-libs/jemalloc) |  |  | 
+| tikv-jemalloc-sys | >= [dev-libs/jemalloc-5.3.0](https://packages.gentoo.org/packages/dev-libs/jemalloc) |  | The minimum version of jemalloc can be easily identified via the crate version. For example, if the crate version is `v0.5.4+5.3.0-patched`, the minimum jemalloc version is `5.3.0`, if it's `v0.7.1+5.3.1-0-g81034ce1f1373e37dc865038e1bc8eeecf559ce8` then the minimum jemalloc version is 5.3.1. See [https://crates.io/crates/tikv-jemalloc-sys/versions](https://crates.io/crates/tikv-jemalloc-sys/versions) for more examples | 
 | libdeflate-sys | [app-arch/libdeflate](https://packages.gentoo.org/packages/app-arch/libdeflate) |  | Needs a workaround: [Project:Rust/sys crates#libdeflate-sys](https://wiki.gentoo.org/wiki/Project:Rust/sys_crates#libdeflate-sys) | 
 | libgit2-sys | [dev-libs/libgit2](https://packages.gentoo.org/packages/dev-libs/libgit2) | [Project:Rust/sys crates#libgit2-sys](https://wiki.gentoo.org/wiki/Project:Rust/sys_crates#libgit2-sys) | Since 0.16.0 | 
 | libsqlite3-sys | [dev-db/sqlite:3](https://packages.gentoo.org/packages/dev-db/sqlite:3) | [Project:Rust/sys crates#libsqlite3-sys](https://wiki.gentoo.org/wiki/Project:Rust/sys_crates#libsqlite3-sys) | Since 0.28.0 | 

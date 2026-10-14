@@ -4,8 +4,8 @@ title: Dinit
 url: https://wiki.gentoo.org/wiki/Dinit
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-07-28"
-fingerprint: "1308a1c7710480e7"
+date: "2026-10-14"
+fingerprint: "1308a1c7614488e5"
 license: CC BY-SA 4.0
 ---
 
@@ -22,20 +22,20 @@ license: CC BY-SA 4.0
 
 **Dinit**  is a service supervisor with dependency support which can also act as an [init system](https://wiki.gentoo.org/wiki/Init_system).
 
-It was created with the intention of providing a portable init system with dependency management and process supervision, that was functionally superior to many existing init systems, it's development goals include clean design, robustness, portability, usability, and avoiding feature bloat.
+It was created with the intention of providing a portable init system with dependency management and process supervision that was functionally superior to many existing init systems; its development goals include clean design, robustness, portability, usability, and avoiding feature bloat.
 
 Dinit is designed to integrate with rather than subsume or replace other system software.
 
 ## Installation
 
-### USE Flags
+### USE flags
 
 The available USE flags may be retrieved with the equery utility from [app-portage/gentoolkit](https://packages.gentoo.org/packages/app-portage/gentoolkit):
 
 `user $``equery uses sys-apps/dinit`
 ### Emerge
 
-The Dinit ebuild is available at the [GURU](https://wiki.gentoo.org/wiki/GURU) repository, which is Gentoo's user repository. The GURU repository can be added manually or with repository management tools like eselect-repository.
+The Dinit ebuild is available in the [GURU](https://wiki.gentoo.org/wiki/GURU) repository, which is Gentoo's user repository. The GURU repository can be added manually or with repository management tools like [app-eselect/eselect-repository](https://packages.gentoo.org/packages/app-eselect/eselect-repository).
 
 To add the `guru` overlay, run:
 
@@ -53,16 +53,16 @@ Once the repository has been added, unmask the [sys-apps/dinit::guru](https://gi
 **`/etc/portage/package.accept_keywords/dinit`**
 
 ```
-sys-apps/dinit ~amd64
+sys-apps/dinit
 ```
-Lastly install the [sys-apps/dinit::guru](https://github.com/gentoo-mirror/guru/tree/master/sys-apps/dinit) package:
+Finally, install the [sys-apps/dinit::guru](https://github.com/gentoo-mirror/guru/tree/master/sys-apps/dinit) package:
 
 `root #``emerge --ask sys-apps/dinit`
 ## Configuration
 
-### Service Files
+### Service files
 
-Service files for Dinit can be found in /etc/dinit.d, an example of how such a service file can look like:
+Service files for Dinit can be found in /etc/dinit.d. An example of how such a service file may look:
 
 **`/etc/dinit.d/turnstiled`**
 
@@ -73,7 +73,7 @@ logfile     = /var/log/turnstiled.log
 before:     login.target
 depends-on: local.target
 ```
-For detailed information on how to write service files run `man dinit-service`.
+For detailed information on how to write service files, run man dinit-service.
 
 ### Directories
 
@@ -87,22 +87,22 @@ For detailed information on how to write service files run `man dinit-service`.
 
 ### Dinit as the system init
 
-To use Dinit as you will need a set of basic system services.
+To use Dinit as the system init, a set of basic system services is required.
 
-You will also need to unmask [virtual/service-manager](https://packages.gentoo.org/packages/virtual/service-manager), [sys-apps/dinit-services::guru](https://github.com/gentoo-mirror/guru/tree/master/sys-apps/dinit-services) and optionally [app-crypt/cryptsetup-scripts-dinit::guru](https://github.com/gentoo-mirror/guru/tree/master/app-crypt/cryptsetup-scripts-dinit):
+Additionally, it is necessary to unmask [virtual/service-manager](https://packages.gentoo.org/packages/virtual/service-manager), [sys-apps/dinit-services::guru](https://github.com/gentoo-mirror/guru/tree/master/sys-apps/dinit-services), and optionally [app-crypt/cryptsetup-scripts-dinit::guru](https://github.com/gentoo-mirror/guru/tree/master/app-crypt/cryptsetup-scripts-dinit):
 
 **`/etc/portage/package.accept_keywords/dinit`**
 
 ```
-sys-apps/dinit-services ~amd64
-virtual/service-manager ~amd64
+sys-apps/dinit-services
+virtual/service-manager
 # If using the cryptsetup useflag on sys-apps/dinit-services
-# app-crypt/cryptsetup-scripts-dinit ~amd64
+# app-crypt/cryptsetup-scripts-dinit
 ```
 Now install the testing version of [virtual/service-manager](https://packages.gentoo.org/packages/virtual/service-manager):
 
 `root #``emerge --ask --oneshot virtual/service-manager`
-The `sysv-utils` useflag will have to be set on [sys-apps/dinit::guru](https://github.com/gentoo-mirror/guru/tree/master/sys-apps/dinit), otherwise you will run into issues with shutdown and reboot:
+The [sysv-utils](https://packages.gentoo.org/useflags/sysv-utils) [USE flag must be set on](https://wiki.gentoo.org/wiki/USE_flag) [sys-apps/dinit::guru](https://github.com/gentoo-mirror/guru/tree/master/sys-apps/dinit); otherwise, you will run into issues with shutdown and reboot:
 
 **`/etc/portage/package.use/dinit`**
 
@@ -112,29 +112,29 @@ sys-apps/dinit sysv-utils
 Now install the service package:
 
 `root #``emerge --ask sys-apps/dinit-services`
-Lastly emerge sys-apps/dinit with the new useflag. Doing so will also replace OpenRC:
+Lastly, emerge sys-apps/dinit with the new USE flag. Doing so will also replace OpenRC:
 
 `root #``emerge --ask sys-apps/dinit`
 ### Dinitctl
 
-Dinit services can be controlled with the dinitctl command:
+Dinit services can be controlled with dinitctl. In all the following commands, `<service>` is the name of the service to be acted on:
 
-Enable a service, where `<service>` is the name of the service to be enabled:
+Enable a service:
 
 `root #``dinitctl start <service>`
-Disable a service, where `<service>` is the name of the service to be disabled:
+Disable a service:
 
 `root #``dinitctl disable <service>`
-Start a service, where `<service>` is the name of the service to be started:
+Start a service:
 
 `root #``dinitctl start <service>`
-Stop a service, where `<service>` is the name of the service to be stopped:
+Stop a service:
 
 `root #``dinitctl stop <service>`
-Restart a service, where `<service>` is the name of the service to be restarted:
+Restart a service:
 
 `root #``dinitctl restart <service>`
-Reload a service description, where `<service>` is the name of the service to be reloaded:
+Reload a service description:
 
 `root #``dinitctl reload <service>`
 List loaded services and their state:
