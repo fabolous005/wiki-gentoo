@@ -4,12 +4,14 @@ title: wget
 url: https://wiki.gentoo.org/wiki/Wget
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2025-10-03"
-fingerprint: be09eb1217a249c2
+date: "2026-10-14"
+fingerprint: be49ef1217a26dc2
 license: CC BY-SA 4.0
 ---
 
 # wget
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -24,6 +26,11 @@ It is expected that [wget2](https://wiki.gentoo.org/index.php?title=Wget2&action
 
 ### USE flags
 
+
+### USE flags for
+            [net-misc/wget](https://packages.gentoo.org/packages/net-misc/wget)
+            
+            Network utility to retrieve files from the WWW
 
 | [+psl](https://packages.gentoo.org/useflags/+psl) | Enable Public Suffix List (PSL) support | 
 | [+ssl](https://packages.gentoo.org/useflags/+ssl) | Add support for SSL/TLS connections (Secure Socket Layer / Transport Layer Security) | 
@@ -258,3 +265,8 @@ Recursive accept/reject:
 Email bug reports, questions, discussions to <bug-wget@gnu.org>
 and/or open issues at https://savannah.gnu.org/bugs/?func=additem&group=wget.
 ```
+## See also
+
+- [wget2](https://wiki.gentoo.org/index.php?title=Wget2&action=edit&redlink=1)
+- [curl](https://wiki.gentoo.org/wiki/Curl) — a utility for transferring data to or from a server using URLs
+- [FETCHCOMMAND](https://wiki.gentoo.org/wiki/FETCHCOMMAND) — a variable that defines the command used for fetching package sources from the Internet.

@@ -520,7 +520,7 @@ Gentoo Wiki (Main)	Dhcpcd	https://wiki.gentoo.org/wiki/Dhcpcd	2026-04-30T22:19:2
 Gentoo Wiki (Main)	Dhcpcd-ui	https://wiki.gentoo.org/wiki/Dhcpcd-ui	2025-01-19T21:23:30Z
 Gentoo Wiki (Main)	Dictd	https://wiki.gentoo.org/wiki/Dictd	2025-12-17T01:31:13Z
 Gentoo Wiki (Main)	Diffutils	https://wiki.gentoo.org/wiki/Diffutils	2026-10-12T08:57:37Z
-Gentoo Wiki (Main)	Dinit	https://wiki.gentoo.org/wiki/Dinit	2026-10-13T23:33:21Z
+Gentoo Wiki (Main)	Dinit	https://wiki.gentoo.org/wiki/Dinit	2026-10-14T01:17:05Z
 Gentoo Wiki (Main)	Discard over USB	https://wiki.gentoo.org/wiki/Discard_over_USB	2025-10-04T16:10:01Z
 Gentoo Wiki (Main)	Discord	https://wiki.gentoo.org/wiki/Discord	2026-09-20T07:28:37Z
 Gentoo Wiki (Main)	Disk quotas	https://wiki.gentoo.org/wiki/Disk_quotas	2025-11-10T17:13:50Z
@@ -675,7 +675,7 @@ Gentoo Wiki (Main)	FAQ	https://wiki.gentoo.org/wiki/FAQ	2026-08-09T18:20:32Z
 Gentoo Wiki (Main)	FASM	https://wiki.gentoo.org/wiki/FASM	2025-01-19T21:30:32Z
 Gentoo Wiki (Main)	FAT	https://wiki.gentoo.org/wiki/FAT	2026-09-30T12:57:19Z
 Gentoo Wiki (Main)	FEATURES	https://wiki.gentoo.org/wiki/FEATURES	2026-09-26T03:50:32Z
-Gentoo Wiki (Main)	FETCHCOMMAND	https://wiki.gentoo.org/wiki/FETCHCOMMAND	2025-10-04T16:10:52Z
+Gentoo Wiki (Main)	FETCHCOMMAND	https://wiki.gentoo.org/wiki/FETCHCOMMAND	2026-10-14T12:21:38Z
 Gentoo Wiki (Main)	FFmpeg	https://wiki.gentoo.org/wiki/FFmpeg	2025-10-14T04:28:25Z
 Gentoo Wiki (Main)	FOSDEM 2012	https://wiki.gentoo.org/wiki/FOSDEM_2012	2020-10-13T16:36:02Z
 Gentoo Wiki (Main)	FOSDEM 2013	https://wiki.gentoo.org/wiki/FOSDEM_2013	2020-10-13T16:36:01Z
@@ -723,7 +723,7 @@ Gentoo Wiki (Main)	Find	https://wiki.gentoo.org/wiki/Find	2025-10-04T16:10:42Z
 Gentoo Wiki (Main)	Find-work	https://wiki.gentoo.org/wiki/Find-work	2026-09-05T02:38:41Z
 Gentoo Wiki (Main)	Fingerprint Reader	https://wiki.gentoo.org/wiki/Fingerprint_Reader	2026-05-21T17:20:41Z
 Gentoo Wiki (Main)	FireWire	https://wiki.gentoo.org/wiki/FireWire	2025-10-04T16:02:54Z
-Gentoo Wiki (Main)	Firefox	https://wiki.gentoo.org/wiki/Firefox	2026-10-13T23:08:02Z
+Gentoo Wiki (Main)	Firefox	https://wiki.gentoo.org/wiki/Firefox	2026-10-14T17:21:08Z
 Gentoo Wiki (Main)	Firefox/Sync Server	https://wiki.gentoo.org/wiki/Firefox/Sync_Server	2025-10-04T16:02:46Z
 Gentoo Wiki (Main)	Firefox/troubleshooting	https://wiki.gentoo.org/wiki/Firefox/troubleshooting	2026-10-13T03:33:17Z
 Gentoo Wiki (Main)	Firefox OS	https://wiki.gentoo.org/wiki/Firefox_OS	2025-12-19T13:58:12Z
@@ -1423,7 +1423,7 @@ Gentoo Wiki (Main)	KeePassXC	https://wiki.gentoo.org/wiki/KeePassXC	2025-10-04T1
 Gentoo Wiki (Main)	KeePassXC/cli	https://wiki.gentoo.org/wiki/KeePassXC/cli	2025-04-14T14:20:43Z
 Gentoo Wiki (Main)	Kerberos Server	https://wiki.gentoo.org/wiki/Kerberos_Server	2026-01-25T11:08:30Z
 Gentoo Wiki (Main)	Kerberos Windows Interoperability	https://wiki.gentoo.org/wiki/Kerberos_Windows_Interoperability	2025-10-04T16:01:04Z
-Gentoo Wiki (Main)	Kernel	https://wiki.gentoo.org/wiki/Kernel	2026-10-09T16:53:35Z
+Gentoo Wiki (Main)	Kernel	https://wiki.gentoo.org/wiki/Kernel	2026-10-14T14:34:47Z
 Gentoo Wiki (Main)	Kernel/Building from userspace	https://wiki.gentoo.org/wiki/Kernel/Building_from_userspace	2025-10-16T11:13:13Z
 Gentoo Wiki (Main)	Kernel/Command-line parameters	https://wiki.gentoo.org/wiki/Kernel/Command-line_parameters	2026-09-30T00:18:39Z
 Gentoo Wiki (Main)	Kernel/Configuration	https://wiki.gentoo.org/wiki/Kernel/Configuration	2026-09-20T09:10:04Z
@@ -1661,7 +1661,7 @@ Gentoo Wiki (Main)	Mac Mini (PowerPC G4)	https://wiki.gentoo.org/wiki/Mac_Mini_(
 Gentoo Wiki (Main)	Macbook Pro (early 2011)	https://wiki.gentoo.org/wiki/Macbook_Pro_(early_2011)	2025-01-19T21:28:39Z
 Gentoo Wiki (Main)	Magic SysRq	https://wiki.gentoo.org/wiki/Magic_SysRq	2025-04-07T01:44:01Z
 Gentoo Wiki (Main)	Mailfiltering Gateway	https://wiki.gentoo.org/wiki/Mailfiltering_Gateway	2026-06-15T06:13:14Z
-Gentoo Wiki (Main)	Main Page	https://wiki.gentoo.org/wiki/Main_Page	2026-10-14T00:14:59Z
+Gentoo Wiki (Main)	Main Page	https://wiki.gentoo.org/wiki/Main_Page	2026-10-15T00:14:53Z
 Gentoo Wiki (Main)	Make	https://wiki.gentoo.org/wiki/Make	2025-10-04T16:10:51Z
 Gentoo Wiki (Main)	Mako	https://wiki.gentoo.org/wiki/Mako	2026-10-10T12:55:55Z
 Gentoo Wiki (Main)	Man page	https://wiki.gentoo.org/wiki/Man_page	2026-10-08T17:01:11Z
@@ -1676,7 +1676,7 @@ Gentoo Wiki (Main)	MariaDB Galera Cluster	https://wiki.gentoo.org/wiki/MariaDB_G
 Gentoo Wiki (Main)	Master Boot Record	https://wiki.gentoo.org/wiki/Master_Boot_Record	2025-11-10T17:14:05Z
 Gentoo Wiki (Main)	Mastermirror	https://wiki.gentoo.org/wiki/Mastermirror	2018-09-03T15:02:51Z
 Gentoo Wiki (Main)	Matlab	https://wiki.gentoo.org/wiki/Matlab	2025-11-30T16:40:12Z
-Gentoo Wiki (Main)	Matrix	https://wiki.gentoo.org/wiki/Matrix	2026-10-09T18:37:59Z
+Gentoo Wiki (Main)	Matrix	https://wiki.gentoo.org/wiki/Matrix	2026-10-14T07:36:56Z
 Gentoo Wiki (Main)	Maven	https://wiki.gentoo.org/wiki/Maven	2025-11-07T15:00:11Z
 Gentoo Wiki (Main)	Mdadm	https://wiki.gentoo.org/wiki/Mdadm	2025-11-10T17:13:29Z
 Gentoo Wiki (Main)	Mdev	https://wiki.gentoo.org/wiki/Mdev	2026-10-01T22:41:46Z
@@ -1775,7 +1775,7 @@ Gentoo Wiki (Main)	NVMe	https://wiki.gentoo.org/wiki/NVMe	2025-10-27T09:14:08Z
 Gentoo Wiki (Main)	Nagios	https://wiki.gentoo.org/wiki/Nagios	2025-10-04T16:02:10Z
 Gentoo Wiki (Main)	Nagios/Guide	https://wiki.gentoo.org/wiki/Nagios/Guide	2025-10-04T16:02:34Z
 Gentoo Wiki (Main)	Namespaces	https://wiki.gentoo.org/wiki/Namespaces	2026-01-25T11:08:27Z
-Gentoo Wiki (Main)	Nano	https://wiki.gentoo.org/wiki/Nano	2026-05-14T16:19:18Z
+Gentoo Wiki (Main)	Nano	https://wiki.gentoo.org/wiki/Nano	2026-10-14T16:56:59Z
 Gentoo Wiki (Main)	Nano/Guide	https://wiki.gentoo.org/wiki/Nano/Guide	2025-10-26T11:38:23Z
 Gentoo Wiki (Main)	Nattka	https://wiki.gentoo.org/wiki/Nattka	2025-01-19T21:32:23Z
 Gentoo Wiki (Main)	Ncdu	https://wiki.gentoo.org/wiki/Ncdu	2025-10-04T16:10:54Z
@@ -1863,7 +1863,7 @@ Gentoo Wiki (Main)	OpenGL	https://wiki.gentoo.org/wiki/OpenGL	2025-10-04T16:10:3
 Gentoo Wiki (Main)	OpenLDAP	https://wiki.gentoo.org/wiki/OpenLDAP	2026-03-05T18:28:54Z
 Gentoo Wiki (Main)	OpenLDAP Server	https://wiki.gentoo.org/wiki/OpenLDAP_Server	2026-01-25T11:09:06Z
 Gentoo Wiki (Main)	OpenNTPD	https://wiki.gentoo.org/wiki/OpenNTPD	2026-01-29T18:51:27Z
-Gentoo Wiki (Main)	OpenRC	https://wiki.gentoo.org/wiki/OpenRC	2026-10-09T15:29:51Z
+Gentoo Wiki (Main)	OpenRC	https://wiki.gentoo.org/wiki/OpenRC	2026-10-14T20:29:15Z
 Gentoo Wiki (Main)	OpenRC/Baselayout 1 to 2 migration	https://wiki.gentoo.org/wiki/OpenRC/Baselayout_1_to_2_migration	2026-01-25T11:08:44Z
 Gentoo Wiki (Main)	OpenRC/CGroups	https://wiki.gentoo.org/wiki/OpenRC/CGroups	2026-07-31T01:37:02Z
 Gentoo Wiki (Main)	OpenRC/Event driven	https://wiki.gentoo.org/wiki/OpenRC/Event_driven	2025-12-19T20:07:06Z
@@ -2129,7 +2129,7 @@ Gentoo Wiki (Main)	RHVoice	https://wiki.gentoo.org/wiki/RHVoice	2025-01-19T21:33
 Gentoo Wiki (Main)	RISC-V ABIs	https://wiki.gentoo.org/wiki/RISC-V_ABIs	2026-09-07T08:13:10Z
 Gentoo Wiki (Main)	RISC-V Multilib	https://wiki.gentoo.org/wiki/RISC-V_Multilib	2024-04-06T20:24:25Z
 Gentoo Wiki (Main)	RISC-V hardware list	https://wiki.gentoo.org/wiki/RISC-V_hardware_list	2025-11-25T01:37:01Z
-Gentoo Wiki (Main)	ROCm	https://wiki.gentoo.org/wiki/ROCm	2025-11-08T19:04:53Z
+Gentoo Wiki (Main)	ROCm	https://wiki.gentoo.org/wiki/ROCm	2026-10-14T14:32:34Z
 Gentoo Wiki (Main)	ROCm packaging history	https://wiki.gentoo.org/wiki/ROCm_packaging_history	2025-10-04T16:11:03Z
 Gentoo Wiki (Main)	ROG Zephyrus G14 (2022) GA402	https://wiki.gentoo.org/wiki/ROG_Zephyrus_G14_(2022)_GA402	2026-06-29T21:53:32Z
 Gentoo Wiki (Main)	ROS	https://wiki.gentoo.org/wiki/ROS	2025-10-04T16:03:03Z
@@ -2328,7 +2328,7 @@ Gentoo Wiki (Main)	Sbctl	https://wiki.gentoo.org/wiki/Sbctl	2025-12-21T20:42:39Z
 Gentoo Wiki (Main)	Sc-im	https://wiki.gentoo.org/wiki/Sc-im	2025-10-04T16:10:33Z
 Gentoo Wiki (Main)	Scan modem	https://wiki.gentoo.org/wiki/Scan_modem	2025-01-19T21:27:57Z
 Gentoo Wiki (Main)	Sccache	https://wiki.gentoo.org/wiki/Sccache	2026-07-13T06:37:31Z
-Gentoo Wiki (Main)	Sccache-dist	https://wiki.gentoo.org/wiki/Sccache-dist	2026-09-26T08:09:37Z
+Gentoo Wiki (Main)	Sccache-dist	https://wiki.gentoo.org/wiki/Sccache-dist	2026-10-14T13:09:19Z
 Gentoo Wiki (Main)	Scrcpy	https://wiki.gentoo.org/wiki/Scrcpy	2025-07-09T22:46:45Z
 Gentoo Wiki (Main)	Screen	https://wiki.gentoo.org/wiki/Screen	2025-10-04T16:01:35Z
 Gentoo Wiki (Main)	Scribus	https://wiki.gentoo.org/wiki/Scribus	2025-04-14T14:20:55Z
@@ -2687,7 +2687,7 @@ Gentoo Wiki (Main)	WeeChat	https://wiki.gentoo.org/wiki/WeeChat	2026-10-07T22:38
 Gentoo Wiki (Main)	WeeChat/Glowing Bear Guide	https://wiki.gentoo.org/wiki/WeeChat/Glowing_Bear_Guide	2026-03-02T07:46:00Z
 Gentoo Wiki (Main)	Weston	https://wiki.gentoo.org/wiki/Weston	2025-01-19T21:29:43Z
 Gentoo Wiki (Main)	WezTerm	https://wiki.gentoo.org/wiki/WezTerm	2026-04-25T04:01:14Z
-Gentoo Wiki (Main)	Wget	https://wiki.gentoo.org/wiki/Wget	2025-10-03T07:59:01Z
+Gentoo Wiki (Main)	Wget	https://wiki.gentoo.org/wiki/Wget	2026-10-14T12:22:40Z
 Gentoo Wiki (Main)	Wgetpaste	https://wiki.gentoo.org/wiki/Wgetpaste	2026-10-06T19:05:08Z
 Gentoo Wiki (Main)	What to do when noticing an error on the wiki	https://wiki.gentoo.org/wiki/What_to_do_when_noticing_an_error_on_the_wiki	2026-03-06T12:38:03Z
 Gentoo Wiki (Main)	Where to go next	https://wiki.gentoo.org/wiki/Where_to_go_next	2026-10-05T07:43:48Z
@@ -2697,7 +2697,7 @@ Gentoo Wiki (Main)	Where to go next/TOC	https://wiki.gentoo.org/wiki/Where_to_go
 Gentoo Wiki (Main)	Where to go next/installer	https://wiki.gentoo.org/wiki/Where_to_go_next/installer	2026-07-13T00:28:40Z
 Gentoo Wiki (Main)	Why build from sources	https://wiki.gentoo.org/wiki/Why_build_from_sources	2025-10-04T20:42:00Z
 Gentoo Wiki (Main)	Why not bundle dependencies	https://wiki.gentoo.org/wiki/Why_not_bundle_dependencies	2026-07-13T00:40:35Z
-Gentoo Wiki (Main)	Wi-Fi	https://wiki.gentoo.org/wiki/Wi-Fi	2026-10-05T09:20:10Z
+Gentoo Wiki (Main)	Wi-Fi	https://wiki.gentoo.org/wiki/Wi-Fi	2026-10-14T16:54:38Z
 Gentoo Wiki (Main)	WiMAX	https://wiki.gentoo.org/wiki/WiMAX	2024-07-29T08:32:20Z
 Gentoo Wiki (Main)	Wifi/Testing	https://wiki.gentoo.org/wiki/Wifi/Testing	2026-10-05T09:21:12Z
 Gentoo Wiki (Main)	WikiFile:Hyperviseur.svg	https://wiki.gentoo.org/wiki/WikiFile:Hyperviseur.svg	2024-06-20T02:48:54Z
@@ -2707,7 +2707,7 @@ Gentoo Wiki (Main)	Willikins	https://wiki.gentoo.org/wiki/Willikins	2025-12-19T1
 Gentoo Wiki (Main)	Window manager	https://wiki.gentoo.org/wiki/Window_manager	2026-10-07T14:07:54Z
 Gentoo Wiki (Main)	Wine	https://wiki.gentoo.org/wiki/Wine	2026-09-21T02:50:56Z
 Gentoo Wiki (Main)	Winetricks	https://wiki.gentoo.org/wiki/Winetricks	2025-01-19T21:30:27Z
-Gentoo Wiki (Main)	WireGuard	https://wiki.gentoo.org/wiki/WireGuard	2026-08-21T09:19:36Z
+Gentoo Wiki (Main)	WireGuard	https://wiki.gentoo.org/wiki/WireGuard	2026-10-14T11:37:52Z
 Gentoo Wiki (Main)	WireGuard/Examples	https://wiki.gentoo.org/wiki/WireGuard/Examples	2026-08-21T09:28:29Z
 Gentoo Wiki (Main)	WirePlumber	https://wiki.gentoo.org/wiki/WirePlumber	2026-10-08T22:05:17Z
 Gentoo Wiki (Main)	WirePlumber/troubleshooting	https://wiki.gentoo.org/wiki/WirePlumber/troubleshooting	2026-10-08T22:05:06Z
@@ -2837,7 +2837,7 @@ Gentoo Overlay	Overlay:Fkmclane	https://wiki.gentoo.org/wiki/Overlay:Fkmclane	20
 Gentoo Overlay	Overlay:Kde-sunset	https://wiki.gentoo.org/wiki/Overlay:Kde-sunset	2025-10-04T16:01:12Z
 Gentoo Overlay	Overlay:Stuff	https://wiki.gentoo.org/wiki/Overlay:Stuff	2026-06-08T15:59:41Z
 Gentoo Overlay	Overlay:Youbroketheinternet	https://wiki.gentoo.org/wiki/Overlay:Youbroketheinternet	2025-01-19T21:22:27Z
-Gentoo Handbook	Handbook:AMD64/Full/Installation	https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Installation	2026-09-27T14:41:08Z
+Gentoo Handbook	Handbook:AMD64/Full/Installation	https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Installation	2026-10-14T08:54:34Z
 Gentoo Handbook	Handbook:AMD64/Full/Working	https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Working	2026-09-27T14:41:21Z
 Gentoo Handbook	Handbook:AMD64/Full/Portage	https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Portage	2026-09-27T14:40:56Z
 Gentoo Handbook	Handbook:AMD64/Full/Networking	https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Networking	2026-09-27T14:40:34Z

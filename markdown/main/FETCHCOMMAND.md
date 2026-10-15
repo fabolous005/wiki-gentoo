@@ -4,8 +4,8 @@ title: FETCHCOMMAND
 url: https://wiki.gentoo.org/wiki/FETCHCOMMAND
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2024-11-27"
-fingerprint: a7b97a1f073bf9ad
+date: "2026-10-14"
+fingerprint: a6b93a1f073bf9ad
 license: CC BY-SA 4.0
 ---
 
@@ -76,3 +76,9 @@ Then add the following line to your [/etc/portage/make.conf](https://wiki.gentoo
 ```
 source /usr/share/fetchcommandwrapper/make.conf
 ```
+## See also
+
+- `[GENTOO_MIRRORS](https://wiki.gentoo.org/wiki/GENTOO_MIRRORS)`
+- `[RESUMECOMMAND](https://wiki.gentoo.org/index.php?title=RESUMECOMMAND&action=edit&redlink=1)`
+- [curl](https://wiki.gentoo.org/wiki/Curl) — a utility for transferring data to or from a server using URLs
+- [wget](https://wiki.gentoo.org/wiki/Wget) — a robust non-interactive [HTTP](https://en.wikipedia.org/wiki/HTTP), [HTTPS](https://en.wikipedia.org/wiki/HTTPS), and [FTP](https://en.wikipedia.org/wiki/FTP) client

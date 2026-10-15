@@ -5,11 +5,15 @@ url: https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Installation
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2015-01-04"
-fingerprint: "9499d81a04a7ab84"
+fingerprint: "9499d81a04a7abc4"
 license: CC BY-SA 4.0
 ---
 
 # Gentoo Linux amd64 Handbook: Installing Gentoo
+
+[Handbook:AMD64](https://wiki.gentoo.org/wiki/Special:MyLanguage/Handbook:AMD64) |
+
+[Full](https://wiki.gentoo.org/wiki/Special:MyLanguage/Handbook:AMD64/Full)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -19,7 +23,13 @@ license: CC BY-SA 4.0
 
 
 
+## Introduction
+
+### Welcome
+
 Welcome to Gentoo! Gentoo is a free operating system based on Linux that can be automatically optimized and customized for just about any application or need. It is built on an ecosystem of free software and does not hide what is running beneath the hood from its users.
+
+#### Openness
 
 Gentoo's premier tools are built from simple programming languages. [Portage](https://wiki.gentoo.org/wiki/Portage), Gentoo's package maintenance system, is [written in Python](https://gitweb.gentoo.org/proj/portage.git/). Ebuilds, which provide package definitions for Portage [are written in bash](https://gitweb.gentoo.org/repo/gentoo.git). Our users are encouraged to review, modify, and enhance the source code for all parts of Gentoo.
 
@@ -27,17 +37,23 @@ By default, packages are only patched when necessary to fix bugs or provide inte
 
 For the above reasons and others: *openness* is built-in as a *design principle*.
 
+#### Choice
+
 *Choice* is another Gentoo *design principle.*
 
 When installing Gentoo, choice is made clear throughout the Handbook. System administrators can choose two fully supported init systems (Gentoo's own [OpenRC](https://wiki.gentoo.org/wiki/OpenRC) and Freedesktop.org's [systemd](https://wiki.gentoo.org/wiki/Systemd)), partition structure for storage disk(s), what file systems to use on the disk(s), a target [system profile](https://wiki.gentoo.org/wiki/Profile), remove or add features on a global (system-wide) or package specific level via USE flags, bootloader, network management utility, and much, much more.
 
 As a development philosophy, [Gentoo's authors](https://www.gentoo.org/inside-gentoo/developers/) try to avoid forcing users onto a specific system profile or desktop environment. If something is offered in the GNU/Linux ecosystem, it's likely available in Gentoo. If not, then we'd love to see it so. For new packages, it is recommended to first submit a package to [GURU](https://wiki.gentoo.org/wiki/GURU). Once it has matured and a Gentoo developer has volunteered to sponsor the new package, it can then be added to the official Gentoo package repository.
 
+#### Power
+
 Being a source-based operating system allows Gentoo to be ported onto new computer [instruction set architectures](https://en.wikipedia.org/wiki/instruction_set_architecture) and also allows all installed packages to be tuned. This strength surfaces another Gentoo *design principle*: *power*.
 
 A system administrator who has successfully installed and customized Gentoo has compiled a tailored operating system from source code. The entire operating system can be tuned at a binary level via the mechanisms included in Portage's [make.conf](https://wiki.gentoo.org/wiki//etc/portage/make.conf) file. If so desired, adjustments can be made on a per-package basis, or a package group basis. In fact, entire sets of functionality can be added or removed using USE flags.
 
 It is very important that the Handbook reader understands that these design principles are what makes Gentoo unique. With the principles of great power, many choices, and extreme openness highlighted, diligence, thought, and intentionality should be employed while using Gentoo.
+
+### How the installation is structured
 
 The Gentoo Installation can be seen as a 10-step procedure, corresponding to the next set of chapters. Each step results in a certain state:
 
@@ -54,27 +70,41 @@ The Gentoo Installation can be seen as a 10-step procedure, corresponding to the
 | 9 | The proper boot loader has been installed and configured. | 
 | 10 | The freshly installed Gentoo Linux environment is ready to be explored. | 
 
+#### Deciding which steps to take
+
 The handbook presents an overwhelming amount of options, especially for someone who has never installed Linux without an installer.
 
 It's important to realize that the handbook is designed to describe the steps required to install on a very wide variety of hardware, with different install needs. Because of this, many options presented in the handbook are unnecessary for a particular install and can be skipped.
 
+#### Suggested steps
+
 Prefixed with "**Suggested:**", some steps are not strictly required, but help in most cases, such as installing [sys-kernel/linux-firmware](https://packages.gentoo.org/packages/sys-kernel/linux-firmware).
+
+#### Optional steps
 
 Prefixed with "**Optional:**", many sections in the handbook are purely optional, and can be skipped if the user is looking for a simple, mostly vanilla install.
 
 Examples of this include compiler flag customization, using a totally custom kernel, and disabling root login.
 
+#### Deprecated steps
+
 Gentoo has existed for a long time. Some install processes are described in the handbook because they used to be more relevant, but are now largely deprecated. Instead of immediately removing this information, as it may still be helpful for some users, it may be designated as **Deprecated:** before removal. Once removed, the *history* must be used to view this content.
+
+#### Defaults and alternatives
 
 Whenever choices are presented, the handbook will try to explain the pros and cons of each choice.
 
 If potential choices are mutually exclusive, "**Default:**" is used to designate the most supported or commonly chosen option, while alternatives are listed with "**Alternative**".
+
+### Installation options for Gentoo
 
 Gentoo can be installed in many different ways. It can be downloaded and installed from official Gentoo installation media such as our bootable ISO images. The installation media can be installed on a USB stick or accessed via a netbooted environment. Alternatively, Gentoo can be installed from non-official media such as an already installed distribution or a non-Gentoo bootable disk (such as [Linux Mint](https://linuxmint.com/)).
 
 This document covers the installation using official Gentoo Installation media or, in certain cases, netbooting.
 
 We also provide a [Gentoo installation tips and tricks](https://wiki.gentoo.org/wiki/Gentoo_installation_tips_and_tricks) document that might be useful.
+
+### Troubles
 
 If a problem is found in the installation (or in the installation documentation), please visit our [bug tracking system](https://bugs.gentoo.org) and check if the bug is known. If not, please create a bug report for it so we can take care of it. Do not be afraid of the developers who are assigned to the bugs - they (generally) don't eat people.
 
@@ -92,21 +122,35 @@ Speaking of which, if there are any additional questions regarding Gentoo, check
 
 
 
+## Hardware requirements
+
 Gentoo can be installed on all manners of systems, so listing minimal hardware specification is more down to how long a user is willing to wait. Any reasonably modern machine can complete the install process in less than an hour, however it is not a race so, take your time, and remember it takes as long as it takes.
 
 For a smooth install process though, the Handbook recommends at least 40GB of space for the root partition.
+
+## Gentoo Linux installation media
+
+### Minimal installation CD
 
 The *Gentoo minimal installation CD*, also known as the installcd, is a small, bootable image: a self-contained Gentoo environment. This image is maintained by [Gentoo developers](https://wiki.gentoo.org/wiki/Project:RelEng) and designed to allow any user with an Internet connection to install Gentoo. During the boot process, the hardware is detected, and appropriate drivers are automatically loaded.
 
 Minimal Installation CD releases are named using the format: install-\<arch>-minimal-\<release timestamp>.iso.
 
+### The Gentoo LiveGUI
+
 The LiveGUI provides a more convenient environment for the manual installation process, using the KDE desktop environment. This allows a user to open a graphical based web browser, such as Mozilla Firefox, to make reading the handbook whilst installing in terminal more pleasant.
 
 The LiveGUI also includes more wireless driver support than the minimal CD provides and can be more easily connected using the NetworkManager applet in KDE
 
+### What are stage files?
+
 A [stage file](https://wiki.gentoo.org/wiki/Stage_file) is an archive which serves as the seed for a Gentoo environment.
 
 Stage 3 files can be downloaded from releases/amd64/autobuilds/ on any of the [official Gentoo mirrors](https://www.gentoo.org/downloads/mirrors/). Stages are updated frequently and are therefore not included within official live images.
+
+## Downloading
+
+### Obtain the media
 
 The default installation media used by Gentoo Linux are the *minimal installation CDs*, which provide a very small, bootable, Gentoo Linux environment. This environment contains the necessary tools to install Gentoo. The images themselves can be downloaded from the [downloads page](https://www.gentoo.org/downloads/) (recommended) or by manually browsing to the ISO location on one of the many [available mirrors](https://www.gentoo.org/downloads/mirrors/).
 
@@ -127,11 +171,17 @@ In the above example, the install-amd64-minimal-20240107T170309Z.iso file is the
 
 Ignore the other files available at this location for now - those will come back when the installation has proceeded further. Download the .iso file and, if verification of the download is wanted, download the .iso.asc file for the .iso file as well.
 
+### Verifying the downloaded files
+
 This step ensures that the downloaded file is not corrupt and has indeed been provided by the [Gentoo Infrastructure team](https://wiki.gentoo.org/wiki/Project:Infrastructure).
 
 The .asc file provides a cryptographic signature of the ISO. Validating it ensures the installation file is provided by the Gentoo Release Engineering team and is intact and unmodified.
 
+#### Microsoft Windows-based verification
+
 To first verify the cryptographic signature, tools such as [GPG4Win](https://www.gpg4win.org/) can be used. After installation, the public keys of the Gentoo Release Engineering team need to be imported. The list of keys is available on the [signatures page](https://www.gentoo.org/downloads/signatures/). Once imported, the downloaded ISO can be verified using the .asc file.
+
+#### Linux based verification
 
 On a Linux system, the most common method for verifying the cryptographic signature is to use the [app-crypt/gnupg](https://packages.gentoo.org/packages/app-crypt/gnupg) software. With this package installed, the following command is used to verify the cryptographic signature in the .asc file.
 
@@ -189,11 +239,19 @@ Primary key fingerprint: 13EB BDBE DE7A 1277 5DFD  B1BA BB57 2E0E 2D18 2910
 ```
  To be absolutely certain that everything is valid, verify the fingerprint shown with the fingerprint on the [Gentoo signatures page](https://www.gentoo.org/downloads/signatures/).
 
+## Writing the boot media
+
 Of course, with just an ISO file downloaded, the Gentoo Linux installation cannot be started. The ISO file must be written to bootable media. This generally requires that the image is extracted to a filesystem, or written directly to a device.
+
+### Writing a bootable USB
 
 Most modern systems support booting from a USB device.
 
+#### Writing with Linux
+
 dd is typically available on most Linux distros, and can be used to write the Gentoo boot media to a USB drive.
+
+##### Determining the USB device path
 
 Before writing, the path to the desired storage device must be determined.
 
@@ -213,14 +271,24 @@ sdd           8:48   1  28.9G  0 disk
 
 Once the device name has been determined, this can be added to the path prefix */dev/* to get the device path /dev/sdd.
 
+##### Writing with dd
+
 With the device path (/dev/sdd) and *boot media* install-amd64-minimal-\<release timestamp>.iso ready:
 
 `root #``dd if=install-amd64-minimal-<release timestamp>.iso of=/dev/sdd bs=4096 status=progress && sync`
+#### Writing with Windows
+
 [win32diskimager](https://sourceforge.net/projects/win32diskimager/) is simple to use Windows utility to write iso images to a USB drive.
 
 They also provide excellent documentation to assist if needed.
 
+### Burning a disk
+
+#### Burning with Microsoft Windows 7 and above
+
 Versions of Microsoft Windows 7 and above can both mount and burn ISO images to optical media without the requirement for third-party software. Simply insert a burnable disk, browse to the downloaded ISO files, right click the file in Windows Explorer, and select "Burn disk image".
+
+#### Burning with Linux
 
 The cdrecord utility from the package [app-cdr/cdrtools](https://packages.gentoo.org/packages/app-cdr/cdrtools) can burn ISO images on Linux.
 
@@ -228,6 +296,10 @@ To burn the ISO file on the CD in the /dev/sr0 device (this is the first CD devi
 
 `user $``cdrecord dev=/dev/sr0 install-amd64-minimal-20141204.iso`
 Users that prefer a graphical user interface can use K3B, part of the [kde-apps/k3b](https://packages.gentoo.org/packages/kde-apps/k3b) package. In K3B, go to Tools and use Burn CD Image.
+
+## Booting
+
+### Booting the installation media
 
 Once the installation media is ready, it is time to boot it. Insert the media in the system, reboot, and enter the motherboard's firmware user interface. This is usually performed by pressing a keyboard key such as `DEL`, `F1`, `F10`, or `ESC` during the Power-On Self-Test (POST) process. The 'trigger' key varies depending on the system and motherboard. If it is not obvious use an internet search engine and do some research using the motherboard's model name as the search keyword. Results should be easy to determine. Once inside the motherboard's firmware menu, change the boot order so that the external bootable media (CD/DVD disks or USB drives) are tried *before* the internal disk devices. Without this change, the system will most likely reboot to the internal disk device, ignoring the newly attached bootable media.
 
@@ -239,6 +311,8 @@ Specifying a kernel was mentioned. On the Minimal installation media, only two p
 
 The next section displays a short overview of the available kernels and their descriptions:
 
+#### Kernel choices
+
 - gentoo
 - Default kernel with support for K8 CPUs (including NUMA support) and EM64T CPUs.
 - gentoo-nofb
@@ -247,6 +321,8 @@ The next section displays a short overview of the available kernels and their de
 - Test the system RAM for errors.
 
 Alongside the kernel, boot options help in tuning the boot process further.
+
+#### Hardware options
 
 - acpi=on
 - This loads support for ACPI and also causes the acpid daemon to be started by the CD on boot. This is only needed if the system requires ACPI to function properly. This is not required for Hyperthreading support.
@@ -295,8 +371,12 @@ Alongside the kernel, boot options help in tuning the boot process further.
 - slowusb
 - This adds some extra pauses into the boot process for slow USB CDROMs, like in the IBM BladeCenter.
 
+#### Logical volume/device management
+
 - dolvm
 - This enables support for Linux's Logical Volume Management.
+
+#### Other options
 
 - debug
 - Enables debugging code. This might get messy, as it displays a lot of data to the screen.
@@ -326,16 +406,22 @@ Next the user will be greeted with a boot screen and progress bar. If the instal
 
 
 
+### LiveGUI root access
+
 sudo has been configured to run without the need of a password on the LiveGUI as both the root and gentoo have a scrambled password.
 
 To gain access to the superuser account, in any terminal run:
 
 `root #``sudo -i`
+### Extra hardware configuration
+
 When the Installation medium boots, it tries to detect all the hardware devices and loads the appropriate kernel modules to support the hardware. In the vast majority of cases, it does a very good job. However, in some cases it may not auto-load the kernel modules needed by the system. If the PCI auto-detection missed some of the system's hardware, the appropriate kernel modules have to be loaded manually.
 
 In the next example the 8139too module (which supports certain kinds of network interfaces) is loaded:
 
 `root #``modprobe 8139too`
+### Optional: User accounts
+
 If other people need access to the installation environment, or there is need to run commands as a non-root user on the installation medium (such as to chat using irssi without root privileges for security reasons), then an additional user account needs to be created and the root password set to a strong password.
 
 To change the root password, use the passwd utility:
@@ -358,6 +444,10 @@ Re-enter password: (Re-enter larry's password)
 To switch from the (current) *root* user to the newly created user account, use the su command:
 
 `root #``su - larry`
+### Optional: Viewing documentation while installing
+
+#### TTYs
+
 To view the Gentoo handbook from a TTY during the installation, first create a user account as described above, then press `Alt`+`F2` to go to a new terminal (TTY) and login as the newly created user. Following the [principle of least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege), it is best practice to avoid browsing the web or generally performing any task with higher privileges than necessary. The root account has full control of the system and therefore must be used sparingly.
 
 During the installation, the links web browser can be used to browse the Gentoo handbook - of course only from the moment that the Internet connection is working.
@@ -365,7 +455,11 @@ During the installation, the links web browser can be used to browse the Gentoo 
 `user $``links https://wiki.gentoo.org/wiki/Handbook:AMD64`
 To go back to the original terminal, press `Alt`+`F1`.
 
+#### GNU Screen
+
 The [Screen](https://wiki.gentoo.org/wiki/Screen) utility is installed by default on official Gentoo installation media. It may be more efficient for the seasoned Linux enthusiast to use screen to view installation instructions via split panes rather than the multiple TTY method mentioned above.
+
+### Optional: Starting the SSH daemon
 
 To allow other users to access the system during the installation (perhaps to provide/receive support during an installation, or even do it remotely), a user account needs to be created (as was documented earlier on) and the SSH daemon needs to be started.
 
@@ -382,15 +476,21 @@ To be able to use sshd, the network needs to function properly. Continue with th
 
 
 
+## Automatic network configuration
+
 Maybe it just works?
 
 If the system is connected to an Ethernet network with an IPv6 router or DHCP server, it's very likely that the system's network was configured automatically. If additional, advanced configuration is not required, [Internet connectivity can be tested](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/Networking#Testing_the_network).
+
+### Using DHCP
 
 DHCP (Dynamic Host Configuration Protocol) assists in network configuration, and can automatically provide configuration for a variety of parameters including: IP address, network mask, routes, DNS servers, NTP servers, etc.
 
 DHCP requires that a server be running on the same *Layer 2* (*Ethernet*) segment as the client requesting a *lease*. DHCP is often used on RFC1918 (*private*) networks, but is also used to acquire public IP information from ISPs.
 
 By default the Gentoo live media uses [NetworkManager](https://wiki.gentoo.org/wiki/NetworkManager) which will automatically connect to via DHCP, if this is not the case then check the Ethernet cable for issues.
+
+### Testing the network
 
 A properly configured *default* route is a critical component of Internet connectivity, route configuration can be checked with:
 
@@ -414,6 +514,8 @@ If Internet connectivity has not been established, first [interface information 
 - [nmtui can be used](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/Networking#Using_NetworkManager) to assist in network configuration.
 - [Application specific configuration](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/Networking#Application_specific_configuration) may be required.
 - [Manual network configuration](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/Networking#Manual_network_configuration) can be attempted.
+
+## Obtaining interface info
 
 If networking doesn't work out of the box, additional steps must be taken to enable Internet connectivity. Generally, the first step is to enumerate host network interfaces.
 
@@ -441,6 +543,8 @@ The output of this command contains information for each network interface on th
 
 For consistency, the handbook will assume that the primary network interface is called enp1s0.
 
+## Wireless Setup
+
 ### Optional: Checking wireless
 
 iw may be used to display the current wireless settings on the card, this should also show that the kernel wireless stack is working (note that the iw command is only available on the following architectures: **amd64**, **x86**, **arm**, **arm64**, **ppc**, **ppc64**, and **riscv**):
@@ -455,10 +559,14 @@ Interface wlp9s0
 	channel 11 (2462 MHz), width: 20 MHz (no HT), center1: 2462 MHz
 	txpower 30.00 dBm
 
+### Using NetworkManager
+
 The fastest way to enable wireless connectivity in the Gentoo Live media is by using the nmtui command and following the on-screen instructions to setup the wireless network.
 
 `root #``nmtui`
 LiveGUI users can click on the network icon in the bottom right of the taskbar to also configure WiFi.
+
+### Using net-setup
 
 On some architectures, e.g. **HPPA**, a user may be required to use the tool net-setup to configure a wireless connection if NetworkManager isn't available yet.
 
@@ -468,6 +576,8 @@ net-setup will ask some questions about the network environment and will use tha
 ### Manual setup
 
 Wireless networks may alternatively be set up with a daemon such as wpa\_supplicant or iwd. For more information on configuring wireless networking in Gentoo Linux, please read the [Wireless networking chapter](https://wiki.gentoo.org/wiki/Handbook:AMD64/Networking/Wireless) in the Gentoo Handbook.}}
+
+#### Manually connecting to an open network
 
 For most users, there are only two settings needed to connect, the ESSID (aka wireless network name) and, optionally, the WEP key.
 
@@ -479,7 +589,11 @@ For most users, there are only two settings needed to connect, the ESSID (aka wi
 
 - `root #``iw dev wlp9s0 connect -w GentooNode`
 
+## Application specific configuration
+
 The following methods are not generally required, but may be helpful in situations where additional configuration is required for Internet connectivity.
+
+### Configure web proxies
 
 If the internet is accessed through a web proxy, then it will be necessary to define proxy information to for Portage to properly access the proxy for each supported protocol. Portage observes the `http_proxy`, `ftp_proxy`, and `RSYNC_PROXY` environment variables in order to download packages via its wget and rsync retrieval mechanisms.
 
@@ -513,6 +627,8 @@ Start links using the following parameter for a FTP proxy:
 `user $``links -ftp-proxy ${ftp_proxy}` To define an RSYNC proxy for Portage:
 
 `root #``export RSYNC_PROXY="proxy.gentoo.org:8080" # Applies to Portage; Links does not support a rsync proxy`
+### Using pppoe-setup for ADSL
+
 If PPPoE is required for Internet access, the Gentoo *boot media* includes the pppoe-setup script to simplify ppp configuration.
 
 During setup, pppoe-setup will ask for:
@@ -528,6 +644,8 @@ pppoe-setup
 `root #``pppoe-start`
 In the event of failure, credentials in /etc/ppp/pap-secrets or /etc/ppp/chap-secrets should be verified. If credentials are correct, PPPoE Ethernet interface selection should be checked.
 
+### Using PPTP
+
 If PPTP support is needed, pptpclient can be used, but requires configuration prior to usage.
 
 Edit /etc/ppp/pap-secrets or /etc/ppp/chap-secrets so it contains the correct username/password combination:
@@ -539,11 +657,17 @@ Then adjust /etc/ppp/options.pptp if necessary:
 Once configuration is complete, run pptp (along with the options that couldn't be set in options.pptp) to connect the server:
 
 `root #``pptp <server ipv4 address>`
+## Internet and IP basics
+
 If all of the above fails, the network must be configured manually. This is not particularly difficult, but should be done with consideration. This section serves to clarify terminology and introduce users to basic networking concepts pertaining to manually configuring an Internet connection.
+
+### Interfaces and addresses
 
 Network *interfaces* are logical representations of network devices. An *interface* needs an *address* to communicate with other devices on the *network*. While only a single *address* is required, multiple addresses can be assigned to a single *interface*. This is especially useful for dual stack (IPv4 + IPv6) configurations.
 
 For consistency, this primer will assume the interface enp1s0 will be using the address 192.168.0.2.
+
+### Networks and CIDR
 
 Once an address is chosen, how does a device know how to talk to other devices?
 
@@ -569,6 +693,8 @@ The notation: 192.168.0.2/24 can be interpreted as:
 
 Using this configuration, a device should be able to communicate with any host on the same *network* (192.168.0.0).
 
+### The Internet
+
 Once a device is on a network, how does it know how to talk to devices on the Internet?
 
 To communicate with devices outside of local *networks*, *routing* must be used. A *router* is simply a network device that forwards traffic for other devices. The term *default route* or *gateway* typically refers to whatever device on the current network is used for external network access.
@@ -581,15 +707,23 @@ To summarize:
 - Local network access is used to access a *router* on the same network.
 - The *default route* is configured, so traffic destined for external networks is forwarded  to the *gateway*, providing Internet access.
 
+### The Domain Name System
+
 Remembering IPs is hard. The *Domain Name System* was created to allow mapping between *Domain Names* and *IP addresses*.
 
 Linux systems use /etc/resolv.conf to define *nameservers* to be used for *DNS resolution*.
 
 Many ISPs run a DNS server that is generally advertised to the *gateway* over DHCP. Using a local DNS server tends to improve query latency, but most public DNS servers will return the same results, so server usage is largely based on preference.
 
+## Manual and static IP network configuration
+
+### Interface address configuration
+
 To configure enp1s0 with the address 192.168.0.2 and CIDR /24:
 
 `root #``ip address add 192.168.0.2/24 dev enp1s0`
+### Default route configuration
+
 Configuring address and network information for an interface will configure link routes, allowing communication with that network segment:
 
 `root #``ip route`
@@ -598,6 +732,8 @@ Configuring address and network information for an interface will configure link
 The default route can be set to 192.168.0.1 with:
 
 `root #``ip route add default via 192.168.0.1`
+### DNS configuration
+
 Nameserver info is typically acquired using DHCP, but can be set manually by adding `nameserver` entries to /etc/resolv.conf.
 
 nano is included in Gentoo *boot media* and can be used to edit /etc/resolv.conf with:
@@ -609,10 +745,18 @@ Lines containing the keyword `nameserver` followed by a DNS server IP address ar
 
 **Use Quad9 DNS.**
 
+```
+nameserver 9.9.9.9
+nameserver 149.112.112.112
+```
 **`/etc/resolv.conf`**
 
 **Use Cloudflare DNS.**
 
+```
+nameserver 1.1.1.1
+nameserver 1.0.0.1
+```
 DNS status can be checked by pinging a domain name:
 
 `root #``ping -c 3 gentoo.org`
@@ -625,6 +769,10 @@ Once connectivity [has been verified](https://wiki.gentoo.org/wiki/Handbook:AMD6
 
 
 
+
+## Introduction to block devices
+
+### Block devices
 
 Let's take a good look at disk-oriented aspects of Gentoo Linux and Linux in general, including block devices, partitions, and Linux filesystems. Once the ins and outs of disks are understood, partitions and filesystems can be established for installation.
 
@@ -643,7 +791,11 @@ The block devices above represent an abstract interface to the disk. User progra
 
 
 
+### Partition tables
+
 Although it is theoretically possible to use a raw, unpartitioned disk to house a Linux system (when creating a btrfs RAID for example), this is almost never done in practice. Instead, disk block devices are split up into smaller, more manageable block devices. On **amd64** systems, these are called partitions. There are currently two standard partitioning technologies in use: MBR (sometimes also called DOS disklabel) and GPT; these are tied to the two boot process types: legacy BIOS boot and UEFI.
+
+#### GUID Partition Table (GPT)
 
 The *GUID Partition Table (GPT)* setup (also called GPT disklabel) uses 64-bit identifiers for the partitions. The location in which it stores the partition information is much bigger than the 512 bytes of the MBR partition table (DOS disklabel), which means there is practically no limit on the number of partitions for a GPT disk. Also, the maximum partition size is much larger (almost 8 ZiB -- yes, zebibytes).
 
@@ -651,11 +803,15 @@ When a system's software interface between the operating system and firmware is 
 
 GPT also takes advantage of checksumming and redundancy. It carries CRC32 checksums to detect errors in the header and partition tables and has a backup GPT at the end of the disk. This backup table can be used to recover damage of the primary GPT near the beginning of the disk.
 
+#### Master boot record (MBR) or DOS boot sector
+
 The *[Master boot record](https://en.wikipedia.org/wiki/Master_boot_record)* boot sector (also called DOS boot sector, DOS disklabel, and - more recently, in contrast to GPT/UEFI setups - legacy BIOS boot) was first introduced in 1983 with PC DOS 2.x. MBR uses 32-bit identifiers for the start sector and length of the partitions, and supports three partition types: primary, extended, and logical. Primary partitions have their information stored in the master boot record itself - a very small (usually 512 bytes) location at the very beginning of a disk. Due to this small space, only four primary partitions are supported (for instance, /dev/sda1 to /dev/sda4).
 
 In order to support more partitions, one of the primary partitions in the MBR can be marked as an *extended* partition. This partition can then contain additional logical partitions (partitions within a partition).
 
 The Handbook authors suggest using [GPT](https://wiki.gentoo.org#GPT) whenever possible for Gentoo installations.
+
+### Advanced storage
 
 The official Gentoo boot media provides support for many advanced filesystem and tool setups, which offer more flexible changes, snapshots and some cases more caching abitles
 
@@ -663,6 +819,8 @@ Although usage is not covered in the handbook, below is a list helpful guides to
 
 
 Disk encryption is also handled in the same manner:
+
+### Default partitioning scheme
 
 Throughout the remainder of the handbook, we will discuss and explain two cases:
 
@@ -688,6 +846,10 @@ Before going to the creation instructions, the first set of sections will descri
 
 
 
+## Designing a partition scheme
+
+### How many partitions and how big?
+
 The design of disk partition layout is highly dependent on the demands of the system and the file system(s) applied to the device. If there are lots of users, then it is advised to have /home on a separate partition which will increase security and make backups and other types of maintenance easier. If Gentoo is being installed to perform as a mail server, then /var should be a separate partition as all mails are stored inside the /var directory. Game servers may have a separate /opt partition since most gaming server software is installed therein. The reason for these recommendations is similar to the /home directory: security, backups, and maintenance.
 
 In most situations on Gentoo, /usr and /var should be kept relatively large in size. /usr hosts the majority of applications available on the system and the Linux kernel sources (under /usr/src). By default, /var hosts the Gentoo ebuild repository (located at /var/db/repos/gentoo) which, depending on the file system, generally consumes around 650 MiB of disk space. This space estimate *excludes* the /var/cache/distfiles and /var/cache/binpkgs directories, which will gradually fill with source files and (optionally) binary packages respectively as they are added to the system.
@@ -705,6 +867,8 @@ However, multiple partitions have certain disadvantages as well:
 - If not configured properly, the system might have lots of free space on one partition and little free space on another.
 - A separate partition for /usr/ may require the administrator to boot with an initramfs to mount the partition before other boot scripts start. Since the generation and maintenance of an initramfs is beyond the scope of this handbook, **we recommend that newcomers do not use a separate partition for /usr/**.
 - There is also a 15-partition limit for SCSI and SATA unless the disk uses GPT labels.
+
+### What about swap space?
 
 | Recommendations for swap space size |  |  | 
 |---|---|---|
@@ -725,11 +889,17 @@ It is worth noting that swap *files* can be used as an alternative to swap *part
 
 
 
+### What is the EFI System Partition (ESP)?
+
 When installing Gentoo on a system that uses UEFI to boot the operating system (instead of BIOS) it is essential that an EFI System Partition (ESP) is created.  The instructions below contain the necessary pointers to correctly handle this operation. **The EFI system partition is not required when booting in BIOS/Legacy mode.**
 
 The ESP *must* be a FAT variant (sometimes shown as *vfat* on Linux systems). The official [UEFI specification](http://www.uefi.org/sites/default/files/resources/UEFI%202_5.pdf) denotes FAT12, 16, or 32 filesystems will be recognized by the UEFI firmware, although FAT32 is recommended for the ESP.
 
+### What is the BIOS boot partition?
+
 A *BIOS boot partition* is a very small (1 to 2 MB) partition in which boot loaders like GRUB2 can put additional data that doesn't fit in the allocated storage. It is only needed when a disk is formatted with a GPT disklabel, but the system's firmware will be booting via GRUB2 in legacy BIOS/MBR DOS boot mode. **It is *not required* when booting in EFI/UEFI mode, and also *not required* when using a MBR/Legacy DOS disklabel.** A *BIOS boot partition* will not be used in this guide.
+
+## Partitioning the disk with GPT for UEFI
 
 The following parts explain how to create an example partition layout for a single GPT disk device which will conform to the UEFI Specification and Discoverable Partitions Specification (DPS). DPS is a specification provided as part of the Linux Userspace API (UAPI) Group Specification and is recommended, but entirely optional. The specifications are implemented using the fdisk utility, which is part of the [sys-apps/util-linux](https://packages.gentoo.org/packages/sys-apps/util-linux) package.
 
@@ -740,6 +910,8 @@ The table provides a recommended default for a trivial Gentoo installation. Addi
 | /dev/sda1 | /efi | vfat | c12a7328-f81f-11d2-ba4b-00a0c93ec93b | EFI system partition (ESP) details. | 
 | /dev/sda2 | N/A. Swap is not mounted to the filesystem like a device file. | swap | 0657fd6d-a4ab-43c4-84e5-0933c84b4f4f | Swap partition details. | 
 | /dev/sda3 | / | xfs | 4f68bce3-e8cd-4db1-96e7-fbcaf984b709 | Root partition details. | 
+
+### Viewing the current partition layout
 
 fdisk is a popular and powerful tool to split a disk into partitions. Fire up fdisk against the disk (in our example, we use /dev/sda):
 
@@ -761,6 +933,8 @@ Device        Start        End    Sectors   Size Type
 /dev/sda3  10487808 1953523711 1943035904 926.5G Linux root (x86-64)
 
 This particular disk was configured to house two Linux filesystems (each with a corresponding partition listed as "Linux") as well as a swap partition (listed as "Linux swap").
+
+### Creating a new disklabel / removing all partitions
 
 Pressing the `g` key will instantly remove all existing disk partitions and create a new GPT disklabel:
 
@@ -787,6 +961,8 @@ Disk identifier: 3E56EE74-0571-462B-A992-9872E3855D75
 
 Now that the in-memory partition table is empty, we're ready to create the partitions.
 
+### Creating the EFI System Partition (ESP)
+
 First create a small EFI system partition, which will also be mounted as /efi. Type `n` to create a new partition, followed by `1` to select the first partition. When prompted for the first sector, make sure it starts from 2048 (which may be needed for the boot loader) and hit `Enter`. When prompted for the last sector, type +1G to create a partition 1 gibibyte in size:
 
 `Command (m for help):``n````
@@ -807,6 +983,8 @@ Selected partition 1
 Partition type or alias (type L to list all): 1
 Changed type of partition 'Linux filesystem' to 'EFI System'.
 
+### Creating the swap partition
+
 Next, to create the swap partition, press `n` to create a new partition, then press `2` to create the second partition, /dev/sda2. When prompted for the first sector, hit `Enter`. When prompted for the last sector, type +4G (or any other size needed for the swap space) to create a partition 4 GiB in size.
 
 `Command (m for help):``n````
@@ -823,6 +1001,8 @@ Partition number (1,2, default 2): 2
 Partition type or alias (type L to list all): 19
  
 Changed type of partition 'Linux filesystem' to 'Linux swap'.
+
+### Creating the root partition
 
 Finally, to create the root partition, press `n` to create a new partition, and then press `3` to create the third partition: /dev/sda3. When prompted for the first sector, press `Enter`. When prompted for the last sector, hit `Enter` to create a partition that takes up the rest of the remaining space on the disk.
 
@@ -859,6 +1039,8 @@ Device        Start        End    Sectors   Size Type
 \<!--T:241-->
 Filesystem/RAID signature on partition 1 will be wiped.
 
+### Saving the partition layout
+
 Press `w` to save the partition layout and exit the fdisk utility:
 
 `Command (m for help):``w`
@@ -867,6 +1049,8 @@ Calling ioctl() to re-read partition table.
 Syncing disks.
 
 With partitions now available, the next installation step is to fill them with filesystems.
+
+## Partitioning the disk with MBR for BIOS / legacy boot
 
 The following table provides a recommended partition layout for a trivial MBR DOS / legacy BIOS boot installation. Additional partitions can be added according to personal preference or system design goals.
 
@@ -877,6 +1061,8 @@ The following table provides a recommended partition layout for a trivial MBR DO
 | /dev/sda3 | / | xfs | 4f68bce3-e8cd-4db1-96e7-fbcaf984b709 | Root partition details. | 
 
 Change the partition layout according to personal preference.
+
+### Viewing the current partition layout
 
 Fire up fdisk against the disk (in our example, we use /dev/sda):
 
@@ -898,6 +1084,8 @@ Device     Boot    Start        End    Sectors   Size Id Type
 /dev/sda3       10487808 1953525167 1943037360 926.5G 83 Linux
 
 This particular disk was until now configured to house two Linux filesystems (each with a corresponding partition listed as "Linux") as well as a swap partition (listed as "Linux swap"), using a GPT table.
+
+### Creating a new disklabel / removing all partitions
 
 Pressing `o` will instantly remove all existing disk partitions and create a new MBR disklabel (also named DOS disklabel):
 
@@ -925,6 +1113,8 @@ Disk identifier: 0xf163b576
 
 The disk is now ready to create new partitions.
 
+### Creating the boot partition
+
 First, create a small partition which will be mounted as /boot. Press `n` to create a new partition, followed by `p` for a *primary* partition and `1` to select the first primary partition. When prompted for the first sector, make sure it starts from 2048 (which may be needed for the boot loader) and press `Enter`. When prompted for the last sector, type +1G to create a partition 1 GB in size:
 
 `Command (m for help):``n````
@@ -946,6 +1136,8 @@ The bootable flag on partition 1 is enabled now.
 
 Note: if more than one partition is available on the disk, then the partition to be flagged as bootable will have to be selected.
 
+### Creating the swap partition
+
 Next, to create the swap partition, press `n` to create a new partition, then `p`, then type `2` to create the second primary partition, /dev/sda2. When prompted for the first sector, press `Enter`. When prompted for the last sector, type +4G (or any other size needed for the swap space) to create a partition 4GB in size.
 
 `Command (m for help):``n````
@@ -966,6 +1158,8 @@ Partition number (1,2, default 2): 2
 Hex code (type L to list all codes): 82
 \<!--T:244-->
 Changed type of partition 'Linux' to 'Linux swap / Solaris'.
+
+### Creating the root partition
 
 Finally, to create the root partition, press `n` to create a new partition. Then press `p` and `3` to create the third primary partition, /dev/sda3. When prompted for the first sector, hit `Enter`. When prompted for the last sector, hit `Enter` to create a partition that takes up the rest of the remaining space on the disk:
 
@@ -996,6 +1190,8 @@ Device     Boot    Start        End    Sectors   Size Id Type
 /dev/sda2        2099200   10487807    8388608     4G 82 Linux swap / Solaris
 /dev/sda3       10487808 1953525167 1943037360 926.5G 83 Linux
 
+### Saving the partition layout
+
 Press `w` to write the partition layout and exit fdisk:
 
 `Command (m for help):``w`
@@ -1007,7 +1203,13 @@ Now it is time to put filesystems on the partitions.
 
 
 
+## Creating file systems
+
+### Introduction
+
 Now that the partitions have been created, it is time to place a filesystem on them. In the next section the various file systems that Linux supports are described. Readers that already know which filesystem to use can continue with [Applying a filesystem to a partition](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/Disks#Applying_a_filesystem_to_a_partition). The others should read on to learn about the available filesystems...
+
+### Filesystems
 
 Linux supports several dozen filesystems, although many of them are only wise to deploy for specific purposes. Only certain filesystems may be found stable on the amd64 architecture - it is advised to read up on the filesystems and their support state before selecting a more experimental one for important partitions. **XFS is the recommended all-purpose, all-platform filesystem.** The below is a non-exhaustive list:
 
@@ -1023,38 +1225,48 @@ Linux supports several dozen filesystems, although many of them are only wise to
 - The Flash-Friendly File System was originally created by Samsung for the use with NAND flash memory. It is a decent choice when installing Gentoo to microSD cards, USB drives, or other flash-based storage devices.
 - [NTFS](https://wiki.gentoo.org/wiki/NTFS)
 - This "New Technology" filesystem is the flagship filesystem of Microsoft Windows since Windows NT 3.1. Similarly to VFAT, it does not store UNIX permission settings or extended attributes necessary for BSD or Linux to function properly, therefore it should not be used as a root filesystem for most cases. It should *only* be used for interoperability or data interchange with Microsoft Windows systems (note the emphasis on *only*).
-- [ZFS](https://wiki.gentoo.org/wiki/ZFS) [ZFS/rootfs](https://wiki.gentoo.org/wiki/ZFS/rootfs)
+- [ZFS](https://wiki.gentoo.org/wiki/ZFS)  **Important:** ZFS pools can be created on the minimal installation CD, for further information, refer to [ZFS/rootfs](https://wiki.gentoo.org/wiki/ZFS/rootfs)
 - Next generation file system created by Matthew Ahrens and Jeff Bonwick. It was designed around a few key ideas: Administration of storage should be simple, redundancy should be handled by the filesystem, file systems should never be taken offline for repair, automated simulations of worst case scenarios before shipping code is important, and data integrity is paramount.
 
 More extensive information on filesystems can be found in the community maintained [Filesystem article](https://wiki.gentoo.org/wiki/Filesystem).
+
+### Applying a filesystem to a partition
 
 To create a filesystem on a partition or volume, there are user space utilities available for each possible filesystem. Click the filesystem's name in the table below for additional information on each filesystem:
 
 | Filesystem | Creation command | Within the live environment? | Package | 
 |---|---|---|---|
-| [XFS](https://wiki.gentoo.org/wiki/XFS) | mkfs.xfs |  | [sys-fs/xfsprogs](https://packages.gentoo.org/packages/sys-fs/xfsprogs) | 
-| [ext4](https://wiki.gentoo.org/wiki/Ext4) | mkfs.ext4 |  | [sys-fs/e2fsprogs](https://packages.gentoo.org/packages/sys-fs/e2fsprogs) | 
-| [VFAT](https://wiki.gentoo.org/wiki/VFAT) (FAT32, ...) | mkfs.vfat |  | [sys-fs/dosfstools](https://packages.gentoo.org/packages/sys-fs/dosfstools) | 
-| [btrfs](https://wiki.gentoo.org/wiki/Btrfs) | mkfs.btrfs |  | [sys-fs/btrfs-progs](https://packages.gentoo.org/packages/sys-fs/btrfs-progs) | 
-| [F2FS](https://wiki.gentoo.org/wiki/F2FS) | mkfs.f2fs |  | [sys-fs/f2fs-tools](https://packages.gentoo.org/packages/sys-fs/f2fs-tools) | 
-| [NTFS](https://wiki.gentoo.org/wiki/NTFS) | mkfs.ntfs |  | [sys-fs/ntfs3g](https://packages.gentoo.org/packages/sys-fs/ntfs3g) | 
-| [ZFS](https://wiki.gentoo.org/wiki/ZFS) | zpool create ... |  | [sys-fs/zfs](https://packages.gentoo.org/packages/sys-fs/zfs) | 
+| [XFS](https://wiki.gentoo.org/wiki/XFS) | mkfs.xfs | Yes | [sys-fs/xfsprogs](https://packages.gentoo.org/packages/sys-fs/xfsprogs) | 
+| [ext4](https://wiki.gentoo.org/wiki/Ext4) | mkfs.ext4 | Yes | [sys-fs/e2fsprogs](https://packages.gentoo.org/packages/sys-fs/e2fsprogs) | 
+| [VFAT](https://wiki.gentoo.org/wiki/VFAT) (FAT32, ...) | mkfs.vfat | Yes | [sys-fs/dosfstools](https://packages.gentoo.org/packages/sys-fs/dosfstools) | 
+| [btrfs](https://wiki.gentoo.org/wiki/Btrfs) | mkfs.btrfs | Yes | [sys-fs/btrfs-progs](https://packages.gentoo.org/packages/sys-fs/btrfs-progs) | 
+| [F2FS](https://wiki.gentoo.org/wiki/F2FS) | mkfs.f2fs | Yes | [sys-fs/f2fs-tools](https://packages.gentoo.org/packages/sys-fs/f2fs-tools) | 
+| [NTFS](https://wiki.gentoo.org/wiki/NTFS) | mkfs.ntfs | Yes | [sys-fs/ntfs3g](https://packages.gentoo.org/packages/sys-fs/ntfs3g) | 
+| [ZFS](https://wiki.gentoo.org/wiki/ZFS) | zpool create ... | Yes | [sys-fs/zfs](https://packages.gentoo.org/packages/sys-fs/zfs) | 
 
 For instance, to have the root partition (/dev/sda3) as xfs as used in the example partition structure, the following commands would be used:
 
 `root #``mkfs.xfs -c options=/usr/share/xfsprogs/mkfs/lts_6.18.conf /dev/sda3`
+#### EFI system partition filesystem
+
 The EFI system partition (/dev/sda1) must be formatted as FAT32:
 
 `root #``mkfs.vfat -F 32 /dev/sda1`
+#### Legacy BIOS boot partition filesystem
+
 Systems booting via legacy BIOS with a MBR/DOS disklabel can use any filesystem format supported by the bootloader.
 
 For example, to format with XFS:
 
 `root #``mkfs.xfs -c options=/usr/share/xfsprogs/mkfs/lts_6.18.conf /dev/sda1`
+#### Small ext4 partitions
+
 When using the ext4 filesystem on a small partition (less than 8 GiB), the filesystem should be created with the proper options to reserve enough inodes. This can specified using the `-T small` option:
 
 `root #``mkfs.ext4 -T small /dev/<device>`
 Doing so will quadruple the number of inodes for a given filesystem, since its "bytes-per-inode" reduces from one every 16kB to one every 4kB.
+
+### Activating the swap partition
 
 mkswap is the command that is used to initialize swap partitions:
 
@@ -1063,6 +1275,8 @@ To activate the swap partition, use swapon:
 
 `root #``swapon /dev/sda2`
 This 'activation' step is only necessary because the swap partition is newly created within the live environment. Once the system has been rebooted, as long as the swap partition is properly defined within fstab or other mount mechanism, swap space will activate automatically.
+
+## Mounting the root partition
 
 Certain live environments may be missing the suggested mount point for Gentoo's root partition (/mnt/gentoo), or mount points for additional partitions created in the partitioning section:
 
@@ -1089,21 +1303,35 @@ Later in the instructions, the proc filesystem (a virtual interface with the ker
 
 
 
+## Choosing a stage file
+
 The [stage file](https://wiki.gentoo.org/wiki/Stage_file) acts as the seed of a Gentoo install. Stage files are generated  by the [Release Engineering Team](https://wiki.gentoo.org/wiki/Project:RelEng) with [Catalyst](https://wiki.gentoo.org/wiki/Catalyst). Stage files are based on specific [profiles](<https://wiki.gentoo.org/wiki/Profile_(Portage)>), and contain an almost-complete system.
 
 When choosing a stage file, it's important to pick one with profile targets corresponding to the desired system type.
 
+### OpenRC
+
 [OpenRC](https://wiki.gentoo.org/wiki/OpenRC) is a dependency-based init system (responsible for starting up system services once the kernel has booted) that maintains compatibility with the system provided init program, normally located in /sbin/init. It is Gentoo's native and original init system, but is also deployed by a few other Linux distributions and BSD systems.
+
+### systemd
 
 systemd is a modern SysV-style init and rc replacement for Linux systems. It is used as the primary init system by a majority of Linux distributions. systemd is fully supported in Gentoo and works for its intended purpose. If something seems lacking in the Handbook for a systemd install path, review the [systemd article](https://wiki.gentoo.org/wiki/Systemd) *before* asking for support.
 
+### Multilib (32 and 64-bit)
+
 The multilib profile uses 64-bit libraries when possible, and only falls back to the 32-bit versions when strictly necessary for compatibility. This is an excellent option for the majority of installations because it provides a great amount of flexibility for customization in the future.
 
+### No-multilib (pure 64-bit)
+
 Selecting a no-multilib tarball to be the base of the system provides a complete 64-bit operating system environment - free of 32-bit software. This effectively renders the ability to switch to `multilib` profiles burdensome, although still technically possible.
+
+## Downloading the stage file
 
 Before downloading the *stage file*, the current directory should be set to the location of the mount used for the install:
 
 `root #``cd /mnt/gentoo`
+### Setting the date and time
+
 Stage archives are generally obtained using HTTPS which requires relatively accurate system time. Clock skew can prevent downloads from working, and can cause unpredictable errors if the system time is adjusted by any considerable amount after installation.
 
 The current date and time can be verified with date:
@@ -1113,11 +1341,15 @@ Mon Oct  3 13:16:22 UTC 2021
 
 If the displayed date and time is more than few minutes off, it should be updated using one of the following methods.
 
+#### Automatic
+
 Using [Network\_Time\_Protocol](https://wiki.gentoo.org/wiki/Network_Time_Protocol) to correct clock skew is typically easier and more reliable than manually setting the system clock.
 
 chronyd, part of [net-misc/chrony](https://packages.gentoo.org/packages/net-misc/chrony) can be used to update the system clock to UTC with:
 
 `root #``chronyd -q`
+#### Manual
+
 When NTP access is unavailable, date can be used to manually set the system clock.
 
 The following argument format is used to set the time: `MMDDhhmmYYYY` syntax (**M**onth, **D**ay, **h**our, **m**inute and **Y**ear).
@@ -1125,9 +1357,13 @@ The following argument format is used to set the time: `MMDDhhmmYYYY` syntax (**
 For instance, to set the date to October 3rd, 13:16 in the year 2021, issue:
 
 `root #``date 100313162021`
+### Graphical browsers
+
 Those using environments with fully graphical web browsers will have no problem copying a stage file URL from the main website's [download section](https://www.gentoo.org/downloads/#other-arches). Simply select the appropriate tab, right click the link to the stage file, then Copy Link to copy the link to the clipboard, then paste the link to the wget utility on the command-line to download the stage file:
 
 `root #``wget <PASTED_STAGE_FILE_URL>`
+### Command-line browsers
+
 More traditional readers or 'old timer' Gentoo users, working exclusively from command-line may prefer using links ([www-client/links](https://packages.gentoo.org/packages/www-client/links)), a non-graphical, menu-driven browser. To download a stage, surf to the Gentoo mirror list like so:
 
 `root #``links https://www.gentoo.org/downloads/mirrors/`
@@ -1149,6 +1385,8 @@ After the stage file download completes, it is possible to verify the integrity 
 
 Those not interested in verifying and validating the stage file can close the command-line browser by pressing `q` and can move directly to the [Installing a stage file](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/Stage#Installing_a_stage_file) section.
 
+### Verifying and validating
+
 Like with the minimal installation CDs, additional downloads to verify and validate the stage file are available. The extra files are available under the root of the mirrors directory. Browse to the appropriate location for the hardware architecture and the system profile and download the associated .CONTENTS.gz, .DIGESTS, and .sha256 files.
 
 `root #``wget https://distfiles.gentoo.org/releases/`
@@ -1156,7 +1394,7 @@ Like with the minimal installation CDs, additional downloads to verify and valid
 - .DIGESTS - Contains checksums of the stage file in using several cryptographic hash algorithms.
 - .sha256 - Contains a PGP signed SHA256 checksum of the stage file. This file may not be available for download for all stage files.
 
-tar.xz file must be verified using gpg to ensure no tampering has been performed on the tarball.
+Just like with the ISO file, the cryptographic signature of the tar.xz file must be verified using gpg to ensure no tampering has been performed on the tarball.
 
 For official Gentoo live images, the [sec-keys/openpgp-keys-gentoo-release](https://packages.gentoo.org/packages/sec-keys/openpgp-keys-gentoo-release) package provides PGP signing keys for automated releases. The keys must first be imported into the user's session in order to be used for verification:
 
@@ -1196,6 +1434,8 @@ To verify the SHA256 hash from an associated .sha256 file using the sha256sum ut
 `root #``sha256sum --check stage3-amd64-<release>-<init>.tar.xz.sha256.verified`
 The `--check` option instructs sha256sum to read a list of expected files and associated hashes, and then print an associated "OK" for each file that calculates correctly or a "FAILED" for files that do not.
 
+## Installing a stage file
+
 Once the *stage file* has been downloaded and verified, it can be extracted using tar:
 
 `root #``tar xpvf stage3-*.tar.xz --xattrs-include='*.*' --numeric-owner -C /mnt/gentoo`
@@ -1211,6 +1451,10 @@ Before extracting verify the options:
 
 Now that the stage file is unpacked, proceed with [Configuring compile options](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/Stage#Configuring_compile_options).
 
+## Configuring compile options
+
+### Introduction
+
 To optimize the system, it is possible to set variables which impact the behavior of Portage, Gentoo's officially supported package manager. All those variables can be set as environment variables (using export) but setting via export is not permanent.
 
 Portage reads in the [make.conf](https://wiki.gentoo.org/wiki/Make.conf) file when it runs, which will change runtime behavior depending on the values saved in the file. make.conf can be considered the primary configuration file for Portage, so treat its content carefully.
@@ -1219,6 +1463,8 @@ Fire up an editor (in this guide we use nano) to alter the optimization variable
 
 `root #``nano /mnt/gentoo/etc/portage/make.conf`
 From the make.conf.example file it is obvious how the file should be structured: commented lines start with `#`, other lines define variables using the `VARIABLE="value"` syntax. Several of those variables are discussed in the next section.
+
+### CFLAGS and CXXFLAGS
 
 The `CFLAGS` and `CXXFLAGS` variables define the optimization flags for GCC C and C++ compilers respectively. Although those are defined generally here, for maximum performance one would need to optimize these flags for each program separately. The reason for this is because every program is different. However, this is not manageable, hence the definition of these flags in the make.conf file.
 
@@ -1246,10 +1492,15 @@ The most useful optimization would be to tell Rust to compile for your CPU using
 
 **RUSTFLAGS Example**
 
+```
+RUSTFLAGS="${RUSTFLAGS} -C target-cpu=native"
+```
 To get a list of supported CPUs in Rust run:
 
 `root #``rustc -C target-cpu=help`
 This will show what the default and also which CPU will be selected with native.
+
+### MAKEOPTS
 
 The `MAKEOPTS` variable defines how many parallel compilations should occur when installing a package. As of Portage version 3.0.31<sup>[\[1\]](https://wiki.gentoo.org#cite_note-1)</sup>, if left undefined, Portage's default behavior is to set the `MAKEOPTS` jobs value to the same number of threads returned by nproc.
 
@@ -1270,8 +1521,11 @@ MAKEOPTS="-j4 -l5"
 ```
 Search for `MAKEOPTS in man 5 make.conf for more details.`
 
+### Ready, set, go!
+
 Update the /mnt/gentoo/etc/portage/make.conf file to match personal preference and save (nano users would press `Ctrl`+`o` to write the change and then `Ctrl`+`x` to quit).
 
+## References
 
 
 
@@ -1279,12 +1533,19 @@ Update the /mnt/gentoo/etc/portage/make.conf file to match personal preference a
 
 
 
+
+
+## Chrooting
+
+### Copy DNS info
 
 One thing still remains to be done before entering the new environment and that is copying over the DNS information in /etc/resolv.conf. This needs to be done to ensure that networking still works even after entering the new environment. /etc/resolv.conf contains the name servers for the network.
 
 To copy this information, it is recommended to pass the `--dereference` option to the cp command. This ensures that, if /etc/resolv.conf is a symbolic link, that the link's target file is copied instead of the symbolic link itself. Otherwise in the new environment the symbolic link would point to a non-existing file (as the link's target is most likely not available inside the new environment).
 
 `root #``cp --dereference /etc/resolv.conf /mnt/gentoo/etc/`
+### Mounting the necessary filesystems
+
 In a few moments, the Linux root will be changed towards the new location.
 
 The filesystems that need to be made available are:
@@ -1317,6 +1578,8 @@ mount --bind /run /mnt/gentoo/run
 `root #````
 mount --make-slave /mnt/gentoo/run
 ```
+### Entering the new environment
+
 Now that all partitions are initialized and the base environment installed, it is time to enter the new installation environment by chrooting into it. This means that the session will change its root (most top-level location that can be accessed) from the current installation environment (installation CD or other installation medium) to the installation system (namely the initialized partitions). Hence the name, *change root* or *chroot*.
 
 This chrooting is done in three steps:
@@ -1334,16 +1597,26 @@ source /etc/profile
 `root #``export PS1="(chroot) ${PS1}"`
 From this point, all actions performed are immediately on the new Gentoo Linux environment.
 
+### Preparing for a bootloader
+
 Now that the new environment has been entered, it is necessary to prepare the new environment for the bootloader. It will be important to have the correct partition mounted when it is time to install the bootloader.
+
+#### UEFI systems
 
 For UEFI systems, /dev/sda1 was formatted with the FAT32 filesystem and will be used as the EFI System Partition (ESP). Create a new /efi directory (if not yet created), and then mount ESP there:
 
 `root #````
 mount /dev/sda1 /efi
 ```
+#### DOS/Legacy BIOS systems
+
 For DOS/Legacy BIOS systems, the bootloader will be installed into the /boot directory, therefore mount as follows:
 
 `root #``mount /dev/sda1 /boot`
+## Configuring Portage
+
+### Installing a Gentoo ebuild repository snapshot from the web
+
 Next step is to install a snapshot of the Gentoo ebuild repository. This snapshot contains a collection of files that informs Portage about available software titles (for installation), which profiles the system administrator can select, package or profile specific news items, etc.
 
 The use of emerge-webrsync is recommended for those who are behind restrictive firewalls (it uses HTTP/FTP protocols for downloading the snapshot) and saves network bandwidth.
@@ -1353,12 +1626,16 @@ This will fetch the latest snapshot (which is released on a daily basis) from on
 `root #``emerge-webrsync`
 From this point onward, Portage might mention that certain updates are recommended to be executed. This is because system packages installed through the stage file might have newer versions available; Portage is now aware of new packages because of the repository snapshot. Package updates can be safely ignored for now; updates can be delayed until after the Gentoo installation has finished.
 
+### Optional: Selecting mirrors
+
 In order to download source code quickly it is recommended to select a fast, geographically close mirror. Portage will look in the make.conf file for the `GENTOO_MIRRORS` variable and use the mirrors listed therein. It is possible to surf to the Gentoo mirror list and search for a mirror (or multiple mirrors) close to the system's physical location (as those are most frequently the fastest ones).
 
-mirrorselect provides a pretty text interface to more quickly query and select suitable mirrors. Just navigate to the mirrors of choice and press `Spacebar` to select one or more mirrors.
+A tool called mirrorselect provides a pretty text interface to more quickly query and select suitable mirrors. Just navigate to the mirrors of choice and press `Spacebar` to select one or more mirrors.
 
 `root #``emerge --ask --verbose --oneshot app-portage/mirrorselect``root #``mirrorselect -i -o >> /etc/portage/make.conf`
 Alternatively, a list of active mirrors are [available online](https://www.gentoo.org/downloads/mirrors/).
+
+#### Optional: rsync mirrors
 
 Gentoo also has many rsync mirrors which can speed up downloading the available package list using `emerge --sync` (explained in more detail later) by selecting a mirror closer that is geographically closer to the user.
 
@@ -1395,6 +1672,8 @@ sync-openpgp-key-refresh-retry-delay-mult = 4
 sync-webrsync-verify-signature = yes
 sync-git-verify-commit-signature = true
 ```
+### Optional: Updating the Gentoo ebuild repository
+
 It is possible to update the Gentoo ebuild repository to the latest version. The previous emerge-webrsync command will have installed a very recent snapshot (usually recent up to 24h) so this step is definitely optional.
 
 Suppose there is a need for the latest package updates (up to 1 hour), then use emerge --sync. This command will use the rsync protocol to update the Gentoo ebuild repository (which was fetched earlier on through emerge-webrsync) to the latest state.
@@ -1403,6 +1682,8 @@ Suppose there is a need for the latest package updates (up to 1 hour), then use 
 On slow terminals, such as certain frame buffers or serial consoles, it is recommended to use the `--quiet` option to speed up the process:
 
 `root #``emerge --sync --quiet`
+### Reading news items
+
 When the Gentoo ebuild repository is synchronized, Portage may output informational messages similar to the following:
 
 ```
@@ -1426,6 +1707,8 @@ eselect news list
 More information about the news reader is available through its manual page:
 
 `root #``man news.eselect`
+### Choosing the right profile
+
 A *profile* is a building block for any Gentoo system. Not only does it specify default values for `USE`, `CFLAGS`, and other important variables, it also locks the system to a certain range of package versions. These settings are all maintained by Gentoo's developers.
 
 To see what profile the system is currently using, run eselect using the `profile` module:
@@ -1443,6 +1726,8 @@ After viewing the available profiles for the amd64 architecture, users can selec
 
 `root #``eselect profile set 2`
 
+
+#### No-multilib
 
 In order to select a pure 64-bit environment, with no 32-bit applications or libraries, use a no-multilib profile:
 
@@ -1471,9 +1756,13 @@ Available profile symlink targets:
 
 
 
+### Optional: Adding a binary package host
+
 Since December 2023, Gentoo's [Release Engineering team](https://wiki.gentoo.org/wiki/Project:RelEng) has offered an [official binary package host](https://wiki.gentoo.org/wiki/Binary_package_quickstart) (colloquially shortened to just "binhost") for use by the general community to retrieve and install binary packages (binpkgs).[\[1\]](https://wiki.gentoo.org#cite_note-3)
 
 Adding a binary package host allows Portage to install cryptographically signed, compiled packages. In many cases, adding a binary package host will *greatly* decrease the mean time to package installation and adds much benefit when running Gentoo on older, slower, or low power systems.
+
+#### Repository configuration
 
 The repository configuration for a binhost is found in Portage's /etc/portage/binrepos.conf/ directory, which functions similarly to the configuration mentioned in the [Gentoo ebuild repository](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/Base#Gentoo_ebuild_repository) section.
 
@@ -1515,6 +1804,8 @@ verify-signature = true
 # Default value with >=portage-3.0.77
 location = /var/cache/binhost/gentoo-x86-64-v3
 ```
+#### Installing binary packages
+
 Portage will compile packages from code source by default. It can be instructed to use binary packages in the following ways:
 
 1. The `--getbinpkg` option can be passed when invoking the emerge command. This method of binary package installation is useful to install only a particular binary package.
@@ -1536,6 +1827,8 @@ Please also run getuto for Portage to set up the necessary keyring for verificat
 
 `root #``getuto`
 Additional Portage features will be discussed in the [the next chapter](https://wiki.gentoo.org/wiki/Handbook:AMD64/Working/Features#Portage_features) of the handbook.
+
+### Optional: Configuring the USE variable
 
 `USE` is one of the most powerful variables Gentoo provides to its users. Several programs can be compiled with or without optional support for certain items. For instance, some programs can be compiled with support for GTK+ or with support for Qt. Others can be compiled with or without SSL support. Some programs can even be compiled with framebuffer support (svgalib) instead of X11 support (X-server).
 
@@ -1572,6 +1865,8 @@ When a `USE` value is defined in /etc/portage/make.conf it is *added* to the sys
 ```
 USE="-X acl alsa"
 ```
+#### CPU\_FLAGS\_\*
+
 Some architectures (including AMD64/X86, ARM, PPC) have a [USE\_EXPAND](https://wiki.gentoo.org/wiki/USE_EXPAND) variable called [CPU\_FLAGS\_\<ARCH>](https://wiki.gentoo.org/wiki/CPU_FLAGS_X86), where \<ARCH> is replaced with the relevant system architecture name.
 
 This is used to configure the build to compile in specific assembly code or other intrinsics, usually hand-written or otherwise extra,
@@ -1588,6 +1883,8 @@ Inspect the output manually if curious:
 Then copy the output into package.use:
 
 `root #``echo "*/* $(cpuid2cpuflags)" > /etc/portage/package.use/00cpu-flags`
+#### VIDEO\_CARDS
+
 By default a profile already sets a few video cards. For many reasons this is not ideal, but a useful safety net.
 
 To configure the system correctly the user needs to first unset the preset video cards with `VIDEO_CARDS: -*` then set the correct card for that system.
@@ -1597,7 +1894,7 @@ To configure the system correctly the user needs to first unset the preset video
 **Example**
 
 ```
- VIDEO_CARDS: -* <GPU DRIVER NAME>
+*/* VIDEO_CARDS: -* <GPU DRIVER NAME>
 ```
 Below is a table that can be used to easily compare the different video card types to their respective `VIDEO_CARDS` value.
 
@@ -1619,23 +1916,25 @@ Below is a few examples of a properly set package.use for *VIDEO\_CARDS*:
 **AMD example**
 
 ```
- VIDEO_CARDS: -* amdgpu radeonsi
+*/* VIDEO_CARDS: -* amdgpu radeonsi
 ```
 **`/etc/portage/package.use/00video_cards`**
 
 **Intel example**
 
 ```
- VIDEO_CARDS: -* intel
+*/* VIDEO_CARDS: -* intel
 ```
 **`/etc/portage/package.use/00video_cards`**
 
 **Nvidia example**
 
 ```
- VIDEO_CARDS: -* nvidia
+*/* VIDEO_CARDS: -* nvidia
 ```
 Details for various GPU(s) can be found at the [AMDGPU](https://wiki.gentoo.org/wiki/AMDGPU), [Intel](https://wiki.gentoo.org/wiki/Intel), [Nouveau (Open Source)](https://wiki.gentoo.org/wiki/Nouveau), or [NVIDIA (Proprietary)](https://wiki.gentoo.org/wiki/NVIDIA) articles.
+
+### Optional: Configure the ACCEPT\_LICENSE variable
 
 Starting with Gentoo Linux Enhancement Proposal 23 (GLEP 23), a mechanism was created to allow system administrators the ability to "regulate the software they install with regards to licenses... Some want a system free of any software that is not OSI-approved; others are simply curious as to what licenses they are implicitly accepting."<sup>[\[2\]](https://wiki.gentoo.org#cite_note-4)</sup> With a motivation to have more granular control over the type of software running on a Gentoo system, the `ACCEPT_LICENSE` variable was born.
 
@@ -1694,6 +1993,13 @@ Software license details for an individual Gentoo package are stored within the 
 
 **Accepting licenses on a per-package basis**
 
+```
+app-arch/unrar unRAR
+sys-kernel/linux-firmware linux-fw-redistributable
+sys-firmware/intel-microcode intel-ucode
+```
+### Optional: Updating the @world set
+
 Updating the system's [@world set](<https://wiki.gentoo.org/wiki/World_set_(Portage)>) is *optional* and will be unlikely to perform functional changes unless one or more of the following optional steps have been performed:
 
 1. A profile target *different* from the stage file has been selected.
@@ -1707,13 +2013,19 @@ Readers who are performing a slow run can have Portage perform updates for packa
 Readers who added a binary host [above](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/Base#Optional:_Adding_a_binary_package_host) can add --getbinpkg (or -g) in order to fetch packages from the binary host instead of compiling them:
 
 `root #``emerge --ask --verbose --update --deep --newuse --getbinpkg @world`
+#### Removing obsolete packages
+
 It is important to always *depclean* after system upgrades to remove obsolete packages. Review the output carefully with emerge --depclean --pretend to see if any of the to-be-cleaned packages should be kept if personally using them. To keep a package which would otherwise be depcleaned, use emerge --noreplace foo.
 
 `root #``emerge --ask --pretend --depclean`
 If happy, then proceed with a real depclean:
 
 `root #``emerge --ask --depclean`
+## Optional: Using systemd as the system and service manager
+
 The remainder of the Gentoo handbook will provide systemd steps alongside [OpenRC](https://wiki.gentoo.org/wiki/OpenRC) (the traditional Gentoo init system) where separate steps or recommendations are necessary. System administrators should also consult the [systemd](https://wiki.gentoo.org/wiki/Systemd) article for more details on managing systemd as the system and service manager.
+
+## Timezone
 
 Select the timezone for the system. Look for the available timezones in /usr/share/zoneinfo/:
 
@@ -1757,6 +2069,10 @@ total 256
 Suppose the timezone of choice is Europe/Brussels, to select this timezone, a symlink can be created from this zoneinfo file to /etc/localtime:
 
 `root #``ln -sf ../usr/share/zoneinfo/Europe/Brussels /etc/localtime`
+## Configure locales
+
+### Locale generation
+
 A default installation of Gentoo Linux provides an archive that contains all supported locales, numbering 500 or more. However, it is typical for an administrator to require only one or two of these. In that case, the /etc/locale.gen configuration file may be populated with a list of the required locales. By default, locale-gen shall read this file and compile only the locales that are specified, saving both time and space in the longer term.
 
 Locales specify not only the language that the user should use to interact with the system, but also the rules for sorting strings, displaying dates and times, etc. Locales are *case sensitive* and must be represented exactly as described. A full listing of available locales can be found in the /usr/share/i18n/SUPPORTED file.
@@ -1768,12 +2084,21 @@ The following locales are an example to get both English (United States) and Ger
 
 **Enabling US and DE locales with the appropriate character formats**
 
+```
+en_US.UTF-8 UTF-8
+de_DE.UTF-8 UTF-8
+# Non UTF-8 locales are discouraged and should only be used in special circumstances.
+#en_US ISO-8859-1
+#de_DE ISO-8859-1
+```
 The next step is to run the locale-gen command. This command generates all locales specified in the /etc/locale.gen file.
 
 `root #``locale-gen`
 To verify that the selected locales are now available, run locale -a.
 
 On systemd installs, localectl can be used, e.g. localectl set-locale ... or localectl list-locales.
+
+### Locale selection
 
 Once done, it is now time to set the system-wide locale settings. Again eselect is used, now with the `locale` module.
 
@@ -1808,6 +2133,7 @@ Now reload the environment:
 `root #``env-update && source /etc/profile && export PS1="(chroot) ${PS1}"`
 For additional guidance through the locale selection process, read also the [Localization guide](https://wiki.gentoo.org/wiki/Localization/Guide) and the [UTF-8](https://wiki.gentoo.org/wiki/UTF-8) guide.
 
+## References
 
 
 
@@ -1815,41 +2141,79 @@ For additional guidance through the locale selection process, read also the [Loc
 
 
 
+
+
+## Installing firmware and/or microcode
+
+### Firmware
+
+#### Suggested: Linux Firmware
 
 On many systems, non-FOSS firmware is required for certain hardware to function. The [sys-kernel/linux-firmware](https://packages.gentoo.org/packages/sys-kernel/linux-firmware) package contains firmware for many, but not all, devices.
 
 `root #``emerge --ask sys-kernel/linux-firmware`
+##### Firmware Loading
+
 Firmware files are typically loaded when the associated kernel module is loaded. This means the firmware must be built into the kernel using **CONFIG\_EXTRA\_FIRMWARE** if the kernel module is set to *Y* instead of *M*. In most cases, building-in a module which required firmware can complicate or break loading.
+
+#### SOF Firmware
 
 Sound Open Firmware (SOF) is a new open source audio driver meant to replace the proprietary Smart Sound Technology (SST) audio driver from Intel. 10th gen+ and Apollo Lake (Atom E3900, Celeron N3350, and Pentium N4200) Intel CPUs require this firmware for certain features and certain AMD APUs also have support for this firmware. SOF's supported platforms matrix can be found [here](https://thesofproject.github.io/latest/platforms/index.html) for more information.
 
 `root #``emerge --ask sys-firmware/sof-firmware`
+### Suggested: Microcode
+
 In addition to discrete graphics hardware and network interfaces, CPUs can also require firmware updates. Typically this kind of firmware is referred to as *microcode*. Newer revisions of microcode are sometimes necessary to patch instability, security concerns, or other miscellaneous bugs in CPU hardware.
 
 Microcode updates for AMD CPUs are distributed within the aforementioned [sys-kernel/linux-firmware](https://packages.gentoo.org/packages/sys-kernel/linux-firmware) package. Microcode for Intel CPUs can be found within the [sys-firmware/intel-microcode](https://packages.gentoo.org/packages/sys-firmware/intel-microcode) package, which will need to be installed separately. See the [Microcode article](https://wiki.gentoo.org/wiki/Microcode) for more information on how to apply microcode updates.
 
+## sys-kernel/installkernel
+
 [Installkernel](https://wiki.gentoo.org/wiki/Installkernel) may be used to automate the kernel installation, [initramfs](https://wiki.gentoo.org/wiki/Initramfs) generation, [unified kernel image](https://wiki.gentoo.org/wiki/Unified_kernel_image) generation and bootloader configuration, among other things. [sys-kernel/installkernel](https://packages.gentoo.org/packages/sys-kernel/installkernel) implements two paths of achieving this: the traditional installkernel originating from Debian and [systemd](https://wiki.gentoo.org/wiki/Systemd)'s kernel-install. Which one to choose depends, among other things, on the system's bootloader. By default, systemd's kernel-install is used on systemd profiles, while the traditional installkernel is the default for other profiles.
 
+### Bootloader
+
 Now is the time to think about which bootloader the user wants for the system.
+
+#### GRUB
 
 Users of GRUB can use either systemd's kernel-install or the traditional Debian installkernel. The [systemd](https://packages.gentoo.org/useflags/systemd) [USE flag switches between these implementations. To automatically run grub-mkconfig when installing the kernel, enable the](https://wiki.gentoo.org/wiki/USE_flag) [grub](https://packages.gentoo.org/useflags/grub) [USE flag](https://wiki.gentoo.org/wiki/USE_flag).
 
 **`/etc/portage/package.use/installkernel`**
 
+```
+sys-kernel/installkernel grub
+```
 `root #``emerge --ask sys-kernel/installkernel`
+#### systemd-boot
+
 When using [systemd-boot](https://wiki.gentoo.org/wiki/Systemd/systemd-boot) (formerly gummiboot) as the bootloader, systemd's kernel-install must be used. Therefore ensure the [systemd](https://packages.gentoo.org/useflags/systemd) [and the](https://wiki.gentoo.org/wiki/USE_flag) [systemd-boot](https://packages.gentoo.org/useflags/systemd-boot) [USE flags are enabled on](https://wiki.gentoo.org/wiki/USE_flag) [sys-kernel/installkernel](https://packages.gentoo.org/packages/sys-kernel/installkernel), and then install the relevant package for systemd-boot.
 
 **`/etc/portage/package.use/systemd-boot`**
 
+```
+sys-apps/systemd boot
+sys-apps/systemd-utils boot kernel-install
+sys-kernel/installkernel systemd systemd-boot
+```
 The kernel command line to use for new kernels should be specified in /etc/kernel/cmdline and /etc/cmdline. As they both need to be updated together, it make sense to symlink the two files now.
 
 **`/etc/kernel/cmdline`**
 
+```
+quiet splash
+```
 `root #``mkdir -p /etc/cmdline.d``root #``ln -s /etc/kernel/cmdline /etc/cmdline.d/00-installkernel.conf``root #``emerge --ask sys-kernel/installkernel`
+#### EFI stub
+
 UEFI-based computer systems technically do not need secondary bootloaders in order to boot kernels. Secondary bootloaders exist to *extend* the functionality of UEFI firmware during the boot process. That being said, using a secondary bootloader is typically easier and more robust because it offers a more flexible approach for quickly modifying kernel parameters at boot time. Note also that UEFI implementations strongly differ between vendors and between models and there is no guarantee that a given firmware follows the UEFI specification. Therefore, EFI Stub booting is not guaranteed to work on every UEFI-based system.
 
 `root #``emerge --ask sys-kernel/installkernel``root #``mkdir -p /efi/EFI/Gentoo`
+#### Traditional layout, other bootloaders (e.g. (e)lilo, syslinux, etc.)
+
 The traditional /boot layout (for e.g. (e)LILO, syslinux, etc.) is used by default if the [grub](https://packages.gentoo.org/useflags/grub)[,](https://wiki.gentoo.org/wiki/USE_flag) [systemd-boot](https://packages.gentoo.org/useflags/systemd-boot)[,](https://wiki.gentoo.org/wiki/USE_flag) [efistub](https://packages.gentoo.org/useflags/efistub) [and](https://wiki.gentoo.org/wiki/USE_flag) [uki](https://packages.gentoo.org/useflags/uki) [USE flags are](https://wiki.gentoo.org/wiki/USE_flag) **not** enabled. No further action is required.
+
+### Initramfs
 
 An **init**ial **ram**-based **f**ile **s**ystem, or [initramfs](https://wiki.gentoo.org/wiki/Initramfs), may be required for a system to boot. A wide of variety of cases may necessitate one, but common cases include:
 
@@ -1866,7 +2230,12 @@ In addition to mounting the root filesystem, an initramfs may also perform other
 
 **`/etc/portage/package.use/installkernel`**
 
+```
+sys-kernel/installkernel dracut
+```
 `root #``emerge --ask sys-kernel/installkernel`
+### Optional: Unified Kernel Image
+
 A [Unified Kernel Image](https://wiki.gentoo.org/wiki/Unified_Kernel_Image) (UKI) combines, among other things, the kernel, the initramfs and the kernel command line into a single executable. Since the kernel command line is embedded into the unified kernel image, it should be specified before generating the unified kernel image (see below). Note that any kernel command line arguments supplied by the bootloader or firmware at boot are ignored when booting with secure boot enabled.
 
 A unified kernel image requires a stub loader. Currently, the only one available is systemd-stub. To enable it:
@@ -1875,11 +2244,17 @@ For systemd systems:
 
 **`/etc/portage/package.use/uki`**
 
+```
+sys-apps/systemd boot
+```
 `root #``emerge --ask sys-apps/systemd`
 For OpenRC systems:
 
 **`/etc/portage/package.use/uki`**
 
+```
+sys-apps/systemd-utils boot kernel-install
+```
 `root #``emerge --ask sys-apps/systemd-utils`
 [Installkernel](https://wiki.gentoo.org/wiki/Installkernel) can automatically generate a unified kernel image using either [dracut](https://wiki.gentoo.org/wiki/Unified_kernel_image#dracut) or [ukify](https://wiki.gentoo.org/wiki/Unified_kernel_image#ukify) by enabling the respective flag and the [uki](https://packages.gentoo.org/useflags/uki) [USE flag.](https://wiki.gentoo.org/wiki/USE_flag)
 
@@ -1887,21 +2262,44 @@ For dracut:
 
 **`/etc/portage/package.use/uki`**
 
+```
+sys-kernel/installkernel dracut uki
+```
 **`/etc/dracut.conf.d/uki.conf`**
 
+```
+uefi="yes"
+kernel_cmdline="some-kernel-command-line-arguments"
+```
 `root #``emerge --ask sys-kernel/installkernel`
 For ukify:
 
 **`/etc/portage/package.use/uki`**
 
+```
+sys-apps/systemd boot ukify                         # For systemd systems
+sys-apps/systemd-utils kernel-install boot ukify    # For OpenRC systems
+sys-kernel/installkernel dracut ukify uki
+```
 **`/etc/kernel/cmdline`**
 
+```
+some-kernel-command-line-arguments
+```
 `root #``emerge --ask sys-kernel/installkernel`
 Note that while dracut can generate both an initramfs and a unified kernel image, ukify can only generate the latter and therefore the initramfs must be generated separately with dracut.
+
+#### Generic Unified Kernel Image (systemd only)
 
 The prebuilt [sys-kernel/gentoo-kernel-bin](https://packages.gentoo.org/packages/sys-kernel/gentoo-kernel-bin) can optionally install a prebuilt generic unified kernel image containing a generic initramfs that is able to boot most systemd based systems. It can be installed by enabling the [generic-uki](https://packages.gentoo.org/useflags/generic-uki) [USE flag, and configuring](https://wiki.gentoo.org/wiki/USE_flag) [installkernel](https://wiki.gentoo.org/wiki/Installkernel) to not generate a custom initramfs or unified kernel image:
 
 **`/etc/portage/package.use/uki`**
+
+```
+sys-kernel/gentoo-kernel-bin generic-uki
+sys-kernel/installkernel -dracut -ukify -ugrd uki
+```
+#### Secure Boot
 
 The generic Unified Kernel Image optionally distributed by [sys-kernel/gentoo-kernel-bin](https://packages.gentoo.org/packages/sys-kernel/gentoo-kernel-bin) is already pre-signed. How to sign a locally generated unified kernel image depends on whether dracut or ukify is used. Note that the location of the key and certificate should be the same as the `SECUREBOOT_SIGN_KEY` and `SECUREBOOT_SIGN_CERT` as specified in /etc/portage/make.conf.
 
@@ -1909,9 +2307,22 @@ For dracut:
 
 **`/etc/dracut.conf.d/uki.conf`**
 
+```
+uefi="yes"
+kernel_cmdline="some-kernel-command-line-arguments"
+uefi_secureboot_key="/path/to/kernel_key.pem"
+uefi_secureboot_cert="/path/to/kernel_key.pem"
+```
 For ukify:
 
 **`/etc/kernel/uki.conf`**
+
+```
+[UKI]
+SecureBootPrivateKey=/path/to/kernel_key.pem
+SecureBootCertificate=/path/to/kernel_key.pem
+```
+## Kernel selection
 
 It can be a wise move to use the dist-kernel on the first boot as it provides a very simple method to rule out system issues and kernel config issues. Always having a known working kernel to fallback on can speed up debugging and alleviate anxiety when updating that your system will no longer boot.
 
@@ -1926,7 +2337,11 @@ Ranked from least involved to most involved:
 
 The core around which all distributions are built is the Linux kernel. It is the layer between the user's programs and the system hardware. Although the handbook provides its users several possible kernel sources, a more comprehensive listing with more detailed descriptions is available at the [kernel packages page](https://wiki.gentoo.org/wiki/Kernel/Packages).
 
+### Distribution kernels
+
 *[Distribution Kernels](https://wiki.gentoo.org/wiki/Project:Distribution_Kernel)* are ebuilds that cover the complete process of unpacking, configuring, compiling, and installing the kernel. The primary advantage of this method is that the kernels are updated to new versions by the package manager as part of @world upgrade. This requires no more involvement than running an emerge command. Distribution kernels default to a configuration supporting the majority of hardware, however two mechanisms are offered for customization: savedconfig and config snippets. See the project page for [more details on configuration.](https://wiki.gentoo.org/wiki/Project:Distribution_Kernel#Modifying_kernel_configuration)
+
+##### Optional: Signed kernel modules
 
 The kernel modules in the prebuilt distribution kernel ([sys-kernel/gentoo-kernel-bin](https://packages.gentoo.org/packages/sys-kernel/gentoo-kernel-bin)) are already signed. To sign the modules of kernels built from source enable the [modules-sign](https://packages.gentoo.org/useflags/modules-sign) [USE flag, and optionally specify which key to use for signing in](https://wiki.gentoo.org/wiki/USE_flag) [/etc/portage/make.conf](https://wiki.gentoo.org/wiki//etc/portage/make.conf):
 
@@ -1954,6 +2369,8 @@ Store the key in a safe location, at the very least the key should be readable o
 If this outputs anything other then the above, correct the permissions with:
 
 `root #``chown root:root kernel_key.pem``root #``chmod 400 kernel_key.pem`
+##### Optional: Signing the kernel image (Secure Boot)
+
 The kernel image in the prebuilt distribution kernel ([sys-kernel/gentoo-kernel-bin](https://packages.gentoo.org/packages/sys-kernel/gentoo-kernel-bin)) is already signed for use with [Secure Boot](https://wiki.gentoo.org/wiki/Secure_Boot). To sign the kernel image of kernels built from source enable the [secureboot](https://packages.gentoo.org/useflags/secureboot) [USE flag, and optionally specify which key to use for signing in](https://wiki.gentoo.org/wiki/USE_flag) [/etc/portage/make.conf](https://wiki.gentoo.org/wiki//etc/portage/make.conf). Note that signing the kernel image for use with secureboot requires that the kernel modules are also signed, the same key may be used to sign both the kernel image and the kernel modules:
 
 **`/etc/portage/make.conf`**
@@ -1974,18 +2391,24 @@ See the above section for instructions on generating a new key, the steps may be
 
 To successfully boot with Secure Boot enabled, the used bootloader must also be signed and the certificate must be accepted by the [UEFI](https://wiki.gentoo.org/wiki/UEFI) firmware or [Shim](https://wiki.gentoo.org/wiki/Shim). This will be explained later in the handbook.
 
+#### Installing a distribution kernel
+
 To build a kernel with Gentoo patches from source, type:
 
 `root #``emerge --ask sys-kernel/gentoo-kernel`
 System administrators who want to avoid compiling the kernel sources locally can instead use precompiled kernel images:
 
 `root #``emerge --ask sys-kernel/gentoo-kernel-bin`
+#### Upgrading and cleaning up
+
 Once the kernel is installed, the package manager will automatically update it to newer versions. The previous versions will be kept until the package manager is requested to clean up stale packages. To reclaim disk space, stale packages can be trimmed by periodically running emerge with the `--depclean` option:
 
 `root #``emerge --depclean`
 Alternatively, to specifically clean up old kernel versions:
 
 `root #``emerge --prune sys-kernel/gentoo-kernel sys-kernel/gentoo-kernel-bin`
+#### Post-install/upgrade tasks
+
 An upgrade of a distribution kernel is capable of triggering an automatic rebuild for external kernel modules installed by other packages (for example: [sys-fs/zfs-kmod](https://packages.gentoo.org/packages/sys-fs/zfs-kmod) or [x11-drivers/nvidia-drivers](https://packages.gentoo.org/packages/x11-drivers/nvidia-drivers)). This automated behaviour is enabled by enabling the [dist-kernel](https://packages.gentoo.org/useflags/dist-kernel) [USE flag. When required, this same flag will also trigger re-generation of the](https://wiki.gentoo.org/wiki/USE_flag) [initramfs](https://wiki.gentoo.org/wiki/Initramfs).
 
 It is highly recommended to enable this flag globally via /etc/portage/make.conf when using a distribution kernel:
@@ -1997,6 +2420,8 @@ It is highly recommended to enable this flag globally via /etc/portage/make.conf
 ```
 USE="dist-kernel"
 ```
+##### Manually rebuilding the initramfs or Unified Kernel Image
+
 If required, manually trigger such rebuilds by, after a kernel upgrade, executing:
 
 `root #``emerge --ask @module-rebuild`
@@ -2009,6 +2434,10 @@ emerge --config sys-kernel/gentoo-kernel
 emerge --config sys-kernel/gentoo-kernel-bin
 ```
 After installing the Distribution Kernel successfully, it is now time to proceed to the next section: [Configuring the system](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/System).
+
+### Alternative: Manual configuration
+
+#### Installing and Configuring the kernel sources
 
 When manually compiling the kernel for amd64-based systems, Gentoo recommends the [sys-kernel/gentoo-sources](https://packages.gentoo.org/packages/sys-kernel/gentoo-sources) package.
 
@@ -2034,6 +2463,8 @@ lrwxrwxrwx    1 root   root    12 Oct 13 11:04 /usr/src/linux -> linux-6.18.8-ge
 
 Manually configuring a kernel is commonly seen as one of the most difficult procedures a system administrator has to perform. Nothing is less true - after configuring a few kernels no one remembers that it was difficult! There are two ways for a Gentoo user to manage a manual kernel system, both of which are listed below:
 
+##### Option 1 - Modprobed-db process
+
 A very easy way to manage the kernel is to first install [sys-kernel/gentoo-kernel-bin](https://packages.gentoo.org/packages/sys-kernel/gentoo-kernel-bin) and use the [sys-kernel/modprobed-db](https://packages.gentoo.org/packages/sys-kernel/modprobed-db) to collect information about what the system requires. modprobed-db is a tool which monitors the system via crontab to add all modules of all devices over the system's life to make sure it everything a user needs is supported. For example, if an Xbox controller is added after installation, then modprobed-db will add the modules to be built next time the kernel is rebuilt.
 
 For now please follow installing [sys-kernel/gentoo-kernel-bin](https://packages.gentoo.org/packages/sys-kernel/gentoo-kernel-bin) via [Distribution\_kernels](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/Kernel#Distribution_kernels).
@@ -2042,6 +2473,8 @@ Next, install [sys-kernel/modprobed-db](https://packages.gentoo.org/packages/sys
 
 `root #``emerge --ask sys-kernel/modprobed-db`
 [sys-kernel/modprobed-db](https://packages.gentoo.org/packages/sys-kernel/modprobed-db) will be configured at a later point in the handbook.
+
+##### Option 2 - Assisted manual process
 
 This method allows a user to have full control of how their kernel is built with as minimal help from outside tools as they wish. Some could consider this as making it hard for the sake of it.
 
@@ -2065,18 +2498,35 @@ Now it's time to decide if modules signing is required in the steps listed in [h
 
 If not, proceed to building described [here](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/Kernel#Compiling_and_installing)
 
+##### Option 3 - Configuring by hand
+
 The Linux kernel configuration has many, many sections and as configuring a kernel by hand is rarely needed thanks to the two tools listed above. The steps to do it by hand are now included at [Kernel/Gentoo\_Kernel\_Configuration\_Guide](https://wiki.gentoo.org/wiki/Kernel/Gentoo_Kernel_Configuration_Guide)
+
+#### Optional: Signed kernel modules
 
 To automatically sign the kernel modules enable `CONFIG_MODULE_SIG_ALL`:
 
 **Sign kernel modules`CONFIG_MODULE_SIG_ALL`**
 
+```
+[*] Enable loadable module support  
+  -*-   Module signature verification    
+    [*]     Automatically sign all modules    
+    Which hash algorithm should modules be signed with? (Sign modules with SHA-512) --->
+```
 Optionally change the hash algorithm if desired.
 
 To enforce that all modules are signed with a valid signature, enable `CONFIG_MODULE_SIG_FORCE` as well:
 
 **Enforce signed kernel modules`CONFIG_MODULE_SIG_FORCE`**
 
+```
+[*] Enable loadable module support  
+  -*-   Module signature verification    
+    [*]     Require modules to be validly signed
+    [*]     Automatically sign all modules
+    Which hash algorithm should modules be signed with? (Sign modules with SHA-512) --->
+```
 To use a custom key, specify the location of this key in `CONFIG_MODULE_SIG_KEY`. If unspecified, the kernel build system will generate a key. It is recommended to generate one manually instead. This can be done with:
 
 `root #``openssl req -new -nodes -utf8 -sha256 -x509 -outform PEM -out kernel_key.pem -keyout kernel_key.pem`
@@ -2097,6 +2547,11 @@ chmod 400 kernel_key.pem
 ```
 **Specify signing key`CONFIG_MODULE_SIG_KEY`**
 
+```
+-*- Cryptographic API  ---> 
+  Certificates for signature checking  --->  
+    (/path/to/kernel_key.pem) File name or PKCS#11 URI of module signing key
+```
 To also sign external kernel modules installed by other packages via `linux-mod-r1.eclass`, enable the [modules-sign](https://packages.gentoo.org/useflags/modules-sign) [USE flag globally:](https://wiki.gentoo.org/wiki/USE_flag)
 
 **`/etc/portage/make.conf`**
@@ -2110,16 +2565,49 @@ MODULES_SIGN_KEY="/path/to/kernel_key.pem"
 MODULES_SIGN_CERT="/path/to/kernel_key.pem" # Only required if the MODULES_SIGN_KEY does not also contain the certificate
 MODULES_SIGN_HASH="sha512" # Defaults to sha512
 ```
+#### Optional: Signing the kernel image (Secure Boot)
+
 When signing the kernel image (for use on systems with [Secure Boot](https://wiki.gentoo.org/wiki/Secure_Boot) enabled) it is recommended to set the following kernel config options:
 
 **Lockdown for secureboot**
 
+```
+General setup  --->
+  Kexec and crash features  --->   
+    [*] Enable kexec system call                                                                                          
+    [*] Enable kexec file based system call                                                                               
+    [*]   Verify kernel signature during kexec_file_load() syscall                                                        
+    [*]     Require a valid signature in kexec_file_load() syscall                                                        
+    [*]     Enable ""image"" signature verification support  
+[*] Enable loadable module support  
+  -*-   Module signature verification    
+    [*]     Require modules to be validly signed
+    [*]     Automatically sign all modules
+    Which hash algorithm should modules be signed with? (Sign modules with SHA-512) --->  
+Security options  ---> 
+[*] Integrity subsystem   
+  [*] Basic module for enforcing kernel lockdown                                                                       
+  [*]   Enable lockdown LSM early in init                                                                       
+        Kernel default lockdown mode (Integrity)  --->            
+[*]   Digital signature verification using multiple keyrings                                                            
+  [*]     Enable asymmetric keys support                                                                                     
+  -*-       Require all keys on the integrity keyrings be signed                                                              
+  [*]       Provide keyring for platform/firmware trusted keys                                                                
+  [*]       Provide a keyring to which Machine Owner Keys may be added                                                        
+  [ ]         Enforce Machine Keyring CA Restrictions
+```
 Where ""image"" is a placeholder for the architecture specific image name. These options, from the top to the bottom: enforces that the kernel image in a kexec call must be signed (kexec allows replacing the kernel in-place), enforces that kernel modules are signed, enables lockdown `integrity` mode (prevents modifying the kernel at runtime), and enables various keychains.
 
 On arches that do not natively support decompressing the kernel (e.g. **arm64** and **riscv**), the kernel must be built with its own decompressor (zboot):
 
 **zboot`CONFIG_EFI_ZBOOT`**
 
+```
+Device Drivers --->                                                                                                                           
+  Firmware Drivers --->                                                                                                                       
+    EFI (Extensible Firmware Interface) Support --->                                                                                               
+      [*] Enable the generic EFI decompressor
+```
 After compilation of the kernel, as explained in the next section, the kernel image must be signed. First install [app-crypt/sbsigntools](https://packages.gentoo.org/packages/app-crypt/sbsigntools) and then sign the kernel image:
 
 `root #``emerge --ask app-crypt/sbsigntools``root #``sbsign /usr/src/linux-x.y.z/path/to/kernel-image --cert /path/to/kernel_key.pem --key /path/to/kernel_key.pem --output /usr/src/linux-x.y.z/path/to/kernel-image`
@@ -2165,10 +2653,16 @@ Continue the installation with [Configuring the system](https://wiki.gentoo.org/
 
 
 
+## Filesystem information
+
+### Filesystem labels and UUIDs
+
 Both MBR (BIOS) and GPT include support for *filesystem* labels and *filesystem* UUIDs. These attributes can be defined in /etc/fstab as alternatives for the mount command to use when attempting to find and mount block devices. Filesystem labels and UUIDs are identified by the `LABEL` and `UUID` prefix and can be viewed with the blkid command:
 
 `root #``blkid`
 For uniqueness, readers who are using MBR-style partition tables are advised to use UUIDs rather than labels to specify mountable volumes in /etc/fstab.
+
+### Partition labels and UUIDs
 
 Systems with GPT disklabel support offer additional 'robust' options to define partitions in /etc/fstab. Partition labels and partition UUIDs can be used to identify the block device's individual partition(s), regardless of what filesystem has been chosen for the partition itself. Partition labels and UUIDs are identified by the `PARTLABEL` and/or `PARTUUID` prefixes and can be viewed nicely in the terminal by running the blkid command.
 
@@ -2185,7 +2679,11 @@ While not always true for partition labels, using a UUID to identify a partition
 
 The naming for block device files depends on a number of factors, including how and in what order the disks are attached to the system. They also could show up in a different order depending on which of the devices are detected by the kernel first during the early boot process. With this being stated, unless the system administrator intends to constantly fiddle with the disk ordering, using default block device files is a simple and straightforward approach.
 
+### About fstab
+
 Under Linux, all partitions used by the system must be listed in [/etc/fstab](https://wiki.gentoo.org/wiki//etc/fstab). This file contains the mount points of those partitions (where they are seen in the file system structure), how they should be mounted and with what special options (automatically or not, whether users can mount them or not, etc.)
+
+### Creating the fstab file
 
 The /etc/fstab file uses a table-like syntax. Every line consists of six fields, separated by whitespace (space(s), tabs, or a mixture of the two). Each field has its own meaning:
 
@@ -2197,6 +2695,8 @@ The /etc/fstab file uses a table-like syntax. Every line consists of six fields,
 6. The sixth field is used by fsck to determine the order in which filesystems should be checked if the system wasn't shut down properly. The root filesystem should have `1` while the rest should have `2` (or `0` if a filesystem check is not necessary).
 
 `root #``nano /etc/fstab`
+#### DOS/Legacy BIOS systems
+
 Let us take a look at how to write down the options for the /boot partition. This is just an example, and should be modified according to the partitioning decisions made earlier in the installation.
 In the **amd64** partitioning example, /boot is usually the /dev/sda1 partition, with xfs recommended for the filesystem. It needs to be checked during boot, so we would write down:
 
@@ -2204,6 +2704,10 @@ In the **amd64** partitioning example, /boot is usually the /dev/sda1 partition,
 
 **An example DOS/Legacy BIOS boot line for /etc/fstab**
 
+```
+# Adjust for any formatting differences and/or additional partitions created from the "Preparing the disks" step
+/dev/sda1   /boot     xfs    defaults        0 2
+```
 Some system administrators want the /boot partition to not be mounted automatically to improve their system's security. Those people should substitute the `defaults` with `noauto`. This does mean that those users will need to manually mount this partition every time they want to use it.
 
 Add the rules that match the previously decided partitioning scheme and append rules for devices such as CD-ROM drive(s), and of course, if other partitions or drives are used, for those too.
@@ -2216,6 +2720,15 @@ Below is a more elaborate example of an /etc/fstab file:
 
 **A full /etc/fstab example for a DOS/Legacy BIOS system**
 
+```
+# Adjust for any formatting differences and/or additional partitions created from the "Preparing the disks" step
+/dev/sda1   /boot        xfs    defaults    0 2
+/dev/sda2   none         swap    sw                   0 0
+/dev/sda3   /            xfs    defaults,noatime              0 1
+/dev/cdrom  /mnt/cdrom   auto    noauto,user          0 0
+```
+#### UEFI systems
+
 Below is an example of an /etc/fstab file for a system that will boot via UEFI firmware:
 
 
@@ -2224,7 +2737,16 @@ Below is an example of an /etc/fstab file for a system that will boot via UEFI f
 
 **A full /etc/fstab example for an UEFI system**
 
+```
+# Adjust for any formatting differences and/or additional partitions created from the "Preparing the disks" step
+/dev/sda1   /efi        vfat    umask=0077,tz=UTC     0 2
+/dev/sda2   none         swap    sw                   0 0
+/dev/sda3   /            xfs    defaults,noatime              0 1
+/dev/cdrom  /mnt/cdrom   auto    noauto,user          0 0
+```
 
+
+#### DPS UEFI PARTUUID
 
 Below is an example of an /etc/fstab file for a disk formatted with a GPT disklabel and Discoverable Partition Specification (DPS) UUIDs set for UEFI firmware:
 
@@ -2232,6 +2754,13 @@ Below is an example of an /etc/fstab file for a disk formatted with a GPT diskla
 
 **DPS PARTUUID fstab example**
 
+```
+# Adjust any formatting difference and additional partitions created from the "Preparing the disks" step.
+# This example shows a GPT disklabel with Discoverable Partition Specification (DPS) UUID set:
+PARTUUID=c12a7328-f81f-11d2-ba4b-00a0c93ec93b   /efi        vfat    umask=0077,tz=UTC            0 2
+PARTUUID=0657fd6d-a4ab-43c4-84e5-0933c84b4f4f   none        swap    sw                           0 0
+PARTUUID=4f68bce3-e8cd-4db1-96e7-fbcaf984b709   /           xfs     defaults,noatime             0 1
+```
 
 
 When `auto` is used in the third field, it makes the mount command guess what the filesystem would be. This is recommended for removable media as they can be created with one of many filesystems. The `user` option in the fourth field makes it possible for non-root users to mount the CD.
@@ -2239,6 +2768,10 @@ When `auto` is used in the third field, it makes the mount command guess what th
 To improve performance, most users would want to add the `noatime` mount option, which results in a faster system since access times are not registered (those are not needed generally anyway). This is also recommended for systems with solid state drives (SSDs). Users may wish to consider `lazytime` instead.
 
 Double-check the /etc/fstab file, then save and quit to continue.
+
+### Init and boot configuration
+
+#### OpenRC
 
 When using OpenRC with Gentoo, it uses /etc/rc.conf to configure the services, startup, and shutdown of a system. Open up /etc/rc.conf and enjoy all the comments in the file. Review the settings and change where needed.
 
@@ -2258,24 +2791,36 @@ Systems setup from a desktop stage3 should run dbus-uuidgen at this point:
 `root #``dbus-uuidgen --ensure=/etc/machine-id`
 This isn't required on non desktop stage3 created systems as [sys-apps/dbus](https://packages.gentoo.org/packages/sys-apps/dbus) will automatically generate /etc/machine-id when the package is first installed.
 
+#### systemd
+
 To initialize systemd, assign a random *machine-id* to the system, run systemd-firstboot, which prompts for a hostname and a keymap, and enable the default set of services.
 
 `root #``systemd-machine-id-setup``root #``systemd-firstboot --prompt``root #``systemctl preset-all --preset-mode=enable-only`
+## Networking information
+
 It is important to note the following sections are provided to help the reader quickly setup their system to partake in a local area network.
 
 For systems running OpenRC, a more detailed reference for network setup is available in the [advanced network configuration](https://wiki.gentoo.org/wiki/Handbook:AMD64/Networking/Introduction) section, which is covered near the end of the handbook. Systems with more specific network needs may need to skip ahead, then return here to continue with the rest of the installation.
 
 For more specific systemd network setup, please review see the [networking portion](https://wiki.gentoo.org/wiki/Systemd#Network) of the [systemd](https://wiki.gentoo.org/wiki/Systemd) article.
 
+### Hostname
+
 One of the choices the system administrator has to make is name their PC. This seems to be quite easy, but lots of users are having difficulties finding the appropriate name for the hostname. To speed things up, know that the decision is not final - it can be changed afterwards. In the examples below, the hostname *tux* is used.
 
+#### Set the hostname (OpenRC or systemd)
+
 `root #``echo tux > /etc/hostname`
+#### systemd
+
 To set the system hostname for a system currently *running* systemd, the hostnamectl utility may be used. During the installation process however, [systemd-firstboot](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/System#Init_and_boot_configuration_systemd) command must be used instead (see later on in handbook).
 
 For setting the hostname to "tux", one would run:
 
 `root #``hostnamectl hostname tux`
 View help by running hostnamectl --help or man 1 hostnamectl.
+
+### The hosts file
 
 An important next step may be to inform this new system about other hosts in its network environment. Network host names can be defined in the /etc/hosts file. Adding host names here will enable host name to IP addresses resolution for hosts that are not resolved by the nameserver.
 
@@ -2284,11 +2829,23 @@ An important next step may be to inform this new system about other hosts in its
 
 **Filling in the networking information**
 
+```
+# This defines the current system and must be set
+127.0.0.1     tux.homenetwork tux localhost
+::1           tux.homenetwork tux localhost
+# Optional definition of extra systems on the network
+192.168.0.5   jenny.homenetwork jenny
+192.168.0.6   benny.homenetwork benny
+```
 Save and exit the editor to continue.
+
+### Network
 
 The Gentoo Linux installation process involves configuring networking in *two parts*. The configuration done in earlier steps enables networking for the *live environment*. Now it is time to apply the network configuration that will be used in the *installed environment*.
 
 More detailed information about networking, including advanced topics like bonding, bridging, 802.1Q VLANs or wireless networking is covered in the [advanced network configuration](https://wiki.gentoo.org/wiki/Handbook:AMD64/Networking/Introduction) section.
+
+#### DHCP via dhcpcd (any init system)
 
 DHCP provides a reliable way for systems to obtain an IP address automatically. Most LANs operate a DHCP server, usually integrated with a router which provides internet access.
 
@@ -2307,16 +2864,26 @@ To enable the service on systemd systems:
 `root #``systemctl enable dhcpcd`
 The next time the system boots, dhcpcd should obtain an IP address from the DHCP server. See the [Dhcpcd](https://wiki.gentoo.org/wiki/Dhcpcd) article for more details.
 
+#### NetworkManager (any init system)
+
 [NetworkManager](https://wiki.gentoo.org/wiki/NetworkManager) provides a simple method to manage networks using Ethernet, WiFi, PPPoE or celluar via CLI, TUI or GUI.
 
 First add the [networkmanager](https://packages.gentoo.org/useflags/networkmanager) [USE flag to /etc/portage/make.conf:](https://wiki.gentoo.org/wiki/USE_flag)
 
 **`/etc/portage/make.conf`**
 
+```
+...
+USE="${USE} networkmanager"
+...
+```
 Non desktop profiles will also need to add:
 
 **`/etc/portage/package.use/networkmanager`**
 
+```
+net-wireless/wpa_supplicant dbus
+```
 Next, emerge the package:
 
 `root #``emerge --ask net-misc/networkmanager`
@@ -2329,6 +2896,10 @@ systemd:
 
 `root #``systemctl enable NetworkManager`
 For more information see the [NetworkManager](https://wiki.gentoo.org/wiki/NetworkManager) article.
+
+#### netifrc (OpenRC)
+
+##### Configuring the network
 
 All networking information is gathered in /etc/conf.d/net. It uses a straightforward - yet perhaps not intuitive - syntax. Do not fear! Everything is explained below. A fully commented example that covers many different configurations is available in /usr/share/doc/netifrc-\*/net.example.bz2.
 
@@ -2365,6 +2936,8 @@ If the system has several network interfaces, then repeat the above steps for `c
 
 Now save the configuration and exit to continue.
 
+##### Automatically start networking at boot
+
 To have the network interfaces activated at boot, they need to be added to the default runlevel.
 
 `root #````
@@ -2383,6 +2956,8 @@ If, after booting the system, it is discovered the network interface name (which
 3. Remove the old symbolic link (rm /etc/init.d/net.eth0).
 4. Add the new one to the default runlevel.
 5. Remove the old one using rc-update del net.eth0 default.
+
+#### systemd-networkd (systemd)
 
 [systemd](https://wiki.gentoo.org/wiki/Systemd) has it's own network management like OpenRC has netifrc.
 
@@ -2441,15 +3016,25 @@ IgnoreCarrierLoss=3s
 To enable the service to run at next boot up:
 
 `root #``systemctl enable systemd-networkd.service`
+#### Optional: Networking tools
+
 If extra tools are required when using netifrc or systemd-networkd to configure networking on the first reboot, it is necessary to install them now while networking is available in the live environment.
+
+##### Installing a PPPoE client
 
 If PPP is used to connect to the internet, install the [net-dialup/ppp](https://packages.gentoo.org/packages/net-dialup/ppp) package:
 
 `root #``emerge --ask net-dialup/ppp`
+##### Install wireless networking tools
+
 If the system will be connecting to wireless networks, install the [net-wireless/iw](https://packages.gentoo.org/packages/net-wireless/iw) package for Open or WEP networks and/or the [net-wireless/wpa\_supplicant](https://packages.gentoo.org/packages/net-wireless/wpa_supplicant) package for WPA or WPA2 networks. iw is also a useful basic diagnostic tool for scanning wireless networks.
 
 `root #``emerge --ask net-wireless/iw net-wireless/wpa_supplicant`
 
+
+## System information
+
+### Root password
 
 Set the root password using the passwd command.
 
@@ -2463,6 +3048,10 @@ Later an additional regular user account will be created for daily operations.
 
 
 
+
+## System logger
+
+### OpenRC
 
 Some tools are missing from the stage3 archive because several packages provide the same functionality. It is now up to the user to choose which ones to install.
 
@@ -2479,11 +3068,17 @@ There may be other system logging utilities available through the Gentoo ebuild 
 To install the system logger of choice, emerge it. On OpenRC, add it to the default runlevel using rc-update. The following example installs and activates [app-admin/sysklogd](https://packages.gentoo.org/packages/app-admin/sysklogd) as the system's syslog utility:
 
 `root #``emerge --ask app-admin/sysklogd``root #``rc-update add sysklogd default`
+### systemd
+
 While a selection of logging mechanisms are presented for OpenRC-based systems, systemd includes a built-in logger called the **systemd-journald** service. The systemd-journald service is capable of handling most of the logging functionality outlined in the previous system logger section. That is to say, the majority of installations that will run systemd as the system and service manager can *safely skip* adding a additional syslog utilities.
 
 See man journalctl for more details on using journalctl to query and review the systems logs.
 
 For a number of reasons, such as the case of forwarding logs to a central host, it may be important to include *redundant* system logging mechanisms on a systemd-based system. This is a irregular occurrence for the handbook's typical audience and considered an advanced use case. It is therefore not covered by the handbook.
+
+## Cron daemon
+
+### OpenRC
 
 Although it is optional and not required for every system, it is wise to install a cron daemon.
 
@@ -2498,21 +3093,33 @@ Gentoo offers several possible cron daemons, including:
 - [fcron](https://wiki.gentoo.org/wiki/Cron#fcron) ([sys-process/fcron](https://packages.gentoo.org/packages/sys-process/fcron)) - A command scheduler with extended capabilities over cron and anacron.
 - [bcron](https://wiki.gentoo.org/wiki/Cron#bcron) ([sys-process/bcron](https://packages.gentoo.org/packages/sys-process/bcron)) - A younger cron system designed with secure operations in mind. To do this, the system is divided into several separate programs, each responsible for a separate task, with strictly controlled communications between parts.
 
+#### Default: cronie
+
 The following example uses [sys-process/cronie](https://packages.gentoo.org/packages/sys-process/cronie) (not to be confused with the [NTP](https://wiki.gentoo.org/wiki/Network_Time_Protocol) daemon named [chrony](https://wiki.gentoo.org/wiki/Chrony)):
 
 `root #``emerge --ask sys-process/cronie`
 Add cronie to the default system runlevel, which will automatically start it on power up:
 
-`root #``rc-update add cronie default``root #``emerge --ask sys-process/dcron`
+`root #``rc-update add cronie default`
+#### Alternative: dcron
+
+`root #``emerge --ask sys-process/dcron`
 If dcron is the go forward cron agent, an additional initialization command needs to be executed:
 
-`root #``crontab /etc/crontab``root #``emerge --ask sys-process/fcron`
+`root #``crontab /etc/crontab`
+#### Alternative: fcron
+
+`root #``emerge --ask sys-process/fcron`
 If fcron is the selected scheduled task handler, an additional emerge step is required:
 
 `root #``emerge --config sys-process/fcron`
+#### Alternative: bcron
+
 bcron is a younger cron agent with built-in privilege separation.
 
 `root #``emerge --ask sys-process/bcron`
+#### modprobed-db users
+
 If using [sys-kernel/modprobed-db](https://packages.gentoo.org/packages/sys-kernel/modprobed-db) was picked as an option for manually compiling the kernel.
 
 Now is the time to setup a crontab to periodically scan the system for hardware used.
@@ -2521,9 +3128,16 @@ Now is the time to setup a crontab to periodically scan the system for hardware 
 
 **Run modprobed-db once every 6 hours**
 
+```
+0 */6 * * *     /usr/bin/modprobed-db store &> /dev/null
+```
 At a later date of at least a week, please visit the kernel build section of the [modprobed-db](https://wiki.gentoo.org/wiki/Modprobed-db#Building_kernels) article to complete the setup.
 
+### systemd
+
 Similar to system logging, systemd-based systems include support for scheduled tasks out-of-the-box in the form of *timers*. systemd timers can run at a system-level or a user-level and include the same functionality that a traditional cron daemon would provide. Unless redundant capabilities are necessary, installing an additional task scheduler such as a cron daemon is generally unnecessary and can be safely skipped.
+
+#### modprobed-db users
 
 If using [sys-kernel/modprobed-db](https://packages.gentoo.org/packages/sys-kernel/modprobed-db) was picked as an option for manually compiling the kernel.
 
@@ -2532,12 +3146,18 @@ Now is the time to setup a systemd timer to periodically scan the system for har
 `root #``systemctl --user enable modprobed-db`
 At a later date of at least a week, please visit the kernel build section of the [modprobed-db](https://wiki.gentoo.org/wiki/Modprobed-db#Building_kernels) article to complete the setup.
 
+## Optional: File indexing
+
 In order to index the file system to provide faster file location capabilities, install [mlocate](https://wiki.gentoo.org/wiki/Mlocate):
 
 `root #``emerge --ask sys-apps/mlocate`
+## Optional: Remote shell access
+
 To be able to access the system remotely after installation, sshd must be configured to start on boot.
 
 For more in-depth details on the configuration of SSH, refer to the [SSH](https://wiki.gentoo.org/wiki/SSH) article.
+
+### OpenRC
 
 To add the sshd init script to the default runlevel on OpenRC:
 
@@ -2550,6 +3170,8 @@ Uncomment the serial console section in /etc/inittab:
 \# SERIAL CONSOLES
 s0:12345:respawn:/sbin/agetty 9600 ttyS0 vt100
 s1:12345:respawn:/sbin/agetty 9600 ttyS1 vt100
+
+### systemd
 
 To enable the SSH server, run:
 
@@ -2566,24 +3188,36 @@ Bash is the default shell for Gentoo systems, and therefore installing completio
 `root #``emerge --ask app-shells/bash-completion`
 Post installation, bash completion for specific commands can managed through eselect. See the [Shell completion integrations section](https://wiki.gentoo.org/wiki/Bash#Shell_completion_integrations) of the bash article for more details.
 
+## Suggested: Time synchronization
+
 It is important to use some method of synchronizing the system clock with Internet time servers. This is often mandatory for systems without an RTC, but is also beneficial for systems with a RTC, as the battery could fail, and clock skew can accumulate.
 
 The clock is usually synchronized via the [Network Time Protocol](https://wiki.gentoo.org/wiki/Network_Time_Protocol), with an implementation such as [chrony](https://wiki.gentoo.org/wiki/Chrony).
+
+### chrony
 
 Install chrony (not to be confused with the cron daemon named [cronie](https://wiki.gentoo.org/wiki/Cron#cronie)):
 
 `root #``emerge --ask net-misc/chrony`
 See the [chrony](https://wiki.gentoo.org/wiki/Chrony) article for further information, for example if more advanced configurations are required.
 
+#### OpenRC
+
 Add chronyd to the default runlevel to start it at boot, so time will be synchronized automatically:
 
 `root #``rc-update add chronyd default`
+#### systemd
+
 Start chronyd at boot, to have the time synchronized automatically:
 
 `root #``systemctl enable chronyd.service`
+### systemd-timesyncd
+
 Alternatively, systemd users may wish to use the simpler systemd-timesyncd SNTP client which is installed by default and enabled with:
 
 `root #``systemctl enable systemd-timesyncd.service`
+## Filesystem tools
+
 Depending on the filesystems used, it may be necessary to install the required file system utilities (for checking the filesystem integrity, (re)formatting file systems, etc.). Note that ext4 user space tools ([sys-fs/e2fsprogs](https://packages.gentoo.org/packages/sys-fs/e2fsprogs)) are already installed as a part of the [@system set](<https://wiki.gentoo.org/wiki/System_set_(Portage)>).
 
 The following table lists the tools to install if a certain filesystem tools will be needed in the installed environment.
@@ -2613,6 +3247,8 @@ Now continue with [Configuring the bootloader](https://wiki.gentoo.org/wiki/Hand
 
 
 
+## Selecting a boot loader
+
 With the Linux kernel configured, system tools installed and configuration files edited, it is time to install the last important piece of a Linux installation: the boot loader.
 
 The boot loader is responsible for firing up the Linux kernel upon boot - without it, the system would not know how to proceed when the power button has been pressed.
@@ -2621,7 +3257,11 @@ For **amd64**, we document how to configure [GRUB](https://wiki.gentoo.org/wiki/
 
 In this section of the Handbook a delineation has been made between *emerging* the boot loader's package and *installing* a boot loader to a system disk. Here the term *emerge* will be used to ask [Portage](https://wiki.gentoo.org/wiki/Portage) to make the software package available to the system. The term *install* will signify the boot loader copying files or physically modifying appropriate sections of the system's disk drive in order to render the boot loader *activated and ready to operate* on the next power cycle.
 
+## Default: GRUB
+
 By default, the majority of Gentoo systems now rely upon [GRUB](https://wiki.gentoo.org/wiki/GRUB) (found in the [sys-boot/grub](https://packages.gentoo.org/packages/sys-boot/grub) package), which is the direct successor to [GRUB Legacy](https://wiki.gentoo.org/wiki/GRUB_Legacy). With no additional configuration, GRUB gladly supports older BIOS ("pc") systems. With a small amount of configuration, necessary before build time, GRUB can support more than a half a dozen additional platforms. For more information, consult the [Prerequisites section](https://wiki.gentoo.org/wiki/GRUB#Prerequisites) of the [GRUB](https://wiki.gentoo.org/wiki/GRUB) article.
+
+### Emerge
 
 When using an older BIOS system supporting only MBR partition tables, no additional configuration is needed in order to emerge GRUB:
 
@@ -2634,11 +3274,17 @@ If GRUB was somehow emerged without enabling `GRUB_PLATFORMS="efi-64"`, the line
 `root #``emerge --ask --update --newuse --verbose sys-boot/grub`
 The GRUB software has now been merged onto the *system*, but it has not yet been installed as a secondary *bootloader*.
 
+### Install
+
 Next, install the necessary GRUB files to the /boot/grub/ directory via the grub-install command. Presuming the first disk (the one where the system boots from) is /dev/sda, one of the following commands will do:
+
+#### DOS/Legacy BIOS systems
 
 For DOS/Legacy BIOS systems:
 
-`root #``grub-install /dev/sda`
+`root #``grub-install --target=i386-pc /dev/sda`
+#### UEFI systems
+
 For UEFI systems:
 
 `root #``grub-install --efi-directory=/efi`
@@ -2682,7 +3328,12 @@ Or, via [installkernel](https://wiki.gentoo.org/wiki/Installkernel):
 
 **`/etc/env.d/99grub`**
 
+```
+GRUB_CFG=/efi/EFI/Gentoo/grub.cfg
+```
 `root #``env-update`
+##### Debugging GRUB
+
 When debugging GRUB, there are a couple of quick fixes that may result in a bootable installation without having to reboot to a new live image environment.
 
 In the event that "EFI variables are not supported on this system" is displayed somewhere in the output, it is likely the live image was not booted in EFI mode and is presently in Legacy BIOS boot mode. The solution is to try the [removable GRUB step](https://wiki.gentoo.org/wiki/Handbook:AMD64/Blocks/Bootloader#GRUB_Install_EFI_systems_removable) mentioned below. This will overwrite the executable EFI file located at /EFI/BOOT/BOOTX64.EFI. Upon rebooting in EFI mode, the motherboard firmware may execute this default boot entry and execute GRUB.
@@ -2697,6 +3348,8 @@ Some motherboard manufacturers with poor UEFI implementations seem to *only* sup
 `root #``grub-install --target=x86_64-efi --efi-directory=/efi --removable`
 This creates the 'default' directory defined by the UEFI specification, and then creates a file with the default name: BOOTX64.EFI.
 
+### Configure
+
 Next, generate the GRUB configuration based on the user configuration specified in the /etc/default/grub file and /etc/grub.d scripts. In most cases, no configuration is needed by users as GRUB will automatically detect which kernel to boot (the highest one available in /boot/) and what the root file system is. It is also possible to append kernel parameters in /etc/default/grub using the `GRUB_CMDLINE_LINUX` variable.
 
 To generate the final GRUB configuration, run the grub-mkconfig command:
@@ -2709,6 +3362,8 @@ done
 
 The output of the command must mention that at least one Linux image is found, as those are needed to boot the system. If an initramfs is used or genkernel was used to build the kernel, the correct initrd image should be detected as well. If this is not the case, go to /boot/ and check the contents using the ls command. If the files are indeed missing, go back to the kernel configuration and installation instructions.
 
+## Alternative 1: systemd-boot
+
 Another option is [systemd-boot](https://wiki.gentoo.org/wiki/Systemd/systemd-boot), which works on both OpenRC and systemd machines. It is a thin chainloader and works well with secure boot.
 
 ### Emerge
@@ -2717,6 +3372,10 @@ To install systemd-boot, enable the [boot](https://packages.gentoo.org/useflags/
 
 **`/etc/portage/package.use/systemd-boot`**
 
+```
+sys-apps/systemd boot
+sys-apps/systemd-utils boot
+```
 `root #``emerge --ask sys-apps/systemd`
 Or
 
@@ -2758,6 +3417,8 @@ Then the converted certificate can be imported into Shims MOKlist:
 And finally we register Shim with the UEFI firmware. In the following command, `boot-disk` and `boot-partition-id` must be replaced with the disk and partition identifier of the EFI system partition:
 
 `root #``efibootmgr --create --disk /dev/boot-disk --part boot-partition-id --loader '\EFI\systemd\shimx64.efi'  --label 'Systemd-boot via Shim' --unicode '\EFI\systemd\systemd-bootx64.efi'`
+## Alternative 2: EFI Stub
+
 Computer systems with UEFI-based firmware technically do not need secondary bootloaders (e.g. GRUB) in order to boot kernels. Secondary bootloaders exist to *extend* the functionality of UEFI firmware during the boot process. Using GRUB (see the prior section) is typically easier and more robust because it offers a more flexible approach for quickly modifying kernel parameters at boot time.
 
 System administrators who desire to take a minimalist, although more rigid, approach to booting the system can avoid secondary bootloaders and boot the Linux kernel as an [EFI stub](https://wiki.gentoo.org/wiki/EFI_stub).
@@ -2772,8 +3433,16 @@ To boot the kernel directly from the firmware, the kernel image must be present 
 
 **`/etc/portage/package.accept_keywords/installkernel`**
 
+```
+sys-kernel/installkernel
+sys-boot/uefi-mkconfig
+app-emulation/virt-firmware
+```
 **`/etc/portage/package.use/installkernel`**
 
+```
+sys-kernel/installkernel efistub
+```
 Then reinstall [installkernel](https://wiki.gentoo.org/wiki/Installkernel), create the /efi/EFI/Gentoo directory and reinstall the kernel:
 
 `root #``emerge --ask sys-kernel/installkernel``root #``mkdir -p /efi/EFI/Gentoo`
@@ -2811,9 +3480,13 @@ To add a direct boot entry for the installed unified kernel image:
 `root #``efibootmgr --create --disk /dev/sda --part 1 --label "gentoo" --loader "\EFI\Linux\gentoo-x.y.z.efi"`
 
 
+## Other Alternatives
+
 For other options that are not covered in the Handbook, see the full list of available [bootloaders](https://wiki.gentoo.org/wiki/Bootloader).
 
 
+
+## Rebooting the system
 
 Exit the chrooted environment and unmount all mounted partitions. Then type in that one magical command that initiates the final, true test: reboot.
 
@@ -2839,6 +3512,8 @@ Once rebooted in the fresh Gentoo environment, continue to the [Finalizing the G
 
 
 
+## Portage maintenance
+
 Portage by default preserves copies of downloaded files, on local storage: source tarballs in /var/cache/distfiles and binary packages in /var/cache/binhost/gentoo. If an update downloads a newer version of these files, the earlier versions are still preserved.
 
 It's good practice on a Gentoo system to keep the current versions of these source tarballs and binary packages, to be able to recover systems, in case of file corruption for example (after a certain amount of time, there isn't always a guarantee that these files will still be available for download).
@@ -2856,6 +3531,10 @@ For cleaning old source tarballs, use:
 For cleaning old binpkgs, use:
 
 `root #``eclean-pkg`
+## User administration
+
+### Adding a user for daily use
+
 Working as root on a Unix/Linux system is dangerous and should be avoided as much as possible. Therefore it is strongly recommended to add one or more standard user account(s) for day-to-day use.
 
 The groups the user is member of define what activities the user can perform. The following table lists a number of important groups:
@@ -2886,7 +3565,11 @@ useradd -m -G users,wheel,audio -s /bin/bash larry
 Password: (Enter the password for larry)
 Re-enter password: (Re-enter the password to verify)
 
+### Temporarily elevating privileges
+
 If a user ever needs to perform some task as root, they can use su - to temporarily receive root privileges. Another way is to use the [sudo](https://wiki.gentoo.org/wiki/Sudo) ([app-admin/sudo](https://packages.gentoo.org/packages/app-admin/sudo)) or [doas](https://wiki.gentoo.org/wiki/Doas) ([app-admin/doas](https://packages.gentoo.org/packages/app-admin/doas)) utilities which are, if correctly configured, very secure.
+
+### Disabling root login
 
 To prevent possible threat actors from logging in as root, deleting the root password and/or disabling root login can help improve security.
 
@@ -2896,12 +3579,20 @@ To disable root login:
 To delete the root password and disable login:
 
 `root #``passwd -dl root`
+## Disk cleanup
+
+### Removing installation artifacts
+
 With the Gentoo installation finished and the system rebooted, if everything has gone well, the stage file and other installation artifacts - such as DIGEST, CONTENT, or \*.asc (PGP signature) files - can now be safely removed.
 
 The files are located in the / directory and can be removed with the following command:
 
 `root #``rm /stage3-*.tar.*`
+## Where to go from here
+
 Not sure where to go from here? There are many paths to explore... Gentoo provides its users with lots of possibilities and therefore has lots of documented (and less documented) features to explore here on the wiki and on other Gentoo related sub-domains (see the [Gentoo online](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/Finalizing#Gentoo_online) section below).
+
+### Additional documentation
 
 It is important to note that, due to the number of choices available in Gentoo, the documentation provided by the handbook is limited in scope - it mainly focuses on the basics of getting a Gentoo system up and running and basic system management activities. The handbook intentionally excludes instructions on graphical environments, details on hardening, and other important administrative tasks. That being stated, there are more sections of the handbook to assist readers with more basic functions.
 
@@ -2913,15 +3604,27 @@ The majority of users with desktop use cases will setup graphical environments i
 
 Many other [Meta articles](https://wiki.gentoo.org/wiki/Category:Meta) exist to provide our readers with high level overviews of available software within Gentoo.
 
+### Gentoo online
+
 With the exception of the Libera.Chat hosted internet relay chat (IRC) network and the mailing lists, most Gentoo websites require an account on a per site basis in order to ask questions, open a discussion, or enter a bug.
+
+#### Forums and IRC
 
 Every user is welcome on our [Gentoo forums](https://forums.gentoo.org) or on one of our [internet relay chat channels](https://www.gentoo.org/get-involved/irc-channels/). It is easy to search for the forums to see if an issue experienced on a fresh Gentoo install has been discovered in the past and resolved after some feedback. The likelihood of other users experiencing the installation issues by first-time Gentoo can be surprising. It is advised users search the forums and the wiki before asking for assistance in Gentoo support channels.
 
+#### Mailing lists
+
 [Several mailing lists](https://www.gentoo.org/get-involved/mailing-lists/) are available to the community members who prefer to ask for support or feedback over email rather than create a user account on the forums or IRC. Users will need to follow the instructions in order to subscribe to specific mailing lists.
+
+#### Bugs
 
 Sometimes after reviewing the wiki, searching the forums, and seeking support in the IRC channel or mailing lists there is no known solution to a problem. Generally this is a sign to open a bug on Gentoo's [Bugzilla site](https://bugs.gentoo.org).
 
+#### Development guide
+
 Readers who desire to learn more about developing Gentoo can take a look at the [Development guide](https://devmanual.gentoo.org/). This guide provides instructions on writing ebuilds, working with eclasses, and provides definitions for many [general concepts](https://devmanual.gentoo.org/general-concepts/index.html) behind Gentoo development.
+
+## Closing thoughts
 
 Gentoo is a robust, flexible, and excellently maintained distribution. The developer community is happy to hear feedback on how to make Gentoo an even *better* distribution.
 

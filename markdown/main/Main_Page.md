@@ -4,8 +4,8 @@ title: Gentoo Wiki
 url: https://wiki.gentoo.org/wiki/Main_Page
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-13"
-fingerprint: f8b6bb4276836354
+date: "2026-10-14"
+fingerprint: f8f6ba4376836374
 license: CC BY-SA 4.0
 ---
 
@@ -69,8 +69,8 @@ For questions *related to using or editing the documentation on the <u>wiki</u>*
 
 ## Recently added pages
 
+- [14:15, 14 October 2026](https://wiki.gentoo.org/index.php?title=Nano/fr&oldid=1459744) [Nano/fr](https://wiki.gentoo.org/wiki/Nano/fr) ([hist](https://wiki.gentoo.org/index.php?title=Nano/fr&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Nano/fr&action=edit)) \[4,348 bytes\] [Resowifix](https://wiki.gentoo.org/index.php?title=User:Resowifix&action=edit&redlink=1) ([talk](https://wiki.gentoo.org/index.php?title=User_talk:Resowifix&action=edit&redlink=1) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Resowifix))  (Created page with "Nano")
 - [00:26, 13 October 2026](https://wiki.gentoo.org/index.php?title=NTPsec&oldid=1459645) [NTPsec](https://wiki.gentoo.org/wiki/NTPsec) ([hist](https://wiki.gentoo.org/index.php?title=NTPsec&action=history) | [edit](https://wiki.gentoo.org/index.php?title=NTPsec&action=edit)) \[846 bytes\] [Flexibeast](https://wiki.gentoo.org/wiki/User:Flexibeast) ([talk](https://wiki.gentoo.org/wiki/User_talk:Flexibeast) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Flexibeast))  (Create page.)
 - [15:22, 11 October 2026](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Include&oldid=1459608) [Nftables/Rules/Include](https://wiki.gentoo.org/wiki/Nftables/Rules/Include) ([hist](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Include&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Include&action=edit)) \[2,123 bytes\] [Egberts](https://wiki.gentoo.org/wiki/User:Egberts) ([talk](https://wiki.gentoo.org/wiki/User_talk:Egberts) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Egberts))  (Initial release, new outline)
 - [21:05, 10 October 2026](https://wiki.gentoo.org/index.php?title=Swaybg&oldid=1459583) [Swaybg](https://wiki.gentoo.org/wiki/Swaybg) ([hist](https://wiki.gentoo.org/index.php?title=Swaybg&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Swaybg&action=edit)) \[1,185 bytes\] [Kariga](https://wiki.gentoo.org/wiki/User:Kariga) ([talk](https://wiki.gentoo.org/index.php?title=User_talk:Kariga&action=edit&redlink=1) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Kariga))  (Initial swaybg page)
 - [20:07, 10 October 2026](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Ip6_saddr&oldid=1459573) [Nftables/Rules/Ip6 saddr](https://wiki.gentoo.org/wiki/Nftables/Rules/Ip6_saddr) ([hist](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Ip6_saddr&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Ip6_saddr&action=edit)) \[2,209 bytes\] [Egberts](https://wiki.gentoo.org/wiki/User:Egberts) ([talk](https://wiki.gentoo.org/wiki/User_talk:Egberts) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Egberts))  (Initial layout for 'ip6 saddr')  originally created as "Ip6 saddr"
-- [20:02, 10 October 2026](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Ip_saddr&oldid=1459571) [Nftables/Rules/Ip saddr](https://wiki.gentoo.org/wiki/Nftables/Rules/Ip_saddr) ([hist](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Ip_saddr&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Ip_saddr&action=edit)) \[2,219 bytes\] [Egberts](https://wiki.gentoo.org/wiki/User:Egberts) ([talk](https://wiki.gentoo.org/wiki/User_talk:Egberts) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Egberts))  (Created page with "The {{c|ip saddr}} [Article description::expression matches the source IPv4 address in the packet header.](https://wiki.gentoo.org/index.php?title=Article_description::expression_matches_the_source_IPv4_address_in_the_packet_header.&action=edit&redlink=1) == Evaluation ==  The {{c|ip saddr}} expression compares the pack...")

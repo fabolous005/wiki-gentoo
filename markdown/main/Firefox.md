@@ -4,7 +4,7 @@ title: Firefox
 url: https://wiki.gentoo.org/wiki/Firefox
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-13"
+date: "2026-10-14"
 fingerprint: de4cd0d53c83eb65
 license: CC BY-SA 4.0
 ---

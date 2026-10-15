@@ -4,7 +4,7 @@ title: OpenRC
 url: https://wiki.gentoo.org/wiki/OpenRC
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-09"
+date: "2026-10-14"
 fingerprint: b618bb590ba38a84
 license: CC BY-SA 4.0
 ---
@@ -311,7 +311,7 @@ User services are services that run as the specific user they belong to. OpenRC 
 
 OpenRC user services require `XDG_RUNTIME_DIR` to be set, since user services store state in ${XDG\_RUNTIME\_DIR}/openrc/; thus, a mechanism for setting `XDG_RUNTIME_DIR` is required. That could be [elogind](https://wiki.gentoo.org/wiki/Elogind), [sys-auth/pam\_xdg](https://packages.gentoo.org/packages/sys-auth/pam_xdg), the shell's configuration file(s), or any other method of creating the directory and setting the environment variable, e.g. as described [here](https://wiki.gentoo.org/wiki/Configuring_a_system_without_elogind#Environment_variables).
 
-While system OpenRC service scripts are loaded from /etc/init.d/, scripts for user services are loaded from /etc/user/init.d/.
+While system OpenRC service scripts are loaded from /etc/init.d/, scripts for user services are loaded from /etc/user/init.d/ and ${XDG\_CONFIG\_HOME}/rc/init.d/.
 
 Configurations for particular user services are located in /etc/user/conf.d/. Configuration options defined in ${XDG\_CONFIG\_HOME}/rc/conf.d/ override options set in /etc/user/conf.d/, and options set in ${XDG\_CONFIG\_HOME}/rc/rc.conf override those in /etc/rc.conf. If `XDG_CONFIG_HOME` is unset, OpenRC uses \~/.config as a default value.
 

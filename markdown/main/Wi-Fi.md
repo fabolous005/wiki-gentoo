@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Wi-Fi
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-03-05"
-fingerprint: b59d987990a31721
+fingerprint: "3f9d985990231324"
 license: CC BY-SA 4.0
 ---
 
@@ -20,6 +20,8 @@ This article describes the setup of a [Wi-Fi](https://en.wikipedia.org/wiki/Wi-F
 ## Wi-Fi during installation
 
 If a Wi-Fi connection is needed while installing Gentoo, then it is recommended to use [NetworkManager](https://wiki.gentoo.org/wiki/NetworkManager) which can be configured on the LiveGUI from the system tray, or from the minimal install CD, by running the nmtui and following the on-screen instructions.
+
+## Hardware detection
 
 First detect the Wi-Fi controllers. [lspci](https://wiki.gentoo.org/wiki/Hardware_detection) or [lsusb](https://wiki.gentoo.org/wiki/Hardware_detection) are command-line tools that can be used for this task.
 
@@ -47,24 +49,84 @@ This command produces a list of all drivers, regardless of the device being PCI 
 
 With the drivers identified, it is time to configure the Linux kernel.
 
+### IEEE 802.11
+
 Activate at least [cfg80211](https://wireless.wiki.kernel.org/en/developers/documentation/cfg80211) (`CONFIG_CFG80211`) and [mac80211](https://wireless.wiki.kernel.org/en/developers/documentation/mac80211) (`CONFIG_MAC80211`).
 
 **linux-4.19 example**
 
+```
+[*] Networking support  --->
+    [*] Wireless  --->
+        <M>   cfg80211 - wireless configuration API
+        [ ]     nl80211 testmode command
+        [ ]     enable developer warnings
+        [ ]     cfg80211 certification onus
+        [*]     enable powersave by default
+        [ ]     cfg80211 DebugFS entries
+        [ ]     support CRDA
+        [ ]     cfg80211 wireless extensions compatibility
+        <M>   Generic IEEE 802.11 Networking Stack (mac80211)
+        [*]   Minstrel
+        [*]     Minstrel 802.11n support
+        [ ]       Minstrel 802.11ac support
+              Default rate control algorithm (Minstrel)  --->
+        [ ]   Enable mac80211 mesh networking (pre-802.11s) support
+        -*-   Enable LED triggers
+        [ ]   Export mac80211 internals in DebugFS
+        [ ]   Trace all mac80211 debug messages
+        [ ]   Select mac80211 debugging features  ----
+```
 Minstrel and its 802.11n support is a [rate control algorithm](https://wireless.wiki.kernel.org/en/developers/Documentation/mac80211/RateControl/minstrel). Some wireless drivers might require it enabled.
 
 ### WEXT
 
 The "cfg80211 wireless extensions compatibility" option aka WEXT will support old [wireless-tools](https://wiki.gentoo.org/wiki/Handbook:AMD64/Networking/Wireless#Wireless_tools) and iwconfig.
 
+```
+[*] Networking support  --->
+    [*] Wireless  --->
+        [*]     cfg80211 wireless extensions compatibility
+```
 ### Device drivers
 
 Next the right set of corresponding kernel options need to be enabled, based on the drivers and hardware detected previously. The [recommendation](https://forums.gentoo.org/viewtopic-p-7640140.html#7640140) is to build [drivers as modules](https://wiki.gentoo.org/wiki/Kernel_Modules#Compile-in-kernel_modules_vs_Loadable_kernel_modules_.28LKMs.29). Also be sure to enable AES cipher support in the kernel if the wireless network uses WPA or WPA2 encryption.
 
+```
+Device Drivers  --->
+    [*] Network device support  --->
+        [*] Wireless LAN  --->
+ 
+            Select the driver for your Wifi network device, e.g.:
+            <M> Broadcom 43xx wireless support (mac80211 stack) (b43)
+            [M]    Support for 802.11n (N-PHY) devices
+            [M]    Support for low-power (LP-PHY) devices
+            [M]    Support for HT-PHY (high throughput) devices
+            <M> Intel Wireless WiFi Next Gen AGN - Wireless-N/Advanced-N/Ultimate-N (iwlwifi)
+            <M>    Intel Wireless WiFi DVM Firmware support                             
+            <M>    Intel Wireless WiFi MVM Firmware support
+            <M> Intel Wireless WiFi 4965AGN (iwl4965)
+            <M> Intel PRO/Wireless 3945ABG/BG Network Connection (iwl3945)
+            <M> Ralink driver support  --->
+                <M>   Ralink rt27xx/rt28xx/rt30xx (USB) support (rt2800usb)
+ 
+-*- Cryptographic API --->
+    Accelerated Cryptographic Algorithms for CPU (x86)  --->
+       <*> Ciphers: AES, modes: ECB, CBC, CTS, CTR, XTR, XTS, GCM (AES-NI)
+```
 ### LED support
 
 To enable LED triggers for different packet receive/transmit events, compile the kernel with the following options:
 
+```
+Device Drivers  --->
+    [*] LED Support  --->
+        <*>   LED Class Support
+ 
+[*] Networking support  --->
+    [*] Wireless  --->
+        [*] Enable LED triggers
+```
 ## Firmware
 
 In addition to the kernel driver, some chipsets (especially modern ones) also require firmware. If required, locate it on the following list and install it:
@@ -102,6 +164,8 @@ After a reboot with the new kernel or after loading the modules, the device can 
 - Using the [ifconfig command](https://wiki.gentoo.org/wiki/Wifi/Testing#ifconfig_command)
 - Using the [iw command](https://wiki.gentoo.org/wiki/Wifi/Testing#iw_command)
 
+### /sys file system
+
 Get the device name by listing the /sys/class/net directory contents using ls -al or the tree command (provided by the [app-text/tree](https://packages.gentoo.org/packages/app-text/tree) package):
 
 `user $``tree /sys/class/net`
@@ -111,6 +175,10 @@ Get the device name by listing the /sys/class/net directory contents using ls -a
 ├── sit0 -> ../../devices/virtual/net/sit0
 └── wlp8s0 -> ../../devices/pci0000:00/0000:00:1c.0/0000:08:00.0/net/wlp8s0
 
+
+
+### ip command
+
 To obtain the device name and verify that the wireless card is detected, execute the following [ip command](https://wiki.gentoo.org/wiki/Iproute2):
 
 `user $``ip addr`
@@ -119,6 +187,8 @@ To obtain the device name and verify that the wireless card is detected, execute
 A network card can be activated as follows:
 
 `root #``ip link set wlan0 up`
+### ifconfig command
+
 The ifconfig command is provided through the [sys-apps/net-tools](https://packages.gentoo.org/packages/sys-apps/net-tools) package. Use ifconfig -a to list all detected network cards, even those that are not enabled/active yet:
 
 `user $``ifconfig -a`
@@ -131,6 +201,8 @@ SIOCSIFFLAGS: Operation not possible due to RF-kill
 WARNING: at least one error occurred. (-1)
 
 In this example, enabling the wireless card failed as a radio frequency kill state is set (usually to reduce power consumption and not connect by accident to a wireless network).
+
+### iw command
 
 If the wireless network card driver supports the nl80211 stack, then the iw command as offered by the [net-wireless/iw](https://packages.gentoo.org/packages/net-wireless/iw) package can show the detected wireless cards:
 

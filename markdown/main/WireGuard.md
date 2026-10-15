@@ -4,7 +4,7 @@ title: WireGuard
 url: https://wiki.gentoo.org/wiki/WireGuard
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-08-21"
+date: "2026-10-14"
 fingerprint: fd1ac5a5c6109c3
 license: CC BY-SA 4.0
 ---
@@ -19,7 +19,7 @@ license: CC BY-SA 4.0
 
 **WireGuard** is a modern, simple, and secure VPN that utilizes state-of-the-art cryptography. Considered an alternative to [OpenVPN](https://wiki.gentoo.org/wiki/OpenVPN), it can be used to create secure connections. Its goals are to be fast, simple, lean, and easy to configure. Wireguard consists of two components: userspace tools and a kernel module.
 
-Wireguard is written and maintained by [Jason A. Donenfeld (zx2c4)](https://wiki.gentoo.org/wiki/User:Zx2c4)
+Wireguard is written and maintained by [Jason A. Donenfeld (zx2c4)](https://wiki.gentoo.org/wiki/User:Zx2c4) , a Gentoo developer.
 
 Official and potentially more up-to-date installation instructions can be [found upstream](https://www.wireguard.com/install/).
 
@@ -31,8 +31,19 @@ Starting with Linux kernel 5.6, Wireguard is included in the upstream kernel sou
 
 **Enable`CONFIG_WIREGUARD`**
 
+```
+Device Drivers  --->
+    [*] Network device support  --->
+        [*] Network core driver support
+        <*>   WireGuard secure network tunnel
+```
 ### USE flags
 
+
+### USE flags for
+            [net-vpn/wireguard-tools](https://packages.gentoo.org/packages/net-vpn/wireguard-tools)
+            
+            Required tools for WireGuard, such as wg(8) and wg-quick(8)
 
 ### Emerge
 
@@ -49,6 +60,9 @@ Create a new file in the /etc/modules-load.d/ directory in order to instruct the
 
 **`/etc/modules-load.d/wireguard.conf`**
 
+```
+wireguard
+```
 Or if VPN access is not needed very often, load kernel module manually:
 
 `root #``modprobe wireguard`
@@ -112,7 +126,7 @@ rc-update add wg-quick.wg0 default
 ```
 To bring up the interface now:
 
-`root #``/etc/init.d/wg-quick.wg0 start`
+`root #``rc-service wg-quick.wg0 start`
 
 
 #### netifrc
@@ -124,6 +138,9 @@ Using the `wg-quick` USE flag will add [virtual/resolvconf](https://packages.gen
 
 **`/etc/portage/package.use/wireguard`**
 
+```
+net-vpn/wireguard-tools -wg-quick
+```
 
 Copy the following netifrc configuration file to /etc/conf.d/net and edit the interfaces as needed to work with the machine:
 
@@ -270,6 +287,9 @@ Using the `wg-quick` USE flag will add [virtual/resolvconf](https://packages.gen
 
 **`/etc/portage/package.use/wireguard`**
 
+```
+net-vpn/wireguard-tools -wg-quick
+```
 
 Now, this implementation involves copy-pasting a WireGuard configuration file, some scripts, and optionally setting up a cron job for automated starting of the WireGuard interface.
 

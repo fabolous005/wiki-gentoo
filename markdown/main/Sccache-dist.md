@@ -4,8 +4,8 @@ title: sccache-dist
 url: https://wiki.gentoo.org/wiki/Sccache-dist
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-09-26"
-fingerprint: e621a25bb161b953
+date: "2026-10-14"
+fingerprint: e629aa5a9021b911
 license: CC BY-SA 4.0
 ---
 
@@ -216,7 +216,11 @@ systemctl start sccache-client
 
 Add `SCCACHE_LOG=debug` to the environment variables of the sccache scheduler/server/client process.
 
-#### Package fails to build
+#### Package fails to build due error code 132
+
+Compilation failing due to code 132 (SIGILL) may mean you have set `march`, `mtune` or other compilation flags that are not compatible between the distributed compilation hosts.
+
+#### Package fails to build due to limitations of sccache
 
 Setting CC/CXX/CPP and RUSTC\_WRAPPER together can break some Rust builds. The sccache compiler ends up using /usr/libexec/sccache/xxx as linker, causing sccache to call itself, which results in a hanging state.
 
@@ -242,5 +246,5 @@ Disable sccache for the package in /etc/portage/package.env:
 **`/etc/portage/package.env`**
 
 ```
- disable-sccache
+app-arch/xz-utils disable-sccache
 ```

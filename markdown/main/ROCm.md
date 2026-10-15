@@ -4,8 +4,8 @@ title: ROCm
 url: https://wiki.gentoo.org/wiki/ROCm
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2025-11-08"
-fingerprint: "949b1e5a40573f28"
+date: "2026-10-14"
+fingerprint: "969b1a5a40d73f28"
 license: CC BY-SA 4.0
 ---
 
@@ -22,6 +22,8 @@ In the scope of Gentoo distribution, "ROCm" refers to ROCm open software platfor
 ROCm is somewhat analogous to [CUDA](https://en.wikipedia.org/wiki/CUDA) in the sense of providing an API ([HIPAMD](https://wiki.gentoo.org/wiki/HIP)) whose usage is in the same spirit: simplified kernels-based GPU programming. It also provides OpenCL and OpenMP  and programming models. Note that ROCm is not the only way to run compute tasks on AMD GPUs as Mesa3D ([media-libs/mesa](https://packages.gentoo.org/packages/media-libs/mesa)) also provides this capability over its own OpenCL and Vulkan APIs.
 
 ### Components of ROCm
+
+[ROCm can be classified into five categories](https://www.amd.com/en/graphics/servers-solutions-rocm):
 
 1. Drivers and runtimes, provided by the amdgpu kernel model and `dev-libs/roct-thunk-interface` and `dev-libs/rocr-runtime`.
 2. Programming models. See [ROCm#Programming\_models](https://wiki.gentoo.org/wiki/ROCm#Programming_models) for details.
@@ -43,6 +45,18 @@ A full list of officially supported hardware can be [found on AMD's ROCm documen
 
 The following kernel configuration options have be ticked:
 
+```
+Device Drivers --->
+  Graphics Support --->
+    <M> AMD GPU
+    [ ]   Enable amdgpu support for SI parts
+    [ ]   Enable amdgpu support for CIK parts
+    -*-   Always enable userptr write support
+    ACP (Audio CoProcessor) Configuration  --->
+    Display Engine Configuration  --->
+    [*]   HSA kernel driver for AMD GPU devices
+    [*]     Enable HMM-based shared virtual memory manager
+```
 ##### Kernel command line parameters
 
 The defaults options values for the AMDGPU kernel module are adequate and provide a stable configuration. Under some circumstances it is possible to override various options (see drivers/gpu/drm/amd/amdgpu/amdgpu\_drv.c in the Linux kernel source tree for a detailed description of those).
@@ -65,9 +79,9 @@ Some user reports also suggest that iommu pass-through mode decreases the possib
 
 #### Users privileges
 
-Using ROCm requires access to the character device /dev/kfd which is owned by `root:video`. Thus any user wanting to use ROCm should be included in the video group. This is achieved via:
+Using ROCm requires access to the character device /dev/kfd which is owned by `root:render`. Thus any user wanting to use ROCm should be included in the render group. This is achieved via:
 
-`user $``usermod -a -G video larry`
+`user $``usermod -a -G render larry`
 #### System monitoring tools
 
 [dev-util/rocm-smi](https://packages.gentoo.org/packages/dev-util/rocm-smi) provides various information about the underlying AMD GPU devices such as the die temperature, the current clock speeds and VRAM usage. To install it:
@@ -270,6 +284,7 @@ LLVM\_TARGETS="AMDGPU BPF X86"
 
 ***Package.use for offloading OpenMP on AMDGPU***
 
+*llvm-core/clang-runtime openmp*
 
 Then re-emerge [llvm-core/clang-runtime](https://packages.gentoo.org/packages/llvm-core/clang-runtime) (should kick [llvm-runtimes/openmp](https://packages.gentoo.org/packages/llvm-runtimes/openmp) in as a dependency):
 

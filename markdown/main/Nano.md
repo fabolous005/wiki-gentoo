@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Nano
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-05-14"
-fingerprint: "1c83c73ac3a6bb6a"
+fingerprint: "1483873ad3a6bb4a"
 license: CC BY-SA 4.0
 ---
 
@@ -26,6 +26,11 @@ nano's small size, portability, and ease of use, have lead to it being the edito
 
 ### USE flags
 
+
+### USE flags for
+            [app-editors/nano](https://packages.gentoo.org/packages/app-editors/nano)
+            
+            GNU GPL'd Pico clone with more functionality
 
 | [+spell](https://packages.gentoo.org/useflags/+spell) | Add dictionary support | 
 | [debug](https://packages.gentoo.org/useflags/debug) | Enable debug messages and assert warnings. Note that these will all be sent straight to stderr rather than some logging facility. | 
@@ -91,6 +96,10 @@ Copy the plugin into the \~/.nano directory, then reference it with a include st
 
 **Apply ebulid specific syntax highlighting for nano**
 
+```
+# Ebuild specific highlighting
+include "~/.nano/gentoo.nanorc"
+```
 ## See also
 
 - [Knowledge Base:Edit a configuration file](https://wiki.gentoo.org/wiki/Knowledge_Base:Edit_a_configuration_file)
