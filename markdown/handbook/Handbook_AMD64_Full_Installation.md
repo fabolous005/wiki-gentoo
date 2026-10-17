@@ -1882,7 +1882,7 @@ Inspect the output manually if curious:
 `root #``cpuid2cpuflags`
 Then copy the output into package.use:
 
-`root #``echo "*/* $(cpuid2cpuflags)" > /etc/portage/package.use/00cpu-flags`
+`root #``echo "$(cpuid2cpuflags)" > /etc/portage/package.use/00cpu-flags`
 #### VIDEO\_CARDS
 
 By default a profile already sets a few video cards. For many reasons this is not ideal, but a useful safety net.

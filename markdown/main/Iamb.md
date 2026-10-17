@@ -4,7 +4,7 @@ title: iamb
 url: https://wiki.gentoo.org/wiki/Iamb
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-09"
+date: "2026-10-16"
 fingerprint: f21147592b7c3faa
 license: CC BY-SA 4.0
 ---

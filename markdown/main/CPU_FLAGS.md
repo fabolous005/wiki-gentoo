@@ -4,7 +4,7 @@ title: CPU_FLAGS_*
 url: https://wiki.gentoo.org/wiki/CPU_FLAGS_*
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2024-10-24"
+date: "2026-10-15"
 fingerprint: b681565d78b399d4
 license: CC BY-SA 4.0
 ---
@@ -41,7 +41,7 @@ These variables need to be set as `CPU_FLAGS_X86` (`CPU_FLAGS_ARM`, `CPU_FLAGS_P
 
 ```
 # This is just an example, please run the 'cpuid2cpuflags' tool to get an appropriate value for each system!
-*/* cpu_flags_x86: aes avx avx2 f16c fma3 mmx mmxext pclmul popcnt rdrand sse sse2 sse3 sse4_1 sse4_2 ssse3
+*/* CPU_FLAGS_X86: aes avx avx2 f16c fma3 mmx mmxext pclmul popcnt rdrand sse sse2 sse3 sse4_1 sse4_2 ssse3
 ```
 When in doubt, consult the flag descriptions using one of the commonly available tools, e.g. equery uses from [app-portage/gentoolkit](https://packages.gentoo.org/packages/app-portage/gentoolkit):
 
@@ -58,11 +58,11 @@ Most of the flag names match /proc/cpuinfo names, with the notable exception of 
 ### Invocation
 
 `user $``cpuid2cpuflags`
-CPU\_FLAGS\_X86: mmx mmxext sse sse2 sse3
+\*/\* CPU\_FLAGS\_X86: mmx mmxext sse sse2 sse3
 
 Example to apply globally:
 
-`root #``echo "*/* $(cpuid2cpuflags)" > /etc/portage/package.use/00cpu-flags`
+`root #``echo "$(cpuid2cpuflags)" > /etc/portage/package.use/00cpu-flags`
 ## External resources
 
 - News item: [new CPU\_FLAGS\_PPC USE\_EXPAND](https://gentoo.org/support/news-items/2019-09-11-cpu_flags_ppc-introduction.html)

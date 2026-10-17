@@ -4,8 +4,8 @@ title: Lenovo ThinkBook 14 G6 IRL
 url: https://wiki.gentoo.org/wiki/Lenovo_ThinkBook_14_G6_IRL
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-08"
-fingerprint: ae19dd2d51a63323
+date: "2026-10-16"
+fingerprint: "3e195d3551a2b323"
 license: CC BY-SA 4.0
 ---
 
@@ -167,7 +167,68 @@ Note: without microcode for CPU.
 
 ### Supported options
 
-## Minor disadvantages
+## ALSA config per user
+
+**`~/.asoundrc`**
+
+```
+pcm.speakers {
+    type plug
+    slave.pcm {
+        type dmix
+        ipc_key 2048
+        slave {
+            pcm "hw:1,0"
+            rate 48000
+            format S32_LE
+            channels 2
+        }
+    }
+}
+# ---- Card 0: Loopback playback (SHARED) ----
+pcm.loop_out {
+    type plug
+    slave.pcm {
+        type dmix
+        ipc_key 1024
+        slave {
+            pcm "hw:0,1"
+            rate 48000
+            format S32_LE
+            channels 2
+        }
+    }
+}
+# ---- Card 1: sof-hda-dsp Exclusive (leave as-is; capture can't be mixed) ----
+pcm.loop_in    { type hw; card 0; device 0; }
+pcm.mic        { type hw; card 1; device 0; }
+pcm.hdmi1      { type hw; card 1; device 3; }
+pcm.hdmi2      { type hw; card 1; device 4; }
+pcm.hdmi3      { type hw; card 1; device 5; }
+pcm.deepbuffer { type hw; card 1; device 31; }
+pcm.!default {
+    type asym
+    playback.pcm { type plug; slave.pcm "speakers" }
+    capture.pcm  { type plug; slave.pcm "mic" }
+}
+ctl.!default { type hw; card 1; }
+```
+To check microphone:
+
+`user $````
+arecord -D hw:1,0 -f cd -V mono -d 5 /tmp/mic.wav
+```
+`user $````
+arecord -D mic -f cd -d 5 /tmp/mic.wav
+```
+To check output capabilities FORMAT, RATE, CHANNELS:
+
+`user $````
+aplay -D hw:0,1 --dump-hw-params /dev/zero
+```
+
+
+## Hardware: Minor disadvantages
 
 Pressure on laptop cover goes directly to display and potentially may break it.
 

@@ -4,7 +4,7 @@ title: Binary package guide
 url: https://wiki.gentoo.org/wiki/Binary_package_guide
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-03"
+date: "2026-10-16"
 tags: ['v3.0.31']
 fingerprint: "21211e3fa1575f92"
 license: CC BY-SA 4.0
@@ -84,12 +84,12 @@ When changing `-march` to a lower subset for using binary packages on a client, 
 Similarly, [app-portage/cpuid2cpuflags](https://packages.gentoo.org/packages/app-portage/cpuid2cpuflags) can be used to find a suitable subset of processor specific instruction set USE flags. For example, the host might return:
 
 `user $``cpuid2cpuflags`
-CPU\_FLAGS\_X86: aes avx avx2 f16c fma3 mmx mmxext pclmul popcnt rdrand sse sse2 sse3 sse4\_1 sse4\_2 ssse3
+\*/\* CPU\_FLAGS\_X86: aes avx avx2 f16c fma3 mmx mmxext pclmul popcnt rdrand sse sse2 sse3 sse4\_1 sse4\_2 ssse3
 
 While the client might return:
 
 `user $``cpuid2cpuflags`
-CPU\_FLAGS\_X86: avx f16c mmx mmxext pclmul popcnt sse sse2 sse3 sse4\_1 sse4\_2 ssse3
+\*/\* CPU\_FLAGS\_X86: avx f16c mmx mmxext pclmul popcnt sse sse2 sse3 sse4\_1 sse4\_2 ssse3
 
 In this example `CPU_FLAGS_X86` can be set to `avx f16c mmx mmxext pclmul popcnt sse sse2 sse3 sse4_1 sse4_2 ssse3` in /etc/portage/make.conf because these flags are supported by both the client and the host
 

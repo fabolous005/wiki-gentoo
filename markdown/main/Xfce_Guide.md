@@ -11,6 +11,8 @@ license: CC BY-SA 4.0
 
 # Xfce/Guide
 
+[Xfce](https://wiki.gentoo.org/wiki/Special:MyLanguage/Xfce)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)

@@ -4,8 +4,8 @@ title: nano
 url: https://wiki.gentoo.org/wiki/Nano
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-05-14"
-fingerprint: "1483873ad3a6bb4a"
+date: "2026-10-15"
+fingerprint: "1483873ad3a6bb6a"
 license: CC BY-SA 4.0
 ---
 
@@ -94,7 +94,7 @@ Copy the plugin into the \~/.nano directory, then reference it with a include st
 
 **`~/.nanorc`**
 
-**Apply ebulid specific syntax highlighting for nano**
+**Apply ebuild specific syntax highlighting for nano**
 
 ```
 # Ebuild specific highlighting

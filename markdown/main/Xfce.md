@@ -7,7 +7,7 @@ hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-04-20"
 categories: ['xfce-extra']
-fingerprint: f451e65b0293b1f0
+fingerprint: f451e65b0293b1b0
 license: CC BY-SA 4.0
 ---
 
@@ -38,6 +38,9 @@ The package [app-text/poppler](https://packages.gentoo.org/packages/app-text/pop
 
 **Unset qt6 USE flag for poppler**
 
+```
+app-text/poppler -qt6
+```
 Of course, `-qt6` can also added to /etc/portage/make.conf, to unset the flag globally, if desired.
 
 ### xfce4-notifyd
@@ -57,6 +60,11 @@ Now proceed with the installation.
 
 ### USE flags
 
+
+### USE flags for
+            [xfce-base/xfce4-meta](https://packages.gentoo.org/packages/xfce-base/xfce4-meta)
+            
+            The Xfce Desktop Environment (meta package)
 
 | [+svg](https://packages.gentoo.org/useflags/+svg) | Add support for SVG (Scalable Vector Graphics) | 
 | [archive](https://packages.gentoo.org/useflags/archive) | Install app-arch/xarchiver. | 
@@ -232,6 +240,10 @@ Xfce-screensaver uses gnome-keyring by default to authenticate. By applying the 
 
 **`/etc/pam.d/xfce4-screensaver`**
 
+```
+auth include system-auth
+password include system-auth
+```
 ### Authorization or permissions issues
 
 When experiencing authorization or permissions issues within xfce4 in an OpenRC profile (symptoms include being unable to open power manager and unable to suspend/hibernate) make sure that [sys-auth/elogind](https://packages.gentoo.org/packages/sys-auth/elogind) is installed and [properly configured](https://wiki.gentoo.org/wiki/Elogind), and that the `elogind` USE flag is globally enabled.
@@ -262,7 +274,7 @@ The custom script could look something like the following:
 **configuremonitors.sh**
 
 ```
- --output HDMI-A-0 --right-of DisplayPort-0 --auto
+xrandr --output HDMI-A-0 --right-of DisplayPort-0 --auto
 ```
 ### Desktop shows solid color instead of selected wallpaper
 
@@ -270,6 +282,9 @@ Enable `jpeg` and `tiff` USE flags for [x11-libs/gdk-pixbuf](https://packages.ge
 
 **`/etc/portage/package.use/xfce`**
 
+```
+x11-libs/gdk-pixbuf jpeg tiff
+```
 `root #``emerge --ask --changed-use x11-libs/gdk-pixbuf`
 ## See also
 

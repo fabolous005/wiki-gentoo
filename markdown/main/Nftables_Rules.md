@@ -4,7 +4,7 @@ title: Nftables/Rules
 url: https://wiki.gentoo.org/wiki/Nftables/Rules
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-10"
+date: "2026-10-15"
 fingerprint: a1be9b1af70bdd0f
 license: CC BY-SA 4.0
 ---
@@ -67,9 +67,7 @@ Statements act on matching packets. Common statements include counter, log, limi
 
 Non-terminal statements can precede a verdict.
 
-### log
-
-The log statement logs matching packets without terminating rule evaluation.
+An example of a statement that logs matching packets without terminating rule evaluation.
 
 **`/etc/nftables/rules.d/drop-logged.nft`**
 

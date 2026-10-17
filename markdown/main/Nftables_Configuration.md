@@ -4,8 +4,8 @@ title: Nftables/Configuration
 url: https://wiki.gentoo.org/wiki/Nftables/Configuration
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-07"
-fingerprint: d53af3d54b03a7ab
+date: "2026-10-15"
+fingerprint: d53af3d5eb03a7ab
 license: CC BY-SA 4.0
 ---
 
@@ -431,7 +431,7 @@ ulogd can receive NFLOG messages and process or record them.
 
 The log rule statement without group uses the kernel logging path. The group parameter selects NFLOG instead.
 
-
+For more detail on `log` statement, see [Nftables/Rules/Log](https://wiki.gentoo.org/wiki/Nftables/Rules/Log).
 
 ### Multiple nftables command files
 
@@ -517,7 +517,7 @@ With OpenRC, check /etc/conf.d/nftables for the saved-state configuration.
 - [nft](https://wiki.gentoo.org/wiki/Nft) — configures and inspects the Linux kernel's nftables packet handling framework
 - [Nftables/Ruleset](https://wiki.gentoo.org/wiki/Nftables/Ruleset)
 - [Nftables/Ruleset/Chain](https://wiki.gentoo.org/wiki/Nftables/Ruleset/Chain) — contains a group of rules used to process network traffic.
-- [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules)
+- [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules) — match packet properties and perform actions.
 - [Nftables/Configuration]
 - [nftables examples](https://wiki.gentoo.org/wiki/Nftables/Examples)
 - [Nftables](https://wiki.gentoo.org/wiki/User:Egberts/Drafts/Nftables) — the Linux packet-handling framework
