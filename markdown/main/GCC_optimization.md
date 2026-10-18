@@ -4,7 +4,7 @@ title: GCC optimization
 url: https://wiki.gentoo.org/wiki/GCC_optimization
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-07-27"
+date: "2026-10-17"
 fingerprint: a7819b082d231948
 license: CC BY-SA 4.0
 ---
@@ -140,7 +140,7 @@ Let us examine each optimization level:
 
 - `-Os`: optimizes code for size. It activates all `-O2` options that do not increase the size of the generated code. It can be useful for machines that have extremely limited disk storage space and/or CPUs with small cache sizes.
 
-- `-Oz`: Introduced in GCC 12.1, more aggressively optimize for size than `-Os`. Note this will heavily degrade runtime performance than `-O2`, due to increasing the number of instructions executed if those instructions require fewer bytes to encode.
+- `-Oz`: Introduced in GCC 12.1, more aggressively optimize for size than `-Os`. Note this will more heavily degrade runtime performance than `-Os`, due to increasing the number of instructions executed if those instructions require fewer bytes to encode.
 
 - `-Og`: In GCC 4.8, a new general optimization level, `-Og`, has been introduced. It addresses the need for fast compilation and a superior debugging experience while providing a reasonable level of runtime performance. Overall experience for development should be better than the default optimization level `-O0`.  Note that `-Og` does not imply `-g`, it simply disables optimizations that may interfere with debugging.
 

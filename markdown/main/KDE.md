@@ -4,9 +4,9 @@ title: KDE
 url: https://wiki.gentoo.org/wiki/KDE
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-10"
+date: "2026-10-17"
 categories: ['kde-apps', 'kde-misc']
-fingerprint: ab1ba24909a3b18c
+fingerprint: ab1baa4909a3b18c
 license: CC BY-SA 4.0
 ---
 
@@ -72,7 +72,7 @@ Make sure to have configured applicable `VIDEO_CARDS` USE expand settings and ke
 |---|---|---|---|
 | KDE Plasma 6.6.6 | kde-plasma/plasma-meta-6.6.6 | gentoo | Stable for **amd64** and **arm64**; testing for **loong**, **ppc64**, **riscv** and **x86** | 
 | KDE Plasma 6.7.5 | kde-plasma/plasma-meta-6.7.5 | gentoo | Stable for **amd64** and **arm64**; testing for **loong**, **ppc64**, **riscv** and **x86** | 
-| KDE Plasma 6.8 beta 2 | kde-plasma/plasma-meta-6.7.91 | [KDE](https://wiki.gentoo.org/wiki/KDE/Ebuild_repository) | Masked; testing for **amd64**, **arm64**, **ppc64**, **riscv** and **x86** | 
+| KDE Plasma 6.8.0 | kde-plasma/plasma-meta-6.8.0 | gentoo | Testing for **amd64** and **arm64** | 
 | KDE Plasma 6.7 stable branch | kde-plasma/plasma-meta-6.7.49.9999 | [KDE](https://wiki.gentoo.org/wiki/KDE/Ebuild_repository) | Live version | 
 | KDE Plasma 6.8 stable branch | kde-plasma/plasma-meta-6.8.49.9999 | [KDE](https://wiki.gentoo.org/wiki/KDE/Ebuild_repository) | Live version | 
 | KDE Plasma 6 master branch | kde-plasma/plasma-meta-9999 | [KDE](https://wiki.gentoo.org/wiki/KDE/Ebuild_repository) | Live version | 
@@ -89,6 +89,7 @@ The [kde-plasma/plasma-meta](https://packages.gentoo.org/packages/kde-plasma/pla
             
             Merge this to pull in all Plasma 6 packages
 
+| [+backup](https://packages.gentoo.org/useflags/+backup) | Pull in kde-plasma/kup for an integrated backup/restore solution | 
 | [+browser-integration](https://packages.gentoo.org/useflags/+browser-integration) | Enable integration with Chrome/Firefox with browser extensions | 
 | [+crash-handler](https://packages.gentoo.org/useflags/+crash-handler) | Pull in kde-plasma/drkonqi for assisted upstream crash reports | 
 | [+display-manager](https://packages.gentoo.org/useflags/+display-manager) | Pull in a graphical display manager | 
@@ -309,7 +310,6 @@ As Frameworks are mostly libraries and provide little user functionality, it's n
 | KDE | Gentoo | Ebuild repository | Status | 
 |---|---|---|---|
 | KDE Frameworks 6.29.0 | kde-frameworks/\*-6.29.0 | gentoo | Stable for **amd64**, **arm64** and **ppc64**; testing for **loong**, **riscv** and **x86** | 
-| KDE Frameworks 6.30.0 | kde-frameworks/\*-6.30.0 | gentoo | Testing for **amd64**, **arm64**, **loong**, **ppc64**, **riscv** and **x86** | 
 | KDE Frameworks 6.31.0 | kde-frameworks/\*-6.31.0 | gentoo | Testing for **amd64**, **arm64**, **loong**, **ppc64**, **riscv** and **x86** | 
 | KDE Frameworks 6 (master) branch | kde-frameworks/\*-9999 | [KDE](https://wiki.gentoo.org/wiki/KDE/Ebuild_repository) | Live version | 
 

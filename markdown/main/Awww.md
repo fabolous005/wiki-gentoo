@@ -4,7 +4,7 @@ title: awww
 url: https://wiki.gentoo.org/wiki/Awww
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-01-13"
+date: "2026-10-17"
 fingerprint: "2fd514870b95f9f4"
 license: CC BY-SA 4.0
 ---

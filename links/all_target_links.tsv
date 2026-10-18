@@ -201,7 +201,7 @@ Gentoo Wiki (Main)	Autotools	https://wiki.gentoo.org/wiki/Autotools	2024-07-29T0
 Gentoo Wiki (Main)	Avahi	https://wiki.gentoo.org/wiki/Avahi	2025-10-10T05:09:39Z
 Gentoo Wiki (Main)	Awesome	https://wiki.gentoo.org/wiki/Awesome	2025-10-04T16:01:17Z
 Gentoo Wiki (Main)	Awk	https://wiki.gentoo.org/wiki/Awk	2025-10-04T16:10:29Z
-Gentoo Wiki (Main)	Awww	https://wiki.gentoo.org/wiki/Awww	2026-01-13T22:58:16Z
+Gentoo Wiki (Main)	Awww	https://wiki.gentoo.org/wiki/Awww	2026-10-17T11:48:15Z
 Gentoo Wiki (Main)	BASIC	https://wiki.gentoo.org/wiki/BASIC	2025-12-29T01:11:34Z
 Gentoo Wiki (Main)	BIND	https://wiki.gentoo.org/wiki/BIND	2026-06-16T04:12:07Z
 Gentoo Wiki (Main)	BIND/Guide	https://wiki.gentoo.org/wiki/BIND/Guide	2025-10-26T11:39:07Z
@@ -756,6 +756,7 @@ Gentoo Wiki (Main)	FrOSCon 2023	https://wiki.gentoo.org/wiki/FrOSCon_2023	2023-0
 Gentoo Wiki (Main)	FrOSCon 2024	https://wiki.gentoo.org/wiki/FrOSCon_2024	2024-08-13T20:11:53Z
 Gentoo Wiki (Main)	FrOSCon 2025	https://wiki.gentoo.org/wiki/FrOSCon_2025	2025-05-08T09:53:55Z
 Gentoo Wiki (Main)	FrOSCon 2026	https://wiki.gentoo.org/wiki/FrOSCon_2026	2026-05-17T18:41:41Z
+Gentoo Wiki (Main)	Fractal	https://wiki.gentoo.org/wiki/Fractal	2026-10-17T08:05:54Z
 Gentoo Wiki (Main)	Framebuffer	https://wiki.gentoo.org/wiki/Framebuffer	2025-07-27T09:05:21Z
 Gentoo Wiki (Main)	Framework Expansion Cards	https://wiki.gentoo.org/wiki/Framework_Expansion_Cards	2026-04-28T11:54:12Z
 Gentoo Wiki (Main)	Framework Laptop 13	https://wiki.gentoo.org/wiki/Framework_Laptop_13	2026-04-28T11:51:42Z
@@ -770,7 +771,7 @@ Gentoo Wiki (Main)	Frotz	https://wiki.gentoo.org/wiki/Frotz	2025-04-14T14:20:43Z
 Gentoo Wiki (Main)	Frr	https://wiki.gentoo.org/wiki/Frr	2025-04-14T14:20:56Z
 Gentoo Wiki (Main)	Full Disk Encryption From Scratch	https://wiki.gentoo.org/wiki/Full_Disk_Encryption_From_Scratch	2026-05-31T13:49:31Z
 Gentoo Wiki (Main)	Full Encrypted Btrfs/Native System Root Guide	https://wiki.gentoo.org/wiki/Full_Encrypted_Btrfs/Native_System_Root_Guide	2025-01-19T21:27:56Z
-Gentoo Wiki (Main)	Full Encrypted System Root with Dracut USB Stick	https://wiki.gentoo.org/wiki/Full_Encrypted_System_Root_with_Dracut_USB_Stick	2026-07-25T09:32:55Z
+Gentoo Wiki (Main)	Full Encrypted System Root with Dracut USB Stick	https://wiki.gentoo.org/wiki/Full_Encrypted_System_Root_with_Dracut_USB_Stick	2026-10-17T09:19:13Z
 Gentoo Wiki (Main)	Full Source Bootstrap	https://wiki.gentoo.org/wiki/Full_Source_Bootstrap	2025-04-24T20:52:00Z
 Gentoo Wiki (Main)	Full manpages	https://wiki.gentoo.org/wiki/Full_manpages	2025-08-22T08:07:54Z
 Gentoo Wiki (Main)	Full manpages/emerge	https://wiki.gentoo.org/wiki/Full_manpages/emerge	2024-07-29T08:41:15Z
@@ -792,7 +793,7 @@ Gentoo Wiki (Main)	GCC	https://wiki.gentoo.org/wiki/GCC	2026-02-27T19:01:46Z
 Gentoo Wiki (Main)	GCC/Frontend	https://wiki.gentoo.org/wiki/GCC/Frontend	2025-01-21T19:52:02Z
 Gentoo Wiki (Main)	GCC/ICE Reporting Guide	https://wiki.gentoo.org/wiki/GCC/ICE_Reporting_Guide	2026-01-29T12:01:02Z
 Gentoo Wiki (Main)	GCC/git bisect	https://wiki.gentoo.org/wiki/GCC/git_bisect	2026-05-20T00:35:04Z
-Gentoo Wiki (Main)	GCC optimization	https://wiki.gentoo.org/wiki/GCC_optimization	2026-09-30T14:42:29Z
+Gentoo Wiki (Main)	GCC optimization	https://wiki.gentoo.org/wiki/GCC_optimization	2026-10-17T21:03:41Z
 Gentoo Wiki (Main)	GDB	https://wiki.gentoo.org/wiki/GDB	2026-02-19T18:03:06Z
 Gentoo Wiki (Main)	GENTOO MIRRORS	https://wiki.gentoo.org/wiki/GENTOO_MIRRORS	2025-08-14T09:35:41Z
 Gentoo Wiki (Main)	GIMP	https://wiki.gentoo.org/wiki/GIMP	2026-06-21T06:19:16Z
@@ -1407,7 +1408,7 @@ Gentoo Wiki (Main)	Jira	https://wiki.gentoo.org/wiki/Jira	2025-04-14T14:20:36Z
 Gentoo Wiki (Main)	Join FreeIPA	https://wiki.gentoo.org/wiki/Join_FreeIPA	2026-04-06T01:26:51Z
 Gentoo Wiki (Main)	Joomla	https://wiki.gentoo.org/wiki/Joomla	2025-10-04T16:02:09Z
 Gentoo Wiki (Main)	Juniper Network Connect	https://wiki.gentoo.org/wiki/Juniper_Network_Connect	2025-12-19T20:07:11Z
-Gentoo Wiki (Main)	KDE	https://wiki.gentoo.org/wiki/KDE	2026-10-10T14:22:59Z
+Gentoo Wiki (Main)	KDE	https://wiki.gentoo.org/wiki/KDE	2026-10-17T18:01:17Z
 Gentoo Wiki (Main)	KDE/Ebuild repository	https://wiki.gentoo.org/wiki/KDE/Ebuild_repository	2026-10-01T13:30:44Z
 Gentoo Wiki (Main)	KDE/Hardened KDE Plasma profile	https://wiki.gentoo.org/wiki/KDE/Hardened_KDE_Plasma_profile	2026-06-07T20:41:01Z
 Gentoo Wiki (Main)	KDE/Plasma 5 upgrade	https://wiki.gentoo.org/wiki/KDE/Plasma_5_upgrade	2025-12-19T13:58:11Z
@@ -1462,7 +1463,7 @@ Gentoo Wiki (Main)	Kotlin	https://wiki.gentoo.org/wiki/Kotlin	2025-01-19T21:30:5
 Gentoo Wiki (Main)	Kotlin/Library Package Maintainer Guide	https://wiki.gentoo.org/wiki/Kotlin/Library_Package_Maintainer_Guide	2025-10-04T16:09:37Z
 Gentoo Wiki (Main)	Kotlin/Open Challenges and Room for Improvement	https://wiki.gentoo.org/wiki/Kotlin/Open_Challenges_and_Room_for_Improvement	2025-01-19T21:32:18Z
 Gentoo Wiki (Main)	Kotlin/Package Maintainer Guide	https://wiki.gentoo.org/wiki/Kotlin/Package_Maintainer_Guide	2025-10-04T16:10:25Z
-Gentoo Wiki (Main)	Kpatch	https://wiki.gentoo.org/wiki/Kpatch	2025-01-19T21:28:34Z
+Gentoo Wiki (Main)	Kpatch	https://wiki.gentoo.org/wiki/Kpatch	2026-10-17T11:58:12Z
 Gentoo Wiki (Main)	Ksh	https://wiki.gentoo.org/wiki/Ksh	2025-06-07T17:54:04Z
 Gentoo Wiki (Main)	Kubernetes	https://wiki.gentoo.org/wiki/Kubernetes	2026-05-23T19:32:35Z
 Gentoo Wiki (Main)	Kubler	https://wiki.gentoo.org/wiki/Kubler	2025-10-04T16:10:48Z
@@ -1600,7 +1601,7 @@ Gentoo Wiki (Main)	Lisp (project archive)	https://wiki.gentoo.org/wiki/Lisp_(pro
 Gentoo Wiki (Main)	List of audio software	https://wiki.gentoo.org/wiki/List_of_audio_software	2026-10-08T22:05:13Z
 Gentoo Wiki (Main)	List of discs by developers	https://wiki.gentoo.org/wiki/List_of_discs_by_developers	2025-10-04T16:09:27Z
 Gentoo Wiki (Main)	List of music production software	https://wiki.gentoo.org/wiki/List_of_music_production_software	2026-10-08T22:05:14Z
-Gentoo Wiki (Main)	List of software for Wayland	https://wiki.gentoo.org/wiki/List_of_software_for_Wayland	2026-10-05T07:56:34Z
+Gentoo Wiki (Main)	List of software for Wayland	https://wiki.gentoo.org/wiki/List_of_software_for_Wayland	2026-10-17T12:10:46Z
 Gentoo Wiki (Main)	List of terminal productivity software	https://wiki.gentoo.org/wiki/List_of_terminal_productivity_software	2026-10-09T09:54:12Z
 Gentoo Wiki (Main)	LiveDVD-Persistence-Mode	https://wiki.gentoo.org/wiki/LiveDVD-Persistence-Mode	2025-12-19T20:07:16Z
 Gentoo Wiki (Main)	LiveUSB	https://wiki.gentoo.org/wiki/LiveUSB	2026-06-13T12:34:31Z
@@ -1661,7 +1662,7 @@ Gentoo Wiki (Main)	Mac Mini (PowerPC G4)	https://wiki.gentoo.org/wiki/Mac_Mini_(
 Gentoo Wiki (Main)	Macbook Pro (early 2011)	https://wiki.gentoo.org/wiki/Macbook_Pro_(early_2011)	2025-01-19T21:28:39Z
 Gentoo Wiki (Main)	Magic SysRq	https://wiki.gentoo.org/wiki/Magic_SysRq	2025-04-07T01:44:01Z
 Gentoo Wiki (Main)	Mailfiltering Gateway	https://wiki.gentoo.org/wiki/Mailfiltering_Gateway	2026-06-15T06:13:14Z
-Gentoo Wiki (Main)	Main Page	https://wiki.gentoo.org/wiki/Main_Page	2026-10-17T00:14:30Z
+Gentoo Wiki (Main)	Main Page	https://wiki.gentoo.org/wiki/Main_Page	2026-10-18T00:14:54Z
 Gentoo Wiki (Main)	Make	https://wiki.gentoo.org/wiki/Make	2025-10-04T16:10:51Z
 Gentoo Wiki (Main)	Mako	https://wiki.gentoo.org/wiki/Mako	2026-10-10T12:55:55Z
 Gentoo Wiki (Main)	Man page	https://wiki.gentoo.org/wiki/Man_page	2026-10-08T17:01:11Z
@@ -1676,7 +1677,7 @@ Gentoo Wiki (Main)	MariaDB Galera Cluster	https://wiki.gentoo.org/wiki/MariaDB_G
 Gentoo Wiki (Main)	Master Boot Record	https://wiki.gentoo.org/wiki/Master_Boot_Record	2025-11-10T17:14:05Z
 Gentoo Wiki (Main)	Mastermirror	https://wiki.gentoo.org/wiki/Mastermirror	2018-09-03T15:02:51Z
 Gentoo Wiki (Main)	Matlab	https://wiki.gentoo.org/wiki/Matlab	2025-11-30T16:40:12Z
-Gentoo Wiki (Main)	Matrix	https://wiki.gentoo.org/wiki/Matrix	2026-10-14T07:36:56Z
+Gentoo Wiki (Main)	Matrix	https://wiki.gentoo.org/wiki/Matrix	2026-10-17T08:06:26Z
 Gentoo Wiki (Main)	Maven	https://wiki.gentoo.org/wiki/Maven	2025-11-07T15:00:11Z
 Gentoo Wiki (Main)	Mdadm	https://wiki.gentoo.org/wiki/Mdadm	2025-11-10T17:13:29Z
 Gentoo Wiki (Main)	Mdev	https://wiki.gentoo.org/wiki/Mdev	2026-10-01T22:41:46Z
@@ -1775,7 +1776,7 @@ Gentoo Wiki (Main)	NVMe	https://wiki.gentoo.org/wiki/NVMe	2025-10-27T09:14:08Z
 Gentoo Wiki (Main)	Nagios	https://wiki.gentoo.org/wiki/Nagios	2025-10-04T16:02:10Z
 Gentoo Wiki (Main)	Nagios/Guide	https://wiki.gentoo.org/wiki/Nagios/Guide	2025-10-04T16:02:34Z
 Gentoo Wiki (Main)	Namespaces	https://wiki.gentoo.org/wiki/Namespaces	2026-01-25T11:08:27Z
-Gentoo Wiki (Main)	Nano	https://wiki.gentoo.org/wiki/Nano	2026-10-16T17:06:30Z
+Gentoo Wiki (Main)	Nano	https://wiki.gentoo.org/wiki/Nano	2026-10-17T08:21:16Z
 Gentoo Wiki (Main)	Nano/Guide	https://wiki.gentoo.org/wiki/Nano/Guide	2025-10-26T11:38:23Z
 Gentoo Wiki (Main)	Nattka	https://wiki.gentoo.org/wiki/Nattka	2025-01-19T21:32:23Z
 Gentoo Wiki (Main)	Ncdu	https://wiki.gentoo.org/wiki/Ncdu	2025-10-04T16:10:54Z
@@ -1815,6 +1816,7 @@ Gentoo Wiki (Main)	Nftables/Rules/Ip saddr	https://wiki.gentoo.org/wiki/Nftables
 Gentoo Wiki (Main)	Nftables/Rules/Limit	https://wiki.gentoo.org/wiki/Nftables/Rules/Limit	2026-10-10T19:20:02Z
 Gentoo Wiki (Main)	Nftables/Rules/Log	https://wiki.gentoo.org/wiki/Nftables/Rules/Log	2026-10-10T19:14:01Z
 Gentoo Wiki (Main)	Nftables/Rules/Meter	https://wiki.gentoo.org/wiki/Nftables/Rules/Meter	2026-10-10T19:43:34Z
+Gentoo Wiki (Main)	Nftables/Rules/Snat	https://wiki.gentoo.org/wiki/Nftables/Rules/Snat	2026-10-17T22:03:20Z
 Gentoo Wiki (Main)	Nftables/Ruleset	https://wiki.gentoo.org/wiki/Nftables/Ruleset	2026-10-09T19:14:20Z
 Gentoo Wiki (Main)	Nftables/Ruleset/Chain	https://wiki.gentoo.org/wiki/Nftables/Ruleset/Chain	2026-10-01T00:03:14Z
 Gentoo Wiki (Main)	Nftables/Ruleset/Rules	https://wiki.gentoo.org/wiki/Nftables/Ruleset/Rules	2026-09-29T20:15:31Z
@@ -1976,7 +1978,7 @@ Gentoo Wiki (Main)	Pkgcore/Configuration	https://wiki.gentoo.org/wiki/Pkgcore/Co
 Gentoo Wiki (Main)	Pkgcraft	https://wiki.gentoo.org/wiki/Pkgcraft	2025-12-23T18:00:59Z
 Gentoo Wiki (Main)	Pkgdev	https://wiki.gentoo.org/wiki/Pkgdev	2025-10-04T16:10:28Z
 Gentoo Wiki (Main)	Play.it	https://wiki.gentoo.org/wiki/Play.it	2025-07-06T17:58:14Z
-Gentoo Wiki (Main)	Playstation2	https://wiki.gentoo.org/wiki/Playstation2	2026-06-14T17:43:02Z
+Gentoo Wiki (Main)	Playstation2	https://wiki.gentoo.org/wiki/Playstation2	2026-10-17T11:56:14Z
 Gentoo Wiki (Main)	Plymouth	https://wiki.gentoo.org/wiki/Plymouth	2026-10-06T01:16:18Z
 Gentoo Wiki (Main)	Plymouth/Theme creation	https://wiki.gentoo.org/wiki/Plymouth/Theme_creation	2026-08-30T22:28:42Z
 Gentoo Wiki (Main)	Podget	https://wiki.gentoo.org/wiki/Podget	2025-10-04T16:10:22Z
@@ -2307,7 +2309,7 @@ Gentoo Wiki (Main)	SSH reverse tunneling: getting a static IP from a cloud	https
 Gentoo Wiki (Main)	SSH tunneling	https://wiki.gentoo.org/wiki/SSH_tunneling	2025-10-04T16:02:01Z
 Gentoo Wiki (Main)	SSL Network Extender	https://wiki.gentoo.org/wiki/SSL_Network_Extender	2025-01-19T21:28:50Z
 Gentoo Wiki (Main)	SYNC	https://wiki.gentoo.org/wiki/SYNC	2025-12-19T20:07:15Z
-Gentoo Wiki (Main)	Safe CFLAGS	https://wiki.gentoo.org/wiki/Safe_CFLAGS	2026-08-09T21:47:19Z
+Gentoo Wiki (Main)	Safe CFLAGS	https://wiki.gentoo.org/wiki/Safe_CFLAGS	2026-10-17T09:37:10Z
 Gentoo Wiki (Main)	Samba	https://wiki.gentoo.org/wiki/Samba	2026-08-05T20:21:32Z
 Gentoo Wiki (Main)	Samba/Active Directory Guide	https://wiki.gentoo.org/wiki/Samba/Active_Directory_Guide	2026-01-25T11:09:27Z
 Gentoo Wiki (Main)	Samba/Cluster	https://wiki.gentoo.org/wiki/Samba/Cluster	2025-01-19T21:23:08Z
@@ -2429,7 +2431,7 @@ Gentoo Wiki (Main)	StarFive VisionFive 2/Catalyst	https://wiki.gentoo.org/wiki/S
 Gentoo Wiki (Main)	StarFive VisionFive 2/Hardware	https://wiki.gentoo.org/wiki/StarFive_VisionFive_2/Hardware	2025-03-01T11:52:40Z
 Gentoo Wiki (Main)	StarFive VisionFive 2/linux kernel config	https://wiki.gentoo.org/wiki/StarFive_VisionFive_2/linux_kernel_config	2025-10-04T16:11:01Z
 Gentoo Wiki (Main)	Static routing	https://wiki.gentoo.org/wiki/Static_routing	2026-01-25T11:09:26Z
-Gentoo Wiki (Main)	Steam	https://wiki.gentoo.org/wiki/Steam	2026-10-11T07:16:15Z
+Gentoo Wiki (Main)	Steam	https://wiki.gentoo.org/wiki/Steam	2026-10-17T09:25:51Z
 Gentoo Wiki (Main)	Steam/Client troubleshooting	https://wiki.gentoo.org/wiki/Steam/Client_troubleshooting	2026-06-21T18:40:56Z
 Gentoo Wiki (Main)	Steam/Games troubleshooting	https://wiki.gentoo.org/wiki/Steam/Games_troubleshooting	2026-08-22T08:23:20Z
 Gentoo Wiki (Main)	Steam Controller	https://wiki.gentoo.org/wiki/Steam_Controller	2026-06-21T18:56:27Z

@@ -4,8 +4,8 @@ title: Playstation2
 url: https://wiki.gentoo.org/wiki/Playstation2
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-06-14"
-fingerprint: "9afd1e4eefc5a702"
+date: "2026-10-17"
+fingerprint: "9a7d1a7ef5c5a703"
 license: CC BY-SA 4.0
 ---
 
@@ -15,7 +15,7 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
-This guide is intended for those that wish to build their own version of Gentoo using MUSL for the Sony Playstation 2, for those looking at just downloading the file to play with then check the instructions at [https://github.com/frno7/gentoo-mipsr5900el/wiki/Gentoo-live-USB-for-the-PlayStation-2](https://github.com/frno7/gentoo-mipsr5900el/wiki/Gentoo-live-USB-for-the-PlayStation-2) where I have provided a mirror which will be used a LiveCD to install Gentoo directly to your PS2 hard drive once support is added to the kernel.
+This guide is intended for those that wish to build their own version of Gentoo using MUSL for the Sony Playstation 2, for those looking at just downloading the file to play with then check the instructions at [https://github.com/frno7/gentoo-mipsr5900el/wiki/Gentoo-live-USB-for-the-PlayStation-2](https://github.com/frno7/gentoo-mipsr5900el/wiki/Gentoo-live-USB-for-the-PlayStation-2) where there is a provided a mirror which will be used a LiveCD to install Gentoo directly to your PS2 hard drive once support is added to the kernel.
 
 ## Installing Gentoo on the PlayStation 2
 
@@ -117,6 +117,9 @@ As already mentioned the PS2 has very little RAM so using the -Os optimisation i
 
 **`/usr/mipsr5900el-unknown-linux-musl/etc/portage/make.conf`**
 
+```
+COMMON_FLAGS="-Os -march=r5900 -mabi=32 -mplt -mfix-r5900 -pipe -flto"
+```
 #### USEFLAGS and Workarounds
 
 To stop errors the following USEFLAGS need to be set:
@@ -124,16 +127,31 @@ To stop errors the following USEFLAGS need to be set:
 `root #``mkdir /usr/mipsr5900el-unknown-linux-musl/etc/portage/package.use`
 **`/usr/mipsr5900el-unknown-linux-musl/etc/portage/package.use/system`**
 
+```
+sys-apps/util-linux -su
+sys-libs/musl -crypt
+```
 **`/usr/mipsr5900el-unknown-linux-musl/etc/portage/profile/package.provided`**
 
+```
+sys-apps/kbd-2.5.1
+```
 And disable LTO for perl:
 
 `root #``mkdir /usr/mipsr5900el-unknown-linux-musl/etc/portage/package.env`
 **`/usr/mipsr5900el-unknown-linux-musl/etc/portage/package.env/perl`**
 
+```
+dev-lang/perl no-lto.conf
+```
 `root #``mkdir /usr/mipsr5900el-unknown-linux-musl/etc/portage/env`
 **`/usr/mipsr5900el-unknown-linux-musl/etc/portage/env/no-lto.conf`**
 
+```
+COMMON_FLAGS="-Os -march=r5900 -mabi=32 -mplt -mfix-r5900 -pipe"
+CFLAGS="-Os -march=r5900 -mabi=32 -mplt -mfix-r5900 -pipe"
+CXXFLAGS="-Os -march=r5900 -mabi=32 -mplt -mfix-r5900 -pipe"
+```
 #### Patches
 
 Again due to [bug #851759](https://bugs.gentoo.org/show_bug.cgi?id=851759) the required patch for MUSL to build is needed:
@@ -166,12 +184,56 @@ Choose a suitable location to unpack these files, then begin to edit the initram
 `root #``unzip initramfs*.zip``root #``tar xvf initramfs-*.tar.gz``root #``nano initramfs/init`
 **`initramfs/init`**
 
+```
+!/bin/busybox sh
+/bin/busybox --install -s
+PATH=/usr/sbin:/usr/bin:/sbin:/bin
+export PATH
+### Extra
+# Basic /dev content, we need it as fast as possible.
+mkdir -p /dev
+[ ! -e /dev/console ]  && mknod /dev/console c 5 1
+[ ! -e /dev/null ]     && mknod /dev/null c 1 3
+[ ! -e /dev/tty ]      && mknod /dev/tty c 5 0
+[ ! -e /dev/urandom ]  && mknod /dev/urandom c 1 9
+[ ! -e /dev/random ]   && mknod /dev/random c 1 8
+[ ! -e /dev/zero ]     && mknod /dev/zero c 1 5
+#Mount Section
+mount -t proc     none /proc
+mount -t devtmpfs none /dev
+mount -t sysfs    none /sys
+#Load PS2 Modules
+depmod
+modprobe ps2fb mode_option=640x512i@50
+modprobe sif
+modprobe iop-memory
+modprobe iop-module
+modprobe iop-irq
+modprobe sd_mod
+modprobe ohci-ps2
+modprobe ums-usbat
+modprobe usbhid
+modprobe hid-generic
+sleep 5
+#Mount USB
+mount -t ext4 -o ro -L PS2Root /mnt || echo "Failed to mount root device"
+sleep 30
+#/bin/sh
+mkdir -p /mnt/proc
+mount -o move /proc /mnt/proc
+mkdir -p /mnt/sys
+mount -o move /sys /mnt/sys
+mkdir -p /mnt/dev
+mount -o move /dev /mnt/dev
+exec switch_root -c /dev/console /mnt /bin/init
+```
 Replace the existing contents with the information above. This script will load all the required modules then switch the root to boot Gentoo from the USB drive which will be setup later in the guide.
 
 #### Building the Kernel
 
 Checkout the source from git using the follow:
 
+`root #``git clone` [https://github.com/frno7/linux.git](https://github.com/frno7/linux.git)`root #``cd linux`
 To avoid issues with your host machine later on, set the environmental flags on each command to build the kernel with the INITRAMFS created in the last step.
 
 `root #``ARCH=mips CROSS_COMPILE=mipsr5900el-unknown-linux-musl- INSTALL_MOD_PATH=../initramfs INSTALL_MOD_STRIP=1 make ps2_defconfig``root #``ARCH=mips CROSS_COMPILE=mipsr5900el-unknown-linux-musl- INSTALL_MOD_PATH=../initramfs INSTALL_MOD_STRIP=1 make olddefconfig``root #``ARCH=mips CROSS_COMPILE=mipsr5900el-unknown-linux-musl- INSTALL_MOD_PATH=../initramfs INSTALL_MOD_STRIP=1 make vmlinux``root #``ARCH=mips CROSS_COMPILE=mipsr5900el-unknown-linux-musl- INSTALL_MOD_PATH=../initramfs INSTALL_MOD_STRIP=1 make modules``root #``ARCH=mips CROSS_COMPILE=mipsr5900el-unknown-linux-musl- INSTALL_MOD_PATH=../initramfs INSTALL_MOD_STRIP=1 make modules_install``root #``rm ../initramfs/lib/modules/*/{build,modules.*,source}``root #``ARCH=mips CROSS_COMPILE=mipsr5900el-unknown-linux-musl- INSTALL_MOD_PATH=../initramfs INSTALL_MOD_STRIP=1 make vmlinuz`
@@ -225,3 +287,11 @@ Tidy up some unneeded files and other quality of life fixes:
 Edit make.conf to sane defaults in case later a binhost is added:
 
 **`/mnt/usb/etc/portage/make.conf`**
+
+```
+CHOST=mipsr5900el-unknown-linux-musl
+ACCEPT_KEYWORDS="mips ~mips"
+COMMON_FLAGS="-Os -march=r5900 -mabi=32 -mplt -mfix-r5900 -pipe -flto"
+CXXFLAGS="${CFLAGS}"
+FEATURES="-collision-protect sandbox buildpkg noman noinfo nodoc"
+```

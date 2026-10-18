@@ -4,8 +4,8 @@ title: Kpatch
 url: https://wiki.gentoo.org/wiki/Kpatch
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2023-06-08"
-fingerprint: de51395ec4c63920
+date: "2026-10-17"
+fingerprint: de413b5ec0e63920
 license: CC BY-SA 4.0
 ---
 
@@ -23,12 +23,31 @@ kpatch is a GPLv2 licensed dynamic kernel patching tool developed by RedHat.
 
 ### Kernel
 
-The Linux kernel must be version 4.0 or higher in order to have `LIVEPATCH` support.[\[1\]](https://wiki.gentoo.org#cite_note-1)
+KERNEL **Required options**
 
-KERNEL **Enable `CONFIG_LIVEPATCH` support**
-
+```
+   General setup  --->
+      [*] Configure standard kernel features (expert users) 
+```
+[Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for <code>CONFIG_EXPERT</code> to find this item.  --->
+         -*-   Load all symbols for debugging/ksymoops [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for <code>CONFIG_KALLSYMS</code> to find this item.
+            [*]     Include all symbols in kallsyms [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for <code>CONFIG_KALLSYMS_ALL</code> to find this item.
+   [*] Enable loadable module support [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for <code>CONFIG_MODULES</code> to find this item.  --->
+   Processor type and features  --->
+      [*] Kernel Live Patching [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for <code>CONFIG_LIVEPATCH</code> to find this item.
+   Kernel hacking  --->
+      [*] Tracers [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for <code>CONFIG_FTRACE</code> to find this item.  --->
+         [*]   Kernel Function Tracer [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for <code>CONFIG_FUNCTION_TRACER</code> to find this item.
+   File systems  --->
+      Pseudo filesystems  --->
+         -*- sysfs file system support [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for <code>CONFIG_SYSFS</code> to find this item.
 ### USE flags
 
+
+### USE flags for
+            [sys-kernel/kpatch](https://packages.gentoo.org/packages/sys-kernel/kpatch)
+            
+            Dynamic kernel patching for Linux
 
 | [+kpatch](https://packages.gentoo.org/useflags/+kpatch) | Enable a command-line tool which allows a user to manage a collection of patch modules. | 
 | [+kpatch-build](https://packages.gentoo.org/useflags/+kpatch-build) | Enable tools which convert a source diff patch to a patch module. | 

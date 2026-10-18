@@ -4,8 +4,8 @@ title: Full Encrypted System Root with Dracut USB Stick
 url: https://wiki.gentoo.org/wiki/Full_Encrypted_System_Root_with_Dracut_USB_Stick
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-07-25"
-fingerprint: bd11301a95e65b79
+date: "2026-10-17"
+fingerprint: bd10301a95e45bf9
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,18 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Archived article**
+
+This article is
+
+**archived (obsolete)**. Contents are surely incorrect for current usage, and are intended for historical reference only.
+
+[Full\_Disk\_Encryption\_From\_Scratch](https://wiki.gentoo.org/wiki/Full_Disk_Encryption_From_Scratch).
+
+TLDR:
+
+**Do not use this article!**
 
 This article is an example of using [dm-crypt](https://wiki.gentoo.org/wiki/Dm-crypt) for full disk encryption with [LVM](https://wiki.gentoo.org/wiki/LVM). It uses GPT (partitioning table), and may not work in older computers with only BIOS boot.
 

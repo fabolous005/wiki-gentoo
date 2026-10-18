@@ -756,6 +756,7 @@ https://wiki.gentoo.org/wiki/FrOSCon_2023
 https://wiki.gentoo.org/wiki/FrOSCon_2024
 https://wiki.gentoo.org/wiki/FrOSCon_2025
 https://wiki.gentoo.org/wiki/FrOSCon_2026
+https://wiki.gentoo.org/wiki/Fractal
 https://wiki.gentoo.org/wiki/Framebuffer
 https://wiki.gentoo.org/wiki/Framework_Expansion_Cards
 https://wiki.gentoo.org/wiki/Framework_Laptop_13
@@ -1815,6 +1816,7 @@ https://wiki.gentoo.org/wiki/Nftables/Rules/Ip_saddr
 https://wiki.gentoo.org/wiki/Nftables/Rules/Limit
 https://wiki.gentoo.org/wiki/Nftables/Rules/Log
 https://wiki.gentoo.org/wiki/Nftables/Rules/Meter
+https://wiki.gentoo.org/wiki/Nftables/Rules/Snat
 https://wiki.gentoo.org/wiki/Nftables/Ruleset
 https://wiki.gentoo.org/wiki/Nftables/Ruleset/Chain
 https://wiki.gentoo.org/wiki/Nftables/Ruleset/Rules

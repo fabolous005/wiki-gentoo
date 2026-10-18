@@ -4,7 +4,7 @@ title: List of software for Wayland
 url: https://wiki.gentoo.org/wiki/List_of_software_for_Wayland
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-09-07"
+date: "2026-10-05"
 categories: ['gui-wm']
 fingerprint: "387755c94ab07eed"
 license: CC BY-SA 4.0
@@ -24,7 +24,7 @@ For the basics of Wayland, see [Wayland](https://wiki.gentoo.org/wiki/Wayland).
 
 In Gentoo, many Wayland compositors are found in the category [gui-wm](https://packages.gentoo.org/categories/gui-wm).
 
-Window managers can be classified mostly as three kinds below. (Notice Wayland compositors have the role of window managers.)
+Window managers can be classified mostly as three kinds below (notice Wayland compositors have the role of window managers).
 
 - **Stacking** (aka **floating**): The traditional mode of how window managers are expected to behave, similar to that of Windows or OS X. Windows act like pieces of paper on a desk, and can be stacked on top of each other.
 - **Tiling**: Windows are *tiled* so that none of them overlap. These usually make very extensive use of key-bindings and traditionally have little to no reliance on the mouse. Tiling window managers may be manual, offer predefined layouts, or both.
