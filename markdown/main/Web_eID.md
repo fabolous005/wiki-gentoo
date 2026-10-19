@@ -4,8 +4,8 @@ title: Web eID
 url: https://wiki.gentoo.org/wiki/Web_eID
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2025-01-17"
-fingerprint: "47b5b6584de2f19a"
+date: "2026-10-18"
+fingerprint: d5a1b6584ee2f9f4
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources (Open eID)**
 
 The **Web eID** is a suite of [browser extension](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions), [native application](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Native_messaging), and JavaScript library that provides a way to perform cryptographic operations (authentication, signing) using smart cards on the Web. One of the purposes of the project is to replace the legacy architecture of the [Open eID](https://github.com/open-eid) project <sup>[\[1\]](https://wiki.gentoo.org#cite_note-1)</sup>.
 
@@ -26,6 +28,7 @@ Gentoo is not officially supported by the Web eID project <sup>[\[2\]](https://w
 `root #``emerge --ask dev-vcs/git app-eselect/eselect-repository`
 The overlay can then be enabled as follows:
 
+`root #``eselect repository add esteid git` [https://github.com/open-eid/gentoo.git](https://github.com/open-eid/gentoo.git)
 And the Gentoo ebuild repository needs to updated:
 
 `root #``emerge --sync`
@@ -33,6 +36,9 @@ As all packages in the overlay are masked with the **amd64** keyword, they need 
 
 **`/etc/portage/package.accept_keywords`**
 
+```
+*/*::esteid ~amd64
+```
 ### Package
 
 #### Web eID
@@ -44,13 +50,22 @@ To install the Web eID package, run the following command:
 
 ##### Portage package
 
-As of 2024-05-07, [dev-cpp/libcutl](https://github.com/open-eid/gentoo/blob/master/dev-cpp/libcutl) incorrectly defines dependencies, so the dependency needs to be installed manually:
+As of 2026-10-18, [dev-libs/libdigidocpp](https://github.com/open-eid/gentoo/tree/master/dev-libs/libdigidocpp) requires the following patch on a musl-based system:
 
-`root #``emerge --ask dev-libs/boost`
-As of 2024-05-07, [dev-libs/libdigidocpp](https://github.com/open-eid/gentoo/tree/master/dev-libs/libdigidocpp) requires the following patch on a musl-based system (the patch will force the library to compile, but it will still crash at runtime):
+**`/etc/portage/patches/dev-libs/libdigidocpp-4.3.0/musl.patch`**
 
-**`/etc/portage/patches/dev-libs/libdigidocpp-3.16.0/ctime.patch`**
-
+```
+--- a/src/util/memory.h
++++ b/src/util/memory.h
+@@ -76,7 +76,7 @@
+ template<auto D>
+ [[nodiscard]]
+-constexpr auto make_unique_ptr(nullptr_t) noexcept
++constexpr auto make_unique_ptr(std::nullptr_t) noexcept
+ {
+     return unique_free_d<D>(nullptr);
+ }
+```
 To install DigiDoc4, run the following command:
 
 `root #``emerge --ask app-crypt/qdigidoc4`
@@ -58,7 +73,7 @@ To install DigiDoc4, run the following command:
 
 Install DigiDoc4 using [Flatpak](https://wiki.gentoo.org/wiki/Flatpak):
 
-`user $``flatpak install --user flathub ee.ria.qdigidoc4`
+`user $``flatpak remote-add --user --if-not-exists flathub` [https://flathub.org/repo/flathub.flatpakrepo](https://flathub.org/repo/flathub.flatpakrepo)`user $``flatpak install --user flathub ee.ria.qdigidoc4`
 To run DigiDoc4 use the following command:
 
 `user $``flatpak run --user ee.ria.qdigidoc4`

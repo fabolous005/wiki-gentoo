@@ -4,7 +4,7 @@ title: Playstation2
 url: https://wiki.gentoo.org/wiki/Playstation2
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-17"
+date: "2026-10-18"
 fingerprint: "9a7d1a7ef5c5a703"
 license: CC BY-SA 4.0
 ---

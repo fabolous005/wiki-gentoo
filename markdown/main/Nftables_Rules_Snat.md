@@ -4,8 +4,8 @@ title: nftables/rules/snat
 url: https://wiki.gentoo.org/wiki/Nftables/Rules/Snat
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-17"
-fingerprint: "82a3395af23fb55d"
+date: "2026-10-18"
+fingerprint: "82a1b95af15ffd7d"
 license: CC BY-SA 4.0
 ---
 
@@ -60,21 +60,39 @@ Translate source addresses to a fixed address:
 FILE **`/etc/nftables/rules/main.nft`****Fixed source address**
 
 ```
-ip saddr 192.168.1.0/24 snat to 192.0.2.1
+table ip nice {
+    chain spreadout {
+        type nat hook postrouting priority filter;
+        policy accept;
+        ip saddr 192.168.1.0/24 snat to 192.0.2.1
+    }
+}
 ```
 Translate source addresses to an address range:
 
 FILE **`/etc/nftables/rules/main.nft`****Source address range**
 
 ```
-snat to 192.0.2.1-192.0.2.10
+table ip nice {
+    chain spreadout {
+        type nat hook postrouting priority filter;
+        policy accept;
+        snat to 192.0.2.1-192.0.2.10
+    }
+}
 ```
 SNAT with prefix, port range, and persistent flag:
 
 FILE **`/etc/nftables/rules/main.nft`****SNAT with prefix, port range, and persistent flag**
 
 ```
-snat ip prefix to 192.168.1.0/24:1024-65535 persistent
+table ip nice {
+    chain spreadout {
+        type nat hook input priority filter;
+        policy accept;
+        snat ip prefix to 192.168.1.0/24:1024-65535 persistent
+    }
+}
 ```
 ### Tips
 

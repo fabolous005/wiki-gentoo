@@ -4,12 +4,14 @@ title: Manim
 url: https://wiki.gentoo.org/wiki/Manim
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2024-04-09"
-fingerprint: "9adc1f2f7360ff48"
+date: "2026-10-18"
+fingerprint: "9adc1f2f7360f748"
 license: CC BY-SA 4.0
 ---
 
 # Manim
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -29,3 +31,7 @@ To use LaTex, install [app-text/texlive](https://packages.gentoo.org/packages/ap
 
 There is a [quickstart](https://docs.manim.community/en/stable/tutorials/quickstart.html) tutorial to get beginners started.
 To play videos/images, browse through the media directory and play with a video player or web browser.
+
+## References
+
+1. [↑](https://wiki.gentoo.org#cite_ref-1) [Which version should I use?](https://docs.manim.community/en/stable/faq/installation.html#which-version-should-i-use), retrieved on April 9, 2024.
