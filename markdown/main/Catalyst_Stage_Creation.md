@@ -4,7 +4,7 @@ title: Catalyst/Stage Creation
 url: https://wiki.gentoo.org/wiki/Catalyst/Stage_Creation
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-05-10"
+date: "2026-10-19"
 fingerprint: "788872392f0ed3f2"
 license: CC BY-SA 4.0
 ---

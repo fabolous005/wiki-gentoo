@@ -335,6 +335,7 @@ https://wiki.gentoo.org/wiki/Casync
 https://wiki.gentoo.org/wiki/Catalyst
 https://wiki.gentoo.org/wiki/Catalyst/Custom_Media_Image
 https://wiki.gentoo.org/wiki/Catalyst/New_Musl_Stages_Creation
+https://wiki.gentoo.org/wiki/Catalyst/SectionBox
 https://wiki.gentoo.org/wiki/Catalyst/Stage_Creation
 https://wiki.gentoo.org/wiki/Categories_acct-group_and_acct-user
 https://wiki.gentoo.org/wiki/Catppuccin

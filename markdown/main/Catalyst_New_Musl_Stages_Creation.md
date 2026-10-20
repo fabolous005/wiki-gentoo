@@ -4,7 +4,7 @@ title: Catalyst/New Musl Stages Creation
 url: https://wiki.gentoo.org/wiki/Catalyst/New_Musl_Stages_Creation
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-05-09"
+date: "2026-10-19"
 fingerprint: ec2eb27a758fd334
 license: CC BY-SA 4.0
 ---
@@ -251,4 +251,4 @@ The CHOST can be forced inside the spec file by setting something like `chost: m
 - [Project:RelEng](https://wiki.gentoo.org/wiki/Project:RelEng) — the official Gentoo project focused on coordinating and improving the creation of official media releases of Gentoo Linux and other Gentoo operating systems.
 - [Project:Catalyst/FAQ](https://wiki.gentoo.org/wiki/Project:Catalyst/FAQ) — contains frequently asked questions (FAQs) relating to the Catalyst tool.
 - [Stage file](https://wiki.gentoo.org/wiki/Stage_file) — an archive that contains all the files to run a minimal Gentoo environment, typically to serve as a seed for a Gentoo installation
-- [Catalyst](https://wiki.gentoo.org/wiki/Catalyst) — a tool to build [stage files](https://wiki.gentoo.org/wiki/Stage_file) and [live-images](https://wiki.gentoo.org/wiki/Live_image) for Gentoo
+- [Catalyst](https://wiki.gentoo.org/wiki/Catalyst) — a Gentoo tool for building [stage files](https://wiki.gentoo.org/wiki/Stage_file), [live-images](https://wiki.gentoo.org/wiki/Live_image), and other such made-to-measure installation files

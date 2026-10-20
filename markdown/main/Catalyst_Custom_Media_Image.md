@@ -4,7 +4,7 @@ title: Catalyst/Custom Media Image
 url: https://wiki.gentoo.org/wiki/Catalyst/Custom_Media_Image
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-08-07"
+date: "2026-10-19"
 fingerprint: dc3d379b0ea841f3
 license: CC BY-SA 4.0
 ---

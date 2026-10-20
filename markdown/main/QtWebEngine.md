@@ -4,8 +4,8 @@ title: QtWebEngine
 url: https://wiki.gentoo.org/wiki/QtWebEngine
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2025-11-11"
-fingerprint: "6e00995c8e963918"
+date: "2026-10-19"
+fingerprint: "6e00195c8e96b95c"
 license: CC BY-SA 4.0
 ---
 
@@ -23,6 +23,11 @@ This package may take particularly long to compile, the [jumbo-build](https://pa
 
 ## Use flags
 
+
+### USE flags for
+            [dev-qt/qtwebengine](https://packages.gentoo.org/packages/dev-qt/qtwebengine)
+            
+            Library for rendering dynamic web content in Qt6 C++ and QML applications
 
 | [+alsa](https://packages.gentoo.org/useflags/+alsa) | Add support for media-libs/alsa-lib (Advanced Linux Sound Architecture) | 
 | [+jumbo-build](https://packages.gentoo.org/useflags/+jumbo-build) | Combine source files to speed up build process. | 
@@ -42,4 +47,12 @@ This package may take particularly long to compile, the [jumbo-build](https://pa
 | [test](https://packages.gentoo.org/useflags/test) | Enable dependencies and/or preparations necessary to run tests (usually controlled by FEATURES=test but can be toggled independently) | 
 | [vaapi](https://packages.gentoo.org/useflags/vaapi) | Enable Video Acceleration API for hardware decoding | 
 | [vulkan](https://packages.gentoo.org/useflags/vulkan) | Add support for 3D graphics and computing via the Vulkan cross-platform API | 
-| [webdriver](https://packages.gentoo.org/useflags/webdriver) | Build tool for automated testing (ChromeDriver equivalent) |
+| [webdriver](https://packages.gentoo.org/useflags/webdriver) | Build tool for automated testing (ChromeDriver equivalent) | 
+
+
+
+## Emerge
+
+To emerge:
+
+`root #``emerge --ask dev-qt/webengine`

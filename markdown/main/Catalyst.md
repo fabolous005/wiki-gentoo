@@ -4,7 +4,7 @@ title: Catalyst
 url: https://wiki.gentoo.org/wiki/Catalyst
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-08"
+date: "2026-10-19"
 fingerprint: "1c2c3e3c67ef5ba1"
 license: CC BY-SA 4.0
 ---
@@ -17,19 +17,13 @@ license: CC BY-SA 4.0
 
 *Not to be confused with[AMD Catalyst, the old ATi graphics driver](https://wiki.gentoo.org/wiki/Fglrx).*
 
-**catalyst** is a tool to build [stage files](https://wiki.gentoo.org/wiki/Stage_file) and [live-images](https://wiki.gentoo.org/wiki/Live_image) for Gentoo. catalyst allows the creation of made-to-measure Gentoo installation files and is used [internally](https://wiki.gentoo.org/wiki/Project:RelEng) to build [official Gentoo Linux releases](https://get.gentoo.org).
+**catalyst** is a Gentoo tool for building [stage files](https://wiki.gentoo.org/wiki/Stage_file), [live-images](https://wiki.gentoo.org/wiki/Live_image), and other such made-to-measure installation files. It is designed for situations that require advanced, powerful features, and is used [internally](https://wiki.gentoo.org/wiki/Project:RelEng) to build the [official Gentoo Linux releases](https://get.gentoo.org).
 
-catalyst can be used to:
+catalyst is also used to build netboot images and to cross-compile for any of the architectures supported by Gentoo Linux.
 
-- Build [stage files](https://wiki.gentoo.org/wiki/Stage_file)
-- Build bootable [live images](https://wiki.gentoo.org/wiki/Live_image)
-- Build netboot images
-- Cross-compile for any of the architectures supported by Gentoo Linux
+An example of catalyst usage could be to create a stage 3 file for the testing branch, possibly with specific customizations (e.g. enabling [LTO](https://wiki.gentoo.org/wiki/LTO) for some packages). Another example could be to create a stage 3 file for an "exotic" system that Gentoo Linux supports, but for which it does not release official images (which can be the case for some architectures that have an extremely low number of users).
 
-
-Designed with situations when more advanced features are required in mind, catalyst makes a powerful and versatile tool. It can be used to save time setting up systems, for example, a user wanting to install the testing branch, could use catalyst to create a stage 3 file for that branch, with any optimizations they might require (e.g. [LTO](https://wiki.gentoo.org/wiki/LTO)). Another use-case could be to create a stage 3 file for an "exotic" system that Gentoo Linux supports but does not release official images for (e.g. a [musl](https://wiki.gentoo.org/wiki/Musl) stage 3 file for the [m68k](https://en.wikipedia.org/wiki/Motorola_68000_series) architecture which has a very low number of users even on the standard Gentoo Linux version).
-
-
+Because of how complex and powerful catalyst is, documentation on the wiki is split into an overview which introduces terminology and explains general usage, and then leads into [sub-articles](https://wiki.gentoo.org#Detailed_usage_examples) for more specific tasks.
 
 ## Installation
 
@@ -101,11 +95,6 @@ The following table provides a list of catalyst.conf file options and their desc
 | `"pkgcache"` | Build and use binary packages | 
 | `"seedcache"` | Use the build output of a previous target if it exists rather than the tarball | 
 | `"sticky-config"` | Enables the code that will keep any internal 'catalyst\_use' flags added to the USE= for building the stage. These are usually added for legal or specific needs in building the the early stage. Mostly it is the 'bindist' USE flag option that is used for legal reasons, please see its specific definition. It will also keep any /etc/portage/package.\* files or directories. | 
-
-## Usage
-
-This section is for general reference to explain how catalyst is used,
-to learn how to complete particular tasks see [Detailed usage examples](https://wiki.gentoo.org/wiki/Catalyst#Detailed_usage_examples) section.
 
 ### Seed file
 
@@ -215,7 +204,7 @@ The following table provides a list of .spec file options and their descriptions
 | `target` | Specifies what target Catalyst will build. The example above specifies `stage1` as the target to be built. For building a CD, `livecd-stage1` should be defined as the target. | 
 | `version_stamp` | An identifier for the build. On the autobuilds the date is used, however it can be anything the user desires. This parameter will be used on the output stage file, ( `${target}`-`${ARCH}`-`${version_stamp}`.tar.bz2), temporary directories, etc. `@TIMESTAMP@` can be quickly replaced using: `user $```` TIMESTAMP=$(date -u +%Y%m%dT%H%M%SZ)  ``` `user $```` sed -i -e "s:@TIMESTAMP@:${TIMESTAMP}:g" stage1.spec  ```  | 
 | `rel_type` | Defines what kind of build the system will perform. This is merely another identifier that is available to be used in case (more) differentiation of the builds is needed. If a normal, hardened, and musl stages were to be built these could be defined here. Changing it will change the sub-directory inside /var/tmp/catalyst/builds from default to whatever has been set for this value. | 
-| `profile` | The system profile to be used by Catalyst to build this target. It is specified as a relative path and *must be set* to one of the system profiles available at /usr/portage/profiles. In the example above the default profile is used (`default/linux/amd64/23.0`). | 
+| `profile` | The system profile to be used by Catalyst to build this target. It is specified as a relative path and *must be set* to one of the system profiles available at /var/db/repos/gentoo/profiles. In the example above the default profile is used (`default/linux/amd64/23.0`). | 
 | `snapshot_treeish` | Specifies which snapshot of main Gentoo repository. See the [section above](https://wiki.gentoo.org/wiki/Catalyst#snapshot) on creating a snapshot for more information on snapshots. If 17e0dbd98931319735970cdb917f7f8b88f647ed is used like in the example above, catalyst will look for a snapshot available at /var/tmp/catalyst/snapshots/gentoo-17e0dbd98931319735970cdb917f7f8b88f647ed.sqfs. | 
 | `source_subpath` | A relative path to the seed stage for this target. In the example above, it will use /var/tmp/catalyst/builds/default/stage3-amd64-latest.tar.xz as the seed stage. The prefix of this filesystem path (/var/tmp/catalyst/builds) is determined by the value contained in the `storedir` variable the /etc/catalyst/catalyst.conf file. The suffix (.tar.bz2) is automatically generated by catalyst at build time. | 
 | `distcc_hosts` | The hosts used as distcc slaves when distcc is enabled in the /etc/catalyst/catalyst.conf file. It follows the same syntax as distcc-config --set-hosts and is entirely optional. This setting is lacking from the example above and generally recommended not to be used. | 
@@ -275,6 +264,8 @@ repos: /var/db/repos/local
 # Tell catalyst about the custom profile
 profile: local:my-super-duper-cool-profile
 ```
+## Usage
+
 ### Invocation
 
 Use `catalyst --help` to see all available command line options (with short explanations)

@@ -4,8 +4,8 @@ title: "/etc/portage/license_groups"
 url: https://wiki.gentoo.org/wiki//etc/portage/license_groups
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2022-05-12"
-fingerprint: e0019ce20f998d34
+date: "2026-10-19"
+fingerprint: e0019ce20f9b8d34
 license: CC BY-SA 4.0
 ---
 
@@ -18,7 +18,7 @@ From Gentoo Wiki
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
 
-/etc/portage/license\_groups is a file containing groups of licenses that may be specified in the `[ACCEPT_LICENSE](https://wiki.gentoo.org/wiki//etc/portage/make.conf#ACCEPT_LICENSE)` variable. Refer to [GLEP 23](https://www.gentoo.org/glep/glep-0023.html) for further information.
+/etc/portage/license\_groups is a file containing groups of licenses that may be specified in the `[ACCEPT_LICENSE](https://wiki.gentoo.org/wiki//etc/portage/make.conf#ACCEPT_LICENSE)` variable. You can also define your own license group in this file. Refer to [GLEP 23](https://www.gentoo.org/glep/glep-0023.html) for further information.
 
 ## Format
 

@@ -4,8 +4,8 @@ title: Milk-V Pioneer Box
 url: https://wiki.gentoo.org/wiki/Milk-V_Pioneer_Box
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-09-05"
-fingerprint: "1e009a1b0965b9e9"
+date: "2026-10-19"
+fingerprint: "1e01181e89ee3d2f"
 license: CC BY-SA 4.0
 ---
 
@@ -35,14 +35,33 @@ The serial console on the box is exposed via the USB-C port on the front of the 
 
 **`/var/log/dmesg`**
 
+```
+[156955.801245] usb 1-1.1: new full-speed USB device number 3 using ehci-pci
+[156955.906915] usb 1-1.1: New USB device found, idVendor=10c4, idProduct=ea60, bcdDevice= 1.00
+[156955.906924] usb 1-1.1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[156955.906928] usb 1-1.1: Product: CP2102 USB to UART Bridge Controller
+[156955.906931] usb 1-1.1: Manufacturer: Silicon Labs
+[156955.906933] usb 1-1.1: SerialNumber: 0001
+```
 To make use of this, you need two kernel modules (again on the client):
 
 **Serial-to-USB modules for the Pioneer**
 
+```
+Device Drivers
+  -> <m> USB support (CONFIG_USB_SUPPORT)
+    -> <m> USB Serial Converter support (CONFIG_USB_SERIAL)
+      -> <m> USB CP210x family of UART Bridge Controllers (CONFIG_USB_SERIAL_CP210X)
+```
 The resulting modules are called `usbserial` and `cp210x`. If you have them loaded, you should see e.g. /dev/ttyUSB0 created when you connect your USB cable to the Pioneer:
 
 **`/var/log/dmesg`**
 
+```
+[ 1459.897552] cp210x 4-1:1.0: cp210x converter detected
+[ 1459.901513] usb 4-1: cp210x converter now attached to ttyUSB0
+[ 5148.313291] usb 4-1: USB disconnect, device number 5
+```
 Now just run screen (this requires root or sudo unless you've added yourself to the [acct-group/dialout](https://packages.gentoo.org/packages/acct-group/dialout) group),
 
 `user $``screen /dev/ttyUSB0 115200`
@@ -57,10 +76,19 @@ But wait, there's more. On the Pioneer Box, the front-of-the-box serial port/cab
 
 To connect to these, you'll need another adapter. I'm sure there are others that will work, but I've used the three-pin [TTL-232R-RPI from FTDI](https://ftdichip.com/products/ttl-232r-rpi/). It's well-documented, inexpensive, and the kernel drivers for it are upstream:
 
+```
+Device Drivers
+  -> <y> USB support
+    -> <m> USB Serial Converter support
+      -> <m> USB FTDI Single Port Serial Driver
+```
 This will build a module called `ftdi_sio` that will detect the adapter and give you a /dev/ttyUSBX to connect to with `screen` on the client:
 
 **`/var/log/dmesg`**
 
+```
+[Wed Sep 11 13:46:30 2024] usb 2-3: FTDI USB Serial Device converter now attached to ttyUSB0
+```
 ### Mainboard console
 
 But wait, there's more. There's *also* a secret (undocumented) [mainboard console](https://github.com/milkv-pioneer/issues/issues/33#issuecomment-1919711235). This shows output even before the RISC-V console does.
@@ -160,9 +188,11 @@ VIDEO_CARDS="radeon r600"
 ```
 ### Configuring the Linux kernel
 
-We're going to build our own kernel, if for no other reason than to mitigate [GhostWrite](https://wiki.gentoo.org#GhostWrite). Your best bet is to use the latest [sys-kernel/gentoo-sources](https://packages.gentoo.org/packages/sys-kernel/gentoo-sources) with my [sg2042-patches](https://dev.gentoo.org/~mjo/distfiles/sg2042-patches-20260905.tar.xz) stored under [/etc/portage/patches](https://wiki.gentoo.org/wiki//etc/portage/patches). Upstream activity for the SG2042 has died down, so the patches may remain necessary indefinitely.
+We're going to build our own kernel, if for no other reason than to mitigate [GhostWrite](https://wiki.gentoo.org#GhostWrite). Your best bet is to use the latest [sys-kernel/gentoo-sources](https://packages.gentoo.org/packages/sys-kernel/gentoo-sources) with the [sg2042-patches](https://dev.gentoo.org/~mjo/distfiles/sg2042-patches-20261019.tar.xz) stored under [/etc/portage/patches](https://wiki.gentoo.org/wiki//etc/portage/patches). Upstream activity for the SG2042 has died down, so the patches may be required indefinitely.
 
 [a patch](https://lore.kernel.org/sophgo/20260421143154.1590156-1-guoren@kernel.org/T)on top of linux-next (as of 2026-05-17).
+
+[https://lore.kernel.org/sophgo/20260421143154.1590156-1-guoren@kernel.org/T/#u](https://lore.kernel.org/sophgo/20260421143154.1590156-1-guoren@kernel.org/T/#u)
 
 [Ghostwrite](https://wiki.gentoo.org#GhostWrite).
 
@@ -211,6 +241,9 @@ If you use dracut, then you should instruct it to include the video card's firmw
 
 **`/etc/dracut.conf.d/radeon.conf`**
 
+```
+install_items+=" /usr/lib/firmware/radeon/* "
+```
 Otherwise your system may boot successfully, e.g., reachable via network, but the display will stay black, because Linux is not able to initialize the video card.
 
 #### References
@@ -251,6 +284,10 @@ The second way to mitigate GhostWrite is wholesale, in the kernel.
 
 **Disable RISCV\_ISA\_V**
 
+```
+Platform type  --->
+  <n> VECTOR support
+```
 The description of the `RISCV_ISA_V` option is "Say N here if you want to disable all vector related procedure in the kernel." Disabling it does *not* affect the ISA string visible in /proc/cpuinfo, but it does disable the dangerous instructions, even in userspace. With `RISCV_ISA_V=n`, the GhostWrite proof-of-concept will compile (with `-march=rv64gcv`), but fail at runtime:
 
 `user $````
@@ -317,7 +354,7 @@ It's better to avoid this method entirely.
 
 This should be your preferred bootloader, since it actually works.
 
-The only trick here is that there are *three* forked SOPHGO repositories that you need to clone, and that all of them have a special branch you need to check out. Their build script doesn't mention this!
+The only trick here is that there are *five* forked SOPHGO repositories that you need to clone, and that three of them have a special branch you need to check out. Their build script doesn't mention this! Note: the directory names "MultiArchUefiPkg" and "unicorn" are important.
 
 `user $````
 git clone https://github.com/sophgo/edk2.git edk2.git
@@ -327,6 +364,12 @@ git clone https://github.com/sophgo/edk2-platforms.git edk2-platforms.git
 ```
 `user $````
 git clone https://github.com/sophgo/edk2-non-osi.git edk2-non-osi.git
+```
+`user $````
+git clone https://github.com/sophgo/MultiArchUefiPkg.git MultiArchUefiPkg
+```
+`user $````
+git clone https://github.com/sophgo/unicorn-for-efi unicorn
 ```
 `user $````
 cd edk2-platforms.git; git checkout devel-sg2042; cd ..
@@ -347,7 +390,7 @@ git submodule sync
 git submodule update --init --recursive
 ```
 `user $````
-export PACKAGES_PATH="$(pwd)/../edk2-platforms.git:$(pwd)/../edk2-non-osi.git"
+export PACKAGES_PATH="$(pwd)/../edk2-platforms.git:$(pwd)/../edk2-non-osi.git:$(pwd)/.."
 ```
 `user $````
 . edksetup.sh
@@ -407,12 +450,20 @@ You can use the [sys-boot/grub](https://packages.gentoo.org/packages/sys-boot/gr
 
 **`/etc/portage/package.use`**
 
+```
+sys-boot/grub GRUB_PLATFORMS: efi-64
+```
 and install it. If you really want to, you can add [sys-boot/efibootmgr](https://packages.gentoo.org/packages/sys-boot/efibootmgr) to [/etc/portage/profile/package.provided](https://wiki.gentoo.org/wiki//etc/portage/profile/package.provided). It gets pulled in by GRUB, but won't work on the Pioneer.
 
 Now, rather than mess with grub-install, what we want to do is build a single EFI image. First we need to create a "default" config file that will tell GRUB where to look for grub.cfg. If we skip this step, it may not know where to look.
 
 **`defaults.cfg`**
 
+```
+search.fs_uuid <your-disks-uuid> root
+set prefix=($root)'/grub'
+configfile $prefix/grub.cfg
+```
 The UUID of your disk can be found under /dev/disk/by-uuid. Now we generate the EFI image:
 
 `user $````
@@ -473,6 +524,19 @@ Finally, we need the GRUB configuration file, which (thanks to our defaults.cfg)
 
 **`grub/grub.cfg`**
 
+```
+set default=0
+set timeout_style=menu
+set timeout=2
+set debug="linux,loader,mm"
+set term="vt100"
+set pager=1
+# With recent fip.bin, libata.force=noncq is needed to avoid data loss!
+menuentry 'Gentoo 6.19.0+' {
+    linux /kernel-gentoo-6.19.0+ root=/dev/nvme0n1p4 rootfstype=ext4 earlycon rootwait rw console=ttyS0 console=tty0 libata.force=noncq
+    devicetree /sg2042-milkv-pioneer.dtb
+}
+```
 The entry above refers to a device tree blob, /sg2042-milkv-pioneer.dtb, so you should copy that onto the SD card from your (compiled) kernel source tree as well.
 
 Finally, we will need to create a conf.ini to tell ZSBL to tell OpenSBI to use SRA1-20.fd. This should live at riscv64/conf.ini on your SD card:
@@ -920,16 +984,39 @@ After the default boot flow, your clock will be all wrong, because there won't b
 
 **`mango-milkv-pioneer.dts`**
 
+```
+&i2c0 {
+	rtc: rtc@68 {
+		compatible = "dallas,ds1307";
+		reg = <0x68>;
+	};
+};
+```
 ...but there just isn't. Even after putting a CR-1220 battery in the socket on the motherboard, nothing.
 
 Well, this turns out to be another problem with the default (flash) firmware or device tree, just like the flaky console keyboard. If you boot from GRUB on an SD card, the clock device will appear. In fact, two of them will appear, which creates a new problem: if you are using an initramfs, sometimes you wind up with the wrong one as /dev/rtc0, and Gentoo (the `hwclock` service) still won't know what to do with it. Compare
 
 **`/var/log/dmesg (initramfs)`**
 
+```
+[    3.854973] dracut: Gentoo-2.15
+Starting systemd-udevd version 255
+[    4.749060] rtc-efi rtc-efi.0: registered as rtc0
+[    4.753940] rtc-efi rtc-efi.0: setting system clock to 2024-01-26T13:39:37 UTC (1706276377)
+[    4.795633] gpio-keys soc:gpio-poweroff: there is not valid maps for state default
+[    4.795873] xhci_hcd 0002:c4:00.0: xHCI Host Controller
+[    4.795908] xhci_hcd 0002:c4:00.0: new USB bus registered, assigned bus number 1
+[    4.798080] rtc-ds1307 0-0068: registered as rtc1
+```
 with
 
 **`/var/log/dmesg (no initramfs)`**
 
+```
+[   11.426623] rtc-ds1307 0-0068: registered as rtc0
+[   11.432365] rtc-ds1307 0-0068: setting system clock to 2024-08-27T22:56:34 UTC (1724799394)
+[   11.442015] rtc-efi rtc-efi.0: registered as rtc1
+```
 If you really want to use an initramfs, you can pass `-f /dev/rtc1` to `hwclock` in /etc/conf.d/hwclock. The systemd equivalent is left as an exercise.
 
 ### No sound
@@ -948,6 +1035,17 @@ The *only* device I have is `device 3`? ALSA is not expecting this. To tell ALSA
 
 **`/etc/asound.conf`**
 
+```
+pcm.!default {
+  type hw
+  card 0
+  device 3
+}
+ctl.!default {
+  type hw
+  card 0
+}
+```
 Afterwards, I also had to run `alsamixer` from [media-sound/alsa-utils](https://packages.gentoo.org/packages/media-sound/alsa-utils) to unmute the `S/PDIF` source.
 
 ### Clock skew detected!
@@ -962,6 +1060,9 @@ dmesg tells me that the system clock is being set during boot:
 
 **`/var/log/dmesg`**
 
+```
+[Thu Sep 12 12:41:45 2024] [    T1] rtc-ds1307 0-0068: setting system clock to 2024-09-12T16:41:45 UTC (1726159305)
+```
 But several of the files under /run/openrc that are created very early are being created with the wrong time (system clock appears set close to the epoch). The system time then stays wrong (epoch plus a few seconds) until the udev-trigger service runs, and, I am guessing, the default udev rule that calls `hwclock` finally fixes the time.
 
 I don't *really* know what's happening here, but it looks like the console output is out of order. I added `printk` statements to the kernel, and I can see that e.g. hwclock and ntpd are starting in the middle of the kernel output. That can't be possible if the console output is in order, and *that* means that I can't really be sure when the system clock was set.
@@ -995,6 +1096,103 @@ Every few days, the radeon GPU locks up, and goes into a reset loop:
 
 **`/var/log/dmesg`**
 
+```
+Dec 16 00:32:40 [kernel] [529658.719358][T25609] radeon 0000:01:00.0: ring 0 stalled for more than 10240msec
+Dec 16 00:32:40 [kernel] [529658.719379][T25609] radeon 0000:01:00.0: GPU lockup (current fence id 0x00000000004aa63c last fence id 0x00000000004aa65a on ring 0)
+Dec 16 00:32:40 [kernel] [529658.835324][ T1617] radeon 0000:01:00.0: Saved 951 dwords of commands on ring 0.
+Dec 16 00:32:40 [kernel] [529658.835374][ T1617] radeon 0000:01:00.0: GPU softreset: 0x0000000C
+...
+Dec 16 00:32:40 [kernel] [529658.844958][ T1617] radeon 0000:01:00.0: GPU reset succeeded, trying to resume
+Dec 16 00:32:40 [kernel] [529658.891789][ T1617] [drm] PCIE GART of 1024M enabled (table at 0x0000000000162000).
+Dec 16 00:32:40 [kernel] [529658.891945][ T1617] radeon 0000:01:00.0: WB enabled
+Dec 16 00:32:40 [kernel] [529658.891954][ T1617] radeon 0000:01:00.0: fence driver on ring 0 use gpu addr 0x0000000080000c00
+Dec 16 00:32:40 [kernel] [529658.891961][ T1617] radeon 0000:01:00.0: fence driver on ring 3 use gpu addr 0x0000000080000c0c
+Dec 16 00:32:40 [kernel] [529658.894940][ T1617] radeon 0000:01:00.0: fence driver on ring 5 use gpu addr 0x0000000000072118
+Dec 16 00:32:40 [kernel] [529658.911497][ T1617] [drm] ring test on 0 succeeded in 1 usecs
+Dec 16 00:32:40 [kernel] [529658.911517][ T1617] [drm] ring test on 3 succeeded in 6 usecs
+Dec 16 00:32:40 [kernel] [529659.088655][ T1617] [drm] ring test on 5 succeeded in 2 usecs
+Dec 16 00:32:40 [kernel] [529659.088679][ T1617] [drm] UVD initialized successfully.
+Dec 16 00:32:41 [kernel] [529660.255374][ T1617] [drm:r600_ib_test] *ERROR* radeon: fence wait timed out.
+Dec 16 00:32:41 [kernel] [529660.255416][ T1617] [drm:radeon_ib_ring_tests] *ERROR* radeon: failed testing IB on GFX ring (-110).
+Dec 16 00:32:41 [kernel] [529660.363641][ T1617] radeon 0000:01:00.0: GPU softreset: 0x00000088
+...
+Dec 16 00:32:41 [kernel] [529660.377768][ T1617] radeon 0000:01:00.0: GPU reset succeeded, trying to resume
+Dec 16 00:32:41 [kernel] [529660.424569][ T1617] [drm] PCIE GART of 1024M enabled (table at 0x0000000000162000).
+Dec 16 00:32:41 [kernel] [529660.424725][ T1617] radeon 0000:01:00.0: WB enabled
+Dec 16 00:32:41 [kernel] [529660.424734][ T1617] radeon 0000:01:00.0: fence driver on ring 0 use gpu addr 0x0000000080000c00
+Dec 16 00:32:41 [kernel] [529660.424742][ T1617] radeon 0000:01:00.0: fence driver on ring 3 use gpu addr 0x0000000080000c0c
+Dec 16 00:32:41 [kernel] [529660.427753][ T1617] radeon 0000:01:00.0: fence driver on ring 5 use gpu addr 0x0000000000072118
+Dec 16 00:32:41 [kernel] [529660.444268][ T1617] [drm] ring test on 0 succeeded in 2 usecs
+Dec 16 00:32:41 [kernel] [529660.444288][ T1617] [drm] ring test on 3 succeeded in 6 usecs
+Dec 16 00:32:41 [kernel] [529660.621441][ T1617] [drm] ring test on 5 succeeded in 2 usecs
+Dec 16 00:32:41 [kernel] [529660.621462][ T1617] [drm] UVD initialized successfully.
+Dec 16 00:32:42 [kernel] [529660.760522][ T1617] [drm] ib test on ring 0 succeeded in 0 usecs
+Dec 16 00:32:42 [kernel] [529660.760574][ T1617] [drm] ib test on ring 3 succeeded in 0 usecs
+Dec 16 00:32:42 [kernel] [529660.911862][ T1617] [drm] ib test on ring 5 succeeded
+Dec 16 00:32:42 [kernel] [529661.025809][ T2371] ------------[ cut here ]------------
+Dec 16 00:32:42 [kernel] [529661.025825][ T2371] WARNING: CPU: 51 PID: 2371 at drivers/gpu/drm/ttm/ttm_bo.c:356 ttm_bo_release+0x350/0x38c
+Dec 16 00:32:42 [kernel] [529661.025853][ T2371] Modules linked in: tun lz4 lz4_compress lz4_decompress zram zsmalloc usbhid nft_ct nf_conntrack nf_defrag_ipv4 evdev nf_tables nfnetlink xhci_pci ahci spi_dw_mmio xhci_hcd gpio_dwapb snd_hda_codec_hdmi libahci spi_dw sophgo_spifmc gpio_generic usbcore ixgbe snd_hda_intel spi_nor snd_intel_dspcfg r8169 libata usb_common snd_hda_codec snd_hda_core mdio snd_pcm snd_timer snd soundcore unix
+Dec 16 00:32:42 [kernel] [529661.025979][ T2371] CPU: 51 PID: 2371 Comm: sway Not tainted 6.1.80+ #71
+Dec 16 00:32:42 [kernel] [529661.025987][ T2371] Hardware name: Sophgo Mango (DT)
+Dec 16 00:32:42 [kernel] [529661.025992][ T2371] epc : ttm_bo_release+0x350/0x38c
+Dec 16 00:32:42 [kernel] [529661.025999][ T2371]  ra : radeon_bo_unref+0x14/0x22
+Dec 16 00:32:42 [kernel] [529661.026014][ T2371] epc : ffffffff803647e0 ra : ffffffff80382ae4 sp : ffffffc80b243cb0
+Dec 16 00:32:42 [kernel] [529661.026020][ T2371]  gp : ffffffff8134afd0 tp : ffffffd90937e800 t0 : ffffffc80b243cf8
+Dec 16 00:32:42 [kernel] [529661.026025][ T2371]  t1 : ffffffff8005faca t2 : 0000000000000000 s0 : ffffffd90239d9e0
+Dec 16 00:32:42 [kernel] [529661.026029][ T2371]  s1 : ffffffd90239d878 a0 : ffffffd90239d9e0 a1 : 0000000000000000
+Dec 16 00:32:42 [kernel] [529661.026034][ T2371]  a2 : fffffff6ff912000 a3 : 0000000000002687 a4 : 0000000000000000
+Dec 16 00:32:42 [kernel] [529661.026039][ T2371]  a5 : 0000000000000001 a6 : 0000000000000000 a7 : 0000000000000000
+Dec 16 00:32:42 [kernel] [529661.026044][ T2371]  s2 : ffffffff813b5158 s3 : ffffffd9020606f0 s4 : ffffffd904439cd8
+Dec 16 00:32:42 [kernel] [529661.026048][ T2371]  s5 : 0000000000000008 s6 : 0000003f996fc410 s7 : 0000000000000007
+Dec 16 00:32:42 [kernel] [529661.026053][ T2371]  s8 : 0000003f9a449558 s9 : 0000003ff2e0c518 s10: 0000003ff2e0ccd8
+Dec 16 00:32:42 [kernel] [529661.026057][ T2371]  s11: 0000003f9a29ded8 t3 : 0000003f9a2c2b38 t4 : 0000000000000005
+Dec 16 00:32:42 [kernel] [529661.026062][ T2371]  t5 : 0000003f96f74b38 t6 : 0000003ff2e0c078
+Dec 16 00:32:42 [kernel] [529661.026066][ T2371] status: 0000000200000120 badaddr: 0000000000000000 cause: 0000000000000003
+Dec 16 00:32:42 [kernel] [529661.026071][ T2371] [<ffffffff803647e0>] ttm_bo_release+0x350/0x38c
+Dec 16 00:32:42 [kernel] [529661.026080][ T2371] [<ffffffff80382ae0>] radeon_bo_unref+0x10/0x22
+Dec 16 00:32:42 [kernel] [529661.026088][ T2371] [<ffffffff80394e0a>] radeon_gem_object_free+0x16/0x3a
+Dec 16 00:32:42 [kernel] [529661.026099][ T2371] [<ffffffff803313dc>] drm_gem_dmabuf_release+0x32/0x4a
+Dec 16 00:32:42 [kernel] [529661.026106][ T2371] [<ffffffff8046db80>] dma_buf_release+0x1e/0x76
+Dec 16 00:32:42 [kernel] [529661.026113][ T2371] [<ffffffff8012f9de>] __dentry_kill+0x116/0x20a
+Dec 16 00:32:42 [kernel] [529661.026122][ T2371] [<ffffffff80119c32>] __fput+0x98/0x19e
+Dec 16 00:32:42 [kernel] [529661.026131][ T2371] [<ffffffff8002601e>] task_work_run+0x8e/0xd4
+Dec 16 00:32:42 [kernel] [529661.026144][ T2371] [<ffffffff80004380>] do_work_pending+0x308/0x3f4
+Dec 16 00:32:42 [kernel] [529661.026153][ T2371] [<ffffffff80119b4a>] fput+0x4c/0x9c
+Dec 16 00:32:42 [kernel] [529661.026160][ T2371] [<ffffffff8000343c>] resume_userspace_slow+0x4/0xa
+Dec 16 00:32:42 [kernel] [529661.026169][ T2371] ---[ end trace 0000000000000000 ]---
+Dec 16 00:32:52 [kernel] [529671.519364][T25609] radeon 0000:01:00.0: ring 0 stalled for more than 10476msec
+Dec 16 00:32:52 [kernel] [529671.519381][T25609] radeon 0000:01:00.0: GPU lockup (current fence id 0x00000000004aa667 last fence id 0x00000000004aa671 on ring 0)
+Dec 16 00:32:52 [kernel] [529671.630627][  T892] radeon 0000:01:00.0: Saved 311 dwords of commands on ring 0.
+Dec 16 00:32:52 [kernel] [529671.630665][  T892] radeon 0000:01:00.0: GPU softreset: 0x00000009
+...
+Dec 16 00:32:52 [kernel] [529671.643435][  T892] radeon 0000:01:00.0: GPU reset succeeded, trying to resume
+Dec 16 00:32:53 [kernel] [529671.696313][  T892] [drm] PCIE GART of 1024M enabled (table at 0x0000000000162000).
+Dec 16 00:32:53 [kernel] [529671.696474][  T892] radeon 0000:01:00.0: WB enabled
+Dec 16 00:32:53 [kernel] [529671.696484][  T892] radeon 0000:01:00.0: fence driver on ring 0 use gpu addr 0x0000000080000c00
+Dec 16 00:32:53 [kernel] [529671.696491][  T892] radeon 0000:01:00.0: fence driver on ring 3 use gpu addr 0x0000000080000c0c
+Dec 16 00:32:53 [kernel] [529671.700560][  T892] radeon 0000:01:00.0: fence driver on ring 5 use gpu addr 0x0000000000072118
+Dec 16 00:32:53 [kernel] [529671.717162][  T892] [drm] ring test on 0 succeeded in 1 usecs
+Dec 16 00:32:53 [kernel] [529671.717188][  T892] [drm] ring test on 3 succeeded in 7 usecs
+Dec 16 00:32:53 [kernel] [529671.894345][  T892] [drm] ring test on 5 succeeded in 2 usecs
+Dec 16 00:32:53 [kernel] [529671.894363][  T892] [drm] UVD initialized successfully.
+Dec 16 00:32:54 [kernel] [529673.055354][  T892] [drm:r600_ib_test] *ERROR* radeon: fence wait timed out.
+Dec 16 00:32:54 [kernel] [529673.055387][  T892] [drm:radeon_ib_ring_tests] *ERROR* radeon: failed testing IB on GFX ring (-110).
+Dec 16 00:32:54 [kernel] [529673.166998][  T892] radeon 0000:01:00.0: GPU softreset: 0x00000009
+...
+Dec 16 00:32:54 [kernel] [529673.183406][  T892] radeon 0000:01:00.0: GPU reset succeeded, trying to resume
+Dec 16 00:32:54 [kernel] [529673.238557][  T892] [drm] PCIE GART of 1024M enabled (table at 0x0000000000162000).
+Dec 16 00:32:54 [kernel] [529673.238726][  T892] radeon 0000:01:00.0: WB enabled
+Dec 16 00:32:54 [kernel] [529673.238736][  T892] radeon 0000:01:00.0: fence driver on ring 0 use gpu addr 0x0000000080000c00
+Dec 16 00:32:54 [kernel] [529673.238745][  T892] radeon 0000:01:00.0: fence driver on ring 3 use gpu addr 0x0000000080000c0c
+Dec 16 00:32:54 [kernel] [529673.242963][  T892] radeon 0000:01:00.0: fence driver on ring 5 use gpu addr 0x0000000000072118
+Dec 16 00:32:54 [kernel] [529673.259656][  T892] [drm] ring test on 0 succeeded in 1 usecs
+Dec 16 00:32:54 [kernel] [529673.259682][  T892] [drm] ring test on 3 succeeded in 7 usecs
+Dec 16 00:32:54 [kernel] [529673.436868][  T892] [drm] ring test on 5 succeeded in 2 usecs
+Dec 16 00:32:54 [kernel] [529673.436891][  T892] [drm] UVD initialized successfully.
+Dec 16 00:32:54 [kernel] [529673.576081][  T892] [drm] ib test on ring 0 succeeded in 0 usecs
+Dec 16 00:32:54 [kernel] [529673.576136][  T892] [drm] ib test on ring 3 succeeded in 0 usecs
+Dec 16 00:32:55 [kernel] [529673.727540][  T892] [drm] ib test on ring 5 succeeded
+```
 This turned out to be a webkit-gtk problem, and not a hardware/kernel issue. Newer versions of webkit-gtk no longer build on risc-v, "solving" this. (Firefox ESR should work instead.)
 
 ## Unsolved problems
@@ -1117,10 +1315,38 @@ The boot often hangs while waiting for the NVMe. It usually succeeds after a whi
 
 **`/var/log/dmesg`**
 
+```
+[Sun Sep  1 19:13:30 2024] [  T423] nvme nvme0: I/O 22 QID 0 timeout, completion polled
+[Sun Sep  1 19:13:30 2024] [    T9] nvme nvme0: 1/0/0 default/read/poll queues
+[Sun Sep  1 19:13:30 2024] [  T419]  nvme0n1: p1 p2 p3 p4
+```
 and occasionally, it does fail, and the boot is stalled indefinitely:
 
 **`/var/log/dmesg`**
 
+```
+[   68.600873][  T389] nvme nvme0: I/O 14 QID 0 timeout, disable controller
+[   68.712860][  T349] nvme nvme0: Removing after probe failure status: -4
+[   68.728785][    T1] Waiting for root device /dev/nvme0n1p4...
+```
 The NVMe just seems generally flaky, even after booting:
 
 **`/var/log/dmesg`**
+
+```
+Sep 12 12:36:45 [kernel] [  150.539498][ T1018] nvme nvme0: I/O 335 (I/O Cmd) QID 1 timeout, aborting
+Sep 12 12:36:45 [kernel] [  150.539543][ T1018] nvme nvme0: I/O 866 (I/O Cmd) QID 1 timeout, aborting
+Sep 12 12:36:45 [kernel] [  151.371484][ T1018] nvme nvme0: I/O 441 (I/O Cmd) QID 1 timeout, aborting
+Sep 12 12:36:45 [kernel] [  153.538882][   C52] nvme nvme0: Abort status: 0x0
+Sep 12 12:36:45 [kernel] [  156.538909][   C52] nvme nvme0: Abort status: 0x0
+Sep 12 12:36:48 [kernel] [  159.538940][   C52] nvme nvme0: Abort status: 0x0
+Sep 12 12:37:53 [kernel] [  193.547498][  T415] nvme nvme0: I/O 864 (I/O Cmd) QID 1 timeout, aborting
+Sep 12 12:37:53 [kernel] [  194.635484][  T415] nvme nvme0: I/O 447 (I/O Cmd) QID 1 timeout, aborting
+Sep 12 12:37:53 [kernel] [  196.546797][   C40] nvme nvme0: Abort status: 0x0
+Sep 12 12:37:53 [kernel] [  199.546814][   C40] nvme nvme0: Abort status: 0x0
+Sep 12 12:37:53 [kernel] [  224.267492][  T415] nvme nvme0: I/O 864 QID 1 timeout, reset controller
+Sep 12 12:37:53 [kernel] [  224.307642][   C18] nvme0n1: I/O Cmd(0x2) @ LBA 95243456, 104 blocks, I/O Error (sct 0x3 / sc 0x71)
+Sep 12 12:37:53 [kernel] [  224.307689][   C18] I/O error, dev nvme0n1, sector 95243456 op 0x0:(READ) flags 0x80700 phys_seg 13 prio class 2
+Sep 12 12:37:53 [kernel] [  224.327795][ T1082] nvme nvme0: 1/0/0 default/read/poll queues
+Sep 12 12:38:54 [kernel] [  285.707542][  T415] nvme nvme0: I/O 87 QID 1 timeout, completion polled
+```

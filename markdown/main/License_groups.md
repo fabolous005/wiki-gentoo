@@ -4,8 +4,8 @@ title: License groups
 url: https://wiki.gentoo.org/wiki/License_groups
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2025-02-19"
-fingerprint: ed455ad8cd0bbd98
+date: "2026-10-19"
+fingerprint: ed455ad8ed0bbd98
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 **License groups** enable the system's package manager to allow or disallow the installation of certain categories of software based on license compatibility. License groups are generally divided into categories by license compatibility with legal standards. Organizations that advocate software freedom also maintain lists of software that meets certain key criteria.
 
@@ -78,7 +80,7 @@ A free software license must grant the ”four freedoms“ to the program’s us
 3. The freedom to redistribute copies so you can help your neighbor (freedom 2).
 4. The freedom to distribute copies of your modified versions to others (freedom 3). By doing this you can give the whole community a chance to benefit from your changes. Access to the source code is a precondition for this.
 
-[DFSG FAQ](https://people.debian.org/~bap/dfsg-faq.html)):
+Some tests to check whether a license is a free software license have been created by Debian (taken from their [DFSG FAQ](https://people.debian.org/~bap/dfsg-faq.html)):
 
 - The **“Desert island”** test. Imagine a castaway on a desert island with a solar-powered computer. This would make it impossible to fulfill any requirement to make changes publicly available or to send patches to some particular place. This holds even if such requirements are only upon request, as the castaway might be able to receive messages but be unable to send them. To be free, software must be modifiable by this unfortunate castaway, who must also be able to legally share modifications with friends on the island.
 - The **“Dissident”** test. Consider a dissident in a totalitarian state who wishes to share a modified bit of software with fellow dissidents, but does not wish to reveal the identity of the modifier, or directly reveal the modifications themselves, or even possession of the program, to the government. Any requirement for sending source modifications to anyone other than the recipient of the modified binary – in fact any forced distribution at all, beyond giving source to those who receive a copy of the binary – would put the dissident in danger. For Debian to consider software free it must not require any such ”excess“ distribution.

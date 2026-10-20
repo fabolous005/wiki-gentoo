@@ -4,7 +4,7 @@ title: "/etc/portage"
 url: https://wiki.gentoo.org/wiki//etc/portage
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2025-11-06"
+date: "2026-10-19"
 fingerprint: "1013de9dbeeea2a0"
 license: CC BY-SA 4.0
 ---

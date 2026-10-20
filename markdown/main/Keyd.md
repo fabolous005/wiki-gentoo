@@ -4,7 +4,7 @@ title: keyd
 url: https://wiki.gentoo.org/wiki/Keyd
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-16"
+date: "2026-10-19"
 fingerprint: "9ec1d159af85b9c0"
 license: CC BY-SA 4.0
 ---

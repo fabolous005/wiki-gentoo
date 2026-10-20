@@ -4,8 +4,8 @@ title: Minecraft
 url: https://wiki.gentoo.org/wiki/Minecraft
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-13"
-fingerprint: fd80d35bd89bbcd5
+date: "2026-10-19"
+fingerprint: ed90155fcc93fcc5
 license: CC BY-SA 4.0
 ---
 
@@ -41,37 +41,201 @@ To install the official Minecraft launcher ([games-action/minecraft-launcher](ht
 Free/libre software launcher for Minecraft with support for multiple instances, managing modpacks and mods etc.
 
 `root #``emerge --ask games-action/prismlauncher`
-### Fjord Launcher
+#### seatd workaround
 
-Fjord Launcher is a soft fork of Prism Launcher with the goal of adding support for alternative authentication servers.
-To emerge it, first enable the [GURU](https://wiki.gentoo.org/wiki/GURU) overlay.
+As of 2026-10-19, the ebuild file depends on [games-util/gamemode](https://packages.gentoo.org/packages/games-util/gamemode), which pulls [sys-auth/elogind](https://packages.gentoo.org/packages/sys-auth/elogind) instead of [sys-libs/basu](https://packages.gentoo.org/packages/sys-libs/basu) by some reason, more info [here](https://github.com/FeralInteractive/gamemode/issues/569). As a workaround, a local overlay should be created. See [bug #984147](https://bugs.gentoo.org/show_bug.cgi?id=984147).
 
-`root #``eselect repository enable guru``root #``emerge --sync guru``root #``emerge --ask games-action/fjordlauncher`
-### musl-based system
+`root #``eselect repository create minecraft-fix``root #``mkdir /var/db/repos/minecraft-fix/games-action``root #``cp --archive /var/db/repos/gentoo/games-action/prismlauncher/ /var/db/repos/minecraft-fix/games-action/`
+Create the ebuild patches:
 
-The official launcher is linked to glibc and is therefore not really usable. Prism Launcher can be compiled and run, but it uses the LWJGL binaries provided by Mojang, which are also linked to glibc.
+**`/var/db/repos/minecraft-fix/games-action/prismlauncher/ebuild-11.0.3.patch`**
 
-#### GCompat solution
+```
+--- a/prismlauncher-11.0.3.ebuild
++++ b/prismlauncher-11.0.3.ebuild
+@@ -40,7 +40,6 @@
+ 	dev-cpp/tomlplusplus
+ 	>=dev-qt/qtbase-${QTMIN}:6[concurrent,gui,opengl,network,vulkan,widgets,xml(+)]
+ 	>=dev-qt/qtnetworkauth-${QTMIN}:6
+-	games-util/gamemode
+ 	media-gfx/qrencode:=
+ 	virtual/zlib:=
+ "
+```
+**`/var/db/repos/minecraft-fix/games-action/prismlauncher/ebuild-11.1.1.patch`**
 
-It is possible to workaround this issue with the following steps:
+```
+--- a/prismlauncher-11.1.1.ebuild
++++ b/prismlauncher-11.1.1.ebuild
+@@ -40,7 +40,6 @@
+ 	dev-cpp/tomlplusplus
+ 	>=dev-qt/qtbase-${QTMIN}:6[concurrent,gui,opengl,network,vulkan,widgets,xml(+)]
+ 	>=dev-qt/qtnetworkauth-${QTMIN}:6
+-	games-util/gamemode
+ 	media-gfx/qrencode:=
+ 	virtual/zlib:=
+ "
+```
+Apply the ebuild patches:
 
-`root #``emerge --ask media-libs/openal``root #``emerge --ask media-libs/glfw`
-Add `-Dorg.lwjgl.openal.libname=/usr/lib/libopenal.so.1 -Dorg.lwjgl.glfw.libname=/usr/lib/libglfw.so` to your java arguments (or write the paths in the dedicated interface Prism Launcher has.)
+`root #``cd /var/db/repos/minecraft-fix/games-action/prismlauncher/``root #``patch -p1 < ebuild-11.0.3.patch``root #``patch -p1 < ebuild-11.1.1.patch`
+Create the following patches to remove the gamemode from the launcher:
+
+**`/etc/portage/patches/games-action/prismlauncher-11.0.3/nogamemode.patch`**
+
+```
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -305,7 +305,7 @@
+ if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+     find_package(PkgConfig REQUIRED)
+-    pkg_check_modules(gamemode REQUIRED IMPORTED_TARGET gamemode)
++    pkg_check_modules(gamemode IMPORTED_TARGET gamemode)
+ endif()
+ # Find libqrencode
+--- a/launcher/Application.cpp
++++ b/launcher/Application.cpp
+@@ -131,7 +131,6 @@
+ #ifdef Q_OS_LINUX
+ #include <dlfcn.h>
+ #include "LibraryUtils.h"
+-#include "gamemode_client.h"
+ #endif
+ #if defined(Q_OS_LINUX)
+@@ -1834,9 +1833,6 @@
+         m_capabilities |= SupportsFlame;
+ #ifdef Q_OS_LINUX
+-    if (gamemode_query_status() >= 0)
+-        m_capabilities |= SupportsGameMode;
+-
+     if (!LibraryUtils::findMangoHud().isEmpty())
+         m_capabilities |= SupportsMangoHud;
+ #endif
+--- a/launcher/CMakeLists.txt
++++ b/launcher/CMakeLists.txt
+@@ -1356,12 +1356,6 @@
+     target_link_libraries(Launcher_logic LibArchive::LibArchive)
+ endif()
+-if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
+-    target_link_libraries(Launcher_logic
+-        gamemode
+-    )
+-endif()
+-
+ target_link_libraries(Launcher_logic
+     Qt${QT_VERSION_MAJOR}::Core
+     Qt${QT_VERSION_MAJOR}::Xml
+--- a/launcher/minecraft/launch/LauncherPartLaunch.cpp
++++ b/launcher/minecraft/launch/LauncherPartLaunch.cpp
+@@ -44,10 +44,6 @@
+ #include "launch/LaunchTask.h"
+ #include "minecraft/MinecraftInstance.h"
+-#ifdef Q_OS_LINUX
+-#include "gamemode_client.h"
+-#endif
+-
+ LauncherPartLaunch::LauncherPartLaunch(LaunchTask* parent)
+     : LaunchStep(parent)
+     , m_process(parent->instance()->getJavaVersion().defaultsToUtf8() ? QStringConverter::Utf8 : QStringConverter::System)
+@@ -149,14 +145,6 @@
+         m_process.start(javaPath, args);
+     }
+-#ifdef Q_OS_LINUX
+-    if (instance->settings()->get("EnableFeralGamemode").toBool() && APPLICATION->capabilities() & Application::SupportsGameMode) {
+-        auto pid = m_process.processId();
+-        if (pid) {
+-            gamemode_request_start_for(pid);
+-        }
+-    }
+-#endif
+ }
+ void LauncherPartLaunch::on_state(LoggedProcess::State state)
+```
+**`/etc/portage/patches/games-action/prismlauncher-11.1.1/nogamemode.patch`**
+
+```
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -305,7 +305,6 @@
+ if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+     find_package(PkgConfig REQUIRED)
+-    pkg_check_modules(gamemode REQUIRED IMPORTED_TARGET gamemode)
+ endif()
+ # Find libqrencode
+--- a/launcher/Application.cpp
++++ b/launcher/Application.cpp
+@@ -131,7 +131,6 @@
+ #ifdef Q_OS_LINUX
+ #include <dlfcn.h>
+ #include "LibraryUtils.h"
+-#include "gamemode_client.h"
+ #endif
+ #if defined(Q_OS_LINUX)
+@@ -1828,9 +1827,6 @@
+         m_capabilities |= SupportsFlame;
+ #ifdef Q_OS_LINUX
+-    if (gamemode_query_status() >= 0)
+-        m_capabilities |= SupportsGameMode;
+-
+     if (!LibraryUtils::findMangoHud().isEmpty())
+         m_capabilities |= SupportsMangoHud;
+ #endif
+--- a/launcher/CMakeLists.txt
++++ b/launcher/CMakeLists.txt
+@@ -1359,12 +1359,6 @@
+     target_link_libraries(Launcher_logic LibArchive::LibArchive)
+ endif()
+-if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
+-    target_link_libraries(Launcher_logic
+-        gamemode
+-    )
+-endif()
+-
+ target_link_libraries(Launcher_logic
+     Qt${QT_VERSION_MAJOR}::Core
+     Qt${QT_VERSION_MAJOR}::Xml
+--- a/launcher/minecraft/launch/LauncherPartLaunch.cpp
++++ b/launcher/minecraft/launch/LauncherPartLaunch.cpp
+@@ -44,10 +44,6 @@
+ #include "launch/LaunchTask.h"
+ #include "minecraft/MinecraftInstance.h"
+-#ifdef Q_OS_LINUX
+-#include "gamemode_client.h"
+-#endif
+-
+ LauncherPartLaunch::LauncherPartLaunch(LaunchTask* parent)
+     : LaunchStep(parent)
+     , m_process(parent->instance()->getJavaVersion().defaultsToUtf8() ? QStringConverter::Utf8 : QStringConverter::System)
+@@ -148,15 +144,6 @@
+     } else {
+         m_process.start(javaPath, args);
+     }
+-
+-#ifdef Q_OS_LINUX
+-    if (instance->settings()->get("EnableFeralGamemode").toBool() && APPLICATION->capabilities() & Application::SupportsGameMode) {
+-        auto pid = m_process.processId();
+-        if (pid) {
+-            gamemode_request_start_for(pid);
+-        }
+-    }
+-#endif
+ }
+ void LauncherPartLaunch::on_state(LoggedProcess::State state)
+```
+Install the package from the overlay:
+
+`root #``emerge --ask games-action/prismlauncher::minecraft-fix`
+#### musl-based system
+
+Prism Launcher can be compiled and run, but it uses the LWJGL binaries provided by Mojang, which are linked to glibc. It is possible to workaround this issue with the following steps:
+
+[Enable the GURU overlay](https://wiki.gentoo.org/wiki/Project:GURU/Information_for_End_Users) and install [gcompat](https://github.com/gentoo/guru/tree/master/sys-libs/gcompat):
 
 `root #``emerge --ask sys-libs/gcompat::guru`
-with the `libucontext obstack` USE flags (make sure to enable the guru overlay, and use the live ebuild if point releases have issues.)
+Install OpenAL:
 
-Optionally, you can add `-Dorg.lwjgl.system.allocator=system` to your Java arguments and enjoy! :)
-
-#### Jemalloc
-
-Or, recommended for performance, you may emerge [Jemalloc](https://packages.gentoo.org/packages/dev-libs/jemalloc).
-
-`root #``emerge --ask dev-libs/jemalloc`
-You may also add 
-`-Dorg.lwjgl.system.jemalloc.libname=/usr/lib/libjemalloc.so.2` instead.
-
-Jemalloc may not work on the musl-llvm profile; if that is the case, try compiling it with gcc.
+`root #``emerge --ask media-libs/openal`
+Add these lines to the Java arguments (Settings -> Java -> Java Arguments):
 
 #### Flatpak solution
 
@@ -81,6 +245,12 @@ Installing and running Prism Launcher using [Flatpak](https://wiki.gentoo.org/wi
 To run Prism Launcher use the following command (it is important to provide the locale, otherwise Minecraft will not start):
 
 `user $``flatpak run --env=LC_ALL=en_US.UTF-8 org.prismlauncher.PrismLauncher`
+### Fjord Launcher
+
+Fjord Launcher is a soft fork of Prism Launcher with the goal of adding support for alternative authentication servers.
+To emerge it, first enable the [GURU](https://wiki.gentoo.org/wiki/GURU) overlay.
+
+`root #``eselect repository enable guru``root #``emerge --sync guru``root #``emerge --ask games-action/fjordlauncher`
 ## Servers
 
 ### Official server

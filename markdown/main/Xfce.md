@@ -5,7 +5,7 @@ author: Authorization or permissions issues
 url: https://wiki.gentoo.org/wiki/Xfce
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-04-20"
+date: "2026-10-19"
 categories: ['xfce-extra']
 fingerprint: f451e65b0293b1b0
 license: CC BY-SA 4.0
@@ -28,7 +28,7 @@ Using the basic *desktop* [profile](https://wiki.gentoo.org/wiki/Portage/Profile
 `root #``eselect profile set default/linux/amd64/23.0/desktop`
 #### Combined hardened profiles
 
-Users that run hardened profiles can also combine it with all the features of the desktop profile. For steps on doing this please follow [Hardened\_Desktop\_Profiles](https://wiki.gentoo.org/wiki/Hardened_Desktop_Profiles).
+Users that run hardened profiles can also combine it with all the features of the desktop profile. For steps on doing this please follow [Hardened Desktop Profiles](https://wiki.gentoo.org/wiki/Hardened_Desktop_Profiles).
 
 ### Avoiding unnecessary dependencies
 

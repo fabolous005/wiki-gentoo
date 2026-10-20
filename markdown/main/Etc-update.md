@@ -1,19 +1,20 @@
 <!-- source: https://wiki.gentoo.org/wiki/Etc-update | group: Gentoo Wiki (Main) | wiki-title: Etc-update -->
 ---
-title: Etc-update
+title: etc-update
 url: https://wiki.gentoo.org/wiki/Etc-update
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-05-15"
+date: "2026-10-19"
 fingerprint: "94127e69c6a79ad1"
 license: CC BY-SA 4.0
 ---
 
-# Etc-update
+# etc-update
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
 
 **etc-update** is a tool to merge configuration files with an interactive merging setup and can also auto-merge trivial changes.
 

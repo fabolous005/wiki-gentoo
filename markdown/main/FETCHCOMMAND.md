@@ -4,7 +4,7 @@ title: FETCHCOMMAND
 url: https://wiki.gentoo.org/wiki/FETCHCOMMAND
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-15"
+date: "2026-10-19"
 fingerprint: "24b13a1f0f3bf9ad"
 license: CC BY-SA 4.0
 ---
