@@ -486,6 +486,7 @@ https://wiki.gentoo.org/wiki/Dell_Inspiron_15_5515
 https://wiki.gentoo.org/wiki/Dell_Inspiron_3195
 https://wiki.gentoo.org/wiki/Dell_Inspiron_3501
 https://wiki.gentoo.org/wiki/Dell_Inspiron_3537
+https://wiki.gentoo.org/wiki/Dell_Latitude_5490
 https://wiki.gentoo.org/wiki/Dell_Latitude_5491
 https://wiki.gentoo.org/wiki/Dell_Latitude_5495
 https://wiki.gentoo.org/wiki/Dell_Latitude_5580
@@ -1811,13 +1812,16 @@ https://wiki.gentoo.org/wiki/Nftables
 https://wiki.gentoo.org/wiki/Nftables/Configuration
 https://wiki.gentoo.org/wiki/Nftables/Examples
 https://wiki.gentoo.org/wiki/Nftables/Rules
+https://wiki.gentoo.org/wiki/Nftables/Rules/Dnat
 https://wiki.gentoo.org/wiki/Nftables/Rules/Include
 https://wiki.gentoo.org/wiki/Nftables/Rules/Ip6_saddr
 https://wiki.gentoo.org/wiki/Nftables/Rules/Ip_saddr
 https://wiki.gentoo.org/wiki/Nftables/Rules/Limit
 https://wiki.gentoo.org/wiki/Nftables/Rules/Log
 https://wiki.gentoo.org/wiki/Nftables/Rules/Meter
+https://wiki.gentoo.org/wiki/Nftables/Rules/Redirect
 https://wiki.gentoo.org/wiki/Nftables/Rules/Snat
+https://wiki.gentoo.org/wiki/Nftables/Rules/masquerade
 https://wiki.gentoo.org/wiki/Nftables/Ruleset
 https://wiki.gentoo.org/wiki/Nftables/Ruleset/Chain
 https://wiki.gentoo.org/wiki/Nftables/Ruleset/Rules
@@ -2055,6 +2059,7 @@ https://wiki.gentoo.org/wiki/Prefix/tested
 https://wiki.gentoo.org/wiki/Prelink
 https://wiki.gentoo.org/wiki/Preserve-libs
 https://wiki.gentoo.org/wiki/Preserved-rebuild
+https://wiki.gentoo.org/wiki/Printed_circuit_board
 https://wiki.gentoo.org/wiki/Printer_mfcj6710dw
 https://wiki.gentoo.org/wiki/Printing
 https://wiki.gentoo.org/wiki/Printing/Standards

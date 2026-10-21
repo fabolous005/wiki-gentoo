@@ -4,7 +4,7 @@ title: KDE
 url: https://wiki.gentoo.org/wiki/KDE
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-17"
+date: "2026-10-20"
 categories: ['kde-apps', 'kde-misc']
 fingerprint: ab1baa4909a3b18c
 license: CC BY-SA 4.0
@@ -29,15 +29,14 @@ Choosing an appropriate [profile](<https://wiki.gentoo.org/wiki/Profile_(Portage
 In order to choose the most suitable profile, first list what's available:
 
 `root #``eselect profile list`
-...
-  \[21\]  default/linux/amd64/23.0 (stable)
-  \[22\]  default/linux/amd64/23.0/systemd (stable)
-  \[23\]  default/linux/amd64/23.0/desktop (stable)
-  \[24\]  default/linux/amd64/23.0/desktop/systemd (stable)
-  \[25\]  default/linux/amd64/23.0/desktop/gnome (stable)
-  \[26\]  default/linux/amd64/23.0/desktop/gnome/systemd (stable)
-  \[27\]  default/linux/amd64/23.0/desktop/plasma (stable)
-  \[28\]  default/linux/amd64/23.0/desktop/plasma/systemd (stable)
+\[1\]   default/linux/amd64/23.0 (stable)
+  \[2\]   default/linux/amd64/23.0/systemd (stable)
+  \[3\]   default/linux/amd64/23.0/desktop (stable)
+  \[4\]   default/linux/amd64/23.0/desktop/systemd (stable)
+  \[5\]   default/linux/amd64/23.0/desktop/gnome (stable)
+  \[6\]   default/linux/amd64/23.0/desktop/gnome/systemd (stable)
+  \[7\]   default/linux/amd64/23.0/desktop/plasma (stable)
+  \[8\]   default/linux/amd64/23.0/desktop/plasma/systemd (stable)
   ...
 
 Then, select the right profile, substituting `X` with the appropriate profile number:
@@ -70,9 +69,8 @@ Make sure to have configured applicable `VIDEO_CARDS` USE expand settings and ke
 
 | KDE | Gentoo | Ebuild repository | Status | 
 |---|---|---|---|
-| KDE Plasma 6.6.6 | kde-plasma/plasma-meta-6.6.6 | gentoo | Stable for **amd64** and **arm64**; testing for **loong**, **ppc64**, **riscv** and **x86** | 
-| KDE Plasma 6.7.5 | kde-plasma/plasma-meta-6.7.5 | gentoo | Stable for **amd64** and **arm64**; testing for **loong**, **ppc64**, **riscv** and **x86** | 
-| KDE Plasma 6.8.0 | kde-plasma/plasma-meta-6.8.0 | gentoo | Testing for **amd64** and **arm64** | 
+| KDE Plasma 6.7.5 | kde-plasma/plasma-meta-6.7.5 | gentoo | Stable for **amd64** and **arm64**; testing for **ppc64**, **riscv** and **x86**<sup>[\[1\]](https://wiki.gentoo.org#cite_note-1)</sup> | 
+| KDE Plasma 6.8.1 | kde-plasma/plasma-meta-6.8.1 | gentoo | Testing for **amd64** and **arm64** | 
 | KDE Plasma 6.7 stable branch | kde-plasma/plasma-meta-6.7.49.9999 | [KDE](https://wiki.gentoo.org/wiki/KDE/Ebuild_repository) | Live version | 
 | KDE Plasma 6.8 stable branch | kde-plasma/plasma-meta-6.8.49.9999 | [KDE](https://wiki.gentoo.org/wiki/KDE/Ebuild_repository) | Live version | 
 | KDE Plasma 6 master branch | kde-plasma/plasma-meta-9999 | [KDE](https://wiki.gentoo.org/wiki/KDE/Ebuild_repository) | Live version | 
@@ -250,8 +248,8 @@ KDE Gear consists of various applications and supporting libraries based on Qt/K
 
 | KDE | Gentoo | Ebuild repository | Status | 
 |---|---|---|---|
-| KDE Gear 26.04.3 | kde-apps/kde-apps-meta-26.04.3 | gentoo | Stable for **amd64** and **arm64**; testing for **x86** | 
-| KDE Gear 26.08.2 | kde-apps/kde-apps-meta-26.08.2 | gentoo | Testing for **amd64**, **arm64** and **x86** | 
+| KDE Gear 26.04.3 | kde-apps/kde-apps-meta-26.04.3 | gentoo | Stable for **amd64** and **arm64**<sup>[\[2\]](https://wiki.gentoo.org#cite_note-2)</sup> | 
+| KDE Gear 26.08.2 | kde-apps/kde-apps-meta-26.08.2 | gentoo | Testing for **amd64** and **arm64**<sup>[\[3\]](https://wiki.gentoo.org#cite_note-3)</sup> | 
 | KDE Gear 26.08 stable branch | kde-apps/kde-apps-meta-26.08.49.9999 | [KDE](https://wiki.gentoo.org/wiki/KDE/Ebuild_repository) | Live version | 
 | KDE Gear master branch | kde-apps/kde-apps-meta-9999 | [KDE](https://wiki.gentoo.org/wiki/KDE/Ebuild_repository) | Live version | 
 
@@ -309,7 +307,7 @@ As Frameworks are mostly libraries and provide little user functionality, it's n
 
 | KDE | Gentoo | Ebuild repository | Status | 
 |---|---|---|---|
-| KDE Frameworks 6.29.0 | kde-frameworks/\*-6.29.0 | gentoo | Stable for **amd64**, **arm64** and **ppc64**; testing for **loong**, **riscv** and **x86** | 
+| KDE Frameworks 6.29.0 | kde-frameworks/\*-6.29.0 | gentoo | Stable for **amd64** and **arm64**; testing for **loong**, **ppc64**, **riscv** and **x86**<sup>[\[5\]](https://wiki.gentoo.org#cite_note-5)</sup> | 
 | KDE Frameworks 6.31.0 | kde-frameworks/\*-6.31.0 | gentoo | Testing for **amd64**, **arm64**, **loong**, **ppc64**, **riscv** and **x86** | 
 | KDE Frameworks 6 (master) branch | kde-frameworks/\*-9999 | [KDE](https://wiki.gentoo.org/wiki/KDE/Ebuild_repository) | Live version | 
 

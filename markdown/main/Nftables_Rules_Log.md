@@ -4,8 +4,8 @@ title: Nftables/Rules/Log
 url: https://wiki.gentoo.org/wiki/Nftables/Rules/Log
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-10"
-fingerprint: a698abacf7b8795c
+date: "2026-10-20"
+fingerprint: b49aabacd7b8395c
 license: CC BY-SA 4.0
 ---
 
@@ -17,13 +17,26 @@ license: CC BY-SA 4.0
 
 The log statement logs matching packets.
 
-## Evaluation
+### Kernel
 
-The log statement is non-terminal. Rule evaluation continues after logging.
+For the `log` configuration, the relevant Linux Kconfig options are:
+
+- `CONFIG_NF_TABLES` - nftables framework
+- `CONFIG_NFT_LOG` -  nftables log statement support; builds the nft\_log module
+
+
+The logging backend depends on the form of the statement:
+
+- `CONFIG_NF_LOG_SYSLOG` — kernel logging through the kernel log, readable via dmesg or a syslog service
+- `CONFIG_NETFILTER_NETLINK_LOG` — NFLOG support for sending packet logs to userspace through netlink
 
 ## Placement
 
 The log statement can precede a terminal statement in the same rule. A terminal statement cannot precede another statement in that rule.
+
+## Evaluation
+
+The log statement is non-terminal. Rule evaluation continues after logging.
 
 ## Syntax
 

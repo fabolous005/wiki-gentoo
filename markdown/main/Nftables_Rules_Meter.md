@@ -4,8 +4,8 @@ title: Nftables/Rules/Meter
 url: https://wiki.gentoo.org/wiki/Nftables/Rules/Meter
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-10"
-fingerprint: fab6fb99f713e531
+date: "2026-10-20"
+fingerprint: bbb6bb89f713e531
 license: CC BY-SA 4.0
 ---
 
@@ -15,15 +15,25 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
-The meter statement applies stateful expressions separately to each selector value or combination of values.
+The meter statement tracks packet or byte rates independently per key, enabling per-client rate limiting and accounting.
+
+## Kernel
+
+- `CONFIG_NF_TABLES` - nftables framework
+- `CONFIG_NF_TABLES_SET` - nftables `set` infrastructure, used to store and look up per-key state
+- `CONFIG_NFT_LIMIT` - nftables `limit` expression, if the `meter` uses a `limit` statement to rate-limit traffic per key
 
 ## Evaluation
 
-The meter statement evaluates its expressions for each distinct selector key. Stateful expressions, such as limit and counter, maintain separate state for each key.
+The `meter` statement containing an expression key and an inner statement.
+
+The meter evaluates its expressions for each distinct selector key. Stateful expressions, such as limit and counter, maintain separate state for each key.
 
 ## Placement
 
-The meter statement belongs inside a rule in a chain. Packet expressions can restrict which traffic enters the meter.
+The `meter` statement belongs inside a rule in a chain. Packet expressions can restrict which traffic enters the meter.
+
+The `meter` statement itself is neither terminal or non-terminal;  `meter` is a group expression and its following statements evaluated per key; the statements inside determine rule termination.
 
 ## Syntax
 

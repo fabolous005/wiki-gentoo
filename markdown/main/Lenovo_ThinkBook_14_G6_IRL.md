@@ -4,7 +4,7 @@ title: Lenovo ThinkBook 14 G6 IRL
 url: https://wiki.gentoo.org/wiki/Lenovo_ThinkBook_14_G6_IRL
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-16"
+date: "2026-10-20"
 fingerprint: "3e195d3551a2b323"
 license: CC BY-SA 4.0
 ---

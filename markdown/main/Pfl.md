@@ -4,7 +4,7 @@ title: PFL
 url: https://wiki.gentoo.org/wiki/Pfl
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2025-12-23"
+date: "2026-10-20"
 fingerprint: "9721baaa86b22f00"
 license: CC BY-SA 4.0
 ---
@@ -29,6 +29,13 @@ The PFL should reference most file names that can be installed by Portage, thoug
 
 ### USE flags
 
+
+### USE flags for
+            [app-portage/pfl](https://packages.gentoo.org/packages/app-portage/pfl)
+            
+            Searchable online file/package database for Gentoo
+
+| [+network-cron](https://packages.gentoo.org/useflags/+network-cron) | Adds a cron job which does a weekly submit of the package database | 
 
 ### Emerge
 
@@ -143,4 +150,4 @@ Example of the xml file:
 	\</category>
 \</pfl>
 
-There are no personal or uniqe like data collected or stored in the file. Sending the file to [https://www.portagefilelist.de/data.php](https://www.portagefilelist.de/data.php)
+There are no personal or unique like data collected or stored in the file. Sending the file to [https://www.portagefilelist.de/data.php](https://www.portagefilelist.de/data.php)

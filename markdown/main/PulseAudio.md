@@ -4,7 +4,7 @@ title: PulseAudio
 url: https://wiki.gentoo.org/wiki/PulseAudio
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-09-26"
+date: "2026-10-20"
 fingerprint: fc4e0c5c49273986
 license: CC BY-SA 4.0
 ---
@@ -17,7 +17,7 @@ license: CC BY-SA 4.0
 
 **Resources**
 
-**PulseAudio** (or **PA** for short) is a multi-platform, open source, *sound server* that provides a number of features on top of the low-level audio interface [ALSA](https://wiki.gentoo.org/wiki/ALSA), such as:
+**PulseAudio** (or **PA** for short) is a multi-platform, open source, sound server that provides a number of features on top of the low-level audio interface [ALSA](https://wiki.gentoo.org/wiki/ALSA), such as:
 
 - Networking support (P2P and server mode).
 - Per-application volume controls.

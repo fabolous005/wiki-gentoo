@@ -4,7 +4,7 @@ title: GCC optimization
 url: https://wiki.gentoo.org/wiki/GCC_optimization
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-17"
+date: "2026-10-20"
 fingerprint: a7819b082d231948
 license: CC BY-SA 4.0
 ---

@@ -4,8 +4,8 @@ title: Nftables/Rules/Limit
 url: https://wiki.gentoo.org/wiki/Nftables/Rules/Limit
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-10"
-fingerprint: "10927b3ce73a6d78"
+date: "2026-10-20"
+fingerprint: "10927b3ce7ba2d78"
 license: CC BY-SA 4.0
 ---
 
@@ -17,9 +17,16 @@ license: CC BY-SA 4.0
 
 The **limit** statement matches packets or bytes within a specified rate.
 
+## Kernel
+
+For the `limit` configuration, the relevant Linux Kconfig options are:
+
+- `CONFIG_NF_TABLES` - nftables framework
+- `CONFIG_NFT_LIMIT` - nftables limit statement support; builds the nft\_limit module
+
 ## Evaluation
 
-The limit statement is non-terminal. Rule evaluation continues when the rate condition matches.
+The limit statement is non-terminal so rule evaluation continues when the limit expression matches.
 
 The over keyword inverts the rate condition, matching traffic above the specified rate.
 

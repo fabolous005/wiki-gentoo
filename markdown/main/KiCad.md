@@ -4,8 +4,8 @@ title: KiCad
 url: https://wiki.gentoo.org/wiki/KiCad
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2023-11-06"
-fingerprint: "86437348e836b9f2"
+date: "2026-10-20"
+fingerprint: a7527348eab6b9f2
 license: CC BY-SA 4.0
 ---
 
@@ -22,12 +22,22 @@ KiCad is a cross-platform and open-source electronics design automation (EDA) su
 ### USE flags
 
 
+### USE flags for
+            [sci-electronics/kicad](https://packages.gentoo.org/packages/sci-electronics/kicad)
+            
+            Electronic Schematic and PCB design tools
+
 | [doc](https://packages.gentoo.org/useflags/doc) | Add extra documentation (API, Javadoc, etc). It is recommended to enable per package instead of globally | 
 | [examples](https://packages.gentoo.org/useflags/examples) | Install examples, usually source code | 
 | [nls](https://packages.gentoo.org/useflags/nls) | Add Native Language Support (using gettext - GNU locale utilities) | 
 | [openmp](https://packages.gentoo.org/useflags/openmp) | Build support for the OpenMP (support parallel computing), requires >=sys-devel/gcc-4.2 built with USE="openmp" | 
 | [test](https://packages.gentoo.org/useflags/test) | Enable dependencies and/or preparations necessary to run tests (usually controlled by FEATURES=test but can be toggled independently) | 
 | [wayland](https://packages.gentoo.org/useflags/wayland) | Enable dev-libs/wayland backend | 
+
+### USE flags for
+            [sci-electronics/kicad-meta](https://packages.gentoo.org/packages/sci-electronics/kicad-meta)
+            
+            Electronic Schematic and PCB design tools (meta package)
 
 ### Emerge
 
