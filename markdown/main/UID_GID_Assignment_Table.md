@@ -4,8 +4,8 @@ title: UID GID Assignment Table
 url: https://wiki.gentoo.org/wiki/UID_GID_Assignment_Table
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-07-28"
-fingerprint: dfdff852c905fdb9
+date: "2026-10-21"
+fingerprint: dfdfb852c905fdb9
 license: CC BY-SA 4.0
 ---
 
@@ -230,7 +230,6 @@ From Gentoo Wiki
 | realtime | - | 206 | [g:realtime](https://gitweb.gentoo.org/repo/gentoo.git/tree/acct-group/realtime) |  | 
 | postfix | 207 | 207 | [u:postfix](https://gitweb.gentoo.org/repo/gentoo.git/tree/acct-user/postfix) [g:postfix](https://gitweb.gentoo.org/repo/gentoo.git/tree/acct-group/postfix) | Removed from baselayout in [r1863](https://gitweb.gentoo.org/proj/baselayout.git/commit?id=7ae5ebbcb07f3a2190f17af7e7b09fe1caab35cc) | 
 | postsrsd | 208 | - | [u:postsrsd](https://gitweb.gentoo.org/repo/gentoo.git/tree/acct-user/postsrsd) | Used by mail-filter/postsrsd | 
-| postdrop | - | 208 | [g:postdrop](https://gitweb.gentoo.org/repo/gentoo.git/tree/acct-group/postdrop) | Removed from baselayout in [r1863](https://gitweb.gentoo.org/proj/baselayout.git/commit?id=7ae5ebbcb07f3a2190f17af7e7b09fe1caab35cc) | 
 | smmsp | 209 | 209 | [u:smmsp](https://gitweb.gentoo.org/repo/gentoo.git/tree/acct-user/smmsp) [g:smmsp](https://gitweb.gentoo.org/repo/gentoo.git/tree/acct-group/smmsp) | Removed from baselayout: user in [r2446](https://gitweb.gentoo.org/proj/baselayout.git/commit?id=a18589ef69d782aa5d88e5a6eac7f342aa2f6385), group in [r2445](https://gitweb.gentoo.org/proj/baselayout.git/commit?id=b0ce002d1a3d4e67d8c1f5ffe19970e2f943ec15) | 
 | aerospike-amc | 210 | 210 | [u:aerospike-amc](https://gitweb.gentoo.org/repo/gentoo.git/tree/acct-user/aerospike-amc) [g:aerospike-amc](https://gitweb.gentoo.org/repo/gentoo.git/tree/acct-group/aerospike-amc) |  | 
 | zookeeper | 211 | 211 | [u:zookeeper](https://gitweb.gentoo.org/repo/gentoo.git/tree/acct-user/zookeeper) [g:zookeeper](https://gitweb.gentoo.org/repo/gentoo.git/tree/acct-group/zookeeper) |  | 
@@ -617,6 +616,7 @@ From Gentoo Wiki
 | systemd-imds | 561 | 561 | [u:systemd-imds](https://gitweb.gentoo.org/repo/gentoo.git/tree/acct-user/systemd-imds) [g:systemd-imds](https://gitweb.gentoo.org/repo/gentoo.git/tree/acct-group/systemd-imds) |  | 
 | ollama | 562 | 562 | [u:ollama](https://gitweb.gentoo.org/repo/gentoo.git/tree/acct-user/ollama) [g:ollama](https://gitweb.gentoo.org/repo/gentoo.git/tree/acct-group/ollama) | Used by sci-ml/ollama | 
 | unreal | 563 | 563 | [u:unreal](https://gitweb.gentoo.org/repo/gentoo.git/tree/acct-user/unreal) [g:unreal](https://gitweb.gentoo.org/repo/gentoo.git/tree/acct-group/unreal) | Used by games-fps/unreal, games-fps/unreal-tournament, games-fps/ut2004 | 
+| postdrop | 564 | 208 | [u:postdrop](https://gitweb.gentoo.org/repo/gentoo.git/tree/acct-user/postdrop) [g:postdrop](https://gitweb.gentoo.org/repo/gentoo.git/tree/acct-group/postdrop) | Used by mail-mta/postfix for postlift. Group removed from baselayout in [r1863](https://gitweb.gentoo.org/proj/baselayout.git/commit?id=7ae5ebbcb07f3a2190f17af7e7b09fe1caab35cc) | 
 | - | 750..999 | 750..999 | reserved | Dynamic allocation by user.eclass. Do not use! | 
 | - | 1000..60000 | 1000..60000 | reserved | \`UID\_MIN\`..\`UID\_MAX\` / \`GID\_MIN\`..\`GID\_MAX\` in login.defs | 
 | ventrilo | 3784 | 3784 | historical | Used by media-sound/ventrilo-server-bin, removed in [15c6a556cef2](https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=15c6a556cef202a72f7226648ebea19fcffe834d) | 

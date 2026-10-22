@@ -4,8 +4,8 @@ title: Install Gentoo on a bootable USB stick
 url: https://wiki.gentoo.org/wiki/Install_Gentoo_on_a_bootable_USB_stick
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-06-13"
-fingerprint: d0b4b45e5deeb83d
+date: "2026-10-21"
+fingerprint: d0b0b45e5deeb83d
 license: CC BY-SA 4.0
 ---
 
@@ -129,6 +129,22 @@ Edit etc/lilo.conf so that it has the correct information in it.
 
 **Configure lilo.conf**
 
+```
+boot=/dev/sdb              # The location of the USB Stick (currently)
+lba32                      # use lba32 addressing (ignore)
+compact                    # boot quickly by loading lots of blocks
+                           # remove when there are problems with booting
+prompt                     # Prompt for user input
+timeout=20                 # Time to wait before default selection
+default="Gentoo-352"       # Default selection after timeout
+  
+image=/boot/vmlinuz-5.10.76-gentoo-r1-x86_64
+	label="Gentoo-352"
+	read-only
+	root=/dev/ram0
+	append="root=LABEL=GENTOO_USB_ROOT scandelay=5"
+	initrd=/boot/initramfs-5.10.76-gentoo-r1-x86_64.img
+```
 The lines after image are all easy but the append line contains some interesting options.
 
 - `root=LABEL=GENTOO_USB_ROOT` will use the label of the disk instead of /dev/sdb2 which is important because these device numbers move around depending on the number of hard disks in the computer or number of USB disk drives.
@@ -158,6 +174,16 @@ Now to configure the bootloader.
 `(chroot) #``mkdir /boot/syslinux``(chroot) #``nano -w /boot/syslinux/syslinux.cfg`
 **`/boot/syslinux/syslinux.cfg`**
 
+```
+PROMPT 1
+TIMEOUT 50
+DEFAULT gentoo
+ 
+LABEL gentoo
+        LINUX ../vmlinuz-5.10.76-gentoo-r1-x86_64
+        APPEND root=LABEL=GENTOO_USB_ROOT scandelay=3 ro
+        INITRD ../initramfs-5.10.76-gentoo-r1-x86_64.img
+```
 Next install syslinux onto the USB stick. The `--device /dev/sdb1` option is not absolutely necessary though.
 
 `(chroot) #``extlinux --device /dev/sdb1 --install /boot/syslinux`
@@ -167,6 +193,10 @@ Next install syslinux onto the USB stick. The `--device /dev/sdb1` option is not
 
 **Configure the fstab file to work with labels**
 
+```
+LABEL=GENTOO_USB_BOOT   /boot           ext4            noauto,noatime  1 2
+LABEL=GENTOO_USB_ROOT   /               ext4            noatime         0 1
+```
 ## Tips and tricks
 
 Although it is possible to use the system just made as a standard Gentoo system, it might be worthwhile to compile binary packages on a host and then installing them on the USB stick. Or if the system has enough memory just mount /var/tmp to a tmpfs, as compilation will be much quicker that way anyway!

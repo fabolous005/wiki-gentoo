@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Logcheck
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-04-11"
-fingerprint: "8a50bfa0705dbc8d"
+fingerprint: d852bf21705dbc8d
 license: CC BY-SA 4.0
 ---
 
@@ -37,6 +37,15 @@ Next, the installation of logcheck can be proceeded.
 
 **syslog-ng configuration snippet**
 
+```
+options {
+    owner(root);
+ 
+    ## (Make log files group-readable by logcheck)
+    group(logcheck);
+    perm(0640);
+};
+```
 Next, reload the configuration and make sure the changes work as expected.
 
 `root #````
@@ -51,12 +60,48 @@ Some basic logcheck settings in /etc/logcheck/logcheck.conf need to be adjusted:
 
 **Basic /etc/logcheck/logcheck.conf setup**
 
+```
+# Controls the level of filtering:
+# Can be set to "workstation", "server" or "paranoid" for different
+# levels of filtering. Defaults to server if not set.
+## (The workstation level includes server, and server includes paranoid.
+The paranoid level filters almost no messages)
+REPORTLEVEL="server"
+ 
+# Controls the address mail goes to:
+# *NOTE* the script does not set a default value for this variable!
+# Should be set to an offsite "emailaddress@some.domain.tld"
+## (Make sure you can receive the logcheck e-mails. Testing is strongly
+recommended)
+SENDMAILTO="root"
+ 
+# Controls if syslog-summary is run over each section.
+# Alternatively, set to "1" to enable extra summary.
+# HINT: syslog-summary needs to be installed.
+## (If you get a lot of similar messages in the logs, you
+may want to install app-admin/syslog-summary and enable
+this setting)
+SYSLOGSUMMARY=0
+```
 It must be specified logcheck which log files to scan (/etc/logcheck/logcheck.logfiles.d). More files can be added into /etc/logcheck/logcheck.logfiles.d each of one containing a list of log files to be checked. The installation script will generate 2 files: journal.logfiles and syslog.logfiles.
 
 **`/etc/logcheck/logcheck.logfiles.d/syslog.logfiles`**
 
 **Basic setup**
 
+```
+## (This is an example for syslog-ng)
+## Log entries in the logs listed below will be checked by logcheck
+ 
+# The default is to check standard syslog files
+# created by rsyslog or other syslog daemons
+ 
+# (If the system does not use a syslog daemon, these
+# lines can be commented out)
+#/var/log/syslog
+#/var/log/auth.log
+/var/log/messages
+```
 ### Enable periodical log check
 
 Finally, enable a periodical check of the log files.
@@ -69,6 +114,19 @@ If logcheck is emerged with the [cron](https://packages.gentoo.org/useflags/cron
 
 **Basic /etc/cron.hourly/logcheck.cron**
 
+```
+#!/bin/sh
+#
+# To enable sync via cron, execute "sudo -u logcheck touch /etc/logcheck/cron-logcheck-enabled"
+if [[ ! -f /etc/logcheck/cron-logcheck-enabled ]]; then
+    exit
+fi
+if [ ! -d /var/lock/logcheck ]; then
+    mkdir -p /var/lock/logcheck
+    chown logcheck:logcheck /var/lock/logcheck
+fi
+sudo -u logcheck nice -n10 /usr/sbin/logcheck
+```
 To enable an hourly cron job, run:
 
 `root #``sudo -u logcheck touch /etc/logcheck/cron-logcheck-enabled`

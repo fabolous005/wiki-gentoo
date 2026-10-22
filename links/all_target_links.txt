@@ -2436,6 +2436,7 @@ https://wiki.gentoo.org/wiki/StarFive_VisionFive_2
 https://wiki.gentoo.org/wiki/StarFive_VisionFive_2/Catalyst
 https://wiki.gentoo.org/wiki/StarFive_VisionFive_2/Hardware
 https://wiki.gentoo.org/wiki/StarFive_VisionFive_2/linux_kernel_config
+https://wiki.gentoo.org/wiki/Startup_Credits
 https://wiki.gentoo.org/wiki/Static_routing
 https://wiki.gentoo.org/wiki/Steam
 https://wiki.gentoo.org/wiki/Steam/Client_troubleshooting

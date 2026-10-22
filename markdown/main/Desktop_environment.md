@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Desktop_environment
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-08-19"
-fingerprint: d19f7e79d8b9009c
+fingerprint: d19f7e79d8bb009c
 license: CC BY-SA 4.0
 ---
 
@@ -55,5 +55,5 @@ These packages are available from third party repositories, they are not officia
 
 ## See also
 
-- [Display manager](https://wiki.gentoo.org/wiki/Display_manager) — presents the user with a graphical login screen to start a GUI session, either [X](https://wiki.gentoo.org/wiki/Xorg) or [Wayland](https://wiki.gentoo.org/wiki/Wayland).
+- [Display manager](https://wiki.gentoo.org/wiki/Display_manager)
 - [Window manager](https://wiki.gentoo.org/wiki/Window_manager) — manages the creation, manipulation, and destruction of on-screen windows and window decorations in a GUI environment.

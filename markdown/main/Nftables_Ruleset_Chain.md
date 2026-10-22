@@ -4,8 +4,8 @@ title: Nftables/Ruleset/Chain
 url: https://wiki.gentoo.org/wiki/Nftables/Ruleset/Chain
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-01"
-fingerprint: fcb09d1ec74b8e0f
+date: "2026-10-21"
+fingerprint: fcb09d1edf4b8e2f
 license: CC BY-SA 4.0
 ---
 
@@ -56,7 +56,7 @@ The primary difference is how a chain gets started.
 
 Only a base chain can register with a Netfilter hook; similar to registering for a per-packet callback.
 
-A regular chain is similar to a procedure/function; see {{Link|Nftables/Ruleset/Chain#Chaining|chaining\]\].
+A regular chain is similar to a procedure/function; see [chaining](https://wiki.gentoo.org/wiki/Nftables/Ruleset/Chain#Chaining).
 
 Omission of the property configuration in a base chain creates a regular chain.
 
@@ -74,6 +74,11 @@ Then defines its rules within a brace-delimited block.
 
 **Chain declaration**
 
+```
+chain input_filter {
+    tcp dport 80 accept
+}
+```
 The declaration creates the chain; nothing enters that regular chain until another chain reaches it.
 
 ## Table scope
@@ -185,7 +190,25 @@ Real world example of re-prioritizing a set of chains within a table would be:
 
 **"custom chain before or after a conventional filtering chain"**
 
+```
+table inet filter {
+    chain main_filter {
+        type filter hook input priority 0;
+        policy drop;
+        ct state established,related accept
+        iif lo accept
+        tcp dport 22 accept
+    }
+    chain early_filter {
+        type filter hook input priority -50;
+        policy accept;
+        ip saddr 192.0.2.10 drop
+    }
+}
+```
 Noticed that main\_filter got listed first in the nftables commands? Lower priority ensures that early\_filter will be processed first.
+
+#### Labeled priority
 
 Some commonly used priority numbers have a label, which can be used instead.
 
@@ -244,12 +267,23 @@ The following families have their own set of filter hooks:
 - arp supports only input and output.
 - bridge supports only prerouting, input, forward, output, and postrouting.
 
+## Base chain declaration
+
 To drop all web traffic over WAN eth2 outbound:
 
 **`/etc/nftables/rules/main.nft`**
 
 **Base chain declaration**
 
+```
+table inet wan_inet {
+    chain output_wan {
+        type filter hook output device "eth2" priority filter;
+        policy accept;
+        tcp dport 80,443 drop
+    }
+}
+```
 ## Regular chain declaration
 
 To drop all SSH traffic inbound at WAN eth2 interface:
@@ -258,6 +292,13 @@ To drop all SSH traffic inbound at WAN eth2 interface:
 
 **Regular chain declaration**
 
+```
+table ip wan_ip {
+    chain block_ssh {
+        tcp dport 22 drop
+    }
+}
+```
 The above declaration creates a regular chain.
 
 Nothing enters the chain because no other chain reaches it.
@@ -269,6 +310,23 @@ To really drop all SSH traffic inbound and allow outbound web traffic at WAN eth
 
 **Both Base chain & Regular chain declaration**
 
+```
+table inet wan_inet {
+    chain output_wan {
+        type filter hook egress device "eth2" priority filter;
+        policy accept;
+        tcp dport 80,443 accept
+    }
+    chain input_wan {
+        type filter hook ingress device "eth2" priority filter;
+        policy accept;
+        goto block_ssh
+    }
+    chain block_ssh {
+        tcp dport 22 drop
+    }
+}
+```
 ## Chain lifecycle
 
 Lifecycle of a chain is create, inspect, flush, rename, delete.
@@ -285,22 +343,37 @@ Feed all command files using this command
 
 **"Create a regular chain"**
 
+```
+create chain my_chain { tcp dport 80 accept }
+```
 **`my_chain.nft`**
 
 **"Listing a regular chain"**
 
+```
+list chain my_chain
+```
 **`my_chain.nft`**
 
 **"Flushing a regular chain"**
 
+```
+flush chain my_chain
+```
 **`my_chain.nft`**
 
 **"Renaming a regular chain"**
 
+```
+rename chain my_chain your_chain
+```
 **`my_chain.nft`**
 
 **"Deleting a regular chain"**
 
+```
+delete chain my_chain
+```
 ## Chain relationships
 
 ### Chaining
@@ -349,6 +422,27 @@ Use one base chain for each device, have them all call the same regular chain.
 
 **Binding network interfaces**
 
+```
+table inet filter {
+    chain ingress_common {
+        # Rules shared by all devices
+        ip saddr 10.0.0.0/8 accept
+        drop
+    }
+    chain ingress_eth0 {
+        type filter hook ingress device eth0 priority 0;
+        jump ingress_common
+    }
+    chain ingress_eth1 {
+        type filter hook ingress device eth1 priority 0;
+        jump ingress_common
+    }
+    chain ingress_eth2 {
+        type filter hook ingress device eth2 priority 0;
+        jump ingress_common
+    }
+}
+```
 ## Chain semantics
 
 ### Processing Order
@@ -374,6 +468,8 @@ A base chain is entered through its Netfilter hook.
 When processing reaches the end of a base chain, its policy gets used.
 
 ## Examples
+
+### Minimal regular chain
 
 **`/etc/nftables/rules/main.nft`**
 
@@ -402,7 +498,7 @@ chain input {
 - [nft](https://wiki.gentoo.org/wiki/Nft) — configures and inspects the Linux kernel's nftables packet handling framework
 - [Nftables/Ruleset](https://wiki.gentoo.org/wiki/Nftables/Ruleset)
 - [Nftables/Ruleset/Chain] — contains a group of rules used to process network traffic.
-- [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules)
+- [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules) — match packet properties and perform actions.
 - [Nftables/Configuration](https://wiki.gentoo.org/wiki/Nftables/Configuration)
 - [nftables examples](https://wiki.gentoo.org/wiki/Nftables/Examples)
 - [Nftables](https://wiki.gentoo.org/wiki/User:Egberts/Drafts/Nftables) — the Linux packet-handling framework

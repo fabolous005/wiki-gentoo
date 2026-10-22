@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/PostgreSQL/QuickStart
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-11-25"
-fingerprint: a188b94edde313d0
+fingerprint: a388b95afde31bd8
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,10 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+[checking over the content](https://wiki.gentoo.org/index.php?title=PostgreSQL/QuickStart&action=edit)(
+
+[how to get started](https://wiki.gentoo.org/wiki/Gentoo_Wiki:Contributor%27s_guide)).
 
 This is a quick start guide covering the installation and configuration of PostgreSQL. This guide is complementary to the official documentation; it does not mean to supplant it.
 
@@ -45,6 +49,11 @@ There is quite a bit that will not be covered. The [official documentation](http
 
 ### USE flags
 
+
+### USE flags for
+            [dev-db/postgresql](https://packages.gentoo.org/packages/dev-db/postgresql)
+            
+            PostgreSQL RDBMS
 
 | [+icu](https://packages.gentoo.org/useflags/+icu) | Enable ICU (Internationalization Components for Unicode) support, using dev-libs/icu | 
 | [+lz4](https://packages.gentoo.org/useflags/+lz4) | Enable support for lz4 compression (as implemented in app-arch/lz4) | 
@@ -156,6 +165,16 @@ The pg\_hba.conf file states who is allowed to connect to the database server an
 
 **Default settings**
 
+```
+# TYPE  DATABASE    USER        CIDR-ADDRESS          METHOD
+# 
+# "local" is for Unix domain socket connections only
+local   all         all                               trust
+# IPv4 local connections:
+host    all         all         127.0.0.1/32          trust
+# IPv6 local connections:
+host    all         all         ::1/128               trust
+```
 As has been mentioned before, by default the server is secure. Kind of. There is only one database role that is available for log in by default: *postgres* . And, the only way to initiate a connection to the database is through the /run/postgresql/.s.PGSQL.5432 Unix socket, which is owned by the *postgres* system user and system group, or via localhost. Now for the "kind of" bit: Any user on the system can make a connection to the database through the localhost. Even as the *postgres* database superuser.
 
 The *trust* method is fine for playing on a local system. If more than one user is working on your system, you will probably use *peer* (\[[https://www.postgresql.org/docs/current/auth-peer.html](https://www.postgresql.org/docs/current/auth-peer.html) | s. docu for more details).
@@ -170,6 +189,11 @@ There seems to be some misunderstanding, though, as to how host names are mapped
 
 **`/etc/hosts`**
 
+```
+# IPv4 and IPv6 localhost aliases
+127.0.0.1       localhost
+::1             localhost
+```
 From the example above you can see that both an IPv4 and an IPv6 IP address are mapped to localhost. When `psql` refers to this file, it will grab the first match and use that as the address; in this case 127.0.0.1. When PostgreSQL parses this, it will match the IPv6 formatted address as well, e.g. ::ffff:127.0.0.1. If, however, the IPv6 address appears first, then `psql` will map to ::1 alone; ::1 is not the same as ::ffff:127.0.0.1. As such, if you do not have ::1 as a permitted means of access, `psql` will not be able to establish a connection. Furthermore, your kernel needs to support the IPv6 protocol.
 
 So, it is better to specify IP addresses alone to `psql` and in pg\_hba.conf rather than to rely on /etc/hosts to be ordered properly, and it removes any doubt as to which IP addresses are allowed or to which server you will connect.
@@ -444,3 +468,9 @@ PostgreSQL recommends in wiki.postgresql.org/wiki/Systemd to change the RemoveIP
 RemoveIPC=no
 ```
 (source: wiki.postgresql.org/wiki/Systemd)
+
+
+
+## References
+
+1. [↑](https://wiki.gentoo.org#cite_ref-1) [PgBouncer command-line usage](https://www.pgbouncer.org/usage.html#description), pgbouncer. Retrieved on February 11, 2022

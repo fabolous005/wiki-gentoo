@@ -4,12 +4,14 @@ title: MySQL/Startup Guide
 url: https://wiki.gentoo.org/wiki/MySQL/Startup_Guide
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2022-01-31"
-fingerprint: e2b178982d0633be
+date: "2026-10-21"
+fingerprint: e3b178982d0633be
 license: CC BY-SA 4.0
 ---
 
 # MySQL/Startup Guide
+
+[MySQL](https://wiki.gentoo.org/wiki/Special:MyLanguage/MySQL)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -70,14 +72,11 @@ When using OpenRC, issue the following command :
 
 When using systemd, issue the following command:
 
-`root #``systemctl restart mysqld.service`
-With >=[dev-db/mariadb](https://packages.gentoo.org/packages/dev-db/mariadb)-10.1.18, use:
-
 `root #``systemctl restart mariadb.service`
 After that set the root password:
 
 `root #``/usr/bin/mysqladmin -u root -h localhost password 'new-password'`
-Now test that theroot password was successfully configured by trying to login to the MySQL server:
+Now test that root password was successfully configured by trying to login to the MySQL server:
 
 `user $``mysql -u root -h localhost -p`
 Enter password:

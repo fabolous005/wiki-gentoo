@@ -4,7 +4,7 @@ title: KDE
 url: https://wiki.gentoo.org/wiki/KDE
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-20"
+date: "2026-10-21"
 categories: ['kde-apps', 'kde-misc']
 fingerprint: ab1baa4909a3b18c
 license: CC BY-SA 4.0
@@ -182,7 +182,7 @@ It requires the following setup:
 
 - For KWallet security, use classic blowfish encryption instead of GPG
 - Choose same password for login and kwallet
-- Configure a display manager with support for PAM - both [x11-misc/sddm](https://packages.gentoo.org/packages/x11-misc/sddm) and [x11-misc/lightdm](https://packages.gentoo.org/packages/x11-misc/lightdm) fulfill that requirement:
+- Configure a display manager with support for PAM - both [gui-apps/sddm](https://packages.gentoo.org/packages/gui-apps/sddm) and [x11-misc/lightdm](https://packages.gentoo.org/packages/x11-misc/lightdm) fulfill that requirement:
 
 **`/etc/pam.d/sddm`**
 

@@ -4,8 +4,8 @@ title: Knowledge Base:Freeing disk space
 url: https://wiki.gentoo.org/wiki/Knowledge_Base:Freeing_disk_space
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2024-10-01"
-fingerprint: "9d6ba87b04e42f01"
+date: "2026-10-21"
+fingerprint: "9defa87f00e22f01"
 license: CC BY-SA 4.0
 ---
 
@@ -62,6 +62,10 @@ These files must be manually removed. Be careful to not remove desired locales. 
 
 **`/etc/portage/make.conf`**
 
+```
+INSTALL_MASK="/usr/share/locale -/usr/share/locale/en_US"
+PKG_INSTALL_MASK="/usr/share/locale -/usr/share/locale/en_US"
+```
 ### User files
 
 #### Cache directories
@@ -130,7 +134,6 @@ Several tools exist, some are filesystem specific (which usually provide better 
 
 | Utility | Package | Comment | 
 |---|---|---|
-| shake | [sys-fs/shake](https://packages.gentoo.org/packages/sys-fs/shake) | Defragments any filesystem in userspace by rewriting files to force contiguous storage. | 
 | e4defrag | [sys-fs/e2fsprogs](https://packages.gentoo.org/packages/sys-fs/e2fsprogs) | Made for the ext4 filesystem. | 
 | reiserfs-defrag | [sys-fs/reiserfs-defrag](https://packages.gentoo.org/packages/sys-fs/reiserfs-defrag) | Make for ReiserFS filesystems. | 
 

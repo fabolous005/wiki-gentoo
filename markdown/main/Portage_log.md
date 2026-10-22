@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Portage_log
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-09-26"
-fingerprint: "2caeb63aac27b9a0"
+fingerprint: "2caab63aac27b9a0"
 license: CC BY-SA 4.0
 ---
 
@@ -19,13 +19,19 @@ The **[Portage](https://wiki.gentoo.org/wiki/Portage) log** provides information
 
 When using emerge for building a package, it is not uncommon to notice messages coming from [Portage](https://wiki.gentoo.org/wiki/Portage) itself. Since they may contain important information from Gentoo developers it is a good idea to read them, but often this is not immediately possible because they rapidly scroll out of the screen. This can be easily solved by enabling a Portage [feature](https://wiki.gentoo.org/wiki/FEATURES) called elog, whose purpose is to save messages to disk for later review. But other logging capabilities exist as well...
 
+## Portage elog subsystem
+
 The Portage elog subsystem keeps track of specific, ebuild-provided log messages that developers have put in the [ebuilds](https://wiki.gentoo.org/wiki/Ebuild) to attract attention of the system administrator or root user. Often, these messages contain important or interesting information related to the build of said package.
+
+### Setup
 
 Select which kind of information should be logged through the `PORTAGE_ELOG_CLASSES` variable. Possible values are `info`, `warn`, `error`, `log`, and `qa`:
 
 ```
 PORTAGE_ELOG_CLASSES="log warn error"
 ```
+### Configuring for file-based storage
+
 Portage can handle the elog events in a number of ways, including:
 
 - `echo`: display messages again when `emerge` exits.
@@ -52,6 +58,8 @@ The messages will be saved in /var/log/portage/elog or in ${PORTAGE\_LOGDIR}/elo
 In order to create per-category elog files, enable the `split-elog` Portage feature. It will force Portage to create category-based subdirectories of the /var/log/portage/elog location.
 
 Additionally, to create per-category build logs, enable the `split-log` Portage feature. It will force Portage to create category-based subdirectories of the /var/log/portage/build location.
+
+#### Script to lookup logs
 
 When the logs are split up, it's a bit annoying to look through them one by one. Here's an example script to print them using the date:
 
@@ -93,6 +101,8 @@ for val in ${days[@]}; do
 		-type f -print -exec cat -n '{}' \;
 done
 ```
+### Configuring for e-mail
+
 To mail logs to a recipient, enable the `mail` module. The mail option requires some additional variables to be set. Read /usr/share/portage/config/make.conf.example for more information.
 
 Below, an example setup is shown which is hopefully self-explanatory:
@@ -135,16 +145,22 @@ When configuring PORTAGE\_ELOG\_MAILURI, be aware that the port number behaves d
 ```
 For example, if your mail server expects STARTTLS on port 587, you must specify 100587 in PORTAGE\_ELOG\_MAILURI. This triggers STARTTLS and internally maps the port to 587 with STARTTLS enabled.
 
+### Related software
+
 The following is a list of elog related software packages:
 
 - [app-portage/elogv](https://packages.gentoo.org/packages/app-portage/elogv) - Curses based utility to parse the contents of elogs.
 - [app-portage/elogviewer](https://packages.gentoo.org/packages/app-portage/elogviewer) - Python based elog viewer.
+
+## Build logs
 
 Package build logs can be saved to disk or mailed to a remote recipient, by setting variables in [make.conf](https://wiki.gentoo.org/wiki//etc/portage/make.conf). This allows system administrators to review builds later.
 
 By default, when emerge is running, Portage temporarily saves the build log of a package to /var/tmp/portage/\<category>/\<packagename-version>/temp/build.log. The build directory will be deleted when emerge finishes successfully, so successful build logs will be lost. If a build fails however, the logs will be retained, so the build.log will still be available for [attaching to support tickets](https://wiki.gentoo.org/wiki/Attach_the_logs_to_the_bug_ticket).
 
 *n.b.* The build.log may be followed by an extra extension if `compress-build-logs` is set in `FEATURES`. The default  `PORTAGE_TMPDIR` is /var/tmp, adjust path accordingly if it is set to something different in make.conf.
+
+### Always save build logs
 
 To enable saving build logs, edit [/etc/portage/make.conf](https://wiki.gentoo.org/wiki//etc/portage/make.conf) and set `PORTAGE_LOGDIR` to a location where the log files should be stored:
 
@@ -164,6 +180,8 @@ A number of `FEATURES` settings may be set in [/etc/portage/make.conf](https://w
 
 Until Portage version 2.3.53, `PORTAGE_LOGDIR` variable used to be named `PORT_LOGDIR`. This old name is now deprecated.
 
+### Cleaning up
+
 When `clean-logs` is enabled in the `FEATURES` variable of /etc/portage/make.conf, Portage will execute the command defined by `PORTAGE_LOGDIR_CLEAN` after every build or unmerge operation. By default, the following command is used:
 
 **`/usr/share/portage/config/make.globals`**
@@ -175,6 +193,12 @@ When defining a custom command, do not forget to *escape* the `PORTAGE_LOGDIR` v
 
 Until Portage version 2.3.53, `PORTAGE_LOGDIR_CLEAN` variable used to be named `PORT_LOGDIR_CLEAN`. This old name is now deprecated.
 
+## Other Portage log files
+
 Portage also can have log files in /var/log/emerge.log, and /var/log/emerge-fetch.log.
+
+## See also
+
+## External resources
 
 - [Sven Vermeulen](https://wiki.gentoo.org/wiki/User:SwifT). ["Underestimated or underused: Portage (e)logging "](http://blog.siphos.be/2013/09/underestimated-or-underused-portage-elogging/), September 25th, 2013. Retrieved on May 30th, 2019.

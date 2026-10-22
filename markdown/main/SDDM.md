@@ -4,8 +4,8 @@ title: SDDM
 url: https://wiki.gentoo.org/wiki/SDDM
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-09-21"
-fingerprint: "8464735978b7c9dc"
+date: "2026-10-21"
+fingerprint: a42c73593837c9d4
 license: CC BY-SA 4.0
 ---
 
@@ -22,16 +22,16 @@ license: CC BY-SA 4.0
 ### USE flags
 
 
-| [+X](https://packages.gentoo.org/useflags/+X) | Add support for X11 | 
-| [+elogind](https://packages.gentoo.org/useflags/+elogind) | Enable session tracking via sys-auth/elogind | 
-| [systemd](https://packages.gentoo.org/useflags/systemd) | Enable use of systemd-specific libraries and features like socket activation or session tracking | 
-| [test](https://packages.gentoo.org/useflags/test) | Enable dependencies and/or preparations necessary to run tests (usually controlled by FEATURES=test but can be toggled independently) | 
+### USE flags for
+            [gui-apps/sddm](https://packages.gentoo.org/packages/gui-apps/sddm)
+            
+            Simple Desktop Display Manager
 
 ### Emerge
 
-Install [x11-misc/sddm](https://packages.gentoo.org/packages/x11-misc/sddm):
+Install [gui-apps/sddm](https://packages.gentoo.org/packages/gui-apps/sddm):
 
-`root #``emerge --ask x11-misc/sddm`
+`root #``emerge --ask gui-apps/sddm`
 If there are performance issues, it might help to add the sddm user to the video group:
 
 `root #``usermod -a -G video sddm`
@@ -85,7 +85,7 @@ chmod a+x /etc/sddm/scripts/Xsetup
 
 By default SDDM runs in X11 as the root user. This may be considered a security risk.
 
-Since [x11-misc/sddm](https://packages.gentoo.org/packages/x11-misc/sddm) version 0.20 it is possible to run SDDM in X11 rootless mode instead.
+Since [gui-apps/sddm](https://packages.gentoo.org/packages/gui-apps/sddm) version 0.20 it is possible to run SDDM in X11 rootless mode instead.
 
 The display server configuration must be overridden using /etc/sddm.conf.d/override.conf, as described in the [override.conf and Xsetup files](https://wiki.gentoo.org/wiki/SDDM#override.conf_file) section above. To do so, add:
 
@@ -97,8 +97,6 @@ DisplayServer=x11-user
 ```
 
 #### override.conf and Wayland mode
-
-Since [x11-misc/sddm](https://packages.gentoo.org/packages/x11-misc/sddm) version 0.20 it is possible to run SDDM in Wayland mode.
 
 ##### Weston
 
@@ -147,6 +145,9 @@ Enable the server USE flag:
 
 **`/etc/portage/package.use/seatd`**
 
+```
+sys-auth/seatd server
+```
 Rebuild and start the service:
 
 `root #````
@@ -172,6 +173,9 @@ The kiosk USE flag must be enabled for Weston:
 
 **`/etc/portage/package.use/weston`**
 
+```
+dev-libs/weston kiosk
+```
 `root #``emerge --oneshot dev-libs/weston`
 ##### Fixing XDG\_RUNTIME\_DIR for the greeter
 
@@ -344,6 +348,10 @@ The [X server](https://wiki.gentoo.org/wiki/X_server) will not start and permiss
 
 **`/var/log/Xorg.log`**
 
+```
+/var/log/Xorg.0.log:[ 2058.998] (EE) /dev/dri/card0: failed to set DRM interface version 1.4: Permission denied
+/var/log/Xorg.0.log:[ 2061.229] (EE) intel(0): [drm] failed to set drm interface version: Permission denied [13].
+```
 It is likely the sddm user has not been added to the video group. Running the following command should fix the problem:
 
 `root #``usermod -a -G video sddm`
@@ -369,10 +377,20 @@ Ensure Direct Rendering Manager is enabled in the kernel. If it isn't, enable it
 
 **Enable Direct Rendering Manager**
 
+```
+Device Drivers --->
+    Graphics support --->
+        <*> Direct Rendering Manager (XFree86 4.1.0 and higher DRI support) --->
+            [*] Enable legacy fbdev support for your modesetting driver
+```
 Ensure the nvidia-drm module is configured to load at startup and `modeset` option enabled:
 
 **`/etc/modules-load.d/nvidia-drm.conf`**
 
+```
+nvidia-drm
+options nvidia-drm modeset=1
+```
 Alternatively, `modeset` option can be enabled on the [kernel command line](https://wiki.gentoo.org/wiki/Kernel#Kernel_command-line_parameters) with `nvidia-drm.modeset=1`. This can be set in the [bootloader](https://wiki.gentoo.org/wiki/Bootloader) or embedded in the kernel configuration.
 
 ## See also
