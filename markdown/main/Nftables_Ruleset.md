@@ -4,8 +4,8 @@ title: Nftables/Ruleset
 url: https://wiki.gentoo.org/wiki/Nftables/Ruleset
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-09"
-fingerprint: a585897a84e529c9
+date: "2026-10-22"
+fingerprint: a595897aa7e529c9
 license: CC BY-SA 4.0
 ---
 
@@ -17,11 +17,21 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
-## Introduction
+A **ruleset** defines the collection of tables, chains, rules, and other objects configured in the [Netfilter](https://wiki.gentoo.org/wiki/Netfilter) **nf\_tables** subsystem used for [nftables](https://wiki.gentoo.org/wiki/Nftables) packet handling.
 
-## Ruleset
 
-nft command files may include other command files with include.
+
+
+
+## Ruleset file
+
+A ruleset file is a text file that contains one or more **nftables** commands.
+
+A ruleset file can contains multiple commands, and commands can share a line separated by semicolons.
+
+nft ruleset files may include other command files with include.
+
+### Nested files
 
 The include command allows a ruleset to be split into an administrator-defined directory hierarchy. nft does not impose a particular directory layout.
 
@@ -90,6 +100,8 @@ For example, a large homelab or enterprise ruleset might be organized as::
 /etc/nftables/rules/filter/forward/dmz/forward-output-dmz-tcp.nft
 /etc/nftables/rules/filter/forward/dmz/forward-output-dmz-udp.nft
 /etc/nftables/rules/filter/forward/lo/forward-output.nft
+
+
 
 ## Tables
 
@@ -363,28 +375,31 @@ Both rules update the same counter and quota. The counter tracks packet and byte
 
 ## Commands
 
-### add
+The following keywords begins a command. Place the command at the nft command line or in a ruleset file.
 
-### create
+- [add](https://wiki.gentoo.org/wiki/Nftables/Ruleset/Add)
+- **create**
+- **delete**
+- [**list**](https://wiki.gentoo.org/wiki/Nftables/Ruleset/List)
+- [**flush**](https://wiki.gentoo.org/wiki/Nftables/Ruleset/Flush)
+- **rename**
+- **replace**
+- **insert**
+- **delete**
+- **destroy**
+- **get**
+- **reset**
+- **import**
+- **export**
+- **monitor**
+- **describe**
 
-### delete
-
-### list
-
-### flush
-
-### rename
-
-### replace
-
-### Examples
-
-### See also
+## See also
 
 - [nft](https://wiki.gentoo.org/wiki/Nft) — configures and inspects the Linux kernel's nftables packet handling framework
-- [Nftables/Ruleset]
+- [Nftables/Ruleset] — defines the collection of tables, chains, rules, and other objects configured in the [Netfilter](https://wiki.gentoo.org/wiki/Netfilter) **nf\_tables** subsystem used for [nftables](https://wiki.gentoo.org/wiki/Nftables) packet handling.
 - [Nftables/Ruleset/Chain](https://wiki.gentoo.org/wiki/Nftables/Ruleset/Chain) — contains a group of rules used to process network traffic.
-- [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules)
+- [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules) — match packet properties and perform actions.
 - [Nftables/Configuration](https://wiki.gentoo.org/wiki/Nftables/Configuration)
 - [nftables examples](https://wiki.gentoo.org/wiki/Nftables/Examples)
 - [Nftables](https://wiki.gentoo.org/wiki/User:Egberts/Drafts/Nftables) — the Linux packet-handling framework

@@ -4,8 +4,8 @@ title: Creating an ebuild repository
 url: https://wiki.gentoo.org/wiki/Creating_an_ebuild_repository
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-03-30"
-fingerprint: "9f89380f94e123e0"
+date: "2026-10-22"
+fingerprint: "9f89380f94e103e0"
 license: CC BY-SA 4.0
 ---
 
@@ -15,7 +15,7 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
-Create an [ebuild repository](https://wiki.gentoo.org/wiki/Ebuild_repository) to house [ebuilds](https://wiki.gentoo.org/wiki/Ebuild) to be made available to [Portage](https://wiki.gentoo.org/wiki/Portage) for installation.  Once an ebuild repository is created, and ebuilds are added to it, it may be shared with others (via a publicly available git repository, for example). This article will cover all the basics of creating an ebuild repository and maintaining ebuilds in it.
+Create an [ebuild repository](https://wiki.gentoo.org/wiki/Ebuild_repository) to house [ebuilds](https://wiki.gentoo.org/wiki/Ebuild) to be made available to [Portage](https://wiki.gentoo.org/wiki/Portage) for installation. Once an ebuild repository is created, and ebuilds are added to it, it may be shared with others (via a publicly available git repository, for example). This article will cover all the basics of creating an ebuild repository and maintaining ebuilds in it.
 
 Creating ebuild repositories and ebuilds can be a good way to learn more about how Gentoo fundamentally works. Publishing an ebuild repository can also be a good way to contribute to the community (though helping out with [GURU](https://wiki.gentoo.org/wiki/GURU) or becoming a [proxy maintainer](https://wiki.gentoo.org/wiki/Gentoo_Wiki:Contributor%27s_guide) can be even more helpful).
 
@@ -34,7 +34,7 @@ Repository \<repository\_name> created and added
 
 A new ebuild repository can also be created "by hand", as explained in the [Handbook](https://wiki.gentoo.org/wiki/Handbook) section [defining a custom *ebuild repository*](https://wiki.gentoo.org/wiki/Handbook:AMD64/Portage/CustomTree#Defining_a_custom_ebuild_repository).
 
-If creating a repository [for publication](https://github.com/new) that is mainly destined to contain a central package with its dependencies, it may be helpful to give it a name en rapport with its contents (ebuild repositories often get named for the person maintaining them, which isn't always the most descriptive name). The same applies for a repository that will contain packages with usage centered around a particular theme.
+If creating a repository for publication that is mainly destined to contain a central package with its dependencies, it may be helpful to give it a name en rapport with its contents (ebuild repositories often get named for the person maintaining them, which isn't always the most descriptive name). The same applies for a repository that will contain packages with usage centered around a particular theme.
 
 ## Track changes (optional)
 
@@ -59,7 +59,7 @@ git add .
 
 With the basic layout in order thanks to [eselect repository](https://wiki.gentoo.org/wiki/Eselect/Repository), and a VCS such as git set up, adding [ebuilds](https://wiki.gentoo.org/wiki/Ebuild) to a newly created repository is simple.
 
-For this example, `app-dicts/artha-1.0.2`[\[1\]](https://bugs.gentoo.org/show_bug.cgi?id=312313) will be used; of course, a new ebuild repository will usually be destined to contain [newly written ebuilds](https://wiki.gentoo.org/wiki/Basic_guide_to_write_Gentoo_Ebuilds). To follow on with this guide, consider that the artha ebuild is in the homedir of the user [larry](https://wiki.gentoo.org/wiki/Larry_the_cow), in a file named artha-1.0.2.ebuild.
+For this example, `app-dicts/artha-1.0.2`[bug #312313](https://bugs.gentoo.org/show_bug.cgi?id=312313) will be used; of course, a new ebuild repository will usually be destined to contain [newly written ebuilds](https://wiki.gentoo.org/wiki/Basic_guide_to_write_Gentoo_Ebuilds). To follow on with this guide, consider that the artha ebuild is in the homedir of the user [larry](https://wiki.gentoo.org/wiki/Larry_the_cow), in a file named artha-1.0.2.ebuild.
 
 Directories to house the ebuild must first be created. Inside the repository directory, create an appropriate [*category* directory](https://packages.gentoo.org/categories). Inside that, create a directory with the *package name*, to house the ebuild:
 
@@ -77,13 +77,13 @@ The difference is required as many ebuilds in the ::gentoo repository have patch
 Give the file the appropriate permissions:
 
 `root #``chown -R portage:portage /var/db/repos/local`
-Run [pkgdev](https://wiki.gentoo.org/wiki/Pkgdev) manifest to create the package's [Manifest](https://wiki.gentoo.org/wiki/Repository_format/package/Manifest) file:
+Run pkgdev manifest to create the package's [Manifest](https://wiki.gentoo.org/wiki/Repository_format/package/Manifest) file:
 
 `root #````
 cd /var/db/repos/local/app-dicts/artha
 ```
 `root #``pkgdev manifest`
-If pkgdev or pkgcheck errors out, please see [Pkgcheck#error:\_repos.conf:\_default\_repo\_.27gentoo.27\_is\_undefined\_or\_invalid](https://wiki.gentoo.org/wiki/Pkgcheck#error:_repos.conf:_default_repo_.27gentoo.27_is_undefined_or_invalid).
+If pkgdev or pkgcheck errors out, please see [Pkgcheck](https://wiki.gentoo.org/wiki/Pkgcheck#error:_repos.conf:_default_repo_.27gentoo.27_is_undefined_or_invalid).
 
 It should now be possible to install the package from the ebuild repository with the emerge command:
 

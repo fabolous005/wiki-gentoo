@@ -4,8 +4,8 @@ title: "/etc/portage/package.use"
 url: https://wiki.gentoo.org/wiki//etc/portage/package.use
 hostname: gentoo.org
 sitename: "/etc/portage/package.use"
-date: "2025-06-23"
-fingerprint: e0f79afc6eaf978d
+date: "2026-10-22"
+fingerprint: e0779afc6ea6978c
 license: CC BY-SA 4.0
 ---
 
@@ -15,7 +15,7 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
-**/etc/portage/package.use** provides a more fine grained **[per-package control](https://wiki.gentoo.org/wiki/Handbook:Parts/Working/USE#Declaring_USE_flags_for_individual_packages) of [USE flags](https://wiki.gentoo.org/wiki/USE_flag)** than the `USE` variable in [/etc/portage/make.conf](https://wiki.gentoo.org/wiki//etc/portage/make.conf#USE).
+**/etc/portage/package.use** provides a more fine grained **[per-package control](https://wiki.gentoo.org/wiki/Handbook:AMD64/Working/USE#Declaring_USE_flags_for_individual_packages) of [USE flags](https://wiki.gentoo.org/wiki/USE_flag)** than the `USE` variable in [/etc/portage/make.conf](https://wiki.gentoo.org/wiki//etc/portage/make.conf#USE).
 
 With the default `[USE_ORDER](https://wiki.gentoo.org/wiki/USE_ORDER)` setting, the /etc/portage/package.use file or directory will override individual package settings coming from all locations except for the `USE` environment variable.
 
@@ -35,8 +35,11 @@ app-admin/sudo offensive
 # disable mysql support for dev-lang/php
 dev-lang/php -mysql 
  
-# enable java and set the python interpreter version for libreoffice
-app-office/libreoffice java PYTHON_SINGLE_TARGET: python3_11
+# USE_EXPAND flags can be set this way:
+# short
+www-servers/nginx NGINX_MODULES_HTTP: gzip proxy NGINX_MODULES_STREAM: map ssl
+# expanded
+www-servers/nginx nginx_modules_http_gzip nginx_modules_http_proxy nginx_modules_stream_map nginx_modules_stream_ssl
 ```
 **`/etc/portage/package.use/openrct`**
 
@@ -63,20 +66,19 @@ With all the will in the world, mistakes will happen so below are some tips to h
 
 In this example, the [lua](https://packages.gentoo.org/useflags/lua) [USE flag was set for](https://wiki.gentoo.org/wiki/USE_flag) [media-video/obs-studio](https://packages.gentoo.org/packages/media-video/obs-studio), but is no longer required.
 
-`user $````
-grep --recursive "lua" /etc/portage/
-```
+`user $``grep --recursive "lua" /etc/portage/`
 /etc/portage/package.use/obs:media-video/obs-studio nvenc browser speex fdk lua python qsv v4l vlc
-
 /etc/portage/package.use/scummvm:games-engines/scummvm fluidsynth -fribidi lua mpeg2 sndio speech theora unsupported
+/etc/portage/package.use/zz-automask:>=dev-lua/lgi-0.9.2-r100 lua\_targets\_luajit
 
-/etc/portage/package.use/zz-automask:>=dev-lua/lgi-0.9.2-r100 lua_targets_luajit
 It can be seen that the USE flag is in /etc/portage/package.use/obs and can be quickly added and removed.
+
+## See also
+
+- [/etc/portage](https://wiki.gentoo.org/wiki//etc/portage) — the primary configuration directory for [Portage](https://wiki.gentoo.org/wiki/Portage), Gentoo's package manager.
 
 ## External resources
 
-- [https://packages.gentoo.org/useflags](https://packages.gentoo.org/useflags) - USE flags on Gentoo Packages Database
-- [Portage man page](https://dev.gentoo.org/~zmedico/portage/doc/man/portage.5.html)
-- [Setting USE\_EXPAND flags in package.use](https://blog.cafarelli.fr/2016/02/setting-use_expand-flags-in-package-use/) - blog post by Bernard Cafarelli
+- [portage(5)](https://dev.gentoo.org/~zmedico/portage/doc/man/portage.5.html)- [https://packages.gentoo.org/useflags](https://packages.gentoo.org/useflags) - USE flags on Gentoo Packages Database
 - [Cleaning /etc/portage/package.\* from unused entries](https://wiki.gentoo.org/wiki/User:Tillschaefer/cleanup_package)
 - [Find obsolete USE flags in /etc/portage/package.use](https://forums.gentoo.org/viewtopic-t-897206-start-11.html) - Gentoo forums thread

@@ -4,8 +4,8 @@ title: OpenCL
 url: https://wiki.gentoo.org/wiki/OpenCL
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-08-17"
-fingerprint: "5a390eff48a1155"
+date: "2026-10-22"
+fingerprint: "27a390eff48a1145"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+*Not to be confused with[OpenCT](https://wiki.gentoo.org/wiki/OpenCT).*
 
 **Open Computing Language** (OpenCL) is a framework for writing programs that execute across heterogeneous computing platforms (CPUs, GPUs, DSPs, FPGAs, ASICs, etc.).
 
@@ -35,7 +37,7 @@ Hardware vendors can benefit from this standard by implementing the OpenCL primi
 
 Installing an OpenCL implementation means adding a library implementing the OpenCL API, and a reference to the library path in the ICD (Installable Client Driver) database, as a file in /etc/OpenCL/vendors.
 
-There is an ICD loader which can be provided by a generic loader or one of the implementations. For most uses of OpenCL one of these must be selected using eselect opencl.
+There is an ICD loader which can be provided by a generic loader or one of the implementations.
 
 The OpenCL host and device API calls, the memory hierarchy are standard, but it doesn't mean that code which is *portable* to different implementations will be *efficient* on all of them. Often, code has to be tested on one implementation to eliminate issues. See the [implementation validation](https://wiki.gentoo.org/wiki/OpenCL#Implementation_Validation) and [implementation tuning](https://wiki.gentoo.org/wiki/OpenCL#Implementation_Tuning) sections.
 
@@ -78,10 +80,23 @@ Beginning with the Broadwell processor series, [Intel](https://wiki.gentoo.org/w
 Install it manually as the [virtual/opencl](https://packages.gentoo.org/packages/virtual/opencl) note suggests (64-bit only):
 
 `root #``emerge --ask dev-libs/intel-compute-runtime`
+### AMD
+
 The newest OpenCL implementation from AMD is ROCm, Radeon Open Compute, which supports GFX8 and newer GPU chips (Fiji, Polaris, Vega).  The GFX7 chips are enabled, but not officially supported.  For older chips, use either the Mesa clover (above), or amdgpu-pro-opencl (below) implementations.  The ROCm source is available on GitHub, at [RadeonOpenCompute/ROCm](https://github.com/RadeonOpenCompute/ROCm).  ROCm is in Gentoo; install [dev-libs/rocm-opencl-runtime](https://packages.gentoo.org/packages/dev-libs/rocm-opencl-runtime). For an error-free operation, it may be necessary to recompile [media-libs/mesa](https://packages.gentoo.org/packages/media-libs/mesa) with the `-opencl` USE flag.
 
 For ROCm to work properly with the AMDGPU drivers, the following kernel options must be set:
 
+```
+Memory Management options  --->
+    [*] Memory hotplug
+    [*]   Allow for memory hot remove
+    [*] Device memory (pmem, HMM, etc...) hotplug support
+Device Drivers  --->
+    Graphics support  --->
+        <M/*> AMD GPU
+        [*]   Always enable userptr write support
+        <M/*> HSA kernel driver for AMD GPU devices
+```
 There also exists [dev-libs/amdgpu-pro-opencl](https://packages.gentoo.org/packages/dev-libs/amdgpu-pro-opencl) -package which provides ***closed source*** OpenCL libraries from Ubuntu AMDGPU-PRO driver package. These libraries are *normally* used with the closed source [AMDGPU-PRO](https://wiki.gentoo.org/wiki/AMDGPU-PRO) drivers, but this package helps users to try *if* they can use them with open source [AMDGPU](https://wiki.gentoo.org/wiki/AMDGPU) drivers.
 
 ### nVidia
@@ -94,9 +109,13 @@ The driver is provided by the [dev-util/nvidia-cuda-toolkit](https://packages.ge
 
 Information about the system's OpenCL capabilities can be viewed using the [dev-util/clinfo](https://packages.gentoo.org/packages/dev-util/clinfo) package.
 
+### Implementation validation
+
 An implementation (especially the experimental ones) can be checked by running test suites such as:
 
 - [piglit](http://cgit.freedesktop.org/piglit/): Open Source OpenGL/OpenCL test suite. Check [GalliumCompute](http://dri.freedesktop.org/wiki/GalliumCompute/#index4h3) for simple piglit tests
+
+### Implementation tuning
 
 The main vendors will provide some form of advanced documentation to use their hardware to the maximum:
 
@@ -108,3 +127,8 @@ Some characteristics are not straightforward to find. Benchmarks are one mode of
 ### LLVM DLL hell
 
 LLVM is starting to become a central library, and it is used by most of the implementations. If the user/implementer is not careful, linkage issues can occur (symbol collisions, constructors getting called multiple times and not handled, etc.). This is something that can be noticed with many implementations also.
+
+## References
+
+1. [↑](https://wiki.gentoo.org#cite_ref-1) [AMDGPU and OpenCL](https://www.reddit.com/r/Gentoo/comments/693gvj/amdgpu_and_opencl/dh52z2m/) - Reddit
+2. [↑](https://wiki.gentoo.org#cite_ref-2) [Post 8087132](https://forums.gentoo.org/viewtopic-p-8087132.html#8087132) - Gentoo Forums

@@ -79,7 +79,7 @@ To obtain a kernel, it is necessary to install the kernel source code. The recom
 ### USE flags for
             [sys-kernel/gentoo-sources](https://packages.gentoo.org/packages/sys-kernel/gentoo-sources)
             
-            Full sources including the Gentoo patchset for the 7.2 kernel tree
+            Full sources including the Gentoo patchset for the 7.3 kernel tree
 
 | [build](https://packages.gentoo.org/useflags/build) | !!internal use only!! DO NOT SET THIS FLAG YOURSELF!, used for creating build images and the first half of bootstrapping \[make stage1\] | 
 | [experimental](https://packages.gentoo.org/useflags/experimental) | Apply experimental patches; for more information, see "https://wiki.gentoo.org/wiki/Project:Kernel/Experimental". | 

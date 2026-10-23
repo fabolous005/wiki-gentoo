@@ -4,7 +4,7 @@ title: System time
 url: https://wiki.gentoo.org/wiki/System_time
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-21"
+date: "2026-10-22"
 fingerprint: c7883c7aa346ab66
 license: CC BY-SA 4.0
 ---
@@ -117,7 +117,7 @@ Typically the hardware clock is used to setup the system clock on boot. This can
 
 #### In-kernel method
 
-On a sufficiently modern kernel (3.9 or newer), Linux can be configured to handle setting the system time automatically. To do so, enable the **Set system time from RTC on startup and resume** (`CONFIG_RTC_HCTOSYS`) and **Set the RTC time based on NTP synchronization** (`CONFIG_RTC_SYSTOHC`) kernel options:
+Linux can be configured to handle setting the system time automatically. To do so, enable the **Set system time from RTC on startup and resume** (`CONFIG_RTC_HCTOSYS`) and **Set the RTC time based on NTP synchronization** (`CONFIG_RTC_SYSTOHC`) kernel options:
 
 **Letting the kernel sync the system clock**
 
@@ -133,7 +133,7 @@ On a sufficiently modern kernel (3.9 or newer), Linux can be configured to handl
             [*]   /dev/rtcN (character devices)
             <*>   PC-style 'CMOS'
 ```
-The **Set the RTC time based on NTP synchronization** kernel option is currently supported by [chrony](https://wiki.gentoo.org/wiki/Chrony)<sup>[\[1\]](https://wiki.gentoo.org#cite_note-1)</sup>, [NTP](https://wiki.gentoo.org/wiki/NTP) and [OpenNTPD](https://wiki.gentoo.org/wiki/OpenNTPD) since version 5.9p1<sup>[\[2\]](https://wiki.gentoo.org#cite_note-2)</sup>.
+The **Set the RTC time based on NTP synchronization** kernel option is supported by most NTP-clients, such [chrony](https://wiki.gentoo.org/wiki/Chrony)<sup>[\[1\]](https://wiki.gentoo.org#cite_note-1)</sup> and [OpenNTPD](https://wiki.gentoo.org/wiki/OpenNTPD)<sup>[\[2\]](https://wiki.gentoo.org#cite_note-2)</sup>.
 
 To check the hardware time was updated, install [net-misc/adjtimex](https://packages.gentoo.org/packages/net-misc/adjtimex) and run:
 

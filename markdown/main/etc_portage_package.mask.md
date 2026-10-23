@@ -4,7 +4,7 @@ title: "/etc/portage/package.mask"
 url: https://wiki.gentoo.org/wiki//etc/portage/package.mask
 hostname: gentoo.org
 sitename: "/etc/portage/package.mask"
-date: "2025-12-23"
+date: "2026-10-22"
 fingerprint: "3fbb3e6e0ae7f399"
 license: CC BY-SA 4.0
 ---

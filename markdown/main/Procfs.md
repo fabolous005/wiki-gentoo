@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Procfs
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-09-26"
-fingerprint: ce195db8d9966325
+fingerprint: ce195db0d9966325
 license: CC BY-SA 4.0
 ---
 
@@ -28,6 +28,11 @@ Activate the following kernel options:
 
 **Enable procfs support**
 
+```
+File systems  --->
+    Pseudo filesystems  --->
+        <*> /proc file system support
+```
 ## Configuration
 
 ### OpenRC
@@ -42,6 +47,8 @@ The init service /etc/init.d/procfs goes in runlevel boot:
 `user $``/sbin/rc-update | grep procfs`
 procfs | boot
 
+### Restricting access to PID directories
+
 procfs provides the `hidepid` mount option to restrict access to the /proc/\<pid> directories by other users. This is a hardening technique that can make it more difficult for malicious local users to gather information about the processes of other users<sup>[\[2\]](https://wiki.gentoo.org#cite_note-2)</sup>.
 
 | Value | Description | 
@@ -52,6 +59,9 @@ procfs provides the `hidepid` mount option to restrict access to the /proc/\<pid
 
 The `hidepid` mount option can be configured to be used automatically when mounting /proc/, for example:
 
+```
+proc     /proc     proc     nosuid,nodev,noexec,hidepid=2,gid=wheel     0 0
+```
 ## Usage
 
 See the [Wikipedia article](https://en.wikipedia.org/wiki/procfs#Linux) for a description of each file's purpose.
