@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Let%27s_Encrypt
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-03-14"
-fingerprint: fc79f73e5234b7c4
+fingerprint: ec79f73e5234b7c4
 license: CC BY-SA 4.0
 ---
 
@@ -27,6 +27,8 @@ Point an external IP at HTTP (port 80/TCP) and HTTPS (port 443/TCP) at a web ser
 
 ### certbot
 
+#### USE flags
+
 Let’s Encrypt Certbot uses plugins to enhance its features. To simplify the maintenance of this modular approach, the [app-crypt/certbot](https://packages.gentoo.org/packages/app-crypt/certbot) ebuild uses USE flags to denote which plugins should be installed.
 
 For example, to enable the `RFC 2136 DNS Authenticator` plugin:
@@ -34,8 +36,13 @@ For example, to enable the `RFC 2136 DNS Authenticator` plugin:
 **`/etc/portage/package.use/certbot`**
 
 ```
- certbot-dns-rfc2136
+app-crypt/certbot certbot-dns-rfc2136
 ```
+
+### USE flags for
+            [app-crypt/certbot](https://packages.gentoo.org/packages/app-crypt/certbot)
+            
+            Let's Encrypt client to automate deployment of X.509 certificates
 
 | [certbot-apache](https://packages.gentoo.org/useflags/certbot-apache) | Enable Apache plugin. | 
 | [certbot-dns-dnsimple](https://packages.gentoo.org/useflags/certbot-dns-dnsimple) | Enable DNSimple Authenticator plugin. | 
@@ -63,21 +70,21 @@ certbot also supports numbers of DNS Authenticator plugins which automates the p
 
 | Name | Packaged | Description | Documentation | Notes | 
 |---|---|---|---|---|
-| certbot-apache |  | Apache plugin. |  |  | 
-| certbot-dns-cloudflare |  | Cloudflare DNS Authenticator plugin. | [doc](https://certbot-dns-cloudflare.readthedocs.io/en/stable/) | Available in [GURU](https://wiki.gentoo.org/wiki/GURU) repository. | 
-| certbot-dns-digitalocean |  | DigitalOcean DNS Authenticator plugin. | [doc](https://certbot-dns-digitalocean.readthedocs.io/en/stable/) |  | 
-| certbot-dns-dnsimple |  | DNSimple DNS Authenticator plugin. | [doc](https://certbot-dns-dnsimple.readthedocs.io/en/stable/) |  | 
-| certbot-dns-dnsmadeeasy |  | DNS Made Easy DNS Authenticator plugin. | [doc](https://certbot-dns-dnsmadeeasy.readthedocs.io/en/stable/) |  | 
-| certbot-dns-gehirn |  | Gehirn Infrastructure Service DNS Authenticator plugin. | [doc](https://certbot-dns-gehirn.readthedocs.io/en/stable/) |  | 
-| certbot-dns-google |  | Google Cloud DNS Authenticator plugin. | [doc](https://certbot-dns-google.readthedocs.io/en/stable/) | Currently limited to architectures amd64, arm64 and x86. | 
-| certbot-dns-linode |  | Linode DNS Authenticator plugin. | [doc](https://certbot-dns-linode.readthedocs.io/en/stable/) |  | 
-| certbot-dns-luadns |  | LuaDNS Authenticator plugin. | [doc](https://certbot-dns-luadns.readthedocs.io/en/stable/) |  | 
-| certbot-dns-nsone |  | NS1 DNS Authenticator plugin. | [doc](https://certbot-dns-nsone.readthedocs.io/en/stable/) |  | 
-| certbot-dns-ovh |  | OVH DNS Authenticator plugin. | [doc](https://certbot-dns-ovh.readthedocs.io/en/stable/) |  | 
-| certbot-dns-rfc2136 |  | RFC 2136 DNS Authenticator plugin. | [doc](https://certbot-dns-rfc2136.readthedocs.io/en/stable/) |  | 
-| certbot-dns-route53 |  | Amazon Web Services Route 53 DNS Authenticator plugin. | [doc](https://certbot-dns-route53.readthedocs.io/en/stable/) |  | 
-| certbot-dns-sakuracloud |  | Sakura Cloud DNS Authenticator plugin. | [doc](https://certbot-dns-sakuracloud.readthedocs.io/en/stable/) |  | 
-| certbot-nginx |  | Nginx plugin. |  |  | 
+| certbot-apache | Yes | Apache plugin. |  |  | 
+| certbot-dns-cloudflare | No | Cloudflare DNS Authenticator plugin. | [doc](https://certbot-dns-cloudflare.readthedocs.io/en/stable/) | Available in [GURU](https://wiki.gentoo.org/wiki/GURU) repository. | 
+| certbot-dns-digitalocean | No | DigitalOcean DNS Authenticator plugin. | [doc](https://certbot-dns-digitalocean.readthedocs.io/en/stable/) |  | 
+| certbot-dns-dnsimple | Yes | DNSimple DNS Authenticator plugin. | [doc](https://certbot-dns-dnsimple.readthedocs.io/en/stable/) |  | 
+| certbot-dns-dnsmadeeasy | Yes | DNS Made Easy DNS Authenticator plugin. | [doc](https://certbot-dns-dnsmadeeasy.readthedocs.io/en/stable/) |  | 
+| certbot-dns-gehirn | Yes | Gehirn Infrastructure Service DNS Authenticator plugin. | [doc](https://certbot-dns-gehirn.readthedocs.io/en/stable/) |  | 
+| certbot-dns-google | Yes | Google Cloud DNS Authenticator plugin. | [doc](https://certbot-dns-google.readthedocs.io/en/stable/) | Currently limited to architectures amd64, arm64 and x86. | 
+| certbot-dns-linode | Yes | Linode DNS Authenticator plugin. | [doc](https://certbot-dns-linode.readthedocs.io/en/stable/) |  | 
+| certbot-dns-luadns | Yes | LuaDNS Authenticator plugin. | [doc](https://certbot-dns-luadns.readthedocs.io/en/stable/) |  | 
+| certbot-dns-nsone | Yes | NS1 DNS Authenticator plugin. | [doc](https://certbot-dns-nsone.readthedocs.io/en/stable/) |  | 
+| certbot-dns-ovh | Yes | OVH DNS Authenticator plugin. | [doc](https://certbot-dns-ovh.readthedocs.io/en/stable/) |  | 
+| certbot-dns-rfc2136 | Yes | RFC 2136 DNS Authenticator plugin. | [doc](https://certbot-dns-rfc2136.readthedocs.io/en/stable/) |  | 
+| certbot-dns-route53 | Yes | Amazon Web Services Route 53 DNS Authenticator plugin. | [doc](https://certbot-dns-route53.readthedocs.io/en/stable/) |  | 
+| certbot-dns-sakuracloud | Yes | Sakura Cloud DNS Authenticator plugin. | [doc](https://certbot-dns-sakuracloud.readthedocs.io/en/stable/) |  | 
+| certbot-nginx | Yes | Nginx plugin. |  |  | 
 
 ### acme-tiny (optional)
 
@@ -103,7 +110,7 @@ In order to use certbot with Apache web server, enable the additional plugin wit
 **`/etc/portage/package.use/certbot`**
 
 ```
- certbot-apache
+app-crypt/certbot certbot-apache
 ```
 `root #``emerge --ask app-crypt/certbot`
 #### Automatic signing with temporary certbox webserver
@@ -252,6 +259,10 @@ Add a monthly cron job:
 
 **`CRONJOB`**
 
+```
+# Renew Lets Encrypt certificate
+0 0 1 * * /usr/local/bin/renew-le-cert.sh 2>> /var/log/acme_tiny.log
+```
 ## Usage
 
 ### certbot

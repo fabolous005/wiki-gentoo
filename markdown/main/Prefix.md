@@ -15,6 +15,8 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+**Resources**
+
 **Gentoo Prefix** enables the power of Gentoo and [Portage](https://wiki.gentoo.org/wiki/Portage) on other distributions and/or operating systems (Microsoft Windows via Cygwin, Android via Termux, etc.).
 
 Prefix can be thought of as being like an app store, along the lines of Homebrew, Snap, or Flatpak - which opens all the packages offered in Gentoo to systems that do not have such functionality.

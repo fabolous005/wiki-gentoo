@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Mdev/Automount_USB
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2021-02-02"
-fingerprint: "9cc3ce166bac8bea"
+fingerprint: "9cc3ce166bac8be8"
 license: CC BY-SA 4.0
 ---
 
 # Mdev/Automount USB
+
+[Mdev](https://wiki.gentoo.org/wiki/Mdev)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -40,6 +42,9 @@ This article describes how to implement automounting of USB devices on a machine
 
 **`/etc/sudoers.d/001`**
 
+```
+USERID  HOSTNAME = (root) NOPASSWD: /bin/umount /media/*
+```
 Replace "USERID" and "HOSTNAME" with the actual regular userid and the actual hostname. If you have 2 or more users that need to unmount USB devices in /media, add a separate line for each one.
 
 ## Scripts for use for unmounting
@@ -85,6 +90,12 @@ sd\[a-z\].\* root:disk 660 \*/lib/mdev/autousb/automount
 
 **`/etc/mdev.conf`**
 
+```
+...
+ # sd[a-z].* root:disk 660 */lib/mdev/usbdisk_link
+ sd[a-z].* root:disk 660 */lib/mdev/autousb/automount
+ ...
+```
 ## Usage notes
 
 - Rebooting is not required. Automounting should now work.

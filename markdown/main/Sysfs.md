@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Sysfs
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-04-12"
-fingerprint: "1f119b3877526b34"
+fingerprint: "1f119b3873522b34"
 license: CC BY-SA 4.0
 ---
 
@@ -26,6 +26,11 @@ sysfs will usually be activated by default. The kernel option will only be visib
 
 **Enable sysfs support**
 
+```
+File systems  --->
+    Pseudo filesystems  --->
+        -*- sysfs file system support
+```
 ## Usage
 
 Use cat to read the information. For example, to output the charging level of a battery:
@@ -39,6 +44,8 @@ Get the device name by listing the /sys/class/net directory contents using ls -a
 ├── lo -> ../../devices/virtual/net/lo
 ├── sit0 -> ../../devices/virtual/net/sit0
 └── wlp8s0 -> ../../devices/pci0000:00/0000:00:1c.0/0000:08:00.0/net/wlp8s0
+
+
 
 sysfs can be used to set values at runtime. For example, the echo command can be used to enable system suspension:
 

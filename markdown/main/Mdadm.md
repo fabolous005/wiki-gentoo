@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Mdadm
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-07-27"
-fingerprint: fe23145a240f2939
+fingerprint: "7e61305a240f2939"
 license: CC BY-SA 4.0
 ---
 
@@ -42,6 +42,22 @@ The extra effort to manage and monitor your RAID disks. To make full use of soft
 
 Start with the kernel configuration. After all, the kernel does most of the work:
 
+```
+[*] Device Drivers  --->
+    <*> Multiple devices driver support (RAID and LVM)
+        <*> RAID support
+            [*] Autodetect RAID arrays during kernel boot
+            If you want to combine multiple disks or partitions to one (bigger) device:
+                <*> Linear (append) mode
+            If you want to increase I/O performance by striping data across multiple disks (at the expense of reliability):
+                <*> RAID-0 (striping) mode
+            If you want to increase reliability by mirroring data across multiple disks (at the expense of storage capacity):
+                <*> RAID-1 (mirroring) mode
+            If you want to combine the previous two options (for whatever reason):
+                <*> RAID-10 (mirrored striping) mode
+            If you want to combine 3 or more disks for reliability and performance:
+                <*> RAID-4/RAID-5/RAID-6 mode
+```
 Get the proper RAID admin tool:
 
 `root #``emerge --ask mdadm`
@@ -79,10 +95,16 @@ When the root file system is located on a software RAID, an initramfs is necessa
 
 **`/etc/genkernel.conf`**
 
+```
+MDADM="yes"
+```
 Then, add the `domdadm` parameter to the kernel command line. The script in initramfs interprets this parameter, not the kernel itself. Also, be aware that the auto assembly takes into account the hostname, which will probably be set to `(none)` in the initramfs environment. Using [GRUB](https://wiki.gentoo.org/wiki/GRUB), the parameter can be added to /etc/default/grub:
 
 **`/etc/default/grub`**
 
+```
+GRUB_CMDLINE_LINUX_DEFAULT="domdadm"
+```
 Remember to regenerate the /boot/grub/grub.cfg configuration file with the following command:
 
 `root #``grub-mkconfig -o /boot/grub/grub.cfg`

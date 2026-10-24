@@ -11,6 +11,8 @@ license: CC BY-SA 4.0
 
 # XDG/Software
 
+[XDG](https://wiki.gentoo.org/wiki/XDG)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
@@ -28,6 +30,7 @@ The [xdg-open(1)](https://man.archlinux.org/man/xdg-open.1.en) [program can be u
 `user $``xdg-open file.txt`
 This will open file.txt in the preferred application for `text/plain` files, e.g. Kate or GEdit.
 
+`user $``xdg-open` [https://www.gentoo.org/](https://www.gentoo.org/)
 This will open [https://www.gentoo.org/](https://www.gentoo.org/)
 
 ### xdg-mime(1)

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Ptyxis
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-01-30"
-fingerprint: "929ad47f4e81b36b"
+fingerprint: "92dad47f4e81b36b"
 license: CC BY-SA 4.0
 ---
 
@@ -21,6 +21,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [x11-terms/ptyxis](https://packages.gentoo.org/packages/x11-terms/ptyxis)
+            
+            A terminal for a container-oriented desktop
 
 ### Emerge
 

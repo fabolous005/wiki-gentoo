@@ -4,7 +4,7 @@ title: NVIDIA/Optimus/xorg.conf
 url: https://wiki.gentoo.org/wiki/NVIDIA/Optimus/xorg.conf
 hostname: gentoo.org
 sitename: NVIDIA/Optimus/xorg.conf
-date: "2022-10-01"
+date: "2026-10-23"
 fingerprint: "43259ffd831fed3d"
 license: CC BY-SA 4.0
 ---

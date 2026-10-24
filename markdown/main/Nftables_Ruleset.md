@@ -4,8 +4,8 @@ title: Nftables/Ruleset
 url: https://wiki.gentoo.org/wiki/Nftables/Ruleset
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-22"
-fingerprint: a595897aa7e529c9
+date: "2026-10-23"
+fingerprint: a595897aa7c5a94d
 license: CC BY-SA 4.0
 ---
 
@@ -17,9 +17,7 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
-A **ruleset** defines the collection of tables, chains, rules, and other objects configured in the [Netfilter](https://wiki.gentoo.org/wiki/Netfilter) **nf\_tables** subsystem used for [nftables](https://wiki.gentoo.org/wiki/Nftables) packet handling.
-
-
+A **ruleset** is the collection of tables, chains, rules, and other objects configured in the [Netfilter](https://wiki.gentoo.org/wiki/Netfilter) **nf\_tables** subsystem.
 
 
 
@@ -27,9 +25,9 @@ A **ruleset** defines the collection of tables, chains, rules, and other objects
 
 A ruleset file is a text file that contains one or more **nftables** commands.
 
-A ruleset file can contains multiple commands, and commands can share a line separated by semicolons.
+A ruleset file can contain multiple commands, and commands can share a line separated by semicolons.
 
-nft ruleset files may include other command files with include.
+nft ruleset files may include other ruleset files with include.
 
 ### Nested files
 
@@ -145,11 +143,11 @@ The inet family allows the table to contain rules for both IPv4 and IPv6 traffic
 
 Tables are managed with the nft command.
 
-The nft command can create, list, flush, rename, and delete tables. Table management operates on the active kernel ruleset.
+The nft command can create, list, flush, and delete tables. Table management operates on the active kernel ruleset.
 
-A table can be created explicitly with nft add table or declared as part of a command file. An existing table can contain chains, sets, maps, flowtables, and other nftables objects.
+A table can be created explicitly with nft add table or declared as part of a ruleset file. An existing table can contain chains, sets, maps, flowtables, and other nftables objects.
 
-Deleting a table also deletes the objects contained by that table. Flushing a table removes its contained objects while leaving the table itself in place.
+Deleting a table also deletes the objects contained by that table. The flush table command flushes the table's chains and rules without deleting the table itself.
 
 ## Rules
 
@@ -168,6 +166,8 @@ For rule syntax and the components of a rule, see [Nftables/Rules](https://wiki.
 The following command adds a **rule** to the **chain** called *input\_filter*, on the *base\_table* **table**, dropping all incoming traffic to port 80:
 
 `root #``nft add rule inet base_table input_filter tcp dport 80 drop`
+assuming that **filter** chain is called by a base chain.
+
 See [Nftables/Ruleset/Rules](https://wiki.gentoo.org/wiki/Nftables/Ruleset/Rules) for details.
 
 ## Chains
@@ -180,7 +180,10 @@ For chain types, declaration, properties, lifecycle, relationships, and processi
 
 Sets group values for use by rules.
 
-A set contains elements of a single data type. A rule can match a packet value against multiple set elements with one match.
+
+A set contains elements of a single data type. 
+Its key type is defined by its declaration; supported keys can include concatenations of multiple fields.
+A rule can match a packet value against multiple set elements with one match.
 
 Sets commonly contain IP addresses, network addresses, ports, or interface names. Sets can also contain other data types supported by nftables.
 
@@ -375,24 +378,12 @@ Both rules update the same counter and quota. The counter tracks packet and byte
 
 ## Commands
 
-The following keywords begins a command. Place the command at the nft command line or in a ruleset file.
+The following keywords begin command. Place the command at the nft command line or in a ruleset file.
 
-- [add](https://wiki.gentoo.org/wiki/Nftables/Ruleset/Add)
-- **create**
-- **delete**
-- [**list**](https://wiki.gentoo.org/wiki/Nftables/Ruleset/List)
-- [**flush**](https://wiki.gentoo.org/wiki/Nftables/Ruleset/Flush)
-- **rename**
-- **replace**
-- **insert**
-- **delete**
-- **destroy**
-- **get**
-- **reset**
-- **import**
-- **export**
-- **monitor**
-- **describe**
+## Tips
+
+- Table ID can start a line, equivalent to `add rules`
+- Family ID can start a line, equivalent to `add rules`
 
 ## See also
 

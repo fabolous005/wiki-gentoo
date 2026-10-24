@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Incus/Gentoo_Github_pullrequest_testing
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-02-13"
-fingerprint: "9d03607429851faf"
+fingerprint: "9d0360742d851fae"
 license: CC BY-SA 4.0
 ---
 
 # Incus/Gentoo Github pullrequest testing
+
+[Incus](https://wiki.gentoo.org/wiki/Incus)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -160,6 +162,16 @@ edit /etc/portage/repos.conf/gentoo.conf
 
 **Container**
 
+```
+[DEFAULT]
+main-repo = gentoo
+[gentoo]
+location = /var/db/repos/gentoo
+sync-type = git
+sync-uri = https://github.com/gentoo-mirror/gentoo
+auto-sync = true
+sync-depth=1
+```
 `my-gentoo-gh-test-container #``rm -rf /var/db/repos/gentoo/*``my-gentoo-gh-test-container #````
 emerge --sync
 ```
@@ -262,6 +274,9 @@ Add [app-portage/iwdevtools](https://packages.gentoo.org/packages/app-portage/iw
 
 **`~/.bashrc`**
 
+```
+eval "$(command repo-cd --bash=rcd --path="/var/db/repos/gentoo:default:.")"
+```
 `user $``incus stop my-gentoo-gh-test-container`
 ## Set up host scripts
 
@@ -269,6 +284,13 @@ Note: Edit the host scripts to your needs. Stuff like pkgdiff-mg can be incus fi
 
 **`~/bin/local-container_incus_start_gentoo-gh-prtester.sh`**
 
+```
+...
+        incus copy my-gentoo-gh-test-container my-gentoo-gh-test-container-snap-"${prId}"
+        incus file push /usr/bin/pkgdiff-mg my-gentoo-gh-test-container-snap-"${prId}"/usr/local/bin/
+        incus start my-gentoo-gh-test-container-snap-"${prId}"
+...
+```
 ### Automatic way via git sync
 
 `user $````

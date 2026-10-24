@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/KDEConnect
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-04-16"
-fingerprint: cc91521878f9786e
+fingerprint: cc9152187cf9786e
 license: CC BY-SA 4.0
 ---
 
 # KDEConnect
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -23,6 +25,11 @@ A KDEConnect implementation for Gnome can be found at [gnome-extra/gnome-shell-e
 
 ### USE flags
 
+
+### USE flags for
+            [kde-misc/kdeconnect](https://packages.gentoo.org/packages/kde-misc/kdeconnect)
+            
+            Adds communication between KDE Plasma and your smartphone
 
 | [X](https://packages.gentoo.org/useflags/X) | Enable remote input mousepad/shareinputdevices plugins relying on X11 libs | 
 | [bluetooth](https://packages.gentoo.org/useflags/bluetooth) | Enable Bluetooth Support | 
@@ -46,9 +53,7 @@ To use this application, KDEConnect needs to be installed on the two devices whi
 If your computer has a firewall (like [net-firewall/nftables](https://packages.gentoo.org/packages/net-firewall/nftables)), then the ports 1714-1764 needs to be open.
 For [Nftables](https://wiki.gentoo.org/wiki/Nftables), the following snippet can be used.
 
-**`/etc/nftables.rules.d/kdeconnect.rules`**
-
-**Allow TCP and UDP for KDEConnect**
+FILE **`/etc/nftables.rules.d/kdeconnect.rules`****Allow TCP and UDP for KDEConnect**
 
 ```
 #! /sbin/nft -f

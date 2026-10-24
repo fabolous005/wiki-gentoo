@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Monero
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-06-12"
-fingerprint: b42f118b2fa73bcc
+fingerprint: b42f110bafa73bcc
 license: CC BY-SA 4.0
 ---
 
@@ -75,7 +75,7 @@ Because monero's blockchain (the list of transactions, also called the "ledger")
 **Setting blockchain directory and pruning**
 
 ```
-=/your/monero/directory/
+data-dir=/your/monero/directory/
 log-file=/your/monero/directory/monero.log
 prune-blockchain=1
 ```
@@ -86,7 +86,7 @@ If you have a publicly available node, you may want to enable restricted RPC:
 **Enabling restricted RPC**
 
 ```
-=1
+restricted-rpc=1
 ```
 If you send transactions from this node, you may also want to route your transactions over the Tor network instead of relying on Dandelion++. Install and configure  [Tor](https://wiki.gentoo.org/wiki/Tor), then add the following to your monerod configuration:
 
@@ -95,7 +95,7 @@ If you send transactions from this node, you may also want to route your transac
 **Routing transactions over Tor on localhost:9050**
 
 ```
-=tor,127.0.0.1:9050,12,disable_noise
+tx-proxy=tor,127.0.0.1:9050,12,disable_noise
 ```
 See [monerod options](https://docs.getmonero.org/interacting/monerod-reference/) and [monerod.conf](https://docs.getmonero.org/interacting/monero-config-file/) for a more complete list of configuration options.
 
@@ -132,6 +132,11 @@ XMRig is the largest fast implementation of Monero mining. This gentoo package r
 #### Installation
 
 
+### USE flags for
+            [net-misc/xmrig](https://packages.gentoo.org/packages/net-misc/xmrig)
+            
+            RandomX, CryptoNight, KawPow, AstroBWT, and Argon2 CPU/GPU miner
+
 `root #``emerge --ask net-misc/xmrig`
 #### Usage
 
@@ -144,7 +149,7 @@ If a monero node is running, (localhost on port 18081), solo mining is as simple
 **Enabling zmq on monerod for mining**
 
 ```
-=tcp://127.0.0.1:18083
+zmq-pub=tcp://127.0.0.1:18083
 ```
 Another option is pool mining, which eliminates the need to run a monero node, and may offer more regular payouts at the cost of increased centralization and fees. Configuration depends on the pool, but usually looks something like:
 

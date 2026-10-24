@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Imv
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-02-14"
-fingerprint: "7603497451d639c6"
+fingerprint: "7403497451d639c6"
 license: CC BY-SA 4.0
 ---
 
 # imv
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -22,6 +24,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [media-gfx/imv](https://packages.gentoo.org/packages/media-gfx/imv)
+            
+            Minimal image viewer designed for tiling window manager users
 
 | [+X](https://packages.gentoo.org/useflags/+X) | Add support for X11 | 
 | [+jpeg](https://packages.gentoo.org/useflags/+jpeg) | Add JPEG image support | 

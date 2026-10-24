@@ -4,7 +4,7 @@ title: Distributions based on Gentoo
 url: https://wiki.gentoo.org/wiki/Distributions_based_on_Gentoo
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-08-02"
+date: "2026-10-23"
 fingerprint: "343b3c4987a3bba0"
 license: CC BY-SA 4.0
 ---
@@ -25,7 +25,7 @@ Users are encouraged to extend and update the list below. Before adding a new en
 
 | Name | Latest release | Primary language | Purpose | 
 |---|---|---|---|
-| [Argent Linux](https://argentlinux.io) | 2026-05-05 ( [1.5.3-RC7-SLIM](https://iso.argentlinux.io/Argent.KDE.BETA.1.5.3-RC7-SLIM.amd64.iso) [\[1\]](https://iso.argentlinux.io)) | English | "Workstation development oriented distribution based on Gentoo (with systemd)" | 
+| [Argent Linux](https://argentlinux.io) | 2026-10-21 ( [1.5.4-SLIM](https://iso.argentlinux.io/Argent.KDE.1.5.4-SLIM.amd64.iso) [\[1\]](https://iso.argentlinux.io)) | English | "Workstation development oriented distribution based on Gentoo (with systemd)" | 
 | [Bicom Systems ServerWare](https://www.bicomsystems.com/download/) | 2026 ( [5.2.0](https://downloads.bicomsystems.com/serverware/5.2.0/serverware-5.2.0%2Bbuild.979.iso) [\[2\]](https://www.bicomsystems.com/download/#serverware)) | English | "Telephony Platform. ServerWare software." | 
 | [Calculate Linux](https://www.calculate-linux.org/) | N/A (rolling) | English | "The Calculate project features several distributions, optimized for two distinct groups of people: home users as well as small and medium businesses that prefer open-source to proprietary solutions." | 
 | [Chromium OS](https://www.chromium.org/chromium-os) | N/A | English | "An open-source project that aims to build an operating system that provides a fast, simple, and more secure computing experience for people who spend most of their time on the web." | 

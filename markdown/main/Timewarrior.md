@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Timewarrior
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-03-26"
-fingerprint: "20aa609ca09b77d8"
+fingerprint: "20ba609ca09b77d8"
 license: CC BY-SA 4.0
 ---
 
@@ -23,6 +23,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [app-misc/timew](https://packages.gentoo.org/packages/app-misc/timew)
+            
+            Tracks your time from the command line, and generates reports
 
 ### Emerge
 

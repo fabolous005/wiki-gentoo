@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Libcamera
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-12-31"
-fingerprint: "2c029d504b7431d4"
+fingerprint: "2c029d504b7631d4"
 license: CC BY-SA 4.0
 ---
 
 # Libcamera
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -25,7 +27,7 @@ license: CC BY-SA 4.0
 
 The libcamera software ISP requires the operating system to provide access to either the DMA heap or udmabuf devices. [\[2\]](https://wiki.gentoo.org#cite_note-2)
 
-**Enable support for DMA buffers>**
+KERNEL **Enable support for DMA buffers>**
 
 ```
 Device Drivers --->
@@ -35,6 +37,11 @@ Device Drivers --->
 [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for <code>CONFIG_DMABUF_HEAPS</code> to find this item.
 ### USE flags
 
+
+### USE flags for
+            [media-libs/libcamera](https://packages.gentoo.org/packages/media-libs/libcamera)
+            
+            Complex camera support library
 
 | [+udev](https://packages.gentoo.org/useflags/+udev) | Enable virtual/udev integration (device discovery, power and storage device support, etc) | 
 | [drm](https://packages.gentoo.org/useflags/drm) | Build with drm support for cam tool | 
@@ -117,10 +124,11 @@ This error indicates udmabuf special device provided by kernel is not accessible
 
 To fix this, add a custom udev rule:
 
-**`/etc/udev/rules.d/99-uaccess.rules`**
+FILE **`/etc/udev/rules.d/99-uaccess.rules`****udmabuf udev rule**
 
-**udmabuf udev rule**
-
+```
+ACTION="add", SUBSYSTEM=="misc", KERNEL=="udmabuf", TAG+="uaccess"
+```
 ## Removal
 
 ### Unmerge

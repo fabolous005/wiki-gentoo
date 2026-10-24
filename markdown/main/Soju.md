@@ -25,6 +25,11 @@ soju connects to upstream IRC servers on behalf of the user to provide extra fun
 ### USE flags
 
 
+### USE flags for
+            [net-irc/soju](https://packages.gentoo.org/packages/net-irc/soju)
+            
+            soju is a user-friendly IRC bouncer
+
 | [+sqlite](https://packages.gentoo.org/useflags/+sqlite) | Add support for sqlite - embedded sql database | 
 | [moderncsqlite](https://packages.gentoo.org/useflags/moderncsqlite) | Use moderncsqlite, a cgo-free port of SQLite | 
 | [pam](https://packages.gentoo.org/useflags/pam) | Add support for PAM (Pluggable Authentication Modules) - DANGEROUS to arbitrarily flip | 
@@ -41,6 +46,10 @@ An example configuration file is provided below; refer to the [soju(1)](https://
 
 **Example configuration**
 
+```
+db sqlite3 /var/lib/soju/main.db
+listen irc+insecure://192.168.0.1:6667
+```
 ### Service
 
 #### OpenRC

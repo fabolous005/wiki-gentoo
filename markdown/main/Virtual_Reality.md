@@ -4,8 +4,8 @@ title: Virtual Reality
 url: https://wiki.gentoo.org/wiki/Virtual_Reality
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-06-11"
-fingerprint: ee09961c51a61dd4
+date: "2026-10-23"
+fingerprint: fe08961c51a69dd4
 license: CC BY-SA 4.0
 ---
 
@@ -61,9 +61,9 @@ Users of X11 will need to install x11-apps/xrandr
 `root #``sudo emerge -av x11-apps/xrandr`
 As envision hasn't been updated to use Catch v3, \*you may need to unmerge v3 if you already have it installed.
 
-`user $``cd Catch2` `user $``git switch v2.x` `user $``cmake -Bbuild -H. -DBUILD_TESTING=OFF` `root #``cmake --build build/ --target install` Then install xr-hardware udev rules.
+`user $``git clone` [https://github.com/catchorg/Catch2.git](https://github.com/catchorg/Catch2.git) `user $``cd Catch2` `user $``git switch v2.x` `user $``cmake -Bbuild -H. -DBUILD_TESTING=OFF` `root #``cmake --build build/ --target install` Then install xr-hardware udev rules.
 
-`user $``cd xr-hardware``user $``make``root #` `make install`
+`user $``git clone` [https://gitlab.freedesktop.org/monado/utilities/xr-hardware.git](https://gitlab.freedesktop.org/monado/utilities/xr-hardware.git)`user $``cd xr-hardware``user $``make``root #` `make install`
 Nvidia users will need vulkan-layers
 
 `user $``cd vulkan-layers``user $``cmake -G Ninja -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS=ON``user $``ninja -C build``root #``ninja -C build install`
@@ -73,7 +73,7 @@ Then reboot for the changes to take effect.
 
 Clone install, and run envision.
 
-`user $``cd envision``user $``meson setup build -Dprefix="$PWD/build/localprefix" -Dprofile=development``user $``ninja -C build``user $``ninja -C build install``user $``./build/localprefix/bin/envision`
+`user $``git clone` [https://gitlab.com/gabmus/envision/](https://gitlab.com/gabmus/envision/)`user $``cd envision``user $``meson setup build -Dprefix="$PWD/build/localprefix" -Dprofile=development``user $``ninja -C build``user $``ninja -C build install``user $``./build/localprefix/bin/envision`
 ##### Configuration
 
 Select your headset. For this guide, we are using WMR - Envision Default click duplicate profile (between pen and + icon at the bottom) Name it. For Samsung Odyssey +(probably Odyssey as well) add
@@ -134,16 +134,16 @@ This is an overview of the support status of VR hardware. Official support means
 
 | Device | Supported | Official Support | Rotation | Position | Controller | OpenVR | OpenXR | OSVR | 
 |---|---|---|---|---|---|---|---|---|
-| HTC Vive |  |  |  |  |  |  |  |  | 
-| Valve Index |  |  |  |  |  |  |  |  | 
-| HTC Vive Pro |  |  |  |  |  |  |  |  | 
-| HTC Vive Pro 2 |  | [Third-party SteamVR driver available](https://github.com/CertainLach/VivePro2-Linux-Driver) |  |  |  |  |  |  | 
-| Oculus Rift DK1 |  | [Third-party support through OpenHMD](http://www.openhmd.net/) |  | n/a |  |  |  | [Yes (via OSVR-OpenHMD)](https://github.com/simlrh/OSVR-OpenHMD) | 
-| Oculus Rift DK2 |  | [Third-party support through OpenHMD](http://www.openhmd.net/) |  |  |  |  |  | [Yes (via OSVR-OpenHMD)](https://github.com/simlrh/OSVR-OpenHMD) | 
-| Oculus Rift CV1 |  | [Third-party support through OpenHMD](http://www.openhmd.net/) |  |  |  |  |  |  | 
-| Playstation VR |  | [Third-party support through OpenHMD](http://www.openhmd.net/) |  |  |  |  |  |  | 
-| Oculus Quest |  | [Third-party support through ALVR](https://github.com/alvr-org/ALVR) |  |  |  |  | [ALXR](https://github.com/korejan/ALVR/wiki/ALXR-Client) |  | 
-| Oculus/Meta Quest 2 |  | [Third-party support through ALVR](https://github.com/alvr-org/ALVR) |  |  |  |  | [ALXR](https://github.com/korejan/ALVR/wiki/ALXR-Client) |  | 
-| OSVR HDK |  |  |  |  | n/a |  |  |  | 
-| OSVR HDK2 |  |  |  |  | n/a |  |  |  | 
-| Windows Mixed Reality Headsets (like HP Reverb) |  | [Third-party support through Monado](https://gitlab.freedesktop.org/monado/monado) |  |  | [Experimental](https://gitlab.freedesktop.org/thaytan/monado) via Thaytan's branch |  |  |  |
+| HTC Vive | Yes | Yes | Yes | Yes | Yes | Yes | Yes (via SteamVR) | No | 
+| Valve Index | Yes | Yes | Yes | Yes | Yes | Yes | Yes (via SteamVR) | No | 
+| HTC Vive Pro | Yes | Yes | Yes | Yes | Yes | Yes | Yes (via SteamVR) | No | 
+| HTC Vive Pro 2 | Yes | [Third-party SteamVR driver available](https://github.com/CertainLach/VivePro2-Linux-Driver) | Yes | Yes | Yes | Yes | Yes (via SteamVR) | No | 
+| Oculus Rift DK1 | Yes | [Third-party support through OpenHMD](http://www.openhmd.net/) | Yes | n/a | Yes | Yes | Yes (via OpenHMD) | [Yes (via OSVR-OpenHMD)](https://github.com/simlrh/OSVR-OpenHMD) | 
+| Oculus Rift DK2 | Partial | [Third-party support through OpenHMD](http://www.openhmd.net/) | Yes | No | Yes | Yes | Yes (via OpenHMD) | [Yes (via OSVR-OpenHMD)](https://github.com/simlrh/OSVR-OpenHMD) | 
+| Oculus Rift CV1 | Partial | [Third-party support through OpenHMD](http://www.openhmd.net/) | Yes | No | Yes | Yes | Yes (via OpenHMD) | No | 
+| Playstation VR | Partial | [Third-party support through OpenHMD](http://www.openhmd.net/) | Yes | No | Yes | Yes | Yes (via OpenHMD) | No | 
+| Oculus Quest | Yes | [Third-party support through ALVR](https://github.com/alvr-org/ALVR) | Yes | Yes | Yes | Yes | Experimental through [ALXR](https://github.com/korejan/ALVR/wiki/ALXR-Client) | No | 
+| Oculus/Meta Quest 2 | Yes | [Third-party support through ALVR](https://github.com/alvr-org/ALVR) | Yes | Yes | Yes | Yes | Experimental through [ALXR](https://github.com/korejan/ALVR/wiki/ALXR-Client) | No | 
+| OSVR HDK | Yes | Yes | Yes | Yes | n/a | Yes | No | Yes | 
+| OSVR HDK2 | Yes | Yes | Yes | Yes | n/a | Yes | No | Yes | 
+| Windows Mixed Reality Headsets (like HP Reverb) | Experimental | [Third-party support through Monado](https://gitlab.freedesktop.org/monado/monado) | Yes | Yes | [Experimental](https://gitlab.freedesktop.org/thaytan/monado) via Thaytan's branch | Yes | Yes (via Monado) | No |

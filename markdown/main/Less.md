@@ -23,6 +23,11 @@ license: CC BY-SA 4.0
 ### USE flags
 
 
+### USE flags for
+            [sys-apps/less](https://packages.gentoo.org/packages/sys-apps/less)
+            
+            Excellent text file viewer
+
 | [pcre](https://packages.gentoo.org/useflags/pcre) | Add support for Perl Compatible Regular Expressions | 
 | [test](https://packages.gentoo.org/useflags/test) | Enable dependencies and/or preparations necessary to run tests (usually controlled by FEATURES=test but can be toggled independently) | 
 | [verify-sig](https://packages.gentoo.org/useflags/verify-sig) | Verify upstream signatures on distfiles | 

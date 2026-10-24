@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/PPC/FAQ
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-03-31"
-fingerprint: "96871b1b49a229cd"
+fingerprint: "9687191ec1a2394c"
 license: CC BY-SA 4.0
 ---
 
 # PPC/FAQ
+
+[PPC](https://wiki.gentoo.org/wiki/Special:MyLanguage/PPC)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -135,12 +137,25 @@ There is no way to use the `Ctrl` key like on Mac OS X, but just about any key o
 
 **Macintosh Device Drivers**
 
+```
+[*] Apple Desktop Bus (ADB) support
+[*]    Use input layer for ADB devices
+[*]      Support for mouse button 2+3 emulation
+```
 The keyboard to mouse button mapping values will need to be set in /etc/sysctl.conf Here is an example using the `F11` and `F12` keys:
 
 **`/etc/sysctl.conf`**
 
 **Mouse button emulation with the F11 and F12 keys**
 
+```
+# Enable mouse button emulation
+dev.mac_hid.mouse_button_emulation = 1
+# Set 2nd button to 87 - F11
+dev.mac_hid.mouse_button2_keycode = 87
+# Set 3rd button to 88 - F12
+dev.mac_hid.mouse_button3_keycode = 88
+```
 To activate these settings:
 
 `root #``sysctl -p /etc/sysctl.conf`
@@ -152,6 +167,11 @@ The Airport card is an 802.11b device based on the Lucent Orinoco chipset. To us
 
 **Wireless LAN**
 
+```
+[*] Wirless LAN Drivers & Wireless Extensions
+<*> Hermes chipset 802.11b support (Orinoco/Prism2/Symbol)
+<*>   Apple Airport support (build-in)
+```
 Once the kernel is configured, userland tools will be needed to configure the wireless settings. Emerge the [net-wireless/wireless-tools](https://packages.gentoo.org/packages/net-wireless/wireless-tools) for iwconfig and other wireless tools.
 
 As an example of using iwconfig, to set the ESSID to home\_essid:
@@ -165,6 +185,16 @@ The Airport Extreme is an 802.11b/g card that is included with modern Apple port
 
 **Adding b43 support to the kernel**
 
+```
+Networking --> Wireless -->
+     <M>   Generic IEEE 802.11 Networking Stack (mac80211)
+Device Drivers --> Network device support -->
+     [*] Wireless LAN (IEEE 802.11)
+     <M>   Broadcom 43xx wireless support (mac80211 stack)
+     [*]     Broadcom 43xx debugging
+     <M>   Broadcom 43xx-legacy wireless support (mac80211 stack)
+     [*]     Broadcom 43xx-legacy debugging
+```
 After compiling the kernel, be sure to emerge the [net-wireless/b43-fwcutter](https://packages.gentoo.org/packages/net-wireless/b43-fwcutter) package to install the firmware and get a copy of the firmware. The instructions for this are found at: [linuxwireless.org](http://linuxwireless.org/en/users/Drivers/b43#Other_distributions_not_mentioned_above), and follow the directions for extracting the firmware.
 
 For a generic guide to setting up wireless with Gentoo, please see the [Wireless guide](https://wiki.gentoo.org/wiki/Handbook:PPC/Networking/Wireless) in the PPC Handbook.
@@ -175,6 +205,9 @@ On older Macs, the internal modem is a regular serial device. In addition to PPP
 
 **Serial Drivers**
 
+```
+<*> PowerMac z85c30 ESCC support (CONFIG_SERIAL_PMACZILOG)
+```
 Newer Macs use a USB device which only has a driver from Linuxant. Unless you have purchased a key from Linuxant, this driver will only work at 14.4 and will not support FAX. To install the driver, emerge ~~[net-dialin/hcfusbmodem](https://packages.gentoo.org/packages/net-dialin/hcfusbmodem)~~ (this package is no longer in the Gentoo ebuild repository) which will provide /dev/ttySHCF0. Then set up PPP like usual. Further information about the installation can be found at [http://www.linuxant.com/drivers/hcf/install.html](http://www.linuxant.com/drivers/hcf/install.html)
 
 ### Does sleep work on my iBook/PowerBook?
@@ -196,10 +229,37 @@ For ALSA, we'll set up both the regular ALSA drivers and the OSS emulation layer
 
 **Kernel options for ALSA**
 
+```
+Device Drivers - I2c support --->
+  I2C Hardware Bus Support --->
+    <*> Powermac I2C interface (Keywest on 2.6.15 and older)
+Device Drivers - Sound --->
+<*> Sound card support
+    Advanced Linux Sound Architecture --->
+    < >   PowerMac DMA sound support
+      <*> Advanced Linux Sound Architecture
+      <*> Sequencer support
+      <*> Sequencer dummy client
+      <*> OSS Mixer API
+      <*> OSS PCM (digital audio) API
+      [*] OSS Sequencer API
+```
 Depending on the age of the machine, the correct sound driver should also be enabled. On more modern machines such as Aluminum PowerBooks, new iBooks or G5's the `Apple On-board Audio` driver should be used. For older machines, try the ALSA PowerMac driver instead.
 
 **ALSA Drivers - Choose only one**
 
+```
+Older Machines
+    ALSA PowerMac devices --->
+        <*> PowerMac (AWACS, DACA, Burgundy, Tumbler, Keywest)
+Newer Machines
+    Apple Onboard Audio driver --->
+        <*> Apple Onboard Audio driver
+        <*>   layout-id fabric
+        <*>   support Onyx chip
+        <*>   support TAS chip
+        <*>   support Toonie chip
+```
 You can also configure these as modules and ensure they're loaded on boot, but it's easier to simply compile it all in.
 
 For more information on configuring ALSA, please see [ALSA](https://wiki.gentoo.org/wiki/ALSA).
@@ -210,6 +270,14 @@ With make menuconfig, select the following:
 
 **Kernel options for OSS**
 
+```
+Device Drivers - I2c support --->
+  I2C Hardware Bus Support --->
+    <*> Powermac I2C interface (Keywest on 2.6.15 and older)
+Device Drivers - Sound --->
+<*> Sound card support
+  <*>   PowerMac DMA sound support
+```
 Or configure as modules and ensure they're loaded on boot.
 
 If the `dmasound_pmac` module does not load, try enabling `i2c-core` in the kernel or as a module.
@@ -227,10 +295,26 @@ This is caused by drivers written for devices that you don't have on your system
 
 **IN from bad port 61 - Disable PC Speaker support**
 
+```
+Device Drivers - Input device support --->
+[*] Miscellanous devices --->
+      < > PC Speaker Support
+```
 **IN from bad port 64 - Disable i8042 keyboard support**
 
+```
+Device Drivers - Input device support --->
+Hardware I/O Ports --->
+      < > Serial I/O support
+        < > i8042 PC Keyboard controller
+```
 **IN from bad port 2E9,2F9,3E9,3F9 - Disable 8250/16550 support**
 
+```
+Device Drivers - Character devices --->
+Serial drivers --->
+      < > 8250/16550 and compatible serial support
+```
 If you have another IN from bad port message that you're not sure about, please let us know!
 
 ## Applications
@@ -268,10 +352,35 @@ Make sure in the kernel configuration the following options are set:
 
 **Rage128 DRM kernel configuration**
 
+```
+Device Drivers - Graphics Support --->
+  <*> /dev/agpgart (AGP Support)
+    [*] Apple UniNorth support
+  [*] Direct Rendering Manager (DRI support)
+    <*>   ATI Rage 128
+  -*- Support for frame buffer devices
+    <*>   ATI Rage 128 display support
+```
 **Radeon DRM kernel configuration**
 
+```
+Device Drivers - Graphics Support --->
+  <*> /dev/agpgart (AGP Support)
+    [*] Apple UniNorth support
+  [*] Direct Rendering Manager (DRI support)
+    <*>   ATI Radeon
+    [*]   Enable modesetting on radeon by default - NEW DRIVER
+```
 **nVidia kernel configuration**
 
+```
+Device Drivers - Graphics Support --->
+  <*> /dev/agpgart (AGP Support)
+    [*] Apple UniNorth support
+  [*] Direct Rendering Manager (DRI support)
+    <*> Nouveau (nVidia) cards
+    [*]   Support for backlight control
+```
 ### I've installed X.org and configured it correctly, but the radeon or nouveau driver is missing. What's wrong?
 
 Add the appropriate `VIDEO_CARDS` value to /etc/portage/make.conf and recompile [x11-base/xorg-server](https://packages.gentoo.org/packages/x11-base/xorg-server) and [media-libs/mesa](https://packages.gentoo.org/packages/media-libs/mesa) to build the drivers.
@@ -288,6 +397,9 @@ Your system may not cope properly with AGP support. The easiest solution is to a
 
 **Forcing PCI mode for AGP-Cards**
 
+```
+Option       "ForcePCIMode"
+```
 If you are still having trouble, please try disabling dri in the xorg.conf to see if the problems go away.
 
 ### I recently emerged Xorg, but when using it, my international keyboard layout does not work correctly. The main keys work fine but I am unable to compose special characters like the "at" sign. The startx output says something like "could not load keymap, falling back to default keymap". What is wrong?

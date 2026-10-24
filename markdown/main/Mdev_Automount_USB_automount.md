@@ -11,6 +11,10 @@ license: CC BY-SA 4.0
 
 # Mdev/Automount USB/automount
 
+From Gentoo Wiki
+
+\< [Mdev](https://wiki.gentoo.org/wiki/Mdev) | [Automount USB](https://wiki.gentoo.org/wiki/Mdev/Automount_USB)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
@@ -21,7 +25,7 @@ The following file is the ash script /lib/mdev/autousb/automount that is called 
 2. one for /dev/sdc1
 3. one for /dev/sdc2
 
-**`/lib/mdev/autousb/automount`**
+FILE **`/lib/mdev/autousb/automount`**
 
 ```
 #!/bin/busybox ash

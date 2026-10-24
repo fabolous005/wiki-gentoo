@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Udisks
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-12-18"
-fingerprint: "260070438bd7f19d"
+fingerprint: "2604f85389d3b99d"
 license: CC BY-SA 4.0
 ---
 
@@ -34,12 +34,42 @@ Udisks uses [D-Bus](https://wiki.gentoo.org/wiki/D-Bus) and [polkit](https://wik
 
 Activate the following kernel options (depending on the slot, see "USE flags" below):
 
+```
+Memory Management options  --->
+    [*] Support for paging of anonymous memory (swap)
+Device Drivers  --->
+    < > ATA/ATAPI/MFM/RLL support (DEPRECATED)  --->
+    [*] USB support  --->
+        <*>   Support for Host-side USB
+File Systems -->
+    Native Language Support -->
+        <*> NLS UTF8
+    Pseudo filesystems  --->
+        -*- Tmpfs virtual memory file system support (former shm fs)
+        [*]   Tmpfs POSIX Access Control Lists
+```
 In order for udisks to work with the `lvm` USE flag, udisks will require the following LVM kernel parameters:
 
 **linux-4.9 Enabling LVM**
 
+```
+Device Drivers  --->
+   Multiple devices driver support (RAID and LVM)  --->
+       <*> Device mapper support
+           <*> Crypt target support
+           <*> Snapshot target
+           <*> Mirror target
+           <*> Multipath target
+               <*> I/O Path Selector based on the number of in-flight I/Os
+               <*> I/O Path Selector based on the service time
+```
 ### USE flags
 
+
+### USE flags for
+            [sys-fs/udisks](https://packages.gentoo.org/packages/sys-fs/udisks)
+            
+            Daemon providing interfaces to work with storage devices
 
 | [+daemon](https://packages.gentoo.org/useflags/+daemon) | Build the system daemon, not just the client tool | 
 | [+introspection](https://packages.gentoo.org/useflags/+introspection) | Add support for GObject based introspection | 
@@ -98,6 +128,10 @@ There is no need to wrap the window manager around a dbus/elogind session:
 
 **`~/.xinitrc`**
 
+```
+# ...
+exec twm
+```
 ## Usage
 
 Udisks can be controlled with the udisksctl command:

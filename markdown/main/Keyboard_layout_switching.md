@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Keyboard_layout_switching
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-02-22"
-fingerprint: "7f44da1964bd1b34"
+fingerprint: "7b44da1964bd1f34"
 license: CC BY-SA 4.0
 ---
 
@@ -31,6 +31,10 @@ The default console keymap is set in /etc/conf.d/keymaps by assigning the approp
 
 **Example configuration**
 
+```
+keymap="us"
+extended_keymaps=""
+```
 Lastly restart `keymaps` for apply changes and add `keymaps` to the boot runlevel:
 
 `root #````
@@ -43,6 +47,9 @@ If you need the terminal show non-ASCII characters you must edit /etc/conf.d/con
 
 **Example configuration for cyrillic font**
 
+```
+consolefont="cyr-sun16"
+```
 Restart the consolefont service and add it to boot runlevel:
 
 `root #````
@@ -68,6 +75,12 @@ Here is an example custom keymap which is the same as the U.S. QWERTY keymap, ex
 
 **Example Keymap**
 
+```
+include "us.map"
+ 
+keycode  40 = slash            question
+keycode  53 = apostrophe       quotedbl
+```
 To find the keycodes mapped to keys view the output of dumpkeys:
 
 `user $``dumpkeys -l`
@@ -84,6 +97,10 @@ Just press the key and its keycode will be shown. When finished wait a few secon
 
 **Example settings**
 
+```
+KEYMAP=pl2
+FONT=LatArCyrHeb-16
+```
 ## X11
 
 Modern X11 applications usually use [x11-libs/libxklavier](https://packages.gentoo.org/packages/x11-libs/libxklavier) ("*klavier*" being German for “*piano*") and can be configured by using setxkbmap. Furthermore X11 supports much broader sets of keyboard layouts than is supported for virtual terminals.
@@ -105,6 +122,8 @@ From System Settings navigate to *Keyboard* under Input & Output. Enable the tog
 ### Generic desktop environment
 
 Edit \~/.xprofile and call setxkbmap from there or setup the keyboard in Xorg configuration file ([see below](https://wiki.gentoo.org/wiki/Keyboard_layout_switching#Generic_X11) for examples).
+
+### Generic X11
 
 #### Using setxkbmap
 
@@ -226,12 +245,46 @@ With the information above, create new entries by copying the existing scheme in
 
 **Typical key entry**
 
+```
+key <AE02>	{ [         2,   quotedbl,  twosuperior,    oneeighth]	};
+```
 After making the additions, the section looks like this:
 
 **`/usr/share/X11/xkb/symbols/gb`**
 
 **Example for enhancing the British English keyboard**
 
+```
+default  partial alphanumeric_keys
+xkb_symbols "basic" {
+ 
+    // Describes the differences between a very simple en_US
+    // keyboard and a very simple U.K. keyboard layout defined by
+    // the SVR4 European Language Supplement and sometimes also
+    // known as the IBM 166 layout.
+ 
+    include "latin"
+ 
+    name[Group1]="English (UK)";
+ 
+    key <AE02>	{ [         2,   quotedbl,  twosuperior,    oneeighth ]	};
+    key <AE03>	{ [         3,   sterling, threesuperior,    sterling ]	};
+    key <AE04>	{ [         4,     dollar,     EuroSign,   onequarter ]	};
+ 
+    key <AC11>	{ [apostrophe,         at, dead_circumflex, dead_caron]	};
+    key <TLDE>	{ [     grave,    notsign,          bar,          bar ]	};
+ 
+    key <BKSL>	{ [numbersign, asciitilde,   dead_grave,   dead_breve ]	};
+    key <LSGT>	{ [ backslash,        bar,          bar,    brokenbar ]	};
+ 
+// Keys inserted by ACM, 2015-10-23.
+    key <AD07>  { [         u,          U,   udiaeresis,   Udiaeresis ] };
+    key <AD09>  { [         o,          O,   odiaeresis,   Odiaeresis ] };
+    key <AC01>  { [         a,          A,   adiaeresis,   Adiaeresis ] };
+// End of insertion 2015-10-23
+    include "level3(ralt_switch_multikey)"
+};
+```
 Having saved this file, restart X Windows. A typical desktop environment, XFCE, re-reads the above configuration files each time it starts. Should there be errors, error messages will be written to the normal stderr - if X Windows is started from the command line, stderr will be the virtual terminal it was started from.
 
 #### Adding actions to function keys
@@ -244,6 +297,12 @@ First, search for the file in the symbols directory which handles the existing a
 
 **Existing entry for`F1`**
 
+```
+key <FK01> {
+	type="CTRL+ALT",
+	symbols[Group1]= [ F1, F1, F1, F1, XF86_Switch_VT_1 ]
+    };
+```
 There are two things to note with this entry:
 
 - It is of type "CTRL+ALT"; it thus takes the standard four shift key settings with `Shift` and `AltGr`, plus a fifth setting of `Ctrl`+`Alt`. Since the goal is to use `Ctrl`+`Alt`+`Shift`, and there is no suitable existing type, a new one needs to be created.
@@ -257,6 +316,25 @@ Having located "CTRL+ALT" in types/pc, it is easy enough to copy it, rename the 
 
 **Creating a new type**
 
+```
+type "CTRL+ALT+SHIFT" {
+        modifiers = Control+Alt+Shift+LevelThree;
+        map[None] = Level1;
+        map[Shift] = Level2;
+        map[LevelThree] = Level3;
+        map[Shift+LevelThree] = Level4;
+        map[Control+Alt] = Level5;
+        map[Shift+Control+Alt] = Level6;
+        preserve[Shift] = Shift;
+        preserve[Shift+LevelThree] = Shift;
+        level_name[Level1] = "Base";
+        level_name[Level2] = "Shift";
+        level_name[Level3] = "Alt Base";
+        level_name[Level4] = "Shift Alt";
+        level_name[Level5] = "Ctrl+Alt";
+        level_name[Level6] = "Ctrl+Alt+Shift";
+    };
+```
 ##### Activating the symbols F13, ..., F24
 
 The symbol `XF86_Switch_VT_1` is swiftly located in compat/xfree86. It is a simple matter to copy its form, creating assignments for the symbols F13, ..., F24. The definition for the first of these symbols, F13, in compat/xfree86 then looks like:
@@ -265,6 +343,11 @@ The symbol `XF86_Switch_VT_1` is swiftly located in compat/xfree86. It is a simp
 
 **Assigning an action to a symbol**
 
+```
+interpret  F13 {
+        action = SwitchScreen(Screen=13, !SameServer);
+    };
+```
 Analogous definitions for F14, ..., F24 should also be put into the file.
 
 ##### Amending the entries in symbols for keys `F1`, ..., `F12`
@@ -275,6 +358,12 @@ Now that the new type CTRL+ALT+SHIFT and definitions for the symbols F13, ..., F
 
 **Redefinition of function key**
 
+```
+key <FK01> {
+	type="CTRL+ALT+SHIFT",
+	symbols[Group1]= [ F1, F1, F13, F1, XF86_Switch_VT_1, F13 ]
+    };
+```
 After making these changes to types/pc, compat/xfree86, and symbols/srvr\_ctrl, and restarting the X server, switching from X directly to virtual terminals 13 and above is now possible - provided that these have been configured in the [/etc/inittab](https://wiki.gentoo.org/wiki/Handbook:AMD64/Working/Initscripts#How_init_works) (or systemd equivalent) of course.
 
 ## See also

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Jira
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2020-11-22"
-fingerprint: "924b094a25df2983"
+fingerprint: "900a0b4a050d29c3"
 license: CC BY-SA 4.0
 ---
 
@@ -44,3 +44,21 @@ Replace the content of the file to match the following
 **`/etc/init.d/jira`**
 
 **Modify startup script**
+
+```
+#!/sbin/openrc-run
+# According to https://wiki.gentoo.org/index.php?title=Jira
+depend() {
+	after apache2 mysql
+}
+start() {
+	ebegin "Starting Jira"
+	/opt/atlassian/jira/bin/start-jira.sh >/dev/null 2>&1
+	eend $?
+}
+stop() {
+	ebegin "Stopping Jira"
+	/opt/atlassian/jira/bin/stop-jira.sh >/dev/null 2>&1
+	eend $?
+}
+```

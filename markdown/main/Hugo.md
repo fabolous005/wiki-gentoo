@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Hugo
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-06-06"
-fingerprint: "77405b6d7ab16bc2"
+fingerprint: f7501b6d7eb16bc2
 license: CC BY-SA 4.0
 ---
 
@@ -23,6 +23,11 @@ Hugo website content is written lightweight human readable document description 
 
 ### USE flags
 
+
+### USE flags for
+            [www-apps/hugo](https://packages.gentoo.org/packages/www-apps/hugo)
+            
+            Fast static HTML and CSS website generator
 
 | [+deploy](https://packages.gentoo.org/useflags/+deploy) | Enable support for deployment support (hugo deploy) | 
 | [+extended](https://packages.gentoo.org/useflags/+extended) | Enable SASS/SCSS support | 

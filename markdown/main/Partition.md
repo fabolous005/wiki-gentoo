@@ -6,7 +6,7 @@ hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-08-21"
 categories: ['sys-fs']
-fingerprint: "1c29a95f8defabc8"
+fingerprint: "1c21a95f8defabc8"
 license: CC BY-SA 4.0
 ---
 
@@ -15,6 +15,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 A **partition** is a means of splitting a block device up to sub-regions. It allows creating a more manageable and adaptive "logical" structure visible to the system. The PARTUUID (partition UUID) can be seen using blkid.
 
@@ -32,18 +34,24 @@ Used for a long time to organize data, also called DOS-Partitions. Partition inf
 
 **Enable MBR support (CONFIG\_MSDOS\_PARTITION)**
 
+```
+-*- Enable the block layer
+    Partition Types  --->
+      [*] Advanced partition selection
+      [*]   PC BIOS (MSDOS partition tables) support
+```
 ### Available software
 
 The following programs can be used to create, alter, and remove MBR partitions:
 
 | Program | Package | GUI | Function | 
 |---|---|---|---|
-| [cfdisk](https://wiki.gentoo.org/wiki/Util-linux#cfdisk) | [sys-apps/util-linux](https://packages.gentoo.org/packages/sys-apps/util-linux) |  | Create, alter, and remove partitions. More intuitive interface than fdisk. | 
-| [fdisk](https://wiki.gentoo.org/wiki/Util-linux) | [sys-apps/util-linux](https://packages.gentoo.org/packages/sys-apps/util-linux) |  | Create, alter, and remove partitions. | 
-| gparted | [sys-block/gparted](https://packages.gentoo.org/packages/sys-block/gparted) |  | GNOME Partition Editor; create, alter, and remove partitions. | 
-| parted | [sys-block/parted](https://packages.gentoo.org/packages/sys-block/parted) |  | Create, alter, remove, check, copy partitions and file systems. | 
-| partitionmanager | [sys-block/partitionmanager](https://packages.gentoo.org/packages/sys-block/partitionmanager) |  | KDE Partition Manager; create, alter, and remove partitions. | 
-| [sfdisk](https://wiki.gentoo.org/wiki/Util-linux) | [sys-apps/util-linux](https://packages.gentoo.org/packages/sys-apps/util-linux) |  | Non-interactive version of fdisk. | 
+| [cfdisk](https://wiki.gentoo.org/wiki/Util-linux#cfdisk) | [sys-apps/util-linux](https://packages.gentoo.org/packages/sys-apps/util-linux) | ncurses | Create, alter, and remove partitions. More intuitive interface than fdisk. | 
+| [fdisk](https://wiki.gentoo.org/wiki/Util-linux) | [sys-apps/util-linux](https://packages.gentoo.org/packages/sys-apps/util-linux) | No | Create, alter, and remove partitions. | 
+| gparted | [sys-block/gparted](https://packages.gentoo.org/packages/sys-block/gparted) | GTK3 | GNOME Partition Editor; create, alter, and remove partitions. | 
+| parted | [sys-block/parted](https://packages.gentoo.org/packages/sys-block/parted) | No | Create, alter, remove, check, copy partitions and file systems. | 
+| partitionmanager | [sys-block/partitionmanager](https://packages.gentoo.org/packages/sys-block/partitionmanager) | Qt5 | KDE Partition Manager; create, alter, and remove partitions. | 
+| [sfdisk](https://wiki.gentoo.org/wiki/Util-linux) | [sys-apps/util-linux](https://packages.gentoo.org/packages/sys-apps/util-linux) | No | Non-interactive version of fdisk. | 
 
 ### Supported operating systems
 
@@ -65,20 +73,25 @@ In GUID (**G**lobal **U**nique **ID**entifier) partition system, a small amount 
 
 **Enable GPT support (CONFIG\_EFI\_PARTITION)**
 
+```
+-*- Enable the block layer
+    Partition Types  --->
+      [*]   EFI GUID Partition support
+```
 ### Available software
 
 The following programs can be used to create, alter, and remove **[GPT](https://en.wikipedia.org/wiki/GUID_Partition_Table)** partitions:
 
 | Program | Package | GUI | Function | 
 |---|---|---|---|
-| [cfdisk](https://wiki.gentoo.org/wiki/Util-linux) | [sys-apps/util-linux](https://packages.gentoo.org/packages/sys-apps/util-linux) |  | Create, alter, and remove partitions. More intuitive interface than fdisk. | 
-| [fdisk](https://wiki.gentoo.org/wiki/Util-linux) | [sys-apps/util-linux](https://packages.gentoo.org/packages/sys-apps/util-linux) |  | Create, alter, and remove partitions. | 
-| GNOME Disks | [sys-apps/gnome-disk-utility](https://packages.gentoo.org/packages/sys-apps/gnome-disk-utility) |  | GNOME partition manager. | 
-| gparted | [sys-block/gparted](https://packages.gentoo.org/packages/sys-block/gparted) |  | GNOME Partition Editor; create, alter, and remove partitions. | 
-| gptfdisk | [sys-apps/gptfdisk](https://packages.gentoo.org/packages/sys-apps/gptfdisk) |  | Create, alter, remove, convert MBR to GPT, and recreate partition tables from backup. | 
-| parted | [sys-block/parted](https://packages.gentoo.org/packages/sys-block/parted) |  | Create, alter, remove, check, copy partitions and file systems. | 
-| partitionmanager | [sys-block/partitionmanager](https://packages.gentoo.org/packages/sys-block/partitionmanager) |  | KDE Partition Manager; create, alter, and remove partitions. | 
-| [sfdisk](https://wiki.gentoo.org/wiki/Util-linux) | [sys-apps/util-linux](https://packages.gentoo.org/packages/sys-apps/util-linux) |  | Non-interactive version of fdisk. | 
+| [cfdisk](https://wiki.gentoo.org/wiki/Util-linux) | [sys-apps/util-linux](https://packages.gentoo.org/packages/sys-apps/util-linux) | No | Create, alter, and remove partitions. More intuitive interface than fdisk. | 
+| [fdisk](https://wiki.gentoo.org/wiki/Util-linux) | [sys-apps/util-linux](https://packages.gentoo.org/packages/sys-apps/util-linux) | No | Create, alter, and remove partitions. | 
+| GNOME Disks | [sys-apps/gnome-disk-utility](https://packages.gentoo.org/packages/sys-apps/gnome-disk-utility) | GTK3 | GNOME partition manager. | 
+| gparted | [sys-block/gparted](https://packages.gentoo.org/packages/sys-block/gparted) | GTK3 | GNOME Partition Editor; create, alter, and remove partitions. | 
+| gptfdisk | [sys-apps/gptfdisk](https://packages.gentoo.org/packages/sys-apps/gptfdisk) | No | Create, alter, remove, convert MBR to GPT, and recreate partition tables from backup. | 
+| parted | [sys-block/parted](https://packages.gentoo.org/packages/sys-block/parted) | No | Create, alter, remove, check, copy partitions and file systems. | 
+| partitionmanager | [sys-block/partitionmanager](https://packages.gentoo.org/packages/sys-block/partitionmanager) | Qt5 | KDE Partition Manager; create, alter, and remove partitions. | 
+| [sfdisk](https://wiki.gentoo.org/wiki/Util-linux) | [sys-apps/util-linux](https://packages.gentoo.org/packages/sys-apps/util-linux) | No | Non-interactive version of fdisk. | 
 
 ### Supported operating systems
 
@@ -100,21 +113,33 @@ LVM is a complete suite to dynamically manage partitions, storage devices or oth
 
 **Enabling LVM**
 
+```
+Device Drivers  --->
+   Multiple devices driver support (RAID and LVM)  --->
+       <*> Device mapper support
+           <*> Crypt target support
+           <*> Snapshot target
+           <*> Thin provisioning target
+           <*> Mirror target
+           <*> Multipath target
+               <*> I/O Path Selector based on the number of in-flight I/Os
+               <*> I/O Path Selector based on the service time
+```
 ### Available software
 
 The following programs come with [sys-fs/lvm2](https://packages.gentoo.org/packages/sys-fs/lvm2)
 
 | Program | GUI | Function | 
 |---|---|---|
-| lvcreate |  | Create, alter, and remove volumes. | 
-| pvcreate |  | Create or remove Physical Volumes of storage devices/systems. | 
-| vgcreate |  | Groups PV as Volume Group. | 
+| lvcreate | No | Create, alter, and remove volumes. | 
+| pvcreate | No | Create or remove Physical Volumes of storage devices/systems. | 
+| vgcreate | No | Groups PV as Volume Group. | 
 
 The following programs can be used to create, alter, and remove LVM partitions:
 
 | Program | Package | GUI | Function | 
 |---|---|---|---|
-| partitionmanager | [sys-block/partitionmanager](https://packages.gentoo.org/packages/sys-block/partitionmanager) |  | KDE Partition Manager; create, alter, and remove LVM PVs, VGs, LVs. | 
+| partitionmanager | [sys-block/partitionmanager](https://packages.gentoo.org/packages/sys-block/partitionmanager) | Qt5 | KDE Partition Manager; create, alter, and remove LVM PVs, VGs, LVs. | 
 
 ### Supported operating systems
 
@@ -139,8 +164,8 @@ The following programs come with [sys-fs/zfs](https://packages.gentoo.org/packag
 
 | Program | GUI | Function | 
 |---|---|---|
-| zfs |  | Create, alter (resize), and remove volumes. | 
-| zpool |  | Manage and organize vdevs in zpools. | 
+| zfs | No | Create, alter (resize), and remove volumes. | 
+| zpool | No | Manage and organize vdevs in zpools. | 
 
 ### Supported operating systems
 

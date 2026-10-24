@@ -4,7 +4,7 @@ title: Minecraft
 url: https://wiki.gentoo.org/wiki/Minecraft
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-19"
+date: "2026-10-23"
 fingerprint: ed90155fcc93fcc5
 license: CC BY-SA 4.0
 ---

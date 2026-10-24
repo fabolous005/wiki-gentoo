@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Podget
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-05-22"
-fingerprint: f3787bfc778773d1
+fingerprint: f36879fc370777d1
 license: CC BY-SA 4.0
 ---
 
@@ -55,6 +55,11 @@ A typical crontab file to periodically run podget might include something like t
 
 **Example crontab entry**
 
+```
+[...]
+# Get podcasts daily
+02 15 * * * /usr/bin/podget --silent
+```
 The above fetches podcast media files at 02:15. The `--silent` option is required to suppress output.
 
 #### systemd

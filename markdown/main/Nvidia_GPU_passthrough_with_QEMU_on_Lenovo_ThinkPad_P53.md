@@ -4,8 +4,8 @@ title: Nvidia GPU passthrough with QEMU on Lenovo ThinkPad P53
 url: https://wiki.gentoo.org/wiki/Nvidia_GPU_passthrough_with_QEMU_on_Lenovo_ThinkPad_P53
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2025-03-18"
-fingerprint: "7f5881694fa3d1e6"
+date: "2026-10-23"
+fingerprint: "7f0889694fabd1e6"
 license: CC BY-SA 4.0
 ---
 
@@ -51,10 +51,14 @@ Make sure you have the Nvidia card enabled globally as well as the `xinerama` US
 
 **`/etc/portage/make.conf`**
 
+```
+...
+USE="xinerama"
+```
 **`/etc/portage/package.use/00video`**
 
 ```
- VIDEO_CARDS: -* intel i965 iris nvidia
+*/* VIDEO_CARDS: -* intel i965 iris nvidia
 ```
 
 If you've changed this setting, please update your system:
@@ -64,6 +68,32 @@ Make sure the Nvidia card is loaded and the external monitor is used when starti
 
 **`/etc/X11/xorg.conf.d/10-nvidia.conf`**
 
+```
+Section "ServerLayout"
+    Identifier "layout"
+    Screen 0 "nvidia"
+    Inactive "intel"
+EndSection
+Section "Device"
+    Identifier "nvidia"
+    Driver "nvidia"
+    BusID "01:00:0"
+    Option "RegistryDwords" "EnableBrightnessControl=1"
+EndSection
+Section "Screen"
+    Identifier "nvidia"
+    Device "nvidia"
+    Option "AllowEmptyInitialConfiguration"
+EndSection
+Section "Device"
+    Identifier "intel"
+    Driver "modesetting"
+EndSection
+Section "Screen"
+    Identifier "intel"
+    Device "intel"
+EndSection
+```
 Restart your system and make sure the external monitor is showing X11 output. If that's ok, you need to get the Bus ID for the Nvidia card:
 
 #### Dump activated vBIOS to file
@@ -153,7 +183,7 @@ You need to install [Docker](https://wiki.gentoo.org/wiki/Docker) on your host s
 
 Once you have Docker in place, you can clone the required [repository](https://github.com/T-vK/ovmf-with-vbios-patch) to some place and compile it with the patches:
 
-`user $``cd ovmf-with-vbios-patch && mkdir ./build && mkdir ./roms``user $``sudo docker build -t ovmf-vbios-patch .`
+`user $``git clone` [https://github.com/T-vK/ovmf-with-vbios-patch.git](https://github.com/T-vK/ovmf-with-vbios-patch.git)`user $``cd ovmf-with-vbios-patch && mkdir ./build && mkdir ./roms``user $``sudo docker build -t ovmf-vbios-patch .`
 Once that process is finished, place the extracted vBIOS into the `roms` directory:
 
 `user $``cp /opt/qemu/bios-vbios.rom ./roms`
@@ -184,6 +214,11 @@ Create a file with the following content:
 
 **`/tmp/battery.txt`**
 
+```
+U1NEVKEAAAAB9EJPQ0hTAEJYUENTU0RUAQAAAElOVEwYEBkgoA8AFVwuX1NCX1BDSTAGABBMBi5f
+U0JfUENJMFuCTwVCQVQwCF9ISUQMQdAMCghfVUlEABQJX1NUQQCkCh8UK19CSUYApBIjDQELcBcL
+cBcBC9A5C1gCCywBCjwKPA0ADQANTElPTgANABQSX0JTVACkEgoEAAALcBcL0Dk=
+```
 Convert it into a binary file:
 
 `user $``base64 --decode /tmp/battery.txt > /tmp/battery.dat`
@@ -196,6 +231,39 @@ Copy the `battery.dat` to the other files:
 
 **Kernel 5.10.52 (gentoo-sources)**
 
+```
+[*] Virtualization --->
+  <*> Kernel-based Virtual Machine (KVM) support
+    <*> KVM for Intel (and compatible) processors support
+    < > KVM for AMD processors support
+    [*] Audit KVM MMU
+Device Drivers --->
+  Graphics support  --->
+    < > Nouveau (NVIDIA) cards
+    <*> Intel 8xx/9xx/G3x/G4x/HD Graphics
+      (*) Force probe driver for selected new Intel hardware
+      [*] Enable capturing GPU state following a hang
+      [*] Always enable userptr support
+      [*] Enable Intel GVT-g graphics virtualization host support
+      [M] Enable KVM/VFIO support for Intel GVT-g 
+  <M> VFIO Non-Privileged userspace driver framework  --->
+    [*] VFIO No-IOMMU support  ----
+    <M> VFIO support for PCI devices
+    [*] VFIO PCI support for VGA devices
+    [*] VFIO PCI extensions for Intel graphics (GVT-d)
+    <M> Mediated device driver framework
+    <M> VFIO driver for Mediated devices
+  [*] IOMMU Hardware Support --->
+    [*] IOMMU passthrough by default
+    [ ] AMD IOMMU support
+    [*] Support for Intel IOMMU using DMA Remapping Devices
+      [*] Support for Shared Virtual Memory with Intel IOMMU
+      [*] Enable Intel DMA Remapping Devices by default
+    [*] Support for Interrupt Remapping
+  [*] VHOST drivers
+    <*> Host kernel accelerator for virtio net
+    [*] Cross-endian support for vhost
+```
 ### QEMU
 
 Set the QEMU targets according to your system:
@@ -203,7 +271,7 @@ Set the QEMU targets according to your system:
 **`/etc/portage/package.use/qemu`**
 
 ```
- QEMU_SOFTMMU_TARGETS: x86_64
+app-emulation/qemu QEMU_SOFTMMU_TARGETS: x86_64
 app-emulation/qemu QEMU_USER_TARGETS: x86_64
 ```
 The QEMU package comes with a larger list of possible USE flags. You may want to check those USE flags and set them according to your planned setup. This is a recommended set of flags:
@@ -211,7 +279,7 @@ The QEMU package comes with a larger list of possible USE flags. You may want to
 **`/etc/portage/package.use/qemu`**
 
 ```
- usb spice snappy lzo vhost-user-fs numa io-uring fuse
+app-emulation/qemu usb spice snappy lzo vhost-user-fs numa io-uring fuse
 ```
 After reviewing and adding any desired USE flags, emerge [app-emulation/qemu](https://packages.gentoo.org/packages/app-emulation/qemu):
 
@@ -223,7 +291,7 @@ As well as QEMU, libvirt comes with a number of Use flags. Please check those fl
 **`/etc/portage/package.use/qemu`**
 
 ```
- pcap virt-network numa fuse
+app-emulation/libvirt pcap virt-network numa fuse
 ```
 After reviewing and adding any desired USE flags, emerge [app-emulation/libvirt](https://packages.gentoo.org/packages/app-emulation/libvirt):
 
@@ -278,13 +346,19 @@ To prevent the host from holding on to the Nvidia GPU we need to blacklist the d
 **`/etc/modprobe.d/nvidia.conf`**
 
 ```
- nvidia
+blacklist nvidia
 blacklist nvidia-drm
 ```
 #### Load the VFIO Modules
 
 **`/etc/modules-load.d/vfio.conf`**
 
+```
+kvmgt
+vfio-pci
+vfio-iommu-type1
+vfio-mdev
+```
 #### Selecting Nvidia GPU / Audio
 
 You need to pass the device IDs of the PCI devices for Nvidia GPU and Audio. Check the PCI list with `lspci -nn` and copy the IDs into this file accordingly:
@@ -292,7 +366,7 @@ You need to pass the device IDs of the PCI devices for Nvidia GPU and Audio. Che
 **`/etc/modprobe.d/vfio.conf`**
 
 ```
- vfio-pci ids=10de:1fb8,10de:10fa
+options vfio-pci ids=10de:1fb8,10de:10fa
 ```
 Adding device IDs like this, will block it from the host system.
 
@@ -363,6 +437,15 @@ There is no local.d when using Systemd. You need to place the above script somew
 
 **`/etc/systemd/system/start-intel-mdev.service`**
 
+```
+[Unit]
+Description=Create a virtual GPU with Intel GVT-d
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/start-intel-mdev.sh
+[Install]
+WantedBy=multi-user.target
+```
 Start the script on boot:
 
 `root #``systemctl enable start-intel-mdev`
@@ -445,6 +528,8 @@ You need to visit the [Nvidia drivers site](https://www.nvidia.de/Download/index
 The selection would be (as of September 2021):
 
 ## References
+
+1. [↑](https://wiki.gentoo.org#cite_ref-1) [Ice Lake support?](https://github.com/intel/gvt-linux/issues/126), accessed 13th September 2021
 
 ## See also
 

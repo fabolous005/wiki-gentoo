@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/OpenRazer
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-05-01"
-fingerprint: db1bc4566bc905ae
+fingerprint: db19c4564bc90dae
 license: CC BY-SA 4.0
 ---
 
@@ -21,6 +21,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [sys-apps/openrazer](https://packages.gentoo.org/packages/sys-apps/openrazer)
+            
+            Drivers and user-space daemon to control Razer devices on GNU/Linux
 
 | [+client](https://packages.gentoo.org/useflags/+client) | Build the OpenRazer daemon client | 
 | [+daemon](https://packages.gentoo.org/useflags/+daemon) | Build the OpenRazer daemon service | 

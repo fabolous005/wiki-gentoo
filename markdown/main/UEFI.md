@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/UEFI
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-03-16"
-fingerprint: d6271d1f41a70b44
+fingerprint: "96271d1f41a70b44"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 **UEFI**, short for **Unified Extensible Firmware Interface**, is a firmware standard for boot ROM designed to provide a stable API for interacting with system hardware. On [x86](https://en.wikipedia.org/wiki/x86) it replaced the legacy [BIOS](https://wiki.gentoo.org/wiki/BIOS).
 

@@ -4,12 +4,14 @@ title: NVIDIA/nvidia-drivers
 url: https://wiki.gentoo.org/wiki/NVIDIA/nvidia-drivers
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-09-11"
+date: "2026-10-23"
 fingerprint: "9e119d5e49a2b98d"
 license: CC BY-SA 4.0
 ---
 
 # NVIDIA/nvidia-drivers
+
+[NVIDIA](https://wiki.gentoo.org/wiki/Special:MyLanguage/NVIDIA)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -21,6 +23,13 @@ This proprietary driver contains some wrapper functions that will compile agains
 
 The package contains the latest drivers from NVIDIA with support for most NVIDIA graphic cards, with several versions available depending on the age of the card. It uses an [eclass](https://wiki.gentoo.org/wiki/Eclass) to detect what kind of card the system is running so that it installs the proper version.
 
+## USE flags
+
+
+### USE flags for
+            [x11-drivers/nvidia-drivers](https://packages.gentoo.org/packages/x11-drivers/nvidia-drivers)
+            
+            NVIDIA Accelerated Graphics Driver
 
 | [+X](https://packages.gentoo.org/useflags/+X) | Add support for X11 | 
 | [+modules](https://packages.gentoo.org/useflags/+modules) | Build the kernel modules | 
@@ -51,10 +60,16 @@ It is still possible to use the unsupported driver, if the user accepts the risk
 
 **Unmask 470 drivers**
 
+```
+~x11-drivers/nvidia-drivers-470.256.02
+```
 **`/etc/portage/package.mask/nvidia`**
 
 **Masking drivers with version higher than 470**
 
+```
+>x11-drivers/nvidia-drivers-471
+```
 ### Open source kernel modules
 
 Starting with version 535, NVIDIA implemented a new open-source kernel module that can be used instead pre-built binary when the [kernel-open](https://packages.gentoo.org/useflags/kernel-open) [flag is enabled. As of version 595, building the open-source module is mandatory, and the option to use the binary module has been removed. If you need to use the binary module (for example, to support GTX 1650 cards or older), restrict the installation of the newer package version and disable](https://wiki.gentoo.org/wiki/USE_flag) [kernel-open](https://packages.gentoo.org/useflags/kernel-open) [flag:](https://wiki.gentoo.org/wiki/USE_flag)
@@ -63,10 +78,13 @@ Starting with version 535, NVIDIA implemented a new open-source kernel module th
 
 **Masking drivers with version higher than 595**
 
+```
+>x11-drivers/nvidia-drivers-595
+```
 **`/etc/portage/package.use/nvidia`**
 
 ```
- -kernel-open
+x11-drivers/nvidia-drivers -kernel-open
 ```
 ## Installation
 
@@ -81,7 +99,7 @@ Most NVIDIA GPUs have hardware encoding/decoding. [Here](https://developer.nvidi
 **Nvidia USE example**
 
 ```
- VIDEO_CARDS: -* nvidia
+*/* VIDEO_CARDS: -* nvidia
 */* nvidia vdpau nvenc
 ```
 ### Distribution Kernel
@@ -93,7 +111,7 @@ When using a distribution kernel ([sys-kernel/gentoo-kernel](https://packages.ge
 **/etc/portage/package.use/dist-kernel example**
 
 ```
- dist-kernel
+*/* dist-kernel
 ```
 This will trigger the Nvidia driver to automatically rebuild on every kernel update. Restarting is recommended after doing a kernel update.
 
@@ -111,6 +129,12 @@ At most, check see that the nouveau module is not built-in.
 
 **Disable support for the nouveau driver (`CONFIG_DRM_NOUVEAU`)**
 
+```
+Device Drivers  --->
+   Graphics support  --->
+      Direct Rendering Manager (XFree86 4.1.0 and higher DRI support)  --->
+         < > Nouveau (nVidia) cards
+```
 The **nvidia-drivers** ebuild automatically discovers the kernel version based on the /usr/src/linux symlink. Please ensure that this symlink is pointing to the correct sources. Choose the right kernel source using eselect. When using [sys-kernel/gentoo-sources](https://packages.gentoo.org/packages/sys-kernel/gentoo-sources) version 6.18.10 for instance, the kernel listing might look something like this:
 
 `root #``eselect kernel list`
@@ -152,6 +176,9 @@ For ease of administration, it is better to set the global [USE](https://wiki.ge
 
 **Example of /etc/portage/package.use/modules-sign file**
 
+```
+*/* modules-sign
+```
 `root #``emerge --ask --newuse x11-drivers/nvidia-drivers`
 Alternatively, to manually sign modules, sign the nvidia, nvidia-drm, nvidia-modeset, nvidia-peermem and nvidia-uvm modules (replace `kernel-version-modules-path` with the actual version of the kernel):
 
@@ -202,10 +229,22 @@ Create a file named 80-nvidia-pm.rules in /etc/udev/rules.d/ directory with the 
 
 **`/etc/udev/rules.d/80-nvidia-pm.rules`**
 
+```
+# Enable runtime PM for NVIDIA VGA/3D controller devices on driver bind
+ACTION=="bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030000", TEST=="power/control", ATTR{power/control}="auto"
+ACTION=="bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030200", TEST=="power/control", ATTR{power/control}="auto"
+# Disable runtime PM for NVIDIA VGA/3D controller devices on driver unbind
+ACTION=="unbind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030000", TEST=="power/control", ATTR{power/control}="on"
+ACTION=="unbind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030200", TEST=="power/control", ATTR{power/control}="on"
+```
 The following file needs be added to /etc/modprobe.d/ file to seamlessly enable this feature.
 
 **`/etc/modprobe.d/nvidia-pm.conf`**
 
+```
+# Enable RTD3
+options nvidia NVreg_DynamicPowerManagement=0x02
+```
 More information and other configuration options are documented in Chapter 22 of NVIDIA's README documentation.
 
 ### Using the NVIDIA settings tool
@@ -214,6 +253,8 @@ NVIDIA also provides a settings tool. This tool allows the user to monitor and c
 
 `user $``sudo -E nvidia-settings`
 ## Usage
+
+### Testing the card
 
 To test the NVIDIA card, start X/Wayland and run glxinfo, which is part of the [x11-apps/mesa-progs](https://packages.gentoo.org/packages/x11-apps/mesa-progs) package. It should say that direct rendering is activated:
 
@@ -250,6 +291,22 @@ For instance:
 
 **Setting nvidia NVreg\_EnableMSI**
 
+```
+# Nvidia drivers support
+alias char-major-195 nvidia
+alias /dev/nvidiactl char-major-195
+  
+# To tweak the driver the following options can be used, note that
+# you should be careful, as it could cause instability!! For more 
+# options see /usr/share/doc/nvidia-drivers-337.19/README 
+#
+# !!! SECURITY WARNING !!!
+# DO NOT MODIFY OR REMOVE THE DEVICE FILE RELATED OPTIONS UNLESS YOU KNOW
+# WHAT YOU ARE DOING.
+# ONLY ADD TRUSTED USERS TO THE VIDEO GROUP, THESE USERS MAY BE ABLE TO CRASH,
+# COMPROMISE, OR IRREPARABLY DAMAGE THE MACHINE.
+options nvidia NVreg_DeviceFileMode=0660 NVreg_DeviceFileUID=0 NVreg_DeviceFileGID=27 NVreg_ModifyDeviceFiles=1 NVreg_EnableMSI=0
+```
 ### Getting 2D acceleration to work on machines with 4GB memory or more
 
 When NVIDIA 2D acceleration is giving problems, then it is likely that the system is unable to set up a write-combining range with MTRR. To verify, check the contents of /proc/mtrr:
@@ -263,12 +320,23 @@ Alternatively, it might be necessary to enable MTRR cleanup support (CONFIG\_MTR
 
 **Enable MTRR cleanup support**
 
+```
+Processor type and features  --->
+   [*]   MTRR (Memory Type Range Register) support
+   [*]   MTRR cleanup support 
+   (0)     MTRR cleanup enable value (0-1) 
+   (1)     MTRR cleanup spare reg num (0-7)
+```
 ### Failed to initialize DMA on Ryzen
 
 Disable AMD Secure Memory Encryption<sup>[\[1\]](https://wiki.gentoo.org#cite_note-1)</sup>:
 
 **Disable AMD Secure Memory Encryption (SME) support**
 
+```
+Processor type and features  --->
+   [ ]   AMD Secure Memory Encryption (SME) support
+```
 ### "no such device" appears when trying to load the kernel module
 
 This is usually caused by one of the following issues:
@@ -285,12 +353,21 @@ First, disable Direct Rendering Manager (`CONFIG_DRM`) in the kernel :
 
 **Disabling Direct Rendering Manager**
 
+```
+Device drivers --->
+    Graphics support --->
+        < > Direct Rendering Manager (XFree86 4.1.0 and higher DRI support)
+```
 Next, rebuild [x11-drivers/nvidia-drivers](https://packages.gentoo.org/packages/x11-drivers/nvidia-drivers) since the driver may have built against the kernel DRM symbols. It should fix the problem.
 
 ### X11: Failed to acquire modesetting permission
 
 **`/var/log/Xorg.0.log`**
 
+```
+[...] (EE) NVIDIA(GPU-0): Failed to acquire modesetting permission.
+[...] (EE) NVIDIA(0): Failing initialization of X screen
+```
 Ensure that the nvidia\_drm module is loaded and initialized during boot (`dmesg -k | grep nvidia-drm`) and verify that kernel modesetting is enabled for the driver with `cat /sys/module/nvidia_drm/parameters/modeset`; if this command returns "N" then modesetting may need to be explicitly enabled with the [kernel parameter](https://www.kernel.org/doc/html/v4.14/admin-guide/kernel-parameters.html) `nvidia_drm.modeset=1`. If X11 still fails, specifying the PCI bus of the graphics card may resolve the issue.
 
 Get the PCI bus ID of the graphics card:
@@ -309,6 +386,15 @@ Edit the X11 configuration file (`nvidia-xconfig` or `nvidia-settings` may be ru
 
 **Adding 'BusID' to 'Section "Device"'**
 
+```
+Section "Device"
+    Identifier     "Device0"
+    BusID	   "PCI:X:Y:Z" 
+    Driver         "nvidia"
+    VendorName     "NVIDIA Corporation"
+    BoardName      "NVIDIA GeForce GTX 1080"
+EndSection
+```
 ### Video playback stuttering or slow
 
 Lately there seems to be some breaking with playback of some types of video with the NVIDIA binary drivers, causing slow video playback or significant stuttering. This problem seems to be occurring within the Intel CPU Idle replacement instead of the common ACPI CPU idling method for certain CPU's.
@@ -321,6 +407,9 @@ If using GRUB as the bootloader, add this kernel parameter to /etc/default/grub 
 
 **Adding intel\_idle.max\_cstate kernel parameter in GRUB**
 
+```
+GRUB_CMDLINE_LINUX_DEFAULT="intel_idle.max_cstate=0"
+```
 Don't forget to run grub-mkconfig -o /boot/grub/grub.cfg after making the change, so that the new configuration is generated (see [the GRUB article](https://wiki.gentoo.org/wiki/GRUB#Main_configuration_file) for further details).
 
 After rebooting, verify that the change is active:
@@ -338,6 +427,9 @@ When this problem occurs, substitute the PCI ID within the following command for
 
 `root #``echo on > /sys/bus/pci/devices/0000\:06\:00.0/power/control`
 This avoids disable runtime power management for PCI function 0, placing this PCI bus always on.
+
+See:
+[https://download.nvidia.com/XFree86/Linux-x86\_64/435.17/README/dynamicpowermanagement.html](https://download.nvidia.com/XFree86/Linux-x86_64/435.17/README/dynamicpowermanagement.html)
 
 ### No vertical synchronization (no VSync, tearing) in OpenGL applications
 
@@ -389,6 +481,17 @@ When using [systemd](https://wiki.gentoo.org/wiki/Systemd), it may be worth cons
 
 **Make nvidia-uvm a soft dependency of the nvidia module (on systemd)**
 
+```
+# Make a soft dependency for nvidia-uvm as adding the module loading to
+# /usr/lib/modules-load.d/nvidia-uvm.conf for systemd consumption, makes the
+# configuration file to be added to the initrd but not the module, throwing an
+# error on plymouth about not being able to find the module.
+# Ref: /usr/lib/dracut/modules.d/00systemd/module-setup.sh
+# Even adding the module is not the correct thing, as we don't want it to be
+# included in the initrd, so use this configuration file to specify the
+# dependency.
+softdep nvidia post: nvidia-uvm
+```
 ### Wayland: Characters being deleted when typing
 
 **Symptoms:** Strange keyboard behavior while typing, characters being redrawn and deleted.
@@ -403,6 +506,9 @@ When using [systemd](https://wiki.gentoo.org/wiki/Systemd), it may be worth cons
 
 **Disabling glamor**
 
+```
+XWAYLAND_NO_GLAMOR=1
+```
 Note that this will increase resource usage.
 
 - Notice: Disabling glamor causes Wine/Proton games to run slower, and there are reports of Steam not starting.

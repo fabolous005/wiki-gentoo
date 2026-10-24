@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Zram
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-09-26"
-fingerprint: "9289205aada3b9a0"
+fingerprint: "92a9205aada3b9a0"
 license: CC BY-SA 4.0
 ---
 
@@ -62,6 +62,25 @@ Cryptographic API --->
 
 **`/etc/kernel/config.d/zram-linux6-1-111.config`**
 
+```
+CONFIG_ZSMALLOC=m
+CONFIG_BLK_DEV=y
+CONFIG_ZRAM=m
+CONFIG_ZRAM_DEF_COMP_LZ4=y
+CONFIG_ZRAM_DEF_COMP="lz4"
+CONFIG_ZRAM_WRITEBACK=y
+CONFIG_ZRAM_MEMORY_TRACKING=y
+CONFIG_CRYPTO_LZO=y
+CONFIG_CRYPTO_LZ4=y
+CONFIG_CRYPTO_ZSTD=y
+CONFIG_ZLIB_DEFLATE=y
+CONFIG_LZO_COMPRESS=y
+CONFIG_LZO_DECOMPRESS=y
+CONFIG_LZ4_COMPRESS=y
+CONFIG_LZ4_DECOMPRESS=y
+CONFIG_ZSTD_COMMON=y
+CONFIG_ZSTD_COMPRESS=y
+```
 ## Initialization
 
 ### Using zramctl
@@ -275,6 +294,13 @@ A more complete example for zram-swap would be:
 
 **`/etc/systemd/zram-generator.conf.d/zram0-swap.conf`**
 
+```
+[zram0]
+zram-size = ram / 2
+compression-algorithm = zstd
+swap-priority = 100
+fs-type = swap
+```
 Note that on systems with up to 8GB RAM, those settings are basically the same as the very simple configuration with just the line `[zram0]`, because in the default setting half of the systems RAM is used, but not more than 4GB. Depending on the kernel configuration, the compression algorithm `zstd` could also be what the system defaults to. For all fs-types, including `swap`, `options` default to `discard`.
 
 For more non-swap configurations, see zram-generator's [README](https://github.com/systemd/zram-generator/blob/main/README.md).
@@ -294,6 +320,11 @@ KERNEL=="zram2", SUBSYSTEM=="block", DRIVER=="", ACTION=="add", ATTR{disksize}==
 ```
 **`/etc/fstab`**
 
+```
+/dev/zram0              swap                    swap            pri=16383                                                       0 0
+/dev/zram1              swap                    swap            pri=16383                                                       0 0
+/dev/zram2              /tmp                    ext4            defaults                                                        0 0
+```
 **`/etc/modprobe.d/zram.conf`**
 
 ```
@@ -334,3 +365,7 @@ This situation occurs when using mkfs.ext4 in /etc/udev/rules.d/10-zram.rules. I
 ## External resources
 
 - [zram](https://www.kernel.org/doc/html/latest/admin-guide/blockdev/zram.html) in official kernel documentation.
+
+## References
+
+1. [↑](https://wiki.gentoo.org#cite_ref-1) Phoronix: [Using zRAM On Ubuntu 13.04 Linux](https://www.phoronix.com/news/MTM1NjQ), April 21, 2013

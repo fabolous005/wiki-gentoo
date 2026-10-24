@@ -213,6 +213,11 @@ Despite [/etc/fstab](https://wiki.gentoo.org/wiki//etc/fstab) entries, non-super
 
 **`/etc/fstab`**
 
+```
+[...]
+//server/folder /home/larry/winmount cifs noauto,user 0 0
+[...]
+```
 `user $``mount /home/larry/winmount`
 This program is not installed setuid root -  "user" CIFS mounts not supported.
 
@@ -220,6 +225,12 @@ The solution is to use sudo mount /home/larry/winmount in combination with a cor
 
 **`/etc/sudoers`**
 
+```
+[...]
+larry    ALL = NOPASSWD: /bin/mount  /home/larry/winmount/, /bin/mount  /home/larry/winmount
+larry    ALL = NOPASSWD: /bin/umount /home/larry/winmount/, /bin/umount /home/larry/winmount
+[...]
+```
 ## See also
 
 - [Mounting partitions in the Security Handbook](https://wiki.gentoo.org/wiki/Security_Handbook/Mounting_partitions)

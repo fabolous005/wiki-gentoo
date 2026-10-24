@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Yocto
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-07-03"
-fingerprint: "2e8fa91f5da7e277"
+fingerprint: "2eafe91d4927e227"
 license: CC BY-SA 4.0
 ---
 
@@ -48,6 +48,9 @@ Install [media-libs/libsdl2](https://packages.gentoo.org/packages/media-libs/lib
 
 **`~/foss-udoo-bsp/poky/build/conf/local.conf`**
 
+```
+ASSUME_PROVIDED += "qemu-native libsdl2-native"
+```
 ## Install Build Deps
 
 You should most of these already installed, but this list should pick up anything you don't have:
@@ -74,6 +77,7 @@ The alternative is a FOSS manifest, or custom build config and layers, that use 
 
 ## Official QuickStart
 
+`user $``git clone -b scarthgap` [https://git.yoctoproject.org/poky](https://git.yoctoproject.org/poky)
 `user $````
 cd poky
 ```
@@ -83,6 +87,9 @@ source oe-init-build-env
 `user $````
 bitbake -k core-image-minimal 
 ```
+[Yocto Project Application Development and the Extensible Software Development Kit (eSDK)](https://docs.yoctoproject.org/sdk-manual/index.html)
+
+`user $``git clone -b scarthgap` [https://git.yoctoproject.org/poky](https://git.yoctoproject.org/poky)
 `user $````
 cd poky
 ```
@@ -98,3 +105,9 @@ bitbake -k core-image-sato-sdk
 `user $````
 runqemu-extract-sdk [...] 
 ```
+## External resources
+
+## References
+
+1. [↑](https://wiki.gentoo.org#cite_ref-1) The Linux Foundation. [Yocto Project Aligns Technology with OpenEmbedded and Gains Corporate Collaborator](https://www.linuxfoundation.org/press/press-release/yocto-project-aligns-technology-with-openembedded-and-gains-corporate-collaborators), [Linux Foundation Press Releases](https://www.linuxfoundation.org/press), March 2nd, 2011.
+2. [↑](https://wiki.gentoo.org#cite_ref-Yocto_Project_Wikipedia_2-0) [*Yocto Project* – Wikipedia](https://en.wikipedia.org/wiki/Yocto_Project)

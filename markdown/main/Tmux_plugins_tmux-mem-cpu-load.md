@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Tmux/plugins/tmux-mem-cpu-load
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2020-06-08"
-fingerprint: b69b7053c6b76bf8
+fingerprint: b69b3053c6b76bd8
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 tmux-mem-cpu-load is a small program designed for system monitoring in the status line of [tmux](https://wiki.gentoo.org/wiki/Tmux).
 
@@ -27,6 +29,7 @@ There are currently no USE flags for this program.
 
 For user convenience the package has been included in official Gentoo repositories:
 
+`root #``emerge --ask` [app-misc/tmux-mem-cpu-load](https://packages.gentoo.org/packages/app-misc/tmux-mem-cpu-load)
 ## Configuration
 
 ### tmux integration
@@ -40,6 +43,11 @@ Once the configuration file has been set add tmux-mem-cpu-load references. The f
 
 **Adding tmux-mem-cpu-load references**
 
+```
+set -g status-interval 2
+set -g status-left "#S #[fg=green,bg=black]#(tmux-mem-cpu-load -i 2)#[default]"
+set -g status-left-length 60
+```
 ## Usage
 
 `user $``tmux-mem-cpu-load -h````

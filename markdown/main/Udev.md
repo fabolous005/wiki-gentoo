@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Udev
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-08-19"
-fingerprint: be89881ee1c9bbc0
+fingerprint: be09081cc1c1bbe0
 license: CC BY-SA 4.0
 ---
 
@@ -16,9 +16,15 @@ license: CC BY-SA 4.0
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
 
+*Not to be confused with[the **deprecated** eudev package](https://wiki.gentoo.org/wiki/Eudev).*
+
 **udev** (user /dev) is [systemd's](https://wiki.gentoo.org/wiki/Systemd) device manager for the Linux kernel. It manages device nodes in /dev and handles all user space actions when adding or removing devices.
 
 udev from the [sys-apps/systemd-utils](https://packages.gentoo.org/packages/sys-apps/systemd-utils) package is used as the default device manager for Gentoo systems using the [OpenRC](https://wiki.gentoo.org/wiki/OpenRC) init system, independently of systemd.
+
+## What is udev?
+
+### The /dev directory
 
 Most Linux users understand that /dev/sda1 is just a fast way of referring to the first partition on the first disk that the kernel found. That's pretty easy, right?
 
@@ -35,7 +41,34 @@ Every time a change happens within the device structure, the kernel emits a *uev
 
 
 
+## Installation
+
+### Kernel
+
 udev requires the following kernel options:
+
+```
+General setup  --->
+    [*] Configure standard kernel features (expert users)  --->
+        [ ] Enable deprecated sysfs features to support old userspace tools
+        [*] Enable signalfd() system call
+Enable the block layer  --->
+    [*] Block layer SG support v4
+Networking support  --->
+    Networking options  --->
+        <*> Unix domain sockets
+Device Drivers  --->
+    Generic Driver Options  --->
+        ()  path to uevent helper
+        [*] Maintain a devtmpfs filesystem to mount at /dev
+    < > ATA/ATAPI/MFM/RLL support (DEPRECATED)  --->
+File systems  --->
+    [*] Inotify support for userspace
+    Pseudo filesystems --->
+        [*] /proc file system support
+        [*] sysfs file system support
+```
+### USE flags
 
 Portage knows the [`udev`](https://packages.gentoo.org/useflags/udev) USE flag for enabling support for udev in other packages. Adding this USE flag value to the USE flag list (default in all Linux [profiles](<https://wiki.gentoo.org/wiki/Profile_(Portage)>)) will pull in the [virtual/udev](https://packages.gentoo.org/packages/virtual/udev) package automatically:
 
@@ -44,6 +77,11 @@ Portage knows the [`udev`](https://packages.gentoo.org/useflags/udev) USE flag f
 ```
 USE="udev"
 ```
+
+### USE flags for
+            [sys-apps/systemd-utils](https://packages.gentoo.org/packages/sys-apps/systemd-utils)
+            
+            Utilities split out from systemd for OpenRC users
 
 | [+acl](https://packages.gentoo.org/useflags/+acl) | Add support for Access Control Lists | 
 | [+kmod](https://packages.gentoo.org/useflags/+kmod) | Enable kernel module loading via sys-apps/kmod | 
@@ -59,9 +97,15 @@ USE="udev"
 | [test](https://packages.gentoo.org/useflags/test) | Enable dependencies and/or preparations necessary to run tests (usually controlled by FEATURES=test but can be toggled independently) | 
 | [ukify](https://packages.gentoo.org/useflags/ukify) | Enable systemd-ukify | 
 
+### Emerge
+
 After setting USE flags update the system so the changes take effect:
 
 `root #``emerge --ask --changed-use --deep @world`
+## Configuration
+
+### Service
+
 To start udev at boot time, add it to the sysinit runlevel. This can be done by issuing the following commands with root privileges:
 
 `root #````
@@ -70,6 +114,10 @@ rc-update add udev sysinit
 `root #````
 rc-update add udev-trigger sysinit
 ```
+## Advanced configuration
+
+### Rules
+
 udev provides a set of rules that match against exported values of uevents (events sent by the kernel) and properties of the discovered device. A matching rule will possibly name and create a device node and run configured programs to setup and configure the device.
 
 The rule definitions are stored in two locations:
@@ -95,6 +143,8 @@ Based on this information, the rule can then state if:
 
 Udev does this for every rule that matches (it does not stop after the first match) to allow a flexible device management approach.
 
+### Persistent device names
+
 The kernel detects devices asynchronously, udev mirrors the kernel's [sysfs](https://wiki.gentoo.org/wiki/Sysfs) filesystem and so the devices are named and numbered in order of detection. So by default udev provides no persistent device names. However there are mechanisms for some device classes to provide these:
 
 - Udev creates for storage devices additional symlinks based on the device's ID, [label, UUID](https://wiki.gentoo.org/wiki/Removable_media#UUIDs_and_labels) and path. See the /dev/disk/by-\* directory. So instead of using e.g. the device file /dev/sda use the file /dev/disk/by-label/SOME\_LABEL.
@@ -102,6 +152,8 @@ The kernel detects devices asynchronously, udev mirrors the kernel's [sysfs](htt
 - The same for input devices in the /dev/input directory.
 
 - Using custom rules enables users to create their own device files.
+
+### Predictable network interface naming
 
 The new network interface naming convention is not the same. So the [symlinks](https://wiki.gentoo.org/wiki/Handbook:AMD64/Networking/Introduction) used by [netifrc](https://wiki.gentoo.org/wiki/Netifrc) will need to be re-linked. Use /etc/init.d/net.lo as a link target for whatever interface names need to be added. Be sure to replace *`<interface_name>`* in the commands below with the Ethernet interface names present on the system. It is possible to discover which interfaces exist by running the ip link command:
 
@@ -114,6 +166,8 @@ Edit /etc/conf.d/net with any necessary configuration for all interfaces.
 Add the script(s) to the default runlevel to have the interface(s) start automatically:
 
 `root #``rc-update add net.`*<interface_name>* default
+### Optional: Disable or override predictable network interface naming
+
 Network device names such as `eth0` or `wlan0` as provided by the kernel are normally changed on system boot (see dmesg) by the /lib/udev/rules.d/80-net-setup-link.rules udev rule and the NamePolicy in /lib/systemd/network/99-default.link.
 
 This behavior may be disabled in several ways:
@@ -128,6 +182,10 @@ udev provides a way to remap keys and buttons using *hwdb*:
 
 **`/etc/udev/hwdb.d/99-keyboard-example.hwdb`**
 
+```
+evdev:name:AT Translated Set 2 keyboard:*
+ KEYBOARD_KEY_db=58 # <scancode in HEX>=<keycode in DEC or keycode in HEX prefixed with 0x>
+```
 The device name can be found using [app-misc/evtest](https://packages.gentoo.org/packages/app-misc/evtest):
 
 `root #``evtest`
@@ -158,6 +216,8 @@ The device configuration can be verified like so:
 `root #``udevadm info /dev/input/by-path/*usb*-kbd | grep "KEYBOARD_KEY"`
 E: KEYBOARD\_KEY\_db=58
 
+## Usage
+
 Some useful commands are:
 
 - Monitor all udev activities:
@@ -186,6 +246,10 @@ Some useful commands are:
 
 See the [udevadm(8)](https://man.archlinux.org/man/udevadm.8.en) [man page](https://wiki.gentoo.org/wiki/Man_page) for more information.
 
+## Troubleshooting
+
+### Log monitor messages
+
 To log all message when udevadm monitor is run, modify the following configuration file:
 
 **`/etc/conf.d/udev`**
@@ -194,6 +258,8 @@ To log all message when udevadm monitor is run, modify the following configurati
 udev_monitor="YES"
 ```
 It will create the new log file located at /run/udev/udevmonitor.log.
+
+### Debug mode
 
 Enabling debug mode will output more log messages:
 
@@ -211,7 +277,7 @@ udev_log="debug"
 ```
 The log file /run/udev/debug.log will be created but no messages will be logged to it. The most recent versions of udev will log all messages to dmesg.
 
-### /dev/null and /dev/console
+### Missing device files /dev/null and /dev/console
 
 Some udev versions need the /dev/null and /dev/console files in order to work properly, but cannot create them on their own. To manually create these files for udev run the following commands with root privileges:
 
@@ -239,6 +305,8 @@ umount test
 `root #````
 rmdir test
 ```
+### NIC assigned eth0, but is moved to eth1
+
 Those having dual network cards on their motherboards may run into a situation where ip link may show no eth0 or eth1. dmesg may show their NIC detected as eth0, and later moved to eth1. Performing a ip link will also show the NIC as eth1. This is caused by using the kernel assigned names in the first place. Users should write custom rules like /etc/udev/rules.d/70-my-network.rules to use free names like lan0 or wireless0 or use predictable interface names.
 
 Remember to also remove old files from old versions of udev:
@@ -246,11 +314,17 @@ Remember to also remove old files from old versions of udev:
 `root #``rm /etc/udev/rules.d/70-persistent-net.rules /etc/udev/rules.d/80-net-setup-link.rules /etc/udev/rules.d/80-net-name-slot.rules /etc/systemd/network/99-default.link`
 Also make sure not to pass `net.ifnames=0` on the kernel commandline. This setting would disable the predictable interface names feature of udev altogether.
 
+### Wait for devices to settle during bootup
+
 On some hardware, a device may not be available as soon as it's required by a different service script. This can happen for example when using [Netifrc](https://wiki.gentoo.org/wiki/Netifrc), which requires the network interface to be available. Since [OpenRC](https://wiki.gentoo.org/wiki/OpenRC) provides no method of waiting for the interface to be available, it will sometimes loudly fail with an `ERROR: interface wlan0 does not exist`, introducing a race condition.
 
 To make sure all devices are available, start the `udev-settle` service during `sysinit`. This will slow down your bootup, but provide more consistency, especially if `rc_parallel` is enabled:
 
 `root #``rc-update add udev-settle sysinit`
+## See also
+
 - [Eudev](https://wiki.gentoo.org/wiki/Eudev) — a fork of [udev], [systemd](https://wiki.gentoo.org/wiki/Systemd)'s [device file](https://wiki.gentoo.org/wiki/Device_file) manager for the Linux kernel.
+
+## External resources
 
 - [Bug 575718 - Request for council decision regarding virtual/udev default provider](https://bugs.gentoo.org/show_bug.cgi?id=575718) - Default [virtual/udev](https://packages.gentoo.org/packages/virtual/udev) provider changed to [sys-fs/eudev](https://packages.gentoo.org/packages/sys-fs/eudev)

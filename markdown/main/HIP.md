@@ -30,6 +30,11 @@ HIP provides porting tools which do most of the work to convert CUDA code into p
 ### USE flags
 
 
+### USE flags for
+            [dev-util/hip](https://packages.gentoo.org/packages/dev-util/hip)
+            
+            C++ Heterogeneous-Compute Interface for Portability
+
 | [+hip](https://packages.gentoo.org/useflags/+hip) | Build HIP runtime | 
 | [debug](https://packages.gentoo.org/useflags/debug) | Enable extra debug codepaths, like asserts and extra output. If you want to get meaningful backtraces see https://wiki.gentoo.org/wiki/Project:Quality\_Assurance/Backtraces | 
 | [doc](https://packages.gentoo.org/useflags/doc) | Add extra documentation (API, Javadoc, etc). It is recommended to enable per package instead of globally | 

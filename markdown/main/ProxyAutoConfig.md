@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/ProxyAutoConfig
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-01-31"
-fingerprint: f6fddc51bc022881
+fingerprint: f6fddc55be422881
 license: CC BY-SA 4.0
 ---
 
@@ -102,12 +102,30 @@ In dhcpd.conf in the general section define a new option with code 252 and in th
 
 **`/etc/dhcp/dhcpd.conf`**
 
+```
+# do windows-style proxy autoconfig:
+option local-proxy-config code 252 = text;
+...
+subnet 192.168.0.0 netmask 255.255.255.0 {
+  range 192.168.0.20 192.168.0.30;
+  ...
+  option local-proxy-config "http://www.example.org/proxy.pac";
+}
+```
 ## DNS server configuration
 
 The responsible DNS Server must have records for the wpad.\<domain> servers. How to set up an or configure a DNS server is out of scope here, but a simple modification to the records of ISC bind would look like this:
 
 **`/etc/bind/pri/example.org.zone`**
 
+```
+server1    IN A     192.168.0.1
+server2    IN A     192.168.0.2
+www        IN CNAME server1.example.org.
+proxy      IN CNAME server2.example.org.
+; proxy autoconfig server:
+wpad       IN CNAME server1.example.org.
+```
 ## Serving the WPAD file
 
 Now that there is a PAC file and DNS points to the correct server, all that is left is actually serving the file to clients.

@@ -4,8 +4,8 @@ title: NVIDIA
 url: https://wiki.gentoo.org/wiki/NVIDIA
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-06-16"
-fingerprint: afa79a7c028c99ac
+date: "2026-10-23"
+fingerprint: afa79afc028e99ac
 license: CC BY-SA 4.0
 ---
 
@@ -21,23 +21,25 @@ license: CC BY-SA 4.0
 
 For best performance in heavy 3D workloads and games, the proprietary driver is usually preferred, especially on newer hardware. It is available only on **amd64** and **arm64**. For older/legacy GPUs, the open-source Nouveau driver may be a viable option as NVIDIA is actively phasing out support for these older cards in the proprietary driver.
 
+## Feature support
+
 | Chipset | Code name | Series | OpenGL | OpenCL | [VAAPI](https://wiki.gentoo.org/wiki/VAAPI)<sup>[\[1\]](https://wiki.gentoo.org#cite_note-1)</sup> / [VDPAU](https://wiki.gentoo.org/wiki/VDPAU) | [Vulkan](https://wiki.gentoo.org/wiki/Vulkan) | [CUDA compute capability](https://wiki.gentoo.org/index.php?title=CUDA_compute_capability&action=edit&redlink=1)<sup>[\[2\]](https://wiki.gentoo.org#cite_note-2)</sup> | Latest [nvidia-drivers](https://wiki.gentoo.org/wiki/NVIDIA/nvidia-drivers) support<sup>[\[3\]](https://wiki.gentoo.org#cite_note-3)</sup> | Open source kernel module support <sup>[\[4\]](https://wiki.gentoo.org#cite_note-4)</sup> | [nouveau](https://wiki.gentoo.org/wiki/Nouveau) support<sup>[\[5\]](https://wiki.gentoo.org#cite_note-5)</sup> | 
 |---|---|---|---|---|---|---|---|---|---|---|
-| NV04 | [Fahrenheit](<https://en.wikipedia.org/wiki/Fahrenheit_(microarchitecture)>) | Riva TNT, Riva TNT2 |  |  |  |  |  |  |  |  | 
-| NV10 | [Celsius](<https://en.wikipedia.org/wiki/Celsius_(microarchitecture)>) | GeForce 256, GeForce 2, GeForce 4 MX |  |  |  |  |  |  |  |  | 
-| NV20 | [Kelvin](<https://en.wikipedia.org/wiki/Kelvin_(microarchitecture)>) | GeForce 3, GeForce 4 Ti |  |  |  |  |  |  |  |  | 
-| NV30 | [Rankine](<https://en.wikipedia.org/wiki/Rankine_(microarchitecture)>) | GeForce 5 / GeForce FX |  |  |  |  |  |  |  |  | 
-| NV40 | [Curie](<https://en.wikipedia.org/wiki/Curie_(microarchitecture)>) | GeForce 6, GeForce 7 |  |  |  |  |  |  |  |  | 
-| NV50 | [Tesla](<https://en.wikipedia.org/wiki/Tesla_(microarchitecture)>) | GeForce 8, GeForce 9, GeForce 100, GeForce 200, GeForce 300 |  |  |  |  |  |  |  |  | 
-| NVC0 | [Fermi](<https://en.wikipedia.org/wiki/Fermi_(microarchitecture)>) | GeForce 400, GeForce 500 |  |  |  |  |  |  |  |  | 
-| NVE0 | [Kepler](<https://en.wikipedia.org/wiki/Kepler_(microarchitecture)>) | GeForce 600, GeForce 700, GeForce GTX Titan |  |  |  |  |  |  |  |  | 
-| NV110 | [Maxwell](<https://en.wikipedia.org/wiki/Maxwell_(microarchitecture)>) | GeForce 700, GeForce 900 |  |  |  |  |  | <sup>[\[6\]](https://wiki.gentoo.org#cite_note-maxwell-support-6)</sup> |  |  | 
-| NV130 | [Pascal](<https://en.wikipedia.org/wiki/Pascal_(microarchitecture)>) | GeForce 10 series |  |  |  |  |  | <sup>[\[6\]](https://wiki.gentoo.org#cite_note-maxwell-support-6)</sup> |  |  | 
-| NV140 | [Volta](<https://en.wikipedia.org/wiki/Volta_(microarchitecture)>) | Titan V |  |  |  |  |  | <sup>[\[6\]](https://wiki.gentoo.org#cite_note-maxwell-support-6)</sup> |  |  | 
-| NV160 | [Turing](<https://en.wikipedia.org/wiki/Turing_(microarchitecture)>) | GeForce 16 series, GeForce 20 series |  |  |  |  |  |  |  |  | 
-| NV170 | [Ampere](<https://en.wikipedia.org/wiki/Ampere_(microarchitecture)>) | GeForce 30 series |  |  |  |  |  |  |  |  | 
-| AD10x | [Ada Lovelace](<https://en.wikipedia.org/wiki/Ada_Lovelace_(microarchitecture)>) | GeForce 40 series |  |  |  |  |  |  |  |  | 
-| GB20x | [Blackwell](<https://en.wikipedia.org/wiki/Blackwell_(microarchitecture)>) | GeForce 50 series |  |  |  |  |  |  |  |  | 
+| NV04 | [Fahrenheit](<https://en.wikipedia.org/wiki/Fahrenheit_(microarchitecture)>) | Riva TNT, Riva TNT2 | 1.2 | No | No | No | No | 71.86.xx | No | Yes | 
+| NV10 | [Celsius](<https://en.wikipedia.org/wiki/Celsius_(microarchitecture)>) | GeForce 256, GeForce 2, GeForce 4 MX | 1.2 | No | No | No | No | 71.86.xx | No | Yes | 
+| NV20 | [Kelvin](<https://en.wikipedia.org/wiki/Kelvin_(microarchitecture)>) | GeForce 3, GeForce 4 Ti | 1.3 | No | No | No | No | 96.43.xx | No | Yes | 
+| NV30 | [Rankine](<https://en.wikipedia.org/wiki/Rankine_(microarchitecture)>) | GeForce 5 / GeForce FX | 1.5 | No | No | No | No | 173.14.xx | No | Yes | 
+| NV40 | [Curie](<https://en.wikipedia.org/wiki/Curie_(microarchitecture)>) | GeForce 6, GeForce 7 | 2.1 | No | No | No | No | 304.xx | No | Yes | 
+| NV50 | [Tesla](<https://en.wikipedia.org/wiki/Tesla_(microarchitecture)>) | GeForce 8, GeForce 9, GeForce 100, GeForce 200, GeForce 300 | 3.3 | No | Yes | No | 1.1 | 340.xx | No | Yes | 
+| NVC0 | [Fermi](<https://en.wikipedia.org/wiki/Fermi_(microarchitecture)>) | GeForce 400, GeForce 500 | 4.6 | 1.1 / 1.2 | Yes | No | 2.1 | 390.xx | No | Yes | 
+| NVE0 | [Kepler](<https://en.wikipedia.org/wiki/Kepler_(microarchitecture)>) | GeForce 600, GeForce 700, GeForce GTX Titan | 4.6 | 1.1 / 1.2 | Yes | 1.2 / 1.3 | 3.0 | 470.xx | No | 3.14 | 
+| NV110 | [Maxwell](<https://en.wikipedia.org/wiki/Maxwell_(microarchitecture)>) | GeForce 700, GeForce 900 | 4.6 | 3.0 | Yes | 1.4 | 5.2 | 580.xx <sup>[\[6\]](https://wiki.gentoo.org#cite_note-maxwell-support-6)</sup> | No | 4.6 | 
+| NV130 | [Pascal](<https://en.wikipedia.org/wiki/Pascal_(microarchitecture)>) | GeForce 10 series | 4.6 | 3.0 | Yes | 1.4 | 6.1 | 580.xx <sup>[\[6\]](https://wiki.gentoo.org#cite_note-maxwell-support-6)</sup> | No | 4.8 | 
+| NV140 | [Volta](<https://en.wikipedia.org/wiki/Volta_(microarchitecture)>) | Titan V | 4.6 | 3.0 | Yes | 1.4 | 7.0 | 580.xx <sup>[\[6\]](https://wiki.gentoo.org#cite_note-maxwell-support-6)</sup> | No | 4.19 | 
+| NV160 | [Turing](<https://en.wikipedia.org/wiki/Turing_(microarchitecture)>) | GeForce 16 series, GeForce 20 series | 4.6 | 3.0 | Yes | 1.4 | 7.5 | latest | Yes | 6.7 | 
+| NV170 | [Ampere](<https://en.wikipedia.org/wiki/Ampere_(microarchitecture)>) | GeForce 30 series | 4.6 | 3.0 | Yes | 1.4 | 8.7 | latest | Yes | 6.7 | 
+| AD10x | [Ada Lovelace](<https://en.wikipedia.org/wiki/Ada_Lovelace_(microarchitecture)>) | GeForce 40 series | 4.6 | 3.0 | Yes | 1.4 | 8.9 | latest | Yes | 6.7 | 
+| GB20x | [Blackwell](<https://en.wikipedia.org/wiki/Blackwell_(microarchitecture)>) | GeForce 50 series | 4.6 | 3.0 | Yes | 1.4 | 12.0 | latest | Yes | No | 
 
 A full list of NVIDIA GPU capabilities can be found [here](https://en.wikipedia.org/wiki/List_of_Nvidia_graphics_processing_units).
 

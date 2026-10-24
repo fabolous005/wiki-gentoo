@@ -4,8 +4,8 @@ title: nouveau & nvidia-drivers switching
 url: https://wiki.gentoo.org/wiki/Nouveau_%26_nvidia-drivers_switching
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2023-06-21"
-fingerprint: ec3d3fdc13f9f31
+date: "2026-10-23"
+fingerprint: "1ec393fcc1379f31"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,7 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
 
 This article describes how to switch between [NVIDIA's binary driver](https://wiki.gentoo.org/wiki/NVIDIA/nvidia-drivers) and the open source [nouveau](https://wiki.gentoo.org/wiki/Nouveau) driver.
 
@@ -29,8 +30,18 @@ This method assumes the following:
 
 It is assumed the system already has a nouveau kernel and want to build the one that will use the NVIDIA driver. Begin with appending the *-nvidia* suffix to the kernel name:
 
+```
+General setup  --->
+    (-mykernel-nvidia) Local version - append to kernel release
+```
 Now make sure the nouveau driver is disabled or built as a module:
 
+```
+Device Drivers  --->
+    Graphics support  --->
+        <*> Direct Rendering Manager (XFree86 4.1.0 and higher DRI support)
+        <M> Nouveau (NVIDIA) cards
+```
 Now recompile and install the kernel. Make sure to update GRUB to take the new kernel into account. Note that kernels with the same version but with different names are considered unique. To emerge an out-of-tree kernel module to be used with the nouveau kernel, first, copy over the nouveau kernels config file to /usr/src/linux/.config.
 
 **`/etc/portage/make.conf`**
@@ -89,10 +100,26 @@ Within the grub.cfg file, duplicate the desired menu item and then edit the two 
 
 **Before:**
 
+```
+menuentry 'Gentoo Linux' {
+        root=hd0,1
+        linux /boot/bzImage root=PARTUUID=11111111-2222-3333-4444-555555555555 init=/usr/lib/systemd/systemd console=tty1
+}
+```
 **`/boot/grub/grub.cfg`**
 
 **After:**
 
+```
+menuentry 'Gentoo Linux - Nouveau' {
+        root=hd0,1
+        linux /boot/bzImage root=PARTUUID=11111111-2222-3333-4444-555555555555 init=/usr/lib/systemd/systemd console=tty1 modprobe.blacklist=nvidia systemd.setenv=GPUMOD=nouveau
+}
+menuentry 'Gentoo Linux - Nvidia' {
+        root=hd0,1
+        linux /boot/bzImage root=PARTUUID=11111111-2222-3333-4444-555555555555 init=/usr/lib/systemd/systemd console=tty1 modprobe.blacklist=nouveau systemd.setenv=GPUMOD=nvidia
+}
+```
 Next, create a small script similar to the one shown in the "Switching using two kernels" section. It is very similar, but slightly modified. For the sake on continuity, place it in the same location. The main difference is that is does not use the kernel's name to determine which profile to use, but rather it uses a variable set in the environment by systemd from the kernel command line.
 
 **`/etc/local.d/nvidia.start`**

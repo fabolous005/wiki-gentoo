@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Nextcloud
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-05-15"
-fingerprint: b91b615085a731c4
+fingerprint: f91b015085a731c4
 license: CC BY-SA 4.0
 ---
 
@@ -68,6 +68,11 @@ Once PHP, Apache and (optionally) the caching service have been installed, simpl
 ### USE flags
 
 
+### USE flags for
+            [www-apps/nextcloud](https://packages.gentoo.org/packages/www-apps/nextcloud)
+            
+            Personal cloud that runs on your own server
+
 | [+curl](https://packages.gentoo.org/useflags/+curl) | Add support for client-side URL transfer library | 
 | [+imagemagick](https://packages.gentoo.org/useflags/+imagemagick) | Enable optional support for the ImageMagick or GraphicsMagick image converter | 
 | [+sqlite](https://packages.gentoo.org/useflags/+sqlite) | Add support for sqlite - embedded sql database | 
@@ -101,6 +106,9 @@ To enable on Gentoo, set the `mysql` USE flag. It is recommended to disable `sql
 
 **Enable MySQL database support**
 
+```
+www-apps/nextcloud mysql
+```
 Ask Portage to rebuild the world set:
 
 `root #``emerge --ask --update --deep --newuse @world`

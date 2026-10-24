@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Visual_Interactive_Taskwarrior
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-09-06"
-fingerprint: bedd9ffc85a772e6
+fingerprint: bec99ffc85a77ae6
 license: CC BY-SA 4.0
 ---
 
 # Visual Interactive Taskwarrior
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -21,6 +23,13 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [app-misc/vit](https://packages.gentoo.org/packages/app-misc/vit)
+            
+            A lightweight, fast, curses-based front end to Taskwarrior
+
+| [test](https://packages.gentoo.org/useflags/test) | Enable dependencies and/or preparations necessary to run tests (usually controlled by FEATURES=test but can be toggled independently) | 
 
 ### Emerge
 

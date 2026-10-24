@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Rex
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-06-27"
-fingerprint: b41cdd7526a39aeb
+fingerprint: b418dd7126a398eb
 license: CC BY-SA 4.0
 ---
 
@@ -26,6 +26,11 @@ Like many other configuration management tools rex is agentless, only requiring 
 
 ### USE flags
 
+
+### USE flags for
+            [app-admin/rex](https://packages.gentoo.org/packages/app-admin/rex)
+            
+            (R)?ex, the friendly automation framework
 
 ### Emerge
 

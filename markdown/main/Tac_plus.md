@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Tac_plus
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-11-28"
-fingerprint: bc19ff5b0a80ad95
+fingerprint: ac09f95b0a80ad95
 license: CC BY-SA 4.0
 ---
 
@@ -15,6 +15,8 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+
+**Archived article**
 
 This article is **archived (obsolete)**. Contents are surely incorrect for current usage, and are intended for historical reference only.
 
@@ -72,18 +74,58 @@ User authentication to local passwd file /etc/passwd example:
 
 **`/etc/tac_plus/tac_plus.conf`**
 
+```
+key = 123-my_tacacs_key
+group = netadmin {
+        default service = permit
+        login = file /etc/passwd
+        service = exec {
+                priv-lvl = 15
+                }
+}
+user = larry {
+        member = netadmin
+}
+```
 ### Authentication with PAM
 
 User authentication with **PAM** example:
 
 **`/etc/tac_plus/tac_plus.conf`**
 
+```
+key = 123-my_tacacs_key
+group = netadmin {
+        default service = permit
+        service = exec {
+                priv-lvl = 15
+                }
+}
+user = larry {
+        login = PAM
+        member = netadmin
+}
+```
 ### Authentication to tac\_plus.conf
 
 User authentication to password configured in /etc/tac\_plus/tac\_plus.conf example:
 
 **`/etc/tac_plus/tac_plus.conf`**
 
+```
+key = 123-my_tacacs_key
+group = netadmin {
+        default service = permit
+        service = exec {
+                priv-lvl = 15
+                }
+}
+user = larry {
+        # Blowfish encrypted password 
+        login = des $2y$13$gOidpeUuPPMJkEMvzOhjgOZ7BtF6CiluADW3DklfCdnlkYGZYs0hi
+        member = netadmin   
+}
+```
 tac\_plus uses the crypt() library in the underlying operating system and asks it to hash a given password against the hash in *tac\_plus.conf*.
 
 As such, one can transparently put any hash value you like in tac\_plus.conf as long as glibc crypt() supports it. On Linux systems these days with *>=glibc-2.7*

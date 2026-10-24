@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Trusted_Platform_Module
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-11-08"
-fingerprint: "864d597f6daa9c50"
+fingerprint: "864d597f6dab9c50"
 license: CC BY-SA 4.0
 ---
 
@@ -94,6 +94,11 @@ The Trusted Computing Group PC Client Specific Platform Profile Specification de
        <*> TPM 2.0 CRB Interface [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for <code>CONFIG_TCG_CRB</code> to find this item.
 ### USE flags
 
+
+### USE flags for
+            [app-crypt/tpm2-tss](https://packages.gentoo.org/packages/app-crypt/tpm2-tss)
+            
+            TCG Trusted Platform Module 2.0 Software Stack
 
 | [+fapi](https://packages.gentoo.org/useflags/+fapi) | Enable feature API (requires openssl as crypto backend) | 
 | [+openssl](https://packages.gentoo.org/useflags/+openssl) | Use dev-libs/openssl as crypto engine | 

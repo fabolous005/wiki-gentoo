@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Kerberos_Windows_Interoperability
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-08-24"
-fingerprint: f2a1e9596f057eb0
+fingerprint: f2a9e9596f057fb0
 license: CC BY-SA 4.0
 ---
 
@@ -103,7 +103,7 @@ Make sure you have a reasonably recent Samba release installed (eg 3.5 or 3.6+)
 **Example Apache Kerberos config**
 
 ```
- AUTH_KERB>
+<IfDefine AUTH_KERB>
 LoadModule auth_kerb_module modules/mod_auth_kerb.so
 #LogLevel Debug
 <Location "/">
@@ -151,7 +151,7 @@ Use Samba to get the service principle for SSHD - "host". Just to spell it out i
 **Part of sshd's configuration file**
 
 ```
- yes                   
+KerberosAuthentication yes                   
 KerberosOrLocalPasswd yes                          
 KerberosTicketCleanup yes                     
 GSSAPIAuthentication yes 
@@ -169,7 +169,7 @@ Squid also seems to use "HTTP" as its service name like Apache. This will probab
 **Part of the Squid configuration**
 
 ```
- negotiate program /usr/libexec/squid/squid_kerb_auth -d
+auth_param negotiate program /usr/libexec/squid/squid_kerb_auth -d
 auth_param negotiate children 10
 auth_param negotiate keep_alive on 
 acl AUTHENTICATED proxy_auth REQUIRED
@@ -245,7 +245,7 @@ For the SSH client on Linux. This can go in the system wide configuration or in 
 **ssh config snippet**
 
 ```
- *.example.co.uk
+host *.example.co.uk
   GSSAPIAuthentication yes
 ```
 ### Evolution EWS
@@ -386,7 +386,7 @@ NIS:
 **NIS nsswitch config snippet**
 
 ```
-      compat winbind
+passwd:      compat winbind
 shadow:      compat
 group:       compat winbind
 ```
@@ -407,7 +407,7 @@ Setup PAM:
 **PAM config**
 
 ```
-        required      pam_env.so
+auth        required      pam_env.so
 auth        sufficient    pam_unix.so likeauth nullok try_first_pass
 auth        sufficient    pam_winbind.so use_first_pass
 auth        required      pam_deny.so

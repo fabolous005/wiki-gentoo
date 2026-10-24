@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Tahoe-LAFS
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-06-16"
-fingerprint: a74de95dfcbdc0cd
+fingerprint: a74da17fecbdc1cd
 license: CC BY-SA 4.0
 ---
 
@@ -23,6 +23,9 @@ license: CC BY-SA 4.0
 
 (Optional section. Remove if not applicable.)
 
+```
+Write kernel feature instructions here.
+```
 ### USE flags
 
 There are only a couple USE flags available for Tahoe-LAFS, neither of them incorporate additional functionality. Essentially when more documentation is desired make sure the `doc` flag is enabled in /etc/portage/package.use.

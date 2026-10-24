@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Ibus-libpinyin
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-08-10"
-fingerprint: fedc9e1a6c1739bc
+fingerprint: fedcbe1a2c973cfc
 license: CC BY-SA 4.0
 ---
 
@@ -21,6 +21,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [app-i18n/ibus-libpinyin](https://packages.gentoo.org/packages/app-i18n/ibus-libpinyin)
+            
+            Intelligent Pinyin and Bopomofo input methods based on LibPinyin for IBus
 
 ### Emerge
 

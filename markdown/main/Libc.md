@@ -16,6 +16,8 @@ license: CC BY-SA 4.0
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
 
+**Resources**
+
 For Unix-like operating systems, the **libc** is a software component that allows userspace applications to interact with operating system services.
 
 libc implements the facilities specified by the library clause of the C programming language standard —ISO/IEC International Standard 9899—, the POSIX (*Portable Operating System Interface*) and X/Open system interfaces as defined in IEEE Standard 1003.1, and other extensions.

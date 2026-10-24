@@ -31,6 +31,9 @@ To avoid having to compile [dev-qt/qtwebengine](https://packages.gentoo.org/pack
 
 **`/etc/portage/make.conf`**
 
+```
+USE="pulseaudio -webengine -bluetooth bash-completion"
+```
 For some packages, the `gui, urlpreview, rss, qt5, pyqt5, dictionary-manager` and maybe other USE flags determine QtWebEngine dependency, so it may be useful to watch if theses flags are needed [for certain packages](https://wiki.gentoo.org/wiki//etc/portage/package.use) or not.
 
 If QtWebEngine has already been pulled in as a dependency, and may now be removed, execute the following commands after modifying make.conf:

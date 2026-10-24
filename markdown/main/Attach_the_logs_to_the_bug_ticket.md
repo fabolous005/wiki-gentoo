@@ -4,7 +4,7 @@ title: Attach the logs to the bug ticket
 url: https://wiki.gentoo.org/wiki/Attach_the_logs_to_the_bug_ticket
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-07-09"
+date: "2026-10-24"
 fingerprint: b60c9e4a4fb70bb5
 license: CC BY-SA 4.0
 ---
@@ -37,7 +37,7 @@ If build.log is large, [compress it](https://wiki.gentoo.org#Compressing_log_fil
 
 When submitting a bug report, please:
 
-- Do **not paste files into comments**, because the ticket gets difficult to read. Developers often use tools to handle attachments.
+- Do **not paste files into comments** because it makes the ticket difficult to read. Developers often use tools to handle attachments.
 - Do **not upload files to pastebins**. It is often important to read about a bug some years later. Links to external pages are not archived by Gentoo and the information is lost. Some developers use tools to work on bugs and cannot open external websites easily.
 
 ### Compressing log files

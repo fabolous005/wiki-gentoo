@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/OpenLDAP
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-03-05"
-fingerprint: e30d607e852523e4
+fingerprint: e309647e852523e4
 license: CC BY-SA 4.0
 ---
 
@@ -21,6 +21,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [net-nds/openldap](https://packages.gentoo.org/packages/net-nds/openldap)
+            
+            LDAP suite of application and development tools
 
 | [+cleartext](https://packages.gentoo.org/useflags/+cleartext) | Enable use of cleartext passwords | 
 | [+syslog](https://packages.gentoo.org/useflags/+syslog) | Enable support for syslog | 
@@ -135,7 +140,7 @@ Next, the dn: olcDatabase=mdb,cn=config entry needs to be edited.  Change the `o
 **(Excerpt)**
 
 ```
- olcDatabase=mdb,cn=config
+dn: olcDatabase=mdb,cn=config
 objectClass: olcDatabaseConfig
 objectClass: olcMdbConfig
 olcDatabase: mdb
@@ -345,7 +350,7 @@ An entry with a hashed password looks like this:
 **Example Hashed Password**
 
 ```
- uid=larry,ou=users,dc=example,dc=com
+dn: uid=larry,ou=users,dc=example,dc=com
 objectClass: person
 objectClass: posixAccount
 objectClass: top

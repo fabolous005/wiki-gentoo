@@ -15,6 +15,8 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+*Not to be confused with[LLVM](https://wiki.gentoo.org/wiki/LLVM).*
+
 **LVM** (**L**ogical **V**olume **M**anager) allows administrators to create meta devices that provide an abstraction layer between a file system and the physical storage that is used underneath. The meta devices (on which file systems are placed) are *logical volumes*, which use storage from storage pools called *volume groups*. A volume group is provisioned with one or more *physical volumes* which are the true devices on which the data is stored.
 
 Physical volumes can be partitions, whole hard drives grouped as JBOD (**J**ust a **B**unch **O**f **D**isks), RAID systems, iSCSI, Fibre Channel, eSATA etc.
@@ -29,8 +31,24 @@ Activate the following kernel options:
 
 **Enabling LVM**
 
+```
+Device Drivers  --->
+   Multiple devices driver support (RAID and LVM)  --->
+       <*> Device mapper support
+           <*> Crypt target support
+           <*> Snapshot target
+           <*> Mirror target
+           <*> Multipath target
+               <*> I/O Path Selector based on the number of in-flight I/Os
+               <*> I/O Path Selector based on the service time
+```
 ### USE flags
 
+
+### USE flags for
+            [sys-fs/lvm2](https://packages.gentoo.org/packages/sys-fs/lvm2)
+            
+            User-land utilities for LVM2 (device-mapper) software
 
 | [+udev](https://packages.gentoo.org/useflags/+udev) | Enable virtual/udev integration (device discovery, power and storage device support, etc) | 
 | [lvm](https://packages.gentoo.org/useflags/lvm) | Build all of LVM2 including daemons and tools like lvchange, not just the device-mapper library (for other packages to use). If your system uses LVM2 for managing disks and partitions, enable this flag. | 
@@ -381,6 +399,12 @@ LVM provides quite a few interesting features for storage administrators, includ
 
 **Enable thin provisioning (`DM_THIN_PROVISIONING`)**
 
+```
+Device Drivers  --->
+   Multiple devices driver support (RAID and LVM)  --->
+       <*> Device mapper support
+           <*> Thin provisioning target
+```
 Make sure to enable the [thin](https://packages.gentoo.org/useflags/thin) [USE flag for](https://wiki.gentoo.org/wiki/USE_flag) [sys-fs/lvm2](https://packages.gentoo.org/packages/sys-fs/lvm2):
 
 **`/etc/portage/package.use`**
@@ -461,6 +485,8 @@ Thin pools cannot be removed until all the thin logical volumes inside it are re
 When a thin pool no longer services any thin logical volume, it can be removed through the lvremove command:
 
 `root #``lvremove vg0/thin_pool`
+### LVM2 snapshots and thin snapshots
+
 A snapshot is a logical volume that acts as copy of another logical volume. It displays the state of the original logical volume at the time of snapshot creation.
 
 #### Creating a snapshot logical volume
@@ -581,6 +607,8 @@ lvcreate -m 1 --mirrorlog mirrored -l40%VG -n thin_pool vg0
 lvcreate -m 1 --mirrorlog mirrored -L4M -n thin_meta vg0
 ```
 `root #``lvconvert --thinpool vg0/thin_pool --poolmetadata vg0/thin_meta`
+#### Striping (RAID0)
+
 Instead of a linear volume, where multiple contiguous physical volumes are appended, it possible to create a *striped* or *RAID0* volume for better performance. This will alternate storage allocations across the available physical volumes.
 
 To create a striped volume over three physical volumes:

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Polkit
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-08-03"
-fingerprint: e210b93ad7c33881
+fingerprint: e710b93ac7c33889
 license: CC BY-SA 4.0
 ---
 
@@ -45,6 +45,11 @@ USE="policykit"
 ```
 The USE flags of [sys-auth/polkit](https://packages.gentoo.org/packages/sys-auth/polkit) are:
 
+
+### USE flags for
+            [sys-auth/polkit](https://packages.gentoo.org/packages/sys-auth/polkit)
+            
+            Policy framework for controlling privileges for system-wide services
 
 | [+introspection](https://packages.gentoo.org/useflags/+introspection) | Add support for GObject based introspection | 
 | [elogind](https://packages.gentoo.org/useflags/elogind) | Enable session tracking via sys-auth/elogind | 

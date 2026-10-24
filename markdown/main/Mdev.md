@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Mdev
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-01-10"
-fingerprint: "9f9bb15b8597b9a0"
+fingerprint: "1f8bb15b859fb9a0"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,7 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
 
 This article documents how to replace udev in Linux with mdev, thus allowing a separate /usr partition, without an [initramfs](https://wiki.gentoo.org/wiki/Initramfs). The author uses Gentoo Linux with IceWM as the window manager. The instructions here should be, with some small adjustments, applicable to other distributions.
 
@@ -56,6 +57,9 @@ Add the following line to the /etc/portage/package.mask or /etc/portage/package.
 
 **Mask away udev**
 
+```
+sys-fs/udev
+```
 Disable the `udev` USE flag globally in /etc/portage/make.conf:
 
 `root #``euse -D udev`
@@ -72,6 +76,12 @@ Set up the kernel to support and automount a devtmpfs [filesystem](https://wiki.
 
 **Enabling devtmpfs**
 
+```
+Device Drivers --->
+    Generic Driver Options --->
+        [*] Maintain a devtmpfs filesystem to mount at /dev
+        [*] Automount devtmpfs at /dev, after the kernel mounted the rootfs
+```
 Once the changes have been made, rebuild the kernel. Do **NOT** reboot yet.
 
 ### Emerging busybox
@@ -80,6 +90,9 @@ Make sure that the `mdev` USE flag is set for [sys-apps/busybox](https://package
 
 **`/etc/portage/package.use/mdev`**
 
+```
+sys-apps/busybox static mdev
+```
 Now, (re)install busybox:
 
 `root #``emerge --ask --oneshot busybox`
@@ -137,6 +150,13 @@ For libusb (and hence CUPS) to see the USB ports, set `CONFIG_USB_DEVICE_CLASS=y
 
 **Enabling generation of USB devices at boot time**
 
+```
+Device Drivers --->
+    [*] Support for Host-side USB
+      [*] USB device filesystem [DEPRECATED]
+      [*] USB device class-devices [DEPRECATED]
+    [*] USB Printer support
+```
 ### Configure the new kernel into the bootloader and reboot into it
 
 ### Verify the presence of the new device nodes

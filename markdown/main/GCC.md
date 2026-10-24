@@ -69,7 +69,7 @@ Third-party front ends exist for the [Pascal](<https://en.wikipedia.org/wiki/Pas
 | [time64](https://packages.gentoo.org/useflags/time64) | Use 64-bit time\_t type instead of the regular 32-bit type. This flag is forced on time64 profiles, and masked elsewhere. It should be only used when detection of type width is not possible (e.g. for SRC\_URI) | 
 | [valgrind](https://packages.gentoo.org/useflags/valgrind) | Enable annotations for accuracy. May slow down runtime slightly. Safe to use even if not currently using dev-debug/valgrind | 
 | [vanilla](https://packages.gentoo.org/useflags/vanilla) | Do not add extra patches which change default behaviour; DO NOT USE THIS ON A GLOBAL SCALE as the severity of the meaning changes drastically | 
-| [vtv](https://packages.gentoo.org/useflags/vtv) | Build support for virtual table verification (a C++ hardening feature). This does not control whether GCC defaults to using VTV> Note that actually using VTV breaks ABI and hence the whole system must be built with -fvtable-verify. | 
+| [vtv](https://packages.gentoo.org/useflags/vtv) | Build support for virtual table verification (a C++ hardening feature). This does not control whether GCC defaults to using VTV. Note that actually using VTV breaks ABI and hence the whole system must be built with -fvtable-verify. | 
 | [zstd](https://packages.gentoo.org/useflags/zstd) | Enable support for ZSTD compression | 
 
 The [graphite](https://packages.gentoo.org/useflags/graphite) [USE flag](https://wiki.gentoo.org/wiki/USE_flag) is needed for the `-ftree-loop-optimize`, `-fgraphite-identity`, `-floop-nest-optimize`, and `-floop-parallelize-all` options. [\[2\]](https://wiki.gentoo.org#cite_note-2)

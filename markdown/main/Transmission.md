@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Transmission
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-08-21"
-fingerprint: "3e88c15d2906b9e5"
+fingerprint: "3a88c15c2906b9e5"
 license: CC BY-SA 4.0
 ---
 
@@ -21,6 +21,11 @@ Transmission ([net-p2p/transmission](https://packages.gentoo.org/packages/net-p2
 
 ### USE flags
 
+
+### USE flags for
+            [net-p2p/transmission](https://packages.gentoo.org/packages/net-p2p/transmission)
+            
+            A fast, easy, and free BitTorrent client
 
 | [appindicator](https://packages.gentoo.org/useflags/appindicator) | Build in support for notifications using the libindicate or libappindicator plugin | 
 | [cli](https://packages.gentoo.org/useflags/cli) | Build command-line client | 

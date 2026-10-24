@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Pdfbox
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-08-21"
-fingerprint: a211bf5b17302ee2
+fingerprint: a211bf4b17302ee2
 license: CC BY-SA 4.0
 ---
 
 # Pdfbox
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -21,6 +23,11 @@ The Apache PDFBox™ library is an open source Java tool for working with PDF do
 
 ### USE flags
 
+
+### USE flags for
+            [dev-java/pdfbox](https://packages.gentoo.org/packages/dev-java/pdfbox)
+            
+            Java library and utilities for working with PDF documents
 
 | [+tools](https://packages.gentoo.org/useflags/+tools) | Build and install pdfbox-tools | 
 | [doc](https://packages.gentoo.org/useflags/doc) | Add extra documentation (API, Javadoc, etc). It is recommended to enable per package instead of globally | 

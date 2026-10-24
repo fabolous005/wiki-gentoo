@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/OpenConnect
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-01-17"
-fingerprint: "7e18e85f5b823bcd"
+fingerprint: "7e18f85f5b822bcd"
 license: CC BY-SA 4.0
 ---
 
 # OpenConnect
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -29,6 +31,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [net-vpn/openconnect](https://packages.gentoo.org/packages/net-vpn/openconnect)
+            
+            Free client for Cisco AnyConnect SSL VPN software
 
 | [+gnutls](https://packages.gentoo.org/useflags/+gnutls) | Prefer net-libs/gnutls as SSL/TLS provider (ineffective with USE=-ssl) | 
 | [doc](https://packages.gentoo.org/useflags/doc) | Add extra documentation (API, Javadoc, etc). It is recommended to enable per package instead of globally | 
@@ -52,7 +59,7 @@ Install [net-vpn/openconnect](https://packages.gentoo.org/packages/net-vpn/openc
 
 ### Kernel
 
-**Enable support for TUN**
+KERNEL **Enable support for TUN**
 
 Device Drivers --->
  \[\*\] Network device support [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for \<code>CONFIG\_NETDEVICE\</code> to find this item. --->
@@ -63,8 +70,11 @@ Device Drivers --->
 
 Example shows building as a module:
 
-**`/etc/kernel/config.d/tun.config`**
+FILE **`/etc/kernel/config.d/tun.config`**
 
+```
+CONFIG_TUN=m
+```
 ## Configuration
 
 ### Environment variables

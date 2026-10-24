@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Smbnetfs
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-02-13"
-fingerprint: "9219d8789eb59dfd"
+fingerprint: "1219d8789fb59dfd"
 license: CC BY-SA 4.0
 ---
 
@@ -25,6 +25,13 @@ See the [Kernel section](https://wiki.gentoo.org/wiki/FUSE#Kernel) of the FUSE a
 
 ### USE flags
 
+
+### USE flags for
+            [net-fs/smbnetfs](https://packages.gentoo.org/packages/net-fs/smbnetfs)
+            
+            FUSE filesystem for SMB shares
+
+| [keyring](https://packages.gentoo.org/useflags/keyring) | Enable support for freedesktop.org Secret Service API password store | 
 
 ### Emerge
 
@@ -55,6 +62,9 @@ For example, when entering username/password in the configuration file, uncommen
 
 **`~/.smb/smbnetfs.conf`**
 
+```
+#auth                   "guest" ""
+```
 ## Usage
 
 ### Invocation

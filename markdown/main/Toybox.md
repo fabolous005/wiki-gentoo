@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Toybox
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-05-16"
-fingerprint: "90a33de335029a91"
+fingerprint: "90a33df335029e91"
 license: CC BY-SA 4.0
 ---
 
 # Toybox
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -21,6 +23,13 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [sys-apps/toybox](https://packages.gentoo.org/packages/sys-apps/toybox)
+            
+            Common linux commands in a multicall binary
+
+| [savedconfig](https://packages.gentoo.org/useflags/savedconfig) | Use this to restore your config from /etc/portage/savedconfig ${CATEGORY}/${PN}. Make sure your USE flags allow for appropriate dependencies | 
 
 ### Emerge
 

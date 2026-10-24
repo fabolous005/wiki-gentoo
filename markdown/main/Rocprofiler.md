@@ -15,6 +15,8 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+**Resources**
+
 **rocprofiler** is the profiler utility for GPGPU programs written in [HIP](https://wiki.gentoo.org/wiki/HIP).
 
 ## Installation

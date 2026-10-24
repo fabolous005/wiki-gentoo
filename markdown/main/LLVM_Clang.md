@@ -5,17 +5,23 @@ url: https://wiki.gentoo.org/wiki/LLVM/Clang
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-09-28"
-fingerprint: be61f30b28363680
+fingerprint: be61f30b28363790
 license: CC BY-SA 4.0
 ---
 
 # LLVM/Clang
+
+[LLVM](https://wiki.gentoo.org/wiki/Special:MyLanguage/LLVM)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
 **Resources**
+
+[#llvm](irc://irc.oftc.net/#llvm)(on
+
+[irc://irc.oftc.net](irc://irc.oftc.net))
 
 **Clang** is a C/C++/Objective-C/C++, CUDA, and RenderScript language front-end for the LLVM project with a focus on standards, code correctness, and useful diagnostic messages to ease compile time troubleshooting.
 
@@ -51,6 +57,11 @@ One of the goals of the Clang project is to be compatible with code written with
 
 ### USE flags
 
+
+### USE flags for
+            [llvm-core/clang](https://packages.gentoo.org/packages/llvm-core/clang)
+            
+            C language family frontend for LLVM
 
 | [+debug](https://packages.gentoo.org/useflags/+debug) | Enable extra debug codepaths, like asserts and extra output. If you want to get meaningful backtraces see https://wiki.gentoo.org/wiki/Project:Quality\_Assurance/Backtraces | 
 | [+extra](https://packages.gentoo.org/useflags/+extra) | Build extra tools (clangd, clang-tidy and a few more) | 
@@ -108,7 +119,7 @@ Alternatively, the same contents could be put in e.g. /etc/portage/env/compiler-
 **Using the*Clang* compiler for *app-foo/bar* and *app-bar/baz***
 
 ```
- compiler-clang
+app-foo/bar compiler-clang
 app-bar/baz compiler-clang
 ```
 ### GCC fallback environment
@@ -200,7 +211,7 @@ Now set /etc/portage/package.env overrides using Clang with LTO enabled:
 **Enabling*LTO* for *app-foo/bar* and *app-bar/baz***
 
 ```
- compiler-clang-lto
+app-foo/bar compiler-clang-lto
 app-bar/baz compiler-clang-lto
 ```
 #### Global configuration
@@ -256,6 +267,7 @@ Get [app-arch/zstd](https://packages.gentoo.org/packages/app-arch/zstd) with USE
 
 Get Propeller:
 
+`user $``git clone` [https://github.com/google/llvm-propeller.git](https://github.com/google/llvm-propeller.git)`user $``cd llvm-propeller`
 Build Propeller from source:
 
 `user $``cmake -G Ninja -B build``user $``ninja -C build generate_propeller_profiles`
@@ -269,10 +281,18 @@ If the packages being installed are failing, check the logs. Often, packages wit
 
 **`/var/log/portage/sys-apps:less-483-r1:20160712-034715.log`**
 
+```
+/usr/bin/x86_64-pc-linux-gnu-ld: error: version.o:1:3: invalid character
+/usr/bin/x86_64-pc-linux-gnu-ld: error: version.o:1:3: syntax error, unexpected $end
+/usr/bin/x86_64-pc-linux-gnu-ld: error: version.o: not an object or archive
+```
 The following error may be seen in every LTO failure case:
 
 **`/var/log/portage/sys-apps:less-483-r1:20160712-034715.log`**
 
+```
+x86_64-pc-linux-gnu-clang-3.8: error: linker command failed with exit code 1 (use -v to see invocation)
+```
 Simply add the failing package to /etc/portage/package.env. In this case, it's the [sys-apps/less](https://packages.gentoo.org/packages/sys-apps/less) package, so to apply the proper override.
 
 **`/etc/portage/package.env`**
@@ -287,6 +307,9 @@ Sometimes a package will fail to compile even when disabling LTO because it requ
 
 **`/var/log/portage/dev-libs:boehm-gc-7.4.2:20160713-085706.log`**
 
+```
+/usr/lib64/libatomic_ops.a: error adding symbols: Archive has no index; run ranlib to add one
+```
 In this case libatomic\_ops is causing boehm-gc to fail compiling. Recompile the program causing the failure using the non-LTO environment and then recompile the new program. In this case, boehm-gc fails when using LTO, so add both of them to the /etc/portage/package.env file to build them without LTO:
 
 **`/etc/portage/package.env`**
@@ -294,7 +317,7 @@ In this case libatomic\_ops is causing boehm-gc to fail compiling. Recompile the
 **Example*package.env* setup**
 
 ```
- compiler-clang
+dev-libs/boehm-gc compiler-clang
 dev-libs/libatomic_ops compiler-clang
 ```
 ### Use of GNU extensions without proper -std=
@@ -313,6 +336,12 @@ A common symptom of this problem is multiple definitions of inline functions lik
 
 **Example package error in example log**
 
+```
+/usr/bin/x86_64-pc-linux-gnu-ld: error: ../mpi/.libs/libmpi.a(mpi-bit.o): multiple definition of '_gcry_mpih_add'
+/usr/bin/x86_64-pc-linux-gnu-ld: ../mpi/.libs/libmpi.a(mpi-add.o): previous definition here
+/usr/bin/x86_64-pc-linux-gnu-ld: error: ../mpi/.libs/libmpi.a(mpi-bit.o): multiple definition of '_gcry_mpih_add_1'
+/usr/bin/x86_64-pc-linux-gnu-ld: ../mpi/.libs/libmpi.a(mpi-add.o): previous definition here
+```
 This is because Clang uses C99 inline rules by default, which are incompatible with gnu89 code; as a workaround, it is likely necessary to pass `-std=gnu89` or set package.env to use GCC for a failing package if passing the proper `-std=` flag doesn't work.
 
 Since both current (2020) GCC and Clang default to `-std=gnu17` with C99 inline rules, these problems have likely been spotted by GCC developers.

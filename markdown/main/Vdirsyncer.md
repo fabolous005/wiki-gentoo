@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Vdirsyncer
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-12-29"
-fingerprint: "4c5fb84f01a19fbe"
+fingerprint: cc53b84f01a19fbe
 license: CC BY-SA 4.0
 ---
 
 # Vdirsyncer
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -21,6 +23,13 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [dev-python/vdirsyncer](https://packages.gentoo.org/packages/dev-python/vdirsyncer)
+            
+            Synchronize calendars and contacts
+
+| [test](https://packages.gentoo.org/useflags/test) | Enable dependencies and/or preparations necessary to run tests (usually controlled by FEATURES=test but can be toggled independently) | 
 
 ### Emerge
 
@@ -76,7 +85,7 @@ You need to register vdirsyncer as an application yourself to obtain client\_id 
 
 - In your vdirsyncer config file; paste in the client ID and secret.
 
-**`~/.config/vdirsyncer/config`**
+FILE **`~/.config/vdirsyncer/config`**
 
 ```
 ...
@@ -92,7 +101,7 @@ client_secret = "..."
 
 - Find the three lines
 
-**`/usr/lib/python3.10/site-packages/vdirsyncer/storage/google.py`**
+FILE **`/usr/lib/python3.10/site-packages/vdirsyncer/storage/google.py`**
 
 ```
 ...

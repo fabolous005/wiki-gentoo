@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Recommended_applications
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-09-07"
-fingerprint: "125d6f7a099728bd"
+fingerprint: "125f6f7a099729bd"
 license: CC BY-SA 4.0
 ---
 
@@ -25,11 +25,17 @@ To reference a new piece of software here, please read the [adding to this page]
 
 This is a "best of kind" list, **much more software is available on Gentoo**. Use [eix](https://wiki.gentoo.org/wiki/Eix) or browse [packages.gentoo.org](https://packages.gentoo.org/categories) to find **all** applications available on Gentoo.
 
+## Desktop environment
+
+### Application launchers
+
 | Name | Package | Description | 
 |---|---|---|
 |  [dmenu](https://wiki.gentoo.org/wiki/Dwm#dmenu) | [x11-misc/dmenu](https://packages.gentoo.org/packages/x11-misc/dmenu) | Generic, highly customizable, and efficient menu for [X11](https://wiki.gentoo.org/wiki/Xorg). | 
 | Rofi | [x11-misc/rofi](https://packages.gentoo.org/packages/x11-misc/rofi) | Window switcher, run dialog, and dmenu replacement. | 
 | [Wofi](https://wiki.gentoo.org/wiki/Wofi) | [gui-apps/wofi](https://packages.gentoo.org/packages/gui-apps/wofi) | Launcher/menu program for [wlroots](https://wiki.gentoo.org/wiki/Wlroots)-based [Wayland](https://wiki.gentoo.org/wiki/Wayland) compositors such as [Sway](https://wiki.gentoo.org/wiki/Sway). | 
+
+### Clipboard managers
 
 The X11 clipboard supports multiple selections which may be filled by simply selecting text on the screen or by specifically using a copy function. [X11](https://wiki.gentoo.org/wiki/Xorg) selections have a coherent operation and applications implement their use by convention, though the conventions are not always fully respected. Clipboard managers generally manage a history of the X11 selections and sometimes modify their behavior.
 
@@ -42,10 +48,14 @@ The X11 clipboard supports multiple selections which may be filled by simply sel
 | wl-clipboard | [gui-apps/wl-clipboard](https://packages.gentoo.org/packages/gui-apps/wl-clipboard) | Copy data from standard input to [Wayland](https://wiki.gentoo.org/wiki/Wayland) clipboard. | 
 | xclip | [x11-misc/xclip](https://packages.gentoo.org/packages/x11-misc/xclip) | Copy data from standard input to [X](https://wiki.gentoo.org/wiki/Xorg) clipboard. | 
 
+### Configuration
+
 | Name | Package | Description | 
 |---|---|---|
 | MenuLibre | [x11-misc/menulibre](https://packages.gentoo.org/packages/x11-misc/menulibre) | Application menu editor. | 
 | QtCurve | [x11-themes/qtcurve](https://packages.gentoo.org/packages/x11-themes/qtcurve) | Toolkit theme to provide a common style to [GNOME](https://wiki.gentoo.org/wiki/GNOME)/[GTK](https://wiki.gentoo.org/wiki/GTK) and [KDE](https://wiki.gentoo.org/wiki/KDE)/[Qt](https://wiki.gentoo.org/wiki/Qt) applications. See [GTK themes in Qt applications](https://wiki.gentoo.org/wiki/GTK_themes_in_Qt_applications) for more information. | 
+
+### Taskbars / Panels
 
 A [taskbar](https://en.wikipedia.org/wiki/Taskbar) is generally a strip on one edge of the screen with a menu, a representation of open windows, shortcuts to launch apps, widgets to display information etc. [Desktop environments](https://wiki.gentoo.org/wiki/Desktop_environment) usually provide a taskbar but the default can often be replaced or complemented according to user preference. A taskbar associated with a [window manager](https://wiki.gentoo.org/wiki/Window_manager) can form the basis of a custom desktop environment.
 
@@ -58,6 +68,12 @@ A [taskbar](https://en.wikipedia.org/wiki/Taskbar) is generally a strip on one e
 | wbar | [x11-misc/wbar](https://packages.gentoo.org/packages/x11-misc/wbar) | Fast, lightweight, quick-launch bar. | 
 | [Waybar](https://wiki.gentoo.org/wiki/Waybar) | [gui-apps/waybar](https://packages.gentoo.org/packages/gui-apps/waybar) | Highly customizable [Wayland](https://wiki.gentoo.org/wiki/Wayland) bar for [Sway](https://wiki.gentoo.org/wiki/Sway) and [wlroots](https://wiki.gentoo.org/wiki/Wlroots)-based compositors. | 
 
+### Window managers
+
+## Desktop utilities
+
+### Archive managers
+
 Theses graphical [file archivers](https://en.wikipedia.org/wiki/File_archiver) support multiple archive formats and should work with any desktop environment. See [data compression](https://wiki.gentoo.org/wiki/Data_compression) for more information on archivers in general.
 
 | Name | Package | Description | 
@@ -68,6 +84,10 @@ Theses graphical [file archivers](https://en.wikipedia.org/wiki/File_archiver) s
 | LXQt Archiver | [app-arch/lxqt-archiver](https://packages.gentoo.org/packages/app-arch/lxqt-archiver) | Simple & lightweight [Qt](https://wiki.gentoo.org/wiki/Qt)-based but desktop-agnostic file archiver. | 
 | Xarchiver | [app-arch/xarchiver](https://packages.gentoo.org/packages/app-arch/xarchiver) | [Desktop environment](https://wiki.gentoo.org/wiki/Desktop_environment)-independent archiver front end based on [GTK](https://wiki.gentoo.org/wiki/GTK). | 
 
+### File managers
+
+### Optical disk burners
+
 | Name | Package | Description | 
 |---|---|---|
 | Brasero | [app-cdr/brasero](https://packages.gentoo.org/packages/app-cdr/brasero) | CD/DVD burning application for the [GNOME](https://wiki.gentoo.org/wiki/GNOME) desktop. | 
@@ -76,12 +96,18 @@ Theses graphical [file archivers](https://en.wikipedia.org/wiki/File_archiver) s
 
 See the [LiveUSB](https://wiki.gentoo.org/wiki/LiveUSB) article for information on writing iso files to USB devices. See [CD/DVD/BD writing](https://wiki.gentoo.org/wiki/CD/DVD/BD_writing) on burning disks from the [command line](https://wiki.gentoo.org/wiki/Terminal_emulator). See [FAQ - How do I burn an ISO file?](https://wiki.gentoo.org/wiki/FAQ#How_do_I_burn_an_ISO_file.3F) about burning iso to CD on various OSs.
 
+## Documents
+
+### E-book readers
+
 | Name | Package | Description | 
 |---|---|---|
 | [Calibre](https://wiki.gentoo.org/wiki/Calibre) | [app-text/calibre](https://packages.gentoo.org/packages/app-text/calibre) | Electronic book management tool. | 
 | crqt-ng | [app-text/crqt-ng](https://packages.gentoo.org/packages/app-text/crqt-ng) | Cross-platform e-book reader. | 
 | [Foliate](https://wiki.gentoo.org/wiki/Foliate) | [app-text/foliate](https://packages.gentoo.org/packages/app-text/foliate) | Simple, modern, open-source [GTK](https://wiki.gentoo.org/wiki/GTK) eBook viewer. Supports EPUB, Mobipocket, Kindle, FictionBook, and comic book archive formats. | 
 | [Zathura](https://wiki.gentoo.org/wiki/Zathura) | [app-text/zathura-cb](https://packages.gentoo.org/packages/app-text/zathura-cb) | Extension for Zathura document viewer. No [GTK](https://wiki.gentoo.org/wiki/GTK) dependency. | 
+
+### General document viewers
 
 | Name | Package | Description | 
 |---|---|---|
@@ -93,6 +119,8 @@ See the [LiveUSB](https://wiki.gentoo.org/wiki/LiveUSB) article for information 
 | qpdfview | [app-text/qpdfview](https://packages.gentoo.org/packages/app-text/qpdfview) | Lightweight tabbed PDF viewer with a [Qt](https://wiki.gentoo.org/wiki/Qt) interface. | 
 | [Zathura](https://wiki.gentoo.org/wiki/Zathura) | [app-text/zathura](https://packages.gentoo.org/packages/app-text/zathura) [app-text/zathura-meta](https://packages.gentoo.org/packages/app-text/zathura-meta) | Free, plugin-based document viewer. | 
 
+### Note taking
+
 | Name | Package | Description | 
 |---|---|---|
 | GNote | [app-misc/gnote](https://packages.gentoo.org/packages/app-misc/gnote) | Note-taking application for [GNOME](https://wiki.gentoo.org/wiki/GNOME). (Not to be confused with "GNotes".) | 
@@ -103,6 +131,8 @@ See the [LiveUSB](https://wiki.gentoo.org/wiki/LiveUSB) article for information 
 | Xpad | [x11-misc/xpad](https://packages.gentoo.org/packages/x11-misc/xpad) | A sticky note application for [GTK](https://wiki.gentoo.org/wiki/GTK). | 
 | Zim | [x11-misc/zim](https://packages.gentoo.org/packages/x11-misc/zim) | Desktop wiki as a graphical text editor used to maintain a collection of wiki pages. | 
 
+### Productivity software
+
 | Name | Package | Description | 
 |---|---|---|
 | Abiword | [app-office/abiword](https://packages.gentoo.org/packages/app-office/abiword) | Light and fast cross-platform word processor. | 
@@ -112,6 +142,12 @@ See the [LiveUSB](https://wiki.gentoo.org/wiki/LiveUSB) article for information 
 | [Pdfbox](https://wiki.gentoo.org/wiki/Pdfbox) | [dev-java/pdfbox](https://packages.gentoo.org/packages/dev-java/pdfbox) | [pdfbox](https://wiki.gentoo.org/wiki/Pdfbox) — an open source Java tool for working with PDF documents. | 
 | Scribus | [app-office/scribus](https://packages.gentoo.org/packages/app-office/scribus) | Desktop publishing (DTP) and layout program. | 
 | Sigil | [app-text/sigil](https://packages.gentoo.org/packages/app-text/sigil) | Multi-platform WYSIWYG ebook editor for ePub format. | 
+
+### Text editors
+
+## Internet
+
+### Chat clients / video conferencing
 
 | Name | Package | Description | 
 |---|---|---|
@@ -128,6 +164,8 @@ Some popular proprietary messaging services can be found in the [Gentoo ebuild r
 
 See the [IRC](https://wiki.gentoo.org/wiki/IRC) article for some more IRC clients. See the [instant messaging](https://wiki.gentoo.org/wiki/Category:Instant_messaging) category for more articles on this subject.
 
+### Email clients
+
 | Name | Package | Description | 
 |---|---|---|
 | [Claws Mail](https://wiki.gentoo.org/wiki/Claws_Mail) | [mail-client/claws-mail](https://packages.gentoo.org/packages/mail-client/claws-mail) | Mail client forked from Sylpheed. | 
@@ -135,12 +173,16 @@ See the [IRC](https://wiki.gentoo.org/wiki/IRC) article for some more IRC client
 | Geary | [mail-client/geary](https://packages.gentoo.org/packages/mail-client/geary) | Geary is an email application built around conversations, for the [GNOME](https://wiki.gentoo.org/wiki/GNOME) desktop. | 
 | [Thunderbird](https://wiki.gentoo.org/wiki/Thunderbird) | [mail-client/thunderbird](https://packages.gentoo.org/packages/mail-client/thunderbird) [mail-client/thunderbird-bin](https://packages.gentoo.org/packages/mail-client/thunderbird-bin) | Mozilla's solution to the e-mail client. | 
 
+### P2P
+
 | Name | Package | Description | 
 |---|---|---|
 | [Deluge](https://wiki.gentoo.org/wiki/Deluge) | [net-p2p/deluge](https://packages.gentoo.org/packages/net-p2p/deluge) | Open-source, cross platform [BitTorrent](https://wiki.gentoo.org/wiki/BitTorrent) client. | 
 | Freenet | [net-p2p/freenet](https://packages.gentoo.org/packages/net-p2p/freenet) | An encrypted network without censorship | 
 | [QBittorrent](https://wiki.gentoo.org/wiki/QBittorrent) | [net-p2p/qbittorrent](https://packages.gentoo.org/packages/net-p2p/qbittorrent) | [Qt](https://wiki.gentoo.org/wiki/Qt) BitTorrent client. | 
 | Transmission | [net-p2p/transmission](https://packages.gentoo.org/packages/net-p2p/transmission) | BitTorrent client with [GTK](https://wiki.gentoo.org/wiki/GTK), [Qt](https://wiki.gentoo.org/wiki/Qt), CLI, and Web front-ends. | 
+
+### Web browsers
 
 | Name | Package | Description | 
 |---|---|---|
@@ -154,12 +196,20 @@ See the [IRC](https://wiki.gentoo.org/wiki/IRC) article for some more IRC client
 
 See also [Category:Web browser](https://wiki.gentoo.org/wiki/Category:Web_browser).
 
+## Multimedia
+
+### Acquisition
+
+#### Audio
+
 | Name | Package | Description | 
 |---|---|---|
 | [Audacity](https://wiki.gentoo.org/wiki/Audacity) | [media-sound/audacity](https://packages.gentoo.org/packages/media-sound/audacity) | Free cross-platform audio recorder and editor. | 
 | SoundRecorder | [media-sound/gnome-sound-recorder](https://packages.gentoo.org/packages/media-sound/gnome-sound-recorder) | Simple sound recorder. | 
 
 See also [music production](https://wiki.gentoo.org/wiki/Music_production).
+
+#### Scanning
 
 | Name | Package | Description | 
 |---|---|---|
@@ -171,12 +221,16 @@ See also [music production](https://wiki.gentoo.org/wiki/Music_production).
 
 See the wiki page on [SANE](https://wiki.gentoo.org/wiki/SANE) for more information on scanning in Gentoo.
 
+#### Video
+
 | Name | Package | Description | 
 |---|---|---|
 | Cheese | [media-video/cheese](https://packages.gentoo.org/packages/media-video/cheese) | [GTK](https://wiki.gentoo.org/wiki/GTK) program to take pictures and videos from your webcam, GNOME oriented. | 
 | Guvcview | [media-video/guvcview](https://packages.gentoo.org/packages/media-video/guvcview) | Simple [Qt](https://wiki.gentoo.org/wiki/Qt) or [GTK](https://wiki.gentoo.org/wiki/GTK)3 interface for capturing and viewing video from v4l2 devices. | 
 | [OBS Studio](https://wiki.gentoo.org/wiki/OBS_Studio) | [media-video/obs-studio](https://packages.gentoo.org/packages/media-video/obs-studio) | Free software for video recording and live streaming. | 
 | SimpleScreenRecorder | [media-video/simplescreenrecorder](https://packages.gentoo.org/packages/media-video/simplescreenrecorder) | Just as the name implies. | 
+
+### Audio players
 
 | Name | Package | Description | 
 |---|---|---|
@@ -190,6 +244,8 @@ See the wiki page on [SANE](https://wiki.gentoo.org/wiki/SANE) for more informat
 | Strawberry | [media-sound/strawberry](https://packages.gentoo.org/packages/media-sound/strawberry) | Music player and library organizer based on Amarok and [Qt](https://wiki.gentoo.org/wiki/Qt). | 
 
 See also [Category:Audio player](https://wiki.gentoo.org/wiki/Category:Audio_player).
+
+### Image viewers
 
 | Name | Package | Description | 
 |---|---|---|
@@ -206,6 +262,8 @@ See also [Category:Audio player](https://wiki.gentoo.org/wiki/Category:Audio_pla
 | Sxiv | [media-gfx/sxiv](https://packages.gentoo.org/packages/media-gfx/sxiv) | Lightweight, simple image viewer with multiple features. Written in C. | 
 | Viewnior | [media-gfx/viewnior](https://packages.gentoo.org/packages/media-gfx/viewnior) | Fast, simple, elegant, minimalist image viewer for [X11](https://wiki.gentoo.org/wiki/Xorg). Written in C with [GTK](https://wiki.gentoo.org/wiki/GTK). | 
 
+### Graphics
+
 | Name | Package | Description | 
 |---|---|---|
 | [Batik](https://wiki.gentoo.org/wiki/Batik) | [dev-java/batik](https://packages.gentoo.org/packages/dev-java/batik) | [Batik](https://wiki.gentoo.org/wiki/Batik) — Java-based toolkit for applications or applets that want to use images in the Scalable Vector Graphics (SVG) format | 
@@ -219,6 +277,8 @@ See also [Category:Audio player](https://wiki.gentoo.org/wiki/Category:Audio_pla
 | MyPaint | [media-gfx/mypaint](https://packages.gentoo.org/packages/media-gfx/mypaint) | Fast and easy graphics application for digital painters. | 
 | XPaint | [media-gfx/xpaint](https://packages.gentoo.org/packages/media-gfx/xpaint) | Ultra light, bare [X11](https://wiki.gentoo.org/wiki/Xorg) image editing tool. | 
 
+### Photography
+
 | Name | Package | Description | 
 |---|---|---|
 | [Darktable](https://wiki.gentoo.org/wiki/Darktable) | [media-gfx/darktable](https://packages.gentoo.org/packages/media-gfx/darktable) | Photography workflow application and RAW developer. | 
@@ -227,6 +287,8 @@ See also [Category:Audio player](https://wiki.gentoo.org/wiki/Category:Audio_pla
 | Luminance HDR | [media-gfx/luminance-hdr](https://packages.gentoo.org/packages/media-gfx/luminance-hdr) | Graphical user interface for high dynamic range image composition and processing. | 
 | RawTherapee | [media-gfx/rawtherapee](https://packages.gentoo.org/packages/media-gfx/rawtherapee) | Powerful, free, cross-platform raw photo processing system. | 
 | Shotwell | [media-gfx/shotwell](https://packages.gentoo.org/packages/media-gfx/shotwell) | Photo manager for [GNOME](https://wiki.gentoo.org/wiki/GNOME). | 
+
+### Video players
 
 | Name | Package | Description | 
 |---|---|---|
@@ -237,6 +299,8 @@ See also [Category:Audio player](https://wiki.gentoo.org/wiki/Category:Audio_pla
 
 See also [Category:Video player](https://wiki.gentoo.org/wiki/Category:Video_player).
 
+### Video editors
+
 | Name | Package | Description | 
 |---|---|---|
 | Avidemux | [media-video/avidemux](https://packages.gentoo.org/packages/media-video/avidemux) | Free video editor designed for simple cutting, filtering and encoding tasks. | 
@@ -244,14 +308,22 @@ See also [Category:Video player](https://wiki.gentoo.org/wiki/Category:Video_pla
 | Shotcut | [media-video/shotcut](https://packages.gentoo.org/packages/media-video/shotcut) | A free, open source, cross-platform video editor (testing branch, as of 2022-11). | 
 | Pitivi | [media-video/pitivi](https://packages.gentoo.org/packages/media-video/pitivi) | Stable and effective non-linear video editor for low-end systems. | 
 
+### 3D
+
 | Name | Package | Description | 
 |---|---|---|
 | [Blender](https://wiki.gentoo.org/wiki/Blender) | [media-gfx/blender](https://packages.gentoo.org/packages/media-gfx/blender) | Free and open-source 3D creation suite. | 
+
+## Network
+
+### File Sharing
 
 | Name | Package | Description | 
 |---|---|---|
 | [Nfs-utils](https://wiki.gentoo.org/wiki/Nfs-utils) | [net-fs/nfs-utils](https://packages.gentoo.org/packages/net-fs/nfs-utils) | File system protocol that allows client machines to access network attached filesystems (called exports) from a host system. | 
 | [Samba](https://wiki.gentoo.org/wiki/Samba) | [net-fs/samba](https://packages.gentoo.org/packages/net-fs/samba) | Re-implementation of the [SMB/CIFS](https://wiki.gentoo.org/wiki/Smbnetfs) networking protocol, a Microsoft Windows alternative to Network File System ([NFS](https://wiki.gentoo.org/wiki/NFS)). | 
+
+### Network Management
 
 | Name | Package | Description | 
 |---|---|---|
@@ -261,15 +333,25 @@ See also [Category:Video player](https://wiki.gentoo.org/wiki/Category:Video_pla
 | [systemd-networkd](https://wiki.gentoo.org/wiki/Systemd#systemd-networkd) | [sys-apps/systemd](https://packages.gentoo.org/packages/sys-apps/systemd) | Part of systemd useful for simple configuration of wired network interfaces. Follow article for installation method. | 
 | [Wpa\_supplicant](https://wiki.gentoo.org/wiki/Wpa_supplicant) | [net-wireless/wpa\_supplicant](https://packages.gentoo.org/packages/net-wireless/wpa_supplicant) | Wifi supplicant to handle network authentication. | 
 
+## Science
+
+### Astronomy
+
 | Name | Package | Description |  | 
 |---|---|---|---|
 | Celestia | [sci-astronomy/celestia](https://packages.gentoo.org/packages/sci-astronomy/celestia) | Space simulation that lets you explore our universe in three dimensions with a real-time 3D visualization of space. |  | 
 | Stellarium | [sci-astronomy/stellarium](https://packages.gentoo.org/packages/sci-astronomy/stellarium) | Open source planetarium for your computer with a realistic sky in real-time 3D, just like what you see with the naked eye, binoculars or a telescope. |  | 
 
+### Nanoscience
+
 | Name | Package | Description | 
 |---|---|---|
 | Gwyddion | [sci-visualization/gwyddion](https://packages.gentoo.org/packages/sci-visualization/gwyddion) | View, convert, and analyze scanning microscopy data (e.g. atomic force microscopy). | 
 | KLayout | [sci-electronics/klayout](https://packages.gentoo.org/packages/sci-electronics/klayout) | View, edit, and convert electron beam lithography files. | 
+
+## Software development
+
+### Diff/Merge tools
 
 | Name | Package | Description | 
 |---|---|---|
@@ -278,6 +360,8 @@ See also [Category:Video player](https://wiki.gentoo.org/wiki/Category:Video_pla
 | Meld | [dev-util/meld](https://packages.gentoo.org/packages/dev-util/meld) | Visual diff and merge tool targeted at developers, under [GNOME](https://wiki.gentoo.org/wiki/GNOME). | 
 | Quilt | [dev-util/quilt](https://packages.gentoo.org/packages/dev-util/quilt) | Patch manager to easily manage large numbers of patches by keeping track of the changes each patch makes. | 
 | Difftastic | [dev-util/difftastic](https://packages.gentoo.org/packages/dev-util/difftastic) | A structural diff that understands syntax. | 
+
+### IDEs
 
 | Name | Package | Description | 
 |---|---|---|
@@ -290,6 +374,10 @@ See also [Category:Video player](https://wiki.gentoo.org/wiki/Category:Video_pla
 | [Vscode](https://wiki.gentoo.org/wiki/Vscode) | [app-editors/vscode](https://packages.gentoo.org/packages/app-editors/vscode) | Visual Studio Code is a lightweight but powerful source code editor. Requires accepting the [Microsoft-vscode software license](https://gitweb.gentoo.org/repo/gentoo.git/tree/licenses/Microsoft-vscode) before installation. | 
 | [Vscodium](https://wiki.gentoo.org/wiki/Vscode) | [app-editors/vscodium](https://packages.gentoo.org/packages/app-editors/vscodium) | Free/Libre Open Source Software Binaries of Microsoft's VSCode. | 
 
+## System
+
+### Hardware management
+
 | Name | Package | Description | 
 |---|---|---|
 | Solaar | [app-misc/solaar](https://packages.gentoo.org/packages/app-misc/solaar) | Device Manager for Logitech Unifying devices. | 
@@ -297,10 +385,18 @@ See also [Category:Video player](https://wiki.gentoo.org/wiki/Category:Video_pla
 
 See also the article on [hardware detection](https://wiki.gentoo.org/wiki/Hardware_detection) software.
 
+### Terminal emulators
+
+### Utilities
+
 | Name | Package | Description | 
 |---|---|---|
 | Baobab | [sys-apps/baobab](https://packages.gentoo.org/packages/sys-apps/baobab) | [GTK](https://wiki.gentoo.org/wiki/GTK) disk usage analyzer. | 
 | GParted | [sys-block/gparted](https://packages.gentoo.org/packages/sys-block/gparted) | [GTK](https://wiki.gentoo.org/wiki/GTK) disk partition editor GUI. | 
+
+### Virtualization
+
+## Adding to this page
 
 The applications listed here should be widely useful, and of sufficient quality, to merit inclusion.
 
@@ -310,10 +406,14 @@ For software titles that are of *more interest* to users of a specific [desktop 
 
 It is good practice to create a [stub article](https://wiki.gentoo.org/wiki/Help:Starting_a_new_page#Stub_articles) for any package added here that does not have a page already, as anything notable enough to be listed here will also be notable enough to have a dedicated page.
 
+## See also
+
 - [Games](https://wiki.gentoo.org/wiki/Games) — a landing page for many of the games (especially open source variants) available in Gentoo's main ebuild repository.
 - [Qt Desktop applications](https://wiki.gentoo.org/wiki/Qt_Desktop_applications) — a list of recommendations for a light-weight, non-[KDE](https://wiki.gentoo.org/wiki/KDE), [Qt](https://wiki.gentoo.org/wiki/Qt)-only desktop environment.
 - [Recommended tools](https://wiki.gentoo.org/wiki/Recommended_tools) — lists system-administration related tools recommended for use in a **[shell](https://wiki.gentoo.org/wiki/Shell) environment** ([terminal/console](https://wiki.gentoo.org/wiki/Terminal_emulator))
 - [Terminal productivity software](https://wiki.gentoo.org/wiki/Terminal_productivity_software) — applications designed to run within the constraints of a text-based terminal window that are typically associated with GUI-based office productivity software
 - [Wayland Desktop Landscape](https://wiki.gentoo.org/wiki/Wayland_Desktop_Landscape) — various desktop related packages for Wayland
+
+## External resources
 
 - [linuxlinks software directory](https://www.linuxlinks.com/best-free-open-source-software/) - large, well organized catalogue of software with good descriptions. Software that is not in Portage can sometimes be installed by other means, such as being downloaded and complied after installing the appropriate dependencies.

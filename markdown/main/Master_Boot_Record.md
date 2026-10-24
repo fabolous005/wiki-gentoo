@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Master_Boot_Record
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-12-15"
-fingerprint: ccb8881ec5c488dd
+fingerprint: "8c38881ec5c488dd"
 license: CC BY-SA 4.0
 ---
 
@@ -31,6 +31,12 @@ Owing its age, the Master Boot Record has a number of limitations:
 
 **Enable MBR support (CONFIG\_MSDOS\_PARTITION)**
 
+```
+-*- Enable the block layer
+    Partition Types  --->
+      [*] Advanced partition selection
+      [*]   PC BIOS (MSDOS partition tables) support
+```
 ## The 2.2 TB barrier
 
 The Master Boot Record uses 32 bit values to store sector values (LBA). With the standard sector size of 512 bytes, and the highest 32 bit number of 4,294,967,295, the theoretical capacity maximum of addressable sectors is \~2048 GiB or \~2199 GB, or rounded 2.2 TB.[\[3\]](https://wiki.gentoo.org#cite_note-3)

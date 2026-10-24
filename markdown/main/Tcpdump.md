@@ -22,6 +22,11 @@ tcpdump is a command-line network monitoring and data acquisition tool. It is ca
 ### USE flags
 
 
+### USE flags for
+            [net-analyzer/tcpdump](https://packages.gentoo.org/packages/net-analyzer/tcpdump)
+            
+            Tool for network monitoring and data acquisition
+
 | [+caps](https://packages.gentoo.org/useflags/+caps) | Use Linux capabilities library to control privilege | 
 | [+samba](https://packages.gentoo.org/useflags/+samba) | Add support for SAMBA (Windows File and Printer sharing) | 
 | [+smi](https://packages.gentoo.org/useflags/+smi) | Build with net-libs/libsmi to load MIBs on the fly to decode SNMP packets | 
@@ -142,7 +147,7 @@ Running tcpdump with the `-w` instructs the program to write output to a file. T
 ## See also
 
 - [Metasploit](https://wiki.gentoo.org/wiki/Metasploit) — provides information about security vulnerabilities and aids in penetration testing and IDS signature development.
-- [Nmap](https://wiki.gentoo.org/wiki/Nmap) — an open source recon tool used to check for open ports, what is running on those ports, and metadata about the daemons servicing those ports.
+- [Nmap](https://wiki.gentoo.org/wiki/Nmap) — an open-source network exploration and security auditing tool for host discovery, port scanning, service identification, and OS fingerprinting.
 - [Wireshark](https://wiki.gentoo.org/wiki/Wireshark) — a free and open-source packet analyzer.
 
 ## External resources

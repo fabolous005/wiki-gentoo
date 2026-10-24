@@ -6,7 +6,7 @@ hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-05-04"
 categories: ['dev-texlive']
-fingerprint: "3ea3027a03a67902"
+fingerprint: "3ea30a7e03a6790a"
 license: CC BY-SA 4.0
 ---
 
@@ -24,6 +24,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [app-text/texlive](https://packages.gentoo.org/packages/app-text/texlive)
+            
+            A complete TeX distribution
 
 | [X](https://packages.gentoo.org/useflags/X) | Add support for X11 | 
 | [cjk](https://packages.gentoo.org/useflags/cjk) | Add support for Multi-byte character languages (Chinese, Japanese, Korean) | 
@@ -82,7 +87,7 @@ Although some language packs have only 2012 versions (e.g. texlive-langcroatian-
 - even if you already have virtual/src, emerge cat/dest is allowed.
 
 
-!!. As of 2017, the only ebuilds using the !! operator (in our context) are [dev-texlive/texlive-basic](https://packages.gentoo.org/packages/dev-texlive/texlive-basic), [dev-texlive/texlive-latex](https://packages.gentoo.org/packages/dev-texlive/texlive-latex), and [dev-texlive/texlive-langcjk](https://packages.gentoo.org/packages/dev-texlive/texlive-langcjk). Packages blocked by them are these three themselves plus texlive-lang\*.
+Hard blocking is specified in ebuilds by the operator !!. As of 2017, the only ebuilds using the !! operator (in our context) are [dev-texlive/texlive-basic](https://packages.gentoo.org/packages/dev-texlive/texlive-basic), [dev-texlive/texlive-latex](https://packages.gentoo.org/packages/dev-texlive/texlive-latex), and [dev-texlive/texlive-langcjk](https://packages.gentoo.org/packages/dev-texlive/texlive-langcjk). Packages blocked by them are these three themselves plus texlive-lang\*.
 
 ## Usage
 

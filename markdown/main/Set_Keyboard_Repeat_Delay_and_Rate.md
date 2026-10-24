@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Set_Keyboard_Repeat_Delay_and_Rate
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2018-07-10"
-fingerprint: "73b42c96adaa3390"
+fingerprint: "73f43c96edaaf390"
 license: CC BY-SA 4.0
 ---
 
 # Set Keyboard Repeat Delay and Rate
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

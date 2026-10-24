@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Sc-im
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-06-20"
-fingerprint: "3c63827862a79c8a"
+fingerprint: "3e63827862a79c8a"
 license: CC BY-SA 4.0
 ---
 
@@ -42,6 +42,11 @@ The following formats are supported, but only as import filters:
 
 ### USE flags
 
+
+### USE flags for
+            [app-office/sc-im](https://packages.gentoo.org/packages/app-office/sc-im)
+            
+            Ncurses based, vim-like spreadsheet calculator
 
 | [X](https://packages.gentoo.org/useflags/X) | Use x11-misc/xclip for clipboard copy/paste | 
 | [lua](https://packages.gentoo.org/useflags/lua) | Enable Lua scripting support | 

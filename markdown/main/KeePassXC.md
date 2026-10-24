@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/KeePassXC
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-03-15"
-fingerprint: "820ca0cbc5d3bde6"
+fingerprint: c20ca0cbc5d3ede6
 license: CC BY-SA 4.0
 ---
 
@@ -24,6 +24,11 @@ license: CC BY-SA 4.0
 ### USE Flags
 
 
+### USE flags for
+            [app-admin/keepassxc](https://packages.gentoo.org/packages/app-admin/keepassxc)
+            
+            KeePassXC - KeePass Cross-platform Community Edition
+
 | [+keyring](https://packages.gentoo.org/useflags/+keyring) | Enable support for use as the the system keyring | 
 | [+network](https://packages.gentoo.org/useflags/+network) | Enable network support (e.g. for downloading favicons) | 
 | [+ssh-agent](https://packages.gentoo.org/useflags/+ssh-agent) | Use KeePassXC to unlock SSH keys | 
@@ -33,6 +38,7 @@ license: CC BY-SA 4.0
 | [doc](https://packages.gentoo.org/useflags/doc) | Add extra documentation (API, Javadoc, etc). It is recommended to enable per package instead of globally | 
 | [keeshare](https://packages.gentoo.org/useflags/keeshare) | Enable KeeShare sharing integration | 
 | [test](https://packages.gentoo.org/useflags/test) | Enable dependencies and/or preparations necessary to run tests (usually controlled by FEATURES=test but can be toggled independently) | 
+| [verify-sig](https://packages.gentoo.org/useflags/verify-sig) | Verify upstream signatures on distfiles | 
 | [yubikey](https://packages.gentoo.org/useflags/yubikey) | Enable database unlocking via hardware keys supporting YubiKey-style HMAC-SHA1 protocol | 
 
 ### Emerge

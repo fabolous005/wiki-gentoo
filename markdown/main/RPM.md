@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/RPM
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-11-17"
-fingerprint: "7e02395af18e38c4"
+fingerprint: "4e03397cd18639c0"
 license: CC BY-SA 4.0
 ---
 
 # RPM
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -17,6 +19,11 @@ license: CC BY-SA 4.0
 
 ## USE flags
 
+
+### USE flags for
+            [app-arch/rpm](https://packages.gentoo.org/packages/app-arch/rpm)
+            
+            The RPM Package Manager
 
 | [+sequoia](https://packages.gentoo.org/useflags/+sequoia) | Use app-crypt/rpm-sequoia instead of the deprecated internal parser | 
 | [+sqlite](https://packages.gentoo.org/useflags/+sqlite) | Add support for sqlite - embedded sql database | 
@@ -56,6 +63,21 @@ If an application has an installer that calls RPM directly to see whether someth
 
 Create a .spec file using the following example for gettext as a template. Set the name and version strings accordingly.
 
-**`/usr/src/rpm/SPECS/gettext-0.18.1.1.spec`**
+FILE **`/usr/src/rpm/SPECS/gettext-0.18.1.1.spec`****An example of a .spec file**
 
-**An example of a .spec file**
+```
+Name: gettext
+Version: 0.18.1.1
+Release: r1
+Summary: Use to generate virtual package to fake gettext.
+Group: Development/Tools
+License: GPL2
+BuildArch: noarch
+%description
+Create virtual package specifying gettext as a virtual package.
+%prep
+%build
+%install
+%files
+%changelog
+```

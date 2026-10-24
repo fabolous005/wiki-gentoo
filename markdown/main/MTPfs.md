@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/MTPfs
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-10-03"
-fingerprint: "370405169bcb38c4"
+fingerprint: "370001169bc938c0"
 license: CC BY-SA 4.0
 ---
 
@@ -27,6 +27,11 @@ See the [MTP](https://wiki.gentoo.org/wiki/MTP) meta article or the [FUSE](https
 ### USE flags
 
 
+### USE flags for
+            [sys-fs/mtpfs](https://packages.gentoo.org/packages/sys-fs/mtpfs)
+            
+            A FUSE filesystem providing access to MTP devices
+
 [sys-fs/mtpfs](https://packages.gentoo.org/packages/sys-fs/mtpfs) depends on [media-libs/libmtp](https://packages.gentoo.org/packages/media-libs/libmtp). It turned out<sup>[\[1\]](https://wiki.gentoo.org#cite_note-1)</sup> that at least version 1.1.8<sup>[\[2\]](https://wiki.gentoo.org#cite_note-2)</sup> is needed to make it work.<sup>[\[3\]](https://wiki.gentoo.org#cite_note-3)</sup>.
 
 ### Emerge
@@ -46,6 +51,9 @@ Modify /etc/fuse.conf:
 
 **`/etc/fuse.conf`**
 
+```
+user_allow_other
+```
 ### User privileges
 
 Appropriate user(s) need to be in the `plugdev` group:

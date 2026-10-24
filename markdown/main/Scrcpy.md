@@ -11,6 +11,8 @@ license: CC BY-SA 4.0
 
 # scrcpy
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
@@ -589,5 +591,7 @@ The rotation in degrees is set by **--capture-orientation**.
 The decreased horizontal resolution in pixels is set by **-m**.
 
 Using **--no-audio** forces Android to keep playing sound while connected through USB.
+
+## External resources
 
 - [https://github.com/Genymobile/scrcpy/blob/master/doc/audio.md](https://github.com/Genymobile/scrcpy/blob/master/doc/audio.md) - for more option descriptions.

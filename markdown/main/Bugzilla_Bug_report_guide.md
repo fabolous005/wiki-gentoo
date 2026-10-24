@@ -4,7 +4,7 @@ title: Bugzilla/Bug report guide
 url: https://wiki.gentoo.org/wiki/Bugzilla/Bug_report_guide
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-09-11"
+date: "2026-10-24"
 fingerprint: "9f0f1cca0ea32fa4"
 license: CC BY-SA 4.0
 ---
@@ -28,9 +28,9 @@ See [Bugzilla/Guide](https://wiki.gentoo.org/wiki/Bugzilla/Guide) for the recomm
 - **Search for duplicates**, before creating a new bug.
 
 - **Stay on topic** - A bug ticket is used for technical reports and chitchat should be avoided. Keep discussions in the [support channels](https://www.gentoo.org/support/) (forums, IRC or mailing lists).
-- **Confirm the existence of a problem only once.** - It does not help solving the problem, if you and another person report it twice. But if your and the confirmer's systems differ in an obvious way and that would be helpful to know, add this information.
+- **Confirm the existence of a problem only once** - It does not help solving the problem, if you and another person report it twice. But if your and the confirmer's systems differ in an obvious way and that would be helpful to know, add this information.
 - **Open one bug ticket per topic** - Usually this means no more than one package and one bug per ticket. If your problem is not discussed in a bug, search for one related to your issue or create a new report. Do not hijack bugs.
-- **No talk on TRACKER bugs.** - Those bugs are meta bugs. If you want to add useful information, add them to a related sub bug or create a new bug.
+- **No talk on TRACKER bugs** - Those bugs are meta bugs. If you want to add useful information, add them to a related sub bug or create a new bug.
 - Optional: [Gentoo consultants](https://wiki.gentoo.org/wiki/Project:Council/Consultants) provide also **commercial support** for bugs and ebuilds.
 - [Attach the logs to the bug ticket](https://wiki.gentoo.org/wiki/Attach_the_logs_to_the_bug_ticket) if the ticket is about problems during runtime or installation.
 
@@ -64,20 +64,20 @@ Files and information of interest ordered by priority:
 ### Report a version bump; a newer upstream release is available since a while
 
 - Search Bugzilla before posting a bump request - is there already a bug open? **Has the local Portage tree been synced lately**; is it already in Portage?
-- Avoid [zero-day bump requests](https://wiki.gentoo.org/wiki/Zero-day_bump_requests) (wait at least **48 hours** after the release announcement)
+- Avoid [zero-day bump requests](https://wiki.gentoo.org/wiki/Zero-day_bump_requests) (wait at least **48 hours** after the release announcement).
 - Has it actually been **released** by upstream sources, **or is it just marked** in the source tree? Some projects mark a release in the tree a long time before it is officially released.
 - Be sure to **mention if it compiles and runs well on your arch**. Any other helpful information you can provide is most welcome.
 - Add a link to the upstream website if there is an announcement or release notes.
-- Give a link or list of fixed bugs or new features (sometimes called **changelog**)
-- Write a **summary** in the form *app-editors/vim-12.3.5: version bump*
+- Give a link or list of fixed bugs or new features (sometimes called **changelog**).
+- Write a **summary** in the form *app-editors/vim-12.3.5: version bump*.
 
 #### Optional
 
-- Does a simple copy work, or does the ebuild need changes? (changed dependencies, obsolete patch files, compared build system changes, read release notes carefully)
-- [Test the ebuild](https://wiki.gentoo.org/wiki/Package_testing) in a local repository before submitting attachments
-- Provide patches for proposed ebuild edits, with ideally some explanation of changes (file name should match the new version number, not old)
-- Provide additional files (OpenRC init scripts, systemd unit files) as separate attachments (as needed)
-- Do not paste files directly into comments; [use attachments.](https://wiki.gentoo.org/wiki/Attach_the_logs_to_the_bug_ticket)
+- Does a simple copy work, or does the ebuild need changes (changed dependencies, obsolete patch files, compared build system changes, read release notes carefully)?
+- [Test the ebuild](https://wiki.gentoo.org/wiki/Package_testing) in a local repository before submitting attachments.
+- Provide patches for proposed ebuild edits, with ideally some explanation of changes (file name should match the new version number, not old).
+- Provide additional files (OpenRC init scripts, systemd unit files) as separate attachments (as needed).
+- Do not paste files directly into comments; [use attachments](https://wiki.gentoo.org/wiki/Attach_the_logs_to_the_bug_ticket).
 
 ### Request for a new package; ebuild request
 

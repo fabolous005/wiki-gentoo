@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Hdparm
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-10-09"
-fingerprint: a8d635f1e5e7baa9
+fingerprint: a8d635f1e5e7baf9
 license: CC BY-SA 4.0
 ---
 
@@ -20,6 +20,13 @@ hdparm is a command-line utility to set and view ATA and SATA [hard disk drive](
 
 ## Installation
 
+
+### USE flags for
+            [sys-apps/hdparm](https://packages.gentoo.org/packages/sys-apps/hdparm)
+            
+            Utility to change hard drive performance parameters
+
+| [static](https://packages.gentoo.org/useflags/static) | !!do not set this during bootstrap!! Causes binaries to be statically linked instead of dynamically | 
 
 ### Emerge
 
@@ -43,6 +50,10 @@ For example, to disable power management for all drivers and enable the DMA feat
 
 **`/etc/conf.d/hdparm`**
 
+```
+all_args="-B 255"
+sda_args="-d1"
+```
 When finished modifying the configuration file be sure to add the hdparm service to the default runlevel so that it can start at system boot:
 
 `root #``rc-update add hdparm default`

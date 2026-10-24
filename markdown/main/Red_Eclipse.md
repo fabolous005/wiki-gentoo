@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Red_Eclipse
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-11-16"
-fingerprint: "989bde58db0d5997"
+fingerprint: "989a9e58f30d59b7"
 license: CC BY-SA 4.0
 ---
 
@@ -24,6 +24,13 @@ From Gentoo Wiki
 
 ### USE flags
 
+
+### USE flags for
+            [games-fps/redeclipse](https://packages.gentoo.org/packages/games-fps/redeclipse)
+            
+            First-person ego-shooter, built as a total conversion of Cube Engine 2
+
+| [dedicated](https://packages.gentoo.org/useflags/dedicated) | Install only as a dedicated game server | 
 
 ### Emerge
 

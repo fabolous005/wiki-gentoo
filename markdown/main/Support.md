@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Support
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-09-11"
-fingerprint: "528bde505e8367dc"
+fingerprint: "528bde505e8327dc"
 license: CC BY-SA 4.0
 ---
 
@@ -24,6 +24,8 @@ Before reaching out for assistance, please **[check if the issue at hand is alre
 It is essential to **let anyone helping with an issue know what worked and what didn't**, at the place where the issue was discussed. Not doing so may even be considered impolite. It is also very useful to **help the community by [making an addition to the wiki](https://wiki.gentoo.org/wiki/Support#Contribute_solutions_back)**, explaining how things were solved, for anyone who runs into the same problem! The wiki is very easy to edit by anyone, and it is very quick to get started.
 
 Remember that **Gentoo support venues are exclusively for Gentoo Linux matters**. For software usage concerns, even for packages installed from the [Gentoo ebuild repository](https://wiki.gentoo.org/wiki/Ebuild_repository#The_Gentoo_ebuild_repository), any support issues should be directed [upstream](<https://en.wikipedia.org/wiki/Upstream_(software_development)>). Gentoo support covers almost exclusively things maintained as [Gentoo projects](https://wiki.gentoo.org/wiki/Project:Gentoo), and Gentoo-specific integrations.
+
+## First, check if a preexisting solution exists
 
 It is usually easier to follow a preexisting solution than to ask for help. Gentoo has a relatively large user base, so there is a chance that someone has already encountered any given problem, and perhaps published a solution.
 
@@ -61,6 +63,8 @@ The [Gentoo mailing lists](https://www.gentoo.org/get-involved/mailing-lists/all
 
 The World Wide Web is a trove of information, and though many things may not always be accurate - to say the least - technical information abounds, and Gentoo in no exception. Open up search engine of choice and employ the tried and tested methods of locating information on the web.
 
+## Formulate requests properly
+
 To get the best assistance possible, please state the issue at hand **clearly**. Provide necessary context, and include any information that will be useful to understand the situation.
 
 **Supply details when asked**, because people often ask specific questions with a clear diagnostic hierarchy in mind.
@@ -87,6 +91,8 @@ The support channel is [#gentoo](ircs://irc.libera.chat/#gentoo) ([webchat](http
 
 The Gentoo [mailing lists](https://www.gentoo.org/get-involved/mailing-lists/) can be a useful venue to ask for support.
 
+## Contribute solutions back
+
 A great way to move Gentoo forward is to **contribute solutions back by making an [addition to the wiki](https://wiki.gentoo.org/wiki/Gentoo_Wiki:Contributor%27s_guide)**. Once a solution that could be of use to others is identified, it should be trivial to write it up on the appropriate place in the wiki: it really isn't hard to make an edit, small changes can take seconds and are as simple as editing any text file.
 
 Gentoo exists because people have come together to build an OS, using what they believe to be best practices. Every contribution made in the spirit of collaboration will help make Gentoo a bit better. **Even a small contribution has value**, and everyone will be thankful. All great things start with the first step, and experienced users will be happy to assist anyone making additions.
@@ -106,7 +112,7 @@ There are a couple of guides for reporting bugs on the wiki: [Bugzilla/Bug repor
 - [Bugzilla/Bug\_report\_guide](https://wiki.gentoo.org/wiki/Bugzilla/Bug_report_guide) — explains how to report bugs using Gentoo's Bugzilla instance, which may be lightly customized to collect specific details for each Gentoo project area
 - [Fix my Gentoo](https://wiki.gentoo.org/wiki/Fix_my_Gentoo) — rescuing an installation when a chroot is not possible
 - [Project:Council/Consultants](https://wiki.gentoo.org/wiki/Project:Council/Consultants)
-- [IRC](https://wiki.gentoo.org/wiki/IRC)
+- [IRC](https://wiki.gentoo.org/wiki/IRC) — a stable, mature, text-based chat (instant messaging) system. IRC is one of the primary avenues of communication for those involved at all levels in the [Gentoo project](https://wiki.gentoo.org/wiki/Project:Gentoo).
 - [Knowledge Base:Recovering from a kernel boot failure](https://wiki.gentoo.org/wiki/Knowledge_Base:Recovering_from_a_kernel_boot_failure)
 - [Project:Portage/Fixing broken portage](https://wiki.gentoo.org/wiki/Project:Portage/Fixing_broken_portage) — provides guidance on how to manually update or fix a broken Portage installation - particularly in the event emerge -v1 sys-apps/portage cannot be run.
 - [Recovering from a malfunctioning installation](https://wiki.gentoo.org/wiki/Gentoo_installation_tips_and_tricks#Recovering_from_a_malfunctioning_installation)

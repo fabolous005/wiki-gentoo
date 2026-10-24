@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Hprofile
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-03-31"
-fingerprint: ad03587f367fb7ae
+fingerprint: ad01587f377fb7ae
 license: CC BY-SA 4.0
 ---
 
@@ -15,11 +15,15 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+**Deprecated article**
+
 This article is **deprecated (obsolete)**. Contents are <u>no longer relevant</u>, and are intended for historical reference only!
 
 TLDR:
 
 **Do not use this article!**
+
+**Resources**
 
 hprofile is an application that can be used to manage multiple profiles be it hardware or software. The following subsection are just examples on what could be done with hprofile.
 
@@ -87,8 +91,18 @@ One would need the following files to set up basic power management profiles.
 
 **`/etc/hprofile/profiles/power/profiles`**
 
+```
+adp
+bat
+dyn
+med
+quiet
+```
 **`/etc/hprofile/profiles/power/default`**
 
+```
+adp
+```
 **`/etc/hprofile/profiles/power/ptest`**
 
 ```
@@ -226,6 +240,11 @@ There's no much consideration for this section, if your hardware support RFKill,
 
 **`/etc/hprofile/profiles/rfkill/profiles`**
 
+```
+bsw
+ksw
+wsw
+```
 **`/etc/hprofile/profiles/rfkill/scripts/bsw.start`**
 
 ```
@@ -282,6 +301,14 @@ Create the necessaries folder /etc/hprofile/profiles/vga/{scripts,files/etc/X11/
 
 **`/etc/hprofile/profiles/vga/profiles`**
 
+```
+intel
+radeon
+nvidia
+nv
+nouveau
+fglrx
+```
 **`/etc/hprofile/profiles/vga/post-start`**
 
 ```
@@ -558,12 +585,18 @@ The ptest script will just look if VGASwitcheroo (Intel HD Graphics/AMD ATI Rade
 
 **`/etc/hprofile/profiles/vga/default`**
 
+```
+intel
+```
 ### Hard disk
 
 A disk profile is even straightforward because there fewer issue to keep in mind. So this section will be short and straightforward. Additionally, one need [sys-apps/hdparm](https://packages.gentoo.org/packages/sys-apps/hdparm).
 
 **`/etc/hprofile/profiles/disk/default`**
 
+```
+adp
+```
 **`/etc/hprofile/profiles/disk/ata`**
 
 ```
@@ -604,6 +637,12 @@ echo "adp"
 ```
 **`/etc/hprofil/profiles/disk/profiles`**
 
+```
+bat
+adp
+dyn
+quiet
+```
 **`/etc/hprofile/profiles/disk/stop`**
 
 ```

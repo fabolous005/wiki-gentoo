@@ -5,15 +5,19 @@ url: https://wiki.gentoo.org/wiki/Legacy_DTrace
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-08-18"
-fingerprint: "1e10317e9be7bbaf"
+fingerprint: "9610317e9be7bba9"
 license: CC BY-SA 4.0
 ---
 
 # Legacy DTrace
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 ## DTrace on Gentoo
 
@@ -21,10 +25,19 @@ license: CC BY-SA 4.0
 
 The ebuilds for DTrace are placed (in time of writing) in GitHub repository.
 
+[https://github.com/robertek/dtrace-portage-overlay](https://github.com/robertek/dtrace-portage-overlay)
+
 To activate the repository just add new repository configuration to your Portage config.
 
-**`/etc/portage/repos.conf/dtrace`**
+FILE **`/etc/portage/repos.conf/dtrace`**
 
+```
+[dtrace]
+location = /var/lib/portage/dtrace
+sync-type = git
+sync-uri = https://github.com/robertek/dtrace-portage-overlay
+auto-sync = yes
+```
 Then sync Portage tree.
 
 ### Installation

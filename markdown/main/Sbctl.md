@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Sbctl
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-12-21"
-fingerprint: "1550881d06e09ba4"
+fingerprint: "1d70881d06e09ba4"
 license: CC BY-SA 4.0
 ---
 
@@ -28,6 +28,13 @@ This wiki page goes over how to install and use sbctl for setting up secure boot
 
 ### USE flags
 
+
+### USE flags for
+            [app-crypt/sbctl](https://packages.gentoo.org/packages/app-crypt/sbctl)
+            
+            Secure Boot key manager
+
+| [verify-sig](https://packages.gentoo.org/useflags/verify-sig) | Verify upstream signatures on distfiles | 
 
 ### Emerge
 
@@ -171,6 +178,33 @@ By default sbctl does not need any configuration however if you wish to add path
 
 **Default configuration**
 
+```
+---
+keydir: /var/lib/sbctl/keys
+guid: /var/lib/sbctl/GUID
+files_db: /var/lib/sbctl/files.json
+landlock: true
+db_additions:
+- microsoft
+files:
+- path: /boot/vmlinuz
+  output: /boot/vmlinuz
+- path: /efi/EFI/Linux/linux-x.y.z-gentoo.efi
+  output: /efi/EFI/Linux/linux-x.y.z-gentoo.efi
+keys:
+  pk:
+    privkey: /var/lib/sbctl/keys/PK/PK.key
+    pubkey: /var/lib/sbctl/keys/PK/PK.pem
+    type: file
+  kek:
+    privkey: /var/lib/sbctl/keys/KEK/KEK.key
+    pubkey: /var/lib/sbctl/keys/KEK/KEK.pem
+    type: file
+  db:
+    privkey: /var/lib/sbctl/keys/db/db.key
+    pubkey: /var/lib/sbctl/keys/db/db.pem
+    type: file
+```
 ### Files
 
 - /var/lib/sbctl - Sbctl storage directory.

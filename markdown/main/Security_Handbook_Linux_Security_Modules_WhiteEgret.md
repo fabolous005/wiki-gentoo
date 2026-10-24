@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Security_Handbook/Linux_Security_Modules/White
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-07-22"
-fingerprint: c29994641e9779db
+fingerprint: c29994640e9759db
 license: CC BY-SA 4.0
 ---
 
@@ -27,6 +27,9 @@ From Gentoo Wiki
 
 KERNEL **Enable support for \<Software\_title>**
 
+```
+Write menuconfig instructions here.
+```
 ### USE flags
 
 Cannot load package information. Is the atom *category/package* correct?

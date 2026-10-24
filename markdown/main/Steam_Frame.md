@@ -4,8 +4,8 @@ title: Steam Frame
 url: https://wiki.gentoo.org/wiki/Steam_Frame
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-11"
-fingerprint: "9490b43f4e01324b"
+date: "2026-10-23"
+fingerprint: "9490b43f4e03364b"
 license: CC BY-SA 4.0
 ---
 
@@ -240,3 +240,14 @@ Finally check that the firewall looks correct
 
 `root #``nft list ruleset`
 The output could look somewhat like this (depending on what other firewall rules existed before)
+
+## Troubleshooting
+
+### Valve's frame-dongle-troubleshoot.sh
+
+For troubleshooting, Valve offers a shell script that checks your system's configuration to see if anything is missing or not optimal. You can find this on their GitHub under [https://github.com/ValveSoftware/SteamVR-for-Linux/blob/master/frame-dongle-troubleshoot.sh](https://github.com/ValveSoftware/SteamVR-for-Linux/blob/master/frame-dongle-troubleshoot.sh)
+
+## External resources
+
+- [Official Steam Frame GitHub Repository](https://github.com/ValveSoftware/SteamVR-for-Linux) - Troubleshooting and Feedback
+- [Official Steam Frame Hardware Reference](https://gitlab.steamos.cloud/SteamHardware/SteamFrame) - For CAD and further Hardware information

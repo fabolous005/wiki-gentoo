@@ -1,24 +1,23 @@
 <!-- source: https://wiki.gentoo.org/wiki//etc/portage/package.accept_keywords | group: Gentoo Wiki (Main) | wiki-title: /etc/portage/package.accept keywords -->
 ---
-title: "/etc/portage/package.accept_keywords"
+title: "/etc/portage/package.accept keywords"
 url: https://wiki.gentoo.org/wiki//etc/portage/package.accept_keywords
 hostname: gentoo.org
-sitename: "/etc/portage/package.accept_keywords"
-date: "2026-09-13"
-fingerprint: "9b38186e6fc1870e"
+sitename: "/etc/portage/package.accept keywords"
+date: "2026-10-23"
+fingerprint: bb3818ee6fc1870e
 license: CC BY-SA 4.0
 ---
 
-# /etc/portage/package.accept\_keywords
+# /etc/portage/package.accept keywords
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+**package.accept\_keywords** is file or directory of files containing definitions for per-package `ACCEPT_KEYWORDS` statements. It's useful for mixing unstable packages in with a normally stable system packages or vice versa.
 
-**package.accept\_keywords** and **package.keywords** are files or directories of files containing definitions for per-package `ACCEPT_KEYWORDS` statements. They are useful for mixing unstable packages in with a normally stable system packages or vice versa.
-
-These two locations allow `ACCEPT_KEYWORDS` to be augmented for single packages. If both package.accept\_keywords and package.keywords are present, both will be used; values from package.accept\_keywords will override values from package.keywords. The package.accept\_keywords location is intended to replace the package.keywords location, since profiles support a different form of package.keywords which modifies effective `KEYWORDS` (rather than `ACCEPT_KEYWORDS`).
+Historically, [Portage](https://wiki.gentoo.org/wiki/Portage) used package.keywords as location for per-package `ACCEPT_KEYWORDS` overrides. These two locations allow `ACCEPT_KEYWORDS` to be augmented for single packages. If both package.accept\_keywords and package.keywords are present, both will be used; values from package.accept\_keywords will override values from package.keywords. The package.accept\_keywords location is intended to replace the package.keywords location, since profiles support a different form of package.keywords which modifies effective `KEYWORDS` (rather than `ACCEPT_KEYWORDS`).
 
 ## File format
 
@@ -37,8 +36,10 @@ For specific packages, allow installation from the testing branch, or restrict t
 ```
 # Always use unstable libgd
 media-libs/libgd ~amd64
+ 
 # Only use stable (LTS) kernel
 sys-kernel/gentoo-kernel -~amd64
+ 
 # Always use unstable netcat
 net-analyzer/netcat
 ```
@@ -68,7 +69,7 @@ Use a specific version of package:
 
 ### Comments
 
-When adding a USE flag or keyword, it is always helpful to leave a comment to why it was set in the first place.
+When adding a keyword, it is always helpful to leave a comment to why it was set in the first place.
 
 **`/etc/portage/package.accept_keywords/scummvm`**
 
@@ -96,22 +97,21 @@ If a user has over 100 packages in their /etc/portage/package.accept\_keywords, 
 
 **Some examples:**
 
-1\. A user is running a stable system where they always want the latest [GNOME](https://wiki.gentoo.org/wiki/GNOME), [Firefox](https://wiki.gentoo.org/wiki/Firefox), [LibreOffice](https://wiki.gentoo.org/wiki/LibreOffice) and [Kernel](https://wiki.gentoo.org/wiki/Project:Distribution_Kernel).
+- A user is running a stable system where they always want the latest [GNOME](https://wiki.gentoo.org/wiki/GNOME), [Firefox](https://wiki.gentoo.org/wiki/Firefox), [LibreOffice](https://wiki.gentoo.org/wiki/LibreOffice) and [Linux Kernel](https://wiki.gentoo.org/wiki/Distribution_Kernel).
 
-In this case, the user would most likely be better off by switching to a full `~ARCH` system.
+- In this case, the user would most likely be better off by switching to a full `~ARCH` system.
 
-2\. A user is running a stable system and notice the next version of the desktop environment [MATE](https://wiki.gentoo.org/wiki/MATE) has a fix to an issue they are currently having.
+- A user is running a stable system and notice the next version of the desktop environment [MATE](https://wiki.gentoo.org/wiki/MATE) has a fix to an issue they are currently having.
 
-```
-  In this example, the user would pin the MATE dependencies in /etc/portage/package.accept_keywords/mate           (i.e. =mate-base/mate-1.30). This would mean the system would pull all the 1.30 versions from testing and once stable catches up, portage will start tracking the stable branch again.
-```
-3\. A user has lots of \~ARCH keywords for games or [Haskell](https://wiki.gentoo.org/wiki/Haskell)
+- In this example, the user would pin the MATE dependencies in /etc/portage/package.accept\_keywords/mate (i.e. `=mate-base/mate-1.30`). This would mean the system would pull all the 1.30 versions from testing and once stable catches up, portage will start tracking the stable branch again.
 
-These packages rarely get stable keyword so are fine to run with a stable system in most cases.
+- A user has lots of \~ARCH keywords for games or [Haskell](https://wiki.gentoo.org/wiki/Haskell)
+
+- These packages rarely get stable keyword so are fine to run with a stable system in most cases.
 
 ### Use stable packages on testing systems
 
-Sometimes a user will want a few packages to be stable only. The normally usage case for this is using the kernel with out of tree modules, such as ZFS, where it is recommended to stick to the LTS releases. To do this see the below example:
+Sometimes a user will want a few packages to be stable only. The normally usage case for this is using the kernel with out of tree modules, such as [ZFS](https://wiki.gentoo.org/wiki/ZFS), where it is recommended to stick to the LTS releases. To do this see the below example:
 
 **`/etc/portage/package.accept_keywords`**
 
@@ -121,13 +121,11 @@ Sometimes a user will want a few packages to be stable only. The normally usage 
 # Only use stable (LTS) kernel
 sys-kernel/gentoo-kernel -~amd64
 ```
-
-
 ### Unkeyworded packages
 
-Packages that are not yet tested to an acceptable state for testing are added to Gentoo without a keyword such as **\~am64**.
+Packages that are not yet tested to an acceptable state for testing are added to Gentoo without a keyword such as **\~amd64**.
 
-For the correct way to set these packages see [Knowledge\_Base:Missing\_keywords\_and\_keyword\_requests](https://wiki.gentoo.org/wiki/Knowledge_Base:Missing_keywords_and_keyword_requests) and if require, how to request the package to be keyworded.
+For the correct way to set these packages see [Knowledge Base:Missing keywords and keyword requests](https://wiki.gentoo.org/wiki/Knowledge_Base:Missing_keywords_and_keyword_requests) and if require, how to request the package to be keyworded.
 
 ### Live ebuilds
 
@@ -137,7 +135,7 @@ A general user need may be to test a feature that is only available from a proje
 
 A system admin may find it useful when an upstream project they rely on is in code freeze ready for a big release, and the user wishes to help test how it will preform on a real system and report back the bugs they uncover. Remembering to switch back to the versioned releases once the test cycle is complete.
 
-See [Live\_ebuilds](https://wiki.gentoo.org/wiki/Live_ebuilds) for more information on managing a system with live ebuilds.
+See [Live ebuilds](https://wiki.gentoo.org/wiki/Live_ebuilds) for more information on managing a system with live ebuilds.
 
 ## Additional information
 
@@ -173,6 +171,7 @@ Using [app-portage/eix](https://packages.gentoo.org/packages/app-portage/eix):
 
 `user $``eix-test-obsolete````
 Redundant in /etc/portage/package.{,accept_}keywords:
+ 
 ... considered as REDUNDANT_IF_NO_CHANGE
 [I] app-text/pdftk (3.0.0@09/06/2018): gcj-free version of pdftk written in Java
 [I] dev-java/commons-lang (3.6(3.6)@03/30/2018): Commons components to manipulate core java classes

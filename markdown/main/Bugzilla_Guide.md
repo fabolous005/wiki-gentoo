@@ -4,8 +4,8 @@ title: Bugzilla/Guide
 url: https://wiki.gentoo.org/wiki/Bugzilla/Guide
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-07-10"
-fingerprint: be049e5a26afdb9c
+date: "2026-10-23"
+fingerprint: be049e5a2ea7db9c
 license: CC BY-SA 4.0
 ---
 
@@ -164,9 +164,9 @@ One of the most frustrating things for developers and bug-wranglers is finding d
 
 To begin searching, visit [Gentoo's Bugzilla homepage](https://bugs.gentoo.org/) and log in.
 
-Click on "Query Existing bug reports". The reason why we choose this over the basic bug search is because the basic bug search tends to give vague results and often hinders users from looking through the results and finding the duplicate bug. Once we click on the query screen, we reach the next page:
+Click on the large "Search" icon. The reason for not using the quick search is that it tends to give vague results and often hinders users from looking through the results and finding the duplicate bug.
 
-Proceed by clicking on the "Advanced Search" link to bring up the Advanced Search page. While it may seem overwhelming at first, we're going to look at a few simple areas to narrow down the rather vague searches Bugzilla returns.
+Proceed by switching to the "Advanced Search" tab. While it may seem overwhelming at first, we're going to look at a few simple areas to narrow down the rather vague searches Bugzilla returns.
 
 - The first field is the summary of the bug. Here we're simply going to put the name of the package that's crashing. If Bugzilla does not return results, try removing the package name, just in case someone didn't put that in the summary (highly unlikely, but we've seen a fair share of strange bug reports).
 - Product, Component, and Version should all be set to the default. This prevents us from being too specific and missing all the bugs.

@@ -38,7 +38,7 @@ For some scanner devices, the appropriate SANE backend needs to be activated. To
 **`/etc/portage/package.use/sane`**
 
 ```
- SANE_BACKENDS: hp
+*/* SANE_BACKENDS: hp
 ```
 **`/etc/sane.d/dll.conf`**
 
@@ -52,6 +52,11 @@ USB-connected devices require basic kernel USB support. When using the old kerne
 
 **Optional: USB printer support**
 
+```
+Device Drivers  --->
+    [*] USB support  --->
+        <*> USB Printer support
+```
 If preferred this driver can be enabled as module which will be called `usblp`. This also makes testing the `usb` USE flag easier as one can simply switch between the two methods by either disabling the USE flag and loading the kernel module, or enabling the USE flag and unloading the kernel module via modprobe. This saves kernel recompilations and reboots; only HPLIP needs to be recompiled for the USE flags changes to take effect. If the module should be permanently disabled, it can be blacklisted to prevent automatic loading at boot time.
 
 Load the `usblp` kernel module:
@@ -67,6 +72,14 @@ Parallel-port-connected devices require the following kernel options:
 
 **Optional: Parallel port printer support**
 
+```
+Device Drivers  --->
+    <*> Parallel port support  --->
+        <*>   PC-style hardware
+        [*]   IEEE 1284 transfer modes
+    Character devices  --->
+        <*> Parallel printer support
+```
 The above two methods are usually already enabled within most kernels.
 
 Network-connected devices do not require special kernel drivers but basic kernel network support.
@@ -75,6 +88,11 @@ Network-connected devices do not require special kernel drivers but basic kernel
 
 The following table shows the current USE flags for the [net-print/hplip](https://packages.gentoo.org/packages/net-print/hplip):
 
+
+### USE flags for
+            [net-print/hplip](https://packages.gentoo.org/packages/net-print/hplip)
+            
+            HP Linux Imaging and Printing - Print, scan, fax drivers and service tools
 
 | [+hpcups](https://packages.gentoo.org/useflags/+hpcups) | Build the hpcups driver for cups (by HP) | 
 | [+snmp](https://packages.gentoo.org/useflags/+snmp) | Add support for net-analyzer/net-snmp which enables this driver to work over networks (both for server and client) | 

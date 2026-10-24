@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Surf
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2020-03-22"
-fingerprint: c6d6864b80b3da78
+fingerprint: c6d7a65385b3f3ea
 license: CC BY-SA 4.0
 ---
 
@@ -22,6 +22,14 @@ surf is a simple web browser based on WebKit/GTK. It is able to display websites
 
 ### USE flags
 
+
+### USE flags for
+            [www-client/surf](https://packages.gentoo.org/packages/www-client/surf)
+            
+            A simple web browser based on WebKit/GTK+
+
+| [savedconfig](https://packages.gentoo.org/useflags/savedconfig) | Without a saved config.h, this package depends on net-misc/curl and x11-terms/st for a default download mechanism | 
+| [tabbed](https://packages.gentoo.org/useflags/tabbed) | Install surf-open.sh script for running surf in x11-misc/tabbed | 
 
 Preferably, you'll want to enable [savedconfig](https://wiki.gentoo.org/wiki/Savedconfig)
 

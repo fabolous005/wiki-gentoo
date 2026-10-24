@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/LTSP
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-08-16"
-fingerprint: f4a9bc5a7506af80
+fingerprint: f4a9bd5af5062b80
 license: CC BY-SA 4.0
 ---
 
@@ -43,6 +43,13 @@ Besides the obvious drivers, the server kernel ought to have the following setti
 
 **LTSP server**
 
+```
+File systems  --->
+    [*] FUSE (Filesystem in Userspace) support
+    [*] Network File Systems  --->
+        <*> NFS server support
+        [*]  NFS server support for NFS version 3
+```
 ### DHCP and PXE-boot
 
 First, setup the server to provide client machines with a kernel at boottime. Although the server depends on a range of possible packages, the manual will use the ones listed in this paragraph. The PXE bootloader is provided by [sys-boot/syslinux](https://packages.gentoo.org/packages/sys-boot/syslinux). Dnsmasq is a DHCP/DNS/TFTP server. Advanced TFTP is also one of the TFTP server options, and the only one to support multicast TFTP.<sup>**[1](https://wiki.gentoo.org#External_resources)**</sup> The chroot environments as well as the kernels served at boot time are stored in /opt/ltsp.
@@ -55,6 +62,10 @@ Setup the PXE bootloader; view the [PXE install](https://wiki.gentoo.org/wiki/Sy
 
 **ltsp-client 5.3+**
 
+```
+kernel kernel-YOURKERNELVERSION
+append initrd=initramfs-YOURKERNELVERSION root=/dev/nfs nfsroot=YOURSERVERIP:/opt/ltsp/i686 real_init=/sbin/init-ltsp
+```
 Start the services, now and at every boot
 
 `root #``/etc/init.d/dnsmasq start``root #``rc-update add dnsmasq default`
@@ -64,6 +75,9 @@ The chroot environments are shared with NFS. Xinetd is used for **ldminfod** and
 
 **`/etc/xinetd.conf`**
 
+```
+only_from = 192.168.0.1/24
+```
 `root #````
 /etc/init.d/nfs start
 ```
@@ -109,6 +123,11 @@ System logging is performed by [app-admin/sysklogd](https://packages.gentoo.org/
 
 **`/etc/syslog-ng/syslog-ng.conf`**
 
+```
+source net { udp(); };
+destination remote { file("/var/log/remote/$FULLHOST"); };
+log { source(net); destination(remote); };
+```
 `root #``/etc/init.d/syslog-ng restart`
 ### Sound
 
@@ -138,7 +157,7 @@ If Genkernel is used with non default network cards, add the `post_install_initr
 **`/etc/ltsp/profiles/kicktoo.profile`**
 
 ```
-() {
+post_install_initramfs_builder() {
 	if [ "${initramfs_builder}" == "genkernel" ]; then
 		# add you're own network drivers if needed
 		# eg. "MODULES_NET=\"\${MODULES_NET}\" via-rhine"
@@ -152,6 +171,26 @@ A separate section for the client kernel is in order. A standard Genkernel kerne
 
 **LTSP client**
 
+```
+General setup  --->
+    [*] Initial RAM filesystem and RAM disk (initramfs/initrd) support 
+[*] Networking support  ---> 
+    Networking options  --->
+        [*] IP: kernel level autoconfiguration
+        [*] IP: DHCP support
+        [*] IP: BOOTP support 
+Device Drivers -->
+    [*] Block devices  --->
+        <M>   Network block device support
+File systems  ---> 
+    <*> Kernel automounter version 4 support (also supports v3)
+    <*> FUSE (Filesystem in Userspace) support
+    [*] Network File Systems  --->
+        <M>   NFS client support
+        [*]     NFS client support for NFS version 3
+        [*]     NFS client support for the NFSv3 ACL protocol extension
+        [*]     NFS client support for NFS version 4 (EXPERIMENTAL)
+```
 **`/etc/ltsp/ltsp-build-client.conf`**
 
 ```
@@ -239,6 +278,10 @@ Booting a 5.3 client requires the following PXE configuration, without a real\_i
 
 **ltsp-client-5.2**
 
+```
+kernel kernel-YOURKERNELVERSION
+append initrd=initramfs-YOURKERNELVERSION root=/dev/nfs nfsroot=YOURSERVERIP:/opt/ltsp/i686
+```
 ## Tips and tricks
 
 Several optional tips and tricks concerning LTSP can be found here. Most of them are Gentoo specific. Non-Gentoo specific tips & tricks can be found on the [LTSP Wiki](http://wiki.ltsp.org/wiki/Tips_and_Tricks).
@@ -335,6 +378,17 @@ Several programs will fight for the virtual terminals on the clients. Comment ou
 
 **commenting example**
 
+```
+...
+# TERMINALS
+#c1:12345:respawn:/sbin/agetty 38400 tty1 linux
+#c2:2345:respawn:/sbin/agetty 38400 tty2 linux
+#c3:2345:respawn:/sbin/agetty 38400 tty3 linux
+#c4:2345:respawn:/sbin/agetty 38400 tty4 linux
+#c5:2345:respawn:/sbin/agetty 38400 tty5 linux
+#c6:2345:respawn:/sbin/agetty 38400 tty6 linux
+...
+```
 ### Locales
 
 ltsp-build-client does not work witch all locale. quickstart actually requires `C` locale. So if ltsp-build-client shouts with the following message:

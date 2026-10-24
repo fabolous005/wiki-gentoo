@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Open_Firmware
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-08-24"
-fingerprint: "87179e8862bc8358"
+fingerprint: "87379e8862bc8358"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+*Not to be confused with[System76's UEFI-based product, also called Open Firmware](https://wiki.gentoo.org/wiki/UEFI).*
 
 **Open Firmware** is an [IEEE 1275-1994](https://ieeexplore.ieee.org/document/763383) standard for hardware independent firmware built on top of a [Forth](https://wiki.gentoo.org/wiki/Forth) machine. Open Firmware was initially used on early SPARCstations under the name **OpenBoot** but was later popularized by [PowerPC](https://wiki.gentoo.org/wiki/PowerPC) Macs. Despite the demise of that platform in favor of the x86 and ARM-based Macs, Open Firmware sees continued use with the [OpenBIOS](https://github.com/openbios/openbios) project as an optional firmware payload. Open Firmware was designed to be modular and noticeably easier to port to new architectures compared to other options such as legacy [BIOS](https://wiki.gentoo.org/wiki/BIOS) or [UEFI](https://wiki.gentoo.org/wiki/UEFI) firmware.
 

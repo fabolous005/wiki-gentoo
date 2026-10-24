@@ -4,19 +4,21 @@ title: qman
 url: https://wiki.gentoo.org/wiki/Qman
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-09-17"
-fingerprint: "974c78682af31feb"
+date: "2026-10-23"
+fingerprint: "974478482aa3576a"
 license: CC BY-SA 4.0
 ---
 
 # qman
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
 
-**qman** is a [man page](https://wiki.gentoo.org/wiki/Man_page) viewer with an ncurses [TUI](https://en.wikipedia.org/wiki/Text-based_user_interface). A page's references to other man pages get converted to links and can be viewed by clicking on them, while URLs and mail addresses can be opened in external programs.
+**qman** is a [man page](https://wiki.gentoo.org/wiki/Man_page) viewer with a ncurses [TUI](https://en.wikipedia.org/wiki/Text-based_user_interface). A page's references to other man pages get converted to links and can be viewed by clicking on them, while URLs and mail addresses can be opened in external programs.
 
 ## Installation
 
@@ -24,6 +26,14 @@ license: CC BY-SA 4.0
 
 [qman](https://github.com/plp13/qman/blob/main/man/qman.1.md) is available via the [GURU repository](https://wiki.gentoo.org/wiki/Project:GURU), so be sure to [enable it](https://wiki.gentoo.org/wiki/Project:GURU/Information_for_End_Users). Additionally, since packages in GURU are never stable, the appropriate [keyword](https://wiki.gentoo.org/wiki/ACCEPT_KEYWORDS) needs to be specified:
 
+```
+# For amd64 qman-1.5.0 is unstable
+=app-misc/qman-1.5.0
+```
+```
+# For other platforms, not amd64
+=app-misc/qman-1.5.0 ~*
+```
 Emerge:
 
 `root #``emerge --ask app-misc/qman`
@@ -35,8 +45,12 @@ qman supports different locations for configuration files; only the first one fo
 
 One possible file:
 
-**`/etc/xdg/qman/qman.conf`**
+FILE **`/etc/xdg/qman/qman.conf`**
 
+```
+[misc]
+system_type=mandoc
+```
 ## See also
 
 - [man page](https://wiki.gentoo.org/wiki/Man_page) — contains system reference documentation. It is found on most Unix-like systems.

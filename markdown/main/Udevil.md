@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Udevil
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-04-23"
-fingerprint: "3860555a9bb71bba"
+fingerprint: "3c61555a9bbfbbba"
 license: CC BY-SA 4.0
 ---
 
@@ -26,6 +26,11 @@ Kernel eventpolling may need to be enabled for device media to be properly detec
 
 **Enable eventpolling (CONFIG\_EPOLL)**
 
+```
+General setup  --->
+   [*] Configure standard kernel features (expert users)  --->
+      [*]   Enable eventpoll support
+```
 After enabling eventpolling confirm operation by running:
 
 `root #````
@@ -88,6 +93,9 @@ udevil can be configured to operate as a daemon by calling the devmon command. I
 
 **Starting devmon in daemon mode**
 
+```
+devmon 2>&1 > /dev/null &
+```
 #### Systemd
 
 To start devmon as a [systemd user service](https://wiki.gentoo.org/wiki/Systemd#User_services):

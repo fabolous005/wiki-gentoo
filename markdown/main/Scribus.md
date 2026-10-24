@@ -6,7 +6,7 @@ hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-12-27"
 categories: ['Blog']
-fingerprint: "9092a3591cce2ce4"
+fingerprint: "9892a3593cce2ce4"
 license: CC BY-SA 4.0
 ---
 
@@ -32,6 +32,11 @@ Lightweight desktop publishing interchange formats such as QuarkXPress Tag, InDe
 
 ### USE flags
 
+
+### USE flags for
+            [app-office/scribus](https://packages.gentoo.org/packages/app-office/scribus)
+            
+            Desktop publishing (DTP) and layout program
 
 | [+boost](https://packages.gentoo.org/useflags/+boost) | Enable support for Boost based enhancement | 
 | [+jpegxl](https://packages.gentoo.org/useflags/+jpegxl) | Add JPEG XL image support | 

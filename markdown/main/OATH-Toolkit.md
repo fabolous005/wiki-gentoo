@@ -29,14 +29,25 @@ Create following portage configuration files on the server:
 
 **Enabling PAM USE flag for oath-toolkit**
 
+```
+sys-auth/oath-toolkit pam
+```
 **`/etc/portage/package.use/openssh`**
 
 **Enabling PAM USE flag for openssh**
 
+```
+net-misc/openssh pam
+```
 Rebuild the software listed using `pam` support on the SSH server.
 
 ### USE flags
 
+
+### USE flags for
+            [sys-auth/oath-toolkit](https://packages.gentoo.org/packages/sys-auth/oath-toolkit)
+            
+            Toolkit for using one-time password authentication with HOTP/TOTP algorithms
 
 | [pam](https://packages.gentoo.org/useflags/pam) | Build PAM module for pluggable login authentication for OATH | 
 | [static-libs](https://packages.gentoo.org/useflags/static-libs) | Build static versions of dynamic libraries as well | 

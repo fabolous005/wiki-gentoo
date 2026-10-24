@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Matlab
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2025-11-30"
-fingerprint: "48ed0da400183dd"
+fingerprint: "48ed0da4001a2dd"
 license: CC BY-SA 4.0
 ---
 
@@ -71,6 +71,12 @@ e.g. xmonad:
 
 **`~/.xmonad/xmonad.hs`**
 
+```
+main =
+    xmonad $ defaultConfig {
+      startupHook = setWMName "LG3D"
+    }
+```
 ### Install gui not show up
 
 This may happen on R2023b. Try
@@ -196,6 +202,19 @@ Place the file at:
 
 **`/usr/share/applications/matlab.desktop`**
 
+```
+[Desktop Entry]
+Type=Application
+MimeType=text/x-matlab
+Terminal=false
+Exec=/usr/local/MATLAB/R20xyz/bin/matlab -desktop -useStartupFolderPref -softwareopengl
+Name=MATLAB
+Icon=matlab
+Categories=Development;Math;Science;
+Comment=Scientific computing environment
+StartupNotify=true
+StartupWMClass=matlab
+```
 
 
 ## See also

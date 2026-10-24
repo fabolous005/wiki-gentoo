@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/SearXNG
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-10-01"
-fingerprint: f097f47ce4054fe2
+fingerprint: f097f47ce405cfe2
 license: CC BY-SA 4.0
 ---
 
@@ -58,6 +58,7 @@ With the user and virtual environment set up, we can now use pip to install pack
 
 We can combine the cloning of the SearXNG repository and it's installation into the Python virtual environment in a single command; this will clone the repository into /usr/local/searxng/searx-pyenv/src/searxng.
 
+`(searx-pyenv) searxng $``pip install --use-pep517 --no-build-isolation -e "git+`[https://github.com/searxng/searxng#egg=searxng](https://github.com/searxng/searxng#egg=searxng)"
 Run `exit` to return to the root user.
 
 `(searx-pyenv) searxng $``exit`
@@ -69,6 +70,9 @@ To run SearXNG, uWSGI will need to be installed with the `python` USE flag enabl
 
 **`/etc/portage/package.use/uwsgi`**
 
+```
+www-servers/uwsgi python
+```
 Install uWSGI ([www-servers/uwsgi](https://packages.gentoo.org/packages/www-servers/uwsgi)).
 
 `root #``emerge --ask www-servers/uwsgi`
@@ -88,6 +92,7 @@ SearXNG can be customized via two methods:
 
 Customizing SearXNG via a browser will only affect the user of that browser; customizing the configuration file will affect all users that visit the SearXNG webpage. The following command gets the latest default configuration file for SearXNG from the official repository and puts it in the correct location:
 
+`root #``wget -O /etc/searxng/settings.yml "`[https://raw.githubusercontent.com/searxng/searxng/refs/heads/master/searx/settings.yml](https://raw.githubusercontent.com/searxng/searxng/refs/heads/master/searx/settings.yml)"
 Substitute the text "`ultrasecretkey`" with a random hexadecimal 16 bytes long.
 
 `root #``sed -i -e "s/ultrasecretkey/$(openssl rand -hex 16)/g" /etc/searxng/settings.yml`

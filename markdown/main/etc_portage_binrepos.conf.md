@@ -4,8 +4,8 @@ title: "/etc/portage/binrepos.conf"
 url: https://wiki.gentoo.org/wiki//etc/portage/binrepos.conf
 hostname: gentoo.org
 sitename: "/etc/portage/binrepos.conf"
-date: "2026-02-06"
-fingerprint: eda13e860dc26390
+date: "2026-10-23"
+fingerprint: eda13e861dc36390
 license: CC BY-SA 4.0
 ---
 
@@ -39,7 +39,17 @@ location = /var/cache/binhost/gentoo
 
 Binary package repositories can be seen by running
 
-`root #``emerge --info`
+`user $``emerge --info````
+# ...
+Binary Repositories:
+ 
+gentoo
+    location: /var/cache/binhost/gentoo
+    priority: 1
+    sync-uri: https://www.mirrorservice.org/sites/distfiles.gentoo.org/releases/amd64/binpackages/23.0/x86-64/
+    verify-signature: True
+# ...
+```
 ## See also
 
 - [/etc/portage/repos.conf](https://wiki.gentoo.org/wiki//etc/portage/repos.conf) — specifies current [Portage](https://wiki.gentoo.org/wiki/Portage) configured repositories' location and settings

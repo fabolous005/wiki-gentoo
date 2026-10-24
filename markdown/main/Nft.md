@@ -229,9 +229,9 @@ Then specify the required handle:
 ## See also
 
 - [nft] — configures and inspects the Linux kernel's nftables packet handling framework
-- [Nftables/Ruleset](https://wiki.gentoo.org/wiki/Nftables/Ruleset)
+- [Nftables/Ruleset](https://wiki.gentoo.org/wiki/Nftables/Ruleset) — collection of tables, chains, rules, and other objects configured in the [Netfilter](https://wiki.gentoo.org/wiki/Netfilter) **nf\_tables** subsystem.
 - [Nftables/Ruleset/Chain](https://wiki.gentoo.org/wiki/Nftables/Ruleset/Chain) — contains a group of rules used to process network traffic.
-- [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules)
+- [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules) — match packet properties and execute statements.
 - [Nftables/Configuration](https://wiki.gentoo.org/wiki/Nftables/Configuration)
 - [nftables examples](https://wiki.gentoo.org/wiki/Nftables/Examples)
 - [Nftables](https://wiki.gentoo.org/wiki/User:Egberts/Drafts/Nftables) — the Linux packet-handling framework
