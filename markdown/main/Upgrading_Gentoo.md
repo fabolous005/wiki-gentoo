@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Upgrading_Gentoo
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-06-30"
-fingerprint: c41d5a2e0e47e704
+fingerprint: d41d5a2e0e47e704
 license: CC BY-SA 4.0
 ---
 
@@ -19,6 +19,8 @@ Gentoo has its own approach to updates, this document explains how to **upgrade 
 
 It is important to keep Gentoo up to date. In addition to the need to have the latest security patches, Gentoo installations can get too out of sync with the current version and sometimes become complex to update.
 
+## About Gentoo architecture and upgrades
+
 Gentoo differs from most other Linux distributions when it comes to updates. Most distributions have regular releases, every few months or years, which can be anticipated events for some distributions.
 
 Gentoo, by contrast, is a ***[rolling release](https://en.wikipedia.org/wiki/Rolling_release)*** distribution. There is no need to wait for a release to come out in order to get the latest version of packages - software can be installed as soon as it becomes stable. Gentoo was designed from the beginning around this concept of **fast, incremental updates**, and there are frequent updates to Gentoo software, with new and updated packages most days. Further information on Gentoo specifics can be found in the [FAQ](https://wiki.gentoo.org/wiki/FAQ), about [releases and Gentoo](https://wiki.gentoo.org/wiki/FAQ#Can_I_upgrade_Gentoo_from_one_release_to_another_without_reinstalling.3F) and [what makes Gentoo different](https://wiki.gentoo.org/wiki/FAQ#What_makes_Gentoo_different.3F).
@@ -29,6 +31,8 @@ In rare cases, changes made to the core system, to certain packages,
 [profile changes](<https://wiki.gentoo.org/wiki/Profile_(Portage)>), or certain updates of [Portage](https://wiki.gentoo.org/wiki/Portage), may require manual intervention during or after an update. A [news item](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/Base#Reading_news_items) will be published in such critical cases and/or will be signaled after a [Gentoo repository synchronization](https://wiki.gentoo.org/wiki/Ebuild_repository#Repository_synchronization). Always read and follow the news items and Portage messages.
 
 Profiles are central to a Gentoo system because they can define core system functionality, and new profiles are made available when there are fundamental changes to the way Gentoo works. A profile is [selected at install time](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/Base#Choosing_the_right_profile), according to the intended use of the system and is usually only changed if necessary, or for an update.
+
+## Updating packages
 
 The [Handbook](https://wiki.gentoo.org/wiki/Handbook) has detailed information on [updating the Gentoo repository](https://wiki.gentoo.org/wiki/Handbook:AMD64/Working/Portage#Updating_the_Gentoo_repository) and on [updating the system](https://wiki.gentoo.org/wiki/Handbook:AMD64/Working/Portage#Updating_the_system). See man emerge for more detailed information. See [repository synchronization](https://wiki.gentoo.org/wiki/Ebuild_repository#Repository_synchronization) for complete information on how to use emaint to synchronize repositories.
 
@@ -57,7 +61,11 @@ When the output of portage contain pages over pages of unresolved dependency iss
 Any configuration file changes should be addressed, this can be managed by [dispatch-conf](https://wiki.gentoo.org/wiki/Dispatch-conf):
 
 `root #``dispatch-conf`
+### Cleaning up after an update
+
 After the update, Portage recommends running emerge --depclean. Be very careful running emerge --depclean, it can remove important packages (e.g. kernel sources or [virtual package](https://wiki.gentoo.org/wiki/Project:Portage/FAQ#Why_does_emerge_--depclean_sometimes_remove_system_packages.3F) optional dependencies when an alternative gets merged).
+
+## Profile updating instructions
 
 When a new profile is available, Portage will inform the user with a [news item](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/Base#Reading_news_items) (recent news items are listed on [the website](https://www.gentoo.org/support/news-items/)).
 
@@ -69,7 +77,11 @@ Profile updates are executed manually. The way to update may vary significantly 
 
 Exactly what is required to migrate to a new profile is detailed in the relevant news item.
 
+### General instructions
+
 This is a generic outline of what is done to update a profile. As stated previously, specific instructions will be provided in a [news item](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/Base#Reading_news_items), for each new profile. A profile update often requires manual intervention, beyond just switching the profile version.
+
+#### Switch profiles with eselect
 
 Make sure [warnings in parent section](https://wiki.gentoo.org/wiki/Upgrading_Gentoo#General_instructions) have been read.
 
@@ -79,6 +91,8 @@ To switch profiles with the automatic tool, [app-admin/eselect](https://packages
 eselect profile list
 ```
 `root #``eselect profile set <number>`
+#### Switch profiles manually
+
 Make sure [warnings in parent section](https://wiki.gentoo.org/wiki/Upgrading_Gentoo#General_instructions) have been read.
 
 Changing profiles manually is still supported:
@@ -92,17 +106,29 @@ cd /etc/portage
 `root #````
 ln -s ../../var/db/repos/gentoo/profiles/<selected profile> make.profile
 ```
+### Updating to 23.0 profile
+
 See the appropriate [news item](https://www.gentoo.org/support/news-items/2024-03-22-new-23-profiles.html). At this point all installations should already be using the 23.0 profile, and migration could be difficult.
+
+### Updating to 17.1 profile
 
 See the appropriate [news item](https://www.gentoo.org/support/news-items/2019-06-05-amd64-17-1-profiles-are-now-stable.html). At this point all installations should already be using the 17.1 profile, and migration could be difficult.
 
+### Updating to 17.0 profile
+
 See the appropriate [news item](https://www.gentoo.org/support/news-items/2017-11-30-new-17-profiles.html). At this point all installations should be using the 17.1 profile, and migration could be difficult.
+
+## Updating old systems
 
 Sometimes, systems are too old to easily upgrade. It may be possible to manually update a very old system, but it may be better to start from scratch and copy system configuration and files from the old system to the new one.
 
 Here is a rough guide to updating an old system. Another method can be found [here](https://wiki.gentoo.org/wiki/User:NeddySeagoon/HOWTO_Update_Old_Gentoo).
 
+### Synopsis
+
 The idea with this upgrade approach is that we create an intermediate build chroot in which a recent stage3 is extracted. Then, using the tools available in the stage3 chroot we upgrade the packages on the live system.
+
+### Preparing the intermediate build chroot
 
 Let's first create the intermediate build chroot location, say /mnt/build, and extract a recent stage3 archive into it.
 
@@ -131,6 +157,8 @@ mount --rbind / /mnt/build/mnt/host
 ```
 So now the live (old) system is also reachable within /mnt/build/mnt/host. This will allow us to reach the live (old) system and update the packages even when chrooted inside the intermediate build chroot.
 
+### Network, chroot, and update
+
 The new install needs to access the network, so copy over the network related information:
 
 `root #``cp -L /etc/resolv.conf /mnt/build/etc/`
@@ -157,8 +185,12 @@ To get the system fully up-to-date before exiting the root, build the `@world` s
 `(chroot) root #``emerge --root=/mnt/host --config-root=/mnt/host --update --newuse --deep --ask @world`
 Once finished the system should now be up to date!
 
+## See also
+
 - [Updating old Gentoo installations](https://wiki.gentoo.org/wiki/User:NeddySeagoon/HOWTO_Update_Old_Gentoo)
 - [Can I upgrade Gentoo from one release to another without reinstalling?](https://wiki.gentoo.org/wiki/FAQ#Can_I_upgrade_Gentoo_from_one_release_to_another_without_reinstalling.3F)
 - [Cheat Sheet on updates](https://wiki.gentoo.org/wiki/Gentoo_Cheat_Sheet#Package_upgrades)
 - [Handbook on updates](https://wiki.gentoo.org/wiki/Handbook:AMD64/Working/Portage#Updating_the_system)
 - [Installation](https://wiki.gentoo.org/wiki/Installation) — an overview of the principles and practices of installing Gentoo on a running system.
+
+## External resources

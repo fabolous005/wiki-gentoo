@@ -4,8 +4,8 @@ title: FAQ
 url: https://wiki.gentoo.org/wiki/FAQ
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-02-28"
-fingerprint: "9481ba5a45a3330e"
+date: "2026-10-24"
+fingerprint: "9489ba5a45a3330e"
 license: CC BY-SA 4.0
 ---
 
@@ -18,6 +18,8 @@ license: CC BY-SA 4.0
 **outdated**. You can help the Gentoo community by verifying and
 
 [updating this article](https://wiki.gentoo.org/index.php?title=FAQ&action=edit).
+
+**Support and Troubleshooting**
 
 This **FAQ** is a collection of common questions about Gentoo, along with their corresponding answers.
 

@@ -4,7 +4,7 @@ title: Pybugz
 url: https://wiki.gentoo.org/wiki/Pybugz
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2024-11-13"
+date: "2026-10-24"
 fingerprint: "6c184e9348c6c6b0"
 license: CC BY-SA 4.0
 ---
@@ -15,7 +15,7 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
-Pybugz is a command line interface to [Gentoo Bugzilla](https://bugs.gentoo.org/).
+Pybugz is a command line interface to [Gentoo's Bugzilla instance](https://wiki.gentoo.org/wiki/Bugzilla/Guide) ([bugs.gentoo.org](https://bugs.gentoo.org/)).
 It is geared towards Bugzilla users that find the web interface inefficient.
 
 It's features include:

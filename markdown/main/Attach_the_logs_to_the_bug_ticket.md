@@ -74,7 +74,7 @@ The person checking and assigning a ticket to developers probably does not know 
 
 ## See also
 
-- [Bugzilla/Guide](https://wiki.gentoo.org/wiki/Bugzilla/Guide) — covers the recommended method of forensically reporting *specific details* of bugs within Gentoo.
-- [Bugzilla/Bug report guide](https://wiki.gentoo.org/wiki/Bugzilla/Bug_report_guide) — explains how to report bugs using Gentoo's Bugzilla instance, which may be lightly customized to collect specific details for each Gentoo project area
+- [Bugzilla/Guide](https://wiki.gentoo.org/wiki/Bugzilla/Guide) — covers the recommended method of forensically reporting *specific details* of [bugs within Gentoo](https://bugs.gentoo.org/).
+- [Bugzilla/Bug report guide](https://wiki.gentoo.org/wiki/Bugzilla/Bug_report_guide) — explains how to report bugs using [Gentoo's Bugzilla instance](https://bugs.gentoo.org/), which may be lightly customized to collect specific details for each Gentoo project area
 - [Support](https://wiki.gentoo.org/wiki/Support) — provide **support** for technical issues encountered when installing or using Gentoo Linux
 - [Troubleshooting](https://wiki.gentoo.org/wiki/Troubleshooting) — provide users with a set of techniques and tools to troubleshoot and fix problems with their Gentoo setups.

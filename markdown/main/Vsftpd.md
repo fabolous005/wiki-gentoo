@@ -4,12 +4,14 @@ title: vsftpd
 url: https://wiki.gentoo.org/wiki/Vsftpd
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-09-07"
-fingerprint: fa20105e51c7dbe6
+date: "2026-10-24"
+fingerprint: fa20115a51c7d3e6
 license: CC BY-SA 4.0
 ---
 
 # vsftpd
+
+From Gentoo Wiki
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -22,6 +24,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [net-ftp/vsftpd](https://packages.gentoo.org/packages/net-ftp/vsftpd)
+            
+            Very Secure FTP Daemon
 
 | [pam](https://packages.gentoo.org/useflags/pam) | Add support for PAM (Pluggable Authentication Modules) - DANGEROUS to arbitrarily flip | 
 | [selinux](https://packages.gentoo.org/useflags/selinux) | !!internal use only!! Security Enhanced Linux support, this must be set by the selinux profile or breakage will occur | 
@@ -39,13 +46,29 @@ You can find an example configuration file and documentation in the `/usr/share/
 
 #### Anonymous read access
 
-**`/etc/vsftpd.conf`**
+FILE **`/etc/vsftpd.conf`**
 
+```
+listen=YES
+local_enable=NO
+anonymous_enable=YES
+write_enable=NO
+anon_root=/home/ftp
+```
 #### Anonymous read/write access
 
 `root #``chown ftp /home/ftp`
-**`/etc/vsftpd.conf`**
+FILE **`/etc/vsftpd.conf`**
 
+```
+listen=YES
+local_enable=NO
+anonymous_enable=YES
+anon_upload_enable=YES
+write_enable=YES
+anon_mkdir_write_enable=YES
+anon_root=/home/ftp
+```
 ## Service
 
 ### OpenRC
@@ -74,6 +97,9 @@ Following error might show using ftp clients with vsftpd 3.0.x version:
 
 This is caused by [seccomp filter sanboxing](https://en.wikipedia.org/wiki/Seccomp), and enabled by default on **amd64**. To workaround this issue, disable seccomp filter sanboxing:
 
-**`/etc/vsftpd/vsftpd.conf`**
+FILE **`/etc/vsftpd/vsftpd.conf`**
 
+```
+seccomp_sandbox=NO
+```
 For further information, refer to Red Hat [bug #845980](https://bugzilla.redhat.com/show_bug.cgi?id=845980).

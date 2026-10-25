@@ -2465,6 +2465,7 @@ https://wiki.gentoo.org/wiki/Sunrise_(project_archive)/Resources
 https://wiki.gentoo.org/wiki/Sunrise_(project_archive)/Reviewing
 https://wiki.gentoo.org/wiki/SuperCollider
 https://wiki.gentoo.org/wiki/Support
+https://wiki.gentoo.org/wiki/Support/SectionBox
 https://wiki.gentoo.org/wiki/Surf
 https://wiki.gentoo.org/wiki/Suspend_and_hibernate
 https://wiki.gentoo.org/wiki/Swap

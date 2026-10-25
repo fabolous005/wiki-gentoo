@@ -4,8 +4,8 @@ title: apulse
 url: https://wiki.gentoo.org/wiki/Apulse
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-20"
-fingerprint: "9ee8fc5e6ae8bc22"
+date: "2026-10-24"
+fingerprint: "9ee87e5e6ee8bd32"
 license: CC BY-SA 4.0
 ---
 
@@ -52,6 +52,35 @@ If using the pulse-rust backend in Firefox results in errors from apulse:
 this might be able to be addressed by setting the `APULSE_CAPTURE_DEVICE` environment variable when calling Firefox, e.g.:
 
 `user $``APULSE_CAPTURE_DEVICE=null firefox`
+modifying the name of the binary if necessary (e.g. to firefox-bin).
+
+If a permanent solution is required, modify [the appropriate ALSA configuration file](https://wiki.gentoo.org/wiki/ALSA#Files), e.g. \~/.asoundrc or /etc/asound.conf:
+
+```
+# Existing working playback setup (e.g. using dmix)
+pcm.dmixer {
+    type dmix
+    ipc_key 1024
+    slave {
+        pcm "hw:0,0"
+    }
+}
+# Combine working playback with a completely silent capture device
+pcm.silent_duplex {
+    type asym
+    playback.pcm "plug:dmixer"
+    capture.pcm "null" # Produces/absorbs pure silence
+}
+# Set this asymmetric layout as system default
+pcm.!default {
+    type plug
+    slave.pcm "silent_duplex"
+}
+ctl.!default {
+    type hw
+    card 0
+}
+```
 ## See also
 
 - [PulseAudio](https://wiki.gentoo.org/wiki/PulseAudio) — a multi-platform, open source, sound server that provides a number of features on top of the low-level audio interface [ALSA](https://wiki.gentoo.org/wiki/ALSA)

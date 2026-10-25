@@ -4,8 +4,8 @@ title: Ruby
 url: https://wiki.gentoo.org/wiki/Ruby
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-04-15"
-fingerprint: "2e07139eccdab9c4"
+date: "2026-10-24"
+fingerprint: "2e27139eccdab944"
 license: CC BY-SA 4.0
 ---
 
@@ -21,6 +21,11 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
+
+### USE flags for
+            [dev-lang/ruby](https://packages.gentoo.org/packages/dev-lang/ruby)
+            
+            An object-oriented scripting language
 
 | [+ssl](https://packages.gentoo.org/useflags/+ssl) | Add support for SSL/TLS connections (Secure Socket Layer / Transport Layer Security) | 
 | [berkdb](https://packages.gentoo.org/useflags/berkdb) | Add support for sys-libs/db (Berkeley DB) | 
@@ -53,7 +58,7 @@ For example, if upgrading from Ruby 2.5 to Ruby 2.6, add `ruby26` to the `RUBY_T
 ```
 # 2020-04-05 upgrade from ruby 2.5 to ruby 2.6 -Larry
 # RUBY_TARGETS="ruby25"
-*/* RUBY_TARGETS: ruby25 ruby26"
+*/* RUBY_TARGETS: ruby25 ruby26
 ```
 Next perform an upgrade of the Ruby base package:
 
@@ -82,6 +87,9 @@ Starting with Ruby 2.2 the [Gentoo Ruby project](https://wiki.gentoo.org/wiki/Pr
 
 **Unmasking flags for Ruby 2.7**
 
+```
+-ruby_targets_ruby27
+```
 For further information please see the  [similar instructions for Python](https://wiki.gentoo.org/wiki/Project:Python/PYTHON_TARGETS#Unmasking_non-stable_implementation_on_a_stable_system).
 
 ## Configuration
@@ -93,7 +101,7 @@ Activate a specific Ruby implementations by adding `RUBY_TARGETS="$implementatio
 **`/etc/portage/package.use/00Ruby`**
 
 ```
- RUBY_TARGETS: ruby25 ruby26 ruby27
+*/* RUBY_TARGETS: ruby25 ruby26 ruby27
 ```
 Multiple Ruby implementations in can be installed in parallel. The `RUBY_TARGETS` variable picks the implementations from `USE_RUBY` (which is set ebuilds depending on Ruby) and (re)compiles packages with support for each selected implementation.
 

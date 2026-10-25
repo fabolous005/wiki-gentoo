@@ -4,7 +4,7 @@ title: wgetpaste
 url: https://wiki.gentoo.org/wiki/Wgetpaste
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-06"
+date: "2026-10-24"
 fingerprint: "35a8895d03a79ac1"
 license: CC BY-SA 4.0
 ---
@@ -15,6 +15,8 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+
+**Support and Troubleshooting**
 
 **wgetpaste** is a [command-line](https://wiki.gentoo.org/wiki/Shell) tool for posting snippets of text to various online [pastebin](https://en.wikipedia.org/wiki/pastebin) services.
 

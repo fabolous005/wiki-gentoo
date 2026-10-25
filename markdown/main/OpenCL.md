@@ -4,7 +4,7 @@ title: OpenCL
 url: https://wiki.gentoo.org/wiki/OpenCL
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-22"
+date: "2026-10-24"
 fingerprint: "27a390eff48a1145"
 license: CC BY-SA 4.0
 ---

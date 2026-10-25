@@ -4,7 +4,7 @@ title: Troubleshooting
 url: https://wiki.gentoo.org/wiki/Troubleshooting
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-09-26"
+date: "2026-10-24"
 fingerprint: f6148e5600e7bd94
 license: CC BY-SA 4.0
 ---
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Support and Troubleshooting**
 
 The purpose of this page is to provide users with a set of techniques and tools to troubleshoot and fix problems with their Gentoo setups.
 

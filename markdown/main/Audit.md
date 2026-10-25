@@ -4,7 +4,7 @@ title: Audit
 url: https://wiki.gentoo.org/wiki/Audit
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2025-01-07"
+date: "2026-10-24"
 fingerprint: e8deb71c17d3b9a6
 license: CC BY-SA 4.0
 ---

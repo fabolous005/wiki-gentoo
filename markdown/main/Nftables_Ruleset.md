@@ -4,7 +4,7 @@ title: Nftables/Ruleset
 url: https://wiki.gentoo.org/wiki/Nftables/Ruleset
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-23"
+date: "2026-10-24"
 fingerprint: a595897aa7c5a94d
 license: CC BY-SA 4.0
 ---
@@ -385,12 +385,18 @@ The following keywords begin command. Place the command at the nft command line 
 - Table ID can start a line, equivalent to `add rules`
 - Family ID can start a line, equivalent to `add rules`
 
+## Hub page
+
+This is a hub page for nftables ruleset and ruleset-related keywords.
+
+The following pages provide keyword guides for configuring [Nftables](https://wiki.gentoo.org/wiki/Nftables) ruleset and command files for [Netfilter](https://wiki.gentoo.org/wiki/Netfilter).
+
 ## See also
 
 - [nft](https://wiki.gentoo.org/wiki/Nft) — configures and inspects the Linux kernel's nftables packet handling framework
-- [Nftables/Ruleset] — defines the collection of tables, chains, rules, and other objects configured in the [Netfilter](https://wiki.gentoo.org/wiki/Netfilter) **nf\_tables** subsystem used for [nftables](https://wiki.gentoo.org/wiki/Nftables) packet handling.
+- [Nftables/Ruleset] — collection of tables, chains, rules, and other objects configured in the [Netfilter](https://wiki.gentoo.org/wiki/Netfilter) **nf\_tables** subsystem.
 - [Nftables/Ruleset/Chain](https://wiki.gentoo.org/wiki/Nftables/Ruleset/Chain) — contains a group of rules used to process network traffic.
-- [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules) — match packet properties and perform actions.
+- [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules) — match packet properties and execute statements.
 - [Nftables/Configuration](https://wiki.gentoo.org/wiki/Nftables/Configuration)
 - [nftables examples](https://wiki.gentoo.org/wiki/Nftables/Examples)
 - [Nftables](https://wiki.gentoo.org/wiki/User:Egberts/Drafts/Nftables) — the Linux packet-handling framework

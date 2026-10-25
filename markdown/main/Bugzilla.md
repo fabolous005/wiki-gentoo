@@ -4,7 +4,7 @@ title: Bugzilla
 url: https://wiki.gentoo.org/wiki/Bugzilla
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2024-11-24"
+date: "2026-10-24"
 fingerprint: ec1c89bdc5efb586
 license: CC BY-SA 4.0
 ---

@@ -17,9 +17,9 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
-This article explains how to report bugs using Gentoo's Bugzilla instance, which may be lightly customized to collect specific details for each Gentoo project area.
+**Support and Troubleshooting**
 
-See [Bugzilla/Guide](https://wiki.gentoo.org/wiki/Bugzilla/Guide) for the recommended method of forensically troubleshooting and reporting helpful details on bugs related to Gentoo development.
+This article explains how to report bugs using [Gentoo's Bugzilla instance](https://bugs.gentoo.org/), which may be lightly customized to collect specific details for each Gentoo project area.
 
 ## Best practices
 
@@ -178,7 +178,7 @@ Tracker bugs are virtual or meta bugs to cluster bugs with the same topic or foc
 ## See also
 
 - [Attach the logs to the bug ticket](https://wiki.gentoo.org/wiki/Attach_the_logs_to_the_bug_ticket) — explains how to **attach log files to a bug ticket**
-- [Bugzilla/Guide](https://wiki.gentoo.org/wiki/Bugzilla/Guide) — covers the recommended method of forensically reporting *specific details* of bugs within Gentoo.
+- [Bugzilla/Guide](https://wiki.gentoo.org/wiki/Bugzilla/Guide) — covers the recommended method of forensically reporting *specific details* of [bugs within Gentoo](https://bugs.gentoo.org/).
 - [Contributing to Gentoo](https://wiki.gentoo.org/wiki/Contributing_to_Gentoo) — explains how users can **contribute to the development of Gentoo**
 - [Support](https://wiki.gentoo.org/wiki/Support) — provide **support** for technical issues encountered when installing or using Gentoo Linux
 - [Troubleshooting](https://wiki.gentoo.org/wiki/Troubleshooting) — provide users with a set of techniques and tools to troubleshoot and fix problems with their Gentoo setups.

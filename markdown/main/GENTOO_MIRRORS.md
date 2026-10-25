@@ -4,8 +4,8 @@ title: GENTOO_MIRRORS
 url: https://wiki.gentoo.org/wiki/GENTOO_MIRRORS
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-19"
-fingerprint: "2af2e0c9e8b4f24"
+date: "2026-10-24"
+fingerprint: "2afee8cbecb4f24"
 license: CC BY-SA 4.0
 ---
 
@@ -38,12 +38,14 @@ It can be overwritten with an entry in [/etc/portage/make.conf](https://wiki.gen
 
 [mirrorselect](https://wiki.gentoo.org/wiki/Mirrorselect) is a tool for managing such entry. That entry can hold a space-delimited list of Gentoo source mirrors to check before downloading from the URL defined in an ebuild or downloading a snapshot (webrsync).
 
+Below is an example of two selected mirrors:
+
 FILE **`/etc/portage/make.conf`****Two mirror locations in make.conf**
 
 ```
-GENTOO_MIRRORS="https://mirrors.evowise.com/gentoo/ https://mirrors.lug.mtu.edu/gentoo/ http://distfiles.gentoo.org"
+GENTOO_MIRRORS="https://mirrors.lug.mtu.edu/gentoo/ http://distfiles.gentoo.org"
 ```
-Available URLs can be found on [Gentoo source mirrors](https://www.gentoo.org/downloads/mirrors/).
+It is recommended that users pick their own, either manually from the list, or using the mirrorselect tool. Available URLs can be found on [Gentoo source mirrors](https://www.gentoo.org/downloads/mirrors/).
 
 ## Choosing a fast mirror
 

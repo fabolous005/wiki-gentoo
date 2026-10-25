@@ -4,7 +4,7 @@ title: Support
 url: https://wiki.gentoo.org/wiki/Support
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-09-11"
+date: "2026-10-24"
 fingerprint: "528bde505e8327dc"
 license: CC BY-SA 4.0
 ---
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Support and Troubleshooting**
 
 The Gentoo community volunteers will usually be happy to provide **support** for technical issues encountered when installing or using Gentoo Linux. Both Gentoo developers, and experienced users - from the talented community that builds, packages, tests, and documents the Gentoo Linux distribution - provide support in the various Gentoo communication channels, such as [Forums](https://forums.gentoo.org/), [IRC](https://wiki.gentoo.org/wiki/IRC),  [mailing lists](https://www.gentoo.org/get-involved/mailing-lists/), etc.
 
@@ -109,7 +111,7 @@ There are a couple of guides for reporting bugs on the wiki: [Bugzilla/Bug repor
 
 ## See also
 
-- [Bugzilla/Bug\_report\_guide](https://wiki.gentoo.org/wiki/Bugzilla/Bug_report_guide) — explains how to report bugs using Gentoo's Bugzilla instance, which may be lightly customized to collect specific details for each Gentoo project area
+- [Bugzilla/Bug\_report\_guide](https://wiki.gentoo.org/wiki/Bugzilla/Bug_report_guide) — explains how to report bugs using [Gentoo's Bugzilla instance](https://bugs.gentoo.org/), which may be lightly customized to collect specific details for each Gentoo project area
 - [Fix my Gentoo](https://wiki.gentoo.org/wiki/Fix_my_Gentoo) — rescuing an installation when a chroot is not possible
 - [Project:Council/Consultants](https://wiki.gentoo.org/wiki/Project:Council/Consultants)
 - [IRC](https://wiki.gentoo.org/wiki/IRC) — a stable, mature, text-based chat (instant messaging) system. IRC is one of the primary avenues of communication for those involved at all levels in the [Gentoo project](https://wiki.gentoo.org/wiki/Project:Gentoo).

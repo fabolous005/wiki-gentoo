@@ -4,7 +4,7 @@ title: Nftables/Rules
 url: https://wiki.gentoo.org/wiki/Nftables/Rules
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-23"
+date: "2026-10-24"
 fingerprint: fdb99d1ef70b9fad
 license: CC BY-SA 4.0
 ---
@@ -37,8 +37,7 @@ Rule evaluation processes expressions and statements in sequence. Matching expre
 
 A rule consists of expressions and statements. Expressions determine whether a packet matches; statements perform actions on matching packets.
 
-nft add rule \<family> \<table> \<chain> \<expressions> \<statements>
-
+`nft add rule [<family>] TABLE_ID CHAIN_ID <expressions> <statements>`
 The family can be omitted when it defaults to ip. A rule can also include a comment.
 
 **`/etc/nftables/rules.d/ssh-server.nft`**

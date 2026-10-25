@@ -4,8 +4,8 @@ title: Bugzilla/Guide
 url: https://wiki.gentoo.org/wiki/Bugzilla/Guide
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-23"
-fingerprint: be049e5a2ea7db9c
+date: "2026-10-24"
+fingerprint: be049e5b2ea7db9c
 license: CC BY-SA 4.0
 ---
 
@@ -17,7 +17,9 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
-The *way* a bug is reported helps to get it fixed sooner. This article covers the recommended method of forensically reporting *specific details* of bugs within Gentoo. These generally consist of broken upstream code causing compilation errors, run time problems, or packaging errors.
+**Support and Troubleshooting**
+
+The *way* a bug is reported helps to get it fixed sooner. This article covers the recommended method of forensically reporting *specific details* of [bugs within Gentoo](https://bugs.gentoo.org/). These generally consist of broken upstream code causing compilation errors, run time problems, or packaging errors.
 
 This article also details some common troubleshooting steps which may reveal the bug's solution, or clues for the solution, to report to the Gentoo developer or group responsible for the problem.
 
@@ -166,7 +168,7 @@ To begin searching, visit [Gentoo's Bugzilla homepage](https://bugs.gentoo.org/)
 
 Click on the large "Search" icon. The reason for not using the quick search is that it tends to give vague results and often hinders users from looking through the results and finding the duplicate bug.
 
-Proceed by switching to the "Advanced Search" tab. While it may seem overwhelming at first, we're going to look at a few simple areas to narrow down the rather vague searches Bugzilla returns.
+Switch to the "Advanced Search" tab, if it is not already selected. While it may seem overwhelming at first, we're going to look at a few simple areas to narrow down the rather vague searches Bugzilla returns.
 
 - The first field is the summary of the bug. Here we're simply going to put the name of the package that's crashing. If Bugzilla does not return results, try removing the package name, just in case someone didn't put that in the summary (highly unlikely, but we've seen a fair share of strange bug reports).
 - Product, Component, and Version should all be set to the default. This prevents us from being too specific and missing all the bugs.
@@ -356,7 +358,10 @@ Special thanks go to moreon for his notes on `-g` flags and compile errors, the 
 ## See also
 
 - [Attach the logs to the bug ticket](https://wiki.gentoo.org/wiki/Attach_the_logs_to_the_bug_ticket) — explains how to **attach log files to a bug ticket**
-- [Bugzilla/Bug report guide](https://wiki.gentoo.org/wiki/Bugzilla/Bug_report_guide) — explains how to report bugs using Gentoo's Bugzilla instance, which may be lightly customized to collect specific details for each Gentoo project area
+- [Bugzilla/Bug report guide](https://wiki.gentoo.org/wiki/Bugzilla/Bug_report_guide) — explains how to report bugs using [Gentoo's Bugzilla instance](https://bugs.gentoo.org/), which may be lightly customized to collect specific details for each Gentoo project area
 - [Contributing to Gentoo](https://wiki.gentoo.org/wiki/Contributing_to_Gentoo) — explains how users can **contribute to the development of Gentoo**
 - [Support](https://wiki.gentoo.org/wiki/Support) — provide **support** for technical issues encountered when installing or using Gentoo Linux
 - [Troubleshooting](https://wiki.gentoo.org/wiki/Troubleshooting) — provide users with a set of techniques and tools to troubleshoot and fix problems with their Gentoo setups.
+
+
+## External references

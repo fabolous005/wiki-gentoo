@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/VirtualBox
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-06-18"
-fingerprint: "5f1d993e078323a6"
+fingerprint: "5f1d981ec78229e6"
 license: CC BY-SA 4.0
 ---
 
@@ -31,8 +31,18 @@ license: CC BY-SA 4.0
 
 VirtualBox host requires following [kernel](https://wiki.gentoo.org/wiki/Kernel) configuration options:
 
+```
+[*] Enable loadable module support  ---> 
+  [ ]   Trim unused exported kernel symbols
+[*] Virtualization  --->
+```
 ### USE flags
 
+
+### USE flags for
+            [app-emulation/virtualbox](https://packages.gentoo.org/packages/app-emulation/virtualbox)
+            
+            Family of powerful x86 virtualization products for enterprise and home use
 
 | [+gui](https://packages.gentoo.org/useflags/+gui) | Enable support for a graphical user interface | 
 | [+opengl](https://packages.gentoo.org/useflags/+opengl) | Add support for OpenGL (3D graphics) | 
@@ -79,10 +89,57 @@ When running Gentoo as a guest system, enable the following kernel options on th
 
 **Generic Framebuffer prior to kernel 5.15**
 
+```
+Bus options (PCI etc.)  --->
+    [*] Mark VGA/VBE/EFI FB as generic system framebuffer
+```
 **Generic Framebuffer kernel 5.15 and later**
 
+```
+Device Drivers  --->
+  Firmware Drivers  --->
+    [*] Mark VGA/VBE/EFI FB as generic system framebuffer
+```
 **Support for VirtualBox hardware**
 
+```
+Device Drivers  --->
+    <*> Serial ATA and Parallel ATA drivers (libata)  --->
+        [*] AHCI SATA support
+        [*] ATA SFF support (for legacy IDE and PATA)
+        [*]   ATA BMDMA support
+        [*]     Intel ESB, ICH, PIIX3, PIIX4 PATA/SATA support
+    <*> Network device support  --->
+        <*> Ethernet driver support  --->
+            [*] Intel devices
+            [*]   Intel(R) PRO/1000 Gigabit Ethernet support
+    Input device support  --->
+        <*> Keyboards  --->
+            [*] AT keyboard
+        <*> Mice  --->
+            [*] PS/2 mouse
+    <*> Virtio drivers  --->
+        <*> PCI driver for virtio devices
+    Graphics support  --->
+        <*> Direct Rendering Manager (XFree86 4.1.0 and higher DRI support)  --->
+            [*] Enable legacy fbdev support for your modesetting driver
+        <*> DRM driver for VMware Virtual GPU
+            <*> Enable framebuffer console under vmwgfx by default
+        Frame buffer Devices  --->
+            <*> Support for frame buffer devices  --->
+                [*] Enable Firmware EDID
+                [*] Simple framebuffer support
+        <*> Console display driver support  --->
+            [*] Framebuffer Console support
+            [*]   Map the console to the primary display device
+    <*> Sound card support  --->
+        <*> Advanced Linux Sound Architecture  --->
+            <*> PCI sound devices  --->
+                [*] Intel/SiS/nVidia/AMD/ALi AC97 Controller
+    <*> USB support  --->
+        [*] xHCI HCD (USB 3.0) support
+        [*] EHCI HCD (USB 2.0) support
+```
 #### Guest Additions
 
 To install the Guest Additions, invoke the following command on the Gentoo guest system:
@@ -168,6 +225,11 @@ It is possible to automatically load the modules each time the system boots. Cre
 
 **`/etc/modules-load.d/virtualbox.conf`**
 
+```
+vboxdrv
+vboxnetadp
+vboxnetflt
+```
 #### systemd
 
 Modules can be loaded immediately on systemd systems by running:
@@ -386,3 +448,8 @@ Starting with kernel 6.15.0, virtualbox-drivers need to be compiled against a ke
 
 - [vboxweb\_rb](https://github.com/KieranP/vboxweb_rb) - Web-based administration utility ([Ruby](https://wiki.gentoo.org/wiki/Ruby))
 - [VirtualBox Manual](http://www.virtualbox.org/manual/)
+
+## References
+
+1. [↑](https://wiki.gentoo.org#cite_ref-1) [https://www.virtualbox.org/wiki/Guest\_resizing](https://www.virtualbox.org/wiki/Guest_resizing)
+2. [↑](https://wiki.gentoo.org#cite_ref-2) Section\_8. [VirtualBox - No sound after update](https://forums.gentoo.org/viewtopic-t-1104042.html), [Gentoo Forums](https://forums.gentoo.org/), November 12th, 2019. Retrieved on September 14th, 2020.

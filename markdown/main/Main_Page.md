@@ -4,8 +4,8 @@ title: Gentoo Wiki
 url: https://wiki.gentoo.org/wiki/Main_Page
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-23"
-fingerprint: f036b94376936355
+date: "2026-10-24"
+fingerprint: f0b6b84376836355
 license: CC BY-SA 4.0
 ---
 
@@ -69,8 +69,8 @@ For questions *related to using or editing the documentation on the <u>wiki</u>*
 
 ## Recently added pages
 
+- [09:38, 24 October 2026](https://wiki.gentoo.org/index.php?title=Support/SectionBox&oldid=1461836) [Support/SectionBox](https://wiki.gentoo.org/wiki/Support/SectionBox) ([hist](https://wiki.gentoo.org/index.php?title=Support/SectionBox&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Support/SectionBox&action=edit)) \[289 bytes\] [Ris](https://wiki.gentoo.org/wiki/User:Ris) ([talk](https://wiki.gentoo.org/wiki/User_talk:Ris) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Ris))  (Support and Troubleshooting SectionBox)
 - [14:40, 23 October 2026](https://wiki.gentoo.org/index.php?title=/etc/portage/package.accept_keywords/en&oldid=1461730) [/etc/portage/package.accept keywords/en](https://wiki.gentoo.org/wiki//etc/portage/package.accept_keywords/en) ([hist](https://wiki.gentoo.org/index.php?title=/etc/portage/package.accept_keywords/en&action=history) | [edit](https://wiki.gentoo.org/index.php?title=/etc/portage/package.accept_keywords/en&action=edit)) \[8,223 bytes\] [FuzzyBot](https://wiki.gentoo.org/wiki/User:FuzzyBot) ([talk](https://wiki.gentoo.org/index.php?title=User_talk:FuzzyBot&action=edit&redlink=1) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/FuzzyBot))  (Updating to match new version of source page)
 - [11:26, 23 October 2026](https://wiki.gentoo.org/index.php?title=/etc/portage/pl&oldid=1461645) [/etc/portage/pl](https://wiki.gentoo.org/wiki//etc/portage/pl) ([hist](https://wiki.gentoo.org/index.php?title=/etc/portage/pl&action=history) | [edit](https://wiki.gentoo.org/index.php?title=/etc/portage/pl&action=edit)) \[2,896 bytes\] [Kariga](https://wiki.gentoo.org/wiki/User:Kariga) ([talk](https://wiki.gentoo.org/index.php?title=User_talk:Kariga&action=edit&redlink=1) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Kariga))  (Created page with "/etc/portage")
 - [22:10, 22 October 2026](https://wiki.gentoo.org/index.php?title=Nftables/Ruleset/Flush&oldid=1461620) [Nftables/Ruleset/Flush](https://wiki.gentoo.org/wiki/Nftables/Ruleset/Flush) ([hist](https://wiki.gentoo.org/index.php?title=Nftables/Ruleset/Flush&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Nftables/Ruleset/Flush&action=edit)) \[2,843 bytes\] [Egberts](https://wiki.gentoo.org/wiki/User:Egberts) ([talk](https://wiki.gentoo.org/wiki/User_talk:Egberts) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Egberts))  (Initial release)
 - [20:58, 22 October 2026](https://wiki.gentoo.org/index.php?title=Nftables/Ruleset/Add&oldid=1461613) [Nftables/Ruleset/Add](https://wiki.gentoo.org/wiki/Nftables/Ruleset/Add) ([hist](https://wiki.gentoo.org/index.php?title=Nftables/Ruleset/Add&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Nftables/Ruleset/Add&action=edit)) \[3,837 bytes\] [Egberts](https://wiki.gentoo.org/wiki/User:Egberts) ([talk](https://wiki.gentoo.org/wiki/User_talk:Egberts) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Egberts))  (Initial release)
-- [19:32, 22 October 2026](https://wiki.gentoo.org/index.php?title=Nftables/Ruleset/List&oldid=1461600) [Nftables/Ruleset/List](https://wiki.gentoo.org/wiki/Nftables/Ruleset/List) ([hist](https://wiki.gentoo.org/index.php?title=Nftables/Ruleset/List&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Nftables/Ruleset/List&action=edit)) \[5,008 bytes\] [Egberts](https://wiki.gentoo.org/wiki/User:Egberts) ([talk](https://wiki.gentoo.org/wiki/User_talk:Egberts) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Egberts))  (Initial release)

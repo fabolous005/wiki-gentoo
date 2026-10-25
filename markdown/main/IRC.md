@@ -4,7 +4,7 @@ title: IRC
 url: https://wiki.gentoo.org/wiki/IRC
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-08-19"
+date: "2026-10-24"
 fingerprint: "609bff184aa92b9c"
 license: CC BY-SA 4.0
 ---
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Support and Troubleshooting**
 
 **Internet Relay Chat** (**IRC**) is a stable, mature, text-based chat (instant messaging) system. IRC is one of the primary avenues of communication for those involved at all levels in the [Gentoo project](https://wiki.gentoo.org/wiki/Project:Gentoo).
 

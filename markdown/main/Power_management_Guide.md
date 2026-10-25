@@ -88,6 +88,8 @@ Device Drivers --->
         \<M> ACPI INT340X thermal drivers [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for \<code>CONFIG\_INT340X\_THERMAL\</code> to find this item.
       \<M> Intel PCH Thermal Reporting Driver [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for \<code>CONFIG\_INTEL\_PCH\_THERMAL\</code> to find this item.
 
+#### powercap sysfs driver
+
 Additionally, you can enable *Running Average Power Limit* (RAPL) technology. Both [PowerTOP](https://wiki.gentoo.org/wiki/PowerTOP) and [turbostat](https://wiki.gentoo.org/index.php?title=Turbostat&action=edit&redlink=1) utilities are aware of RAPL. To enable RAPL, use:
 
 **Generic powercap sysfs driver**
@@ -164,6 +166,9 @@ Now, one of the important settings in each configuration file is if the laptop-m
 
 **`/etc/laptop-mode/conf.d/cpufreq.conf`**
 
+```
+CONTROL_CPU_FREQUENCY=0
+```
 The next few sections will help the user configure laptop-mode-tools to suit specific needs. When finished, start the laptop\_mode service and make sure it is started upon system boot.
 
 With OpenRC:
@@ -260,3 +265,8 @@ To set the profile:
 
 - [Laptop Mode Tools Homepage](http://samwel.tk/laptop_mode/), includes [About laptop mode](http://samwel.tk/laptop_mode/laptop_mode).
 - A ThinkWiki article on [How to reduce power consumption](http://www.thinkwiki.org/wiki/How_to_reduce_power_consumption) (on Linux). This article offers an exhaustive list of measures one can take. However, it should be noted that the laptop mode tools implements the majority of these (if properly configured).
+
+## References
+
+1. [↑](https://wiki.gentoo.org#cite_ref-1) [AMD Zen1/Zen2/Zen3 PowerCap RAPL Support Queued For Linux 5.11 - Phoronix](https://www.phoronix.com/news/AMD-Zen-PowerCap-RAPL-5.11), Michael Larabel. Retrieved 10 September 2023.
+2. [↑](https://wiki.gentoo.org#cite_ref-2) [https://www.kernel.org/doc/html/latest/admin-guide/pm/cpufreq.html](https://www.kernel.org/doc/html/latest/admin-guide/pm/cpufreq.html)

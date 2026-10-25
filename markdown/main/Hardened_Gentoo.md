@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Hardened_Gentoo
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-02-04"
-fingerprint: "16cbfb7a1583bba6"
+fingerprint: "16cbfb7a1587bba6"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 **Gentoo Hardened** is a Gentoo project that offers multiple additional security services on top of the well-known Gentoo Linux installation.
 
@@ -27,6 +29,8 @@ Within Gentoo Hardened, several *additional* projects are active that help furth
 - Enabling [Integrity](https://wiki.gentoo.org/wiki/Integrity) related technologies, such as Integrity Measurement Architecture, for making systems resilient against tampering.
 
 Of course, this includes the necessary userspace utilities to manage these extensions.
+
+## Switching to a Hardened profile
 
 Select a hardened [profile](https://wiki.gentoo.org/wiki/Portage/Profiles), so that *package management* will be done in a hardened way.
 
@@ -52,5 +56,7 @@ If not using the [distribution kernel](https://wiki.gentoo.org/wiki/Project:Dist
 
 `root #``emerge --ask gentoo-sources`
 Now configure/compile the sources and add the new kernel to the boot manager (e.g. GRUB).
+
+## See also
 
 For more information, check out the following resources:
