@@ -4,8 +4,8 @@ title: NTPsec
 url: https://wiki.gentoo.org/wiki/NTPsec
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-24"
-fingerprint: "9689f95971869ae4"
+date: "2026-10-25"
+fingerprint: "9ec9f159b9e698e6"
 license: CC BY-SA 4.0
 ---
 
@@ -17,23 +17,14 @@ license: CC BY-SA 4.0
 
 **NTPsec** is a secure, hardened, and improved implementation of the [Network Time Protocol](https://wiki.gentoo.org/wiki/Network_Time_Protocol) derived from NTP Classic, Dave Mills’s original.
 
-## Use Cases
+## Use cases
 
 There are several use cases to consider:
 
-\* upgrading from [net-misc/ntp](https://packages.gentoo.org/packages/net-misc/ntp)
-\* installing [net-misc/ntpsec](https://packages.gentoo.org/packages/net-misc/ntpsec)
-\* using [net-misc/ntpsec](https://packages.gentoo.org/packages/net-misc/ntpsec) as an NTP server, with something like a GPS clock as a time reference.
-\* using [net-misc/ntpsec](https://packages.gentoo.org/packages/net-misc/ntpsec) as an NTP client for one-shot synchronization.
-
-## Upgrading
-
-[net-misc/ntp](https://packages.gentoo.org/packages/net-misc/ntp) is in the world set and the service is running.
-
-`root #``emerge --deselect net-misc/ntp`
-to remove the old package from world. This allows portage to uninstall it when [net-misc/ntpsec](https://packages.gentoo.org/packages/net-misc/ntpsec) is installed. Otherwise the packages block one another.
-
-Continue with installing below.
+- Installing [net-misc/ntpsec](https://packages.gentoo.org/packages/net-misc/ntpsec) on a system where no other NTP package is installed.
+- Migrating to NTPsec from [net-misc/ntp](https://packages.gentoo.org/packages/net-misc/ntp).
+- Using [net-misc/ntpsec](https://packages.gentoo.org/packages/net-misc/ntpsec) as an NTP server, with something like a [GPS](https://en.wikipedia.org/wiki/GPS) clock as a time reference.
+- Using [net-misc/ntpsec](https://packages.gentoo.org/packages/net-misc/ntpsec) as an NTP client for one-shot synchronization.
 
 ## Installation
 
@@ -77,25 +68,13 @@ Continue with installing below.
 ### Emerge
 
 `root #``emerge --ask net-misc/ntpsec`
-## Configuration NTP Client
+## Configuration
 
 ### Service
 
-### OpenRC
+#### OpenRC
 
-#### Upgrading
-
-Find and kill the running ntp process.
-
-As both services are called ntp the
-
-`root #``rc-service ntp stop`
-command cannot be used. Start the new
-
-`root #``rc-service ntp start`
-Thats switched the running instance from ntp to ntpsec.
-
-#### New Installs
+##### Server
 
 Add the `ntp` service to the `default` runlevel:
 
@@ -103,25 +82,71 @@ Add the `ntp` service to the `default` runlevel:
 Start the service:
 
 `root #``rc-service ntp start`
-#### One-shot synchronisation
+##### Client
 
-The [net-misc/ntpsec](https://packages.gentoo.org/packages/net-misc/ntpsec) package provides the ntpdig command, which can be used as SNTP client for one-shot synchronization. However, it does not use the /etc/ntp.conf configuration file or any files in the /etc/ntp.d/ directory.
+**Todo:**
 
-In order to reuse these configuration files, one can create a separate OpenRC service with a separate configuration file in the /etc/conf.d/ directory:
+- The "Client" subsection of the "Migrating from net-misc/ntp" section currently describes an `ntp-oneshot` service, but as noted there, such a service should be provided by the [net-misc/ntpsec](https://packages.gentoo.org/packages/net-misc/ntpsec) package. Once such a service is available, information about enabling and starting it should be added to this section.
 
-First, create the OpenRC service:
+## Migrating from net-misc/ntp
+
+This section describes how to migrate from [net-misc/ntp](https://packages.gentoo.org/packages/net-misc/ntp) to NTPsec.
+
+### Installation
+
+Firstly, remove [net-misc/ntp](https://packages.gentoo.org/packages/net-misc/ntp) from the **@world** set:
+
+`root #``emerge --deselect net-misc/ntp`
+This allows Portage to uninstall it when [net-misc/ntpsec](https://packages.gentoo.org/packages/net-misc/ntpsec) is installed; otherwise, the packages block one another.
+
+After configuring [#USE flags] appropriately, install NTPsec:
+
+`root #``emerge --ask net-misc/ntpsec`
+### Services
+
+#### OpenRC
+
+##### Server
+
+The NTP server service provided by [net-misc/ntp](https://packages.gentoo.org/packages/net-misc/ntp) is called `ntpd`, rather than `ntp`.
+
+Firstly, stop that service:
+
+`root #``rc-service ntpd stop`
+Remove the `ntpd` service from the `default` runlevel:
+
+`root #``rc-update delete ntpd default`
+Add the NTPsec server service, `ntp`, to the `default` runlevel:
+
+`root #``rc-update add ntpd default`
+Start the service:
+
+`root #``rc-service ntp start`
+##### Client
+
+**Todo:**
+
+- If a one-shot synchronization service is required, such a service should be provided by the [net-misc/ntpsec](https://packages.gentoo.org/packages/net-misc/ntpsec) package, not via the wiki; an issue should be opened on bugs.gentoo.org for this.
+
+The [net-misc/ntp](https://packages.gentoo.org/packages/net-misc/ntp) package provides an `ntp-client` service, intended to be run before the `ntpd` service is started, which calls ntpdate to perform one-shot synchronization of the time.
+
+The analogous command in NTPsec is [ntpdig(1)](https://manpages.debian.org/trixie/ntpsec-ntpdig/ntpdig.1.en.html)[, which can be used as an](https://wiki.gentoo.org/wiki/Special:MyLanguage/man_page) [SNTP](https://en.wikipedia.org/wiki/SNTP) client for one-shot synchronization.
+
+ntpdig doesn't use the /etc/ntp.conf configuration file or any files in the /etc/ntp.d/ directory. To use these configuration files, an `ntp-oneshot` service can be created, with its own configuration file in the /etc/conf.d/ directory.
+
+First create the service file:
 
 `root #``touch /etc/init.d/ntp-oneshot`
-And make it executable:
+Make it executable:
 
 `root #``chmod 0755 /etc/init.d/ntp-oneshot`
-It should contain the following script:
+Edit that file to contain the following content:
 
 **`/etc/init.d/ntp-oneshot`**
 
 ```
 #!/sbin/openrc-run
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 # one-shot script, which depends on "/etc/init.d/ntp" and inherits its variables and functions
 ntp_init_file="/etc/init.d/ntp"
@@ -140,12 +165,12 @@ unset command_args_background
 # always mark the service as "stopped", otherwise it will be marked as "crashed"
 mark_service_stopped "${RC_SVCNAME}"
 ```
-By sourcing the /etc/init.d/ntp service, all variables and functions - especially the `depend()` function - will be inherited. These can be overwritten, by unsetting or defining the same variables or functions with different values.
+By sourcing the /etc/init.d/ntp service, all variables and functions - especially the `depend` function - will be inherited. These variables and functions can be overwritten by unsetting or defining them with different values.
 
-After that, create a new configuration file in the /etc/conf.d/ directory:
+Now create a configuration file in the /etc/conf.d/ directory:
 
 `root #``touch /etc/conf.d/ntp-oneshot`
-And add the following configuration:
+Add the following configuration:
 
 **`/etc/conf.d/ntp-oneshot`**
 
@@ -154,9 +179,9 @@ And add the following configuration:
 # terminate "ntpd" ("--quit") after the time has been synchronized
 NTPD_OPTS="--panicgate --user='ntp:ntp' --quit"
 ```
-The --quit parameter causes ntpd to not daemonize and terminates it after the time has been synchronized.
+The `--quit` option causes ntpd to not daemonize and terminates it after the time has been synchronized.
 
-Next, test the service via the rc-service command:
+Test the service:
 
 `root #``rc-service --verbose ntp-oneshot start`
 \* Executing: /usr/libexec/rc/sh/openrc-run.sh /etc/init.d/ntp-oneshot start
@@ -181,35 +206,18 @@ Next, test the service via the rc-service command:
 \[...\]
 2026-10-24T23:34:53 ntpd\[1088978\]: CLOCK: time slew +0.081539 s
 
-Check, if the service state is `stopped` via the rc-status command:
+Use the rc-status command to check if the service is stopped:
 
 `root #``rc-status --unused | grep "ntp-oneshot"`
 ntp-oneshot                                                       \[  stopped  \]
 
-Finally, add the ntp-oneshot service to the `default` runlevel:
+If the service was successfully stopped, add the `ntp-oneshot` service to the `default` runlevel:
 
 `root #``rc-update add ntp-oneshot default`
-And check, if there is a new entry in the `default` runlevel:
+Check if there is a new entry in the `default` runlevel:
 
 `root #``rc-update show default | grep "ntp-oneshot"`
 ntp-oneshot | default
-
-## Configuration NTP Server
-
-TODO after I've done my NTP Server
-
-
-
-##### Migrating from net-misc/ntp
-
-The NTP server service provided by [net-misc/ntp](https://packages.gentoo.org/packages/net-misc/ntp) is called `ntpd`, rather than `ntp`. When migrating to [net-misc/ntpsec](https://packages.gentoo.org/packages/net-misc/ntpsec) from [net-misc/ntp](https://packages.gentoo.org/packages/net-misc/ntp), be sure to remove the `ntpd` service from the `default` runlevel.
-
-Additionally, [net-misc/ntp](https://packages.gentoo.org/packages/net-misc/ntp) provides an `ntp-client` service, intended to be run before the `ntpd` service is started, which calls ntpdate to synchronize the time. The analogous command in NTPsec is [ntpdig(1)](https://manpages.debian.org/trixie/ntpsec-ntpdig/ntpdig.1.en.html)[. Running ntpdig (e.g. via /etc/local.d/) is not required, but if wanted, the man page has an example of usage:](https://wiki.gentoo.org/wiki/Special:MyLanguage/man_page)
-
-ntpdig -S -s -M 128 ntpserver.somewhere
-
-With suitable privilege, run as a command or from a cron(8) job, ntpdig -Ss -M 128 ntpserver.somewhere will request the time from the server, and if that server reports that it is synchronized then if the offset adjustment is less than 128 milliseconds the correction will be slewed, and if the correction is more than 128 milliseconds the correction will be stepped.
-
 
 ## See also
 

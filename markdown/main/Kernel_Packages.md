@@ -6,11 +6,13 @@ hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-09-26"
 categories: ['sys-kernel']
-fingerprint: "1793395e90b23f25"
+fingerprint: "1793395e80b23f25"
 license: CC BY-SA 4.0
 ---
 
 # Kernel/Packages
+
+[Kernel](https://wiki.gentoo.org/wiki/Special:MyLanguage/Kernel)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

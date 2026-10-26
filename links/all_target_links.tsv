@@ -300,7 +300,7 @@ Gentoo Wiki (Main)	Bugzilla/Bug report guide	https://wiki.gentoo.org/wiki/Bugzil
 Gentoo Wiki (Main)	Bugzilla/Guide	https://wiki.gentoo.org/wiki/Bugzilla/Guide	2026-10-24T10:23:44Z
 Gentoo Wiki (Main)	Build automation	https://wiki.gentoo.org/wiki/Build_automation	2025-10-04T16:08:16Z
 Gentoo Wiki (Main)	Buku	https://wiki.gentoo.org/wiki/Buku	2026-10-23T22:37:38Z
-Gentoo Wiki (Main)	Busybox	https://wiki.gentoo.org/wiki/Busybox	2026-10-23T22:38:07Z
+Gentoo Wiki (Main)	Busybox	https://wiki.gentoo.org/wiki/Busybox	2026-10-25T21:15:12Z
 Gentoo Wiki (Main)	Bzip2	https://wiki.gentoo.org/wiki/Bzip2	2025-10-04T16:09:38Z
 Gentoo Wiki (Main)	C	https://wiki.gentoo.org/wiki/C	2026-08-01T13:03:36Z
 Gentoo Wiki (Main)	C++	https://wiki.gentoo.org/wiki/C%2B%2B	2026-01-25T19:17:09Z
@@ -810,7 +810,7 @@ Gentoo Wiki (Main)	GNOME/GNOME without systemd/Dantrell	https://wiki.gentoo.org/
 Gentoo Wiki (Main)	GNOME/GNOME without systemd/Gentoo	https://wiki.gentoo.org/wiki/GNOME/GNOME_without_systemd/Gentoo	2025-10-04T16:09:31Z
 Gentoo Wiki (Main)	GNOME/Guide	https://wiki.gentoo.org/wiki/GNOME/Guide	2026-09-20T00:24:37Z
 Gentoo Wiki (Main)	GNOME/Guide/Hardened GNOME Profiles	https://wiki.gentoo.org/wiki/GNOME/Guide/Hardened_GNOME_Profiles	2026-06-07T20:41:02Z
-Gentoo Wiki (Main)	GNU Coreutils	https://wiki.gentoo.org/wiki/GNU_Coreutils	2026-10-23T22:37:42Z
+Gentoo Wiki (Main)	GNU Coreutils	https://wiki.gentoo.org/wiki/GNU_Coreutils	2026-10-25T21:10:14Z
 Gentoo Wiki (Main)	GNU Emacs	https://wiki.gentoo.org/wiki/GNU_Emacs	2026-09-02T12:02:22Z
 Gentoo Wiki (Main)	GNU Icecat	https://wiki.gentoo.org/wiki/GNU_Icecat	2025-10-04T16:10:36Z
 Gentoo Wiki (Main)	GNU Octave	https://wiki.gentoo.org/wiki/GNU_Octave	2025-10-04T16:08:25Z
@@ -1279,7 +1279,7 @@ Gentoo Wiki (Main)	Hardened/SSP	https://wiki.gentoo.org/wiki/Hardened/SSP	2024-0
 Gentoo Wiki (Main)	Hardened/Textrels Guide	https://wiki.gentoo.org/wiki/Hardened/Textrels_Guide	2025-10-26T11:38:07Z
 Gentoo Wiki (Main)	Hardened/Toolchain	https://wiki.gentoo.org/wiki/Hardened/Toolchain	2025-10-26T11:38:04Z
 Gentoo Wiki (Main)	Hardened Desktop Profiles	https://wiki.gentoo.org/wiki/Hardened_Desktop_Profiles	2026-06-07T20:41:02Z
-Gentoo Wiki (Main)	Hardened Gentoo	https://wiki.gentoo.org/wiki/Hardened_Gentoo	2026-10-25T00:14:28Z
+Gentoo Wiki (Main)	Hardened Gentoo	https://wiki.gentoo.org/wiki/Hardened_Gentoo	2026-10-25T00:34:44Z
 Gentoo Wiki (Main)	Hardened Kernel	https://wiki.gentoo.org/wiki/Hardened_Kernel	2025-12-19T13:58:11Z
 Gentoo Wiki (Main)	Hardkernel ODROID-M1S	https://wiki.gentoo.org/wiki/Hardkernel_ODROID-M1S	2025-01-19T21:33:15Z
 Gentoo Wiki (Main)	Hardkernel ODROID-N2	https://wiki.gentoo.org/wiki/Hardkernel_ODROID-N2	2025-01-19T21:30:32Z
@@ -1426,7 +1426,7 @@ Gentoo Wiki (Main)	KeePassXC	https://wiki.gentoo.org/wiki/KeePassXC	2026-10-23T2
 Gentoo Wiki (Main)	KeePassXC/cli	https://wiki.gentoo.org/wiki/KeePassXC/cli	2026-10-23T22:37:44Z
 Gentoo Wiki (Main)	Kerberos Server	https://wiki.gentoo.org/wiki/Kerberos_Server	2026-01-25T11:08:30Z
 Gentoo Wiki (Main)	Kerberos Windows Interoperability	https://wiki.gentoo.org/wiki/Kerberos_Windows_Interoperability	2026-10-23T22:38:26Z
-Gentoo Wiki (Main)	Kernel	https://wiki.gentoo.org/wiki/Kernel	2026-10-22T22:27:17Z
+Gentoo Wiki (Main)	Kernel	https://wiki.gentoo.org/wiki/Kernel	2026-10-25T23:54:15Z
 Gentoo Wiki (Main)	Kernel/Building from userspace	https://wiki.gentoo.org/wiki/Kernel/Building_from_userspace	2025-10-16T11:13:13Z
 Gentoo Wiki (Main)	Kernel/Command-line parameters	https://wiki.gentoo.org/wiki/Kernel/Command-line_parameters	2026-09-30T00:18:39Z
 Gentoo Wiki (Main)	Kernel/Configuration	https://wiki.gentoo.org/wiki/Kernel/Configuration	2026-09-20T09:10:04Z
@@ -1436,7 +1436,7 @@ Gentoo Wiki (Main)	Kernel/Gentoo Kernel Configuration Guide	https://wiki.gentoo.
 Gentoo Wiki (Main)	Kernel/IKCONFIG support	https://wiki.gentoo.org/wiki/Kernel/IKCONFIG_support	2026-05-12T14:37:03Z
 Gentoo Wiki (Main)	Kernel/Migrate 2.4 to 2.6	https://wiki.gentoo.org/wiki/Kernel/Migrate_2.4_to_2.6	2025-12-19T20:07:16Z
 Gentoo Wiki (Main)	Kernel/Optimization	https://wiki.gentoo.org/wiki/Kernel/Optimization	2026-05-12T14:46:37Z
-Gentoo Wiki (Main)	Kernel/Packages	https://wiki.gentoo.org/wiki/Kernel/Packages	2026-09-28T14:35:15Z
+Gentoo Wiki (Main)	Kernel/Packages	https://wiki.gentoo.org/wiki/Kernel/Packages	2026-10-25T02:11:31Z
 Gentoo Wiki (Main)	Kernel/Packages/Deprecated	https://wiki.gentoo.org/wiki/Kernel/Packages/Deprecated	2025-10-26T12:14:43Z
 Gentoo Wiki (Main)	Kernel/Rebuild	https://wiki.gentoo.org/wiki/Kernel/Rebuild	2025-09-11T17:33:20Z
 Gentoo Wiki (Main)	Kernel/Removal	https://wiki.gentoo.org/wiki/Kernel/Removal	2026-09-26T09:04:11Z
@@ -1664,7 +1664,7 @@ Gentoo Wiki (Main)	Mac Mini (PowerPC G4)	https://wiki.gentoo.org/wiki/Mac_Mini_(
 Gentoo Wiki (Main)	Macbook Pro (early 2011)	https://wiki.gentoo.org/wiki/Macbook_Pro_(early_2011)	2025-01-19T21:28:39Z
 Gentoo Wiki (Main)	Magic SysRq	https://wiki.gentoo.org/wiki/Magic_SysRq	2025-04-07T01:44:01Z
 Gentoo Wiki (Main)	Mailfiltering Gateway	https://wiki.gentoo.org/wiki/Mailfiltering_Gateway	2026-06-15T06:13:14Z
-Gentoo Wiki (Main)	Main Page	https://wiki.gentoo.org/wiki/Main_Page	2026-10-25T00:14:49Z
+Gentoo Wiki (Main)	Main Page	https://wiki.gentoo.org/wiki/Main_Page	2026-10-26T00:14:58Z
 Gentoo Wiki (Main)	Make	https://wiki.gentoo.org/wiki/Make	2025-10-04T16:10:51Z
 Gentoo Wiki (Main)	Mako	https://wiki.gentoo.org/wiki/Mako	2026-10-10T12:55:55Z
 Gentoo Wiki (Main)	Man page	https://wiki.gentoo.org/wiki/Man_page	2026-10-23T22:38:15Z
@@ -1762,7 +1762,7 @@ Gentoo Wiki (Main)	MythTV	https://wiki.gentoo.org/wiki/MythTV	2025-10-04T16:08:1
 Gentoo Wiki (Main)	NILFS	https://wiki.gentoo.org/wiki/NILFS	2026-01-13T02:52:05Z
 Gentoo Wiki (Main)	NQP	https://wiki.gentoo.org/wiki/NQP	2025-01-19T21:32:04Z
 Gentoo Wiki (Main)	NTFS	https://wiki.gentoo.org/wiki/NTFS	2026-02-04T23:24:01Z
-Gentoo Wiki (Main)	NTPsec	https://wiki.gentoo.org/wiki/NTPsec	2026-10-24T22:26:31Z
+Gentoo Wiki (Main)	NTPsec	https://wiki.gentoo.org/wiki/NTPsec	2026-10-25T07:01:35Z
 Gentoo Wiki (Main)	NUT	https://wiki.gentoo.org/wiki/NUT	2026-07-03T10:51:29Z
 Gentoo Wiki (Main)	NVIDIA	https://wiki.gentoo.org/wiki/NVIDIA	2026-10-24T01:00:58Z
 Gentoo Wiki (Main)	NVIDIA/Bumblebee	https://wiki.gentoo.org/wiki/NVIDIA/Bumblebee	2026-02-19T02:45:48Z
@@ -2633,7 +2633,7 @@ Gentoo Wiki (Main)	User/Maffblaster/Drafts/Zabbix	https://wiki.gentoo.org/wiki/U
 Gentoo Wiki (Main)	User/Unhappy-Ending/Clang	https://wiki.gentoo.org/wiki/User/Unhappy-Ending/Clang	2026-08-11T22:26:45Z
 Gentoo Wiki (Main)	User/Unhappy-Ending/Clang/Performance Tuning	https://wiki.gentoo.org/wiki/User/Unhappy-Ending/Clang/Performance_Tuning	2025-10-04T16:10:50Z
 Gentoo Wiki (Main)	Utelnetd	https://wiki.gentoo.org/wiki/Utelnetd	2026-03-23T12:38:13Z
-Gentoo Wiki (Main)	Util-linux	https://wiki.gentoo.org/wiki/Util-linux	2026-10-23T22:37:21Z
+Gentoo Wiki (Main)	Util-linux	https://wiki.gentoo.org/wiki/Util-linux	2026-10-25T21:12:32Z
 Gentoo Wiki (Main)	V4l-utils	https://wiki.gentoo.org/wiki/V4l-utils	2026-02-10T00:04:05Z
 Gentoo Wiki (Main)	V4l2loopback	https://wiki.gentoo.org/wiki/V4l2loopback	2025-01-19T21:33:09Z
 Gentoo Wiki (Main)	VAAPI	https://wiki.gentoo.org/wiki/VAAPI	2026-04-02T17:14:41Z
@@ -2848,7 +2848,7 @@ Gentoo Overlay	Overlay:Fkmclane	https://wiki.gentoo.org/wiki/Overlay:Fkmclane	20
 Gentoo Overlay	Overlay:Kde-sunset	https://wiki.gentoo.org/wiki/Overlay:Kde-sunset	2025-10-04T16:01:12Z
 Gentoo Overlay	Overlay:Stuff	https://wiki.gentoo.org/wiki/Overlay:Stuff	2026-06-08T15:59:41Z
 Gentoo Overlay	Overlay:Youbroketheinternet	https://wiki.gentoo.org/wiki/Overlay:Youbroketheinternet	2025-01-19T21:22:27Z
-Gentoo Handbook	Handbook:AMD64/Full/Installation	https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Installation	2026-10-16T07:21:18Z
+Gentoo Handbook	Handbook:AMD64/Full/Installation	https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Installation	2026-10-25T11:02:03Z
 Gentoo Handbook	Handbook:AMD64/Full/Working	https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Working	2026-09-27T14:41:21Z
 Gentoo Handbook	Handbook:AMD64/Full/Portage	https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Portage	2026-09-27T14:40:56Z
 Gentoo Handbook	Handbook:AMD64/Full/Networking	https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Networking	2026-09-27T14:40:34Z

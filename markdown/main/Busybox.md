@@ -4,8 +4,8 @@ title: Busybox
 url: https://wiki.gentoo.org/wiki/Busybox
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2024-04-27"
-fingerprint: "82cf3f1f41633a40"
+date: "2026-10-25"
+fingerprint: "92cf3f1f41633a40"
 license: CC BY-SA 4.0
 ---
 
@@ -142,4 +142,6 @@ If the BusyBox *distfile* is still in the cache, it may be possible to reinstall
 
 ## See also
 
-[toybox](https://wiki.gentoo.org/wiki/Toybox) — a utility that combines tiny versions of many common UNIX utilities into a *single, small executable*.
+- [toybox](https://wiki.gentoo.org/wiki/Toybox) — a utility that combines tiny versions of many common UNIX utilities into a *single, small executable*.
+- [GNU Coreutils](https://wiki.gentoo.org/wiki/GNU_Coreutils) — basic file, shell and text manipulation utilities of the GNU operating system; a superset of the utilities specified by the [POSIX "Shell and Utilities" volume](https://pubs.opengroup.org/onlinepubs/9799919799/utilities/contents.html).
+- [util-linux](https://wiki.gentoo.org/wiki/Util-linux) — userspace utilities for Linux-specific system management, including device control, terminal logins, process management, and tty messaging.

@@ -4,7 +4,7 @@ title: GNU Coreutils
 url: https://wiki.gentoo.org/wiki/GNU_Coreutils
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2025-12-22"
+date: "2026-10-25"
 fingerprint: a61898170fa79781
 license: CC BY-SA 4.0
 ---
@@ -3690,3 +3690,6 @@ or available locally via: info '(coreutils) yes invocation'
 ## See also
 
 - [util-linux](https://wiki.gentoo.org/wiki/Util-linux) — userspace utilities for Linux-specific system management, including device control, terminal logins, process management, and tty messaging.
+- [sys-apps/uutils-coreutils](https://packages.gentoo.org/packages/sys-apps/uutils-coreutils) - A reimplementation of the GNU coreutils in rust
+- [busybox](https://wiki.gentoo.org/wiki/Busybox) — a utility that combines tiny versions of many common UNIX utilities into a *single, small executable*.
+- [toybox](https://wiki.gentoo.org/wiki/Toybox) — a utility that combines tiny versions of many common UNIX utilities into a *single, small executable*.

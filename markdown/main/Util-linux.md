@@ -4,8 +4,8 @@ title: util-linux
 url: https://wiki.gentoo.org/wiki/Util-linux
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-08"
-fingerprint: ae19b90f4fe287c0
+date: "2026-10-25"
+fingerprint: ae19b90f4fe2c7c0
 license: CC BY-SA 4.0
 ---
 
@@ -3214,3 +3214,5 @@ Or if [app-portage/gentoolkit](https://packages.gentoo.org/packages/app-portage/
 ## See also
 
 - [GNU Coreutils](https://wiki.gentoo.org/wiki/GNU_Coreutils) — basic file, shell and text manipulation utilities of the GNU operating system; a superset of the utilities specified by the [POSIX "Shell and Utilities" volume](https://pubs.opengroup.org/onlinepubs/9799919799/utilities/contents.html).
+- [Busybox](https://wiki.gentoo.org/wiki/Busybox) — a utility that combines tiny versions of many common UNIX utilities into a *single, small executable*.
+- [Toybox](https://wiki.gentoo.org/wiki/Toybox) — a utility that combines tiny versions of many common UNIX utilities into a *single, small executable*.
