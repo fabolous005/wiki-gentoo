@@ -4,8 +4,8 @@ title: NTPsec
 url: https://wiki.gentoo.org/wiki/NTPsec
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-25"
-fingerprint: "9ec9f159b9e698e6"
+date: "2026-10-26"
+fingerprint: "96c9f15bb9e698e6"
 license: CC BY-SA 4.0
 ---
 
@@ -150,18 +150,33 @@ Edit that file to contain the following content:
 # Distributed under the terms of the GNU General Public License v2
 # one-shot script, which depends on "/etc/init.d/ntp" and inherits its variables and functions
 ntp_init_file="/etc/init.d/ntp"
-if [[ -f "${ntp_init_file}" ]]
-then
-    # inherit variables and functions from "/etc/init.d/ntp"
-    source "${ntp_init_file}"
+if [ -f "${ntp_init_file}" ]; then
+    # inherit variables and functions from the init script "/etc/init.d/ntp"
+    . "${ntp_init_file}"
 else
     eerror "Could not find init file: '${ntp_init_file}'"
-    eend "${?}"
+    return 1
 fi
 # overwrite variables
 description="ntpd - the network time protocol daemon (one-shot)"
-unset pidfile
 unset command_args_background
+# always fork to background, otherwise, there will be an uninterruptible infinite foreground loop, if there is no internet connection
+command_background="yes"
+start_pre() {
+    if [ -f "${pidfile}" ]; then
+        # prevent multiple executions
+        if start-stop-daemon --quiet --quiet --test --stop --pidfile="${pidfile}"; then
+            eerror "${RC_SVCNAME} is still running."
+            return 1
+        else
+            # remove stale pid file before starting
+            ewarn "Removing stale PID file: '${pidfile}'"
+            if ! /bin/rm --force -- "${pidfile}"; then
+                return "${?}"
+            fi
+        fi
+    fi
+}
 # always mark the service as "stopped", otherwise it will be marked as "crashed"
 mark_service_stopped "${RC_SVCNAME}"
 ```

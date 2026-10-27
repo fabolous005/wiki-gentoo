@@ -15,7 +15,7 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
-![](https://wiki.gentoo.org/images/thumb/a/af/Tux.png/250px-Tux.png)
+[Error creating thumbnail: File missing](https://wiki.gentoo.org/wiki/File:Tux.png)
 
 The **[Linux](https://en.wikipedia.org/wiki/Linux_kernel) kernel** is a central part of the Gentoo [operating system (OS)](https://en.wikipedia.org/wiki/operating_system). It provides essential OS facilities such as [device drivers](https://en.wikipedia.org/wiki/Device_driver), [virtual consoles](https://wiki.gentoo.org/wiki/Terminal_emulator#Virtual_consoles_and_switching), [memory management](https://en.wikipedia.org/wiki/memory_management), [task scheduling](<https://en.wikipedia.org/wiki/Scheduling_(computing)>), [inter-process communication](https://en.wikipedia.org/wiki/inter-process_communication), [virtual filesystems](https://en.wikipedia.org/wiki/Virtual_file_system), etc.
 

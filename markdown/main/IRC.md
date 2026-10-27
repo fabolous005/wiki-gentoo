@@ -4,7 +4,7 @@ title: IRC
 url: https://wiki.gentoo.org/wiki/IRC
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-24"
+date: "2026-10-26"
 fingerprint: "609bff184aa92b9c"
 license: CC BY-SA 4.0
 ---
@@ -46,6 +46,7 @@ The following table contains some of the IRC software available in Gentoo. Disco
 | [Quassel](https://wiki.gentoo.org/wiki/Quassel) | [net-irc/quassel](https://packages.gentoo.org/packages/net-irc/quassel) | [https://quassel-irc.org/](https://quassel-irc.org/) | Qt5 IRC client supporting a remote daemon for 24/7 connectivity | 
 | Srain | [net-irc/srain::guru](https://gpo.zugaina.org/Overlays/guru/net-irc/srain) | [https://srain.silverrainz.me/](https://srain.silverrainz.me/) | Modern, beautiful IRC client written in GTK+ 3 | 
 | [WeeChat](https://wiki.gentoo.org/wiki/WeeChat) | [net-irc/weechat](https://packages.gentoo.org/packages/net-irc/weechat) | [https://weechat.org/](https://weechat.org/) | Portable and multi-interface (text, web, and GUI) IRC client. | 
+| ZoiteChat | [net-irc/zoitechat](https://packages.gentoo.org/packages/net-irc/zoitechat) | [https://zoitechat.org/](https://zoitechat.org/) | GTK3 IRC client based on HexChat. | 
 
 ## Usage
 

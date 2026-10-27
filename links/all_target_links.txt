@@ -693,6 +693,7 @@ https://wiki.gentoo.org/wiki/FOSDEM_2023
 https://wiki.gentoo.org/wiki/FOSDEM_2024
 https://wiki.gentoo.org/wiki/FOSDEM_2025
 https://wiki.gentoo.org/wiki/FOSDEM_2026
+https://wiki.gentoo.org/wiki/FOSDEM_2027
 https://wiki.gentoo.org/wiki/FTP
 https://wiki.gentoo.org/wiki/FVWM
 https://wiki.gentoo.org/wiki/FVWM-Crystal

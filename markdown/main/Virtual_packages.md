@@ -4,9 +4,9 @@ title: Virtual packages
 url: https://wiki.gentoo.org/wiki/Virtual_packages
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-03-04"
+date: "2026-10-26"
 categories: ['virtual']
-fingerprint: ee01ca098271f700
+fingerprint: fe01ca098271f700
 license: CC BY-SA 4.0
 ---
 
@@ -18,7 +18,7 @@ license: CC BY-SA 4.0
 
 **Virtual packages** allow alternative packages to fulfill a dependency, when two or more packages are functionally equivalent for this use.
 
-For example, if a package needs an editor installed, but doesn't need functionality only provided by a specific editor, that package can specify that it depends on [virtual/editor](https://packages.gentoo.org/packages/virtual/editor). Then, that dependency will be satisfied as long as one or more specific packages are installed, including (amongst others) [app-editors/emacs](https://packages.gentoo.org/packages/app-editors/emacs), [app-editors/joe](https://packages.gentoo.org/packages/app-editors/joe), [app-editors/nano](https://packages.gentoo.org/packages/app-editors/nano), [app-editors/neovim](https://packages.gentoo.org/packages/app-editors/neovim), {{Package|[app-editors/vim](https://packages.gentoo.org/packages/app-editors/vim), and so on.
+For example, if a package needs an editor installed, but doesn't need functionality only provided by a specific editor, that package can specify that it depends on [virtual/editor](https://packages.gentoo.org/packages/virtual/editor). Then, that dependency will be satisfied as long as one or more specific packages are installed, including (amongst others) [app-editors/emacs](https://packages.gentoo.org/packages/app-editors/emacs), [app-editors/joe](https://packages.gentoo.org/packages/app-editors/joe), [app-editors/nano](https://packages.gentoo.org/packages/app-editors/nano), [app-editors/neovim](https://packages.gentoo.org/packages/app-editors/neovim), [app-editors/vim](https://packages.gentoo.org/packages/app-editors/vim), and so on.
 
 Virtual packages are made by using the ["any of many" dependency](https://devmanual.gentoo.org/general-concepts/dependencies/#any-of-many-dependencies) in the [RDEPEND](https://devmanual.gentoo.org/general-concepts/dependencies/index.html#runtime-dependencies) of the package's ebuild.
 

@@ -4,8 +4,8 @@ title: AppImage
 url: https://wiki.gentoo.org/wiki/AppImage
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2025-08-27"
-fingerprint: bc00bf5a82ab299f
+date: "2026-10-26"
+fingerprint: b800bf5a82ab2997
 license: CC BY-SA 4.0
 ---
 
@@ -19,14 +19,17 @@ license: CC BY-SA 4.0
 
 ## Additional software
 
-Most AppImages require [sys-fs/fuse](https://packages.gentoo.org/packages/sys-fs/fuse) on slot 0:
+Most AppImages require [sys-fs/fuse](https://packages.gentoo.org/packages/sys-fs/fuse) on slot 0 which is not installed by default unspecified emerge. By running the AppImage application directly might results in the following error:
 
-`user $``./ExamplePackage.AppImage`
+`root #``./ExamplePackage.AppImage`
 dlopen(): error loading libfuse.so.2
+AppImages require FUSE to run. 
+You might still be able to extract the contents of this AppImage 
+if you run it with the --appimage-extract option. 
+See https://github.com/AppImage/AppImageKit/wiki/FUSE 
+for more information
 
-AppImages require [FUSE](https://wiki.gentoo.org/wiki/Filesystem_in_Userspace) to run. You might still be able to extract the contents of this AppImage if you run it with the `--appimage-extract` option.
-
-This error can be solved by installing [sys-fs/fuse](https://packages.gentoo.org/packages/sys-fs/fuse) in slot 0. Slot 0 has version 2 of FUSE required by most AppImages. Whereas [sys-fs/fuse](https://packages.gentoo.org/packages/sys-fs/fuse) in slot 3 which has version 3 of fuse. The highest version available is installed by default, currently in slot 3, if no slot is specified and doesn't solve the dependency problem.
+This error can be solved by installing [sys-fs/fuse](https://packages.gentoo.org/packages/sys-fs/fuse) in slot 0. Slot 0 has version 2 of FUSE required by most AppImages. Whereas [sys-fs/fuse](https://packages.gentoo.org/packages/sys-fs/fuse) in slot 3 which has version 3 of fuse. The highest version available is installed by default, currently in slot 3, if no slot is specified and doesn't solve the dependency problem. Therefore, one way to resolve this issue is to invoke
 
 `root #``emerge --ask sys-fs/fuse:0`
 ## Usage
