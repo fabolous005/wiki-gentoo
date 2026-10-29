@@ -4,8 +4,8 @@ title: Gentoo Wiki
 url: https://wiki.gentoo.org/wiki/Main_Page
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-26"
-fingerprint: f8b6b90376936365
+date: "2026-10-28"
+fingerprint: f8f6b90376936365
 license: CC BY-SA 4.0
 ---
 
@@ -69,6 +69,11 @@ For questions *related to using or editing the documentation on the <u>wiki</u>*
 
 ## Recently added pages
 
+#### 28 October 2026
+
+- 21:36[21:36, 28 October 2026](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Iifname&oldid=1462288) [Nftables/Rules/Iifname](https://wiki.gentoo.org/wiki/Nftables/Rules/Iifname) ([hist](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Iifname&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Iifname&action=edit)) \[3,307 bytes\] [Egberts](https://wiki.gentoo.org/wiki/User:Egberts) ([talk](https://wiki.gentoo.org/wiki/User_talk:Egberts) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Egberts))  (Initial draft)
+- 16:54[16:54, 28 October 2026](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Iif&oldid=1462231) [Nftables/Rules/Iif](https://wiki.gentoo.org/wiki/Nftables/Rules/Iif) ([hist](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Iif&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Iif&action=edit)) \[2,976 bytes\] [Egberts](https://wiki.gentoo.org/wiki/User:Egberts) ([talk](https://wiki.gentoo.org/wiki/User_talk:Egberts) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Egberts))  (Initial release)
+
 #### 26 October 2026
 
 - 05:26[05:26, 26 October 2026](https://wiki.gentoo.org/index.php?title=FOSDEM_2027&oldid=1462143) [FOSDEM 2027](https://wiki.gentoo.org/wiki/FOSDEM_2027) ([hist](https://wiki.gentoo.org/index.php?title=FOSDEM_2027&action=history) | [edit](https://wiki.gentoo.org/index.php?title=FOSDEM_2027&action=edit)) \[8,518 bytes\] [Laumann](https://wiki.gentoo.org/wiki/User:Laumann) ([talk](https://wiki.gentoo.org/index.php?title=User_talk:Laumann&action=edit&redlink=1) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Laumann))  (initial creation)
@@ -80,8 +85,3 @@ For questions *related to using or editing the documentation on the <u>wiki</u>*
 #### 23 October 2026
 
 - 14:40[14:40, 23 October 2026](https://wiki.gentoo.org/index.php?title=/etc/portage/package.accept_keywords/en&oldid=1461730) [/etc/portage/package.accept keywords/en](https://wiki.gentoo.org/wiki//etc/portage/package.accept_keywords/en) ([hist](https://wiki.gentoo.org/index.php?title=/etc/portage/package.accept_keywords/en&action=history) | [edit](https://wiki.gentoo.org/index.php?title=/etc/portage/package.accept_keywords/en&action=edit)) \[8,223 bytes\] [FuzzyBot](https://wiki.gentoo.org/wiki/User:FuzzyBot) ([talk](https://wiki.gentoo.org/index.php?title=User_talk:FuzzyBot&action=edit&redlink=1) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/FuzzyBot))  (Updating to match new version of source page)
-- 11:26[11:26, 23 October 2026](https://wiki.gentoo.org/index.php?title=/etc/portage/pl&oldid=1461645) [/etc/portage/pl](https://wiki.gentoo.org/wiki//etc/portage/pl) ([hist](https://wiki.gentoo.org/index.php?title=/etc/portage/pl&action=history) | [edit](https://wiki.gentoo.org/index.php?title=/etc/portage/pl&action=edit)) \[2,896 bytes\] [Kariga](https://wiki.gentoo.org/wiki/User:Kariga) ([talk](https://wiki.gentoo.org/index.php?title=User_talk:Kariga&action=edit&redlink=1) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Kariga))  (Created page with "/etc/portage")
-
-#### 22 October 2026
-
-- 22:10[22:10, 22 October 2026](https://wiki.gentoo.org/index.php?title=Nftables/Ruleset/Flush&oldid=1461620) [Nftables/Ruleset/Flush](https://wiki.gentoo.org/wiki/Nftables/Ruleset/Flush) ([hist](https://wiki.gentoo.org/index.php?title=Nftables/Ruleset/Flush&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Nftables/Ruleset/Flush&action=edit)) \[2,843 bytes\] [Egberts](https://wiki.gentoo.org/wiki/User:Egberts) ([talk](https://wiki.gentoo.org/wiki/User_talk:Egberts) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Egberts))  (Initial release)

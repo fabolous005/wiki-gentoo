@@ -4,7 +4,7 @@ title: Nftables/Ruleset
 url: https://wiki.gentoo.org/wiki/Nftables/Ruleset
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-24"
+date: "2026-10-28"
 fingerprint: a595897aa7c5a94d
 license: CC BY-SA 4.0
 ---
@@ -399,5 +399,5 @@ The following pages provide keyword guides for configuring [Nftables](https://wi
 - [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules) — match packet properties and execute statements.
 - [Nftables/Configuration](https://wiki.gentoo.org/wiki/Nftables/Configuration)
 - [nftables examples](https://wiki.gentoo.org/wiki/Nftables/Examples)
-- [Nftables](https://wiki.gentoo.org/wiki/User:Egberts/Drafts/Nftables) — the Linux packet-handling framework
+- [Nftables](https://wiki.gentoo.org/wiki/Nftables) — the Linux packet-handling framework
 - [Netfilter](https://wiki.gentoo.org/wiki/Netfilter) — Linux kernel’s packet-filtering framework

@@ -4,7 +4,7 @@ title: genkernel
 url: https://wiki.gentoo.org/wiki/Genkernel
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-08-02"
+date: "2026-10-27"
 fingerprint: "561b1b3e13a23fa1"
 license: CC BY-SA 4.0
 ---
@@ -1271,3 +1271,4 @@ To report a problem, please always provide /var/log/genkernel.log (sometimes it 
 - [Kernel](https://wiki.gentoo.org/wiki/Kernel) — a central part of the Gentoo [operating system (OS)](https://en.wikipedia.org/wiki/operating_system)
 - [Kernel/Configuration](https://wiki.gentoo.org/wiki/Kernel/Configuration) — describes the manual configuration and setup of the [Linux kernel](https://wiki.gentoo.org/wiki/Kernel).
 - [Project:Distribution Kernel](https://wiki.gentoo.org/wiki/Project:Distribution_Kernel) — maintains sys-kernel/\*-kernel packages.
+- [ugRD](https://wiki.gentoo.org/wiki/UgRD) — a framework used to generate ramdisks using TOML definitions and Python functions.

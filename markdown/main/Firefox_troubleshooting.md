@@ -4,8 +4,8 @@ title: Firefox/troubleshooting
 url: https://wiki.gentoo.org/wiki/Firefox/troubleshooting
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-13"
-fingerprint: "8eccd0d72d4fb3e2"
+date: "2026-10-27"
+fingerprint: "8eccd0d72dcfb3e2"
 license: CC BY-SA 4.0
 ---
 
@@ -99,13 +99,21 @@ Some ways of testing whether a profile is the source of a problem include:
 - Starting Firefox with the `--ProfileManager` option, which allows creating and using a fresh profile, to check if the problem persists with the new profile; and
 - Starting Firefox with the `-P` option to specify a profile by name, as per the profiles.ini file, or with the `--profile` option, to specify a profile by its absolute path.
 
+## Startup
+
+### Firefox is already running, but is not responding
+
+Running Firefox while it is already running could cause this error message to appear after a short delay.
+
+Ensure the [D-Bus session bus](https://wiki.gentoo.org/wiki/D-Bus#The_session_bus) is available to the session.
+
 ## Video and graphics
 
 ### General
 
 #### Green screen for YouTube videos
 
-If [disabling hardware acceleration](https://wiki.gentoo.org/wiki/Firefox/troubleshooting#.23Safe_mode) doesn't work, try disabling relevant options in about:config, such as `layers.acceleration.force-enabled`.
+If [disabling hardware acceleration](https://wiki.gentoo.org##Safe_mode) doesn't work, try disabling relevant options in about:config, such as `layers.acceleration.force-enabled`.
 
 #### Screen tearing / stuttering smooth scrolling
 

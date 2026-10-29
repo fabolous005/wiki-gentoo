@@ -4,7 +4,7 @@ title: OpenRC
 url: https://wiki.gentoo.org/wiki/OpenRC
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-14"
+date: "2026-10-27"
 fingerprint: b618bb590ba38a84
 license: CC BY-SA 4.0
 ---
@@ -26,7 +26,7 @@ license: CC BY-SA 4.0
 - Review for accuracy & test.
 - Complete to cover most basic usage under Gentoo.
 - Rework for precision, readability, concision...
-- Section [BusyBox Integration](https://wiki.gentoo.org/wiki/OpenRC#BusyBox_integration) needs testing and documenting (or removing).
+- Section [BusyBox Integration](https://wiki.gentoo.org#BusyBox_integration) needs testing and documenting (or removing).
 
 **OpenRC** is a dependency-based [init system](https://wiki.gentoo.org/wiki/Init_system) for Unix-like systems that maintains compatibility with the system-provided init system, normally located in /sbin/init.
 
@@ -176,7 +176,7 @@ Finally, to switch between the "default" runlevel and the "office" runlevel with
 
 This way, the network interfaces will be stopped, and their runlevel-specific configuration subsequently re-read.
 
-This works best when "nonetwork" is a [stacked runlevel](https://wiki.gentoo.org/wiki/OpenRC#Stacked_runlevels) in both the "default" and "office" runlevels, and non-network services (e.g. the display manager) are added to the "nonetwork" runlevel only:
+This works best when "nonetwork" is a [stacked runlevel](https://wiki.gentoo.org#Stacked_runlevels) in both the "default" and "office" runlevels, and non-network services (e.g. the display manager) are added to the "nonetwork" runlevel only:
 
 `root #````
 openrc nonetwork && openrc office
@@ -348,7 +348,7 @@ The provided `pam_openrc.so` can automatically start openrc on login. It's loade
 
 `openrc-user` opens another pam session for the user, which will last as long as any given session using pam\_openrc is active. It loads /etc/pam.d/openrc-user as the pam stack for the new session, then proceeds to launch the `default` runlevel for the user via calling the user's login shell with `-c` as an argument, and creating ${XDG\_CONFIG\_HOME}/rc/runlevels/default should it not exist.
 
-In order to make use of the PAM-based auto-start, `XDG_RUNTIME_DIR` must be set during the login process, either by a pam module or shell rc file.
+In order to make use of the PAM-based auto-start, `XDG_RUNTIME_DIR` must be set during the login process, either by a pam module or shell rc file, the latter wont work if `XDG_RUNTIME_DIR` is randomized on each login.
 
 
 ##### KDE compatibility

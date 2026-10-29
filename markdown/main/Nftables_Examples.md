@@ -4,7 +4,7 @@ title: Nftables/Examples
 url: https://wiki.gentoo.org/wiki/Nftables/Examples
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-09"
+date: "2026-10-28"
 fingerprint: fea8990879805ea8
 license: CC BY-SA 4.0
 ---
@@ -400,12 +400,12 @@ table inet x {
 ## See also
 
 - [nft](https://wiki.gentoo.org/wiki/Nft) — configures and inspects the Linux kernel's nftables packet handling framework
-- [Nftables/Ruleset](https://wiki.gentoo.org/wiki/Nftables/Ruleset)
+- [Nftables/Ruleset](https://wiki.gentoo.org/wiki/Nftables/Ruleset) — collection of tables, chains, rules, and other objects configured in the [Netfilter](https://wiki.gentoo.org/wiki/Netfilter) **nf\_tables** subsystem.
 - [Nftables/Ruleset/Chain](https://wiki.gentoo.org/wiki/Nftables/Ruleset/Chain) — contains a group of rules used to process network traffic.
-- [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules)
+- [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules) — match packet properties and execute statements.
 - [Nftables/Configuration](https://wiki.gentoo.org/wiki/Nftables/Configuration)
 - [nftables examples]
-- [Nftables](https://wiki.gentoo.org/wiki/User:Egberts/Drafts/Nftables) — the Linux packet-handling framework
+- [Nftables](https://wiki.gentoo.org/wiki/Nftables) — the Linux packet-handling framework
 - [Netfilter](https://wiki.gentoo.org/wiki/Netfilter) — Linux kernel’s packet-filtering framework
 - [Security Handbook](https://wiki.gentoo.org/wiki/Security_Handbook) — valuable guidance on Gentoo Linux security and cybersecurity in general.
 - [Iptables](https://wiki.gentoo.org/wiki/Iptables) — a program used to configure and manage the kernel's netfilter modules.

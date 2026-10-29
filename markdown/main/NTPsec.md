@@ -4,7 +4,7 @@ title: NTPsec
 url: https://wiki.gentoo.org/wiki/NTPsec
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-26"
+date: "2026-10-27"
 fingerprint: "96c9f15bb9e698e6"
 license: CC BY-SA 4.0
 ---
@@ -118,7 +118,7 @@ Remove the `ntpd` service from the `default` runlevel:
 `root #``rc-update delete ntpd default`
 Add the NTPsec server service, `ntp`, to the `default` runlevel:
 
-`root #``rc-update add ntpd default`
+`root #``rc-update add ntp default`
 Start the service:
 
 `root #``rc-service ntp start`

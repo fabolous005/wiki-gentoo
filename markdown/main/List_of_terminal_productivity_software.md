@@ -4,8 +4,8 @@ title: List of terminal productivity software
 url: https://wiki.gentoo.org/wiki/List_of_terminal_productivity_software
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-09"
-fingerprint: "54db4f5a40ac2bb8"
+date: "2026-10-28"
+fingerprint: "54db4f5e40ac2bb8"
 license: CC BY-SA 4.0
 ---
 
@@ -155,6 +155,7 @@ If you have the skills to maintain ebuilds and want to see Gentoo support more t
 | jq | [app-misc/jq](https://packages.gentoo.org/packages/app-misc/jq) | A tool for querying JSON data written in C. | 
 | xmlstarlet | [app-text/xmlstarlet](https://packages.gentoo.org/packages/app-text/xmlstarlet) | A tool for querying, transforming, and validating XML documents. | 
 | yq | [app-misc/yq](https://packages.gentoo.org/packages/app-misc/yq) | A tool for querying and processing YAML, TOML, JSON, and XML. | 
+| dbtui | [app-misc/dbtui::ex\_repo](https://packages.gentoo.org/packages/app-misc/dbtui::ex_repo) | Like dbeaver, but in terminal: connects to some SQL databases and has amazing ER diagram view. | 
 
 ## Spreadsheets, calculators, and accounting ledgers
 
@@ -165,7 +166,7 @@ If you have the skills to maintain ebuilds and want to see Gentoo support more t
 | [ledger](https://wiki.gentoo.org/wiki/Ledger) | [app-office/ledger](https://packages.gentoo.org/packages/app-office/ledger) | Powerful double-entry accounting program with a plain text file format, the release of which sparked the [Plain Text Accounting](https://plaintextaccounting.org/) movement. | 
 | [qalc](https://wiki.gentoo.org/wiki/Qalculate) | [sci-libs/libqalculate](https://packages.gentoo.org/packages/sci-libs/libqalculate) | A multi-purpose cross-platform desktop calculator. | 
 | [sc-im](https://wiki.gentoo.org/wiki/Sc-im) | [app-office/sc-im](https://packages.gentoo.org/packages/app-office/sc-im) | *Spreadsheet Calculator — Improvised* is a modern full featured spreadsheet program with vim-like keyboard bindings and a [VisiCalc](https://en.wikipedia.org/wiki/visicalc) aesthetic. | 
-| visidata | [sci-visualization/visidata::nest](https://repos.gentoo.org/#nest) | A terminal-based spreadsheet multitool for discovering and arranging data. | 
+| visidata | [sci-visualization/visidata::nest](https://repos.gentoo.org/#nest) | A terminal-based spreadsheet multitool for discovering and arranging data. It had python script support way before microsoft's excel. It can do neat scatter graphs in terminal. It can open csv, json, xlsx or whatever python with pandas can. | 
 
 ## Terminal Multiplexers
 
@@ -222,9 +223,9 @@ If you have the skills to maintain ebuilds and want to see Gentoo support more t
 | elinks | [www-client/elinks](https://packages.gentoo.org/packages/www-client/elinks) | Well-established text-mode web browser. | 
 | links | [www-client/links](https://packages.gentoo.org/packages/www-client/links) | Early, interactive web browser for the terminal. | 
 | lynx | [www-client/lynx](https://packages.gentoo.org/packages/www-client/lynx) | Console-based web browser with SSL support. | 
-| w3m | [virtual/w3m](https://packages.gentoo.org/packages/virtual/w3m) | More modern terminal-based web browser with support for image rendering (note there are several versions in the repository: this is a [virtual package](https://wiki.gentoo.org/wiki/Virtual_packages)). | 
+| w3m | [virtual/w3m](https://packages.gentoo.org/packages/virtual/w3m) | A configurable terminal-based web browser with support for image rendering and vimium-like navigation through links (note there are several versions in the repository: this is a [virtual package](https://wiki.gentoo.org/wiki/Virtual_packages)). | 
 | [wget](https://wiki.gentoo.org/wiki/Wget) | [net-misc/wget](https://packages.gentoo.org/packages/net-misc/wget) | Non-interactive tool for fetching content from the web. | 
-| chawan | [www-client/chawan::guru](https://github.com/gentoo-mirror/guru/tree/master/www-client/chawan) | Terminal-based web browser with support on CSS, basic JavaScript, image rendering, and more. | 
+| chawan | [www-client/chawan::guru](https://github.com/gentoo-mirror/guru/tree/master/www-client/chawan) | A modern terminal-based web browser with support on CSS, basic JavaScript, image rendering, and more. | 
 
 ## Word processing, text editing, and document creation
 
@@ -241,6 +242,7 @@ If you have the skills to maintain ebuilds and want to see Gentoo support more t
 | [Neovim](https://wiki.gentoo.org/wiki/Neovim) | [app-editors/neovim](https://packages.gentoo.org/packages/app-editors/neovim) | A text editor forked from [vim](https://wiki.gentoo.org/wiki/Vim) focused on extensibility and agility. | 
 | [TeX](https://wiki.gentoo.org/wiki/TeX_Live) | [app-text/texlive](https://packages.gentoo.org/packages/app-text/texlive) | Typesetting markup language for scholarly and technical works made famous by *The Art of Computer Programming*.  Note there are many LaTeX packages in the [Gentoo ebuild repository](https://wiki.gentoo.org/wiki/Ebuild_repository#The_Gentoo_ebuild_repository), depending on needed use. | 
 | [vim](https://wiki.gentoo.org/wiki/Vim) | [app-editors/vim](https://packages.gentoo.org/packages/app-editors/vim) | Powerful mode-based text editor. Note there are [several vi-like packages](https://wiki.gentoo.org/wiki/Vi) in the [Gentoo ebuild repository](https://wiki.gentoo.org/wiki/Ebuild_repository#The_Gentoo_ebuild_repository), depending on preference. | 
+| vis | [app-editors/vis](https://packages.gentoo.org/packages/app-editors/vis) | Vis is like neovim, but is written in as less lines of code as possible. Lua plugins, another regex flavour, no built-in window management. The least-bloated neovim-like editor. | 
 
 ### Office document file format conversion
 
@@ -267,9 +269,10 @@ If you have the skills to maintain ebuilds and want to see Gentoo support more t
 | [grep](https://wiki.gentoo.org/wiki/Grep) | [sys-apps/grep](https://packages.gentoo.org/packages/sys-apps/grep) | The classic tool for searching text with a fixed string or a [PCRE](https://en.wikipedia.org/wiki/PCRE) compatible regular expression pattern. | 
 | [Perl](https://wiki.gentoo.org/wiki/Perl) | [dev-lang/perl](https://packages.gentoo.org/packages/dev-lang/perl) | Perl is a programming language but it has a one-liner mode and supports very advanced regular expressions for non-recursive searching text. It's often thought of as grep and awk on steroids. | 
 | [Raku](https://wiki.gentoo.org/wiki/Raku) | [dev-lang/rakudo](https://packages.gentoo.org/packages/dev-lang/rakudo) | Raku is a programming language but it supports a one-liner mode and has [grammars](https://docs.raku.org/language/grammars) for recursively searching text. It's often thought of as a *highly readable* grep and awk on steroids. | 
-| [ripgrep](https://wiki.gentoo.org/wiki/Ripgrep) | [sys-apps/ripgrep](https://packages.gentoo.org/packages/sys-apps/ripgrep) | Modern recursive text searching tool with PCRE support. | 
+| [ripgrep](https://wiki.gentoo.org/wiki/Ripgrep) | [sys-apps/ripgrep](https://packages.gentoo.org/packages/sys-apps/ripgrep) | Modern recursive text searching tool with PCRE support. Basically, a CLI wrapper on top of Rust's built-in regex library. | 
 | sgrep | [app-text/sgrep](https://packages.gentoo.org/packages/app-text/sgrep) | Add structural criteria to grep and index text, SGML or XML. | 
-| ugrep | [sys-apps/ugrep::guru](https://github.com/gentoo-mirror/guru/tree/master/sys-apps/ugrep) | While ripgrep is written in Rust, ugrep is written in C++. Ugrep is faster than GNU grep, Silver Searcher, ack, sift. Ugrep's speed beats ripgrep in most benchmarks. Also has interactive searching with `-Q` option. Supports extended regex (check `ug --help regex`). | 
+| ugrep | [sys-apps/ugrep::guru](https://github.com/gentoo-mirror/guru/tree/master/sys-apps/ugrep) | While ripgrep is written in Rust, ugrep is written in C++. Ugrep is faster than GNU grep, Silver Searcher, ack, sift. Ugrep's speed beats ripgrep in most benchmarks. Also has interactive searching with `-Q` option. Supports many regex flavours, including PCRE2 (check `ug --help regex`). Basically, a wrapper on top of a C++ library called `RE-flex`. | 
+| [ast-grep](https://github.com/ast-grep/ast-grep) | [app-misc/ast-grep::ex\_repo](https://repos.gentoo.org/#ex_repo) | A CLI tool for structural search, lint and rewriting. Written in Rust. Works via TreeSitter parsers. It is so good for major refactors that only custom linting warnings with code actions via specific LSPs are better. | 
 
 ### Spelling and grammar checking
 
@@ -286,9 +289,10 @@ If you have the skills to maintain ebuilds and want to see Gentoo support more t
 |---|---|---|
 | [fzf](https://wiki.gentoo.org/wiki/Fzf) | [app-text/fzf](https://packages.gentoo.org/packages/app-text/fzf) | An interactive fuzzy finder. | 
 | fzy | [app-text/fzy](https://packages.gentoo.org/packages/app-text/fzy) | A fuzzy finder that is akin to fzf. | 
+| lazygit | [dev-vcs/lazygit::guru](https://github.com/gentoo-mirror/guru/tree/master/dev-vcs/lazygit) | An amazing TUI for `git`, especially for normal(lazy) people who do not want to memorize whole `git`-kung-fu. | 
 | [Gdu](https://wiki.gentoo.org/wiki/Gdu) | [sys-fs/gdu::guru](https://github.com/gentoo-mirror/guru/tree/master/sys-fs/gdu) | Disk usage analyzer that is akin to [ncdu](https://wiki.gentoo.org/wiki/Ncdu), but written in Go. | 
 | grpcurl | [net-misc/grpcurl::gbrlsnchs](https://repos.gentoo.org/#gbrlsnchs) | Like curl, but for [gRPC](https://en.wikipedia.org/wiki/gRPC). | 
-| [ncdu](https://wiki.gentoo.org/wiki/Ncdu) | [sys-fs/ncdu](https://packages.gentoo.org/packages/sys-fs/ncdu) | Disk usage analyzer with an ncurses interface. | 
+| [ncdu](https://wiki.gentoo.org/wiki/Ncdu) | [sys-fs/ncdu](https://packages.gentoo.org/packages/sys-fs/ncdu) | Disk usage analyzer with an ncurses interface. Versions around 1 are written in C. Versions 2+ are in Zig. Both versions have same feature set. | 
 | pastebinit | [app-text/pastebinit](https://packages.gentoo.org/packages/app-text/pastebinit) | Send anything you want directly to a [pastebin](https://en.wikipedia.org/wiki/pastebin). | 
 | [wgetpaste](https://wiki.gentoo.org/wiki/Wgetpaste) | [app-text/wgetpaste](https://packages.gentoo.org/packages/app-text/wgetpaste) | Send anything you want directly to a [pastebin](https://en.wikipedia.org/wiki/pastebin). Recomended over pastebinit especially if you are on Gentoo. | 
 

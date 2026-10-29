@@ -4,8 +4,8 @@ title: Bugzilla/Guide
 url: https://wiki.gentoo.org/wiki/Bugzilla/Guide
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-24"
-fingerprint: be049e5b2ea7db9c
+date: "2026-10-28"
+fingerprint: be049e5b0ea7db9c
 license: CC BY-SA 4.0
 ---
 
@@ -187,28 +187,9 @@ The [Bugzilla/Bug report guide](https://wiki.gentoo.org/wiki/Bugzilla/Bug_report
 
 ## Working with a bug
 
-Looking at the bug, we see the information we provided earlier. You will notice that the bug has been assigned to bug-wranglers@gentoo.org. This is the default location for application component bugs. The details we entered about the bug are available as well.
+Looking at the bug, we see the information we provided earlier. You will notice that the bug has been assigned to bug-wranglers@gentoo.org, which is the default location for application component bugs. Bug-wranglers will (usually) not fix these kind of bugs themselves, but will assign the bug to someone else, such as the project or maintainer of the package.
 
-However, bug-wranglers (usually) will not fix these kind of bugs, so we'll reassign it to someone that can (you can let bug-wranglers re-assign it for you as well). For this we use the package's metadata.xml. You can normally find them in /var/db/repos/gentoo/category/package/metadata.xml.
-
-**`/var/db/repos/gentoo/category/package/metadata.xml`**
-
-```
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
-<pkgmetadata>
-  <herd>chriswhite</herd>
-  <maintainer>
-    <email>chriswhite@gentoo.org</email>
-    <name>Chris White</name>
-  </maintainer>
-  <longdescription lang="en">Foobar2 is a package that uses a configuration file to display a word.</longdescription>
-</pkgmetadata>
-```
-`user $` `equery meta -mH media-sound/audacity    # will grep and print (proxy-)maintainer from metadata`
-Notice the maintainer section. This lists the maintainer of the package, which in this case is Chris White. The email listed is chriswhite@gentoo.org. We will use this to re-assign the bug to the proper person. To do this, click the bubble next to Reassign bug to, then fill in the email.
-
-Then click the "Commit" button for the changes to take place. The bug has been reassigned to the correct developer. Shortly afterward, you notice (by email usually) that the developer responded to the bug. For instance, he might have asked to see an strace log to figure out how the program is trying to reach the configuration file. You follow the instructions on using strace and obtain an strace log. Now you need to attach it to the bug. In order to do this, click on "Create A New Attachment":
+Some time after the bug is reassigned, you notice (by email usually) that the developer responded to the bug. For instance, they might have asked to see an strace log to figure out how the program is trying to reach the configuration file. You follow the instructions on using strace and obtain an strace log. Now you need to attach it to the bug. In order to do this, click on "Create A New Attachment":
 
 - File - This is the location of the file on the local machine. In this example, it is the location of strace.log. The Browse... button can be used to select the strace.log file, or the path can be entered directly in the text field.
 - Description - A short one liner, or a few words describing the attachment. "strace.log" will be entered here, since that is self-explanatory.

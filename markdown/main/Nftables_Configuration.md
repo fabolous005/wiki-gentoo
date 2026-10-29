@@ -4,8 +4,8 @@ title: Nftables/Configuration
 url: https://wiki.gentoo.org/wiki/Nftables/Configuration
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-15"
-fingerprint: d53af3d5eb03a7ab
+date: "2026-10-28"
+fingerprint: fdb8f159e3434eab
 license: CC BY-SA 4.0
 ---
 
@@ -144,7 +144,7 @@ Gentoo's systemd integration supports both the **Direct File** and **Saved State
 | /usr/lib/systemd/system/nftables.service | systemd service file for loading /etc/nftables/rules/main.nft. | 
 
 
-The filename and location used by the service are determined by the systemd service configuration (/usr/lib/systemd/system/nftables\*.service; default is /etc/nftables/rules/main.nft.  To change filepath of nftables command file, see [custom filepath](https://wiki.gentoo.org/wiki/Nftables/Configuration#CustomFilepath).
+The filename and location used by the service are determined by the systemd service configuration (/usr/lib/systemd/system/nftables\*.service; default is /etc/nftables/rules/main.nft.  To change filepath of nftables command file, see [custom filepath](https://wiki.gentoo.org#CustomFilepath).
 
 Use temporary command file during testing before replacing the canonical command file.
 
@@ -248,7 +248,7 @@ Applicable command file and service configuration depend on the installed Gentoo
 
 ## Customization
 
-Customization are organized by init subsystem selected.
+Customization are organized by init subsystem selected
 
 
 
@@ -356,7 +356,7 @@ Reload the ruleset
 
 `root #``systemctl reload nftables`
 
-To activate and load at startup, follow [here](https://wiki.gentoo.org/wiki/Nftables/Configuration#ServiceDirectFileSystemd).
+To activate and load at startup, follow [here](https://wiki.gentoo.org#ServiceDirectFileSystemd).
 
 #### Selective flush
 
@@ -383,7 +383,7 @@ Reload the ruleset
 
 `root #``systemctl reload nftables`
 
-To activate and load at startup, follow [here](https://wiki.gentoo.org/wiki/Nftables/Configuration#ServiceDirectFileSystemd).
+To activate and load at startup, follow [here](https://wiki.gentoo.org#ServiceDirectFileSystemd).
 
 
 
@@ -419,7 +419,7 @@ Reload the ruleset
 
 `root #``systemctl reload nftables`
 
-To activate and load at startup, follow [here](https://wiki.gentoo.org/wiki/Nftables/Configuration#ServiceDirectFileSystemd).
+To activate and load at startup, follow [here](https://wiki.gentoo.org#ServiceDirectFileSystemd).
 
 ### Logger
 
@@ -496,6 +496,385 @@ include "/etc/nftables/rules.d/*.nft"
 
 Matching files are loaded in C-locale collation lexicographic order.
 
+## Modular Ruleset
+
+nft supports atomic rule replacement by using nft -f. Thus it is possible to conveniently manage the rules using files.
+
+Nftables allows including additional files and directories. A directory, such as /etc/nftables.conf.d/ can be created which contains additional rulesets to be loaded.
+
+The following file creates a basic skeleton of a ruleset, which can be used with modules, loaded from /etc/nftables.conf.d/:
+
+**`/etc/nftables.rules`**
+
+**Basic router ruleset**
+
+```
+#! /sbin/nft -f
+ 
+flush ruleset
+ 
+table netdev filter {
+  # Basic filter chain, devices can be configued to jump here
+  chain ingress_filter {
+    # Drop all fragments.
+    ip frag-off & 0x1fff != 0 counter drop
+ 
+    # Drop XMAS packets.
+    tcp flags & (fin|syn|rst|psh|ack|urg) == fin|syn|rst|psh|ack|urg counter drop
+ 
+    # Drop NULL packets.
+    tcp flags & (fin|syn|rst|psh|ack|urg) == 0x0 counter drop
+ 
+    # Drop uncommon MSS values.
+    tcp flags syn tcp option maxseg size 1-535 counter drop
+ 
+  }
+}
+ 
+table inet filter {
+  chain input {
+    type filter hook input priority 200; policy drop;
+    counter jump input_hook
+    counter jump base_filter
+    log prefix "Dropped input traffic: " counter drop
+  }
+  chain input_hook {
+  }
+ 
+  chain base_filter {
+    counter jump drop_filter
+    ct state vmap {
+      established: accept,
+      related: accept,
+      new: continue,
+      invalid: drop
+    }
+    # Allow loopback traffic
+    iifname lo counter accept
+    oifname lo counter accept
+  }
+ 
+  chain drop_filter {
+  }
+ 
+  chain forward {
+    type filter hook forward priority 200; policy drop;
+    counter jump forward_hook
+    counter jump base_filter
+    log prefix "Dropped forwarded traffic: " counter drop
+  }
+ 
+  chain forward_hook {
+  }
+ 
+  chain output {
+    type filter hook output priority 200; policy drop;
+    counter jump output_hook
+    counter jump base_filter
+    log prefix "Dropped output traffic: " counter drop
+  }
+  chain output_hook {
+  }
+}
+ 
+table inet nat {
+  chain prerouting {
+    type nat hook prerouting priority 0;
+  }
+  chain postrouting {
+    type nat hook postrouting priority 500;
+  }
+}
+include "/etc/nftables.rules.d/*.rules"
+```
+#### Variable definitions
+
+**`/etc/nftables.rules.d/00-definitions.rules`**
+
+**Define variables which can be used in other modules.**
+
+```
+#! /sbin/nft -f
+ 
+define lan_interface = fib.lan
+define wifi_interface = ax1800
+define management_interface = fib.management
+define dmz_interface = ethernet2
+ 
+define wan_interface = fib.wan
+ 
+define wifi_network = 192.168.1.0/24
+define lan_network = 192.168.10.0/24
+define management_network = 192.168.255.0/24
+define dmz_network = 192.168.2.0/24
+ 
+table inet filter {
+  set trusted_nets {
+    type ipv4_addr
+    flags interval
+    elements = { $lan_network, $wifi_network }
+  }
+  set dmz_nets {
+    type ipv4_addr
+    flags interval
+    elements = { $dmz_network }
+  }
+  set untrusted_nets {
+    type ipv4_addr
+    flags interval
+    elements = { $dmz_network }
+  }
+}
+```
+#### Jumping to the ingress filter
+
+**`/etc/nftables.rules.d/00-ingress.rules`**
+
+**Hook the device ingress for*fib1* and *fib2*, filtering with the defined *ingress\_filter* chain.**
+
+```
+#! /sbin/nft -f
+ 
+table netdev filter {
+  chain ingress {
+    type filter hook ingress device fib1 priority -500;
+    jump ingress_filter
+  }
+  chain ingress {
+    type filter hook ingress device fib2 priority -500;
+    jump ingress_filter
+  }
+}
+```
+#### Basic drop filter
+
+**`/etc/nftables.rules.d/01-drop-policy.rules`**
+
+**Populate the*drop\_filter* chain to drop some spammy traffic found on the DMZ.**
+
+```
+#! /sbin/nft -f
+ 
+define dmz_spam_udp = { 1234 }
+define dmz_spam_tcp = { 2350 }
+ 
+table inet filter {
+  set spam_udp {
+    type inet_service
+    elements = { $dmz_spam_udp }
+  }
+  set spam_tcp {
+    type inet_service
+    elements = { $dmz_spam_tcp }
+  }
+ 
+  chain drop_filter {
+    tcp dport @spam_tcp counter drop
+    udp dport @spam_udp counter drop
+  }
+}
+```
+#### Basic ICMP filter
+
+**`/etc/nftables.rules.d/01-icmp.rules`**
+
+**Allow basic ICMP traffic**
+
+```
+#! /sbin/nft -f
+ 
+define allowed_icmp_types = { echo-reply, echo-request }
+define trusted_icmp_types = { destination-unreachable, time-exceeded }
+define allowed_icmpv6_types = { nd-router-solicit, nd-router-advert, nd-neighbor-solicit, nd-neighbor-advert, echo-request, echo-reply }
+ 
+table inet filter {
+  chain base_filter {
+    ip protocol icmp jump icmp_filter
+    ip6 nexthdr icmpv6 jump icmpv6_filter
+  }
+  chain icmp_filter {
+    icmp type $allowed_icmp_types counter accept
+    ip saddr @trusted_nets icmp type $trusted_icmp_types counter accept
+    ip daddr @trusted_nets icmp type $trusted_icmp_types counter accept
+  }
+  chain icmpv6_filter {
+    icmpv6 type $allowed_icmpv6_types counter accept
+  }
+}
+```
+#### Allow DHCP traffic
+
+**`/etc/nftables.rules.d/05-dhcp.rules`**
+
+**Allow DHCP client and server traffic on appropriate interfaces.**
+
+```
+#! /sbin/nft -f
+ 
+define dhcp_server_interfaces = { $lan_interface, $wifi_interface, $dmz_interface }
+define dhcp_client_interfaces = { $management_interface, $wan_interface }
+ 
+table inet filter {
+  set dhcp_server {
+   type inet_service;
+   elements = { 67 }
+  }
+  set dhcp_client {
+   type inet_service;
+   elements = { 68 }
+  }
+  set dhcp6_server {
+   type inet_service;
+   elements = { 547 }
+  }
+  set dhcp6_client {
+   type inet_service;
+   elements = { 546 }
+  }
+  chain input_hook {
+    iifname $dhcp_client_interfaces udp sport @dhcp_server udp dport @dhcp_client counter accept comment "Allow DHCP client input traffic"
+    iifname $dhcp_client_interfaces udp sport @dhcp6_server udp dport @dhcp6_client counter accept comment "Allow DHCPv6 client input traffic"
+    iifname $dhcp_server_interfaces udp dport @dhcp_server udp sport @dhcp_client counter accept comment "Allow DHCP server input traffic"
+    iifname $dhcp_server_interfaces udp dport @dhcp6_server udp sport @dhcp6_client counter accept comment "Allow DHCPv6 server input traffic"
+  }
+  chain output_hook {
+    oifname $dhcp_client_interfaces udp dport @dhcp_server udp sport @dhcp_client counter accept comment "Allow DHCP client output traffic"
+    oifname $dhcp_client_interfaces udp dport @dhcp6_server udp sport @dhcp6_client counter accept comment "Allow DHCPv6 client output traffic"
+    oifname $dhcp_server_interfaces udp sport @dhcp_server udp dport @dhcp_client counter accept comment "Allow DHCP server output traffic"
+    oifname $dhcp_server_interfaces udp sport @dhcp6_server udp dport @dhcp6_client counter accept comment "Allow DHCPv6 server output traffic"
+  }
+}
+```
+#### Allow inbound and forwarded SSH traffic
+
+**`/etc/nftables.rules.d/22-ssh.rules`**
+
+**Allow inbound and forwarded SSH from the*$management\_network*; allow SSH to be forwarded to GitHub servers, from certain networks, and users on the router.**
+
+```
+#! /sbin/nft -f
+define github_ssh_servers = { 140.82.112.3, 140.82.112.4, 140.82.114.3, 140.82.113.4, 140.82.114.4, 140.82.113.3 }
+ 
+table inet filter {
+  set external_ssh_servers {
+    type ipv4_addr
+    elements = { $github_ssh_servers }
+  }
+  set external_ssh_clients {
+    type ipv4_addr
+    flags interval
+    elements = { $lan_network }
+  }
+  set ssh_clients {
+    type ipv4_addr
+    flags interval
+    elements = { $management_network }
+  }
+  set ssh_ports {
+    type inet_service;
+    elements = { 22 }
+  }
+  chain ssh_filter {
+    ip saddr @external_ssh_clients ip daddr @external_ssh_servers counter accept comment "Allow these users to SSH to specified external servers"
+    ip saddr @ssh_clients counter accept comment "Allow this set to SSH anywhere, including the router itself"
+    skuid 1000 ip daddr @external_ssh_servers counter accept comment "Allow SSH traffic from UID 1000 to allowed external servers"
+  }
+  chain base_filter {
+    tcp dport @ssh_ports counter jump ssh_filter
+  }
+}
+```
+#### Allow outbound and forwarded NTP traffic
+
+**`/etc/nftables.rules.d/21-ntp.rules`**
+
+**Allow forwarded NTP traffic, outbound from the NTP user.**
+
+```
+#! /sbin/nft -f
+table inet filter {
+  set ntp_ports {
+    type inet_service
+    elements = { 123 }
+  }
+  set ntp4_ports {
+    type inet_service
+    elements = { 4460 }
+  }
+  chain base_filter {
+    tcp dport @ntp4_ports counter jump ntp_filter
+    udp dport @ntp_ports counter jump ntp_filter
+  }
+  chain ntp_filter {
+    ip saddr @trusted_nets counter accept
+    skuid 123 counter accept
+  }
+}
+```
+#### NAT LANs
+
+**`/etc/nftables.rules.d/05-lan-nat.rules`**
+
+**NAT some local networks.**
+
+```
+#! /sbin/nft -f
+ 
+table inet nat {
+  set nat_nets {
+    type ipv4_addr
+    flags interval
+    elements = { $lan_network, $wifi_network, $dmz_network }
+  }
+  chain	postrouting {
+    oifname $wan_interface ip saddr @nat_nets counter masquerade
+  }
+}
+```
+#### Masquerade Docker Traffic
+
+**`/etc/nftables.rules.d/10-docker.rules`**
+
+**Masquerade docker traffic**
+
+```
+#! /sbin/nft -f
+ 
+define docker_default_net = 172.17.0.0/16
+define docker_server_net = 10.100.100.0/24
+define docker_nets = { $docker_default_net, $docker_server_net }
+table inet filter {
+  set docker_nets {
+    type ipv4_addr
+    flags interval
+    elements = { $docker_nets }
+  }
+  set dns_ports {
+    type inet_service
+    elements = { 53 }
+  }
+  set web_ports {
+    type inet_service
+    elements = { 443 }
+  }
+ 
+  chain docker_filter {
+    udp dport @dns_ports counter accept
+    oifname $wan_interface tcp dport @web_ports counter accept
+  }
+  chain forward_hook {
+    ip saddr @docker_nets counter jump docker_filter
+  }
+}
+ 
+table inet nat {
+  set nat_nets {
+    type ipv4_addr
+    flags interval
+    elements = { $docker_nets }
+  }
+}
+```
 ## Troubleshooting
 
 ### Old settings keep coming back
@@ -515,11 +894,11 @@ With OpenRC, check /etc/conf.d/nftables for the saved-state configuration.
 ## See also
 
 - [nft](https://wiki.gentoo.org/wiki/Nft) — configures and inspects the Linux kernel's nftables packet handling framework
-- [Nftables/Ruleset](https://wiki.gentoo.org/wiki/Nftables/Ruleset)
+- [Nftables/Ruleset](https://wiki.gentoo.org/wiki/Nftables/Ruleset) — collection of tables, chains, rules, and other objects configured in the [Netfilter](https://wiki.gentoo.org/wiki/Netfilter) **nf\_tables** subsystem.
 - [Nftables/Ruleset/Chain](https://wiki.gentoo.org/wiki/Nftables/Ruleset/Chain) — contains a group of rules used to process network traffic.
-- [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules) — match packet properties and perform actions.
+- [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules) — match packet properties and execute statements.
 - [Nftables/Configuration]
 - [nftables examples](https://wiki.gentoo.org/wiki/Nftables/Examples)
-- [Nftables](https://wiki.gentoo.org/wiki/User:Egberts/Drafts/Nftables) — the Linux packet-handling framework
+- [Nftables](https://wiki.gentoo.org/wiki/Nftables) — the Linux packet-handling framework
 - [Netfilter](https://wiki.gentoo.org/wiki/Netfilter) — Linux kernel’s packet-filtering framework
 - [Security Handbook](https://wiki.gentoo.org/wiki/Security_Handbook) — valuable guidance on Gentoo Linux security and cybersecurity in general.

@@ -4,7 +4,7 @@ title: KDE
 url: https://wiki.gentoo.org/wiki/KDE
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-21"
+date: "2026-10-27"
 categories: ['kde-apps', 'kde-misc']
 fingerprint: ab1baa4909a3b18c
 license: CC BY-SA 4.0
@@ -69,8 +69,8 @@ Make sure to have configured applicable `VIDEO_CARDS` USE expand settings and ke
 
 | KDE | Gentoo | Ebuild repository | Status | 
 |---|---|---|---|
-| KDE Plasma 6.7.5 | kde-plasma/plasma-meta-6.7.5 | gentoo | Stable for **amd64** and **arm64**; testing for **ppc64**, **riscv** and **x86**<sup>[\[1\]](https://wiki.gentoo.org#cite_note-1)</sup> | 
-| KDE Plasma 6.8.1 | kde-plasma/plasma-meta-6.8.1 | gentoo | Testing for **amd64** and **arm64** | 
+| KDE Plasma 6.7.5 | kde-plasma/plasma-meta-6.7.5 | gentoo | Stable for **amd64** and **arm64**; testing for **ppc64**, **riscv** and **x86** | 
+| KDE Plasma 6.8.2 | kde-plasma/plasma-meta-6.8.2 | gentoo | Testing for **amd64** and **arm64** | 
 | KDE Plasma 6.7 stable branch | kde-plasma/plasma-meta-6.7.49.9999 | [KDE](https://wiki.gentoo.org/wiki/KDE/Ebuild_repository) | Live version | 
 | KDE Plasma 6.8 stable branch | kde-plasma/plasma-meta-6.8.49.9999 | [KDE](https://wiki.gentoo.org/wiki/KDE/Ebuild_repository) | Live version | 
 | KDE Plasma 6 master branch | kde-plasma/plasma-meta-9999 | [KDE](https://wiki.gentoo.org/wiki/KDE/Ebuild_repository) | Live version | 
@@ -95,7 +95,7 @@ The [kde-plasma/plasma-meta](https://packages.gentoo.org/packages/kde-plasma/pla
 | [+firewall](https://packages.gentoo.org/useflags/+firewall) | Pull in kde-plasma/plasma-firewall for system firewall administration | 
 | [+kwallet](https://packages.gentoo.org/useflags/+kwallet) | Enable support for KWallet auto-unlocking via kde-plasma/kwallet-pam | 
 | [+networkmanager](https://packages.gentoo.org/useflags/+networkmanager) | Enable net-misc/networkmanager support | 
-| [+sddm](https://packages.gentoo.org/useflags/+sddm) | Pull in the x11-misc/sddm display manager and system settings module | 
+| [+sddm](https://packages.gentoo.org/useflags/+sddm) | Pull in the gui-apps/sddm display manager and system settings module | 
 | [+smart](https://packages.gentoo.org/useflags/+smart) | Pull in kde-plasma/plasma-disks for disk health monitoring | 
 | [+wallpapers](https://packages.gentoo.org/useflags/+wallpapers) | Install wallpapers for the Plasma Workspace | 
 | [+xwayland](https://packages.gentoo.org/useflags/+xwayland) | Enable Wayland windows screensharing to XWayland applications via gui-apps/xwaylandvideobridge | 
@@ -248,8 +248,8 @@ KDE Gear consists of various applications and supporting libraries based on Qt/K
 
 | KDE | Gentoo | Ebuild repository | Status | 
 |---|---|---|---|
-| KDE Gear 26.04.3 | kde-apps/kde-apps-meta-26.04.3 | gentoo | Stable for **amd64** and **arm64**<sup>[\[2\]](https://wiki.gentoo.org#cite_note-2)</sup> | 
-| KDE Gear 26.08.2 | kde-apps/kde-apps-meta-26.08.2 | gentoo | Testing for **amd64** and **arm64**<sup>[\[3\]](https://wiki.gentoo.org#cite_note-3)</sup> | 
+| KDE Gear 26.04.3 | kde-apps/kde-apps-meta-26.04.3 | gentoo | Stable for **amd64** and **arm64** | 
+| KDE Gear 26.08.2 | kde-apps/kde-apps-meta-26.08.2 | gentoo | Testing for **amd64** and **arm64** | 
 | KDE Gear 26.08 stable branch | kde-apps/kde-apps-meta-26.08.49.9999 | [KDE](https://wiki.gentoo.org/wiki/KDE/Ebuild_repository) | Live version | 
 | KDE Gear master branch | kde-apps/kde-apps-meta-9999 | [KDE](https://wiki.gentoo.org/wiki/KDE/Ebuild_repository) | Live version | 
 
@@ -307,7 +307,7 @@ As Frameworks are mostly libraries and provide little user functionality, it's n
 
 | KDE | Gentoo | Ebuild repository | Status | 
 |---|---|---|---|
-| KDE Frameworks 6.29.0 | kde-frameworks/\*-6.29.0 | gentoo | Stable for **amd64** and **arm64**; testing for **loong**, **ppc64**, **riscv** and **x86**<sup>[\[5\]](https://wiki.gentoo.org#cite_note-5)</sup> | 
+| KDE Frameworks 6.29.0 | kde-frameworks/\*-6.29.0 | gentoo | Stable for **amd64**, **arm64** and **ppc64**; testing for **loong**, **riscv** and **x86** | 
 | KDE Frameworks 6.31.0 | kde-frameworks/\*-6.31.0 | gentoo | Testing for **amd64**, **arm64**, **loong**, **ppc64**, **riscv** and **x86** | 
 | KDE Frameworks 6 (master) branch | kde-frameworks/\*-9999 | [KDE](https://wiki.gentoo.org/wiki/KDE/Ebuild_repository) | Live version | 
 

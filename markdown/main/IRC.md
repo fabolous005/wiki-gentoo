@@ -4,7 +4,7 @@ title: IRC
 url: https://wiki.gentoo.org/wiki/IRC
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-26"
+date: "2026-10-28"
 fingerprint: "609bff184aa92b9c"
 license: CC BY-SA 4.0
 ---
@@ -36,7 +36,6 @@ The following table contains some of the IRC software available in Gentoo. Disco
 | Name | Package | Homepage | Description | 
 |---|---|---|---|
 | catgirl | [net-irc/catgirl::guru](https://gpo.zugaina.org/Overlays/guru/net-irc/catgirl) | [https://git.causal.agency/catgirl/about/](https://git.causal.agency/catgirl/about/) | A TLS-only terminal IRC client | 
-| [HexChat](https://wiki.gentoo.org/wiki/HexChat) | [net-irc/hexchat](https://packages.gentoo.org/packages/net-irc/hexchat) | [https://hexchat.github.io/](https://hexchat.github.io/) | Graphical IRC client based on XChat. | 
 | [Irssi](https://wiki.gentoo.org/wiki/Irssi) | [net-irc/irssi](https://packages.gentoo.org/packages/net-irc/irssi) | [https://irssi.org/](https://irssi.org/) | A modular text UI IRC client with IPv6 support. | 
 | ircii | [net-irc/ircii](https://packages.gentoo.org/packages/net-irc/ircii) | [http://eterna.com.au/ircii/](http://eterna.com.au/ircii/) | An IRC and ICB client that runs under most UNIX platforms. | 
 | [Konversation](https://wiki.gentoo.org/wiki/Konversation) | [net-irc/konversation](https://packages.gentoo.org/packages/net-irc/konversation) | [https://konversation.kde.org/](https://konversation.kde.org/) | User friendly IRC Client based on KDE Frameworks. | 

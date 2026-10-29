@@ -4,8 +4,8 @@ title: Unbound
 url: https://wiki.gentoo.org/wiki/Unbound
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-06-20"
-fingerprint: cf411bdf088e3cd4
+date: "2026-10-27"
+fingerprint: cf411bdf388e3cd4
 license: CC BY-SA 4.0
 ---
 
@@ -25,6 +25,11 @@ Its sister package is [net-dns/nsd](https://packages.gentoo.org/packages/net-dns
 
 ### USE flags
 
+
+### USE flags for
+            [net-dns/unbound](https://packages.gentoo.org/packages/net-dns/unbound)
+            
+            A validating, recursive and caching DNS resolver
 
 | [+ecdsa](https://packages.gentoo.org/useflags/+ecdsa) | Enable ECDSA support | 
 | [+http2](https://packages.gentoo.org/useflags/+http2) | Enable HTTP/2 support for DoH via net-libs/nghttp2 | 
@@ -61,10 +66,15 @@ Unbound can run as a recursive resolver, starting from the *root hints* file. Th
 
 First, fetch the hints file:
 
+`root #``wget` [https://www.internic.net/domain/named.cache](https://www.internic.net/domain/named.cache) -O /etc/unbound/root.hints
 Then tell Unbound where to find it:
 
 **`/etc/unbound/unbound.conf`**
 
+```
+server:
+     root-hints: "/etc/unbound/root.hints"
+```
 Note that *tls-upstream* is incompatible with this unless a fallback *forward-zone* is configured (which would defeat the point of a recursive resolver).
 
 Running a recursive resolver is a de facto requirement for a mail server which performs DNSBL lookups, as providers need to estimate the volume of queries to prevent abuse.
@@ -77,12 +87,35 @@ To forward all lookups to a selection of CloudFlare, Google, and Quad9:
 
 **`/etc/unbound/unbound.conf`**
 
+```
+forward-zone:
+        name: "."
+        forward-addr: 1.0.0.1@53#one.one.one.one
+        forward-addr: 1.1.1.1@53#one.one.one.one
+        forward-addr: 8.8.4.4@53#dns.google
+        forward-addr: 8.8.8.8@53#dns.google
+        forward-addr: 9.9.9.9@53#dns.quad9.net
+        forward-addr: 149.112.112.112@53#dns.quad9.net
+```
 #### DNS over TLS
 
 Unbound supports DNS over TLS. This protects the content of queries from those observing the network, though the remote resolver will still see the query contents.
 
 **`/etc/unbound/unbound.conf`**
 
+```
+server:
+    tls-cert-bundle: "/etc/ssl/certs/ca-certificates.crt"
+forward-zone:
+    name: "."
+    forward-tls-upstream: yes
+    forward-addr: 1.0.0.1@53#one.one.one.one
+    forward-addr: 1.1.1.1@53#one.one.one.one
+    forward-addr: 8.8.4.4@53#dns.google
+    forward-addr: 8.8.8.8@53#dns.google
+    forward-addr: 9.9.9.9@53#dns.quad9.net
+    forward-addr: 149.112.112.112@53#dns.quad9.net
+```
 ### DNSSEC
 
 To be able to use DNSSEC validation, a trust anchor file needs to be available on the system.
@@ -103,6 +136,10 @@ Once created, the anchor will need regular updates. Assuming the file is named /
 
 **`/etc/unbound/unbound.conf`**
 
+```
+server:
+     auto-trust-anchor-file: "/etc/unbound/var/dnssec-trust-anchors.key"
+```
 Alternatively, the *unbound-anchor* service can be used with systemd.
 
 #### Manual fetch

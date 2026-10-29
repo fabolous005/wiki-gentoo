@@ -4,7 +4,7 @@ title: Nftables/Ruleset/Chain
 url: https://wiki.gentoo.org/wiki/Nftables/Ruleset/Chain
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-21"
+date: "2026-10-28"
 fingerprint: fcb09d1edf4b8e2f
 license: CC BY-SA 4.0
 ---
@@ -40,7 +40,7 @@ The regular chain contains a group of rules.
 
 ### Base chains
 
-Packet processing enters a base chain, through Netfilter [hook](https://wiki.gentoo.org/wiki/Nftables/Ruleset/Chain#hook).
+Packet processing enters a base chain, through Netfilter [hook](https://wiki.gentoo.org#hook).
 
 A base chain has additional properties; regular chains do not.
 
@@ -56,7 +56,7 @@ The primary difference is how a chain gets started.
 
 Only a base chain can register with a Netfilter hook; similar to registering for a per-packet callback.
 
-A regular chain is similar to a procedure/function; see [chaining](https://wiki.gentoo.org/wiki/Nftables/Ruleset/Chain#Chaining).
+A regular chain is similar to a procedure/function; see [chaining](https://wiki.gentoo.org#Chaining).
 
 Omission of the property configuration in a base chain creates a regular chain.
 
@@ -176,7 +176,7 @@ hook determines where in the Linux networking flow that this base chain attaches
 Priority property specifies the placement within the hook ordering.
 
 Multiple base chains attached to the same hook are ordered by
-[priority](https://wiki.gentoo.org/wiki/Nftables/Ruleset/Chain#priority).
+[priority](https://wiki.gentoo.org#priority).
 
 Lower priority numeric values are traversed first.
 
@@ -451,7 +451,7 @@ Rules are processed in the order they occur within the chain.
 
 Multiple base chains can be attached to the same Netfilter hook.
 
-The [priority](https://wiki.gentoo.org/wiki/Nftables/Ruleset/Chain#priority) property determines their processing order.
+The [priority](https://wiki.gentoo.org#priority) property determines their processing order.
 
 Lower numeric values are traversed first.
 
@@ -459,7 +459,7 @@ Lower numeric values are traversed first.
 
 jump, goto, and return alter chain traversal.
 
-See [Abrupt pathways](https://wiki.gentoo.org/wiki/Nftables/Ruleset/Chain#Abrupt_pathways) for their behavior.
+See [Abrupt pathways](https://wiki.gentoo.org#Abrupt_pathways) for their behavior.
 
 ### Base chain behavior
 
@@ -496,10 +496,10 @@ chain input {
 ## See also
 
 - [nft](https://wiki.gentoo.org/wiki/Nft) — configures and inspects the Linux kernel's nftables packet handling framework
-- [Nftables/Ruleset](https://wiki.gentoo.org/wiki/Nftables/Ruleset)
+- [Nftables/Ruleset](https://wiki.gentoo.org/wiki/Nftables/Ruleset) — collection of tables, chains, rules, and other objects configured in the [Netfilter](https://wiki.gentoo.org/wiki/Netfilter) **nf\_tables** subsystem.
 - [Nftables/Ruleset/Chain] — contains a group of rules used to process network traffic.
-- [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules) — match packet properties and perform actions.
+- [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules) — match packet properties and execute statements.
 - [Nftables/Configuration](https://wiki.gentoo.org/wiki/Nftables/Configuration)
 - [nftables examples](https://wiki.gentoo.org/wiki/Nftables/Examples)
-- [Nftables](https://wiki.gentoo.org/wiki/User:Egberts/Drafts/Nftables) — the Linux packet-handling framework
+- [Nftables](https://wiki.gentoo.org/wiki/Nftables) — the Linux packet-handling framework
 - [Netfilter](https://wiki.gentoo.org/wiki/Netfilter) — Linux kernel’s packet-filtering framework

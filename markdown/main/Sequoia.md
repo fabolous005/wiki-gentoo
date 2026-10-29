@@ -4,18 +4,20 @@ title: Sequoia
 url: https://wiki.gentoo.org/wiki/Sequoia
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2025-12-30"
-fingerprint: f9b75789bf9cc4e8
+date: "2026-10-28"
+fingerprint: fbb75699bf9cc4e8
 license: CC BY-SA 4.0
 ---
 
 # Sequoia
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
-Sequoia is a complete implementation of OpenPGP as defined by RFC 9580 as well as the deprecated OpenPGP as defined by RFC 4880, and various related standards.
+Sequoia is a complete implementation of OpenPGP as defined by [RFC 9580](https://www.rfc-editor.org/info/rfc9580/) as well as the deprecated OpenPGP as defined by [RFC 4880](https://www.rfc-editor.org/info/rfc4880/), and various related standards.
 
 ## Installation
 
@@ -23,6 +25,11 @@ Sequoia is a complete implementation of OpenPGP as defined by RFC 9580 as well a
 
 #### USE flags
 
+
+### USE flags for
+            [app-crypt/sequoia-sop](https://packages.gentoo.org/packages/app-crypt/sequoia-sop)
+            
+            Implementation of the Stateless OpenPGP Command Line Interface using Sequoia
 
 #### Emerge
 
@@ -32,6 +39,11 @@ Sequoia is a complete implementation of OpenPGP as defined by RFC 9580 as well a
 #### USE flags
 
 
+### USE flags for
+            [app-crypt/sequoia-sq](https://packages.gentoo.org/packages/app-crypt/sequoia-sq)
+            
+            CLI of the Sequoia OpenPGP implementation
+
 #### Emerge
 
 `root #``emerge --ask app-crypt/sequoia-sq`
@@ -39,6 +51,11 @@ Sequoia is a complete implementation of OpenPGP as defined by RFC 9580 as well a
 
 #### USE flags
 
+
+### USE flags for
+            [app-crypt/sequoia-sqv](https://packages.gentoo.org/packages/app-crypt/sequoia-sqv)
+            
+            A simple OpenPGP signature verification program
 
 #### Emerge
 

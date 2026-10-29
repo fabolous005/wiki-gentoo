@@ -4,8 +4,8 @@ title: Nftables/Rules
 url: https://wiki.gentoo.org/wiki/Nftables/Rules
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-24"
-fingerprint: fdb99d1ef70b9fad
+date: "2026-10-28"
+fingerprint: fdbc9d1efb0bcfad
 license: CC BY-SA 4.0
 ---
 
@@ -31,7 +31,31 @@ Both commands accept position to place a rule relative to an existing rule handl
 
 ## Evaluation
 
-Rule evaluation processes expressions and statements in sequence. Matching expressions execute their statements; a terminating verdict ends the current rule evaluation and determines control flow.
+Rule evaluation processes expressions and statements in sequence.
+
+Matching expressions execute their statements; a terminating verdict ends the current rule evaluation and determines control flow.
+
+The iif expression matches the input interface index, resolved from the specified interface name when the rule is added.
+
+The interface must exist when either the iif or meta iif expression is added.
+
+Renaming the interface does not affect the match because the interface index is resolved when the rule is added to the ruleset.
+
+Deleting and recreating the interface may assign a different index, causing the rule to stop matching the replacement interface. For example:
+
+1. eth0 exists with interface index 2.
+2. You add iif eth0 drop. nftables resolves eth0 to index 2.
+3. You delete eth0. The rule still compares incoming packets against index 2.
+4. You recreate eth0. The kernel might assign it index 5.
+5. The rule still matches index 2, so packets arriving on the replacement eth0 do not match it.
+
+The important details are:
+
+- iif eth0 and meta iif eth0 both resolve eth0 to an interface index when the rule is added.
+- The rule can only be added if eth0 exists at that time.
+- Renaming eth0 to lan0 does not break the match, because the rule uses the index.
+- If the interface is deleted, a newly created interface may receive a different index, so the old rule will not necessarily match it.
+- iifname eth0 matches the name instead: the interface need not exist when the rule is added, and a recreated interface named eth0 can match again.
 
 ## Rule syntax
 
@@ -187,5 +211,5 @@ The following pages provide keyword guides for configuring [Nftables](https://wi
 - [Nftables/Ruleset/Chain](https://wiki.gentoo.org/wiki/Nftables/Ruleset/Chain) — contains a group of rules used to process network traffic.
 - [Nftables/Configuration](https://wiki.gentoo.org/wiki/Nftables/Configuration)
 - [nftables examples](https://wiki.gentoo.org/wiki/Nftables/Examples)
-- [Nftables](https://wiki.gentoo.org/wiki/User:Egberts/Drafts/Nftables) — the Linux packet-handling framework
+- [Nftables](https://wiki.gentoo.org/wiki/Nftables) — the Linux packet-handling framework
 - [Netfilter](https://wiki.gentoo.org/wiki/Netfilter) — Linux kernel’s packet-filtering framework

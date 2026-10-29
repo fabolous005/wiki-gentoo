@@ -1814,6 +1814,8 @@ https://wiki.gentoo.org/wiki/Nftables/Configuration
 https://wiki.gentoo.org/wiki/Nftables/Examples
 https://wiki.gentoo.org/wiki/Nftables/Rules
 https://wiki.gentoo.org/wiki/Nftables/Rules/Dnat
+https://wiki.gentoo.org/wiki/Nftables/Rules/Iif
+https://wiki.gentoo.org/wiki/Nftables/Rules/Iifname
 https://wiki.gentoo.org/wiki/Nftables/Rules/Include
 https://wiki.gentoo.org/wiki/Nftables/Rules/Ip6_saddr
 https://wiki.gentoo.org/wiki/Nftables/Rules/Ip_saddr

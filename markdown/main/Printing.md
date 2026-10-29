@@ -4,8 +4,8 @@ title: Printing
 url: https://wiki.gentoo.org/wiki/Printing
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-09-23"
-fingerprint: bc8b9743f525b98a
+date: "2026-10-28"
+fingerprint: bc8b9753f521b98a
 license: CC BY-SA 4.0
 ---
 
@@ -45,6 +45,14 @@ The LPT port is generally used to identify the parallel printer port. You need t
 
 **Parallel Port printer configuration**
 
+```
+Device Drivers --->
+  <*> Parallel port support  --->
+    <*> PC-style hardware
+    [*] IEEE 1284 transfer modes
+  Character devices  --->
+    <*> Parallel printer support
+```
 #### Locally attached printer (USB)
 
 USB printing is supported by CUPS with the [usb](https://packages.gentoo.org/useflags/usb) [USE flag](https://wiki.gentoo.org/wiki/USE_flag) enabled. This uses the libusb library for user space USB support.
@@ -53,6 +61,17 @@ Some older software titles might still require the in-kernel USB printer support
 
 **USB Printer support**
 
+```
+Symbol: USB_PRINTER [=n]
+Type  :tristate
+Prompt: USB Printer support
+  Location:
+    -> Device Drivers
+      -> USB support (USB_SUPPORT [=y])
+(1)     -> Support for Host-side USB (USB [=y])
+  Defined at drivers/usb/class/Kconfig:21
+  Depends on: USB_SUPPORT [=y] && USB [=y]
+```
 However, using the in-kernel USB printer support is [considered obsolete](https://forums.gentoo.org/viewtopic-t-1053530-start-10.html). Only pursue this when needed.
 
 #### Remotely attached printer (IPP and LPD)
@@ -65,10 +84,20 @@ The kernel must support [CIFS](https://wiki.gentoo.org/wiki/CIFS) file system:
 
 **CIFS printer configuration**
 
+```
+File systems -->
+  Network File Systems -->
+    <*> SMB3 and CIFS support (advanced network filesystem)
+```
 ### USE flags
 
 Some packages are aware of the [cups](https://packages.gentoo.org/useflags/cups) [USE flag](https://wiki.gentoo.org/wiki/USE_flag). CUPS has a few optional features that might be of interest. To enable or disable those features, use the USE flags associated with them.
 
+
+### USE flags for
+            [net-print/cups](https://packages.gentoo.org/packages/net-print/cups)
+            
+            The Common Unix Printing System
 
 | [X](https://packages.gentoo.org/useflags/X) | Add support for X11 | 
 | [acl](https://packages.gentoo.org/useflags/acl) | Add support for Access Control Lists | 
@@ -94,6 +123,11 @@ Some packages are aware of the [cups](https://packages.gentoo.org/useflags/cups)
 To avoid any future errors or headaches when using CUPS, you should also install the [net-print/cups-meta](https://packages.gentoo.org/packages/net-print/cups-meta) package.
 
 
+### USE flags for
+            [net-print/cups-meta](https://packages.gentoo.org/packages/net-print/cups-meta)
+            
+            Metapackage for a fully configured cups printer setup
+
 | [+browsed](https://packages.gentoo.org/useflags/+browsed) | Include support for the cups-browsed daemon. | 
 | [+foomatic](https://packages.gentoo.org/useflags/+foomatic) | Include support for the foomatic-rip printer driver. Strongly recommended. | 
 | [+poppler](https://packages.gentoo.org/useflags/+poppler) | Include support for the app-text/poppler filters. | 
@@ -110,6 +144,9 @@ To enable [Samba](https://wiki.gentoo.org/wiki/Samba) support, [net-fs/samba](ht
 
 **Enabling cups USE flag for Samba**
 
+```
+net-fs/samba cups
+```
 Then (re)install Samba:
 
 `root #``emerge --ask --changed-use net-fs/samba`
@@ -237,8 +274,14 @@ PCL drivers send raw data to the print server. To enable raw printing on CUPS, e
 
 **Enable support for raw printing**
 
+```
+application/octet-stream
+```
 **`/usr/share/cups/mime/mime.convs`**
 
+```
+application/octet-stream     application/vnd.cups-raw    0    -
+```
 Do not forget to restart the CUPS daemon after making these changes by running /etc/init.d/cupsd restart (for OpenRC users) or systemctl restart cupsd.service (for systemd users).
 
 ### Setting up a remote printer
@@ -249,6 +292,10 @@ Assuming the printer is attached to a system called `printserver.mydomain`, open
 
 **`/etc/cups/client.conf`**
 
+```
+# (Substitute printserver.mydomain with your print server name)
+ServerName printserver.mydomain
+```
 The remote system will have a default printer setting which will be used. To change the default printer, use the lpoptions command.
 
 First list the available printers:
@@ -264,7 +311,7 @@ Set the HP LaserJet 5P as the default printer:
 
 #### Introduction
 
-If the printer to be configured is remotely available through a different print server (running CUPS) then the following instructions are not needed. Instead, read [Setting up a Remote Printer](https://wiki.gentoo.org/wiki/Printing#Setting_up_a_remote_printer).
+If the printer to be configured is remotely available through a different print server (running CUPS) then the following instructions are not needed. Instead, read [Setting up a Remote Printer](https://wiki.gentoo.org#Setting_up_a_remote_printer).
 
 #### Detecting the printer
 
@@ -427,7 +474,7 @@ Open /etc/samba/smb.conf with a favorite text editor and add a `[printers]` sect
 
 Navigate to the top of the smb.conf file until inside the `[global]` section. Locate the `printcap name` and `printing` settings and set each of them to `cups` (see the example below):
 
-Make sure to enable [Windows PCL](https://wiki.gentoo.org/wiki/Printing#Enable_support_for_Windows_PCL_drivers) support in CUPS. Then, restart the smb service to have the changes take effect.
+Make sure to enable [Windows PCL](https://wiki.gentoo.org#Enable_support_for_Windows_PCL_drivers) support in CUPS. Then, restart the smb service to have the changes take effect.
 
 #### Configuring a Linux client for a Windows print server
 
@@ -500,6 +547,11 @@ To diagnose a problem related with CUPS enable debug logging in /etc/cups/cupsd.
 
 **`/etc/cups/cupsd.con`**
 
+```
+# ...
+LogLevel debug
+# ...
+```
 Log messages will appears in /var/log/cups/error\_log file.
 
 ### Error: No such file or directory

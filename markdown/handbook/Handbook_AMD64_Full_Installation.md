@@ -11,7 +11,7 @@ license: CC BY-SA 4.0
 
 # Gentoo Linux amd64 Handbook: Installing Gentoo
 
-[Handbook:AMD64](https://wiki.gentoo.org/wiki/Special:MyLanguage/Handbook:AMD64) |
+[Handbook:AMD64](https://wiki.gentoo.org/wiki/Special:MyLanguage/Handbook:AMD64)|
 
 [Full](https://wiki.gentoo.org/wiki/Special:MyLanguage/Handbook:AMD64/Full)
 
@@ -1898,16 +1898,17 @@ To configure the system correctly the user needs to first unset the preset video
 ```
 Below is a table that can be used to easily compare the different video card types to their respective `VIDEO_CARDS` value.
 
-| GPU | VIDEO\_CARDS | 
-|---|---|
-| (Official) Nvidia Maxwell and newer | `nvidia` | 
-| Nouveau Nvidia [Supported list](https://wiki.gentoo.org/wiki/NVIDIA) | `nouveau` | 
-| AMD since Sea Islands | `amdgpu radeonsi` | 
-| ATI and older AMD | See [radeon#Feature support](https://wiki.gentoo.org/wiki/Radeon#Feature_support) | 
-| Intel Nehalem and newer | `intel` | 
-| Intel Gen 2 and 3 [Supported list](https://wiki.gentoo.org/wiki/Intel#.23Feature_support) | `intel i915` | 
-| QEMU/KVM | `virgl` | 
-| WSL | `d3d12` | 
+| GPU | microcode/generation | VIDEO\_CARDS variable | 
+|---|---|---|
+| Nvidia | ***Maxwell*** and newer | `nvidia` | 
+| Nvidia | [card list](https://wiki.gentoo.org/wiki/NVIDIA#Feature_support) | `nouveau` | 
+| AMD | ***Sea Islands*** and newer | `amdgpu radeonsi` | 
+| AMD | before ***Sea Islands*** - [card list](https://wiki.gentoo.org/wiki/Radeon#Feature_support) |  | 
+| ATI | [card list](https://wiki.gentoo.org/wiki/Radeon#Feature_support) |  | 
+| Intel | ***Nehalem*** and newer | `intel` | 
+| Intel | Gen 2 and 3 - [card list](https://wiki.gentoo.org/wiki/Intel#Feature_support) | `intel i915` | 
+| QEMU/KVM |  | `virgl` | 
+| WSL |  | `d3d12` | 
 
 Below is a few examples of a properly set package.use for *VIDEO\_CARDS*:
 
@@ -1927,12 +1928,22 @@ Below is a few examples of a properly set package.use for *VIDEO\_CARDS*:
 ```
 **`/etc/portage/package.use/00video_cards`**
 
-**Nvidia example**
+**Nvidia example pre-Maxwell cards**
+
+```
+# nouveau is an nvidia driver
+*/* VIDEO_CARDS: -* nouveau
+```
+**`/etc/portage/package.use/00video_cards`**
+
+**Nvidia example Maxwell or newer cards**
 
 ```
 */* VIDEO_CARDS: -* nvidia
+# Set global USEflags to use all Nvidia features.
+*/* nvidia vdpau nvenc
 ```
-Details for various GPU(s) can be found at the [AMDGPU](https://wiki.gentoo.org/wiki/AMDGPU), [Intel](https://wiki.gentoo.org/wiki/Intel), [Nouveau (Open Source)](https://wiki.gentoo.org/wiki/Nouveau), or [NVIDIA (Proprietary)](https://wiki.gentoo.org/wiki/NVIDIA) articles.
+Details are available for [AMD cards](https://wiki.gentoo.org/wiki/AMDGPU) and for [Intel cards](https://wiki.gentoo.org/wiki/Intel), on the wiki. For [NVIDIA cards](https://wiki.gentoo.org/wiki/NVIDIA), there is currently a choice between two drivers: [nouveau (open source)](https://wiki.gentoo.org/wiki/Nouveau) and [NVIDIA (Offical)](https://wiki.gentoo.org/wiki/NVIDIA/nvidia-drivers) (which drivers can be used depends on exact [card model](https://wiki.gentoo.org/wiki/NVIDIA#Feature_support)).
 
 ### Optional: Configure the ACCEPT\_LICENSE variable
 
@@ -3089,7 +3100,7 @@ All cron daemons support high levels of granularity for scheduled tasks, and gen
 Gentoo offers several possible cron daemons, including:
 
 - [cronie](https://wiki.gentoo.org/wiki/Cron#cronie) ([sys-process/cronie](https://packages.gentoo.org/packages/sys-process/cronie)) - cronie is based on the original cron and has security and configuration enhancements like the ability to use PAM and SELinux.
-- [dcron](https://wiki.gentoo.org/wiki/Cron#dcron_.28Dillon.27s_Cron.29) ([sys-process/dcron](https://packages.gentoo.org/packages/sys-process/dcron)) - This lightweight cron daemon aims to be simple and secure, with just enough features to stay useful.
+- [dcron](<https://wiki.gentoo.org/wiki/Cron#dcron_(Dillon's_Cron)>) ([sys-process/dcron](https://packages.gentoo.org/packages/sys-process/dcron)) - This lightweight cron daemon aims to be simple and secure, with just enough features to stay useful.
 - [fcron](https://wiki.gentoo.org/wiki/Cron#fcron) ([sys-process/fcron](https://packages.gentoo.org/packages/sys-process/fcron)) - A command scheduler with extended capabilities over cron and anacron.
 - [bcron](https://wiki.gentoo.org/wiki/Cron#bcron) ([sys-process/bcron](https://packages.gentoo.org/packages/sys-process/bcron)) - A younger cron system designed with secure operations in mind. To do this, the system is divided into several separate programs, each responsible for a separate task, with strictly controlled communications between parts.
 
@@ -3128,9 +3139,7 @@ Now is the time to setup a crontab to periodically scan the system for hardware 
 
 **Run modprobed-db once every 6 hours**
 
-```
-0 */6 * * *     /usr/bin/modprobed-db store &> /dev/null
-```
+`0 */6 * * *     /usr/bin/modprobed-db store &> /dev/null`
 At a later date of at least a week, please visit the kernel build section of the [modprobed-db](https://wiki.gentoo.org/wiki/Modprobed-db#Building_kernels) article to complete the setup.
 
 ### systemd
@@ -3328,10 +3337,7 @@ Or, via [installkernel](https://wiki.gentoo.org/wiki/Installkernel):
 
 **`/etc/env.d/99grub`**
 
-```
-GRUB_CFG=/efi/EFI/Gentoo/grub.cfg
-```
-`root #``env-update`
+`GRUB_CFG=/efi/EFI/Gentoo/grub.cfg``root #``env-update`
 ##### Debugging GRUB
 
 When debugging GRUB, there are a couple of quick fixes that may result in a bootable installation without having to reboot to a new live image environment.
@@ -3440,9 +3446,7 @@ app-emulation/virt-firmware
 ```
 **`/etc/portage/package.use/installkernel`**
 
-```
-sys-kernel/installkernel efistub
-```
+`sys-kernel/installkernel efistub`
 Then reinstall [installkernel](https://wiki.gentoo.org/wiki/Installkernel), create the /efi/EFI/Gentoo directory and reinstall the kernel:
 
 `root #``emerge --ask sys-kernel/installkernel``root #``mkdir -p /efi/EFI/Gentoo`

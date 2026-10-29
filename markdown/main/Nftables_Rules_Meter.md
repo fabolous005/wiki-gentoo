@@ -4,8 +4,8 @@ title: Nftables/Rules/Meter
 url: https://wiki.gentoo.org/wiki/Nftables/Rules/Meter
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-20"
-fingerprint: bbb6bb89f713e531
+date: "2026-10-28"
+fingerprint: abb6bbc9b713e531
 license: CC BY-SA 4.0
 ---
 
@@ -16,12 +16,6 @@ license: CC BY-SA 4.0
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
 The meter statement tracks packet or byte rates independently per key, enabling per-client rate limiting and accounting.
-
-## Kernel
-
-- `CONFIG_NF_TABLES` - nftables framework
-- `CONFIG_NF_TABLES_SET` - nftables `set` infrastructure, used to store and look up per-key state
-- `CONFIG_NFT_LIMIT` - nftables `limit` expression, if the `meter` uses a `limit` statement to rate-limit traffic per key
 
 ## Evaluation
 
@@ -51,12 +45,12 @@ Rate-limit new SSH connections per source address:
 **`/etc/nftables/rules.d/40-meter-ssh.nft`**
 
 ```
-set ssh_meter {
+set ssh_throttle {
         type ipv4_addr
         flags dynamic
         timeout 1m
     }
-    ct state new tcp dport 22 meter ssh_meter {
+    ct state new tcp dport 22 meter ssh_throttle {
         ip saddr limit rate over 3/minute
     } drop
 ```
@@ -64,13 +58,15 @@ Rate-limit HTTP requests per source address:
 
 **`/etc/nftables/rules.d/40-meter-http.nft`**
 
+**Example usage of**meter** statement**
+
 ```
-set http_meter {
+set http_rate_limiter {
         type ipv4_addr
         flags dynamic
         timeout 1m
     }
-    tcp dport 80 meter http_meter {
+    tcp dport 80 meter http_rate_limiter {
         ip saddr limit rate over 100/second
     } drop
 ```
@@ -78,8 +74,8 @@ The set timeout controls how long an entry remains without being refreshed. Choo
 
 ## See also
 
-- [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules) — match packet properties and perform actions.
+- [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules) — match packet properties and execute statements.
 - [Nftables/Rules/Limit](https://wiki.gentoo.org/wiki/Nftables/Rules/Limit) — matches packets or bytes within a specified rate.
 - [Nftables/Rules/Log](https://wiki.gentoo.org/wiki/Nftables/Rules/Log) — logs matching packets.
-- [Nftables/Ruleset](https://wiki.gentoo.org/wiki/Nftables/Ruleset)
+- [Nftables/Ruleset](https://wiki.gentoo.org/wiki/Nftables/Ruleset) — collection of tables, chains, rules, and other objects configured in the [Netfilter](https://wiki.gentoo.org/wiki/Netfilter) **nf\_tables** subsystem.
 - [nft](https://wiki.gentoo.org/wiki/Nft) — configures and inspects the Linux kernel's nftables packet handling framework

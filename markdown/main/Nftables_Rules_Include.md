@@ -4,8 +4,8 @@ title: Nftables/Rules/Include
 url: https://wiki.gentoo.org/wiki/Nftables/Rules/Include
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-11"
-fingerprint: "271e222e666d6d6d"
+date: "2026-10-28"
+fingerprint: "271e226e666d6d6d"
 license: CC BY-SA 4.0
 ---
 
@@ -66,4 +66,5 @@ Notice the glob `*` in its filepath.
 
 ## See also
 
-- [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules) — match packet properties and perform actions.
+- [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules) — match packet properties and execute statements.
+- [Modular rulesets](https://wiki.gentoo.org/wiki/Nftables/Configuration#Modular_Ruleset)

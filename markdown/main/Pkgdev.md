@@ -4,8 +4,8 @@ title: pkgdev
 url: https://wiki.gentoo.org/wiki/Pkgdev
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2025-09-12"
-fingerprint: ff8dbcdf8c137bbd
+date: "2026-10-27"
+fingerprint: fe8dfcdf8c137bbc
 license: CC BY-SA 4.0
 ---
 
@@ -25,10 +25,17 @@ pkgdev uses [pkgcheck](https://wiki.gentoo.org/wiki/Pkgcheck), a [pkgcore](https
 ### USE flags
 
 
+### USE flags for
+            [dev-util/pkgdev](https://packages.gentoo.org/packages/dev-util/pkgdev)
+            
+            Collection of tools for Gentoo development
+
 ### Emerge
 
 `root #``emerge --ask dev-util/pkgdev`
 ## Configuration
+
+### Gentoo ebuild repository
 
 A second important step in selecting mirrors is to configure the Gentoo ebuild repository via the /etc/portage/repos.conf/gentoo.conf file. This file contains the sync information needed to update the package repository (the collection of ebuilds and related files containing all the information Portage needs to download and install software packages).
 
@@ -62,6 +69,8 @@ sync-openpgp-key-refresh-retry-delay-max = 60
 sync-openpgp-key-refresh-retry-delay-mult = 4
 sync-webrsync-verify-signature = yes
 ```
+### Pkgdev configuration
+
 The default `sync-uri` variable value listed above will determine a mirror location based on a rotation. This alleviates stress on Gentoo's infrastructure and provides a fail-safe in the event a specific mirror is offline. It's recommended to leave the default URI unchanged unless a local or private mirror is used.
 
 Upstream's documentation [describes](https://pkgcore.github.io/pkgdev/man/pkgdev.html#config-file-support) the config file format and locations.
@@ -96,7 +105,7 @@ The upstream repository [covers usage](https://github.com/pkgcore/pkgdev#pkgdev)
 
 pkgdev has the following subcommands:
 
-- pkgdev commit - uses pkgcheck scan if configured to do so (not by default, see above)
+- pkgdev commit - uses  to commit the staged changes in the current directory, generates a smart commit message, ensures the Manifest is regenerated, and runs pkgcheck scan if configured to do so (not by default, see above)
   - pkgdev commit -e - same as above but opens $EDITOR to edit the generated commit message
   - pkgdev commit ... - any unknown arguments are passed directly to git, so check `git(1)`.
 - pkgdev manifest - regenerates the [Manifest](https://wiki.gentoo.org/wiki/Repository_format/package/Manifest) for ebuilds in the current directory.
@@ -177,7 +186,7 @@ pkgcheck cache -R
 
 pkgdev does not sign-off ('Signed-off-by' trailer) commits by default for any repo, following git upstream behavior, to encourage a [conscious decision](https://archives.gentoo.org/gentoo-project/message/b23ccce6ec7124b28d3fb98148b044f5) to sign off.
 
-To enable automatic sign-offs per repository or globally, see [Pkgdev#Configuration](https://wiki.gentoo.org/wiki/Pkgdev#Configuration). pkgdev only uses what git is configured to use.
+To enable automatic sign-offs per repository or globally, see [Pkgdev#Configuration](https://wiki.gentoo.org#Configuration). pkgdev only uses what git is configured to use.
 
 ### pkgdev uses new /var/cache/distfiles directory unexpectedly
 
@@ -203,6 +212,15 @@ There are two options:
 See [Gentoo git workflow#GPG configuration](https://wiki.gentoo.org/wiki/Gentoo_git_workflow#GPG_configuration) for details on how to generate a key and debug GPG errors. pkgdev only uses what git is configured to use.
 
 If errors persist, run GIT\_TRACE=1 pkgdev commit ... and run the gpg ... command mentioned in its output manually to further debug.
+
+### repos.conf: default repo 'gentoo' is undefined or invalid
+
+This error occurs when [/etc/portage/repos.conf](https://wiki.gentoo.org/wiki//etc/portage/repos.conf) is missing an entry for the Gentoo ebuild repository.
+
+If [eselect-repository](https://wiki.gentoo.org/wiki/Eselect/Repository) is used, add it with:
+
+`root #``eselect repository enable gentoo`
+Otherwise, add the contents of /usr/share/portage/config/repos.conf to [/etc/portage/repos.conf](https://wiki.gentoo.org/wiki//etc/portage/repos.conf).
 
 ## See also
 
