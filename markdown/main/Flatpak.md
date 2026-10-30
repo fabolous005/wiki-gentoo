@@ -4,8 +4,8 @@ title: Flatpak
 url: https://wiki.gentoo.org/wiki/Flatpak
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-05-07"
-fingerprint: b4075a7a4da3f9c4
+date: "2026-10-29"
+fingerprint: bc4719785f83f9c4
 license: CC BY-SA 4.0
 ---
 
@@ -175,7 +175,7 @@ Finally, run the flatpak to see the applied changes:
 `user $``flatpak run com.discordapp.Discord`
 ### File Chooser or similar Dialogues not opening
 
-File Chooser, App Chooser, Email, Print, or Notification dialogues (and more) are provided by an XDG Desktop Portal, as per [Desktop Integration for Wayland](https://wiki.gentoo.org/wiki/Flatpak#Desktop_integration_for_Wayland).
+File Chooser, App Chooser, Email, Print, or Notification dialogues (and more) are provided by an XDG Desktop Portal, as per [Desktop Integration for Wayland](https://wiki.gentoo.org#Desktop_integration_for_Wayland).
 Check also whether your `XDG_CURRENT_DESKTOP` environment variable corresponds to the `UseIn` attribute for your XDG Desktop Portal.
 Flatpak's logic for this has been changed[\[1\]](https://github.com/flatpak/flatpak/commit/8ca4addc7352df428ee1888632f63083ba862dc2) to mimic that of *xdg-desktop-portal* more closely and thus **requires** the environment variable to be set, otherwise matching interfaces will be ignored even if there is only one implementation.
 
@@ -199,6 +199,24 @@ This is caused by setting [dracut](https://packages.gentoo.org/useflags/dracut) 
 
 Fix by removing [dracut](https://packages.gentoo.org/useflags/dracut) [from /etc/portage/make.conf and following](https://wiki.gentoo.org/wiki/USE_flag) [Handbook:AMD64/Installation/Kernel#Initramfs](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/Kernel#Initramfs)
 
+### Pipewire-pulse timeout
+
+Pipewire has an [access module](https://docs.pipewire.org/page_module_access.html) that may restrict sandboxed programs from communicationg with pipewire, what usually results in timeout. For this reason, some programs may also take longer to load or freeze when they are trying to communicate with pipewire-pulse.
+
+Fix:
+
+**`~/.config/pipewire/pipewire.conf.d/access.conf`**
+
+**Disabling pipewire access restrictions**
+
+```
+module.access.args = {
+     access.socket = {
+         pipewire-0 = "unrestricted",
+         pipewire-0-manager = "unrestricted",
+     }
+}
+```
 ## See also
 
 - [Docker](https://wiki.gentoo.org/wiki/Docker) — a [container](<https://en.wikipedia.org/wiki/Container_(virtualization)>)-based [virtualization](https://wiki.gentoo.org/wiki/Virtualization) system

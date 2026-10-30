@@ -4,7 +4,7 @@ title: QEMU/Guest/Windows 10
 url: https://wiki.gentoo.org/wiki/QEMU/Guest/Windows_10
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-09-01"
+date: "2026-10-29"
 fingerprint: "2c8d8a7f9d22f0d4"
 license: CC BY-SA 4.0
 ---
@@ -78,6 +78,9 @@ To use SPICE with [QEMU](https://wiki.gentoo.org/wiki/QEMU) enable the following
 
 **Setting USE variable**
 
+```
+app-emulation/qemu   spice
+```
 Build QEMU:
 
 `root #``emerge app-emulation/qemu`

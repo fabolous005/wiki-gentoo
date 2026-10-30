@@ -45,7 +45,7 @@ Gentoo permits many **[alternatives](https://wiki.gentoo.org/wiki/Eselect) for c
 
 Gentoo strives to do things in the simplest possible way, and core Gentoo principles and procedures are easy to understand and master, given just a little effort. The relatively small investment to learn how to use Gentoo will reap dividends for anyone who is to become a substantial user of a Unix(like) operating system. Gentoo may require some reading and a little thought to understand how to use it, but the payoff from the power gained by the new user is considerable.
 
-Gentoo is very actively maintained, and the entire distribution uses a rapidly-paced development and distribution method, termed **[rolling release](https://wiki.gentoo.org/wiki/FAQ#Can_I_upgrade_Gentoo_from_one_release_to_another_without_reinstalling.3F)**: new and updated packages are frequently added to the [Gentoo ebuild repository](https://wiki.gentoo.org/wiki/Ebuild_repository#The_Gentoo_ebuild_repository), relevant patches are rapidly applied, documentation is updated on a daily basis, and Portage features are added frequently. The fast turnaround cycle does not compromise on quality: packages start life in the [testing branch](https://wiki.gentoo.org/wiki/Handbook:AMD64/Portage/Branches#Testing) and are only moved into [stable](https://wiki.gentoo.org/wiki/Handbook:AMD64/Portage/Branches#Stable) once proved to be reliable; generally the transition time target is a 30 days or less.
+Gentoo is very actively maintained, and the entire distribution uses a rapidly-paced development and distribution method, termed **[rolling release](https://wiki.gentoo.org#Can_I_upgrade_Gentoo_from_one_release_to_another_without_reinstalling.3F)**: new and updated packages are frequently added to the [Gentoo ebuild repository](https://wiki.gentoo.org/wiki/Ebuild_repository#The_Gentoo_ebuild_repository), relevant patches are rapidly applied, documentation is updated on a daily basis, and Portage features are added frequently. The fast turnaround cycle does not compromise on quality: packages start life in the [testing branch](https://wiki.gentoo.org/wiki/Handbook:AMD64/Portage/Branches#Testing) and are only moved into [stable](https://wiki.gentoo.org/wiki/Handbook:AMD64/Portage/Branches#Stable) once proved to be reliable; generally the transition time target is a 30 days or less.
 
 ## Installation
 
@@ -216,7 +216,7 @@ If support for the system's network card has been left out of the kernel, it wil
 
 If the network card *is* found by the kernel, but the network configuration has been set to use DHCP, a DHCP client might not have been installed on the system. There are many DHCP clients available in Gentoo, a common one being dhcpcd. If necessary to get the connection to the Internet working, reboot to the installation CD and install [net-misc/dhcpcd](https://packages.gentoo.org/packages/net-misc/dhcpcd).
 
-Information on how to rescue the system using the installation CD is available [here](https://wiki.gentoo.org/wiki/FAQ#My_kernel_does_not_boot.2C_what_should_I_do_now.3F) as well.
+Information on how to rescue the system using the installation CD is available [here](https://wiki.gentoo.org#My_kernel_does_not_boot,_what_should_I_do_now?) as well.
 
 The Handbook contains information on [network setup](https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Networking), while the wiki has information on [Ethernet](https://wiki.gentoo.org/wiki/Ethernet), [WiFi](https://wiki.gentoo.org/wiki/Wifi), and [network management](https://wiki.gentoo.org/wiki/Network_management).
 
@@ -288,7 +288,7 @@ Yes, but it is not trivial, nor is it recommended. Since the method to do this r
 
 ### What if rsync does not work for me?
 
-When behind a firewall that does not permit rsync traffic through port 873, the emerge-webrsync command can be used to fetch and install a Portage snapshot through regular HTTP. See [this section](https://wiki.gentoo.org/wiki/FAQ#My_proxy_requires_authentication.2C_what_do_I_have_to_do.3F) for information on downloading source files and Portage snapshots via a proxy.
+When behind a firewall that does not permit rsync traffic through port 873, the emerge-webrsync command can be used to fetch and install a Portage snapshot through regular HTTP. See [this section](https://wiki.gentoo.org#My_proxy_requires_authentication,_what_do_I_have_to_do?) for information on downloading source files and Portage snapshots via a proxy.
 
 ### I have a slow (or no) Internet connection at home. Can I download sources somewhere else and add them to my system?
 
@@ -360,7 +360,7 @@ There are a couple of guides for reporting bugs on the wiki: [Bugzilla/Bug repor
 
 ### How often are new releases made?
 
-Gentoo's packages are usually updated shortly after the upstream authors release new code, see [this section](https://wiki.gentoo.org/wiki/FAQ#Can_I_upgrade_Gentoo_from_one_release_to_another_without_reinstalling.3F) for more information.
+Gentoo's packages are usually updated shortly after the upstream authors release new code, see [this section](https://wiki.gentoo.org#Can_I_upgrade_Gentoo_from_one_release_to_another_without_reinstalling?) for more information.
 
 The [Release Engineering Project](https://wiki.gentoo.org/wiki/Project:RelEng) page, the [gentoo-announce](https://archives.gentoo.org/gentoo-announce/) mailing list, and the [Gentoo ebuild repository news items](https://www.gentoo.org/support/news-items/) provide information on important changes to Gentoo Linux.
 
@@ -374,7 +374,7 @@ To turn off the console beeps on boot, put the following command in the /etc/con
 `root #``setterm -blength 0 > /dev/vc/1`
 Replace /dev/vc/1 with the terminal for which console beeps need to be disabled.
 
-See [this article](https://wiki.gentoo.org/wiki/PC_speaker#How_do_I_mute_the_PC_speaker.3F) for more details.
+See [this article](https://wiki.gentoo.org/wiki/PC_speaker#How_do_I_mute_the_PC_speaker?) for more details.
 
 ## Trivia
 

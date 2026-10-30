@@ -30,7 +30,7 @@ Gentoo Wiki (Main)	/etc/portage/profile/package.provided	https://wiki.gentoo.org
 Gentoo Wiki (Main)	/etc/portage/profile/package.use.mask	https://wiki.gentoo.org/wiki//etc/portage/profile/package.use.mask	2025-01-19T17:51:45Z
 Gentoo Wiki (Main)	/etc/portage/profile/use.mask	https://wiki.gentoo.org/wiki//etc/portage/profile/use.mask	2023-12-12T15:32:27Z
 Gentoo Wiki (Main)	/etc/portage/repo.postsync.d	https://wiki.gentoo.org/wiki//etc/portage/repo.postsync.d	2026-08-27T00:29:00Z
-Gentoo Wiki (Main)	/etc/portage/repos.conf	https://wiki.gentoo.org/wiki//etc/portage/repos.conf	2025-08-27T17:23:38Z
+Gentoo Wiki (Main)	/etc/portage/repos.conf	https://wiki.gentoo.org/wiki//etc/portage/repos.conf	2026-10-29T10:28:01Z
 Gentoo Wiki (Main)	/etc/portage/savedconfig	https://wiki.gentoo.org/wiki//etc/portage/savedconfig	2025-10-04T16:09:21Z
 Gentoo Wiki (Main)	/etc/portage/sets	https://wiki.gentoo.org/wiki//etc/portage/sets	2025-08-27T17:23:35Z
 Gentoo Wiki (Main)	/etc/sandbox.conf	https://wiki.gentoo.org/wiki//etc/sandbox.conf	2023-12-12T15:33:49Z
@@ -73,7 +73,7 @@ Gentoo Wiki (Main)	AIDE	https://wiki.gentoo.org/wiki/AIDE	2026-10-21T03:03:42Z
 Gentoo Wiki (Main)	ALSA	https://wiki.gentoo.org/wiki/ALSA	2026-10-08T22:05:17Z
 Gentoo Wiki (Main)	ALSA/troubleshooting	https://wiki.gentoo.org/wiki/ALSA/troubleshooting	2026-10-08T22:05:12Z
 Gentoo Wiki (Main)	AMD	https://wiki.gentoo.org/wiki/AMD	2024-12-11T18:54:14Z
-Gentoo Wiki (Main)	AMD64	https://wiki.gentoo.org/wiki/AMD64	2024-05-21T08:10:14Z
+Gentoo Wiki (Main)	AMD64	https://wiki.gentoo.org/wiki/AMD64	2026-10-29T13:36:01Z
 Gentoo Wiki (Main)	AMD64/FAQ	https://wiki.gentoo.org/wiki/AMD64/FAQ	2026-10-23T22:38:20Z
 Gentoo Wiki (Main)	AMDGPU	https://wiki.gentoo.org/wiki/AMDGPU	2026-10-07T14:12:09Z
 Gentoo Wiki (Main)	AMDGPU-PRO	https://wiki.gentoo.org/wiki/AMDGPU-PRO	2025-10-04T16:08:23Z
@@ -257,6 +257,7 @@ Gentoo Wiki (Main)	Bluetooth Network Aggregation Point	https://wiki.gentoo.org/w
 Gentoo Wiki (Main)	Bluetooth headset	https://wiki.gentoo.org/wiki/Bluetooth_headset	2026-09-13T05:21:37Z
 Gentoo Wiki (Main)	Bluetooth input devices	https://wiki.gentoo.org/wiki/Bluetooth_input_devices	2026-08-22T16:21:25Z
 Gentoo Wiki (Main)	Bohemia Interactive ARMA 3	https://wiki.gentoo.org/wiki/Bohemia_Interactive_ARMA_3	2024-07-29T08:38:50Z
+Gentoo Wiki (Main)	Boost	https://wiki.gentoo.org/wiki/Boost	2026-10-29T13:24:57Z
 Gentoo Wiki (Main)	Boost/How build systems find boost	https://wiki.gentoo.org/wiki/Boost/How_build_systems_find_boost	2025-05-31T17:25:46Z
 Gentoo Wiki (Main)	Bootable DOS USB stick	https://wiki.gentoo.org/wiki/Bootable_DOS_USB_stick	2025-10-04T16:01:14Z
 Gentoo Wiki (Main)	Bootable media	https://wiki.gentoo.org/wiki/Bootable_media	2026-04-15T22:13:49Z
@@ -473,6 +474,7 @@ Gentoo Wiki (Main)	Dd	https://wiki.gentoo.org/wiki/Dd	2026-01-25T11:09:18Z
 Gentoo Wiki (Main)	Ddclient	https://wiki.gentoo.org/wiki/Ddclient	2026-01-25T11:09:19Z
 Gentoo Wiki (Main)	Ddcutil	https://wiki.gentoo.org/wiki/Ddcutil	2026-03-05T15:08:45Z
 Gentoo Wiki (Main)	Ddrescue	https://wiki.gentoo.org/wiki/Ddrescue	2025-10-04T16:01:52Z
+Gentoo Wiki (Main)	Debootstrap	https://wiki.gentoo.org/wiki/Debootstrap	2026-10-29T06:51:53Z
 Gentoo Wiki (Main)	Debugfs	https://wiki.gentoo.org/wiki/Debugfs	2024-05-21T08:14:02Z
 Gentoo Wiki (Main)	Debugging	https://wiki.gentoo.org/wiki/Debugging	2026-09-24T13:05:25Z
 Gentoo Wiki (Main)	Debuginfod	https://wiki.gentoo.org/wiki/Debuginfod	2026-02-21T17:00:57Z
@@ -514,7 +516,7 @@ Gentoo Wiki (Main)	Dell XPS 17	https://wiki.gentoo.org/wiki/Dell_XPS_17	2025-01-
 Gentoo Wiki (Main)	Dell XPS 9365	https://wiki.gentoo.org/wiki/Dell_XPS_9365	2025-10-04T16:09:12Z
 Gentoo Wiki (Main)	Deluge	https://wiki.gentoo.org/wiki/Deluge	2025-01-19T21:28:27Z
 Gentoo Wiki (Main)	Desktop Entry Specification	https://wiki.gentoo.org/wiki/Desktop_Entry_Specification	2026-09-24T15:45:49Z
-Gentoo Wiki (Main)	Desktop environment	https://wiki.gentoo.org/wiki/Desktop_environment	2026-10-21T15:23:16Z
+Gentoo Wiki (Main)	Desktop environment	https://wiki.gentoo.org/wiki/Desktop_environment	2026-10-29T19:45:42Z
 Gentoo Wiki (Main)	Detox	https://wiki.gentoo.org/wiki/Detox	2025-01-19T21:28:21Z
 Gentoo Wiki (Main)	Device-mapper	https://wiki.gentoo.org/wiki/Device-mapper	2025-12-13T23:34:38Z
 Gentoo Wiki (Main)	Device file	https://wiki.gentoo.org/wiki/Device_file	2026-10-23T22:37:52Z
@@ -673,7 +675,7 @@ Gentoo Wiki (Main)	Extreme TuxRacer	https://wiki.gentoo.org/wiki/Extreme_TuxRace
 Gentoo Wiki (Main)	Eza	https://wiki.gentoo.org/wiki/Eza	2026-02-28T04:51:03Z
 Gentoo Wiki (Main)	F2FS	https://wiki.gentoo.org/wiki/F2FS	2026-04-30T22:21:47Z
 Gentoo Wiki (Main)	F3	https://wiki.gentoo.org/wiki/F3	2026-03-24T09:18:38Z
-Gentoo Wiki (Main)	FAQ	https://wiki.gentoo.org/wiki/FAQ	2026-10-24T09:44:29Z
+Gentoo Wiki (Main)	FAQ	https://wiki.gentoo.org/wiki/FAQ	2026-10-29T09:56:45Z
 Gentoo Wiki (Main)	FASM	https://wiki.gentoo.org/wiki/FASM	2025-01-19T21:30:32Z
 Gentoo Wiki (Main)	FAT	https://wiki.gentoo.org/wiki/FAT	2026-09-30T12:57:19Z
 Gentoo Wiki (Main)	FEATURES	https://wiki.gentoo.org/wiki/FEATURES	2026-09-26T03:50:32Z
@@ -736,7 +738,7 @@ Gentoo Wiki (Main)	Fish	https://wiki.gentoo.org/wiki/Fish	2026-08-21T22:46:43Z
 Gentoo Wiki (Main)	Fix my Gentoo	https://wiki.gentoo.org/wiki/Fix_my_Gentoo	2026-10-23T22:37:12Z
 Gentoo Wiki (Main)	Flac	https://wiki.gentoo.org/wiki/Flac	2026-10-23T22:37:55Z
 Gentoo Wiki (Main)	Flameshot	https://wiki.gentoo.org/wiki/Flameshot	2026-10-23T22:38:05Z
-Gentoo Wiki (Main)	Flatpak	https://wiki.gentoo.org/wiki/Flatpak	2026-05-07T17:39:04Z
+Gentoo Wiki (Main)	Flatpak	https://wiki.gentoo.org/wiki/Flatpak	2026-10-29T20:38:19Z
 Gentoo Wiki (Main)	Flicker Free Boot	https://wiki.gentoo.org/wiki/Flicker_Free_Boot	2025-12-20T05:56:48Z
 Gentoo Wiki (Main)	FlightGear	https://wiki.gentoo.org/wiki/FlightGear	2025-01-19T21:22:37Z
 Gentoo Wiki (Main)	FluidSynth	https://wiki.gentoo.org/wiki/FluidSynth	2026-10-08T22:05:09Z
@@ -860,7 +862,7 @@ Gentoo Wiki (Main)	Genkernel	https://wiki.gentoo.org/wiki/Genkernel	2026-10-27T0
 Gentoo Wiki (Main)	Genlop	https://wiki.gentoo.org/wiki/Genlop	2025-01-19T21:22:24Z
 Gentoo Wiki (Main)	Gentle	https://wiki.gentoo.org/wiki/Gentle	2025-01-19T21:33:09Z
 Gentoo Wiki (Main)	Gentodo	https://wiki.gentoo.org/wiki/Gentodo	2025-10-04T16:10:56Z
-Gentoo Wiki (Main)	Gentoo	https://wiki.gentoo.org/wiki/Gentoo	2024-08-01T05:53:20Z
+Gentoo Wiki (Main)	Gentoo	https://wiki.gentoo.org/wiki/Gentoo	2026-10-29T13:29:21Z
 Gentoo Wiki (Main)	Gentoo-el	https://wiki.gentoo.org/wiki/Gentoo-el	2025-12-19T14:45:18Z
 Gentoo Wiki (Main)	Gentoo-el/Meeting/2012-02	https://wiki.gentoo.org/wiki/Gentoo-el/Meeting/2012-02	2025-12-19T14:45:12Z
 Gentoo Wiki (Main)	Gentoo-el/Meeting/2013-03	https://wiki.gentoo.org/wiki/Gentoo-el/Meeting/2013-03	2025-12-19T14:45:08Z
@@ -886,7 +888,7 @@ Gentoo Wiki (Main)	Gentoo FreeBSD/Install Guide	https://wiki.gentoo.org/wiki/Gen
 Gentoo Wiki (Main)	Gentoo FreeBSD/Project notes	https://wiki.gentoo.org/wiki/Gentoo_FreeBSD/Project_notes	2025-12-19T20:07:16Z
 Gentoo Wiki (Main)	Gentoo FreeBSD/Upgrade Guide	https://wiki.gentoo.org/wiki/Gentoo_FreeBSD/Upgrade_Guide	2025-12-19T13:58:12Z
 Gentoo Wiki (Main)	Gentoo FreeBSD/Upgrade Guide/11.0	https://wiki.gentoo.org/wiki/Gentoo_FreeBSD/Upgrade_Guide/11.0	2025-12-19T13:58:06Z
-Gentoo Wiki (Main)	Gentoo History	https://wiki.gentoo.org/wiki/Gentoo_History	2025-12-19T14:45:12Z
+Gentoo Wiki (Main)	Gentoo History	https://wiki.gentoo.org/wiki/Gentoo_History	2026-10-29T13:38:05Z
 Gentoo Wiki (Main)	Gentoo Java Packing Policy	https://wiki.gentoo.org/wiki/Gentoo_Java_Packing_Policy	2025-10-04T16:07:49Z
 Gentoo Wiki (Main)	Gentoo Java USE flags	https://wiki.gentoo.org/wiki/Gentoo_Java_USE_flags	2024-11-02T03:56:01Z
 Gentoo Wiki (Main)	Gentoo Linux hardware compatibility	https://wiki.gentoo.org/wiki/Gentoo_Linux_hardware_compatibility	2026-02-19T01:03:00Z
@@ -1450,7 +1452,7 @@ Gentoo Wiki (Main)	Kernel security (project archive)	https://wiki.gentoo.org/wik
 Gentoo Wiki (Main)	Kexec	https://wiki.gentoo.org/wiki/Kexec	2026-05-24T17:02:28Z
 Gentoo Wiki (Main)	Key repeat rate	https://wiki.gentoo.org/wiki/Key_repeat_rate	2026-10-23T22:37:44Z
 Gentoo Wiki (Main)	Keyboard layout switching	https://wiki.gentoo.org/wiki/Keyboard_layout_switching	2026-10-23T22:38:09Z
-Gentoo Wiki (Main)	Keychain	https://wiki.gentoo.org/wiki/Keychain	2026-01-25T11:09:11Z
+Gentoo Wiki (Main)	Keychain	https://wiki.gentoo.org/wiki/Keychain	2026-10-29T10:12:54Z
 Gentoo Wiki (Main)	Keyd	https://wiki.gentoo.org/wiki/Keyd	2026-10-19T16:14:47Z
 Gentoo Wiki (Main)	Keystone	https://wiki.gentoo.org/wiki/Keystone	2025-01-19T21:29:39Z
 Gentoo Wiki (Main)	Khal	https://wiki.gentoo.org/wiki/Khal	2025-10-13T20:57:05Z
@@ -1474,7 +1476,7 @@ Gentoo Wiki (Main)	Kubo	https://wiki.gentoo.org/wiki/Kubo	2026-03-02T07:46:00Z
 Gentoo Wiki (Main)	Kyocera FS 1040 1041 1060 1061 1020 1025 1120 1125	https://wiki.gentoo.org/wiki/Kyocera_FS_1040_1041_1060_1061_1020_1025_1120_1125	2025-10-04T16:09:39Z
 Gentoo Wiki (Main)	LDP DocBook	https://wiki.gentoo.org/wiki/LDP_DocBook	2026-10-23T22:38:01Z
 Gentoo Wiki (Main)	LILO	https://wiki.gentoo.org/wiki/LILO	2026-09-23T09:01:48Z
-Gentoo Wiki (Main)	LLVM	https://wiki.gentoo.org/wiki/LLVM	2026-08-16T11:54:12Z
+Gentoo Wiki (Main)	LLVM	https://wiki.gentoo.org/wiki/LLVM	2026-10-29T13:22:37Z
 Gentoo Wiki (Main)	LLVM/Clang	https://wiki.gentoo.org/wiki/LLVM/Clang	2026-10-23T22:37:33Z
 Gentoo Wiki (Main)	LLVM/Clang/Bootstrapping	https://wiki.gentoo.org/wiki/LLVM/Clang/Bootstrapping	2025-12-27T03:26:35Z
 Gentoo Wiki (Main)	LLVM/Clang/Desktop profile	https://wiki.gentoo.org/wiki/LLVM/Clang/Desktop_profile	2026-06-07T20:41:01Z
@@ -1665,7 +1667,7 @@ Gentoo Wiki (Main)	Mac Mini (PowerPC G4)	https://wiki.gentoo.org/wiki/Mac_Mini_(
 Gentoo Wiki (Main)	Macbook Pro (early 2011)	https://wiki.gentoo.org/wiki/Macbook_Pro_(early_2011)	2025-01-19T21:28:39Z
 Gentoo Wiki (Main)	Magic SysRq	https://wiki.gentoo.org/wiki/Magic_SysRq	2025-04-07T01:44:01Z
 Gentoo Wiki (Main)	Mailfiltering Gateway	https://wiki.gentoo.org/wiki/Mailfiltering_Gateway	2026-06-15T06:13:14Z
-Gentoo Wiki (Main)	Main Page	https://wiki.gentoo.org/wiki/Main_Page	2026-10-29T00:14:59Z
+Gentoo Wiki (Main)	Main Page	https://wiki.gentoo.org/wiki/Main_Page	2026-10-30T00:14:53Z
 Gentoo Wiki (Main)	Make	https://wiki.gentoo.org/wiki/Make	2025-10-04T16:10:51Z
 Gentoo Wiki (Main)	Mako	https://wiki.gentoo.org/wiki/Mako	2026-10-10T12:55:55Z
 Gentoo Wiki (Main)	Man page	https://wiki.gentoo.org/wiki/Man_page	2026-10-23T22:38:15Z
@@ -1751,7 +1753,7 @@ Gentoo Wiki (Main)	Mumble	https://wiki.gentoo.org/wiki/Mumble	2025-08-07T14:38:4
 Gentoo Wiki (Main)	Munin	https://wiki.gentoo.org/wiki/Munin	2025-10-04T16:01:55Z
 Gentoo Wiki (Main)	Munin maintenance	https://wiki.gentoo.org/wiki/Munin_maintenance	2025-10-04T16:01:43Z
 Gentoo Wiki (Main)	Murmur	https://wiki.gentoo.org/wiki/Murmur	2025-01-19T21:28:22Z
-Gentoo Wiki (Main)	Musl	https://wiki.gentoo.org/wiki/Musl	2026-10-05T21:50:12Z
+Gentoo Wiki (Main)	Musl	https://wiki.gentoo.org/wiki/Musl	2026-10-29T12:55:30Z
 Gentoo Wiki (Main)	Musl porting notes	https://wiki.gentoo.org/wiki/Musl_porting_notes	2026-01-06T09:03:01Z
 Gentoo Wiki (Main)	Musl porting notes/1.2.4	https://wiki.gentoo.org/wiki/Musl_porting_notes/1.2.4	2026-01-06T09:03:45Z
 Gentoo Wiki (Main)	Mutt	https://wiki.gentoo.org/wiki/Mutt	2026-09-21T23:35:13Z
@@ -1779,7 +1781,7 @@ Gentoo Wiki (Main)	NVMe	https://wiki.gentoo.org/wiki/NVMe	2025-10-27T09:14:08Z
 Gentoo Wiki (Main)	Nagios	https://wiki.gentoo.org/wiki/Nagios	2025-10-04T16:02:10Z
 Gentoo Wiki (Main)	Nagios/Guide	https://wiki.gentoo.org/wiki/Nagios/Guide	2025-10-04T16:02:34Z
 Gentoo Wiki (Main)	Namespaces	https://wiki.gentoo.org/wiki/Namespaces	2026-10-23T22:37:28Z
-Gentoo Wiki (Main)	Nano	https://wiki.gentoo.org/wiki/Nano	2026-10-20T14:53:59Z
+Gentoo Wiki (Main)	Nano	https://wiki.gentoo.org/wiki/Nano	2026-10-29T09:51:10Z
 Gentoo Wiki (Main)	Nano/Guide	https://wiki.gentoo.org/wiki/Nano/Guide	2025-10-26T11:38:23Z
 Gentoo Wiki (Main)	Nattka	https://wiki.gentoo.org/wiki/Nattka	2025-01-19T21:32:23Z
 Gentoo Wiki (Main)	Ncdu	https://wiki.gentoo.org/wiki/Ncdu	2025-10-04T16:10:54Z
@@ -2102,10 +2104,10 @@ Gentoo Wiki (Main)	QEMU/Guest/Gentoo Linux	https://wiki.gentoo.org/wiki/QEMU/Gue
 Gentoo Wiki (Main)	QEMU/Guest/HPPA	https://wiki.gentoo.org/wiki/QEMU/Guest/HPPA	2026-09-06T21:01:18Z
 Gentoo Wiki (Main)	QEMU/Guest/OS2WarpV3	https://wiki.gentoo.org/wiki/QEMU/Guest/OS2WarpV3	2026-09-20T09:08:48Z
 Gentoo Wiki (Main)	QEMU/Guest/RISC-V	https://wiki.gentoo.org/wiki/QEMU/Guest/RISC-V	2026-09-01T22:55:22Z
-Gentoo Wiki (Main)	QEMU/Guest/Windows 10	https://wiki.gentoo.org/wiki/QEMU/Guest/Windows_10	2026-09-01T23:14:32Z
+Gentoo Wiki (Main)	QEMU/Guest/Windows 10	https://wiki.gentoo.org/wiki/QEMU/Guest/Windows_10	2026-10-29T20:37:56Z
 Gentoo Wiki (Main)	QEMU/Guest/Windows 11	https://wiki.gentoo.org/wiki/QEMU/Guest/Windows_11	2026-09-01T23:02:09Z
 Gentoo Wiki (Main)	QEMU/Guest/Windows XP	https://wiki.gentoo.org/wiki/QEMU/Guest/Windows_XP	2026-09-01T23:05:31Z
-Gentoo Wiki (Main)	QEMU/Host	https://wiki.gentoo.org/wiki/QEMU/Host	2026-09-09T15:57:16Z
+Gentoo Wiki (Main)	QEMU/Host	https://wiki.gentoo.org/wiki/QEMU/Host	2026-10-29T21:04:08Z
 Gentoo Wiki (Main)	QEMU/Linux guest	https://wiki.gentoo.org/wiki/QEMU/Linux_guest	2026-09-05T01:28:38Z
 Gentoo Wiki (Main)	QEMU/Networking	https://wiki.gentoo.org/wiki/QEMU/Networking	2026-08-31T00:39:01Z
 Gentoo Wiki (Main)	QEMU/Networking/Bridge with Wifi Routing	https://wiki.gentoo.org/wiki/QEMU/Networking/Bridge_with_Wifi_Routing	2026-09-01T23:35:01Z
@@ -2574,7 +2576,7 @@ Gentoo Wiki (Main)	Trust Flex tablet	https://wiki.gentoo.org/wiki/Trust_Flex_tab
 Gentoo Wiki (Main)	Trusted Boot	https://wiki.gentoo.org/wiki/Trusted_Boot	2026-03-15T14:28:19Z
 Gentoo Wiki (Main)	Trusted Platform Module	https://wiki.gentoo.org/wiki/Trusted_Platform_Module	2026-10-23T22:38:27Z
 Gentoo Wiki (Main)	Trusted Platform Module/LUKS	https://wiki.gentoo.org/wiki/Trusted_Platform_Module/LUKS	2026-10-13T16:03:54Z
-Gentoo Wiki (Main)	Trusted Platform Module/SSH	https://wiki.gentoo.org/wiki/Trusted_Platform_Module/SSH	2025-01-19T21:32:48Z
+Gentoo Wiki (Main)	Trusted Platform Module/SSH	https://wiki.gentoo.org/wiki/Trusted_Platform_Module/SSH	2026-10-29T21:44:57Z
 Gentoo Wiki (Main)	Tryton	https://wiki.gentoo.org/wiki/Tryton	2026-10-23T22:38:14Z
 Gentoo Wiki (Main)	TuneD	https://wiki.gentoo.org/wiki/TuneD	2025-10-04T16:11:33Z
 Gentoo Wiki (Main)	Typst	https://wiki.gentoo.org/wiki/Typst	2025-10-04T16:11:00Z
@@ -2665,8 +2667,8 @@ Gentoo Wiki (Main)	Virsh	https://wiki.gentoo.org/wiki/Virsh	2026-09-01T23:35:01Z
 Gentoo Wiki (Main)	Virt-install	https://wiki.gentoo.org/wiki/Virt-install	2026-09-01T23:35:01Z
 Gentoo Wiki (Main)	Virt-manager	https://wiki.gentoo.org/wiki/Virt-manager	2026-09-12T23:14:10Z
 Gentoo Wiki (Main)	Virt-viewer	https://wiki.gentoo.org/wiki/Virt-viewer	2026-04-17T20:41:53Z
-Gentoo Wiki (Main)	Virtiofs	https://wiki.gentoo.org/wiki/Virtiofs	2026-09-25T14:15:50Z
-Gentoo Wiki (Main)	Virtiofsd	https://wiki.gentoo.org/wiki/Virtiofsd	2026-10-23T22:38:28Z
+Gentoo Wiki (Main)	Virtiofs	https://wiki.gentoo.org/wiki/Virtiofs	2026-10-29T17:23:53Z
+Gentoo Wiki (Main)	Virtiofsd	https://wiki.gentoo.org/wiki/Virtiofsd	2026-10-29T17:24:31Z
 Gentoo Wiki (Main)	VirtualBox	https://wiki.gentoo.org/wiki/VirtualBox	2026-10-24T02:24:51Z
 Gentoo Wiki (Main)	VirtualBox/OS Installs	https://wiki.gentoo.org/wiki/VirtualBox/OS_Installs	2023-05-11T12:50:19Z
 Gentoo Wiki (Main)	Virtual Reality	https://wiki.gentoo.org/wiki/Virtual_Reality	2026-10-23T17:24:00Z
@@ -2756,7 +2758,7 @@ Gentoo Wiki (Main)	X server/upgrade	https://wiki.gentoo.org/wiki/X_server/upgrad
 Gentoo Wiki (Main)	X without Display Manager	https://wiki.gentoo.org/wiki/X_without_Display_Manager	2025-09-05T19:11:20Z
 Gentoo Wiki (Main)	Xa	https://wiki.gentoo.org/wiki/Xa	2025-01-19T21:32:24Z
 Gentoo Wiki (Main)	Xen	https://wiki.gentoo.org/wiki/Xen	2025-10-26T11:38:33Z
-Gentoo Wiki (Main)	Xfce	https://wiki.gentoo.org/wiki/Xfce	2026-10-24T01:50:50Z
+Gentoo Wiki (Main)	Xfce	https://wiki.gentoo.org/wiki/Xfce	2026-10-29T10:20:27Z
 Gentoo Wiki (Main)	Xfce/Guide	https://wiki.gentoo.org/wiki/Xfce/Guide	2026-10-15T16:06:03Z
 Gentoo Wiki (Main)	Xft support for GNU Emacs	https://wiki.gentoo.org/wiki/Xft_support_for_GNU_Emacs	2025-10-26T11:38:31Z
 Gentoo Wiki (Main)	Xiaomi RedmiBook 14 Pro 2024	https://wiki.gentoo.org/wiki/Xiaomi_RedmiBook_14_Pro_2024	2026-03-16T09:55:44Z

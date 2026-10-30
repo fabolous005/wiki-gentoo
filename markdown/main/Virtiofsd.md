@@ -4,7 +4,7 @@ title: Virtiofsd
 url: https://wiki.gentoo.org/wiki/Virtiofsd
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-09-06"
+date: "2026-10-29"
 fingerprint: db99d919dbcb59e9
 license: CC BY-SA 4.0
 ---
@@ -15,8 +15,7 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
-virtiofsd is a [Virtiofs](https://wiki.gentoo.org/wiki/Virtiofs) vhost-user device daemon that exports a
-host filesystem to a virtual machine.
+virtiofsd is a [Virtiofs](https://wiki.gentoo.org/wiki/Virtiofs) vhost-user device daemon that exports a host filesystem to a virtual machine.
 
 ## Installation
 

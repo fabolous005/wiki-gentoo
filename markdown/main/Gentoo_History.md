@@ -4,7 +4,7 @@ title: Gentoo History
 url: https://wiki.gentoo.org/wiki/Gentoo_History
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2025-08-02"
+date: "2026-10-29"
 fingerprint: "50bfbed05ea3627c"
 license: CC BY-SA 4.0
 ---
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 This article aims to give a summary of the creation and evolution of the Gentoo project organization... *so far*.
 

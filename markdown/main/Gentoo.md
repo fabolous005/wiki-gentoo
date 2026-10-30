@@ -4,8 +4,8 @@ title: Gentoo
 url: https://wiki.gentoo.org/wiki/Gentoo
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2024-08-01"
-fingerprint: a9bb9faa02aba11c
+date: "2026-10-29"
+fingerprint: a1ab9faa02aaa114
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 Gentoo Linux is a Unix-like operating system known for its flexibility and performance. It is designed to be customized and optimized for the specific hardware on which it is installed and the intended use-case for the hardware. Gentoo uses a unique package management system called Portage, which compiles software from source code for the user's machine.
 

@@ -4,12 +4,14 @@ title: QEMU/Host
 url: https://wiki.gentoo.org/wiki/QEMU/Host
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-09-09"
-fingerprint: "9999cd95d5223a0"
+date: "2026-10-29"
+fingerprint: "9991e59793263a0"
 license: CC BY-SA 4.0
 ---
 
 # QEMU/Host
+
+[QEMU](https://wiki.gentoo.org/wiki/QEMU)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -87,15 +89,67 @@ Various filesystem accesses between host and guest are:
 - Offline guest - the guest is stopped; the host attaches or inspects its virtual disk using NBD, libguestfs, etc.
 - Guest-side - the guest mounts and owns the filesystem; the host reaches files through a guest service such as [NFS](https://wiki.gentoo.org/wiki/NFS) or [SSH](https://wiki.gentoo.org/wiki/SSH).
 
-### Host-to-guest filesystem access
+### Host-guest directory sharing
 
-Using a networking shim, host and active guest can access shared files.
+Using a networking shim, host and active guest can access shared files using [virtiofs](https://wiki.gentoo.org/wiki/Virtiofs) tool.
 
-#### Virtiofs
+#### Setup Host-side Directory
 
-[Virtiofs](https://wiki.gentoo.org/wiki/Virtiofs) provides filesystem sharing between the host and active guest.
+To share a host directory /srv/shared-guest-vm with a guest VM:
 
-[app-emulation/virtiofsd](https://packages.gentoo.org/packages/app-emulation/virtiofsd) provides the userspace Virtiofs daemon. See [virtiofsd](https://wiki.gentoo.org/wiki/Virtiofsd#Installation) for installation instructions.
+Inspect the VM configuration:
+
+`root #``virsh edit <WINDOWS_DOMAIN_NAME>`
+or use [virt-manager](https://wiki.gentoo.org/wiki/Virt-manager) tool, use its domain editor.
+
+The relevant XML is:
+
+The guest VM also needs shared memory enabled for virtiofs:
+
+Check the current configuration before changing anything; these elements may already be present.
+
+
+
+Check that virtiofs is installed in the guest VM:
+
+`guest-vm #``grep -E 'CONFIG_VIRTIO_FS|CONFIG_FUSE_FS' /boot/config-$(uname -r)`
+CONFIG\_FUSE\_FS=y
+CONFIG\_VIRTIO\_FS=y
+
+
+
+With the virtio-win drivers installed, registered the filesystem integration using:
+
+`guest-vm #``sudo -i``guest-root #``mkdir -fp /srv/shared-guest-vm``guest-root #``mount -t virtiofs hostshare /srv/shared-guest-vm`
+Then verify with:
+
+`guest-root #``findmnt /srv/shared-guest-vm``guest-root #``/srv/shared-guest-vm`
+
+
+Install the virtiofs driver inside the guest VM for [Windows](https://wiki.gentoo.org/wiki/QEMU/Guest/Windows_10#Host).
+
+With the virtio-win drivers and WinFsp installed, registered the filesystem integration using:
+
+`C:\Windows\System32>``"C:\Program Files (x86)\WinFsp\bin\fsreg.bat" virtiofs "C:\Program Files\Virtio-Win\VioFS\virtiofs.exe" "-t %1 -m %2"`
+From the Windows guest, run the virtiofs launcher as Administrator:
+
+`C:\Windows\System32>``launchctl-x64.exe start virtiofs viofsX hostshare X:`
+
+This mounts the host directory as drive \`X:\`. The target name \`hostshare\` must match the libvirt XML.
+
+Verify:
+
+`C:\Windows\System32>``dir X:\`
+#### Host directory permissions
+
+Also permissions issue can be resolved by executing:
+
+`root #``namei -l /srv/share-guest-vm``root #``getfacl /srv/share-guest-vm``root #``drwx--x--x root root share-guest-vm`
+\`\`\`
+
+That allows traversal but not directory listing by ordinary users. Check the current state:
+
+
 
 ### Offline guest filesystem access
 

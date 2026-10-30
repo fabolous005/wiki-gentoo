@@ -4,8 +4,8 @@ title: Virtiofs
 url: https://wiki.gentoo.org/wiki/Virtiofs
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-09-25"
-fingerprint: "5e9f5919ef925be8"
+date: "2026-10-29"
+fingerprint: fe13591de78249e8
 license: CC BY-SA 4.0
 ---
 
@@ -21,6 +21,13 @@ virtiofs is a shared file system that lets virtual machines access a directory t
 
 ### USE flags
 
+
+### USE flags for
+            [app-emulation/virtiofsd](https://packages.gentoo.org/packages/app-emulation/virtiofsd)
+            
+            Shared file system for virtual machines
+
+| [debug](https://packages.gentoo.org/useflags/debug) | Enable extra debug codepaths, like asserts and extra output. If you want to get meaningful backtraces see https://wiki.gentoo.org/wiki/Project:Quality\_Assurance/Backtraces | 
 
 ### Emerge
 
@@ -45,5 +52,11 @@ where `VHOST_TAG` is an arbitrary name (e.g. `myfs`) that will be used with a [m
 
 Once logged in on the guest as root, mount the virtiofs using the VHOST\_TAG specified when starting QEMU:
 
-`root #``mount -t virtiofs myfs /mnt`
+`guest-root#``mount -t virtiofs myfs /mnt`
 The contents of `SHARED_DIR` should now be available in the /mnt directory.
+
+
+
+## See Also
+
+host filesystem to a virtual machine.

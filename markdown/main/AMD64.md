@@ -4,7 +4,7 @@ title: AMD64
 url: https://wiki.gentoo.org/wiki/AMD64
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2021-11-22"
+date: "2026-10-29"
 fingerprint: "9edfb7c14d20294c"
 license: CC BY-SA 4.0
 ---

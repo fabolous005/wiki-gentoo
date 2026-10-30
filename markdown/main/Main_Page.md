@@ -4,8 +4,8 @@ title: Gentoo Wiki
 url: https://wiki.gentoo.org/wiki/Main_Page
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-28"
-fingerprint: f8f6b90376936365
+date: "2026-10-29"
+fingerprint: d03efc437c876354
 license: CC BY-SA 4.0
 ---
 
@@ -69,19 +69,13 @@ For questions *related to using or editing the documentation on the <u>wiki</u>*
 
 ## Recently added pages
 
+#### 29 October 2026
+
+- 13:24[13:24, 29 October 2026](https://wiki.gentoo.org/index.php?title=Boost&oldid=1462360) [Boost](https://wiki.gentoo.org/wiki/Boost) ([hist](https://wiki.gentoo.org/index.php?title=Boost&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Boost&action=edit)) \[769 bytes\] [Armarmgc](https://wiki.gentoo.org/wiki/User:Armarmgc) ([talk](https://wiki.gentoo.org/index.php?title=User_talk:Armarmgc&action=edit&redlink=1) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Armarmgc))  (Created page with "{{Stub}}  {{InfoBox stack |{{InfoBox homepage|https://www.boost.org/|header=true}} |{{InfoBox odoc|https://www.boost.org/doc/}} |{{InfoBox package|dev-libs/boost}} |{{InfoBox guide|https://www.boost.org/doc/user-guide/index.html|raw=true}} |{{InfoBox wikipedia|Boost\_(C++\_libraries)}} |{{InfoBox github|boostorg/boost}} |{{InfoBox wiki|https://github.com/boostorg/wiki/wiki}} |{{InfoBox bugs|https://github.com/boostorg/boost/issues}} |{{InfoBox blog|https://www.boost.org/ne...")
+- 10:15[10:15, 29 October 2026](https://wiki.gentoo.org/index.php?title=Desktop_environment/pl&oldid=1462345) [Desktop environment/pl](https://wiki.gentoo.org/wiki/Desktop_environment/pl) ([hist](https://wiki.gentoo.org/index.php?title=Desktop_environment/pl&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Desktop_environment/pl&action=edit)) \[5,341 bytes\] [Kariga](https://wiki.gentoo.org/wiki/User:Kariga) ([talk](https://wiki.gentoo.org/index.php?title=User_talk:Kariga&action=edit&redlink=1) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Kariga))  (Created page with "Desktop environment")
+- 06:51[06:51, 29 October 2026](https://wiki.gentoo.org/index.php?title=Debootstrap&oldid=1462292) [Debootstrap](https://wiki.gentoo.org/wiki/Debootstrap) ([hist](https://wiki.gentoo.org/index.php?title=Debootstrap&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Debootstrap&action=edit)) \[4,039 bytes\] [Armarmgc](https://wiki.gentoo.org/wiki/User:Armarmgc) ([talk](https://wiki.gentoo.org/index.php?title=User_talk:Armarmgc&action=edit&redlink=1) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Armarmgc))  (Create stub page for debootstrap)
+
 #### 28 October 2026
 
 - 21:36[21:36, 28 October 2026](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Iifname&oldid=1462288) [Nftables/Rules/Iifname](https://wiki.gentoo.org/wiki/Nftables/Rules/Iifname) ([hist](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Iifname&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Iifname&action=edit)) \[3,307 bytes\] [Egberts](https://wiki.gentoo.org/wiki/User:Egberts) ([talk](https://wiki.gentoo.org/wiki/User_talk:Egberts) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Egberts))  (Initial draft)
 - 16:54[16:54, 28 October 2026](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Iif&oldid=1462231) [Nftables/Rules/Iif](https://wiki.gentoo.org/wiki/Nftables/Rules/Iif) ([hist](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Iif&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Iif&action=edit)) \[2,976 bytes\] [Egberts](https://wiki.gentoo.org/wiki/User:Egberts) ([talk](https://wiki.gentoo.org/wiki/User_talk:Egberts) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Egberts))  (Initial release)
-
-#### 26 October 2026
-
-- 05:26[05:26, 26 October 2026](https://wiki.gentoo.org/index.php?title=FOSDEM_2027&oldid=1462143) [FOSDEM 2027](https://wiki.gentoo.org/wiki/FOSDEM_2027) ([hist](https://wiki.gentoo.org/index.php?title=FOSDEM_2027&action=history) | [edit](https://wiki.gentoo.org/index.php?title=FOSDEM_2027&action=edit)) \[8,518 bytes\] [Laumann](https://wiki.gentoo.org/wiki/User:Laumann) ([talk](https://wiki.gentoo.org/index.php?title=User_talk:Laumann&action=edit&redlink=1) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Laumann))  (initial creation)
-
-#### 24 October 2026
-
-- 09:38[09:38, 24 October 2026](https://wiki.gentoo.org/index.php?title=Support/SectionBox&oldid=1461836) [Support/SectionBox](https://wiki.gentoo.org/wiki/Support/SectionBox) ([hist](https://wiki.gentoo.org/index.php?title=Support/SectionBox&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Support/SectionBox&action=edit)) \[289 bytes\] [Ris](https://wiki.gentoo.org/wiki/User:Ris) ([talk](https://wiki.gentoo.org/wiki/User_talk:Ris) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Ris))  (Support and Troubleshooting SectionBox)
-
-#### 23 October 2026
-
-- 14:40[14:40, 23 October 2026](https://wiki.gentoo.org/index.php?title=/etc/portage/package.accept_keywords/en&oldid=1461730) [/etc/portage/package.accept keywords/en](https://wiki.gentoo.org/wiki//etc/portage/package.accept_keywords/en) ([hist](https://wiki.gentoo.org/index.php?title=/etc/portage/package.accept_keywords/en&action=history) | [edit](https://wiki.gentoo.org/index.php?title=/etc/portage/package.accept_keywords/en&action=edit)) \[8,223 bytes\] [FuzzyBot](https://wiki.gentoo.org/wiki/User:FuzzyBot) ([talk](https://wiki.gentoo.org/index.php?title=User_talk:FuzzyBot&action=edit&redlink=1) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/FuzzyBot))  (Updating to match new version of source page)

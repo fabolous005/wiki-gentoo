@@ -4,8 +4,8 @@ title: musl
 url: https://wiki.gentoo.org/wiki/Musl
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-08-26"
-fingerprint: "8fcd1d6b2d070bd5"
+date: "2026-10-29"
+fingerprint: "8fcd1d7bad470fdd"
 license: CC BY-SA 4.0
 ---
 
@@ -29,6 +29,19 @@ This guide is about *using* musl libc, for a *development* guide, see [musl port
 Choosing musl over glibc has to be done at install time, because replacing the standard C library on an already installed system is not possible. This is done by unpacking the -musl [stage3](https://wiki.gentoo.org/wiki/Stage_file#Stage_3) tarball instead of the default glibc one.
 
 The [install handbook](https://wiki.gentoo.org/wiki/Handbook:Main_Page) for the target architecture can be used as normal, except that generating locales is not necessary on musl libc.
+
+### USE flags
+
+
+### USE flags for
+            [sys-libs/musl](https://packages.gentoo.org/packages/sys-libs/musl)
+            
+            Light, fast and, simple C library focused on standards-conformance and safety
+
+| [crypt](https://packages.gentoo.org/useflags/crypt) | Add support for encryption -- using mcrypt or gpg where applicable | 
+| [headers-only](https://packages.gentoo.org/useflags/headers-only) | Install only C headers instead of whole package. Mainly used by sys-devel/crossdev for toolchain bootstrap. | 
+| [split-usr](https://packages.gentoo.org/useflags/split-usr) | Enable behavior to support maintaining /bin, /lib\*, /sbin and /usr/sbin separately from /usr/bin and /usr/lib\* | 
+| [verify-sig](https://packages.gentoo.org/useflags/verify-sig) | Verify upstream signatures on distfiles | 
 
 ## Configuration
 
@@ -166,6 +179,14 @@ If `rust-bin` is active, the workaround is to emerge `dev-lang/rust` manually:
 Then, use `eselect rust` to set it active, and finally, attempt to re-emerge the affected package.
 
 This may lead to a circular dependency that cannot be resolved. In this case  [bootstrap Rust](https://wiki.gentoo.org/wiki/LLVM#Bootstrapping_Rust).
+
+### Missing man pages
+
+Using musl may lead to a broken man command for many man pages:
+
+`user $``man ffmpeg` man: command exited with status 1: (cd /usr/share/man && /usr/libexec/man-db/zsoelim) | (cd /usr/share/man && /usr/libexec/man-db/manconv -f UTF-8:utf-8 -t UTF-8//IGNORE) | (cd /usr/share/man && preconv -e UTF-8) | (cd /usr/share/man && tbl) | (cd /usr/share/man && nroff -mandoc -c -rLL=77n -rLT=77n -Tutf8)
+
+See [bug #926414](https://bugs.gentoo.org/show_bug.cgi?id=926414) and [bug #837776](https://bugs.gentoo.org/show_bug.cgi?id=837776) for details. You can use [mandoc](https://wiki.gentoo.org/wiki/Mandoc) as the default man page system.
 
 ## See also
 

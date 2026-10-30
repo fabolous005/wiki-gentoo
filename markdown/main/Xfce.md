@@ -149,7 +149,7 @@ When using startx, create an \~/.xinitrc file with the following contents:
 ```
 exec startxfce4
 ```
-If experiencing authorization or permissions issues, see the [troubleshooting section](https://wiki.gentoo.org/wiki/Xfce#Authorization_or_permissions_issues).
+If experiencing authorization or permissions issues, see the [troubleshooting section](https://wiki.gentoo.org#Authorization_or_permissions_issues).
 
 ##### startxfce4
 

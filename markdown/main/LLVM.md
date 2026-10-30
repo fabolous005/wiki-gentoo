@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/LLVM
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-08-16"
-fingerprint: "1c81713a65673fa0"
+fingerprint: "1c81711a65673fa0"
 license: CC BY-SA 4.0
 ---
 
@@ -17,6 +17,10 @@ license: CC BY-SA 4.0
 
 **Resources**
 
+[#llvm](irc://irc.oftc.net/#llvm)(on
+
+[irc://irc.oftc.net](irc://irc.oftc.net))
+
 The **LLVM** Project is a collection of modular and reusable compiler and toolchain technologies.
 
 "LLVM" is an orphan initialism; originally an acronym standing for *Low Level Virtual Machine*, LLVM today has little to do with [virtual machines](https://wiki.gentoo.org/wiki/Virtualization) under the contemporary understanding of the term.
@@ -25,6 +29,11 @@ The **LLVM** Project is a collection of modular and reusable compiler and toolch
 
 ### USE flags
 
+
+### USE flags for
+            [llvm-core/llvm](https://packages.gentoo.org/packages/llvm-core/llvm)
+            
+            Low Level Virtual Machine
 
 | [+binutils-plugin](https://packages.gentoo.org/useflags/+binutils-plugin) | Build the binutils plugin | 
 | [+debug](https://packages.gentoo.org/useflags/+debug) | Enable extra debug codepaths, like asserts and extra output. If you want to get meaningful backtraces see https://wiki.gentoo.org/wiki/Project:Quality\_Assurance/Backtraces | 
@@ -36,7 +45,6 @@ The **LLVM** Project is a collection of modular and reusable compiler and toolch
 | [ncurses](https://packages.gentoo.org/useflags/ncurses) | Support querying terminal properties using ncurses' terminfo | 
 | [test](https://packages.gentoo.org/useflags/test) | Enable dependencies and/or preparations necessary to run tests (usually controlled by FEATURES=test but can be toggled independently) | 
 | [verify-sig](https://packages.gentoo.org/useflags/verify-sig) | Verify upstream signatures on distfiles | 
-| [xar](https://packages.gentoo.org/useflags/xar) | Support dumping LLVM bitcode sections in Mach-O files (uses app-arch/xar) | 
 | [xml](https://packages.gentoo.org/useflags/xml) | Add support for XML files | 
 | [z3](https://packages.gentoo.org/useflags/z3) | Enable support for sci-mathematics/z3 constraint solver | 
 | [zstd](https://packages.gentoo.org/useflags/zstd) | Enable support for ZSTD compression | 
@@ -47,6 +55,10 @@ In this example, LLVM\_TARGET\_AArch64 will be removed from `LLVM_TARGETS`. In [
 
 **`/etc/portage/profile/package.use.mask/llvm_targets`**
 
+```
+llvm-core/llvm LLVM_TARGETS: AArch64
+llvm-core/clang LLVM_TARGETS: AArch64
+```
 Finally, rebuild LLVM and Clang:
 
 `root #``emerge --ask --oneshot llvm-core/llvm llvm-core/clang`
@@ -101,10 +113,16 @@ Compile the [distribution kernels](https://wiki.gentoo.org/wiki/Project:Distribu
 
 **`/etc/portage/env/llvm-kernel`**
 
+```
+LLVM=1
+```
 and
 
 **`/etc/portage/package.env/gentoo-kernel`**
 
+```
+sys-kernel/gentoo-kernel llvm-kernel
+```
 ### Bootstrapping the LLVM toolchain
 
 For a "pure" Clang toolchain, one can build the whole LLVM stack using itself; this is unnecessary, but users may do so for fun.
@@ -139,7 +157,7 @@ Set USE flags `default-compiler-rt default-lld llvm-libunwind` for Clang via /et
 **`/etc/portage/package.use/clang`**
 
 ```
- default-compiler-rt default-lld llvm-libunwind
+llvm-core/clang-common default-compiler-rt default-lld llvm-libunwind
 ```
 Then install Clang, LLVM, compiler-rt, llvm-runtimes/libunwind, and lld with the default GCC environment:
 
@@ -155,7 +173,7 @@ Enable the Clang environment for these packages now:
 **`/etc/portage/package.env`**
 
 ```
- compiler-clang
+llvm-core/clang compiler-clang
 llvm-core/llvm compiler-clang
 llvm-runtimes/libcxx compiler-clang
 llvm-runtimes/libcxxabi compiler-clang
@@ -205,3 +223,7 @@ musl-ld: error: unable to find library -lgcc
 musl-ld: error: unable to find library -lgcc\_s
 
 [Bug 951445](https://bugs.gentoo.org/951445): `emerge --oneshot --nodeps clang-runtime` after merging compiler-rt: you should then be able to upgrade libcxxabi without trouble.
+
+## Notes
+
+1. [↑](https://wiki.gentoo.org#cite_ref-not-supported_1-0) Not supported by Gentoo, as of 2025-01-06

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Keychain
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2022-05-14"
-fingerprint: "2afbfb591c207e9e"
+fingerprint: "2afbfb595c207e9e"
 license: CC BY-SA 4.0
 ---
 
@@ -102,7 +102,7 @@ Add the following to the shell initialization file (\~/.bash\_profile, \~/.zshrc
 **Enabling Keychain in Bash**
 
 ```
- ~/.ssh/id_rsa
+keychain ~/.ssh/id_rsa
 . ~/.keychain/${HOSTNAME}-sh
 . ~/.keychain/${HOSTNAME}-sh-gpg
 ```
@@ -111,7 +111,7 @@ Add the following to the shell initialization file (\~/.bash\_profile, \~/.zshrc
 **Enabling Keychain in zsh**
 
 ```
- ~/.ssh/id_rsa
+keychain ~/.ssh/id_rsa
 . ~/.keychain/${HOST}-sh
 . ~/.keychain/${HOST}-sh-gpg
 ```

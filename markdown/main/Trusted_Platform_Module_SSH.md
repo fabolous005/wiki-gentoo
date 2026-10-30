@@ -4,8 +4,8 @@ title: Trusted Platform Module/SSH
 url: https://wiki.gentoo.org/wiki/Trusted_Platform_Module/SSH
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2025-01-02"
-fingerprint: be10491ad9b038e4
+date: "2026-10-29"
+fingerprint: be10591ae9b218e4
 license: CC BY-SA 4.0
 ---
 
@@ -24,13 +24,16 @@ SSH can be configured to read PKCS 11 keys from the TPM using libtpm\_pkcs11.
 ### USE Flags
 
 
-| [+pie](https://packages.gentoo.org/useflags/+pie) | Build programs as Position Independent Executables (a security hardening technique) | 
+### USE flags for
+            [net-misc/openssh](https://packages.gentoo.org/packages/net-misc/openssh)
+            
+            Port of OpenBSD's free SSH release
+
 | [+ssl](https://packages.gentoo.org/useflags/+ssl) | Enable additional crypto algorithms via OpenSSL | 
 | [audit](https://packages.gentoo.org/useflags/audit) | Enable support for Linux audit subsystem using sys-process/audit | 
 | [debug](https://packages.gentoo.org/useflags/debug) | Enable extra debug codepaths, like asserts and extra output. If you want to get meaningful backtraces see https://wiki.gentoo.org/wiki/Project:Quality\_Assurance/Backtraces | 
 | [kerberos](https://packages.gentoo.org/useflags/kerberos) | Add kerberos support | 
 | [ldns](https://packages.gentoo.org/useflags/ldns) | Use LDNS for DNSSEC/SSHFP validation. | 
-| [legacy-ciphers](https://packages.gentoo.org/useflags/legacy-ciphers) | Enable support for deprecated, soon-to-be-dropped DSA keys. See https://marc.info/?l=openssh-unix-dev>m=170494903207436>w=2. | 
 | [libedit](https://packages.gentoo.org/useflags/libedit) | Use the libedit library (replacement for readline) | 
 | [livecd](https://packages.gentoo.org/useflags/livecd) | Enable root password logins for live-cd environment. | 
 | [pam](https://packages.gentoo.org/useflags/pam) | Add support for PAM (Pluggable Authentication Modules) - DANGEROUS to arbitrarily flip | 
@@ -40,9 +43,18 @@ SSH can be configured to read PKCS 11 keys from the TPM using libtpm\_pkcs11.
 | [static](https://packages.gentoo.org/useflags/static) | !!do not set this during bootstrap!! Causes binaries to be statically linked instead of dynamically | 
 | [test](https://packages.gentoo.org/useflags/test) | Enable dependencies and/or preparations necessary to run tests (usually controlled by FEATURES=test but can be toggled independently) | 
 | [verify-sig](https://packages.gentoo.org/useflags/verify-sig) | Verify upstream signatures on distfiles | 
-| [xmss](https://packages.gentoo.org/useflags/xmss) | Enable XMSS post-quantum authentication algorithm | 
 
 
+### USE flags for
+            [app-crypt/tpm2-pkcs11](https://packages.gentoo.org/packages/app-crypt/tpm2-pkcs11)
+            
+            A PKCS#11 interface for TPM2 hardware
+
+
+### USE flags for
+            [app-crypt/tpm2-tss](https://packages.gentoo.org/packages/app-crypt/tpm2-tss)
+            
+            TCG Trusted Platform Module 2.0 Software Stack
 
 | [+fapi](https://packages.gentoo.org/useflags/+fapi) | Enable feature API (requires openssl as crypto backend) | 
 | [+openssl](https://packages.gentoo.org/useflags/+openssl) | Use dev-libs/openssl as crypto engine | 
@@ -95,40 +107,48 @@ To configure SSH to try to use TPM keys by default:
 
 **`~/.ssh/config`**
 
+```
+PKCS11Provider /usr/lib64/pkcs11/libtpm2_pkcs11.so
+```
 This directive could also be added to specific hosts like:
 
 **`~/.ssh/config`**
 
+```
+Host ExampleHost
+    Hostname 127.0.0.1
+    PKCS11Provider /usr/lib64/pkcs11/libtpm2_pkcs11.so
+```
 ## Usage
 
 ### Reading public keys
 
 To retrieve the public key from the TPM, run:
 
-`user $``ssh-keygen -D /usr/lib64/libtpm2_pkcs11.so`
+`user $``ssh-keygen -D /usr/lib64/pkcs11/libtpm2_pkcs11.so`
 These key fingerprints can be copied to the \~/.ssh/authorized\_keys file like with other SSH keys.
 
 ### Using keys
 
 To use the TPM key for a single SSH connection:
 
-`user $``ssh -I /usr/lib64/libtpm2_pkcs11.so user@remote.host.tld`
+`user $``ssh -I /usr/lib64/pkcs11/libtpm2_pkcs11.so user@remote.host.tld`
 #### SSH agent
 
 To load the key into the SSH agent:
 
-`user $``ssh-add -s /usr/lib64/libtpm2_pkcs11.so`
+`user $``ssh-add -s /usr/lib64/pkcs11/libtpm2_pkcs11.so`
 #### Signing Git commits with ssh-agent
 
 Load your key into SSH agent (if you haven't already)
 
 `user $````
-ssh-add -s /usr/lib64/libtpm2_pkcs11.so
+ssh-add -s /usr/lib64/pkcs11/libtpm2_pkcs11.so
 ```
 Copy your SSH public key to disk
 
 `user $````
-ssh-keygen -D /usr/lib64/libtpm2_pkcs11.so > ~/.ssh/tpm_key.pub
+ssh-keygen -D /usr/lib64/pkcs11/libtpm2_pkcs11.so > ~/.ssh/tpm_key.pub
 ```
 Within your git repo run
 

@@ -257,6 +257,7 @@ https://wiki.gentoo.org/wiki/Bluetooth_Network_Aggregation_Point
 https://wiki.gentoo.org/wiki/Bluetooth_headset
 https://wiki.gentoo.org/wiki/Bluetooth_input_devices
 https://wiki.gentoo.org/wiki/Bohemia_Interactive_ARMA_3
+https://wiki.gentoo.org/wiki/Boost
 https://wiki.gentoo.org/wiki/Boost/How_build_systems_find_boost
 https://wiki.gentoo.org/wiki/Bootable_DOS_USB_stick
 https://wiki.gentoo.org/wiki/Bootable_media
@@ -473,6 +474,7 @@ https://wiki.gentoo.org/wiki/Dd
 https://wiki.gentoo.org/wiki/Ddclient
 https://wiki.gentoo.org/wiki/Ddcutil
 https://wiki.gentoo.org/wiki/Ddrescue
+https://wiki.gentoo.org/wiki/Debootstrap
 https://wiki.gentoo.org/wiki/Debugfs
 https://wiki.gentoo.org/wiki/Debugging
 https://wiki.gentoo.org/wiki/Debuginfod
