@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Sunrise_(project_archive)/Coding_standards
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-09-20"
-fingerprint: "8641f887aaa02370"
+fingerprint: "8641f887aaa023f0"
 license: CC BY-SA 4.0
 ---
 
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Archived article**
 
 This article is **archived (obsolete)**. Contents are surely incorrect for current usage, and are intended for historical reference only.
 

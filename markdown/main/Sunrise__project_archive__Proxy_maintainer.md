@@ -5,15 +5,19 @@ url: https://wiki.gentoo.org/wiki/Sunrise_(project_archive)/Proxy_maintainer
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-09-20"
-fingerprint: "1ffbfcc28ae1f7db"
+fingerprint: "17fbdcc20ac067db"
 license: CC BY-SA 4.0
 ---
 
 # Sunrise (project archive)/Proxy maintainer
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Archived article**
 
 This article is **archived (obsolete)**. Contents are surely incorrect for current usage, and are intended for historical reference only.
 

@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/SystemTap
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2024-09-19"
-fingerprint: b4d3f90b0da2afe4
+fingerprint: "74d3f90b0da2a7e5"
 license: CC BY-SA 4.0
 ---
 
@@ -33,8 +33,17 @@ For [sys-kernel/gentoo-sources](https://packages.gentoo.org/packages/sys-kernel/
 
 **debug symbol generation**
 
+```
+-> Kernel hacking                                                                                                                                                          
+          -> Compile-time checks and compiler options
+               -> Debug information (Generate DWARF Version 5 debuginfo)
+```
 **`FILE /etc/kernel/config.d/99-debugsyms.config`**
 
+```
+CONFIG_DEBUG_INFO=y
+CONFIG_DEBUG_INFO_DWARF5=y
+```
 Additional options that are probably already enabled: `CONFIG_KPROBES`, `CONFIG_RELAY`, `CONFIG_DEBUG_FS`, `CONFIG_MODULES`, `CONFIG_MODULE_UNLOAD`, `CONFIG_UPROBES`.
 
 Users should try to reduce the number of modules / enabled options for an instrumented kernel where possible—`CONFIG_DEBUG_INFO` can multiply disk space usage. Be sure to leave `CONFIG_DEBUG_INFO_SPLIT` disabled; SystemTap doesn't handle split debuginfo yet.
@@ -69,6 +78,36 @@ This example describes using SystemTap to view the \`inet\_getname\` function wh
 
 **`nfsd_peername.stp`**
 
+```
+probe kernel.function("inet_getname").call,
+      module("ipv6").function("inet6_getname").call
+{
+	if (execname() != "nfsd")
+		next
+	if ($peer == 1) {
+		printf("%s %s -> %s addr: %s port: %d state: %s\n",
+			tz_ctime(gettimeofday_s()),
+			execname(),
+			ppfunc(),
+			format_ipaddr(__ip_sock_daddr($sock->sk), __ip_sock_family($sock->sk)),
+			__tcp_sock_dport($sock->sk),
+			tcp_sockstate_str(tcp_ts_get_info_state($sock->sk)));
+	}
+}
+probe kernel.function("inet_getname").return,
+      module("ipv6").function("inet6_getname").return
+{
+	if (execname() != "nfsd")
+		next
+	if ($peer == 1) {
+		printf("%s %s <- %s ret: %d\n",
+			tz_ctime(gettimeofday_s()),
+			execname(),
+			ppfunc(),
+			$return)
+	}
+}
+```
 When run, the above script will log calls made to `inet_gentame` from binaries named nfsd, as well as the return value:
 
 `root #``vim nfsd_peername.stp``root #``stap -v nfsd_peername.stp`

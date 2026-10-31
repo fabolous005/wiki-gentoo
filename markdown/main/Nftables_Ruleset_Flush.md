@@ -4,8 +4,8 @@ title: Nftables/Ruleset/Flush
 url: https://wiki.gentoo.org/wiki/Nftables/Ruleset/Flush
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-22"
-fingerprint: dc11f71be9c7a76f
+date: "2026-10-30"
+fingerprint: "5c11f71ba9c7a76f"
 license: CC BY-SA 4.0
 ---
 
@@ -86,7 +86,7 @@ To flush the entire ruleset:
 ## Tips
 
 - Flushing an object removes its contents; it does not necessarily delete the object.
-- Use the delete command to remove an object from the ruleset.
+- Use the [delete](https://wiki.gentoo.org/index.php?title=Nftables/Ruleset/Delete&action=edit&redlink=1) command to remove an object from the ruleset.
 - Flushing the ruleset removes the configured tables and rules' contents from the kernel according to the command's defined semantics; verify the exact effects before using it on a live firewall.
 - Use nft -c -f FILE to check a ruleset file before applying its commands.
 
@@ -94,5 +94,5 @@ To flush the entire ruleset:
 
 - [Nftables/Ruleset/Add](https://wiki.gentoo.org/wiki/Nftables/Ruleset/Add)
 - [Nftables/Ruleset/List](https://wiki.gentoo.org/wiki/Nftables/Ruleset/List)
-- [Nftables/Ruleset](https://wiki.gentoo.org/wiki/Nftables/Ruleset) — defines the collection of tables, chains, rules, and other objects configured in the [Netfilter](https://wiki.gentoo.org/wiki/Netfilter) **nf\_tables** subsystem used for [nftables](https://wiki.gentoo.org/wiki/Nftables) packet handling.
+- [Nftables/Ruleset](https://wiki.gentoo.org/wiki/Nftables/Ruleset) — collection of tables, chains, rules, and other objects configured in the [Netfilter](https://wiki.gentoo.org/wiki/Netfilter) **nf\_tables** subsystem.
 - [Netfilter](https://wiki.gentoo.org/wiki/Netfilter) — Linux kernel’s packet-filtering framework

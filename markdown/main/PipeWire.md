@@ -4,7 +4,7 @@ title: PipeWire
 url: https://wiki.gentoo.org/wiki/PipeWire
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-04"
+date: "2026-10-30"
 fingerprint: "9f238b5889663990"
 license: CC BY-SA 4.0
 ---
@@ -31,7 +31,7 @@ Some key features of PipeWire include:
 - Seamless support for PulseAudio, JACK, ALSA, and [GStreamer](https://wiki.gentoo.org/wiki/GStreamer).
 - Applications sandboxing support with [Flatpak](https://wiki.gentoo.org/wiki/Flatpak), with a security model that facilitates interacting containerized applications.
 
-Most applications - including e.g. [Firefox](https://wiki.gentoo.org/wiki/Firefox) - don't yet support PipeWire's native API. However, PipeWire can emulate PulseAudio, thus removing the need for a separate PulseAudio sound server. Refer to [the "USE flags" section](https://wiki.gentoo.org/wiki/PipeWire#USE_flags) for details.
+Most applications - including e.g. [Firefox](https://wiki.gentoo.org/wiki/Firefox) - don't yet support PipeWire's native API. However, PipeWire can emulate PulseAudio, thus removing the need for a separate PulseAudio sound server. Refer to [the "USE flags" section](https://wiki.gentoo.org#USE_flags) for details.
 
 PipeWire currently ships a PipeWire daemon, an example session manager, tools to introspect and use the PipeWire daemon, a library to develop PipeWire applications and plugins, and the [SPA (Simple Plugin API)](https://docs.pipewire.org/page_spa.html) used by both the PipeWire daemon and the PipeWire library.
 
@@ -51,7 +51,7 @@ Device Drivers  --->
 
 All desktop profiles now enable PipeWire by default, so no installation should be required.
 
-systemd users need to enable the `wireplumber` service by following [this section](https://wiki.gentoo.org/wiki/PipeWire#systemd).
+systemd users need to enable the `wireplumber` service by following [this section](https://wiki.gentoo.org#systemd).
 
 ### Non-desktop profiles
 
@@ -328,7 +328,7 @@ Refer to [PipeWire/troubleshooting](https://wiki.gentoo.org/wiki/PipeWire/troubl
 ## See also
 
 - [WirePlumber](https://wiki.gentoo.org/wiki/WirePlumber) — a modular session / policy manager for [PipeWire]
-- [PulseAudio](https://wiki.gentoo.org/wiki/PulseAudio) — a multi-platform, open source, *sound server* that provides a number of features on top of the low-level audio interface [ALSA](https://wiki.gentoo.org/wiki/ALSA)
+- [PulseAudio](https://wiki.gentoo.org/wiki/PulseAudio) — a multi-platform, open source, sound server that provides a number of features on top of the low-level audio interface [ALSA](https://wiki.gentoo.org/wiki/ALSA)
 - [ALSA](https://wiki.gentoo.org/wiki/ALSA) — the Linux kernel's API for sound cards, together with an associated software framework
 - [Technical notes on the packaging of PipeWire](https://wiki.gentoo.org/wiki/User:Sam/PipeWire_changes)
 

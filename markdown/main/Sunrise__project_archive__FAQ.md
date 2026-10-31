@@ -6,7 +6,7 @@ hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-09-20"
 categories: ['http://overlays.gentoo.org/svn/proj/sunrise/reviewed/category/package']
-fingerprint: "7f395c524d3477ff"
+fingerprint: "7f3958525d3477ff"
 license: CC BY-SA 4.0
 ---
 
@@ -15,6 +15,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Archived article**
 
 This article is **archived (obsolete)**. Contents are surely incorrect for current usage, and are intended for historical reference only.
 
@@ -169,4 +171,19 @@ While we think this is a good idea and promised to help, we do not think it can 
 
 ### What has been said on the Gentoo Council meeting?
 
+```
+    21:27:51 <@Koon> still, opening up the tree a little more to the community is really needed
+    21:28:02 <@Koon> the dev community is too closed
+    21:28:46 <@seemant> Koon: I do agree with you -- and I would wholeheartedly approve of (and indeed encourage!) an offsite project sunrise
+    21:29:13 <@seemant> Koon: I think it has potential as a recruiting ground, a training ground, even
+    21:29:36 <@seemant> Koon: and I can see devrel possibly wanting (this is speculation) to work with sunrise to get the user community more involved
+    21:32:24 <@seemant> please keep in mind, dear reader (this includes the people reading this on archive): I like project sunrise's potential -- I just think it's misplaced being an official project
+    21:33:11 <+brix> Project Sunrise is not a bad idea - I just do not wish to see it as an official project
+    21:37:33 <@Koon> brix: they followed the way to create a project as described in g2boojum's metastructure model (which was not my model, as you may remenber), designed to favor innovation
+    21:51:04 <@seemant> brix: I can see an overlay (un- or semi- official at least to begin with) that gets people used to using the tools like repoman and cvs, etc
+    21:51:14 <+Stuart> brix: the difference with an overlay is that (done right) it gets more users involved in the dev community
+    21:51:17 <@seemant> echangelog, and all that other good stuff
+    22:10:18 <@seemant> and I would like to add that I'd like to see chris and henrik (after his finals) have a hand in it as well
+    22:15:09 <@seemant> jokey: like I say I approve of project sunrise's intentions (or at least a subset)
+```
 Full conversation log can be [found here](https://projects.gentoo.org/council/meeting-logs/20060615.txt).

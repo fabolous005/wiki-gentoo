@@ -4,12 +4,14 @@ title: libvirt/libvirtd
 url: https://wiki.gentoo.org/wiki/Libvirt/libvirtd
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-04-24"
-fingerprint: ae0fdc4a6fa7d98e
+date: "2026-10-30"
+fingerprint: be0fdc4a6fa7d987
 license: CC BY-SA 4.0
 ---
 
 # libvirt/libvirtd
+
+[Libvirt](https://wiki.gentoo.org/wiki/Libvirt)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -121,41 +123,18 @@ A list of optional environment variables that are read and checked by the libvir
 | `LOGNAME` | Use by system (e.g., login, at). | username | 
 | `TMPDIR` | temporary directory where programs should write temporary files. | directory path | 
 
-### Files
+## Files
 
-Files that are read by the host-side OS libvirtd daemon command:
+The libvirtd daemon uses the following configuration and TLS certificate files:
 
-- /etc/libvirt/libvirtd.conf
-- /etc/libvirt/util.conf
-- /etc/machine-id
-- /etc/pki/CA/cacert.pem
-- /etc/pki/libvirt/servercert.pem
-- /etc/pki/libvirt/private/serverkey.pem
-- /proc/devices
-- /proc/filesystems
-- /proc/mounts
-- /proc/self/cgroup
-- /proc/%lld/cgroup
-- /proc/self/status
-- /proc/sys/kernel/cap\_last\_cap
-- \[/var\]/run/libvirt/libvirt-admin-sock
-- \[/var\]/run/libvirt/libvirt-sock
-- \[/var\]/run/libvirt/libvirt-sock-ro
-- \[/var\]/run/pid/libvirt.pid
-- /sys/devices/system/cpu/possible
-- /sys/devices/system/node/node0/meminfo
-- /sys/devices/system/node
-- /usr/lib/locale/locale-archive
-- /var/run/utmp
-- $HOME/.cache
-- $HOME/.local/share
-- $HOME/.pki/libvirt/cacert.pem
-- $HOME/.pki/libvirt/servercert.pem
-- $HOME/.pki/libvirt/serverkey.pem
-- $XDG\_DATA\_HOME
-- $XDG\_CACHE\_HOME
+| Path | Description | 
+|---|---|
+| /etc/libvirt/libvirtd.conf | System-mode daemon configuration. | 
+| /etc/pki/CA/cacert.pem | TLS certificate authority certificate. | 
+| /etc/pki/libvirt/servercert.pem | TLS server certificate. | 
+| /etc/pki/libvirt/private/serverkey.pem | TLS server private key. | 
 
-
+For additional files and directories used by libvirtd, see [Libvirtd files](https://wiki.gentoo.org/wiki/Libvirtd/Files) or consult its man-page.
 
 ### User permissions
 

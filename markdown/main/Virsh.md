@@ -4,8 +4,8 @@ title: virsh
 url: https://wiki.gentoo.org/wiki/Virsh
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-08-31"
-fingerprint: "2a9b08d14cd3b381"
+date: "2026-10-30"
+fingerprint: "2a9b08d14c93b381"
 license: CC BY-SA 4.0
 ---
 
@@ -125,65 +125,15 @@ A list of all testing environment variables that are read and checked by the vir
 
 ### Files
 
-Whenever a domain starts, virsh checks for the [domain](https://wiki.gentoo.org/wiki/Libvirt/domain) XML file in each of the following paths:
+When a domain starts, [virsh] using [Libvirt](https://wiki.gentoo.org/wiki/Libvirt) API library checks for that [domain](https://wiki.gentoo.org/wiki/Libvirt/domain) XML file in the following paths:
 
-- System mode: /etc/libvirt/qemu/
-- User mode: $HOME/.config/libvirt/qemu/
+| Operating state | Path | URI | 
+|---|---|---|
+| System | /etc/libvirt/qemu/ | qemu:///system | 
+| User session | $HOME/.config/libvirt/qemu/ | qemu:///session | 
 
 
-Files that are read by the host-side OS virsh command:
-
-- /etc/libvirt/hooks/
-- /etc/libvirt/libvirt-admin.conf
-- /etc/libvirt/libvirt.conf
-- /etc/libvirt/libvirtd.conf
-- /etc/libvirt/libxl.conf
-- /etc/libvirt/libxl-lockd.conf
-- /etc/libvirt/libxl-sanlock.conf
-- /etc/libvirt/lxc.conf
-- /etc/libvirt/nwfilter/
-- /etc/libvirt/secrets/
-- /etc/libvirt/storage/
-- /etc/libvirt/virtlockd.conf
-- /etc/libvirt/virtlogd.conf
-
-- /proc/cgroups
-- /proc/cpuinfo
-- /proc/modules
-- /proc/mounts
-- /proc/net/dev
-- /proc/stat
-- /proc/sys/ipv4/ip\_forward
-- /proc/sys/ipv6/conf/all/forwarding
-- /proc/sys/ipv6/conf/%s/%s
-- /proc/vz/vestat - Only with openvz
-- /sys/class/fc\_host/host0
-- /sys/class/fc\_remote\_ports
-- /sys/class/scsi\_host
-- /sys/devices/system
-- /sys/devices/system/%s/cpu/online
-- /sys/devices/system/cpu/online
-- /sys/devices/system/node/node0/access1
-- /sys/devices/system/node/node0/meminfo
-- /sys/devices/system/node/node0/memory\_side\_cache
-- /sys/devices/system/node/online
-- /sys/fs/resctrl
-- /sys/fs/resctrl/info/%s/num\_closids
-- /sys/fs/resctrl/%s/schemata
-- /sys/fs/resctrl/info/%s/min\_cbm\_bits
-- /sys/fs/resctrl/info/L3\_MON
-- /sys/fs/resctrl/info/L3\_MON/num\_rmids
-- /sys/fs/resctrl/info/MB/bandwidth\_gran
-- /sys/fs/resctrl/info/MB/min\_bandwidth
-- /sys/fs/resctrl/info/MB/num\_closids
-- /sys/kernel/mm/ksm
-- /sys/kernel/mm/transparent\_hugepage/hpage\_pmd\_size
-- /var/lib/libvirt/boot
-- /var/lib/libvirt/dnsmasq
-- /var/lib/libvirt/images
-- /var/lib/libvirt/sanlock
-
-For additional file names used by virsh command, see [libvirt](https://wiki.gentoo.org/wiki/Libvirt#Files) or consult its man-page.
+For additional directory and file names used by virsh command, see [Libvirt Files](https://wiki.gentoo.org/wiki/Virsh/Files) or consult its man-page.
 
 ### User permissions
 

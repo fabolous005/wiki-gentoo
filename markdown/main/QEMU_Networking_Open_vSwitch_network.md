@@ -5,11 +5,15 @@ url: https://wiki.gentoo.org/wiki/QEMU/Networking/Open_vSwitch_network
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-08-31"
-fingerprint: "6201d0461598d8e6"
+fingerprint: "6201d8761198f8e6"
 license: CC BY-SA 4.0
 ---
 
 # QEMU/Networking/Open vSwitch network
+
+[QEMU](https://wiki.gentoo.org/wiki/QEMU)|
+
+[Networking](https://wiki.gentoo.org/wiki/QEMU/Networking)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -33,15 +37,34 @@ For the scope of this article, we will just assume that the controller daemon is
 
 You need to activate the following kernel options:
 
+```
+[*] Networking support  --->
+        Networking options  --->
+            <*>   Open vSwitch
+            In case you ever want to use tagged VLANs
+            <*>   802.1Q VLAN Support
+            [*]     GVRP (GARP VLAN Registration Protocol) support
+            In case you ever want to setup QoS rules
+            [*]   QoS and/or fair queueing  --->
+                      <M> ...
+```
 ### libvirt
 
 You will want to make sure [app-emulation/libvirt](https://packages.gentoo.org/packages/app-emulation/libvirt) is built with support for the various virtual networking solutions:
 
 **`/etc/portage/package.use`**
 
+```
+app-emulation/libvirt macvtap vepa qemu virt-network
+```
 `root #``emerge --ask libvirt`
 ### Open vSwitch
 
+
+### USE flags for
+            [net-misc/openvswitch](https://packages.gentoo.org/packages/net-misc/openvswitch)
+            
+            Production quality, multilayer virtual switch
 
 | [+ssl](https://packages.gentoo.org/useflags/+ssl) | Add support for SSL/TLS connections (Secure Socket Layer / Transport Layer Security) | 
 | [debug](https://packages.gentoo.org/useflags/debug) | Enable extra debug codepaths, like asserts and extra output. If you want to get meaningful backtraces see https://wiki.gentoo.org/wiki/Project:Quality\_Assurance/Backtraces | 

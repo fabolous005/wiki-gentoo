@@ -4,7 +4,7 @@ title: Desktop environment
 url: https://wiki.gentoo.org/wiki/Desktop_environment
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-08-19"
+date: "2026-10-30"
 fingerprint: d19f7e79d8b9009c
 license: CC BY-SA 4.0
 ---
@@ -23,7 +23,7 @@ A **desktop environment** is a [complete ecosystem of software and resources](ht
 
 A desktop environment can be a great convenience to many users, though a custom graphical environment can be assembled if preferred, i.e. Xorg could be used with a window manager and select desktop utilities. Gentoo's flexibility means that many desktop environments are available, and more than one can generally be installed in parallel. Gentoo can of course be used exclusively in text mode, as a server platform for example.
 
-Gentoo does not have separate [releases](https://wiki.gentoo.org/wiki/FAQ#Can_I_upgrade_Gentoo_from_one_release_to_another_without_reinstalling.3F) or "flavors" for different desktop environments, as some other distributions do - a desktop environment is simply installed on the base system.
+Gentoo does not have separate [releases](https://wiki.gentoo.org/wiki/FAQ#Can_I_upgrade_Gentoo_from_one_release_to_another_without_reinstalling.3F) or "flavors" for different desktop environments, as some other distributions do, a desktop environment is simply installed on the base system.
 
 ## Available software
 

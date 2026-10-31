@@ -272,6 +272,17 @@ https://wiki.gentoo.org/wiki/Boxes
 https://wiki.gentoo.org/wiki/Bpytop
 https://wiki.gentoo.org/wiki/Brave
 https://wiki.gentoo.org/wiki/Broadcom_Bluetooth
+https://wiki.gentoo.org/wiki/Broken/NS606:Community_Project
+https://wiki.gentoo.org/wiki/Broken/NS606:Developer
+https://wiki.gentoo.org/wiki/Broken/NS606:Election
+https://wiki.gentoo.org/wiki/Broken/NS606:GLEP
+https://wiki.gentoo.org/wiki/Broken/NS606:Infrastructure_Server
+https://wiki.gentoo.org/wiki/Broken/NS606:Project
+https://wiki.gentoo.org/wiki/Broken/NS606:Proxied_Maintainer
+https://wiki.gentoo.org/wiki/Broken/NS606:Staffing_Need
+https://wiki.gentoo.org/wiki/Broken/NS606:Staffing_Need/sandbox
+https://wiki.gentoo.org/wiki/Broken/NS606:Translator
+https://wiki.gentoo.org/wiki/Broken/NS606:User
 https://wiki.gentoo.org/wiki/Brother_networked_printer
 https://wiki.gentoo.org/wiki/Bspwm
 https://wiki.gentoo.org/wiki/Btop
@@ -1579,9 +1590,11 @@ https://wiki.gentoo.org/wiki/LibreWolf
 https://wiki.gentoo.org/wiki/Libre_Computer_Renegade
 https://wiki.gentoo.org/wiki/Libre_Computer_Renegade/Installing_Gentoo
 https://wiki.gentoo.org/wiki/Libvirt
+https://wiki.gentoo.org/wiki/Libvirt/Files
 https://wiki.gentoo.org/wiki/Libvirt/QEMU_networking
 https://wiki.gentoo.org/wiki/Libvirt/domain
 https://wiki.gentoo.org/wiki/Libvirt/libvirtd
+https://wiki.gentoo.org/wiki/Libvirtd/Files
 https://wiki.gentoo.org/wiki/License_groups
 https://wiki.gentoo.org/wiki/License_groups/BINARY-REDISTRIBUTABLE
 https://wiki.gentoo.org/wiki/License_groups/EULA
@@ -1818,6 +1831,7 @@ https://wiki.gentoo.org/wiki/Nftables/Rules
 https://wiki.gentoo.org/wiki/Nftables/Rules/Dnat
 https://wiki.gentoo.org/wiki/Nftables/Rules/Iif
 https://wiki.gentoo.org/wiki/Nftables/Rules/Iifname
+https://wiki.gentoo.org/wiki/Nftables/Rules/Iiftype
 https://wiki.gentoo.org/wiki/Nftables/Rules/Include
 https://wiki.gentoo.org/wiki/Nftables/Rules/Ip6_saddr
 https://wiki.gentoo.org/wiki/Nftables/Rules/Ip_saddr
@@ -2664,6 +2678,7 @@ https://wiki.gentoo.org/wiki/Vifm
 https://wiki.gentoo.org/wiki/Vim
 https://wiki.gentoo.org/wiki/Vim/Guide
 https://wiki.gentoo.org/wiki/Virsh
+https://wiki.gentoo.org/wiki/Virsh/Files
 https://wiki.gentoo.org/wiki/Virt-install
 https://wiki.gentoo.org/wiki/Virt-manager
 https://wiki.gentoo.org/wiki/Virt-viewer

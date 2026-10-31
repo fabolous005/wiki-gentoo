@@ -4,7 +4,7 @@ title: OpenCL
 url: https://wiki.gentoo.org/wiki/OpenCL
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-24"
+date: "2026-10-30"
 fingerprint: "27a390eff48a1145"
 license: CC BY-SA 4.0
 ---
@@ -39,7 +39,7 @@ Installing an OpenCL implementation means adding a library implementing the Open
 
 There is an ICD loader which can be provided by a generic loader or one of the implementations.
 
-The OpenCL host and device API calls, the memory hierarchy are standard, but it doesn't mean that code which is *portable* to different implementations will be *efficient* on all of them. Often, code has to be tested on one implementation to eliminate issues. See the [implementation validation](https://wiki.gentoo.org/wiki/OpenCL#Implementation_Validation) and [implementation tuning](https://wiki.gentoo.org/wiki/OpenCL#Implementation_Tuning) sections.
+The OpenCL host and device API calls, the memory hierarchy are standard, but it doesn't mean that code which is *portable* to different implementations will be *efficient* on all of them. Often, code has to be tested on one implementation to eliminate issues. See the [implementation validation](https://wiki.gentoo.org#Implementation_Validation) and [implementation tuning](https://wiki.gentoo.org#Implementation_Tuning) sections.
 
 ## Implementations on Linux
 
@@ -63,7 +63,7 @@ As of late-2023, installing [media-libs/mesa](https://packages.gentoo.org/packag
 
 ### Mesa (clover)
 
-As of mid-2023, installing [media-libs/mesa](https://packages.gentoo.org/packages/media-libs/mesa) with the `opencl` USE flag provides an OpenCL 1.1 installation that works on Evergreen through Sea Islands AMD GPU families (Vega and later GPU families like Navi are not supported). See the [AMD](https://wiki.gentoo.org/wiki/OpenCL#AMD) section below for newer GPUs. For a full list of features see the [GalliumCompute Matrix](https://dri.freedesktop.org/wiki/GalliumCompute/).
+As of mid-2023, installing [media-libs/mesa](https://packages.gentoo.org/packages/media-libs/mesa) with the `opencl` USE flag provides an OpenCL 1.1 installation that works on Evergreen through Sea Islands AMD GPU families (Vega and later GPU families like Navi are not supported). See the [AMD](https://wiki.gentoo.org#AMD) section below for newer GPUs. For a full list of features see the [GalliumCompute Matrix](https://dri.freedesktop.org/wiki/GalliumCompute/).
 
 Since media-libs/mesa-20.3 [it supports OpenCL 1.2](https://www.phoronix.com/scan.php?page=news_item&px=Mesa-20.3-OpenCL-1.2-Clover).
 
@@ -120,7 +120,7 @@ An implementation (especially the experimental ones) can be checked by running t
 The main vendors will provide some form of advanced documentation to use their hardware to the maximum:
 
 - nVidia: For developers targeting nVidia hardware, nVidia provides a [Best Practices Guide](http://www.nvidia.com/content/cudazone/CUDABrowser/downloads/papers/NVIDIA_OpenCL_BestPracticesGuide.pdf).
-- AMD: For developers targeting AMD hardware, AMD provides an [Optimization Guide](http://developer.amd.com/tools-and-sdks/opencl-zone/opencl-tools-sdks/amd-accelerated-parallel-processing-app-sdk/opencl-optimization-guide/).
+- AMD: For developers targeting AMD hardware, AMD provides an [Optimization Guide](https://web.archive.org/web/20140730140859if_/http://developer.amd.com/tools-and-sdks/opencl-zone/opencl-tools-sdks/amd-accelerated-parallel-processing-app-sdk/opencl-optimization-guide/).
 
 Some characteristics are not straightforward to find. Benchmarks are one mode of discovery.
 

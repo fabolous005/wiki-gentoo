@@ -4,7 +4,7 @@ title: Nftables/Ruleset
 url: https://wiki.gentoo.org/wiki/Nftables/Ruleset
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-28"
+date: "2026-10-30"
 fingerprint: a595897aa7c5a94d
 license: CC BY-SA 4.0
 ---
@@ -180,10 +180,7 @@ For chain types, declaration, properties, lifecycle, relationships, and processi
 
 Sets group values for use by rules.
 
-
-A set contains elements of a single data type. 
-Its key type is defined by its declaration; supported keys can include concatenations of multiple fields.
-A rule can match a packet value against multiple set elements with one match.
+A set contains elements of a single data type. Its key type is defined by its declaration; supported keys can include concatenations of multiple fields. A rule can match a packet value against multiple set elements with one match.
 
 Sets commonly contain IP addresses, network addresses, ports, or interface names. Sets can also contain other data types supported by nftables.
 

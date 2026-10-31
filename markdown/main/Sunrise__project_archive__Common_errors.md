@@ -5,15 +5,19 @@ url: https://wiki.gentoo.org/wiki/Sunrise_(project_archive)/Common_errors
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-09-20"
-fingerprint: "1654d06ae0fdbf9f"
+fingerprint: "16d4d0ebe0fdbf9f"
 license: CC BY-SA 4.0
 ---
 
 # Sunrise (project archive)/Common errors
 
+From Gentoo Wiki
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Archived article**
 
 This article is **archived (obsolete)**. Contents are surely incorrect for current usage, and are intended for historical reference only.
 

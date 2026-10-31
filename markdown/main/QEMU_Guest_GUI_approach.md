@@ -209,7 +209,7 @@ Select row of the domain that you wish to view in the main body window.
 
 Start the virtual machine in one of two ways:
 
-- Icons menu bar,  menu option![virt-manager open icon](https://wiki.gentoo.org/images/4/44/Virt-manager-icon-open5.png)
+- Icons menu bar, ![virt-manager open icon](https://wiki.gentoo.org/images/4/44/Virt-manager-icon-open5.png) menu option
 - Mouse-hover over domain row in the list of domain groupbox, select **Open** option.
 
 ## Removal

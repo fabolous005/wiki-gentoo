@@ -4,7 +4,7 @@ title: Nftables/Rules/Iif
 url: https://wiki.gentoo.org/wiki/Nftables/Rules/Iif
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-28"
+date: "2026-10-30"
 fingerprint: "3aadcd4cd809e9c0"
 license: CC BY-SA 4.0
 ---
@@ -81,7 +81,7 @@ Both forms match the same interface index. The meta keyword does not change the 
 
 ## Related expressions
 
-- [iifname](https://wiki.gentoo.org/index.php?title=Nftables/Rules/iifname&action=edit&redlink=1) — matches the input interface name
+- [iifname](https://wiki.gentoo.org/wiki/Nftables/Rules/Iifname) — matches the input interface name
 - iiftype — matches the input interface hardware type
 - iifkind — matches the input interface kind
 - iifgroup — matches the input interface group

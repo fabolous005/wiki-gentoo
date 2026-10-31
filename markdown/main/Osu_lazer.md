@@ -4,8 +4,8 @@ title: osu!lazer
 url: https://wiki.gentoo.org/wiki/Osu!lazer
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2025-08-21"
-fingerprint: a69996188b097117
+date: "2026-10-30"
+fingerprint: a630d158cb097917
 license: CC BY-SA 4.0
 ---
 
@@ -27,6 +27,11 @@ Installing [games-arcade/osu-lazer](https://packages.gentoo.org/packages/games-a
 ### USE flags
 
 
+### USE flags for
+            [games-arcade/osu-lazer](https://packages.gentoo.org/packages/games-arcade/osu-lazer)
+            
+            A free-to-win rhythm game and a final iteration of the osu! game client
+
 ### Emerge
 
 `root #``emerge --ask games-arcade/osu-lazer`
@@ -46,6 +51,26 @@ If a distrubution kernel is being used, then this step should be sufficient by i
 #### AppImage download
 
 `user $``chmod +x osu.AppImage``user $``./osu.AppImage`
+### Alternative: Flatpak
+
+[Flatpak](https://wiki.gentoo.org/wiki/Flatpak) can be used to install lazer from [Flathub](http://flathub.org/en/apps/sh.ppy.osu):
+
+#### Install
+
+`user $``flatpak remote-add --if-not-exists flathub` [https://dl.flathub.org/repo/flathub.flatpakrepo](https://dl.flathub.org/repo/flathub.flatpakrepo)
+`user $````
+flatpak install flathub sh.ppy.osu
+```
+#### Run
+
+`user $````
+flatpak run sh.ppy.osu
+```
+#### Update
+
+`user $````
+flatpak update sh.ppy.osu
+```
 ## Legacy client
 
 The old osu! client (i.e., not lazer) is only natively supported on Windows and macOS. Users have reported success running it with [Wine](https://wiki.gentoo.org/wiki/Wine), however, so users who would prefer to stick to the old, and still more popular, client may attempt to run the Windows build available from the [osu! website](https://osu.ppy.sh).

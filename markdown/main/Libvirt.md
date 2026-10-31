@@ -4,8 +4,8 @@ title: libvirt
 url: https://wiki.gentoo.org/wiki/Libvirt
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-09-10"
-fingerprint: "6e19c95c4c87bbac"
+date: "2026-10-30"
+fingerprint: "6e1989544c87bbac"
 license: CC BY-SA 4.0
 ---
 
@@ -40,6 +40,8 @@ The overview of Libvirt features are:
 
 libvirt can manage the following types of virtual machines and containers, [among others](https://www.libvirt.org/drivers.html#hypervisor-drivers):
 
+## Installation
+
 Verify host as QEMU-capable:
 
 To verify that the host hardware has the needed virtualization support, issue the following command:
@@ -57,20 +59,67 @@ The following kernel config is recommended by the libvirtd daemon.
 
 **libvirt (`CONFIG_BRIDGE_EBT_MARK`, `CONFIG_NETFILTER_ADVANCED`, `CONFIG_NETFILTER_XT_CONNMARK`, `CONFIG_NETFILTER_XT_TARGET_CHECKSUM`, `CONFIG_IP6_NF_NAT`)**
 
+```
+[*] Networking support
+    Networking Options  --->
+        [*] Network packet filtering framework (Netfilter)  --->
+            [*] Advanced netfilter configuration
+            Core Netfilter Configuration  --->
+                <*> "conntrack" connection tracking match support
+                <*> CHECKSUM target support
+            IPv6: Netfilter Configuration  --->
+                <*> IP6 tables support (required for filtering)
+                  <*> ip6tables NAT support
+                
+            <*> Ethernet Bridge tables (ebtables) support  --->
+                <*> ebt: nat table support
+                <*> ebt: mark filter support
+        [*] QoS and/or fair queueing  --->
+            <*> Hierarchical Token Bucket (HTB)
+            <*> Stochastic Fairness Queueing (SFQ)
+            <*> Ingress/classifier-action Qdisc
+            <*> Netfilter mark (FW)
+            <*> Universal 32bit comparisons w/ hashing (U32)
+            [*] Actions
+            <*>    Traffic Policing
+            <*>    Checksum Updating
+```
 The following kernel options are required to pass some checks by the virt-host-validate tool. That also means that are requirements for some functionality.
 
 **Enabling`blkio` (`CONFIG_BLK_CGROUP`)**
 
+```
+General setup --->
+[*] Control Group support --->
+    --- Control Group support
+        [*] IO controller
+```
 **Enabling`memory` (`CONFIG_MEMORY`)**
 
+```
+Device Drivers --->
+    [*] Memory Controller drivers ---
+        --- Memory Controller drivers
+```
 **Enabling`tun` (`CONFIG_TUN`) (used in the default libvirt/virt-manager networking setup)**
 
+```
+Device Drivers --->
+    [*] Network device support  --->
+        [*] Network core driver support
+            <*> Universal TUN/TAP device driver support
+```
 ### USE flags
 
 Some packages are aware of the [`libvirt`](https://packages.gentoo.org/useflags/libvirt) USE flag.
 
 Review the possible USE flags for libvirt:
 
+
+### USE flags for
+            [app-emulation/libvirt](https://packages.gentoo.org/packages/app-emulation/libvirt)
+            
+            C toolkit to manipulate virtual machines
 
 | [+caps](https://packages.gentoo.org/useflags/+caps) | Use Linux capabilities library to control privilege | 
 | [+libvirtd](https://packages.gentoo.org/useflags/+libvirtd) | Builds the libvirtd daemon as well as the client utilities instead of just the client utilities | 
@@ -113,7 +162,7 @@ libvirt comes with a number of USE flags. Please check those flags and set them 
 **`/etc/portage/package.use/libvirt`**
 
 ```
- pcap virt-network numa fuse macvtap vepa qemu
+app-emulation/libvirt pcap virt-network numa fuse macvtap vepa qemu
 ```
 ##### USE\_EXPAND
 
@@ -138,40 +187,17 @@ See specific CLI commands related to Libvirt for its available environment varia
 
 ### Files
 
-When a domain starts, client using [Libvirt] API library (ie., [virt-manager](https://wiki.gentoo.org/wiki/Virt-manager), [virsh](https://wiki.gentoo.org/wiki/Virsh)) checks for that [domain](https://wiki.gentoo.org/wiki/Libvirt/domain) XML file in the following paths:
+When a domain starts, client using [Libvirt] API library (ie., [virt-manager](https://wiki.gentoo.org/wiki/Virt-manager), [virsh](https://wiki.gentoo.org/wiki/Virsh)) checks for that [domain](https://wiki.gentoo.org/wiki/Libvirt/domain) XML file in the following paths
 
-- System : /etc/libvirt/qemu/ via qemu:///system.
-- User session: $HOME/.config/libvirt/qemu/ via qemu:///session.
-
-
-Other directory paths used by [Libvirt] library are:
-
-- /etc/libvirt/hooks/
-- /etc/libvirt/nwfilter/
-- /etc/libvirt/secrets/
-- /etc/libvirt/storage/
-- /proc/
-- /proc/sys/ipv4/
-- /proc/sys/ipv6/conf/all/
-- /proc/sys/ipv6/conf/%s/%s
-- /run/libvirt/
-- /sys/class/fc\_host/
-- /sys/devices/system/%s/cpu/
-- /sys/devices/system/node/node0/
-- /sys/fs/resctrl/info/%s/
-- /sys/kernel/mm/transparent\_hugepage/
-- /sys/fs/resctrl/info/%s/
-- /sys/fs/resctrl/info/MB/
-- /var/lib/libvirt/
-- /var/lib/libvirt/boot/
-- /var/lib/libvirt/dnsmasq/
-- /var/lib/libvirt/images
-- /var/lib/libvirt/isos
-- /var/lib/libvirt/secrets/
-- /var/lib/libvirt/qemu
+| Operating state | Path | URI | 
+|---|---|---|
+| System | /etc/libvirt/qemu/ | qemu:///system | 
+| User session | $HOME/.config/libvirt/qemu/ | qemu:///session | 
 
 
-For specific file accesses, see Libvirt-related CLI commands [virsh](https://wiki.gentoo.org/wiki/Virsh#Files), [libvirtd](https://wiki.gentoo.org/wiki/Libvirt/libvirtd#Files), [virt-manager](https://wiki.gentoo.org/wiki/Virt-manager#Files)..
+Other directory and file paths used by [Libvirt] library are listed in [Libvirt Files](https://wiki.gentoo.org/wiki/Libvirt/Files).
+
+For specific file accesses, see the **Files** section in Libvirt-related CLI commands: [virsh](https://wiki.gentoo.org/wiki/Virsh#Files), [libvirtd](https://wiki.gentoo.org/wiki/Libvirt/libvirtd#Files), [virt-manager](https://wiki.gentoo.org/wiki/Virt-manager#Files).
 
 ### User permissions
 
@@ -265,6 +291,8 @@ For configuration of networking under libvirt, continue reading at [QEMU network
 
 ### Autostart
 
+AutoStart feature enables a domain to power up automatically after the host or X session gets ready.
+
 Autostarting a domain can be done in session (X) or in system (host).
 
 
@@ -304,12 +332,24 @@ To automatically start a session-specific domain, one of the following methods c
 
 **"Typical`.desktop` file"**
 
+```
+[Desktop Entry]
+Name=My Domain VM
+Type=Application
+Exec=virsh --connect qemu:///session start mydomain
+X-GNOME-Autostart-enabled=true
+```
 For more fine-grained control under KDE Plasma, one of the following lines may be added to the \~/.config/autostart/libvirt-mydomain.desktop file:
 
 **`$HOME/.config/autostart/libvirt-mydomain.desktop`**
 
 **"Optional KDE-specific autostart phase"**
 
+```
+X-KDE-autostart-phase=0  # Pre-KDE startup
+X-KDE-autostart-phase=1  # After KDE startup
+X-KDE-autostart-phase=2  # After user apps
+```
 - Login script
 - Add the virsh command to the user’s shell login file so the domain starts whenever the user logs in on a TTY or via SSH.
 - Example for bash:
@@ -318,6 +358,10 @@ For more fine-grained control under KDE Plasma, one of the following lines may b
 
 **"Add to`~/.bash_profile`"**
 
+```
+# Start a libvirt session domain at login
+virsh --connect=qemu:///session start mydomain >/dev/null 2>&1
+```
 Redirecting output ensures that the command does not interfere with the login prompt.
 
 - X session script
@@ -328,6 +372,12 @@ Redirecting output ensures that the command does not interfere with the login pr
 
 **"Add to`~/.xinitrc`"**
 
+```
+# Start a libvirt session domain with X
+virsh --connect=qemu:///session start mydomain &
+# Continue with the usual session startup
+exec startplasma-x11
+```
 For display managers (e.g. GDM, SDDM, LightDM), use \~/.xsession instead. The trailing & runs the domain start command in the background so it does not block the session launch.
 
 ## Usage
@@ -444,35 +494,35 @@ Query host DMI/SMBIOS data with:
 Verify the full host setup of libvirtd with:
 
 `host-root#``virt-host-validate`
-QEMU: Checking for hardware virtualization                                 : PASS
-  QEMU: Checking if device /dev/kvm exists                                   : PASS
-  QEMU: Checking if device /dev/kvm is accessible                            : PASS
-  QEMU: Checking if device /dev/vhost-net exists                             : PASS
-  QEMU: Checking if device /dev/net/tun exists                               : PASS
-  QEMU: Checking for cgroup 'cpu' controller support                         : PASS
-  QEMU: Checking for cgroup 'cpuacct' controller support                     : PASS
-  QEMU: Checking for cgroup 'cpuset' controller support                      : PASS
-  QEMU: Checking for cgroup 'memory' controller support                      : PASS
-  QEMU: Checking for cgroup 'devices' controller support                     : PASS
-  QEMU: Checking for cgroup 'blkio' controller support                       : PASS
-  QEMU: Checking for device assignment IOMMU support                         : PASS
-  QEMU: Checking if IOMMU is enabled by kernel                               : PASS
-  QEMU: Checking for secure guest support                                    : WARN (Unknown if this platform has Secure Guest support)
-   LXC: Checking for Linux >= 2.6.26                                         : PASS
-   LXC: Checking for namespace ipc                                           : PASS
-   LXC: Checking for namespace mnt                                           : PASS
-   LXC: Checking for namespace pid                                           : PASS
-   LXC: Checking for namespace uts                                           : PASS
-   LXC: Checking for namespace net                                           : PASS
-   LXC: Checking for namespace user                                          : PASS
-   LXC: Checking for cgroup 'cpu' controller support                         : PASS
-   LXC: Checking for cgroup 'cpuacct' controller support                     : PASS
-   LXC: Checking for cgroup 'cpuset' controller support                      : PASS
-   LXC: Checking for cgroup 'memory' controller support                      : PASS
-   LXC: Checking for cgroup 'devices' controller support                     : PASS
-   LXC: Checking for cgroup 'freezer' controller support                     : FAIL (Enable 'freezer' in kernel Kconfig file or mount/enable cgroup controller in your system)
-   LXC: Checking for cgroup 'blkio' controller support                       : PASS
-   LXC: Checking if device /sys/fs/fuse/connections exists                   : PASS
+QEMU: Checking for hardware virtualization                                 : PASS
+  QEMU: Checking if device /dev/kvm exists                                   : PASS
+  QEMU: Checking if device /dev/kvm is accessible                            : PASS
+  QEMU: Checking if device /dev/vhost-net exists                             : PASS
+  QEMU: Checking if device /dev/net/tun exists                               : PASS
+  QEMU: Checking for cgroup 'cpu' controller support                         : PASS
+  QEMU: Checking for cgroup 'cpuacct' controller support                     : PASS
+  QEMU: Checking for cgroup 'cpuset' controller support                      : PASS
+  QEMU: Checking for cgroup 'memory' controller support                      : PASS
+  QEMU: Checking for cgroup 'devices' controller support                     : PASS
+  QEMU: Checking for cgroup 'blkio' controller support                       : PASS
+  QEMU: Checking for device assignment IOMMU support                         : PASS
+  QEMU: Checking if IOMMU is enabled by kernel                               : PASS
+  QEMU: Checking for secure guest support                                    : WARN (Unknown if this platform has Secure Guest support)
+   LXC: Checking for Linux >= 2.6.26                                         : PASS
+   LXC: Checking for namespace ipc                                           : PASS
+   LXC: Checking for namespace mnt                                           : PASS
+   LXC: Checking for namespace pid                                           : PASS
+   LXC: Checking for namespace uts                                           : PASS
+   LXC: Checking for namespace net                                           : PASS
+   LXC: Checking for namespace user                                          : PASS
+   LXC: Checking for cgroup 'cpu' controller support                         : PASS
+   LXC: Checking for cgroup 'cpuacct' controller support                     : PASS
+   LXC: Checking for cgroup 'cpuset' controller support                      : PASS
+   LXC: Checking for cgroup 'memory' controller support                      : PASS
+   LXC: Checking for cgroup 'devices' controller support                     : PASS
+   LXC: Checking for cgroup 'freezer' controller support                     : FAIL (Enable 'freezer' in kernel Kconfig file or mount/enable cgroup controller in your system)
+   LXC: Checking for cgroup 'blkio' controller support                       : PASS
+   LXC: Checking if device /sys/fs/fuse/connections exists                   : PASS
 
 ### Connect types - Default
 
@@ -686,6 +736,8 @@ If the above doesn't fix the problem, follow the section [Control groups](https:
 This message appears on non [IBM s390](https://en.wikipedia.org/wiki/IBM_System/390) or [AMD systems](https://en.wikipedia.org/wiki/Advanced_Micro_Devices) and seems to be of little relevance
 [\[1\]](https://wiki.gentoo.org#cite_note-1)[\[2\]](https://wiki.gentoo.org#cite_note-2)[\[3\]](https://wiki.gentoo.org#cite_note-3)<sup>[\[4\]](https://wiki.gentoo.org#cite_note-4)</sup>.
 
+### Docker doesn't work
+
 Can Libvirt Work with [Docker](https://wiki.gentoo.org/wiki/Docker)?
 
 While Libvirt itself doesn’t manage Docker containers, there are workarounds to make them work
@@ -701,6 +753,8 @@ While Libvirt itself doesn’t manage Docker containers, there are workarounds t
   - Unlike Docker, Podman does not require a daemon, making it easier to run inside Libvirt-managed VMs.
 
 
+
+### Using Libvirt with Android
 
 Workarounds to Use Libvirt with Android.
 

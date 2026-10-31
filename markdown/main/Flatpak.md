@@ -4,7 +4,7 @@ title: Flatpak
 url: https://wiki.gentoo.org/wiki/Flatpak
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-29"
+date: "2026-10-30"
 fingerprint: bc4719785f83f9c4
 license: CC BY-SA 4.0
 ---
@@ -14,6 +14,8 @@ license: CC BY-SA 4.0
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Resources**
 
 **Flatpak** is a package management framework aiming to provide support for sandboxed, distro-agnostic binary packages for Linux desktop applications. Just as [chroot](https://wiki.gentoo.org/wiki/Chroot), [Docker](https://wiki.gentoo.org/wiki/Docker), and [LXD](https://wiki.gentoo.org/wiki/LXD) provide a means to isolate primarily *server-based* applications from the underlying operating system, Flatpak provides a mechanism to isolate primarily *desktop-based* applications from the underlying operating system. When combined with features like [systemd-homed](https://wiki.gentoo.org/wiki/Systemd-homed), it becomes possible to contain a user and all of that user's applications within a single directory, the user's `$HOME`, in a manner that is portable across systems of the same CPU architecture.
 
@@ -57,7 +59,7 @@ Xorg session users will want X enabled.
 `root #``emerge --ask sys-apps/flatpak`
 ### Add flathub repository
 
-`user $``flatpak remote-add --user --if-not-exists flathub` [https://flathub.org/repo/flathub.flatpakrepo](https://flathub.org/repo/flathub.flatpakrepo)
+`user $``flatpak remote-add --user --if-not-exists flathub` [https://dl.flathub.org/repo/flathub.flatpakrepo](https://dl.flathub.org/repo/flathub.flatpakrepo)
 ## Configuration
 
 ### Files

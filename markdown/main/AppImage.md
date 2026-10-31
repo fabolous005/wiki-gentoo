@@ -4,8 +4,8 @@ title: AppImage
 url: https://wiki.gentoo.org/wiki/AppImage
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-26"
-fingerprint: b800bf5a82ab2997
+date: "2026-10-30"
+fingerprint: b808bf5a82bb2997
 license: CC BY-SA 4.0
 ---
 
@@ -15,7 +15,7 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
-**AppImage** is portable software that do not require root permission to be run.
+**AppImage** is an executable file format for packaging Linux software to run on various distributions. An AppImage contains both the executable and the resources it needs to run.
 
 ## Additional software
 

@@ -4,8 +4,8 @@ title: QEMU/Host
 url: https://wiki.gentoo.org/wiki/QEMU/Host
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-29"
-fingerprint: "9991e59793263a0"
+date: "2026-10-30"
+fingerprint: "9991e59791263a0"
 license: CC BY-SA 4.0
 ---
 
@@ -99,7 +99,7 @@ To share a host directory /srv/shared-guest-vm with a guest VM:
 
 Inspect the VM configuration:
 
-`root #``virsh edit <WINDOWS_DOMAIN_NAME>`
+`root #``virsh edit <LIBVIRT_DOMAIN_NAME>`
 or use [virt-manager](https://wiki.gentoo.org/wiki/Virt-manager) tool, use its domain editor.
 
 The relevant XML is:
@@ -107,8 +107,6 @@ The relevant XML is:
 The guest VM also needs shared memory enabled for virtiofs:
 
 Check the current configuration before changing anything; these elements may already be present.
-
-
 
 Check that virtiofs is installed in the guest VM:
 
@@ -118,14 +116,12 @@ CONFIG\_VIRTIO\_FS=y
 
 
 
-With the virtio-win drivers installed, registered the filesystem integration using:
+The virtio-win drivers are defaulted added to Gentoo Linux. Register a virtiofs file system using:
 
 `guest-vm #``sudo -i``guest-root #``mkdir -fp /srv/shared-guest-vm``guest-root #``mount -t virtiofs hostshare /srv/shared-guest-vm`
 Then verify with:
 
 `guest-root #``findmnt /srv/shared-guest-vm``guest-root #``/srv/shared-guest-vm`
-
-
 Install the virtiofs driver inside the guest VM for [Windows](https://wiki.gentoo.org/wiki/QEMU/Guest/Windows_10#Host).
 
 With the virtio-win drivers and WinFsp installed, registered the filesystem integration using:

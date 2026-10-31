@@ -5,11 +5,13 @@ url: https://wiki.gentoo.org/wiki/Portage/niceness
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-04-30"
-fingerprint: "2690d44684839dbc"
+fingerprint: "2690d46684839dbc"
 license: CC BY-SA 4.0
 ---
 
 # Portage/niceness
+
+[Portage](https://wiki.gentoo.org/wiki/Portage)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 

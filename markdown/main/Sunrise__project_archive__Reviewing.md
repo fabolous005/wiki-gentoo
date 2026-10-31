@@ -5,7 +5,7 @@ url: https://wiki.gentoo.org/wiki/Sunrise_(project_archive)/Reviewing
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2023-09-20"
-fingerprint: "2575f4c08cddefda"
+fingerprint: "2574f4c28cddcfca"
 license: CC BY-SA 4.0
 ---
 
@@ -16,6 +16,8 @@ From Gentoo Wiki
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+**Archived article**
 
 This article is **archived (obsolete)**. Contents are surely incorrect for current usage, and are intended for historical reference only.
 
@@ -28,7 +30,7 @@ TLDR:
 This procedure only needs to be done once.
 
 1. Clone the sunrise repo as described in [how to commit](https://wiki.gentoo.org/wiki/Sunrise/How_to_commit)
-2. Add the reviewed repo as second remote repo
+2. Add the reviewed repo as second remote repo `user $``git remote add reviewed git+`[ssh://git@git.gentoo.org/proj/sunrise-reviewed.git](ssh://git@git.gentoo.org/proj/sunrise-reviewed.git)
 
 ## Review procedure
 

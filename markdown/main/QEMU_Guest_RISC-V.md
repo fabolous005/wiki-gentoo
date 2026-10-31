@@ -26,7 +26,7 @@ Install **QEMU** virtual machine. We need to enable `QEMU_USER_TARGETS` and `QEM
 **`/etc/portage/package.use/qemu`**
 
 ```
- QEMU_SOFTMMU_TARGETS: riscv32 riscv64
+app-emulation/qemu QEMU_SOFTMMU_TARGETS: riscv32 riscv64
 app-emulation/qemu QEMU_USER_TARGETS: riscv32 riscv64
 ```
 `root #``emerge --ask app-emulation/qemu`
@@ -95,7 +95,7 @@ If you need to additionally customize the kernel boot arguments, please adjust "
 **`extlinux/extlinux.conf`**
 
 ```
- Gentoo
+default Gentoo
 label Gentoo
    linux /gentoo/6.0.0/vmlinuz-6.0.7-riscv64
    initrd /gentoo/6.0.0/initramfs-6.0.7-riscv64.img

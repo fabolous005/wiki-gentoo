@@ -4,8 +4,8 @@ title: Virtiofsd
 url: https://wiki.gentoo.org/wiki/Virtiofsd
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-29"
-fingerprint: db99d919dbcb59e9
+date: "2026-10-30"
+fingerprint: c91b7939dad3dbe8
 license: CC BY-SA 4.0
 ---
 
@@ -45,7 +45,39 @@ No environment variables are required.
 ### Files
 
 [app-emulation/virtiofsd](https://packages.gentoo.org/packages/app-emulation/virtiofsd) does not require a dedicated configuration file.
+
 Configuration is specified through command-line options.
+
+#### Host-side files
+
+The following files and directories are involved in configuring and running virtiofs with [QEMU](https://wiki.gentoo.org/wiki/QEMU)/KVM and [libvirt](https://wiki.gentoo.org/wiki/Libvirt).
+
+| File or directory | Purpose | 
+|---|---|
+| /etc/libvirt/qemu/\<domain>.xml | Persistent libvirt domain configuration, including the virtiofs device definition and shared-memory configuration. | 
+| /usr/libexec/virtiofsd | Host-side virtiofs daemon. Serves the shared directory to the guest through the vhost-user protocol. | 
+| /tmp/ or /run/ | Runtime location for Unix-domain sockets used for communication between QEMU and [virtiofsd], depending on the configuration. | 
+| /var/log/libvirt/qemu/ | QEMU domain log files, useful for diagnosing virtiofs initialization and device errors. | 
+| /etc/subuid | Subordinate UID mappings for unprivileged libvirt sessions. | 
+| /etc/subgid | Subordinate GID mappings for unprivileged libvirt sessions. | 
+
+#### Runtime sockets
+
+The [virtiofsd] daemon communicates with QEMU through a Unix-domain socket using the vhost-user protocol.
+
+When libvirt manages virtiofsd, it creates and manages the socket automatically. Its pathname is implementation-dependent and should not be assumed to be fixed.
+
+
+
+| Socket | Protocol | Purpose | 
+|---|---|---|
+| QEMU ↔ virtiofsd | vhost-user protocol | Transfers filesystem requests between QEMU and virtiofsd. | 
+| libvirt API socket | libvirt RPC protocol | Communication between [virsh](https://wiki.gentoo.org/wiki/Virsh), [virt-manager](https://wiki.gentoo.org/wiki/Virt-manager), and the [libvirt](https://wiki.gentoo.org/wiki/Libvirt) daemon. | 
+| virtiofsd runtime socket | vhost-user protocol | Endpoint created by virtiofsd for QEMU to connect to the filesystem service. | 
+
+
+
+For externally managed instances, the socket pathname is specified using `--socket-path` and referenced by the libvirt `<source socket='...'>` element.
 
 ## Usage
 

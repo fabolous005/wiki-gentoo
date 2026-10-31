@@ -78,6 +78,8 @@ Choose one of the [One-Step domain creation](https://wiki.gentoo.org/wiki/Libvir
 
 
 
+### One-Step domain creation
+
 Perusing through all the options below for a single-line command to create a **domain**, using virt-install.
 
 #### Name of domain
@@ -126,6 +128,8 @@ virt-install  \
    --hvm  \
 
 --boot uefi=on
+### XML approach
+
 The XML approach entails making individual choices in any order into the **domain** configuration file using the xmlstarlet tool
 
 #### Domain name
@@ -243,7 +247,9 @@ Add **\<source/>** subnode to **//domains/devices/disk** node:
 
 `host-platform-root#``xmlstarlet ed -a "//domain/devices/disk[@device='cdrom']/source" -t attr -n file -v /dev/sg0 /etc/libvirt/qemu/gentoo.xml` To add ISO-9660 image from a file:
 
-`host-platform-root#``xmlstarlet ed -a "//domain/devices/disk[@device='cdrom']/source" -t attr -n file -v ~/Downloads/some-livecd-iso9660.image /etc/libvirt/qemu/gentoo.xml` ### Validate **domain**
+`host-platform-root#``xmlstarlet ed -a "//domain/devices/disk[@device='cdrom']/source" -t attr -n file -v ~/Downloads/some-livecd-iso9660.image /etc/libvirt/qemu/gentoo.xml` ## Usage
+
+### Validate **domain**
 
 To validate the **domain** file, execute:
 

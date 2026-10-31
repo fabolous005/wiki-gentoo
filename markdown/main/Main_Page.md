@@ -4,8 +4,8 @@ title: Gentoo Wiki
 url: https://wiki.gentoo.org/wiki/Main_Page
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-29"
-fingerprint: d03efc437c876354
+date: "2026-10-30"
+fingerprint: d83afc437c476355
 license: CC BY-SA 4.0
 ---
 
@@ -53,7 +53,7 @@ Here's to a productive new year for the wiki in 2026!
 
 - **115** active and **150** retired developers
 - **170** active official projects
-- **210** active users on the wiki
+- **211** active users on the wiki
 
 ## Getting started
 
@@ -69,13 +69,13 @@ For questions *related to using or editing the documentation on the <u>wiki</u>*
 
 ## Recently added pages
 
+#### 30 October 2026
+
+- 21:07[21:07, 30 October 2026](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Iiftype&oldid=1462547) [Nftables/Rules/Iiftype](https://wiki.gentoo.org/wiki/Nftables/Rules/Iiftype) ([hist](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Iiftype&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Iiftype&action=edit)) \[4,617 bytes\] [Egberts](https://wiki.gentoo.org/wiki/User:Egberts) ([talk](https://wiki.gentoo.org/wiki/User_talk:Egberts) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Egberts))  (Initial release)
+- 16:50[16:50, 30 October 2026](https://wiki.gentoo.org/index.php?title=Libvirtd/Files&oldid=1462471) [Libvirtd/Files](https://wiki.gentoo.org/wiki/Libvirtd/Files) ([hist](https://wiki.gentoo.org/index.php?title=Libvirtd/Files&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Libvirtd/Files&action=edit)) \[4,622 bytes\] [Egberts](https://wiki.gentoo.org/wiki/User:Egberts) ([talk](https://wiki.gentoo.org/wiki/User_talk:Egberts) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Egberts))  (break off a chunk of non-essential files and directories from [Libvirtd](https://wiki.gentoo.org/index.php?title=Libvirtd&action=edit&redlink=1) into this separate [Libvirtd/Files](https://wiki.gentoo.org/wiki/Libvirtd/Files) page.)
+- 16:38[16:38, 30 October 2026](https://wiki.gentoo.org/index.php?title=Virsh/Files&oldid=1462470) [Virsh/Files](https://wiki.gentoo.org/wiki/Virsh/Files) ([hist](https://wiki.gentoo.org/index.php?title=Virsh/Files&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Virsh/Files&action=edit)) \[5,603 bytes\] [Egberts](https://wiki.gentoo.org/wiki/User:Egberts) ([talk](https://wiki.gentoo.org/wiki/User_talk:Egberts) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Egberts))  (break off large chunk of directories and files into a separate [Virsh/Files](https://wiki.gentoo.org/wiki/Virsh/Files) page.)
+- 15:39[15:39, 30 October 2026](https://wiki.gentoo.org/index.php?title=Libvirt/Files&oldid=1462462) [Libvirt/Files](https://wiki.gentoo.org/wiki/Libvirt/Files) ([hist](https://wiki.gentoo.org/index.php?title=Libvirt/Files&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Libvirt/Files&action=edit)) \[3,728 bytes\] [Egberts](https://wiki.gentoo.org/wiki/User:Egberts) ([talk](https://wiki.gentoo.org/wiki/User_talk:Egberts) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Egberts))  (Initial release, major part from former section of [Libvirt#Files](https://wiki.gentoo.org/wiki/Libvirt#Files); removed the duplicate {{Path|/sys/fs/resctrl/info/%s/}})
+
 #### 29 October 2026
 
 - 13:24[13:24, 29 October 2026](https://wiki.gentoo.org/index.php?title=Boost&oldid=1462360) [Boost](https://wiki.gentoo.org/wiki/Boost) ([hist](https://wiki.gentoo.org/index.php?title=Boost&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Boost&action=edit)) \[769 bytes\] [Armarmgc](https://wiki.gentoo.org/wiki/User:Armarmgc) ([talk](https://wiki.gentoo.org/index.php?title=User_talk:Armarmgc&action=edit&redlink=1) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Armarmgc))  (Created page with "{{Stub}}  {{InfoBox stack |{{InfoBox homepage|https://www.boost.org/|header=true}} |{{InfoBox odoc|https://www.boost.org/doc/}} |{{InfoBox package|dev-libs/boost}} |{{InfoBox guide|https://www.boost.org/doc/user-guide/index.html|raw=true}} |{{InfoBox wikipedia|Boost\_(C++\_libraries)}} |{{InfoBox github|boostorg/boost}} |{{InfoBox wiki|https://github.com/boostorg/wiki/wiki}} |{{InfoBox bugs|https://github.com/boostorg/boost/issues}} |{{InfoBox blog|https://www.boost.org/ne...")
-- 10:15[10:15, 29 October 2026](https://wiki.gentoo.org/index.php?title=Desktop_environment/pl&oldid=1462345) [Desktop environment/pl](https://wiki.gentoo.org/wiki/Desktop_environment/pl) ([hist](https://wiki.gentoo.org/index.php?title=Desktop_environment/pl&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Desktop_environment/pl&action=edit)) \[5,341 bytes\] [Kariga](https://wiki.gentoo.org/wiki/User:Kariga) ([talk](https://wiki.gentoo.org/index.php?title=User_talk:Kariga&action=edit&redlink=1) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Kariga))  (Created page with "Desktop environment")
-- 06:51[06:51, 29 October 2026](https://wiki.gentoo.org/index.php?title=Debootstrap&oldid=1462292) [Debootstrap](https://wiki.gentoo.org/wiki/Debootstrap) ([hist](https://wiki.gentoo.org/index.php?title=Debootstrap&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Debootstrap&action=edit)) \[4,039 bytes\] [Armarmgc](https://wiki.gentoo.org/wiki/User:Armarmgc) ([talk](https://wiki.gentoo.org/index.php?title=User_talk:Armarmgc&action=edit&redlink=1) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Armarmgc))  (Create stub page for debootstrap)
-
-#### 28 October 2026
-
-- 21:36[21:36, 28 October 2026](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Iifname&oldid=1462288) [Nftables/Rules/Iifname](https://wiki.gentoo.org/wiki/Nftables/Rules/Iifname) ([hist](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Iifname&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Iifname&action=edit)) \[3,307 bytes\] [Egberts](https://wiki.gentoo.org/wiki/User:Egberts) ([talk](https://wiki.gentoo.org/wiki/User_talk:Egberts) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Egberts))  (Initial draft)
-- 16:54[16:54, 28 October 2026](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Iif&oldid=1462231) [Nftables/Rules/Iif](https://wiki.gentoo.org/wiki/Nftables/Rules/Iif) ([hist](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Iif&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Iif&action=edit)) \[2,976 bytes\] [Egberts](https://wiki.gentoo.org/wiki/User:Egberts) ([talk](https://wiki.gentoo.org/wiki/User_talk:Egberts) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Egberts))  (Initial release)

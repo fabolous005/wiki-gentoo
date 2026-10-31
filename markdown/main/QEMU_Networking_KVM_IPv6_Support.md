@@ -11,6 +11,10 @@ license: CC BY-SA 4.0
 
 # QEMU/Networking/KVM IPv6 Support
 
+[QEMU](https://wiki.gentoo.org/wiki/QEMU)|
+
+[Networking](https://wiki.gentoo.org/wiki/QEMU/Networking)
+
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
