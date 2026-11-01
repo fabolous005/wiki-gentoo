@@ -4,8 +4,8 @@ title: Nftables/Configuration
 url: https://wiki.gentoo.org/wiki/Nftables/Configuration
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-28"
-fingerprint: fdb8f159e3434eab
+date: "2026-10-31"
+fingerprint: fdb8f159e3434fab
 license: CC BY-SA 4.0
 ---
 
@@ -32,9 +32,8 @@ Main nftables command file defaults to:
 - /etc/nftables/rules/main.nft
 
 
-A nftables command file contains the ruleset.
 
-
+A nftables command file contains the ruleset. A ruleset contains the rules. All rules within a command file are atomic.
 
 ## Administrative models
 
@@ -879,15 +878,47 @@ table inet nat {
 
 ### Old settings keep coming back
 
-Check which service is responsible for loading or saving the nftables ruleset.
+#### systemd
 
-With systemd, inspect the nftables' systemd service units to determine which ruleset file is being loaded or saved.
+Check which service method is responsible for loading or saving the nftables ruleset.
 
-`root #``systemctl cat nftables`
+- **Direct File**
+- **Saved State**
 
-or if using systemd saved-unit method,
+It is a **Direct File** method if nftables.service is enabled:
 
-`root #``systemctl cat nftables-load``root #``systemctl cat nftables-store`
+`user $``systemctl is-enabled nftables  # Direct File method`
+enabled
+
+It is a **Saved State** method if nftables-load.service is enabled:
+
+`user $``systemctl is-enabled nftables-load  # Saved State method`
+enabled
+
+
+With systemd **Direct File** method, inspect the nftables' systemd service units to determine which ruleset file is being loaded or saved.
+
+`user $``systemctl cat nftables`
+or if using systemd **Saved State** method:
+
+`user $``systemctl cat nftables-load``user $``systemctl cat nftables-store`
+To determine which nftables command script file that `ExecStart=`, `ExecStop=`, and `ExecReload=` used, execute:
+
+`user $````
+systemctl cat nftables* |
+```
+```
+awk '/^Exec(Start|Reload|Stop)=/ {
+    key=$1
+    sub(/=.*/, "", key)
+    if (!found[key]++) print
+```
+}'
+ExecStart=/usr/sbin/nft -f /etc/nftables.conf
+ExecReload=/usr/sbin/nft -f /etc/nftables.conf
+ExecStop=/usr/sbin/nft flush ruleset
+
+#### OpenRC
 
 With OpenRC, check /etc/conf.d/nftables for the saved-state configuration.
 

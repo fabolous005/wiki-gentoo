@@ -4,7 +4,7 @@ title: SELinux/Tutorials/How is the policy provided and loaded
 url: https://wiki.gentoo.org/wiki/SELinux/Tutorials/How_is_the_policy_provided_and_loaded
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-05-30"
+date: "2026-10-31"
 fingerprint: dfaf976f6cd20590
 license: CC BY-SA 4.0
 ---
@@ -67,7 +67,7 @@ These files are provided by the policy packages (in Gentoo, these are the packag
 
 ### Loading the SELinux policies
 
-When SELinux is enabled, these files need to be loaded in memory. What happens is that these files are read in (through **semodule** again) and combined in the active policy. This policy is then loaded in memory (at which point the policy takes effect). The full binary policy as it is loaded in memory can be found at /etc/selinux/mcs/policy and is usually called policy.## where ## is a version telling the management utilities which SELinux features are supported. Most of the time, you don't need to concern you with this version information.
+When SELinux is enabled, these files need to be loaded in memory. What happens is that these files are read in (through **semodule** again) and combined in the active policy. This policy is then loaded in memory (at which point the policy takes effect). The full binary policy as it is loaded in memory can be found at /etc/selinux/mcs/policy and is usually called policy.## where ## is a version telling the management utilities which SELinux features are supported. Most of the time, you don't need to concern yourself with this version information.
 
 The SELinux modules that are currently loaded are also to be found in the /etc/selinux/mcs location: they are contained in the modules/active/modules subdirectory. Because they are copied there before being loaded, it allows an administrator to verify if the policy modules installed by the package manager (in /usr/share/selinux/mcs) are the ones that are loaded:
 

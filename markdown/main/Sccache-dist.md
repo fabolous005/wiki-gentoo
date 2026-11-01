@@ -4,8 +4,8 @@ title: sccache-dist
 url: https://wiki.gentoo.org/wiki/Sccache-dist
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-14"
-fingerprint: e629aa5a9021b911
+date: "2026-10-31"
+fingerprint: e629aa5a9121b911
 license: CC BY-SA 4.0
 ---
 
@@ -209,6 +209,20 @@ systemctl daemon-reload
 ```
 `root #````
 systemctl start sccache-client
+```
+### Verifying
+
+To verify that the setup has been correctly configured, run:
+
+`root #````
+SCCACHE_CONF=/etc/sccache/client.conf SCCACHE_NO_DAEMON=1 SCCACHE_START_SERVER=0 SCCACHE_SERVER_PORT=4227 sccache --dist-status
+```
+The output should show scheduler status, server count and available CPU count.
+
+To check statistics such as cache hit rate, run:
+
+`root #````
+SCCACHE_CONF=/etc/sccache/client.conf SCCACHE_NO_DAEMON=1 SCCACHE_START_SERVER=0 SCCACHE_SERVER_PORT=4227 sccache --show-stats
 ```
 ### Troubleshooting
 

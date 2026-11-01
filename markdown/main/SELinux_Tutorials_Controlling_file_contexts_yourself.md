@@ -4,8 +4,8 @@ title: SELinux/Tutorials/Controlling file contexts yourself
 url: https://wiki.gentoo.org/wiki/SELinux/Tutorials/Controlling_file_contexts_yourself
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-05-30"
-fingerprint: "67ef9d1f22eb1b45"
+date: "2026-10-31"
+fingerprint: "67ef951f22eb1b45"
 license: CC BY-SA 4.0
 ---
 
@@ -127,7 +127,7 @@ restorecon reset /srv/logs context unconfined\_u:object\_r:var\_t->unconfined\_u
 restorecon reset /srv/logs/audit context unconfined\_u:object\_r:var\_t->unconfined\_u:object\_r:auditd\_log\_t
 
 What we did was tell the SELinux management utilities to add (**-a**) a file context definition (**fcontext**) with type *var\_log\_t* (**-t var\_log\_t**) and *auditd\_log\_t*, for the given expressions at the end. Then, we used **restorecon** to update the contexts of the files according to the newly created definitions.
-Note that SELinux' management tools will accept and quierly convert types such as 'var\_log\_t' into a full security context such as *unconfined\_u:object\_r:var\_log\_t*.
+Note that SELinux' management tools will accept and quietly convert types such as 'var\_log\_t' into a full security context such as *unconfined\_u:object\_r:var\_log\_t*.
 
 The **semanage** utility is the main utility you will use to modify and alter SELinux settings on your system. So it comes to no surprise that deleting context definitions you set earlier on is done through this utility as well. All we need to do is use **-d** (to delete) instead of **-a**.
 

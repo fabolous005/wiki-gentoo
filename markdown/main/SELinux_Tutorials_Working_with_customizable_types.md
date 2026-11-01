@@ -4,7 +4,7 @@ title: SELinux/Tutorials/Working with customizable types
 url: https://wiki.gentoo.org/wiki/SELinux/Tutorials/Working_with_customizable_types
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2022-06-23"
+date: "2026-10-31"
 fingerprint: "744bd1a04ee1250"
 license: CC BY-SA 4.0
 ---
@@ -62,10 +62,10 @@ The list of customizable types is considered part of the SELinux policy provided
 
 We've said that *customizable types* were created in order to deal with the issue of security contexts on files which do not live in predetermined locations. The obvious example for such files are those that live in user's home directories. Policy writers generally have no way to know which files a user will have, and what context they should have. Instead, they make *customizable types* available to users.
 
-But this raises a new issue. So far, all context changes we've seen were performed by the root user. Indeed, the security context of a file, like setting file ownership, is considered a privileged operation. However, unsurprisingly, SELinux also provides fine-grained control (in the form of permission) about who gets to relabel which files to what context. Thus, you will find that the system policy usually contains some which allow regular users to set the security context for certain files, such as files in their home directory. Of course, users aren't to make changes to the context mappings on the system using **semanage fcontext**, and instead they must use **chcon**. Since *Customizable Types* persist through relabeling (with **restorecon**, for example), if the user sets the context of a file to one such *customizable type*, the change is effectively permanent (at least until the user changes it).
+But this raises a new issue. So far, all context changes we've seen were performed by the root user. Indeed, the security context of a file, like setting file ownership, is considered a privileged operation. However, unsurprisingly, SELinux also provides fine-grained control (in the form of permission) about who gets to relabel which files to what context. Thus, you will find that the system policy usually contains some which allow regular users to set the security context for certain files, such as files in their home directory. Of course, users aren't able to make changes to the context mappings on the system using **semanage fcontext**, and instead they must use **chcon**. Since *Customizable Types* persist through relabeling (with **restorecon**, for example), if the user sets the context of a file to one such *customizable type*, the change is effectively permanent (at least until the user changes it).
 
 The *relabelfrom* and *relabelto* permissions are those which control the ability to perform relabeling.
-You will likely find that your system's Policy grants these permissions to the *user\_t* domain (the domain in which regular user processes usually run) in relation to types such as *user\_home\_t* or *home\_bin\_t* files ( more generally, types with the *user\_home\_type* attribute). It's these permissions that allow users to use '*chcon* to set certain types (customizable or not) on files they control.
+You will likely find that your system's Policy grants these permissions to the *user\_t* domain (the domain in which regular user processes usually run) in relation to types such as *user\_home\_t* or *home\_bin\_t* files (more generally, types with the *user\_home\_type* attribute). It's these permissions that allow users to use **chcon** to set certain types (customizable or not) on files they control.
 
 To see examples of relabel permission granted to users on your system's policy, examine the output of the following commands:
 

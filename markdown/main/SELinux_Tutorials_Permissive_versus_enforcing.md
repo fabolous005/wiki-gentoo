@@ -4,8 +4,8 @@ title: SELinux/Tutorials/Permissive versus enforcing
 url: https://wiki.gentoo.org/wiki/SELinux/Tutorials/Permissive_versus_enforcing
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-05-30"
-fingerprint: cfec9d2f63024bc0
+date: "2026-10-31"
+fingerprint: "47ee9d2f630a4bc0"
 license: CC BY-SA 4.0
 ---
 
@@ -77,6 +77,14 @@ Another method to define how to boot is using the *enforcing=* boot parameter. T
 
 **Setting permissive mode from boot**
 
+```
+default 0
+timeout 3
+title Gentoo Linux Hardened (SELinux permissive)
+root (hd0,0)
+kernel /kernel root=/dev/md3 real_rootflags=data=journal enforcing=0 dolvm domdadm rootfstype=ext4 devtmpfs.mount=0
+initrd /initramfs
+```
 #### Differences in application behavior
 
 When we said that running in *permissive* mode has the system run as if SELinux was not enabled, we weren't really lying... well, perhaps a bit.
@@ -90,7 +98,7 @@ libselinux.so.1
 libpam.so.0
 ...
 
-cron is an SELinux-aware application and so even when in permissive mode, you may experience An example of a SELinux-related failures if something has been mis-configured (usually, that means inappropriate labeling). See for example [SELinux FAQ: Cron entrypoint failed](https://wiki.gentoo.org/wiki/SELinux/FAQ#Cron_fails_to_load_in_root.27s_crontab_with_message_.27.28root.29_ENTRYPOINT_FAILED_.28crontabs.2Froot.29.27).
+**crond** is an SELinux-aware application, and so even when in permissive mode, you may experience an example of an SELinux-related failure if something has been mis-configured (usually, that means inappropriate labeling). See for example [SELinux FAQ: Cron entrypoint failed](https://wiki.gentoo.org/wiki/SELinux/FAQ#Cron_fails_to_load_in_root.27s_crontab_with_message_.27.28root.29_ENTRYPOINT_FAILED_.28crontabs.2Froot.29.27).
 
 ### Marking one type as permissive
 
@@ -117,6 +125,14 @@ If *CONFIG\_SELINUX\_BOOTPARAM* is enabled in the kernel, then you can boot with
 
 **Disabling SELinux from boot**
 
+```
+default 0
+timeout 3
+title Gentoo Hardened (SELinux disabled)
+root (hd0,0)
+kernel /kernel root=/dev/md3 real_rootflags=data=journal selinux=0 dolvm domdadm rootfstype=ext4 devtmpfs.mount=0
+initrd /initramfs
+```
 #### Disabling through the configuration file
 
 If you want to boot with SELinux disabled without boot parameter, you can edit /etc/selinux/config and set the *SELINUX* parameter to *disabled*.

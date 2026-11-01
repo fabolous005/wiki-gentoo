@@ -4,8 +4,8 @@ title: SELinux/Tutorials/Using SELinux booleans
 url: https://wiki.gentoo.org/wiki/SELinux/Tutorials/Using_SELinux_booleans
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2022-06-23"
-fingerprint: b67858ce0a010b4b
+date: "2026-10-31"
+fingerprint: b67858ce2a010b4b
 license: CC BY-SA 4.0
 ---
 
@@ -73,7 +73,7 @@ Changing SELinux booleans can be done through **setsebool** (where you add the d
 setsebool abrt_anon_write on
 ```
 `root #``togglesebool abrt_anon_write`
-When you do this, the changed value will take effect immediately but only for the duration that the current loaded policy is active. That means, if the system reboots, you loose the changes. Or when you explicitly would reload the SELinux policy, you loose the changes. On the other hand, switching booleans this way is fast and helps you to debug problems.
+When you do this, the changed value will take effect immediately but only for the duration that the current loaded policy is active. That means, if the system reboots, you lose the changes. Or when you explicitly would reload the SELinux policy, you lose the changes. On the other hand, switching booleans this way is fast and helps you to debug problems.
 
 Some booleans are also only meant to assist during debugging. For instance, the *allow\_ptrace* boolean, when set, allows administrative domains to *ptrace* processes (for instance using the **strace** command), something administrators do to debug problems in applications. Since you only need this capability during the debugging session, it doesn't make sense to have this persisted across reboots.
 

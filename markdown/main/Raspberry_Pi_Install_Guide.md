@@ -4,8 +4,8 @@ title: Raspberry Pi Install Guide
 url: https://wiki.gentoo.org/wiki/Raspberry_Pi_Install_Guide
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-09-11"
-fingerprint: "9261785b41c61226"
+date: "2026-10-31"
+fingerprint: "92617a5b41c61226"
 license: CC BY-SA 4.0
 ---
 
@@ -82,7 +82,7 @@ These are standard handbook, outside the chroot steps and have been moved to the
 Mount the newly created root filesystem. The traditional mount point is /mnt/gentoo, which will be used here.
 
 `root #``mount /dev/sdi4 /mnt/gentoo``root #``cd /mnt/gentoo`
-Choose the correct stage3 for your Pi from [stage 3 downloads](https://www.gentoo.org/downloads/) or the arm or arm64 sub pages with the help of the [Hardware table](https://wiki.gentoo.org/wiki/Raspberry_Pi_Install_Guide#Hardware_table) above.
+Choose the correct stage3 for your Pi from [stage 3 downloads](https://www.gentoo.org/downloads/) or the arm or arm64 sub pages with the help of the [Hardware table](https://wiki.gentoo.org#Hardware_table) above.
 
 Readers wanting to try MUSL are welcome to contribute.
 
@@ -127,6 +127,7 @@ lost+found
 
 Fetch the binary kernel and Pi firmware from github
 
+`/mnt/gentoo/home #``git clone --depth=1` [https://github.com/raspberrypi/firmware](https://github.com/raspberrypi/firmware)
 This is all the Raspberry Pi Foundation binary code to support the entire family of Raspberry Pis. Even Pi5 support is included.
 
 `/mnt/gentoo/home #``ls firmware/`
@@ -170,6 +171,7 @@ To use WIFI and bluetooth, firmware files need to be copied to /mnt/gentoo/lib/f
 
 1\. Clone wifi firmware repository
 
+`root #``git clone --depth=1` [https://github.com/RPi-Distro/firmware-nonfree.git](https://github.com/RPi-Distro/firmware-nonfree.git)
 2\. Create /mnt/gentoo/lib/firmware/brcm if it doesn't exist
 
 `root #``mkdir -p /mnt/gentoo/lib/firmware/brcm`
@@ -196,6 +198,7 @@ lrwxrwxrwx 1 root root     22 Jan 21 12:24 brcmfmac43455-sdio.raspberrypi,5-mode
 
 1\. Clone bluetooth firmware repository
 
+`root #``git clone --depth=1` [https://github.com/RPi-Distro/bluez-firmware.git](https://github.com/RPi-Distro/bluez-firmware.git)
 2\. Create /mnt/gentoo/lib/firmware/brcm if it doesn't exist
 
 `root #``mkdir -p /mnt/gentoo/lib/firmware/brcm`
@@ -231,6 +234,9 @@ Some text files need to be created so that the Pi will boot.
 
 **cmdline.txt**
 
+```
+dwc_otg.lpm_enable=0 console=tty root=/dev/mmcblk0p4 rootfstype=ext4 rootwait cma=256M@256M net.ifnames=0
+```
 ### config.txt
 
 config.txt is used to enable features, and if missing or empty will prevent a Pi5 from booting.
@@ -242,6 +248,16 @@ Documentation regarding config.txt options can be found on the [Raspberry Pi web
 
 **config.txt**
 
+```
+# If using arm64 on a Pi3, select a 64 bit kernel
+arm_64bit=1
+# have a properly sized image
+disable_overscan=1
+# Enable audio (loads snd_bcm2835)
+dtparam=audio=on
+# Enable DRM VC4 V3D (graphics) driver
+dtoverlay=vc4-kms-v3d
+```
 ### fstab
 
 `/mnt/gentoo/``nano etc/fstab`
@@ -249,6 +265,17 @@ Documentation regarding config.txt options can be found on the [Raspberry Pi web
 
 **fstab**
 
+```
+# <fs>                  <mountpoint>    <type>          <opts>          <dump> <pass>
+#LABEL=boot             /boot           ext4            defaults        1 2
+#UUID=58e72203-57d1-4497-81ad-97655bd56494              /               xfs             defaults                0 1
+#LABEL=swap             none            swap            sw              0 0
+#/dev/cdrom             /mnt/cdrom      auto            noauto,ro       0 0
+/dev/mmcblk0p1          /boot           vfat            noatime,noauto,nodev,nosuid,noexec	1 2
+/dev/mmcblk0p2          swap            swap            defaults                                0 0
+/dev/mmcblk0p3          /home           ext4            noatime,nodev,nosuid,noexec             0 0
+/dev/mmcblk0p4          /               ext4            noatime                                 0 0
+```
 ### Networking Information
 
 Set the [hostname](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/System#Hostname).
@@ -266,6 +293,11 @@ Set the root password hash by editing the shadow file directly Replace the root 
 
 **root password hash**
 
+```
+root:$6$xxPVR/Td5iP$/7Asdgq0ux2sgNkklnndcG4g3493kUYfrrdenBXjxBxEsoLneJpDAwOyX/kkpFB4pU5dlhHEyN0SK4eh/WpmO0::0:99999:7:::
+halt:*:9797:0:::::
+...
+```
 This sets the root password to **raspberry**.  Don't leave it like that.
 
 ### conf.d/keymaps
@@ -277,6 +309,12 @@ Skip this step if the default QWERTY US keymap works.
 
 **keyboard setting**
 
+```
+# Use keymap to specify the default console keymap.  There is a complete tree
+# of keymaps in /usr/share/keymaps to choose from.
+#keymap="us"
+keymap="dvorak-uk"
+```
 ### configure sshd
 
 Are you really not going to watch the console before the first login?
@@ -286,6 +324,14 @@ Are you really not going to watch the console before the first login?
 
 **Allow password root logins**
 
+```
+...
+#LoginGraceTime 2m
+#PermitRootLogin prohibit-password
+PermitRootLogin yes
+#StrictModes yes
+...
+```
 Add the `PermitRootLogin yes` entry. Its a security hazard, revert that as soon as possible.  Adding a ssh key is preferred.
 
 #### OpenRC
@@ -373,6 +419,11 @@ Make the file `/etc/local.d/cpu_gov.start` to set the schedutil CPU governor.
 
 **Set schedutil as CPU governor**
 
+```
+#!/bin/bash
+echo schedutil > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor 
+# fixes all 4 CPUs
+```
 make it an executable file.
 
 `root #``chmod +x /etc/local.d/cpu_gov.start`
@@ -389,6 +440,11 @@ The stage3 tries to spawn agetty on the serial port at /dev/ttyAMA0 but the seri
 
 **inittab**
 
+```
+# Architecture specific features
+# [date][your id]: disabling as not needed for Raspberry Pi
+# f0:12345:respawn:/sbin/agetty 9600 ttyAMA0 vt100
+```
 ### CPU Temperature and clock monitoring
 
 `localhost #````

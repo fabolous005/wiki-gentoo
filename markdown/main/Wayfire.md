@@ -4,8 +4,8 @@ title: Wayfire
 url: https://wiki.gentoo.org/wiki/Wayfire
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2025-08-05"
-fingerprint: b680155e0ab7b9c5
+date: "2026-10-31"
+fingerprint: b681155a0ab7b981
 license: CC BY-SA 4.0
 ---
 
@@ -24,6 +24,11 @@ Wayfire aims to create a customizable, extendable and lightweight environment wi
 ### USE flags
 
 
+### USE flags for
+            [gui-wm/wayfire](https://packages.gentoo.org/packages/gui-wm/wayfire)
+            
+            compiz like 3D wayland compositor
+
 | [+dbus](https://packages.gentoo.org/useflags/+dbus) | Enable dbus support for anything that needs it (gpsd, gnomemeeting, etc) | 
 | [+gles3](https://packages.gentoo.org/useflags/+gles3) | Enable OpenGL ES 3.x Features. | 
 | [X](https://packages.gentoo.org/useflags/X) | Enable support for X11 applications (XWayland). | 
@@ -39,10 +44,10 @@ Wayfire aims to create a customizable, extendable and lightweight environment wi
 
 The default configuration file is \~/.config/wayfire.ini but Wayfire also supports loading custom configuration files. A graphical interface for configuration is provided by the optional package [gui-apps/wcm](https://packages.gentoo.org/packages/gui-apps/wcm).
 
-- ![](https://wiki.gentoo.org/images/thumb/f/f1/Wayfire1.png/120px-Wayfire1.png) Wayfire demo
-- ![](https://wiki.gentoo.org/images/thumb/8/87/Wayfire2.png/120px-Wayfire2.png) Wayfire demo
-- ![](https://wiki.gentoo.org/images/thumb/7/7b/Wayfire3.png/120px-Wayfire3.png) Wayfire demo
-- ![](https://wiki.gentoo.org/images/thumb/9/9d/Wayfire4.png/120px-Wayfire4.png) Wayfire demo
+- ![Wayfire demo](https://wiki.gentoo.org/images/thumb/f/f1/Wayfire1.png/120px-Wayfire1.png) Wayfire demo
+- ![Wayfire demo](https://wiki.gentoo.org/images/thumb/8/87/Wayfire2.png/120px-Wayfire2.png) Wayfire demo
+- ![Wayfire demo](https://wiki.gentoo.org/images/thumb/7/7b/Wayfire3.png/120px-Wayfire3.png) Wayfire demo
+- ![Wayfire demo](https://wiki.gentoo.org/images/thumb/9/9d/Wayfire4.png/120px-Wayfire4.png) Wayfire demo
 
 ### Manual configuration
 
@@ -124,6 +129,13 @@ Wayfire needs additional applications which implement other parts of the XDG spe
 
 For information about Wayland protocols supported by Wayfire, refer to the [Wayfire/Wayland protocols](https://wiki.gentoo.org/wiki/Wayfire/Wayland_protocols) page.
 
+## Troubleshooting
+
+### Panel does not show battery widget
+
+The battery widget requires installing [sys-power/upower](https://packages.gentoo.org/packages/sys-power/upower):
+
+`root #``emerge --ask sys-power/upower`
 ## Removal
 
 ### Unmerge

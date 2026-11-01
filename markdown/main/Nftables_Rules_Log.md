@@ -4,8 +4,8 @@ title: Nftables/Rules/Log
 url: https://wiki.gentoo.org/wiki/Nftables/Rules/Log
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-28"
-fingerprint: a412ab3cc7a87974
+date: "2026-10-31"
+fingerprint: a492ab38c788797c
 license: CC BY-SA 4.0
 ---
 
@@ -121,8 +121,6 @@ log {
 };
 ```
 
-
-{{Important: This assumes s\_src is defined in the existing syslog-ng configuration and receives kernel messages. The original program(kernel) filter and interface-name match should be checked against the actual format emitted by the nftables log statement and the local syslog-ng version.}}
 
 ## Examples
 

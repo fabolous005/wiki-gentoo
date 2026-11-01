@@ -4,7 +4,7 @@ title: libvirt
 url: https://wiki.gentoo.org/wiki/Libvirt
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-30"
+date: "2026-10-31"
 fingerprint: "6e1989544c87bbac"
 license: CC BY-SA 4.0
 ---
@@ -183,7 +183,7 @@ Custom UEFI are provided by [app-emulation/virt-firmware](https://packages.gento
 
 ### Environment variables
 
-See specific CLI commands related to Libvirt for its available environment variable settings: [virsh](https://wiki.gentoo.org/wiki/Virsh#Environment_variables), [libvirtd](https://wiki.gentoo.org/wiki/Libvirt/libvirtd#Environment_variables), [virt-manager](https://wiki.gentoo.org/wiki/Virt-manager#Environment_variables).
+See specific CLI commands related to Libvirt for its available environment variable settings: [virsh](https://wiki.gentoo.org/wiki/Virsh#Environment_variables), [libvirtd](https://wiki.gentoo.org/wiki/Libvirt/libvirtd#Environment_variables), [virt-manager](https://wiki.gentoo.org/wiki/Virt-manager#Environment_variables), [libvirtd#Environment\_variables](https://wiki.gentoo.org/wiki/Libvirt/libvirtd).
 
 ### Files
 

@@ -4,7 +4,7 @@ title: nftables
 url: https://wiki.gentoo.org/wiki/Nftables
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-28"
+date: "2026-10-31"
 fingerprint: b70b7b57c3822b00
 license: CC BY-SA 4.0
 ---
@@ -314,6 +314,10 @@ Shell environment variable can be passed as nft variables using nft -D CLI optio
 | /proc/sys/net/netfilter/\* | Kernel parameters and statistics for Netfilter. See [kernel.org](https://docs.kernel.org/networking/nf_conntrack-sysctl.html) for details. | 
 
 For more specific files by OpenRC or systemd, see [Nftables/Configuration files](https://wiki.gentoo.org/wiki/Nftables/Configuration#Files).
+
+For commands used in nftables command file, see [Nftables/Ruleset](https://wiki.gentoo.org/wiki/Nftables/Ruleset).
+
+For rules used in nftables command file, see [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules).
 
 ### Service
 

@@ -4,8 +4,8 @@ title: FOSDEM 2027
 url: https://wiki.gentoo.org/wiki/FOSDEM_2027
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-26"
-fingerprint: "8e9048ef3fa15054"
+date: "2026-10-31"
+fingerprint: ce9048cf3fa15054
 license: CC BY-SA 4.0
 ---
 
@@ -33,6 +33,7 @@ Please add yourself if you're not listed yet!
 
 | Nick | Arrival | Departure | Will be at Dinner (TBD) | Talk | Comments | 
 |---|---|---|---|---|---|
+| [DarthGandalf](https://wiki.gentoo.org/wiki/User:DarthGandalf)  | Friday evening | Monday morning | Yes | No |  | 
 
 ## Gentoo Stand
 
