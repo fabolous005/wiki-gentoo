@@ -18,7 +18,11 @@ license: CC BY-SA 4.0
 
 **NGINX** is a robust, small, high performance web server and reverse proxy server. It is a good alternative to popular web servers like [Apache](https://wiki.gentoo.org/wiki/Apache) and [lighttpd](https://wiki.gentoo.org/wiki/Lighttpd).
 
+## Installation
+
 Before immediately installing the [www-servers/nginx](https://packages.gentoo.org/packages/www-servers/nginx) package, first take a good look at the USE flags for NGINX.
+
+### Expanded USE flags
 
 NGINX uses modules to enhance its features. To simplify the maintenance of this modular approach, the NGINX ebuild uses `[USE_EXPAND](https://wiki.gentoo.org/wiki//etc/portage/make.conf#USE_EXPAND)` flags to denote which modules should be installed.
 
@@ -33,8 +37,15 @@ For example, to enable the `fastcgi` module:
 **`/etc/portage/package.use/nginx`**
 
 ```
- NGINX_MODULES_HTTP: fastcgi
+www-servers/nginx NGINX_MODULES_HTTP: fastcgi
 ```
+### USE flags
+
+
+### USE flags for
+            [www-servers/nginx](https://packages.gentoo.org/packages/www-servers/nginx)
+            
+            Robust, small and high performance HTTP and reverse proxy server
 
 | [+http](https://packages.gentoo.org/useflags/+http) | Enable core HTTP support | 
 | [+modules](https://packages.gentoo.org/useflags/+modules) | Enable loadable module support | 
@@ -46,9 +57,13 @@ For example, to enable the `fastcgi` module:
 | [stream](https://packages.gentoo.org/useflags/stream) | Enable generic TCP/UDP proxying and load balancing | 
 | [test](https://packages.gentoo.org/useflags/test) | Enable dependencies and/or preparations necessary to run tests (usually controlled by FEATURES=test but can be toggled independently) | 
 
+### Emerge
+
 With the USE flags set, install [www-servers/nginx](https://packages.gentoo.org/packages/www-servers/nginx):
 
 `root #``emerge --ask www-servers/nginx`
+### Installation verification
+
 The default NGINX configuration defines an HTTP virtual server listening on loopback address but does not define a root directory. To test out the installation, use an existing directory or create a new root directory, for example /var/www/localhost/htdocs:
 
 `root #``mkdir -p /var/www/localhost/htdocs`
@@ -76,7 +91,11 @@ If using systemd, use the following command to start NGINX:
 To verify that NGINX is properly running, point a web browser to [http://localhost](http://localhost) or use a command-line tool like curl:
 
 `user $``curl http://localhost`
+## Configuration
+
 The NGINX configuration is specified in the /etc/nginx/nginx.conf file.
+
+### Single site access
 
 The following example shows a single-site access, without dynamic capabilities (such as [PHP](https://wiki.gentoo.org/wiki/PHP)).
 
@@ -110,6 +129,8 @@ http {
     }
 }
 ```
+### Multiple site access
+
 It is possible to leverage the `include` directive to split the configuration in multiple files:
 
 **`/etc/nginx/nginx.conf`**
@@ -161,6 +182,8 @@ server {
     ssl_certificate_key /etc/ssl/nginx/host.tld.key;
 }
 ```
+### PHP support
+
 Add the following lines to the NGINX configuration to enable PHP support. In this example NGINX is exchanging information with the PHP process via a UNIX socket.
 
 **`/etc/nginx/nginx.conf`**
@@ -226,6 +249,8 @@ systemctl enable php-fpm@8.2
 systemctl start php-fpm@8.2
 ```
 `root #``systemctl restart nginx.service`
+### IP address access list
+
 The next example shows how to allow access to a particular URL (in this case /nginx\_status) only to:
 
 - certain hosts (e.g. *192.0.2.1 127.0.0.1*)
@@ -248,6 +273,8 @@ http {
     }
 }
 ```
+### Basic authentication
+
 NGINX allows limiting access to resources by validating the user name and password:
 
 **`/etc/nginx/nginx.conf`**
@@ -276,9 +303,16 @@ This will add the password to the line for the user 'foo'. The password will be 
 
 **Content of the domain.htpasswd file, for user foo with a ciphered password**
 
+```
+foo:$1$lpC3de5Y$dnh6jegS1qlfZVo7rGExz/
+```
 The password is not in plain text, rather it is encrypted with OpenSSL.
 
+### Geolocation using GeoIP2
+
 The GeoIP2 module makes use of GeoIP2 databases by [Maxmind](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data?lang=en) or similar. Using Maxmind is already supported in Gentoo through [net-misc/geoipupdate](https://packages.gentoo.org/packages/net-misc/geoipupdate). However, [registration of an account](https://www.maxmind.com/en/geolite2/signup) is required in order to obtain a free license key and download the free database.
+
+#### Downloading Maxmind GeoIP2 databases
 
 Once an account is created, install and configure geoipupdate:
 
@@ -289,6 +323,11 @@ Enter the account and license key:
 
 **Add your account info**
 
+```
+AccountID YOURID
+LicenseKey YOURKEY
+EditionIDs GeoLite2-ASN GeoLite2-City GeoLite2-Country
+```
 After that, you'll need to download the databases:
 
 `root #````
@@ -296,12 +335,17 @@ geoipupdate
 ```
 In order receive updates automatically in the future, add this command to a weekly cronjob or systemd timer.
 
+#### Add GeoIP2 support to NGINX
+
 To enable to modules and rebuild NGINX:
 
 **`/etc/portage/package.use/nginx`**
 
 **Add the modules to NGINX**
 
+```
+www-servers/nginx NGINX_MODULES_HTTP: geo geoip2
+```
 Rebuild NGINX with the third party modules enabled:
 
 `root #``emerge --ask www-servers/nginx`
@@ -311,6 +355,44 @@ Once NGINX has been rebuild, point NGINX to the databases and the GeoIP2 variabl
 
 **Pointing to the GeoIP2 databases and its values**
 
+```
+http {
+# ...
+    geoip2 /usr/share/GeoIP/GeoLite2-City.mmdb {
+        auto_reload 5m;
+        $geoip2_metadata_city_build metadata build_epoch;
+        $geoip2_data_city_name city names en;
+        $geoip2_data_city_geonameid city geoname_id;
+        $geoip2_data_continent_code continent code;
+        $geoip2_data_continent_geonameid continent geoname_id;
+        $geoip2_data_continent_name continent names en;
+        $geoip2_data_country_geonameid country geoname_id;
+        $geoip2_data_country_code iso_code;
+        $geoip2_data_country_name names en;
+        $geoip2_data_country_is_eu is_in_european_union;
+        $geoip2_data_location_accuracyradius location accuracy_radius;
+        $geoip2_data_location_latitude location latitude;
+        $geoip2_data_location_longitude location longitude;
+        $geoip2_data_location_metrocode location metro_code;
+        $geoip2_data_location_timezone location time_zone;
+        $geoip2_data_postal_code postal code;
+        $geoip2_data_rcountry_geonameid registered_country geoname_id;
+        $geoip2_data_rcountry_iso registered_country iso_code;
+        $geoip2_data_rcountry_name registered_country names en;
+        $geoip2_data_rcountry_is_eu registered_country is_in_european_union;
+        $geoip2_data_region_geonameid subdivisions 0 geoname_id;
+        $geoip2_data_region_iso subdivisions 0 iso_code;
+        $geoip2_data_region_name subdivisions 0 names en;
+    }
+ 
+    geoip2 /usr/share/GeoIP/GeoLite2-ASN.mmdb {
+        auto_reload 5m;
+        $geoip2_data_autonomous_system_number autonomous_system_number;
+        $geoip2_data_autonomous_system_organization autonomous_system_organization;
+    }
+...
+}
+```
 The `auto_reload` option will allow updating the database without restarting NGINX.
 
 For the GeoIP2 values to show up in a PHP application, assign them as **fastcgi\_param**
@@ -318,6 +400,41 @@ For the GeoIP2 values to show up in a PHP application, assign them as **fastcgi\
 **`/etc/nginx/fastcgi.conf`**
 
 **Add GeoIP2 support to PHP**
+
+```
+# ...
+fastcgi_param GEOIP2_CITY_BUILD_DATE $geoip2_metadata_city_build;
+fastcgi_param GEOIP2_CITY $geoip2_data_city_name;
+fastcgi_param GEOIP2_CITY_GEONAMEID $geoip2_data_city_geonameid;
+fastcgi_param GEOIP2_CONTINENT_CODE $geoip2_data_continent_code;
+fastcgi_param GEOIP2_CONTINENT_GEONAMEID $geoip2_data_continent_geonameid;
+fastcgi_param GEOIP2_CONTINENT_NAME $geoip2_data_continent_name;
+fastcgi_param GEOIP2_COUNTRY_GEONAMEID $geoip2_data_country_geonameid;
+fastcgi_param GEOIP2_COUNTRY_CODE $geoip2_data_country_code;
+fastcgi_param GEOIP2_COUNTRY_NAME $geoip2_data_country_name;
+fastcgi_param GEOIP2_COUNTRY_IN_EU $geoip2_data_country_is_eu;
+fastcgi_param GEOIP2_LOCATION_ACCURACY_RADIUS $geoip2_data_location_accuracyradius;
+fastcgi_param GEOIP2_LATITUDE $geoip2_data_location_latitude;
+fastcgi_param GEOIP2_LONGITUDE $geoip2_data_location_longitude;
+fastcgi_param GEOIP2_LOCATION_METROCODE $geoip2_data_location_metrocode;
+fastcgi_param GEOIP2_LOCATION_TIMEZONE $geoip2_data_location_timezone;
+fastcgi_param GEOIP2_POSTAL_CODE $geoip2_data_postal_code;
+fastcgi_param GEOIP2_REGISTERED_COUNTRY_GEONAMEID $geoip2_data_rcountry_geonameid;
+fastcgi_param GEOIP2_REGISTERED_COUNTRY_ISO $geoip2_data_rcountry_iso;
+fastcgi_param GEOIP2_REGISTERED_COUNTRY_NAME $geoip2_data_rcountry_name;
+fastcgi_param GEOIP2_REGISTERED_COUNTRY_IN_EU $geoip2_data_rcountry_is_eu;
+fastcgi_param GEOIP2_REGION_GEONAMEID $geoip2_data_region_geonameid;
+fastcgi_param GEOIP2_REGION $geoip2_data_region_iso;
+fastcgi_param GEOIP2_REGION_NAME $geoip2_data_region_name;
+ 
+fastcgi_param GEOIP2_ASN $geoip2_data_autonomous_system_number;
+fastcgi_param GEOIP2_ASN_ORG $geoip2_data_autonomous_system_organization;
+```
+## Usage
+
+### Service control
+
+#### OpenRC
 
 Start NGINX web server:
 
@@ -334,6 +451,8 @@ Reload NGINX configuration without dropping connections:
 Restart the NGINX service:
 
 `root #``rc-service nginx restart`
+#### systemd
+
 Start NGINX web server:
 
 `root #``systemctl start nginx`
@@ -352,7 +471,11 @@ Reload NGINX configuration without dropping connections:
 Restart the NGINX service:
 
 `root #``systemctl restart nginx`
+## Troubleshooting
+
 In case of problems, the following commands can help troubleshoot the situation.
+
+### Validate configuration
 
 Verify that the running NGINX configuration has no errors:
 
@@ -369,6 +492,8 @@ nginx: configuration file /etc/nginx/nginx.conf test is successful
 
 By running nginx with the `-t` option, it will validate the configuration file without actually starting the nginx daemon. Use the `-c` option with the full path to the file to test configuration files in non-default locations. See nginx(8) for details.
 
+### Verify processes are running
+
 Check if nginx processes are running:
 
 `user $``ps aux | egrep 'nginx|PID'`
@@ -376,13 +501,19 @@ PID TTY      STAT   TIME COMMAND
 26092 ?        Ss     0:00 nginx: master process /usr/sbin/nginx -c /etc/nginx/nginx.conf
 26093 ?        S      0:00 nginx: worker proces
 
+### Verify bound addresses and ports
+
 Verify NGINX daemon is listening on the right TCP port (such as 80 for HTTP or 443 for HTTPS):
 
 `root #``ss -tulpn | grep :80````
 tcp   LISTEN 0      0          0.0.0.0:80         0.0.0.0:*    users:(("nginx",pid=6253,fd=52),("nginx",pid=6252,fd=52))
 ```
+## See also
+
 - [Apache](https://wiki.gentoo.org/wiki/Apache) — an efficient, extensible [web server](https://wiki.gentoo.org/wiki/Category:Web_Servers). It is one of the most popular web servers used the Internet.
 - [Lighttpd](https://wiki.gentoo.org/wiki/Lighttpd) — a fast and lightweight [web server](https://wiki.gentoo.org/wiki/Category:Web_servers).
+
+## External resources
 
 - [https://nginx.org/en/docs/beginners\_guide.html](https://nginx.org/en/docs/beginners_guide.html) - A nginx beginner's guide. Helpful for those who do not know much about nginx.
 - [https://github.com/nginxinc/nginx-wiki](https://github.com/nginxinc/nginx-wiki) - The archived NGINX wiki.

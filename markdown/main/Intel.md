@@ -31,21 +31,21 @@ This should show something like this:
 
 | Generation | Chipset | OpenGL | OpenGL ES | OpenCL | [VAAPI](https://wiki.gentoo.org/wiki/VAAPI) | [Vulkan](https://wiki.gentoo.org/wiki/Vulkan) | `[VIDEO_CARDS](https://wiki.gentoo.org/wiki/VIDEO_CARDS)` | 
 |---|---|---|---|---|---|---|---|
-| [Gen 1](https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#First_generation) | 810, 815 |  |  |  |  |  | unsupported | 
-| [Gen 2](https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Second_generation) | i830M, 845G, 855GM, 865G |  |  |  |  |  | *intel i915*<sup>[\[table 1\]](https://wiki.gentoo.org#cite_note-classic-1)</sup> | 
-| [Gen 3](https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Third_generation) | 915G/GM, 945G/GM, G31, G/Q33, Q35, Atom D4xx/D5xx/N4xx/N5xx |  |  | <sup>[\[table 2\]](https://wiki.gentoo.org#cite_note-ocl_beignet_unsupported-2)</sup> |  |  | *intel i915*<sup>[\[table 1\]](https://wiki.gentoo.org#cite_note-classic-1)</sup> | 
-| [Gen 4](https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Gen4) | 965G/GM/Q, G35, G41, G/Q43, G/GM/Q45 |  |  | <sup>[\[table 2\]](https://wiki.gentoo.org#cite_note-ocl_beignet_unsupported-2)</sup> |  |  | *intel* | 
-| [Gen 5](https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Gen5) | [Nehalem](<https://en.wikipedia.org/wiki/Nehalem_(microarchitecture)>) (Ironlake) |  |  | <sup>[\[table 2\]](https://wiki.gentoo.org#cite_note-ocl_beignet_unsupported-2)</sup> |  |  | *intel* | 
-| [Gen 6](https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Gen6) | [Sandy Bridge](https://en.wikipedia.org/wiki/Sandy_Bridge) |  |  | <sup>[\[table 2\]](https://wiki.gentoo.org#cite_note-ocl_beignet_unsupported-2)</sup> |  |  | *intel* | 
-| [Gen 7](https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Gen7) | [Ivy Bridge](<https://en.wikipedia.org/wiki/Ivy_Bridge_(microarchitecture)>), Valley View<sup>[\[table 3\]](https://wiki.gentoo.org#cite_note-valleyview-3)</sup> |  |  | <sup>[\[table 4\]](https://wiki.gentoo.org#cite_note-ocl_propietary_unsupported-4)</sup> |  |  | *intel* | 
-| [Gen 7.5](https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Gen7) | [Haswell](<https://en.wikipedia.org/wiki/Haswell_(microarchitecture)>) |  |  | <sup>[\[table 4\]](https://wiki.gentoo.org#cite_note-ocl_propietary_unsupported-4)</sup> |  |  | *intel* | 
-| [Gen 8](https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Gen8) | [Broadwell](<https://en.wikipedia.org/wiki/Broadwell_(microarchitecture)>), Cherryview<sup>[\[table 5\]](https://wiki.gentoo.org#cite_note-cherryview-5)</sup> |  |  | <sup>[\[table 6\]](https://wiki.gentoo.org#cite_note-ocl-6)</sup> |  |  | *intel* | 
-| [Gen 9](https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Gen9) | [Skylake](<https://en.wikipedia.org/wiki/Skylake_(microarchitecture)>), Broxton<sup>[\[table 7\]](https://wiki.gentoo.org#cite_note-broxton-7)</sup> |  |  | <sup>[\[table 6\]](https://wiki.gentoo.org#cite_note-ocl-6)</sup> |  |  | *intel* | 
-| [Gen 9.5](https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Gen9) | [Kaby Lake](https://en.wikipedia.org/wiki/Kaby_Lake), [Coffee Lake](https://en.wikipedia.org/wiki/Coffee_Lake), [Gemini Lake](https://en.wikipedia.org/wiki/Goldmont_Plus) |  |  | <sup>[\[table 6\]](https://wiki.gentoo.org#cite_note-ocl-6)</sup> |  |  | *intel* | 
-| [Gen 11](https://en.wikipedia.org/wiki/Intel_Graphics_Technology#Gen11) | [Ice Lake](<https://en.wikipedia.org/wiki/Ice_Lake_(microprocessor)>) |  |  | <sup>[\[table 6\]](https://wiki.gentoo.org#cite_note-ocl-6)</sup> |  |  | *intel* | 
-| [Gen 12](https://en.wikipedia.org/wiki/Intel_Graphics_Technology#Gen12) | [Tiger Lake](https://en.wikipedia.org/wiki/Tiger_Lake), [Alder Lake](https://en.wikipedia.org/wiki/Alder_Lake), [Raptor Lake](https://en.wikipedia.org/wiki/Raptor_Lake) |  |  | <sup>[\[table 6\]](https://wiki.gentoo.org#cite_note-ocl-6)</sup> |  |  | *intel* | 
-| [DG2](https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Gen_12.7) | [Alchemist](https://en.wikipedia.org/wiki/Intel_Arc#Alchemist) |  |  | <sup>[\[table 6\]](https://wiki.gentoo.org#cite_note-ocl-6)</sup> |  |  | *intel*<sup>[\[table 8\]](https://wiki.gentoo.org#cite_note-arc-8)</sup> | 
-| [BMG](https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Battlemage_based) | [Battlemage](https://en.wikipedia.org/wiki/Intel_Arc#Battlemage) |  |  | <sup>[\[table 6\]](https://wiki.gentoo.org#cite_note-ocl-6)</sup> |  |  | *intel*<sup>[\[table 9\]](https://wiki.gentoo.org#cite_note-battlemage-9)</sup> | 
+| [Gen 1](https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#First_generation) | 810, 815 | No | No | No | No | No | unsupported | 
+| [Gen 2](https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Second_generation) | i830M, 845G, 855GM, 865G | 1.3 | No | No | No | No | *intel i915*<sup>[\[table 1\]](https://wiki.gentoo.org#cite_note-classic-1)</sup> | 
+| [Gen 3](https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Third_generation) | 915G/GM, 945G/GM, G31, G/Q33, Q35, Atom D4xx/D5xx/N4xx/N5xx | 1.4 | No | 1.2 <sup>[\[table 2\]](https://wiki.gentoo.org#cite_note-ocl_beignet_unsupported-2)</sup> | No | No | *intel i915*<sup>[\[table 1\]](https://wiki.gentoo.org#cite_note-classic-1)</sup> | 
+| [Gen 4](https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Gen4) | 965G/GM/Q, G35, G41, G/Q43, G/GM/Q45 | 2.1 | 2.0 | 1.2 <sup>[\[table 2\]](https://wiki.gentoo.org#cite_note-ocl_beignet_unsupported-2)</sup> | G/GM45: MPEG2 only | No | *intel* | 
+| [Gen 5](https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Gen5) | [Nehalem](<https://en.wikipedia.org/wiki/Nehalem_(microarchitecture)>) (Ironlake) | 2.1 | 2.0 | 1.2 <sup>[\[table 2\]](https://wiki.gentoo.org#cite_note-ocl_beignet_unsupported-2)</sup> | Yes | No | *intel* | 
+| [Gen 6](https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Gen6) | [Sandy Bridge](https://en.wikipedia.org/wiki/Sandy_Bridge) | 3.3 | 3.0 | 2.0 <sup>[\[table 2\]](https://wiki.gentoo.org#cite_note-ocl_beignet_unsupported-2)</sup> | Yes | No | *intel* | 
+| [Gen 7](https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Gen7) | [Ivy Bridge](<https://en.wikipedia.org/wiki/Ivy_Bridge_(microarchitecture)>), Valley View<sup>[\[table 3\]](https://wiki.gentoo.org#cite_note-valleyview-3)</sup> | 4.2 | 3.0 | 2.0 <sup>[\[table 4\]](https://wiki.gentoo.org#cite_note-ocl_propietary_unsupported-4)</sup> | Yes | 1.0 | *intel* | 
+| [Gen 7.5](https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Gen7) | [Haswell](<https://en.wikipedia.org/wiki/Haswell_(microarchitecture)>) | 4.6 | 3.2 | 2.0 <sup>[\[table 4\]](https://wiki.gentoo.org#cite_note-ocl_propietary_unsupported-4)</sup> | Yes | 1.0 | *intel* | 
+| [Gen 8](https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Gen8) | [Broadwell](<https://en.wikipedia.org/wiki/Broadwell_(microarchitecture)>), Cherryview<sup>[\[table 5\]](https://wiki.gentoo.org#cite_note-cherryview-5)</sup> | 4.6 | 3.2 | 3.0 <sup>[\[table 6\]](https://wiki.gentoo.org#cite_note-ocl-6)</sup> | Yes | 1.1 | *intel* | 
+| [Gen 9](https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Gen9) | [Skylake](<https://en.wikipedia.org/wiki/Skylake_(microarchitecture)>), Broxton<sup>[\[table 7\]](https://wiki.gentoo.org#cite_note-broxton-7)</sup> | 4.6 | 3.2 | 3.0 <sup>[\[table 6\]](https://wiki.gentoo.org#cite_note-ocl-6)</sup> | Yes | 1.2 | *intel* | 
+| [Gen 9.5](https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Gen9) | [Kaby Lake](https://en.wikipedia.org/wiki/Kaby_Lake), [Coffee Lake](https://en.wikipedia.org/wiki/Coffee_Lake), [Gemini Lake](https://en.wikipedia.org/wiki/Goldmont_Plus) | 4.6 | 3.2 | 3.0 <sup>[\[table 6\]](https://wiki.gentoo.org#cite_note-ocl-6)</sup> | Yes | 1.2 | *intel* | 
+| [Gen 11](https://en.wikipedia.org/wiki/Intel_Graphics_Technology#Gen11) | [Ice Lake](<https://en.wikipedia.org/wiki/Ice_Lake_(microprocessor)>) | 4.6 | 3.2 | 3.0 <sup>[\[table 6\]](https://wiki.gentoo.org#cite_note-ocl-6)</sup> | Yes | 1.2 | *intel* | 
+| [Gen 12](https://en.wikipedia.org/wiki/Intel_Graphics_Technology#Gen12) | [Tiger Lake](https://en.wikipedia.org/wiki/Tiger_Lake), [Alder Lake](https://en.wikipedia.org/wiki/Alder_Lake), [Raptor Lake](https://en.wikipedia.org/wiki/Raptor_Lake) | 4.6 | 3.2 | 3.0 <sup>[\[table 6\]](https://wiki.gentoo.org#cite_note-ocl-6)</sup> | Yes | 1.2 | *intel* | 
+| [DG2](https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Gen_12.7) | [Alchemist](https://en.wikipedia.org/wiki/Intel_Arc#Alchemist) | 4.6 | 3.2 | 3.0 <sup>[\[table 6\]](https://wiki.gentoo.org#cite_note-ocl-6)</sup> | Yes | 1.3 | *intel*<sup>[\[table 8\]](https://wiki.gentoo.org#cite_note-arc-8)</sup> | 
+| [BMG](https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Battlemage_based) | [Battlemage](https://en.wikipedia.org/wiki/Intel_Arc#Battlemage) | 4.6 | 3.2 | 3.0 <sup>[\[table 6\]](https://wiki.gentoo.org#cite_note-ocl-6)</sup> | Yes | 1.3 | *intel*<sup>[\[table 9\]](https://wiki.gentoo.org#cite_note-battlemage-9)</sup> | 
 
 1. ↑ <sup>[1.0](https://wiki.gentoo.org#cite_ref-classic_1-0)</sup> <sup>[1.1](https://wiki.gentoo.org#cite_ref-classic_1-1)</sup> Mesa 22.0 and higher have dropped support for i915 classic driver. Users can install the additional media-libs/mesa-amber package.
 2. ↑ <sup>[2.0](https://wiki.gentoo.org#cite_ref-ocl_beignet_unsupported_2-0)</sup> <sup>[2.1](https://wiki.gentoo.org#cite_ref-ocl_beignet_unsupported_2-1)</sup> <sup>[2.2](https://wiki.gentoo.org#cite_ref-ocl_beignet_unsupported_2-2)</sup> <sup>[2.3](https://wiki.gentoo.org#cite_ref-ocl_beignet_unsupported_2-3)</sup> Used to be supported by [Beignet project](https://wiki.freedesktop.org/www/Software/Beignet/) which is now deprecated and no longer maintained.
@@ -79,8 +79,24 @@ To build the DMC firmware into the kernel binary (in this case, i915/skl\_dmc\_v
 
 **(Before Linux 4.18) Build firmware blobs into the kernel binary**
 
+```
+Device Drivers  --->
+    Generic Driver Options  --->
+        -*- Userspace firmware loading support
+        [*] Include in-kernel firmware blobs in kernel binary
+            (i915/skl_dmc_ver1_27.bin) External firmware blobs to build into the kernel binary
+            (/lib/firmware) Firmware blobs root directory
+```
 **(Since Linux 4.18) Build firmware blobs into the kernel binary**
 
+```
+Device Drivers  --->
+    Generic Driver Options  --->
+        Firmware loader  --->
+            -*- Firmware loading facility
+            (i915/skl_dmc_ver1_27.bin) Build named firmware blobs into the kernel binary
+            (/lib/firmware) Firmware blobs root directory
+```
 Alternatively compile the i915 driver as a kernel module and it will automatically load the firmware from the filesystem.
 
 #### GuC/HuC firmware
@@ -98,6 +114,10 @@ To identify the firmware file name, either by checking `/var/log/kern.log`:
 
 **`/var/log/kern.log`**
 
+```
+kernel: [    1.294069] [drm] GuC: Failed to fetch firmware i915/kbl_guc_ver9_33.bin (error -2)
+kernel: [    1.294079] [drm] HuC: Failed to fetch firmware i915/kbl_huc_ver01_07_1398.bin (error -2)
+```
 Or by grepping the `MODULE_FIRMWARE` in the kernel source tree:
 
 `user $``grep -rB1  'MODULE_FIRMWARE.*SKL' /usr/src/linux/drivers/gpu/drm/i915`
@@ -188,14 +208,14 @@ Portage uses the `[VIDEO_CARDS](https://wiki.gentoo.org/wiki/VIDEO_CARDS)` varia
 **Gen 2 and Gen 3**
 
 ```
- VIDEO_CARDS: -* intel i915
+*/* VIDEO_CARDS: -* intel i915
 ```
 **`/etc/portage/package.use/00video`**
 
 **Gen 4 and higher**
 
 ```
- VIDEO_CARDS: -* intel
+*/* VIDEO_CARDS: -* intel
 ```
 After editing /etc/portage/packages.use/00video, update the system so the changes take effect by passing the `--changed-use --deep` options to emerge:
 
@@ -204,7 +224,7 @@ Those wishing to not accept the Intel graphic driver defaults in the main reposi
 
 #### Intel DDX
 
-Before proceeding with the *[Intel DDX driver](https://en.wikipedia.org/wiki/X.Org_Server#DDX)*, note that this driver has been *slowly deprecating* for several years. Other major[\[7\]](https://wiki.gentoo.org#cite_note-16)<sup>[\[8\]](https://wiki.gentoo.org#cite_note-17)</sup> Linux distributions have switched to the *modesetting DDX driver* (detailed in [the section below](https://wiki.gentoo.org/wiki/Intel#Modesetting_DDX)). Intel has not updated it for quite some time<sup>[\[9\]](https://wiki.gentoo.org#cite_note-18)</sup>, thus burdening Gentoo's X11 package maintainers.
+Before proceeding with the *[Intel DDX driver](https://en.wikipedia.org/wiki/X.Org_Server#DDX)*, note that this driver has been *slowly deprecating* for several years. Other major[\[7\]](https://wiki.gentoo.org#cite_note-16)<sup>[\[8\]](https://wiki.gentoo.org#cite_note-17)</sup> Linux distributions have switched to the *modesetting DDX driver* (detailed in [the section below](https://wiki.gentoo.org#Modesetting_DDX)). Intel has not updated it for quite some time<sup>[\[9\]](https://wiki.gentoo.org#cite_note-18)</sup>, thus burdening Gentoo's X11 package maintainers.
 
 The Intel DDX driver may be faster than the generic modesetting driver on pre-Gen11 chipsets as it is able to more closely interact with hardware acceleration of these chips using SNA. On Gen11 and newer, SNA is not supported.<sup>[\[10\]](https://wiki.gentoo.org#cite_note-19)</sup> Using it is discouraged unless faced with concrete issues caused by the modesetting driver.
 
@@ -212,6 +232,11 @@ The Intel DDX driver may be faster than the generic modesetting driver on pre-Ge
 
 Check the USE flags of [x11-drivers/xf86-video-intel](https://packages.gentoo.org/packages/x11-drivers/xf86-video-intel):
 
+
+### USE flags for
+            [x11-drivers/xf86-video-intel](https://packages.gentoo.org/packages/x11-drivers/xf86-video-intel)
+            
+            X.Org driver for Intel cards
 
 | [+sna](https://packages.gentoo.org/useflags/+sna) | Enable SandyBridge's New Acceleration (useful on all chipsets, not just SandyBridge) | 
 | [+udev](https://packages.gentoo.org/useflags/+udev) | Enable virtual/udev integration (device discovery, power and storage device support, etc) | 
@@ -242,6 +267,8 @@ Section "Device"
 EndSection
 ```
 The value for the `DRI` option should be `crocus` for Gen 4 through Gen 7.5 and `iris` for Gen 8 and higher.  This line should be omitted for Gen 2 and Gen 3.
+
+#### Modesetting DDX
 
 As mentioned above, the modesetting DDX driver is now the default driver on newer Intel graphics chipsets for Gentoo. This driver uses GLAMOR to accelerate 2D graphical over Mesa (the open source OpenGL implementation). As of `x11-base/xorg-drivers-1.19` this has become the default for Gentoo.
 
@@ -287,6 +314,9 @@ To enable [Kernel Mode Setting (KMS)](https://www.kernel.org/doc/html/latest/gpu
 
 **`/etc/dracut.conf.d/intel.conf`**
 
+```
+add_drivers+=" i915 "
+```
 Then run:
 
 `root #``dracut`
@@ -385,7 +415,7 @@ In any case, the main configuration file of the X server is the [xorg.conf](http
 - [Gentoo bugtracker: known bugs](https://bugs.gentoo.org/buglist.cgi?quicksearch=xf86-video-intel&order=bug_id%20DESC)
 - [Freedesktop.org bugtracker: known bugs](https://bugs.freedesktop.org/buglist.cgi?bug_status=UNCONFIRMED&bug_status=NEW&bug_status=CONFIRMED&bug_status=ASSIGNED&bug_status=REOPENED&bug_status=NEEDINFO&bug_status=PLEASETEST&bug_status=IN_PROGRESS&product=xorg&component=Driver%2Fintel&order=bug_id%20DESC)
 - [Freedesktop.org bugtracker: known bugs](https://bugs.freedesktop.org/buglist.cgi?bug_status=UNCONFIRMED&bug_status=NEW&bug_status=CONFIRMED&bug_status=ASSIGNED&bug_status=REOPENED&bug_status=NEEDINFO&bug_status=PLEASETEST&bug_status=IN_PROGRESS&product=DRI&component=DRM%2FIntel&order=bug_id%20DESC)
-- The modesetting DDX might cause video out of sync artifacts (when scrolling, or on videos) (see [\[4\]](https://forums.gentoo.org/viewtopic-p-8538508.html#8538508)). If the system experiences such artifacts, try the [DDX driver](https://wiki.gentoo.org/wiki/Intel#Modesetting_DDX).
+- The modesetting DDX might cause video out of sync artifacts (when scrolling, or on videos) (see [\[4\]](https://forums.gentoo.org/viewtopic-p-8538508.html#8538508)). If the system experiences such artifacts, try the [DDX driver](https://wiki.gentoo.org#Modesetting_DDX).
 
 ### Screen flickering
 

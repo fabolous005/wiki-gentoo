@@ -4,7 +4,7 @@ title: GCC optimization
 url: https://wiki.gentoo.org/wiki/GCC_optimization
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-20"
+date: "2026-11-01"
 fingerprint: a7819b082d231948
 license: CC BY-SA 4.0
 ---
@@ -166,8 +166,7 @@ Several packages in the official Gentoo repo filter this flag out because of kno
 
 The list of packages currently filtering out this flag can be found with
 
-$ grep -r 'filter-flags -fno-semantic-interposition' /var/db/repos/gentoo
-
+`user $``grep -r 'filter-flags -fno-semantic-interposition' /var/db/repos/gentoo`
 Other packages may enforce this flag too, whether you set it globally or not.
 
 ### -msse, -msse2, -msse3, -mmmx, -m3dnow
