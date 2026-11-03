@@ -4,8 +4,8 @@ title: Podman
 url: https://wiki.gentoo.org/wiki/Podman
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-07-10"
-fingerprint: "8e0fda1e25ad2da4"
+date: "2026-11-02"
+fingerprint: "8e0bda1e27a52da5"
 license: CC BY-SA 4.0
 ---
 
@@ -82,6 +82,9 @@ If the `tun` module is not built into the kernel, it needs to be loaded manually
 
 **Load tun module**
 
+```
+tun
+```
 
 ##### Configure subuid/subgid
 
@@ -94,6 +97,11 @@ Refer to the [Subuid subgid](https://wiki.gentoo.org/wiki/Subuid_subgid) page fo
 
 ### USE flags
 
+
+### USE flags for
+            [app-containers/podman](https://packages.gentoo.org/packages/app-containers/podman)
+            
+            A tool for managing OCI containers and pods with Docker-compatible CLI
 
 | [+seccomp](https://packages.gentoo.org/useflags/+seccomp) | Enable seccomp (secure computing mode) to perform system call filtering at runtime to increase security of programs | 
 | [apparmor](https://packages.gentoo.org/useflags/apparmor) | Enable support for the AppArmor application security system | 
@@ -394,6 +402,9 @@ or permanently via a line in /etc/sysctl.d/local.conf:
 
 **`/etc/sysctl.d/local.conf`**
 
+```
+user.max_user_namespaces=15076
+```
 
 ### Slow storage in the rootless mode
 
@@ -423,6 +434,14 @@ Notes:
 - This affects rootful networking paths that use netavark nftables firewall programming.
 - The netdev fib option (CONFIG\_NFT\_FIB\_NETDEV) is not required for this specific failure.
 - Rootful + nftables is useful when you want production-grade host networking control from containers. This means real host-level firewalling and NAT: netavark can program nft rules directly for port publishing and isolation.
+
+### Health checks never run on OpenRC systems
+
+Container health checks might be used in tools like [app-containers/podman-compose](https://packages.gentoo.org/packages/app-containers/podman-compose) to start containers only after another has been verified healthy.
+
+In Podman, such health checks inherently depend on Systemd timers<sup>[\[3\]](https://wiki.gentoo.org#cite_note-3)</sup>, since the process responsible for starting a container exits quickly.
+
+A workaround could be running the `podman healthcheck run` command explicitly.
 
 
 ## See also

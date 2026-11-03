@@ -4,12 +4,14 @@ title: OpenRC/CGroups
 url: https://wiki.gentoo.org/wiki/OpenRC/CGroups
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-07-31"
+date: "2026-11-02"
 fingerprint: be12e9dfbda035c5
 license: CC BY-SA 4.0
 ---
 
 # OpenRC/CGroups
+
+[OpenRC](https://wiki.gentoo.org/wiki/OpenRC)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -80,7 +82,7 @@ For each cgroup controller one can set options in the form of:
 **Set cgroup controller option globally for all services**
 
 ```
-${CONTROLLER_NAME}="${CONTROLLER_NAME}.${OPTION_NAME} ${OPTION_VALUE}"
+rc_cgroup_${CONTROLLER_NAME}="${CONTROLLER_NAME}.${OPTION_NAME} ${OPTION_VALUE}"
 ```
 or
 
@@ -89,7 +91,7 @@ or
 **Set cgroup controller option for one service**
 
 ```
-${CONTROLLER_NAME}="${CONTROLLER_NAME}.${OPTION_NAME} ${OPTION_VALUE}"
+rc_cgroup_${CONTROLLER_NAME}="${CONTROLLER_NAME}.${OPTION_NAME} ${OPTION_VALUE}"
 ```
 For example, you would use this to set the cpu.shares setting in the CPU controller to 512 for the service.
 

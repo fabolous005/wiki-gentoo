@@ -1893,11 +1893,13 @@ https://wiki.gentoo.org/wiki/OpenLDAP
 https://wiki.gentoo.org/wiki/OpenLDAP_Server
 https://wiki.gentoo.org/wiki/OpenNTPD
 https://wiki.gentoo.org/wiki/OpenRC
+https://wiki.gentoo.org/wiki/OpenRC/Advanced
 https://wiki.gentoo.org/wiki/OpenRC/Baselayout_1_to_2_migration
 https://wiki.gentoo.org/wiki/OpenRC/CGroups
 https://wiki.gentoo.org/wiki/OpenRC/Event_driven
 https://wiki.gentoo.org/wiki/OpenRC/Legacy_user_services
 https://wiki.gentoo.org/wiki/OpenRC/Prefix
+https://wiki.gentoo.org/wiki/OpenRC/SectionBox
 https://wiki.gentoo.org/wiki/OpenRC/Stacked_runlevel
 https://wiki.gentoo.org/wiki/OpenRC/Users
 https://wiki.gentoo.org/wiki/OpenRC/openrc-init

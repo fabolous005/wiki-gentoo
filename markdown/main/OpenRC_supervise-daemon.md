@@ -4,12 +4,14 @@ title: OpenRC/supervise-daemon
 url: https://wiki.gentoo.org/wiki/OpenRC/supervise-daemon
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2024-07-26"
-fingerprint: "715a49732bac1a1a"
+date: "2026-11-02"
+fingerprint: "715a49732bac1e1a"
 license: CC BY-SA 4.0
 ---
 
 # OpenRC/supervise-daemon
+
+[OpenRC](https://wiki.gentoo.org/wiki/OpenRC)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -76,7 +78,7 @@ At the end of the file:
 **`/etc/init.d/acpid`**
 
 ```
-() {
+reload() {
         ebegin "Reloading acpid configuration"
 #       start-stop-daemon --exec $command --signal HUP
         ${supervisor} ${RC_SVCNAME} --signal HUP --pidfile "${pidfile}"
@@ -344,6 +346,10 @@ supervisor="supervise-daemon"
 
 **`/etc/conf.d/irqbalance`**
 
+```
+supervisor="supervise-daemon"
+IRQBALANCE_OPTS="-f"
+```
 ### iwd
 
 iwd (iNet wireless daemon) is provided by [net-wireless/iwd](https://packages.gentoo.org/packages/net-wireless/iwd) and aims to replace [net-wireless/wpa\_supplicant](https://packages.gentoo.org/packages/net-wireless/wpa_supplicant).
@@ -469,7 +475,7 @@ All the way at the bottom of the file there is the reload function in which the 
 **`/etc/init.d/sshd`**
 
 ```
-() {
+reload() {
         checkconfig || return $?
         ebegin "Reloading ${SVCNAME}"
 #       start-stop-daemon --signal HUP --pidfile "${pidfile}"
@@ -529,7 +535,7 @@ At the end of the file, the reload function needs to be changed to use the super
 **`/etc/init.d/syslog-ng`**
 
 ```
-() {
+reload() {
         checkconfig || return 1
         ebegin "Reloading configuration and re-opening log files"
 #       start-stop-daemon --signal HUP --pidfile "${pidfile}"

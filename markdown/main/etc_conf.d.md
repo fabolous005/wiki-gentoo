@@ -4,7 +4,7 @@ title: "/etc/conf.d"
 url: https://wiki.gentoo.org/wiki//etc/conf.d
 hostname: gentoo.org
 sitename: "/etc/conf.d"
-date: "2023-04-22"
+date: "2026-11-02"
 fingerprint: "9f951d0c7b230b74"
 license: CC BY-SA 4.0
 ---
