@@ -4,8 +4,8 @@ title: Nftables/Rules/Log
 url: https://wiki.gentoo.org/wiki/Nftables/Rules/Log
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-31"
-fingerprint: a492ab38c788797c
+date: "2026-11-03"
+fingerprint: a412bb3ce7ac78fc
 license: CC BY-SA 4.0
 ---
 
@@ -17,13 +17,11 @@ license: CC BY-SA 4.0
 
 The log statement logs matching packets.
 
-## Placement
+## Placement and evaluation
 
-The log statement can precede a terminal statement in the same rule. A terminal statement cannot precede another statement in that rule.
+The log statement is non-terminal. It can precede a terminal statement, such as accept or drop. Terminal statements must be last in a rule.
 
-## Evaluation
-
-The log statement is non-terminal. Rule evaluation continues after logging.
+Logging does not terminate rule evaluation.
 
 ## Syntax
 
@@ -33,7 +31,7 @@ log level audit
 
 ## Usage
 
-The log statement belongs inside a rule in a chain. Packet expressions can restrict which packets are logged.
+Place log inside a rule. Packet expressions select which packets are logged.
 
 **`/etc/nftables/rules.d/33-ssh-server-log.nft`**
 
@@ -42,39 +40,37 @@ chain input {
     tcp dport 22 log prefix "SSH: " accept
 }
 ```
-The log statement can precede a terminal statement, such as accept or drop. Terminal statements cannot precede another statement in the same rule.
-
 ## Options
 
 | Option | Description | 
 |---|---|
-| prefix | Prepends a string to log messages. | 
-| level \<level\_name> | Sets the syslog severity.  Valid \<level\_name> are emerg, alert, crit, err, warn, notice, info, and debug.  The default syslog level is warn. The level audit form does not accept the other logging options. | 
-| flags \<log\_flags> | Enables additional packet information. See [log flags](https://wiki.gentoo.org#log_flags_options) for \<log\_flags> detail. | 
-| group \<nlog\_id> | Sends packet logs to an NFLOG group. \<nlog\_id> requires an non-negative integer value. | 
-| queue-threshold \<threshold> | Sets the NFLOG queue threshold. \<threshold> requires a positive integer value. | 
-| snaplen \<packet\_length> | Limits the packet payload length included in an NFLOG message. \<packet\_length> requires a positive integer value. | 
+| prefix | Adds a prefix to log messages. | 
+| level \<level\_name> | Sets the syslog severity. Valid values: emerg, alert, crit, err, warn, notice, info, or debug. Default is warn. The audit level uses a separate syntax; cannot be combined with other logging options. | 
+| flags \<log\_flags> | Enables additional packet header fields. See [log flags](https://wiki.gentoo.org#Log_Flags). | 
+| group \<nlog\_id> | Sends messages to an NFLOG group. Requires a non-negative integer. | 
+| queue-threshold \<threshold> | Sets the NFLOG queue threshold. Requires a positive integer. | 
+| snaplen \<packet\_length> | Limits the packet payload length included in NFLOG messages. Requires a positive integer. | 
 
-### Log Flags Option
+### Log Flags
 
-The \`log\_flags\` option controls which additional packet-header fields are included in nftables log messages.
+The flags option selects additional packet-header fields for logging.
 
 | Flag | Description | 
 |---|---|
-| tcp | Logs certain field in the TCP header. | 
+| `tcp` | Logs certain field in the TCP header. | 
 | ip options | Logs IPv4 options present in the packet. | 
-| skuid | Logs the UID associated with the originating socket, when available. Socket UID information may also be unavailable. | 
-| ether | Logs Ethernet header information, including source and destination MAC addresses and the EtherType, when available. | 
+| skuid | Logs the originating socket UID, when available. | 
+| ether | Logs Ethernet header fields, including source and destination MAC addresses and EtherType. | 
 | all | Enables all supported logging flags. | 
 
-Valid \<tcp\_flag>s:
+Valid `tcp` flags:
 
 | Flag | Description | 
 |---|---|
 | sequence | Logs the TCP sequence number, identifying the position of the packet data in the TCP byte stream | 
-| options | Logs TCP options carried in the TCP header, such as Maximum Segment Size (MSS), Window Scale, Selective Acknowledgment (SACK), and timestamps | 
+| options | Logs TCP options, including MSS, window scaling, SACK, and timestamps. | 
 
-If using multiple TCP flags, each flag must be separated by a comma.
+Separate multiple TCP sub-flags with commas.
 
 
 **Log TCP sequence numbers and options**
@@ -82,15 +78,17 @@ If using multiple TCP flags, each flag must be separated by a comma.
 ```
 nft add rule inet filter input tcp log flags tcp sequence,options
 ```
-## Output
+## Logging backends
 
-The log statement supports three output modes:
+The log statement supports kernel logging, NFLOG, and audit logging.
 
-- **Kernel log:** Writes packet information to the kernel logging facility. Read messages with dmesg or a system logging service.
-- **NFLOG:** Sends packet log messages to a netlink group. A userspace listener, such as [net-firewall/ulogd](https://packages.gentoo.org/packages/net-firewall/ulogd), receives the messages.
-- **log level audit:** Writes audit records for services such as [sys-process/audit](https://packages.gentoo.org/packages/sys-process/audit).
+### Kernel logging
 
-The selected mode determines the output destination and available options.
+Kernel logging writes packet information to the kernel logging subsystem. Read messages with dmesg or a system logging service.
+
+log prefix "Dropped input traffic: " counter drop
+
+
 
 ### Log action
 
@@ -124,16 +122,7 @@ log {
 
 ## Examples
 
-Log SSH traffic before accepting it:
-
-**`/etc/nftables/rules.d/33-log-incoming-ssh.nft`**
-
-**Log incoming SSH sessions**
-
-```
-tcp dport 22 log prefix "SSH: " accept
-```
-Rate-limit logging before dropping packets:
+Limit logging before dropping packets:
 
 **`/etc/nftables/rules.d/66-log-dropped.nft`**
 
@@ -151,7 +140,7 @@ Send packet logs to NFLOG group 1:
 ```
 log group 1 prefix "Firewall: "
 ```
-## Kernel
+## Kernel configuration
 
 For the `log` configuration, the relevant Linux Kconfig options are:
 

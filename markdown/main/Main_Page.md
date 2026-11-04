@@ -53,7 +53,7 @@ Here's to a productive new year for the wiki in 2026!
 
 - **115** active and **150** retired developers
 - **170** active official projects
-- **215** active users on the wiki
+- **214** active users on the wiki
 
 ## Getting started
 

@@ -4,7 +4,7 @@ title: BitTorrent
 url: https://wiki.gentoo.org/wiki/BitTorrent
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2024-03-09"
+date: "2026-11-03"
 fingerprint: "1eefee7abbafcf21"
 license: CC BY-SA 4.0
 ---
@@ -46,7 +46,7 @@ Clients that want to participate in the torrent connect to the tracker to find o
 | Name | Package | Description | 
 |---|---|---|
 | [Deluge](https://wiki.gentoo.org/wiki/Deluge) | [net-p2p/deluge](https://packages.gentoo.org/packages/net-p2p/deluge) | Client/server based BitTorrent capable application with both CLI and GUI (GTK 3). | 
-| Transmission | [net-p2p/transmission](https://packages.gentoo.org/packages/net-p2p/transmission) | Supports both CLI and GUI (GTK 3 and Qt 5). | 
+| [Transmission](https://wiki.gentoo.org/wiki/Transmission) | [net-p2p/transmission](https://packages.gentoo.org/packages/net-p2p/transmission) | Supports both CLI and GUI (GTK 3 and Qt 5). | 
 | BiglyBT | [net-p2p/biglybt](https://packages.gentoo.org/packages/net-p2p/biglybt) | Feature-filled Bittorrent client based on the Azureus open source project | 
 
 ## External resources

@@ -4,8 +4,8 @@ title: File managers
 url: https://wiki.gentoo.org/wiki/File_managers
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2025-05-01"
-fingerprint: a8d7f65e528572f4
+date: "2026-11-03"
+fingerprint: a8d7f65e538572f4
 license: CC BY-SA 4.0
 ---
 
@@ -53,7 +53,7 @@ Command line file managers are usually run in a [terminal emulator](https://wiki
 | [GNU Midnight Commander](https://en.wikipedia.org/wiki/Midnight_commander) | [app-misc/mc](https://packages.gentoo.org/packages/app-misc/mc) | [https://midnight-commander.org/](https://midnight-commander.org/) | Free cross-platform orthodox file manager, started in 1994 as a clone of Norton Commander. | 
 | nnn (n³) | [app-misc/nnn](https://packages.gentoo.org/packages/app-misc/nnn) | [https://github.com/jarun/nnn](https://github.com/jarun/nnn) | Full-featured terminal file manager, tiny, nearly 0-config, and incredibly fast. | 
 | [Ranger](https://wiki.gentoo.org/wiki/Ranger) | [app-misc/ranger](https://packages.gentoo.org/packages/app-misc/ranger) | [https://ranger.github.io/](https://ranger.github.io/) | Console file manager with VI key bindings, a minimalistic, friendly curses interface, with a view on the directory hierarchy. | 
-| [Vifm](https://wiki.gentoo.org/wiki/Vifm) | [app-misc/vifm](https://packages.gentoo.org/packages/app-misc/vifm) | [https://vifm.info/](https://vifm.info/) | Console file manager with vi(m)-like keybindings. Offers familiar navigation for vim junkies. | 
+| [Vifm](https://wiki.gentoo.org/wiki/Vifm) | [app-misc/vifm](https://packages.gentoo.org/packages/app-misc/vifm) | [https://vifm.info/](https://vifm.info/) | Console file manager with vi(m)-like keybindings. Offers familiar navigation for vim enthusiasts. | 
 
 ## See also
 

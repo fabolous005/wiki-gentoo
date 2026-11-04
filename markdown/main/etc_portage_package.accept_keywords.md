@@ -1,19 +1,21 @@
 <!-- source: https://wiki.gentoo.org/wiki//etc/portage/package.accept_keywords | group: Gentoo Wiki (Main) | wiki-title: /etc/portage/package.accept keywords -->
 ---
-title: "/etc/portage/package.accept keywords"
+title: "/etc/portage/package.accept_keywords"
 url: https://wiki.gentoo.org/wiki//etc/portage/package.accept_keywords
 hostname: gentoo.org
-sitename: "/etc/portage/package.accept keywords"
-date: "2026-10-23"
+sitename: "/etc/portage/package.accept_keywords"
+date: "2026-11-03"
 fingerprint: bb3818ee6fc1870e
 license: CC BY-SA 4.0
 ---
 
-# /etc/portage/package.accept keywords
+# /etc/portage/package.accept\_keywords
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
+
+
 
 **package.accept\_keywords** is file or directory of files containing definitions for per-package `ACCEPT_KEYWORDS` statements. It's useful for mixing unstable packages in with a normally stable system packages or vice versa.
 
