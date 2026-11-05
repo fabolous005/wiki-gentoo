@@ -4,8 +4,8 @@ title: musl
 url: https://wiki.gentoo.org/wiki/Musl
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-29"
-fingerprint: "8fcd1d7bad470fdd"
+date: "2026-11-04"
+fingerprint: "8fcd1c6bad074fdd"
 license: CC BY-SA 4.0
 ---
 
@@ -20,15 +20,15 @@ license: CC BY-SA 4.0
 
 **musl** is a [standard C library](https://wiki.gentoo.org/wiki/Libc) implementation that strives to be lightweight and correct in the sense of standards. It is a replacement for the widely used [GNU C library](https://wiki.gentoo.org/wiki/Glibc) (glibc).
 
-musl is supported by Gentoo for most common CPUs on most [architectures](https://wiki.gentoo.org/wiki/Handbook:Main_Page#Architectures).
+musl is supported by Gentoo for most common CPUs on [most architectures](https://wiki.gentoo.org/wiki/Handbook:Main_Page#Architectures).
 
-This guide is about *using* musl libc, for a *development* guide, see [musl porting notes](https://wiki.gentoo.org/wiki/Musl_porting_notes).
+This guide is about **setting up and using** the musl libc. For a *development* guide, see [musl porting notes](https://wiki.gentoo.org/wiki/Musl_porting_notes).
 
 ## Installation
 
-Choosing musl over glibc has to be done at install time, because replacing the standard C library on an already installed system is not possible. This is done by unpacking the -musl [stage3](https://wiki.gentoo.org/wiki/Stage_file#Stage_3) tarball instead of the default glibc one.
+Choosing musl over glibc has to be done at Gentoo's installation stage, because replacing the standard C library on an installed system is not possible. This can be done by unpacking the musl [stage3](https://wiki.gentoo.org/wiki/Stage_file#Stage_3) tarball instead of the default glibc one.
 
-The [install handbook](https://wiki.gentoo.org/wiki/Handbook:Main_Page) for the target architecture can be used as normal, except that generating locales is not necessary on musl libc.
+The [Gentoo Handbook](https://wiki.gentoo.org/wiki/Handbook:Main_Page) for the target architecture can be used as normal, except that generating locales is not necessary on musl.
 
 ### USE flags
 
@@ -91,9 +91,9 @@ By default, the /usr/share/zoneinfo directory is not populated with binary timez
 
 Changing the timezone must be done via setting the *TZ* variable according to the [POSIX timezone specification](https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap08.html#tag_08_03) in /etc/env.d/00local file.
 
-There are 2 methods of setting a timezone on musl.
+There are 2 methods of setting a timezone on musl. Those being:
 
-#### Method 1: Setting TZ to a POSIX timezone code
+#### 1: Setting TZ to a POSIX timezone code
 
 A quick and easy way to get the proper `TZ` variable for the timezone, is to temporarily emerge [sys-libs/timezone-data](https://packages.gentoo.org/packages/sys-libs/timezone-data):
 
@@ -118,7 +118,7 @@ And update the environment:
 Remove [sys-libs/timezone-data](https://packages.gentoo.org/packages/sys-libs/timezone-data) package:
 
 `root #``emerge --ask --unmerge sys-libs/timezone-data`
-#### Method 2: Setting TZ to binary timezone file path
+#### 2: Setting TZ to binary timezone file path
 
 This is the recommended option, as it is simple and reliable since it uses a binary timezone file instead of a posix timezone specification.
 
@@ -134,14 +134,14 @@ Then edit /etc/env.d/00local and set *TZ* to the path to the timezone of choice 
 ```
 TZ="/usr/share/zoneinfo/America/New_York"
 ```
-And update the environment:
+Then finally, update the environment:
 
 `root #``env-update && source /etc/profile`
 ## Usage
 
 ### Running glibc software on a musl-based system
 
-Some pieces of software are not yet compatible with musl libc. This is usually caused because:
+Some pieces of software are not yet compatible with musl. This is usually caused because:
 
 1. The software is closed source, so compiling for musl is not possible unless contacting the proprietor. Example: [www-client/google-chrome](https://packages.gentoo.org/packages/www-client/google-chrome)
 2. Upstream is not willing to support musl. Maintaining musl patches downstream involves a lot of hassle, and is usually not done. Example: [www-client/chromium](https://packages.gentoo.org/packages/www-client/chromium)
@@ -168,7 +168,7 @@ The best way of dealing with these build failures is to fix them and report upst
 
 ### Rust
 
-On LLVM-based systems using musl, packages may break if [dev-lang/rust-bin](https://packages.gentoo.org/packages/dev-lang/rust-bin) is the active Rust installation due to compatibility issues arising from its binary nature and musl ([bug #912154](https://bugs.gentoo.org/show_bug.cgi?id=912154)).
+On LLVM-based systems using musl, packages may break if [dev-lang/rust-bin](https://packages.gentoo.org/packages/dev-lang/rust-bin) is the active Rust installation due to compatibility issues arising from its binary nature and musl. ([bug #912154](https://bugs.gentoo.org/show_bug.cgi?id=912154)).
 
 Check which Rust installation is active:
 

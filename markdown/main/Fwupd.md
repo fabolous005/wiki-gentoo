@@ -4,8 +4,8 @@ title: fwupd
 url: https://wiki.gentoo.org/wiki/Fwupd
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2025-11-06"
-fingerprint: ec00b81c48d6b9c2
+date: "2026-11-04"
+fingerprint: e40ab81448d6b9ca
 license: CC BY-SA 4.0
 ---
 
@@ -33,27 +33,19 @@ fwupd is colloquially referred to as **L**inux **V**endor **F**irmware **S**ervi
             
             Aims to make updating firmware on Linux automatic, safe and reliable
 
-| [+archive](https://packages.gentoo.org/useflags/+archive) | Use app-arch/libarchive for archives support | 
 | [+gnutls](https://packages.gentoo.org/useflags/+gnutls) | Prefer net-libs/gnutls as SSL/TLS provider (ineffective with USE=-ssl) | 
 | [amdgpu](https://packages.gentoo.org/useflags/amdgpu) | Build and install AMD dGPU (Navi3x and above) plugin | 
 | [bash-completion](https://packages.gentoo.org/useflags/bash-completion) | Enable bash-completion support | 
 | [bluetooth](https://packages.gentoo.org/useflags/bluetooth) | Enable Bluetooth Support | 
-| [cbor](https://packages.gentoo.org/useflags/cbor) | Enable CBOR support for coSWID and uSWID via dev-libs/libcbor | 
 | [elogind](https://packages.gentoo.org/useflags/elogind) | Enable session tracking via sys-auth/elogind | 
-| [flashrom](https://packages.gentoo.org/useflags/flashrom) | Enable flashrom plugin via sys-apps/flashrom | 
 | [gtk-doc](https://packages.gentoo.org/useflags/gtk-doc) | Build and install gtk-doc based developer documentation for dev-util/devhelp, IDE and offline use | 
 | [introspection](https://packages.gentoo.org/useflags/introspection) | Add support for GObject based introspection | 
-| [lzma](https://packages.gentoo.org/useflags/lzma) | Support for LZMA compression algorithm | 
 | [minimal](https://packages.gentoo.org/useflags/minimal) | Install a very minimal build (disables, for example, plugins, fonts, most drivers, non-critical features) | 
 | [modemmanager](https://packages.gentoo.org/useflags/modemmanager) | Build and install Modem Manager plugin | 
-| [nvme](https://packages.gentoo.org/useflags/nvme) | Build and install NVMe plugin | 
 | [policykit](https://packages.gentoo.org/useflags/policykit) | Enable PolicyKit (polkit) authentication support | 
-| [protobuf](https://packages.gentoo.org/useflags/protobuf) | Enable protobuf plugins | 
 | [readline](https://packages.gentoo.org/useflags/readline) | Enable support for libreadline, a GNU line-editing library that almost everyone wants | 
 | [seccomp](https://packages.gentoo.org/useflags/seccomp) | Enable seccomp (secure computing mode) to perform system call filtering at runtime to increase security of programs | 
 | [selinux](https://packages.gentoo.org/useflags/selinux) | !!internal use only!! Security Enhanced Linux support, this must be set by the selinux profile or breakage will occur | 
-| [spi](https://packages.gentoo.org/useflags/spi) | Install Intel-SPI plugin | 
-| [synaptics](https://packages.gentoo.org/useflags/synaptics) | Install synaptics plugin | 
 | [systemd](https://packages.gentoo.org/useflags/systemd) | Enable use of systemd-specific libraries and features like socket activation or session tracking | 
 | [test](https://packages.gentoo.org/useflags/test) | Enable dependencies and/or preparations necessary to run tests (usually controlled by FEATURES=test but can be toggled independently) | 
 | [tpm](https://packages.gentoo.org/useflags/tpm) | Install Trusted Platform Module plugin | 
@@ -97,6 +89,9 @@ Check available updates for the user devices:
 Install updates:
 
 `user $``fwupdmgr update`
+Check for host security findings:
+
+`user $``fwupdmgr security`
 ## Troubleshooting
 
 ### fwupdmgr: /usr/lib64/libxmlb.so.2: no version information available (required by /usr/lib64/fwupd-2.0.16/libfwupdplugin.so)

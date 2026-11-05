@@ -4,8 +4,8 @@ title: portageq
 url: https://wiki.gentoo.org/wiki/Portageq
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2024-12-31"
-fingerprint: b6d7ff8c86b0bb90
+date: "2026-11-04"
+fingerprint: b6d7fd8c86b0bbd0
 license: CC BY-SA 4.0
 ---
 
@@ -15,6 +15,8 @@ license: CC BY-SA 4.0
 
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
+
+**Resources**
 
 **portageq** is a tool to quickly query Portage information. It comes pre-installed as part of Portage and is primarily used by Gentoo developers in order to determine Portage configuration information.
 
@@ -160,6 +162,9 @@ To see a detailed list of repositories as configured in [repos.conf](https://wik
 To see a list of repositories sorted by priority (highest first):
 
 `user $``portageq get_repos /`
+Too see the path to the `gentoo` repository:
+
+`user $``portageq get_repo_path / gentoo`
 ### Query package metadata
 
 To get a specific piece of metadata about an atom (i.e. package name including version):
