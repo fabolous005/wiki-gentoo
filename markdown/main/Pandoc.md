@@ -4,8 +4,8 @@ title: pandoc
 url: https://wiki.gentoo.org/wiki/Pandoc
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2025-11-15"
-fingerprint: f6430a5e6a771cc0
+date: "2026-11-05"
+fingerprint: f6420a5e6a771cc1
 license: CC BY-SA 4.0
 ---
 
@@ -26,6 +26,11 @@ pandoc supports a vast number of input and output formats but the list of suppor
 
 ### USE flags
 
+
+### USE flags for
+            [app-text/pandoc](https://packages.gentoo.org/packages/app-text/pandoc)
+            
+            Metapackage for pandoc version 3
 
 | [doc](https://packages.gentoo.org/useflags/doc) | Add extra documentation (API, Javadoc, etc). It is recommended to enable per package instead of globally | 
 | [embed-data-files](https://packages.gentoo.org/useflags/embed-data-files) | Embed data files in binary for relocatable executable. | 

@@ -4,7 +4,7 @@ title: doas
 url: https://wiki.gentoo.org/wiki/Doas
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2024-12-22"
+date: "2026-11-05"
 fingerprint: aa999df9eb2dd2b9
 license: CC BY-SA 4.0
 ---

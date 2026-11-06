@@ -1829,6 +1829,7 @@ https://wiki.gentoo.org/wiki/Nftables/Configuration
 https://wiki.gentoo.org/wiki/Nftables/Examples
 https://wiki.gentoo.org/wiki/Nftables/Rules
 https://wiki.gentoo.org/wiki/Nftables/Rules/Dnat
+https://wiki.gentoo.org/wiki/Nftables/Rules/Goto
 https://wiki.gentoo.org/wiki/Nftables/Rules/Iif
 https://wiki.gentoo.org/wiki/Nftables/Rules/Iifname
 https://wiki.gentoo.org/wiki/Nftables/Rules/Iiftype
@@ -2738,6 +2739,7 @@ https://wiki.gentoo.org/wiki/Wikibot
 https://wiki.gentoo.org/wiki/Wild
 https://wiki.gentoo.org/wiki/Willikins
 https://wiki.gentoo.org/wiki/Window_manager
+https://wiki.gentoo.org/wiki/Windowmaker
 https://wiki.gentoo.org/wiki/Wine
 https://wiki.gentoo.org/wiki/Winetricks
 https://wiki.gentoo.org/wiki/WireGuard

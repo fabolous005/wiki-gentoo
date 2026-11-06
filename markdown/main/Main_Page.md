@@ -4,8 +4,8 @@ title: Gentoo Wiki
 url: https://wiki.gentoo.org/wiki/Main_Page
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-11-02"
-fingerprint: d892b80376d34375
+date: "2026-11-05"
+fingerprint: d8b6f84376d3e35d
 license: CC BY-SA 4.0
 ---
 
@@ -69,6 +69,11 @@ For questions *related to using or editing the documentation on the <u>wiki</u>*
 
 ## Recently added pages
 
+#### 5 November 2026
+
+- 20:12[20:12, 5 November 2026](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Goto&oldid=1463113) [Nftables/Rules/Goto](https://wiki.gentoo.org/wiki/Nftables/Rules/Goto) ([hist](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Goto&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Goto&action=edit)) \[3,692 bytes\] [Egberts](https://wiki.gentoo.org/wiki/User:Egberts) ([talk](https://wiki.gentoo.org/wiki/User_talk:Egberts) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Egberts))  (Initial release)
+- 14:53[14:53, 5 November 2026](https://wiki.gentoo.org/index.php?title=Windowmaker&oldid=1463080) [Windowmaker](https://wiki.gentoo.org/wiki/Windowmaker) ([hist](https://wiki.gentoo.org/index.php?title=Windowmaker&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Windowmaker&action=edit)) \[3,779 bytes\] [Riaapup](https://wiki.gentoo.org/wiki/User:Riaapup) ([talk](https://wiki.gentoo.org/index.php?title=User_talk:Riaapup&action=edit&redlink=1) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Riaapup))  (Windowmaker page, added some info.)
+
 #### 2 November 2026
 
 - 08:50[08:50, 2 November 2026](https://wiki.gentoo.org/index.php?title=OpenRC/SectionBox&oldid=1462821) [OpenRC/SectionBox](https://wiki.gentoo.org/wiki/OpenRC/SectionBox) ([hist](https://wiki.gentoo.org/index.php?title=OpenRC/SectionBox&action=history) | [edit](https://wiki.gentoo.org/index.php?title=OpenRC/SectionBox&action=edit)) \[245 bytes\] [Ris](https://wiki.gentoo.org/wiki/User:Ris) ([talk](https://wiki.gentoo.org/wiki/User_talk:Ris) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Ris))  (Creating OpenRC/SectionBox)
@@ -77,5 +82,3 @@ For questions *related to using or editing the documentation on the <u>wiki</u>*
 #### 30 October 2026
 
 - 21:07[21:07, 30 October 2026](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Iiftype&oldid=1462547) [Nftables/Rules/Iiftype](https://wiki.gentoo.org/wiki/Nftables/Rules/Iiftype) ([hist](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Iiftype&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Iiftype&action=edit)) \[4,617 bytes\] [Egberts](https://wiki.gentoo.org/wiki/User:Egberts) ([talk](https://wiki.gentoo.org/wiki/User_talk:Egberts) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Egberts))  (Initial release)
-- 16:50[16:50, 30 October 2026](https://wiki.gentoo.org/index.php?title=Libvirtd/Files&oldid=1462471) [Libvirtd/Files](https://wiki.gentoo.org/wiki/Libvirtd/Files) ([hist](https://wiki.gentoo.org/index.php?title=Libvirtd/Files&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Libvirtd/Files&action=edit)) \[4,622 bytes\] [Egberts](https://wiki.gentoo.org/wiki/User:Egberts) ([talk](https://wiki.gentoo.org/wiki/User_talk:Egberts) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Egberts))  (break off a chunk of non-essential files and directories from [Libvirtd](https://wiki.gentoo.org/index.php?title=Libvirtd&action=edit&redlink=1) into this separate [Libvirtd/Files](https://wiki.gentoo.org/wiki/Libvirtd/Files) page.)
-- 16:38[16:38, 30 October 2026](https://wiki.gentoo.org/index.php?title=Virsh/Files&oldid=1462470) [Virsh/Files](https://wiki.gentoo.org/wiki/Virsh/Files) ([hist](https://wiki.gentoo.org/index.php?title=Virsh/Files&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Virsh/Files&action=edit)) \[5,603 bytes\] [Egberts](https://wiki.gentoo.org/wiki/User:Egberts) ([talk](https://wiki.gentoo.org/wiki/User_talk:Egberts) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Egberts))  (break off large chunk of directories and files into a separate [Virsh/Files](https://wiki.gentoo.org/wiki/Virsh/Files) page.)

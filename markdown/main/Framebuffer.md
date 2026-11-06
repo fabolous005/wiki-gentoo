@@ -4,7 +4,7 @@ title: Framebuffer
 url: https://wiki.gentoo.org/wiki/Framebuffer
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2025-07-27"
+date: "2026-11-05"
 fingerprint: de8b8a5f51c63927
 license: CC BY-SA 4.0
 ---
@@ -46,8 +46,9 @@ For everyone except nvidia-drivers users.
 Device Drivers --->
  Graphics support --->
   \<\*> Direct Rendering Manager (XFree86 4.1.0 and higher DRI support) [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for \<code>CONFIG\_DRM\</code> to find this item. --->
-    \[\*\]   Enable legacy fbdev support for your modesetting driver [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for \<code>CONFIG\_DRM\_FBDEV\_EMULATION\</code> to find this item.
-    (100)   Overallocation of the fbdev buffer [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for \<code>CONFIG\_DRM\_FBDEV\_OVERALLOC\</code> to find this item.
+     Supported DRM clients --->
+      \[\*\]   Enable legacy fbdev support for your modesetting driver [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for \<code>CONFIG\_DRM\_FBDEV\_EMULATION\</code> to find this item.
+      (100)   Overallocation of the fbdev buffer [Search](https://wiki.gentoo.org/wiki/Kernel/Configuration#Search_modules) for \<code>CONFIG\_DRM\_FBDEV\_OVERALLOC\</code> to find this item.
 
 Note that the fbdev option is invisible unless the following option is also selected further down in the Graphic support menu:
 

@@ -4,7 +4,7 @@ title: Nftables/Configuration
 url: https://wiki.gentoo.org/wiki/Nftables/Configuration
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-31"
+date: "2026-11-05"
 fingerprint: fdb8f159e3434fab
 license: CC BY-SA 4.0
 ---
@@ -18,8 +18,7 @@ license: CC BY-SA 4.0
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
 
-[Nftables configuration] describes how
-nftables rulesets are maintained and loaded on Gentoo Linux.
+[Nftables configuration] describes how nftables rulesets are maintained and loaded on Gentoo Linux.
 
 
 
@@ -928,7 +927,7 @@ With OpenRC, check /etc/conf.d/nftables for the saved-state configuration.
 - [Nftables/Ruleset](https://wiki.gentoo.org/wiki/Nftables/Ruleset) — collection of tables, chains, rules, and other objects configured in the [Netfilter](https://wiki.gentoo.org/wiki/Netfilter) **nf\_tables** subsystem.
 - [Nftables/Ruleset/Chain](https://wiki.gentoo.org/wiki/Nftables/Ruleset/Chain) — contains a group of rules used to process network traffic.
 - [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules) — match packet properties and execute statements.
-- [Nftables/Configuration]
+- [Nftables/Configuration] — how nftables rulesets are maintained and loaded on Gentoo Linux.
 - [nftables examples](https://wiki.gentoo.org/wiki/Nftables/Examples)
 - [Nftables](https://wiki.gentoo.org/wiki/Nftables) — the Linux packet-handling framework
 - [Netfilter](https://wiki.gentoo.org/wiki/Netfilter) — Linux kernel’s packet-filtering framework

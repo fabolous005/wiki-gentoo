@@ -4,7 +4,7 @@ title: Virtiofsd
 url: https://wiki.gentoo.org/wiki/Virtiofsd
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-30"
+date: "2026-11-05"
 fingerprint: c91b7939dad3dbe8
 license: CC BY-SA 4.0
 ---
@@ -96,7 +96,7 @@ virtiofsd does not provide an OpenRC service. Start it as part of the virtualiza
 
 virtiofsd does not provide an OpenRC service. Start it as part of the virtualization configuration.
 
-For QEMU configuration, see [QEMU/Host § Virtiofs](https://wiki.gentoo.org/wiki/User:Egberts/Drafts/QEMU/Host#Virtiofs).
+For QEMU configuration, see [QEMU/Host § Virtiofs](https://wiki.gentoo.org/wiki/QEMU/Host#Virtiofs).
 
 ## Caveats
 
@@ -137,4 +137,4 @@ Verify that virtiofsd is running and that the virtualization software can access
 
 - [Virtiofs](https://wiki.gentoo.org/wiki/Virtiofs) — a shared file system that lets virtual machines access a directory tree on the host
 - [QEMU/Host](https://wiki.gentoo.org/wiki/QEMU/Host) — host-side configuration and management of [QEMU](https://wiki.gentoo.org/wiki/QEMU) virtual machines
-- [User:Egberts/Drafts/QEMU/Guest/Gentoo Linux](https://wiki.gentoo.org/wiki/User:Egberts/Drafts/QEMU/Guest/Gentoo_Linux)
+- [QEMU/Guest/Gentoo Linux](https://wiki.gentoo.org/wiki/QEMU/Guest/Gentoo_Linux) — supplemental to Gentoo [Handbook](https://wiki.gentoo.org/wiki/Handbook:Main_Page) reference guide

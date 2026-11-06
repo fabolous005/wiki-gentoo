@@ -4,8 +4,8 @@ title: Netfilter
 url: https://wiki.gentoo.org/wiki/Netfilter
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-28"
-fingerprint: a79bdb11c330bd45
+date: "2026-11-05"
+fingerprint: a79bdb11c730bd45
 license: CC BY-SA 4.0
 ---
 
@@ -326,8 +326,7 @@ The following gives you the required kernel CONFIG\_OPTIONS if you want a specif
 |---|---|---|
 | netdev/filter/egress | CONFIG\_NF\_TABLES\_NETDEV | netdev-family filtering at egress | 
 
-
-See [Nftables kernel section](https://wiki.gentoo.org/wiki/User:Egberts/Drafts/Nftables#Kernel) for final implementation of Nftables kernel configuration.
+See [Nftables kernel section](https://wiki.gentoo.org/wiki/Nftables#Kernel) for final implementation of Nftables kernel configuration.
 
 ## Diagnostics
 
@@ -387,7 +386,7 @@ For real Netlink messages between nft and kernel-level Netlink diagnostics, nlmo
 - [Nftables/Ruleset](https://wiki.gentoo.org/wiki/Nftables/Ruleset) — collection of tables, chains, rules, and other objects configured in the [Netfilter] **nf\_tables** subsystem.
 - [Nftables/Ruleset/Chain](https://wiki.gentoo.org/wiki/Nftables/Ruleset/Chain) — contains a group of rules used to process network traffic.
 - [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules) — match packet properties and execute statements.
-- [Nftables/Configuration](https://wiki.gentoo.org/wiki/Nftables/Configuration)
+- [Nftables/Configuration](https://wiki.gentoo.org/wiki/Nftables/Configuration) — how nftables rulesets are maintained and loaded on Gentoo Linux.
 - [nftables examples](https://wiki.gentoo.org/wiki/Nftables/Examples)
 - [Nftables](https://wiki.gentoo.org/wiki/Nftables) — the Linux packet-handling framework
 - [Netfilter] — Linux kernel’s packet-filtering framework

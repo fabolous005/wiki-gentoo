@@ -4,12 +4,14 @@ title: Kernel/Upgrade
 url: https://wiki.gentoo.org/wiki/Kernel/Upgrade
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-05-12"
-fingerprint: "5683113e90e23f27"
+date: "2026-11-05"
+fingerprint: "5693113e90e23f27"
 license: CC BY-SA 4.0
 ---
 
 # Kernel/Upgrade
+
+[Kernel](https://wiki.gentoo.org/wiki/Special:MyLanguage/Kernel)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -86,6 +88,8 @@ Now that the symbolic link has been modified, change the working directory to th
 
 `user $``cd /usr/src/linux`
 ## Adjusting the .config file for the new kernel
+
+### Copy the previous kernel configuration
 
 The configuration of the old kernel needs to be copied to the new one. The old configuration can be found in several places:
 
@@ -170,6 +174,8 @@ The options can then be researched and changed if necessary by running:
 `root #``make menuconfig`
 The menuconfig target is helpful because it safely handles kernel symbol dependency resolution.
 
+## Build
+
 ### Manual build and installation
 
 After configuring the new kernel as described in the previous sections, proceed to compile it. If external kernel modules (such as *nvidia* or *zfs*) are installed on your system, they must be rebuilt against the newly compiled kernel to ensure compatibility. Start by compiling the new kernel:
@@ -188,7 +194,7 @@ make modules_install
 `root #````
 make install
 ```
-Finally, the bootloader must be reconfigured to account for the new kernel filenames, as described [below](https://wiki.gentoo.org/wiki/Kernel/Upgrade#Update_the_bootloader). initramfs must be rebuilt if one is used as well.
+Finally, the bootloader must be reconfigured to account for the new kernel filenames, as described [below](https://wiki.gentoo.org#Update_the_bootloader). initramfs must be rebuilt if one is used as well.
 
 ### Automated build and installation
 
@@ -204,7 +210,7 @@ If those are fulfilled, simply install a `post_pkg_postinst` Portage hook as sho
 **Automated kernel build and installation portage hook**
 
 ```
-() {
+post_pkg_postinst() {
 # Eselect the new kernel or genkernel will build the current one
 	eselect kernel set linux-"${KV}"
 	CURRENT_KV=$(uname -r)

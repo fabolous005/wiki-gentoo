@@ -4,7 +4,7 @@ title: nftables
 url: https://wiki.gentoo.org/wiki/Nftables
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-31"
+date: "2026-11-05"
 fingerprint: b70b7b57c3822b00
 license: CC BY-SA 4.0
 ---
@@ -282,7 +282,7 @@ The package currently provides the following local USE flags:
 Verify the installation:
 
 `root #``nft --version`
-Optionally perform the master checklist [here](https://wiki.gentoo.org/wiki/User:Egberts/Drafts/Nftables#Master_Checklist).
+Optionally perform the master checklist [here](https://wiki.gentoo.org#Master_Checklist).
 
 ### Additional software
 
@@ -461,7 +461,7 @@ See [Nftables/Examples](https://wiki.gentoo.org/wiki/Nftables/Examples) for exam
 - [Nftables/Ruleset](https://wiki.gentoo.org/wiki/Nftables/Ruleset) — collection of tables, chains, rules, and other objects configured in the [Netfilter](https://wiki.gentoo.org/wiki/Netfilter) **nf\_tables** subsystem.
 - [Nftables/Ruleset/Chain](https://wiki.gentoo.org/wiki/Nftables/Ruleset/Chain) — contains a group of rules used to process network traffic.
 - [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules) — match packet properties and execute statements.
-- [Nftables/Configuration](https://wiki.gentoo.org/wiki/Nftables/Configuration)
+- [Nftables/Configuration](https://wiki.gentoo.org/wiki/Nftables/Configuration) — how nftables rulesets are maintained and loaded on Gentoo Linux.
 - [nftables examples](https://wiki.gentoo.org/wiki/Nftables/Examples)
 - [Nftables] — the Linux packet-handling framework
 - [Netfilter](https://wiki.gentoo.org/wiki/Netfilter) — Linux kernel’s packet-filtering framework

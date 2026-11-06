@@ -4,7 +4,7 @@ title: antiword
 url: https://wiki.gentoo.org/wiki/Antiword
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2023-05-23"
+date: "2026-11-05"
 fingerprint: f5529b1873f6ce81
 license: CC BY-SA 4.0
 ---

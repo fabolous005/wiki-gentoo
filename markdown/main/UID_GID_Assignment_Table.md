@@ -4,8 +4,8 @@ title: UID GID Assignment Table
 url: https://wiki.gentoo.org/wiki/UID_GID_Assignment_Table
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-21"
-fingerprint: dfdfb852c905fdb9
+date: "2026-11-05"
+fingerprint: dfdff852c905fdb9
 license: CC BY-SA 4.0
 ---
 
@@ -295,7 +295,6 @@ From Gentoo Wiki
 | groonga | 266 | 266 | [u:groonga](https://gitweb.gentoo.org/repo/gentoo.git/tree/acct-user/groonga) [g:groonga](https://gitweb.gentoo.org/repo/gentoo.git/tree/acct-group/groonga) |  | 
 | ceph | 267 | 267 | [u:ceph](https://gitweb.gentoo.org/repo/gentoo.git/tree/acct-user/ceph) [g:ceph](https://gitweb.gentoo.org/repo/gentoo.git/tree/acct-group/ceph) |  | 
 | cvmfs | 268 | 268 | [u:cvmfs](https://gitweb.gentoo.org/repo/gentoo.git/tree/acct-user/cvmfs) [g:cvmfs](https://gitweb.gentoo.org/repo/gentoo.git/tree/acct-group/cvmfs) |  | 
-| kibana | 269 | 269 | [u:kibana](https://gitweb.gentoo.org/repo/gentoo.git/tree/acct-user/kibana) [g:kibana](https://gitweb.gentoo.org/repo/gentoo.git/tree/acct-group/kibana) |  | 
 | logstash | 270 | 270 | [u:logstash](https://gitweb.gentoo.org/repo/gentoo.git/tree/acct-user/logstash) [g:logstash](https://gitweb.gentoo.org/repo/gentoo.git/tree/acct-group/logstash) |  | 
 | spire | 271 | 271 | [u:spire](https://gitweb.gentoo.org/repo/gentoo.git/tree/acct-user/spire) [g:spire](https://gitweb.gentoo.org/repo/gentoo.git/tree/acct-group/spire) |  | 
 | plugdev | - | 272 | [g:plugdev](https://gitweb.gentoo.org/repo/gentoo.git/tree/acct-group/plugdev) |  | 

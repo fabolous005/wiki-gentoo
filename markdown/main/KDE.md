@@ -4,9 +4,9 @@ title: KDE
 url: https://wiki.gentoo.org/wiki/KDE
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-11-03"
+date: "2026-11-05"
 categories: ['kde-apps', 'kde-misc']
-fingerprint: ab1baa4909a3b18c
+fingerprint: ab13aa4909a3b18c
 license: CC BY-SA 4.0
 ---
 
@@ -250,8 +250,7 @@ KDE Gear consists of various applications and supporting libraries based on Qt/K
 | KDE | Gentoo | Ebuild repository | Status | 
 |---|---|---|---|
 | KDE Gear 26.04.3 | kde-apps/kde-apps-meta-26.04.3 | gentoo | Stable for **amd64** and **arm64** | 
-| KDE Gear 26.08.2 | kde-apps/kde-apps-meta-26.08.2 | gentoo | Testing for **amd64** and **arm64** | 
-| KDE Gear 26.08 stable branch | kde-apps/kde-apps-meta-26.08.49.9999 | [KDE](https://wiki.gentoo.org/wiki/KDE/Ebuild_repository) | Live version | 
+| KDE Gear 26.08.3 | kde-apps/kde-apps-meta-26.08.3 | gentoo | Testing for **amd64** and **arm64** | 
 | KDE Gear master branch | kde-apps/kde-apps-meta-9999 | [KDE](https://wiki.gentoo.org/wiki/KDE/Ebuild_repository) | Live version | 
 
 KDE Gear is divided in the following meta packages:

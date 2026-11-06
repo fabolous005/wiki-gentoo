@@ -4,8 +4,8 @@ title: sudo
 url: https://wiki.gentoo.org/wiki/Sudo
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-08-19"
-fingerprint: f7119d5865433ba5
+date: "2026-11-05"
+fingerprint: f7119d5865472ba5
 license: CC BY-SA 4.0
 ---
 
@@ -28,6 +28,11 @@ Please read the [sudo(8)](https://man.archlinux.org/man/sudo.8.en) [and](https:/
 
 ### USE flags
 
+
+### USE flags for
+            [app-admin/sudo](https://packages.gentoo.org/packages/app-admin/sudo)
+            
+            Allows users or groups to run commands as other users
 
 | [+secure-path](https://packages.gentoo.org/useflags/+secure-path) | Replace PATH variable with compile time secure paths | 
 | [+sendmail](https://packages.gentoo.org/useflags/+sendmail) | Allow sudo to send emails with sendmail | 
@@ -98,12 +103,39 @@ Firstly, /etc/ldap.conf.sudo:
 
 **`/etc/ldap.conf.sudo`**
 
+```
+# See ldap.conf(5) and README.LDAP for details
+# This file should only be readable by root
+ 
+# supported directives: host, port, ssl, ldap_version
+# uri, binddn, bindpw, sudoers_base, sudoers_debug
+# tls_{checkpeer,cacertfile,cacertdir,randfile,ciphers,cert,key}
+ 
+host ldap.example.com
+port 389
+ 
+base dc=example,dc=com
+ 
+uri ldap://ldap.example.com/
+#uri ldapi://%2fvar%2frun%2fopenldap%2fslapd.sock
+ 
+ldap_version 3
+#ssl start_tls
+ 
+sudoers_base ou=SUDOers,dc=example,dc=com
+#sudoers_debug 2
+ 
+bind_policy soft
+```
 When done, use [chmod(1)](https://man.archlinux.org/man/chmod.1.en) [to set the file's permissions to 400.](https://wiki.gentoo.org/wiki/Special:MyLanguage/man_page)
 
 Secondly, add the following line to /etc/nsswitch.conf:
 
 **`/etc/nsswitch.conf`**
 
+```
+sudoers:     ldap files
+```
 The following LDAP entry will need to be added for sudo.
 
 For further information about using sudo with LDAP, refer to the [Sudoers LDAP Manual](https://www.sudo.ws/man/sudoers.ldap.man.html).
@@ -172,7 +204,7 @@ User larry may run the following commands on this host:
     (root)   /usr/libexec/xfsm-shutdown-helper
     (root)   /usr/bin/emerge
     (root)   /usr/bin/passwd [a-zA-Z0-9_-]*
-    (root)   !/usr/bin/passwd root
+    (root)   !/usr/bin/passwd root
     (apache) /usr/bin/pkill
     (apache) /bin/kill
 ```

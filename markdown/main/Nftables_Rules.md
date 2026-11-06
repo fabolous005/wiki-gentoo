@@ -4,7 +4,7 @@ title: Nftables/Rules
 url: https://wiki.gentoo.org/wiki/Nftables/Rules
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-30"
+date: "2026-11-05"
 fingerprint: fdbc9d1efb0bcfad
 license: CC BY-SA 4.0
 ---
@@ -64,13 +64,6 @@ A rule consists of expressions and statements. Expressions determine whether a p
 `nft add rule [<family>] TABLE_ID CHAIN_ID <expressions> <statements>`
 The family can be omitted when it defaults to ip. A rule can also include a comment.
 
-**`/etc/nftables/rules.d/ssh-server.nft`**
-
-**SSH rule fragment**
-
-```
-tcp dport 22 accept
-```
 ## Rule management
 
 Rules are added, inserted, replaced, deleted, or reset with the corresponding nft command. Rule handles identify existing rules and can be displayed with the -a option.
@@ -193,8 +186,8 @@ Verdicts determine how rule evaluation proceeds for a matching packet.
 |---|---|
 | accept | Accepts the packet at the current hook. A later base chain can still drop it. | 
 | drop | Discards the packet immediately. | 
-| jump | Transfers control to a regular chain and saves the return position. | 
-| goto | Transfers control to a regular chain without saving the current return position. | 
+| [jump](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Jump&action=edit&redlink=1) | Transfers control to a regular chain and saves the return position. | 
+| [goto](https://wiki.gentoo.org/wiki/Nftables/Rules/Goto) | Transfers control to a regular chain without saving the current return position. | 
 | reject | Discards the packet and, when possible, sends an error response. | 
 | return | Ends evaluation of the current chain. A regular chain returns to its caller; a base chain applies its policy. | 
 
@@ -210,7 +203,7 @@ The following pages provide keyword guides for configuring [Nftables](https://wi
 - [Nftables/Ruleset](https://wiki.gentoo.org/wiki/Nftables/Ruleset) — collection of tables, chains, rules, and other objects configured in the [Netfilter](https://wiki.gentoo.org/wiki/Netfilter) **nf\_tables** subsystem.
 - [Nftables/Ruleset/Chain](https://wiki.gentoo.org/wiki/Nftables/Ruleset/Chain) — contains a group of rules used to process network traffic.
 - [Nftables/Rules] — match packet properties and execute statements.
-- [Nftables/Configuration](https://wiki.gentoo.org/wiki/Nftables/Configuration)
+- [Nftables/Configuration](https://wiki.gentoo.org/wiki/Nftables/Configuration) — how nftables rulesets are maintained and loaded on Gentoo Linux.
 - [nftables examples](https://wiki.gentoo.org/wiki/Nftables/Examples)
 - [Nftables](https://wiki.gentoo.org/wiki/Nftables) — the Linux packet-handling framework
 - [Netfilter](https://wiki.gentoo.org/wiki/Netfilter) — Linux kernel’s packet-filtering framework

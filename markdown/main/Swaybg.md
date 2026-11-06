@@ -4,7 +4,7 @@ title: swaybg
 url: https://wiki.gentoo.org/wiki/Swaybg
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-10"
+date: "2026-11-05"
 fingerprint: "2a169f135481db84"
 license: CC BY-SA 4.0
 ---

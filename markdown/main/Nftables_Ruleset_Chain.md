@@ -4,8 +4,8 @@ title: Nftables/Ruleset/Chain
 url: https://wiki.gentoo.org/wiki/Nftables/Ruleset/Chain
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-28"
-fingerprint: fcb09d1edf4b8e2f
+date: "2026-11-05"
+fingerprint: fdb09d1edf4b8e2f
 license: CC BY-SA 4.0
 ---
 
@@ -70,6 +70,38 @@ Its name identifies the declared chain within its table.
 
 Then defines its rules within a brace-delimited block.
 
+### Syntax
+
+A regular chain declaration:
+
+```
+chain NAME {
+```
+RULES
+
+}
+A base chain declaration:
+
+```
+chain NAME {
+```
+type TYPE hook HOOK [device DEVICE] priority PRIORITY;
+   [policy POLICY;]
+   RULES
+
+}
+Where:
+
+- NAME specifies the chain name.
+- TYPE specifies the base chain type.
+- HOOK specifies the Netfilter hook.
+- DEVICE optionally restricts the chain to a network interface.
+- PRIORITY specifies the chain priority.
+- POLICY optionally specifies the base chain's default verdict.
+- RULES specifies the ordered rules within the chain.
+
+### Regular chain declaration
+
 **`/etc/nftables/rules/main.nft`**
 
 **Chain declaration**
@@ -79,8 +111,6 @@ chain input_filter {
     tcp dport 80 accept
 }
 ```
-The declaration creates the chain; nothing enters that regular chain until another chain reaches it.
-
 ## Table scope
 
 A chain belongs exactly to one table.
@@ -206,7 +236,7 @@ table inet filter {
     }
 }
 ```
-Noticed that main\_filter got listed first in the nftables commands? Lower priority ensures that early\_filter will be processed first.
+Noticed that main\_filter got listed first in the nftables commands? Lower priority value ensures that early\_filter will be processed first.
 
 #### Labeled priority
 
@@ -465,7 +495,7 @@ See [Abrupt pathways](https://wiki.gentoo.org#Abrupt_pathways) for their behavio
 
 A base chain is entered through its Netfilter hook.
 
-When processing reaches the end of a base chain, its policy gets used.
+When processing reaches the end of a base chain, its chain policy determines the verdict of that packet's final handling.
 
 ## Examples
 
@@ -499,7 +529,7 @@ chain input {
 - [Nftables/Ruleset](https://wiki.gentoo.org/wiki/Nftables/Ruleset) — collection of tables, chains, rules, and other objects configured in the [Netfilter](https://wiki.gentoo.org/wiki/Netfilter) **nf\_tables** subsystem.
 - [Nftables/Ruleset/Chain] — contains a group of rules used to process network traffic.
 - [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules) — match packet properties and execute statements.
-- [Nftables/Configuration](https://wiki.gentoo.org/wiki/Nftables/Configuration)
+- [Nftables/Configuration](https://wiki.gentoo.org/wiki/Nftables/Configuration) — how nftables rulesets are maintained and loaded on Gentoo Linux.
 - [nftables examples](https://wiki.gentoo.org/wiki/Nftables/Examples)
 - [Nftables](https://wiki.gentoo.org/wiki/Nftables) — the Linux packet-handling framework
 - [Netfilter](https://wiki.gentoo.org/wiki/Netfilter) — Linux kernel’s packet-filtering framework

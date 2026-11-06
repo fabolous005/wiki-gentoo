@@ -4,8 +4,8 @@ title: nftables/rules/snat
 url: https://wiki.gentoo.org/wiki/Nftables/Rules/Snat
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-20"
-fingerprint: "82a0b95af137fd6d"
+date: "2026-11-05"
+fingerprint: "82a1b95ab613fd6d"
 license: CC BY-SA 4.0
 ---
 
@@ -16,26 +16,21 @@ license: CC BY-SA 4.0
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
 
-The `snat` statement translates packet source addresses. It belongs to the **statement** syntax group.
-
-## Kernel
-
-For `snat` configuration, the relevant additional Linux Kconfig options include:
-
-- `CONFIG_NF_NAT` - Netfilter NAT support
-- `CONFIG_NF_TABLES` - nf\_tables framework
-- `CONFIG_NFT_NAT` - nftables NAT statements
-- `CONFIG_NF_CONNTRACK` - connection tracking
+The `snat` statement translates packet source addresses.
 
 ## Placement
 
-Place `snat` in a **nat** base chain having the **postrouting** or **input** hook, or in a regular chain called from such base chain.
+The snat statement is valid only in a nat chain.
+
+Place `snat` in a base chain having the **postrouting** or **input** hook. A regular chain called from such base chain can also use snat.
+
+It belongs to the **statement** syntax group.
 
 ## Evaluation
 
-The `snat` statement is terminal because they implicitly issue an `accept` verdict.
+The `snat` statement is terminal. It terminates evaluation of the current rule and implicitly issue an accept verdict.
 
-The `snat` statement establishes a source NAT mapping for the connection's first packet. Subsequent packets use the established mapping.
+The first packet of a connection establishes the source NAT mapping. Connection tracking applies the mapping to subsequent packets.
 
 ## Syntax
 
@@ -53,8 +48,6 @@ FLAG := persistent | random | fully-random
 - `random` - Randomize source port mapping
 - `fully-random` - Use fully randomized source port mapping
 
-
-
 **`/etc/nftables/rules/main.nft`**
 
 **SNAT statement**
@@ -66,48 +59,55 @@ The `to` parameter accepts an address, address range, or address and port range.
 
 ## Examples
 
-Translate source addresses to a fixed address:
+### Datacenter Egress NAT
+
+Makes thousands of internal servers appear behind a designated public IP address.
 
 **`/etc/nftables/rules/main.nft`**
 
-**Fixed source address**
+**Datacenter egress NAT**
 
 ```
-table ip nice {
-    chain spreadout {
-        type nat hook postrouting priority filter;
+table ip nat {
+    chain postrouting {
+        type nat hook postrouting priority srcnat;
         policy accept;
-        ip saddr 192.168.1.0/24 snat to 192.0.2.1
+        ip saddr 10.20.0.0/16 oifname "eth0" snat to 203.0.113.10
     }
 }
 ```
-Translate source addresses to an address range:
+### Outbound Traffic Distribution
+
+Spreads outgoing connections from a large server farm across a pool of public IP addresses.
 
 **`/etc/nftables/rules/main.nft`**
 
-**Source address range**
+**Outbound traffic distribution**
 
 ```
-table ip nice {
-    chain spreadout {
-        type nat hook postrouting priority filter;
+table ip nat {
+    chain postrouting {
+        type nat hook postrouting priority srcnat;
         policy accept;
-        snat to 192.0.2.1-192.0.2.10
+        ip saddr 10.20.0.0/16 oifname "eth0" snat to 203.0.113.10-203.0.113.20
     }
 }
 ```
-SNAT with prefix, port range, and persistent flag:
+### Multi-WAN Source NAT
+
+Assigns outgoing connections to the appropriate public IP address when traffic exits through different Internet service providers.
 
 **`/etc/nftables/rules/main.nft`**
 
-**SNAT with prefix, port range, and persistent flag**
+**Multi-WAN source NAT**
 
 ```
-table ip nice {
-    chain spreadout {
-        type nat hook input priority filter;
+table ip nat {
+    chain postrouting {
+        type nat hook postrouting priority srcnat;
         policy accept;
-        snat ip prefix to 192.168.1.0/24:1024-65535 persistent
+        oifname "wan1" snat to 198.51.100.10
+        oifname "wan2" snat to 203.0.113.10
     }
 }
 ```
@@ -117,9 +117,18 @@ table ip nice {
 - Use [`dnat`](https://wiki.gentoo.org/wiki/Nftables/Rules/Dnat) to translate destinations to a specified address.
 - Use [`redirect`](https://wiki.gentoo.org/wiki/Nftables/Rules/Redirect) to redirect traffic to a local service
 
+## Kernel configuration
+
+For snat configuration, the relevant additional Linux Kconfig options include:
+
+- `CONFIG_NF_NAT` - Netfilter NAT support
+- `CONFIG_NF_TABLES` - nf\_tables framework
+- `CONFIG_NFT_NAT` - nftables NAT statements
+- `CONFIG_NF_CONNTRACK` - connection tracking
+
 ## See also
 
 - [Nftables/Rules/masquerade](https://wiki.gentoo.org/wiki/Nftables/Rules/masquerade)
 - [Nftables/Rules/Dnat](https://wiki.gentoo.org/wiki/Nftables/Rules/Dnat)
 - [Nftables/Rules/Redirect](https://wiki.gentoo.org/wiki/Nftables/Rules/Redirect)
-- [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules) — match packet properties and perform actions.
+- [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules) — match packet properties and execute statements.

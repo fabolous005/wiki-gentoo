@@ -4,8 +4,8 @@ title: nftables/rules/redirect
 url: https://wiki.gentoo.org/wiki/Nftables/Rules/Redirect
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-20"
-fingerprint: "84a23938f3a346fd"
+date: "2026-11-05"
+fingerprint: "84a23938f3a300fd"
 license: CC BY-SA 4.0
 ---
 
@@ -49,8 +49,6 @@ FLAG := persistent | random | fully-random
 - `persistent` - Prefer consistent address selection for each client
 - `random` - Randomize port mapping
 - `fully-random` - Use fully randomized port mapping
-
-
 
 **`/etc/nftables/rules/main.nft`**
 
@@ -121,4 +119,4 @@ table ip nat {
 - [Nftables/Rules/Dnat](https://wiki.gentoo.org/wiki/Nftables/Rules/Dnat)
 - [Nftables/Rules/Snat](https://wiki.gentoo.org/wiki/Nftables/Rules/Snat)
 - [Nftables/Rules/masquerade](https://wiki.gentoo.org/wiki/Nftables/Rules/masquerade)
-- [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules) — match packet properties and perform actions.
+- [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules) — match packet properties and execute statements.

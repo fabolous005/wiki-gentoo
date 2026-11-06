@@ -4,8 +4,8 @@ title: nftables/rules/dnat
 url: https://wiki.gentoo.org/wiki/Nftables/Rules/Dnat
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-20"
-fingerprint: c0a0b95af227bd7d
+date: "2026-11-05"
+fingerprint: e4a1f95af223bd7f
 license: CC BY-SA 4.0
 ---
 
@@ -16,26 +16,21 @@ license: CC BY-SA 4.0
 [Jump to:search](https://wiki.gentoo.org#searchInput)
 
 
-The `dnat` statement translates packet destination addresses. It belongs to the **statement** syntax group.
-
-## Kernel
-
-For `dnat` configuration, the relevant additional Linux Kconfig options include:
-
-- `CONFIG_NF_NAT` - Netfilter NAT support
-- `CONFIG_NF_TABLES` - nf\_tables framework
-- `CONFIG_NFT_NAT` - nftables NAT statements
-- `CONFIG_NF_CONNTRACK` - connection tracking
+The dnat statement translates packet destination addresses.
 
 ## Placement
 
-Place `dnat` in a **nat** base chain having the **prerouting** or **output** hook, or in a regular chain called from such a base chain.
+The dnat statement is valid only in a nat chain.
+
+Place dnat in a base chain with the prerouting or output hook. A regular chain called from such a base chain can also use dnat.
+
+The dnat statement requires connection tracking.
 
 ## Evaluation
 
-The `dnat` statement is terminal because they implicitly issue an `accept` verdict.
+The dnat statement is terminal. It terminates evaluation of the current rule and implicitly issues an accept verdict.
 
-The `dnat` statement establishes a destination NAT mapping for the connection's first packet. Subsequent packets use the established mapping.
+The first packet of a connection establishes the destination NAT mapping. Connection tracking applies the mapping to subsequent packets.
 
 ## Syntax
 
@@ -45,28 +40,20 @@ PORT\_SPEC := port | port - port
 FLAGS := FLAG \[, FLAGS\]
 FLAG := persistent | random | fully-random
 
-- `ip`, `ip6` - Address family
-- `prefix` - Enable prefix-based address mapping
-- `ADDR_SPEC` - Single address or inclusive address range
-- `PORT_SPEC` - Single port or inclusive port range
-- `persistent` - Prefer consistent address selection for each client
-- `random` - Randomize port mapping
-- `fully-random` - Use fully randomized port mapping
+- ip, ip6 - Address family
+- prefix - Enables prefix-based address mapping
+- ADDR\_SPEC - IP address, single or inclusive address range
 
-
-
-**`/etc/nftables/rules/main.nft`**
-
-**DNAT statement**
-
-```
-dnat to 192.168.1.10
-```
-The `to` parameter accepts an address, address range, port, or port range. Optional flags include `persistent`, `random`, and `fully-random`.
+- PORT\_SPEC - Port number, single or inclusive port range
+- persistent - Prefers consistent address selection for each client
+- random - Randomizes port mapping
+- fully-random - Uses fully randomized port mapping
 
 ## Examples
 
-Translate destination addresses to a fixed address:
+### Fixed destination address
+
+Redirects incoming traffic to a specific IP address.
 
 **`/etc/nftables/rules/main.nft`**
 
@@ -81,7 +68,9 @@ table ip nat {
     }
 }
 ```
-Translate destination addresses to an address range:
+### Destination address range
+
+Distributes incoming traffic across a range of IP addresses.
 
 **`/etc/nftables/rules/main.nft`**
 
@@ -96,7 +85,9 @@ table ip nat {
     }
 }
 ```
-DNAT with a destination port range and persistent flag:
+### Persistent DNAT
+
+Redirects HTTP traffic to a backend server using a port range and persistent client mapping.
 
 **`/etc/nftables/rules/main.nft`**
 
@@ -113,14 +104,24 @@ table ip nat {
 ```
 ## Tips
 
-- Use [`masquerade`](https://wiki.gentoo.org/wiki/Nftables/Rules/masquerade) for dynamically assigned outgoing addresses
-- Use [`snat`](https://wiki.gentoo.org/wiki/Nftables/Rules/Snat) for known source addresses or defined address ranges.
-- Use [`redirect`](https://wiki.gentoo.org/wiki/Nftables/Rules/Redirect) to redirect traffic to a local service
-- In an **inet** family chain, specify `ip` or `ip6` when providing an address.
+- Use persistent for rudimentary load distribution where maintaining client affinity matters.
+- Use [masquerade](https://wiki.gentoo.org/wiki/Nftables/Rules/masquerade) for dynamically assigned outgoing addresses.
+- Use [snat](https://wiki.gentoo.org/wiki/Nftables/Rules/Snat) for known source addresses or address ranges.
+- Use [redirect](https://wiki.gentoo.org/wiki/Nftables/Rules/Redirect) to redirect traffic to a local service.
+- In an inet family chain, specify ip or ip6 when providing an address.
+
+## Kernel configuration
+
+The following Linux Kconfig options provide DNAT support:
+
+- `CONFIG_NF_NAT` - Netfilter NAT support
+- `CONFIG_NF_TABLES` - nf\_tables framework
+- `CONFIG_NFT_NAT` - nftables NAT statements
+- `CONFIG_NF_CONNTRACK` - Connection tracking
 
 ## See also
 
 - [Nftables/Rules/Snat](https://wiki.gentoo.org/wiki/Nftables/Rules/Snat)
 - [Nftables/Rules/masquerade](https://wiki.gentoo.org/wiki/Nftables/Rules/masquerade)
 - [Nftables/Rules/Redirect](https://wiki.gentoo.org/wiki/Nftables/Rules/Redirect)
-- [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules) — match packet properties and perform actions.
+- [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules) — match packet properties and execute statements.
