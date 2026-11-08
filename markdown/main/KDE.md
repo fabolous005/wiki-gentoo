@@ -4,7 +4,7 @@ title: KDE
 url: https://wiki.gentoo.org/wiki/KDE
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-11-05"
+date: "2026-11-07"
 categories: ['kde-apps', 'kde-misc']
 fingerprint: ab13aa4909a3b18c
 license: CC BY-SA 4.0
@@ -70,7 +70,7 @@ Make sure to have configured applicable `VIDEO_CARDS` USE expand settings and ke
 | KDE | Gentoo | Ebuild repository | Status | 
 |---|---|---|---|
 | KDE Plasma 6.7.5 | kde-plasma/plasma-meta-6.7.5 | gentoo | Stable for **amd64** and **arm64**; testing for **ppc64**, **riscv** and **x86** | 
-| KDE Plasma 6.7.6 | kde-plasma/plasma-meta-6.7.6 | gentoo | Testing for **amd64**, **arm64**, **ppc64**, **riscv** and **x86** | 
+| KDE Plasma 6.7.6 | kde-plasma/plasma-meta-6.7.6 | gentoo | Stable for **amd64** and **arm64**; testing for **ppc64**, **riscv** and **x86** | 
 | KDE Plasma 6.8.2 | kde-plasma/plasma-meta-6.8.2 | gentoo | Testing for **amd64** and **arm64** | 
 | KDE Plasma 6.7 stable branch | kde-plasma/plasma-meta-6.7.49.9999 | [KDE](https://wiki.gentoo.org/wiki/KDE/Ebuild_repository) | Live version | 
 | KDE Plasma 6.8 stable branch | kde-plasma/plasma-meta-6.8.49.9999 | [KDE](https://wiki.gentoo.org/wiki/KDE/Ebuild_repository) | Live version | 
@@ -308,7 +308,7 @@ As Frameworks are mostly libraries and provide little user functionality, it's n
 | KDE | Gentoo | Ebuild repository | Status | 
 |---|---|---|---|
 | KDE Frameworks 6.29.0 | kde-frameworks/\*-6.29.0 | gentoo | Stable for **amd64**, **arm64** and **ppc64**; testing for **loong**, **riscv** and **x86** | 
-| KDE Frameworks 6.31.0 | kde-frameworks/\*-6.31.0 | gentoo | Testing for **amd64**, **arm64**, **loong**, **ppc64**, **riscv** and **x86** | 
+| KDE Frameworks 6.31.0 | kde-frameworks/\*-6.31.0 | gentoo | Stable for **amd64**, **arm64** and **ppc64**; testing for **loong**, **riscv** and **x86** | 
 | KDE Frameworks 6 (master) branch | kde-frameworks/\*-9999 | [KDE](https://wiki.gentoo.org/wiki/KDE/Ebuild_repository) | Live version | 
 
 ## More KDE software

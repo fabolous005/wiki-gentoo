@@ -4,8 +4,8 @@ title: virt-manager
 url: https://wiki.gentoo.org/wiki/Virt-manager
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-09-12"
-fingerprint: "860b9cf94eb38bc0"
+date: "2026-11-07"
+fingerprint: "868b1cf94eb38b80"
 license: CC BY-SA 4.0
 ---
 
@@ -93,12 +93,12 @@ For the front-end part, virt-manager GUI, using [Libvirt](https://wiki.gentoo.or
 
 For a **system** domain, the window title bar does NOT show this "`User session`" phrase following its domain name and virtualization engine (**QEMU/KVM**) type, in either detailed or console view mode.
 
-![Virt-manager-titlebar-system.png](https://wiki.gentoo.org/images/1/1c/Virt-manager-titlebar-system.png)
+![](https://wiki.gentoo.org/images/1/1c/Virt-manager-titlebar-system.png)
 
 
 For a **session** domain, its window title bar does show a "`User session`" after the domain name and virtualization engine (**QEMU/KVM**) type, in either detailed or console window view mode.
 
-![Virt-manager-titlebar-session.png](https://wiki.gentoo.org/images/6/62/Virt-manager-titlebar-session.png)
+![](https://wiki.gentoo.org/images/6/62/Virt-manager-titlebar-session.png)
 
 
 
@@ -183,6 +183,11 @@ If /dev/kvm does not exist, go back to [QEMU](https://wiki.gentoo.org/wiki/QEMU)
 
 ### USE flags
 
+
+### USE flags for
+            [app-emulation/virt-manager](https://packages.gentoo.org/packages/app-emulation/virt-manager)
+            
+            Desktop tool for managing libvirt virtual machines
 
 | [gui](https://packages.gentoo.org/useflags/gui) | Enable support for a graphical user interface | 
 | [policykit](https://packages.gentoo.org/useflags/policykit) | Enable PolicyKit (polkit) authentication support | 
@@ -325,26 +330,6 @@ virsh pool-define
 These are independent of /var/lib/libvirt/images/.
 
 
-
-### Netfilter
-
-Virt-manager also reserves the following names of base chains.
-
-| Family | Chain type | Base chain name used | 
-|---|---|---|
-| ip | filter | LIBVIRT\_INP | 
-| ip | filter | INPUT | 
-| ip | filter | LIBVIRT\_OUT | 
-| ip | filter | OUTPUT | 
-| ip | filter | LIBVIRT\_FWD | 
-| ip | filter | FORWARD | 
-| ip | filter | LIBVIRT\_FWI | 
-| ip | filter | LIBVIRT\_FWX | 
-| ip | nat | nat | 
-| ip | nat | LIBVIRT\_PRT | 
-| ip | nat | POSTROUTING | 
-| ip | mangle | LIBVIRT\_PRT | 
-| ip | mangle | POSTROUTING | 
 
 ### Networking
 
@@ -520,6 +505,19 @@ On some system, the default.xml can be found in /usr/share/libvirt/networks/defa
 
 **`/etc/libvirt/qemu/networks/default.xml`**
 
+```
+<network>
+  <name>default</name>
+  <uuid>REPLACE-WITH-NEW-UUID</uuid>
+  <forward mode='nat'/>
+  <bridge name='virbr0' stp='on' delay='0'/>
+  <ip address='192.168.122.1' netmask='255.255.255.0'>
+    <dhcp>
+      <range start='192.168.122.2' end='192.168.122.254'/>
+    </dhcp>
+  </ip>
+</network>
+```
 
 
 #### Within virt-manager

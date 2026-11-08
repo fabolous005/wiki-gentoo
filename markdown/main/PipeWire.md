@@ -4,7 +4,7 @@ title: PipeWire
 url: https://wiki.gentoo.org/wiki/PipeWire
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-30"
+date: "2026-11-07"
 fingerprint: "9f238b5889663990"
 license: CC BY-SA 4.0
 ---
@@ -192,13 +192,13 @@ OpenRC has built-in and enabled by default support for [user services](https://w
 To enable these services:
 
 `user $````
-rc-update add -U pipewire default
+rc-update --user add pipewire default
 ```
 `user $````
-rc-update add -U pipewire-pulse default
+rc-update --user add pipewire-pulse default
 ```
 `user $````
-rc-update add -U wireplumber default
+rc-update --user add wireplumber default
 ```
 To start the services without enabling them:
 

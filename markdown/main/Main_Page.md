@@ -4,8 +4,8 @@ title: Gentoo Wiki
 url: https://wiki.gentoo.org/wiki/Main_Page
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-11-05"
-fingerprint: d8b6f84376d3e35d
+date: "2026-10-30"
+fingerprint: f692e8537e13437c
 license: CC BY-SA 4.0
 ---
 
@@ -53,7 +53,7 @@ Here's to a productive new year for the wiki in 2026!
 
 - **115** active and **150** retired developers
 - **170** active official projects
-- **213** active users on the wiki
+- **212** active users on the wiki
 
 ## Getting started
 
@@ -69,16 +69,4 @@ For questions *related to using or editing the documentation on the <u>wiki</u>*
 
 ## Recently added pages
 
-#### 5 November 2026
-
-- 20:12[20:12, 5 November 2026](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Goto&oldid=1463113) [Nftables/Rules/Goto](https://wiki.gentoo.org/wiki/Nftables/Rules/Goto) ([hist](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Goto&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Goto&action=edit)) \[3,692 bytes\] [Egberts](https://wiki.gentoo.org/wiki/User:Egberts) ([talk](https://wiki.gentoo.org/wiki/User_talk:Egberts) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Egberts))  (Initial release)
-- 14:53[14:53, 5 November 2026](https://wiki.gentoo.org/index.php?title=Windowmaker&oldid=1463080) [Windowmaker](https://wiki.gentoo.org/wiki/Windowmaker) ([hist](https://wiki.gentoo.org/index.php?title=Windowmaker&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Windowmaker&action=edit)) \[3,779 bytes\] [Riaapup](https://wiki.gentoo.org/wiki/User:Riaapup) ([talk](https://wiki.gentoo.org/index.php?title=User_talk:Riaapup&action=edit&redlink=1) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Riaapup))  (Windowmaker page, added some info.)
-
-#### 2 November 2026
-
-- 08:50[08:50, 2 November 2026](https://wiki.gentoo.org/index.php?title=OpenRC/SectionBox&oldid=1462821) [OpenRC/SectionBox](https://wiki.gentoo.org/wiki/OpenRC/SectionBox) ([hist](https://wiki.gentoo.org/index.php?title=OpenRC/SectionBox&action=history) | [edit](https://wiki.gentoo.org/index.php?title=OpenRC/SectionBox&action=edit)) \[245 bytes\] [Ris](https://wiki.gentoo.org/wiki/User:Ris) ([talk](https://wiki.gentoo.org/wiki/User_talk:Ris) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Ris))  (Creating OpenRC/SectionBox)
-- 08:28[08:28, 2 November 2026](https://wiki.gentoo.org/index.php?title=OpenRC/Advanced&oldid=1462817) [OpenRC/Advanced](https://wiki.gentoo.org/wiki/OpenRC/Advanced) ([hist](https://wiki.gentoo.org/index.php?title=OpenRC/Advanced&action=history) | [edit](https://wiki.gentoo.org/index.php?title=OpenRC/Advanced&action=edit)) \[2,146 bytes\] [Ris](https://wiki.gentoo.org/wiki/User:Ris) ([talk](https://wiki.gentoo.org/wiki/User_talk:Ris) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Ris))  (move busybox config info here)
-
-#### 30 October 2026
-
-- 21:07[21:07, 30 October 2026](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Iiftype&oldid=1462547) [Nftables/Rules/Iiftype](https://wiki.gentoo.org/wiki/Nftables/Rules/Iiftype) ([hist](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Iiftype&action=history) | [edit](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Iiftype&action=edit)) \[4,617 bytes\] [Egberts](https://wiki.gentoo.org/wiki/User:Egberts) ([talk](https://wiki.gentoo.org/wiki/User_talk:Egberts) | [contribs](https://wiki.gentoo.org/wiki/Special:Contributions/Egberts))  (Initial release)
+You must be logged in to perform this action or view this special page.

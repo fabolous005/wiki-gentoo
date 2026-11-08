@@ -186,7 +186,7 @@ Verdicts determine how rule evaluation proceeds for a matching packet.
 |---|---|
 | accept | Accepts the packet at the current hook. A later base chain can still drop it. | 
 | drop | Discards the packet immediately. | 
-| [jump](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Jump&action=edit&redlink=1) | Transfers control to a regular chain and saves the return position. | 
+| [jump](https://wiki.gentoo.org/wiki/Nftables/Rules/Jump) | Transfers control to a regular chain and saves the return position. | 
 | [goto](https://wiki.gentoo.org/wiki/Nftables/Rules/Goto) | Transfers control to a regular chain without saving the current return position. | 
 | reject | Discards the packet and, when possible, sends an error response. | 
 | return | Ends evaluation of the current chain. A regular chain returns to its caller; a base chain applies its policy. | 

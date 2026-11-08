@@ -4,7 +4,7 @@ title: Wi-Fi
 url: https://wiki.gentoo.org/wiki/Wi-Fi
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-03-05"
+date: "2026-11-06"
 fingerprint: "3f9d985990231324"
 license: CC BY-SA 4.0
 ---
@@ -77,7 +77,7 @@ Activate at least [cfg80211](https://wireless.wiki.kernel.org/en/developers/docu
         [ ]   Trace all mac80211 debug messages
         [ ]   Select mac80211 debugging features  ----
 ```
-Minstrel and its 802.11n support is a [rate control algorithm](https://wireless.wiki.kernel.org/en/developers/Documentation/mac80211/RateControl/minstrel). Some wireless drivers might require it enabled.
+Minstrel and its 802.11n support is a [rate control algorithm](https://wireless.docs.kernel.org/en/latest/en/developers/documentation/mac80211/ratecontrol/minstrel.html). Some wireless drivers might require it enabled.
 
 ### WEXT
 
@@ -219,9 +219,9 @@ Check the output of dmesg.
 `user $``dmesg | grep -i -E 'xx:xx.x|wlan|iwl|80211'`
 Be sure to replace
 
-- `xx:xx.x` with the identifier (PCIID) from [lspci](https://wiki.gentoo.org/wiki/Wi-Fi#Hardware_detection),
-- `wlan` with the [network interface name](https://wiki.gentoo.org/wiki/Wi-Fi#Network_device_names) and
-- `iwl` with the name of the [Kernel driver in use](https://wiki.gentoo.org/wiki/Wi-Fi#Hardware_detection).
+- `xx:xx.x` with the identifier (PCIID) from [lspci](https://wiki.gentoo.org#Hardware_detection),
+- `wlan` with the [network interface name](https://wiki.gentoo.org#Network_device_names) and
+- `iwl` with the name of the [Kernel driver in use](https://wiki.gentoo.org#Hardware_detection).
 
 ## Troubleshooting
 

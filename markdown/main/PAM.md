@@ -4,7 +4,7 @@ title: PAM
 url: https://wiki.gentoo.org/wiki/PAM
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2024-02-13"
+date: "2026-11-06"
 fingerprint: b230de704916a1d5
 license: CC BY-SA 4.0
 ---

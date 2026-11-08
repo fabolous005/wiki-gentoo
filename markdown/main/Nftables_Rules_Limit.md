@@ -4,8 +4,8 @@ title: Nftables/Rules/Limit
 url: https://wiki.gentoo.org/wiki/Nftables/Rules/Limit
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-20"
-fingerprint: "10927b3ce7ba2d78"
+date: "2026-11-07"
+fingerprint: "9092fb3ce79a2d78"
 license: CC BY-SA 4.0
 ---
 
@@ -17,22 +17,15 @@ license: CC BY-SA 4.0
 
 The **limit** statement matches packets or bytes within a specified rate.
 
-## Kernel
-
-For the `limit` configuration, the relevant Linux Kconfig options are:
-
-- `CONFIG_NF_TABLES` - nftables framework
-- `CONFIG_NFT_LIMIT` - nftables limit statement support; builds the nft\_limit module
-
-## Evaluation
-
-The limit statement is non-terminal so rule evaluation continues when the limit expression matches.
-
-The over keyword inverts the rate condition, matching traffic above the specified rate.
-
 ## Placement
 
 The limit statement belongs inside a rule in a chain. Packet expressions can restrict which traffic is rate-limited.
+
+## Evaluation
+
+The limit statement is non-terminal The limit statement is a conditional statement, so rule evaluation continues when the limit expression matches.
+
+The over keyword inverts the rate condition, matching traffic above the specified rate.
 
 ## Syntax
 
@@ -90,6 +83,13 @@ Allow a burst of 20 packets:
 ```
 limit rate 10/second burst 20 packets accept
 ```
+## Kernel
+
+For the `limit` configuration, the relevant Linux Kconfig options are:
+
+- `CONFIG_NF_TABLES` - nftables framework
+- `CONFIG_NFT_LIMIT` - nftables limit statement support; builds the nft\_limit module
+
 ## Notes
 
 The limit statement uses a token bucket. The burst allowance controls how much traffic can exceed the average rate temporarily.
@@ -98,9 +98,9 @@ The limit statement maintains its own rate-limit state. Use a **[meter](https://
 
 ## See also
 
-- [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules) — match packet properties and perform actions.
-- [Nftables/Rules/Log](https://wiki.gentoo.org/wiki/Nftables/Rules/Log) — logs matching packets.
-- [Nftables/Rules/Meter](https://wiki.gentoo.org/wiki/Nftables/Rules/Meter) — applies stateful expressions separately to each selector value or combination of values.
-- [Nftables/Ruleset](https://wiki.gentoo.org/wiki/Nftables/Ruleset)
+- [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules) — match packet properties and execute statements.
+- [Nftables/Rules/Log](https://wiki.gentoo.org/wiki/Nftables/Rules/Log) — logs the currently matched packet.
+- [Nftables/Rules/Meter](https://wiki.gentoo.org/wiki/Nftables/Rules/Meter) — tracks packet or byte rates independently per key, enabling per-client rate limiting and accounting.
+- [Nftables/Ruleset](https://wiki.gentoo.org/wiki/Nftables/Ruleset) — collection of tables, chains, rules, and other objects configured in the [Netfilter](https://wiki.gentoo.org/wiki/Netfilter) **nf\_tables** subsystem.
 - [Nftables/Examples](https://wiki.gentoo.org/wiki/Nftables/Examples)
 - [nft](https://wiki.gentoo.org/wiki/Nft) — configures and inspects the Linux kernel's nftables packet handling framework

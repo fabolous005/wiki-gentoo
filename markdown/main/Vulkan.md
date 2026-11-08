@@ -4,8 +4,8 @@ title: Vulkan
 url: https://wiki.gentoo.org/wiki/Vulkan
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-01-29"
-fingerprint: "13f4b7e5f9b352d"
+date: "2026-11-06"
+fingerprint: "3374b7e5799352d"
 license: CC BY-SA 4.0
 ---
 
@@ -29,13 +29,13 @@ To use Vulkan in any useful capacity, at least one ICD (Installable Client Drive
 
 | Driver name | `VIDEO_CARDS` value | Package | Supported | 
 |---|---|---|---|
-| RADV | `amdgpu` | [media-libs/mesa](https://packages.gentoo.org/packages/media-libs/mesa) | <sup>1</sup> | 
-| [AMDVLK](https://wiki.gentoo.org/wiki/AMDVLK) | `amdgpu` | [media-libs/amdvlk](https://packages.gentoo.org/packages/media-libs/amdvlk) or [media-libs/amdvlk-bin](https://packages.gentoo.org/packages/media-libs/amdvlk-bin) from [GURU repository](https://wiki.gentoo.org/wiki/Project:GURU) | <sup>5</sup> | 
-| radeon/r600 | N/A | N/A |  | 
-| RADV | `radeonsi` | [media-libs/mesa](https://packages.gentoo.org/packages/media-libs/mesa) | <sup>1</sup> | 
-| ANV | `intel` | [media-libs/mesa](https://packages.gentoo.org/packages/media-libs/mesa) | <sup>2</sup> | 
-| NVK | `nouveau nvk` | [x11-drivers/xf86-video-nouveau](https://packages.gentoo.org/packages/x11-drivers/xf86-video-nouveau) [media-libs/mesa](https://packages.gentoo.org/packages/media-libs/mesa) | <sup>4</sup> | 
-| NVIDIA | `nvidia` | [x11-drivers/nvidia-drivers](https://packages.gentoo.org/packages/x11-drivers/nvidia-drivers) | <sup>3</sup> | 
+| RADV | `amdgpu` | [media-libs/mesa](https://packages.gentoo.org/packages/media-libs/mesa) | Yes <sup>1</sup> | 
+| [AMDVLK](https://wiki.gentoo.org/wiki/AMDVLK) | `amdgpu` | [media-libs/amdvlk](https://packages.gentoo.org/packages/media-libs/amdvlk) or [media-libs/amdvlk-bin](https://packages.gentoo.org/packages/media-libs/amdvlk-bin) from [GURU repository](https://wiki.gentoo.org/wiki/Project:GURU) | Almost <sup>5</sup> | 
+| radeon/r600 | N/A | N/A | No | 
+| RADV | `radeonsi` | [media-libs/mesa](https://packages.gentoo.org/packages/media-libs/mesa) | Yes <sup>1</sup> | 
+| ANV | `intel` | [media-libs/mesa](https://packages.gentoo.org/packages/media-libs/mesa) | Yes <sup>2</sup> | 
+| NVK | `nouveau nvk` | [x11-drivers/xf86-video-nouveau](https://packages.gentoo.org/packages/x11-drivers/xf86-video-nouveau) [media-libs/mesa](https://packages.gentoo.org/packages/media-libs/mesa) | Yes <sup>4</sup> | 
+| NVIDIA | `nvidia` | [x11-drivers/nvidia-drivers](https://packages.gentoo.org/packages/x11-drivers/nvidia-drivers) | Yes <sup>3</sup> | 
 
 - <sup>1</sup> Uses the *RADV* Vulkan driver included in Mesa.
 - <sup>2</sup> Uses the *ANV* Vulkan driver included in Mesa. Partial support begins on Ivy Bridge and up, more information can be found on [intel](https://wiki.gentoo.org/wiki/Intel#Feature_support).
@@ -57,6 +57,11 @@ Any packages that are built with Vulkan support will pull in [media-libs/vulkan-
 
 `root #``emerge --ask media-libs/vulkan-loader`
 
+### USE flags for
+            [media-libs/vulkan-loader](https://packages.gentoo.org/packages/media-libs/vulkan-loader)
+            
+            Vulkan Installable Client Driver (ICD) Loader
+
 ### Development
 
 To use Vulkan Validation layers, set the [layers](https://packages.gentoo.org/useflags/layers) [USE flag on](https://wiki.gentoo.org/wiki/USE_flag) [media-libs/vulkan-loader](https://packages.gentoo.org/packages/media-libs/vulkan-loader). This will pull in [media-libs/vulkan-layers](https://packages.gentoo.org/packages/media-libs/vulkan-layers) automatically.
@@ -64,8 +69,6 @@ To use Vulkan Validation layers, set the [layers](https://packages.gentoo.org/us
 To use vulkaninfo or vkcube for verifying if Vulkan works, install [dev-util/vulkan-tools](https://packages.gentoo.org/packages/dev-util/vulkan-tools):
 
 `root #``emerge --ask dev-util/vulkan-tools`
-This is not related with [VulkanTools](https://github.com/LunarG/VulkanTools), part of the LunarG Vulkan SDK and currently not packaged on Gentoo.
-
 ## Usage
 
 Support for Vulkan in Gentoo packages can be controlled by setting the [vulkan](https://packages.gentoo.org/useflags/vulkan) [USE flag. For example,](https://wiki.gentoo.org/wiki/USE_flag) [media-libs/libsdl2](https://packages.gentoo.org/packages/media-libs/libsdl2) can optionally enable Vulkan support if set.

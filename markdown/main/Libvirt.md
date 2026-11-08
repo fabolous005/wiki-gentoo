@@ -4,8 +4,8 @@ title: libvirt
 url: https://wiki.gentoo.org/wiki/Libvirt
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-31"
-fingerprint: "6e1989544c87bbac"
+date: "2026-11-07"
+fingerprint: "6e19995c4c83bbac"
 license: CC BY-SA 4.0
 ---
 
@@ -271,19 +271,33 @@ All the service units use a timeout that causes them to shutdown after 2 minutes
 
 ### Firewall
 
-The following firewall chain names have been reserved by the libvirt library and libvirtd daemon.
+#### nftables
 
-| Reserved Firewall Chain Names by libvirt (viriptable.c source) |  | 
-|---|---|
-| Reserved chain name | Description | 
-|---|---|
-| nat | NAT | 
-| LIBVIRT\_INP | Firewall input | 
-| LIBVIRT\_FWI | Firewall input | 
-| LIBVIRT\_FWO | Firewall output | 
-| LIBVIRT\_FWX | Firewall forward | 
-| LIBVIRT\_OUT | Firewall output | 
-| LIBVIRT\_PRT | Firewall postrouting | 
+If "nftables" is assigned to firewall\_backend in /etc/libvirt/network.conf, then the centralized table name libvirt\_network is reserved. Any table (and thusly any chain) names can be used for as long as libvirt\_network table name is not used.
+
+#### iptables-save
+
+If "iptables" is assigned to firewall\_backend in /etc/libvirt/network.conf, then the following firewall chain names have been reserved by the libvirt library and libvirtd daemon.
+
+Libvirtd also reserves the following names of base chains:
+
+| Family | Chain type | Reserved base chain name | 
+|---|---|---|
+| ip | filter | LIBVIRT\_INP | 
+| ip | filter | INPUT | 
+| ip | filter | LIBVIRT\_OUT | 
+| ip | filter | OUTPUT | 
+| ip | filter | LIBVIRT\_FWD | 
+| ip | filter | FORWARD | 
+| ip | filter | LIBVIRT\_FWI | 
+| ip | filter | LIBVIRT\_FWX | 
+| ip | nat | nat | 
+| ip | nat | LIBVIRT\_PRT | 
+| ip | nat | POSTROUTING | 
+| ip | mangle | LIBVIRT\_PRT | 
+| ip | mangle | POSTROUTING | 
+
+Reserved firewall chain names by libvirt (source: viriptable.c)
 
 ### Networking
 
@@ -723,6 +737,35 @@ libvirt management daemon:
 Removal of [app-emulation/libvirt](https://packages.gentoo.org/packages/app-emulation/libvirt) package (toolkit, library, and utilities) can be done by executing:
 
 `root #``emerge --ask --depclean --verbose app-emulation/libvirt`
+## Tips
+
+### Hooks
+
+Libvirt supports event-driven hook scripts for VM and container lifecycle management. Hook scripts are located in the /etc/libvirt/hooks directory.
+
+Common hook scripts and directories include:
+
+- qemu — QEMU virtual machine lifecycle and host-side configuration.
+- network — Virtual network lifecycle, including bridge configuration, firewall rules and routing.
+- daemon — Libvirt daemon lifecycle, including host initialization and cleanup.
+- lxc — LXC container lifecycle and host-side configuration.
+- qemu.d/ — Directory for additional QEMU hook scripts, supporting modular VM-specific automation.
+
+Common hook automation tasks include:
+
+| Automation | Hook | Purpose | 
+|---|---|---|
+| PCI device passthrough | qemu | Detach the host driver, bind vfio-pci and restore the original driver. | 
+| GPU passthrough | qemu | Unbind the GPU, manage display services and restore the GPU. | 
+| USB passthrough | qemu | Prepare and release USB devices. | 
+| Hugepages | qemu | Allocate and release hugepage resources. | 
+| CPU isolation | qemu | Configure CPU affinity and housekeeping. | 
+| Network firewall | network / qemu | Manage firewall rules, including nftables rules. | 
+| Bridge configuration | network | Configure host networking and virtual network bridges. | 
+| Storage preparation | qemu | Mount filesystems and activate LVM or ZFS resources. | 
+| VM-specific routing | qemu | Add and remove VM-specific routes. | 
+| Logging and auditing | All | Record lifecycle events and hook execution. | 
+
 ## Troubleshooting
 
 ### Messages mentioning ...or mount/enable cgroup controller in your system

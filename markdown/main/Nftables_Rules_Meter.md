@@ -4,8 +4,8 @@ title: Nftables/Rules/Meter
 url: https://wiki.gentoo.org/wiki/Nftables/Rules/Meter
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-28"
-fingerprint: abb6bbc9b713e531
+date: "2026-11-07"
+fingerprint: abb6bbcbf713e531
 license: CC BY-SA 4.0
 ---
 
@@ -17,17 +17,19 @@ license: CC BY-SA 4.0
 
 The meter statement tracks packet or byte rates independently per key, enabling per-client rate limiting and accounting.
 
-## Evaluation
-
-The `meter` statement containing an expression key and an inner statement.
-
-The meter evaluates its expressions for each distinct selector key. Stateful expressions, such as limit and counter, maintain separate state for each key.
-
 ## Placement
 
 The `meter` statement belongs inside a rule in a chain. Packet expressions can restrict which traffic enters the meter.
 
-The `meter` statement itself is neither terminal or non-terminal;  `meter` is a group expression and its following statements evaluated per key; the statements inside determine rule termination.
+`meter` is a group expression and its following statements evaluated per key; the statements inside determine rule termination.
+
+## Evaluation
+
+The `meter` is a conditional statement.  The `meter` statement containing an expression key and an inner statement.
+
+The meter evaluates its expressions for each distinct selector key. Stateful expressions, such as limit and counter, maintain separate state for each key.
+
+.
 
 ## Syntax
 
@@ -76,6 +78,6 @@ The set timeout controls how long an entry remains without being refreshed. Choo
 
 - [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules) — match packet properties and execute statements.
 - [Nftables/Rules/Limit](https://wiki.gentoo.org/wiki/Nftables/Rules/Limit) — matches packets or bytes within a specified rate.
-- [Nftables/Rules/Log](https://wiki.gentoo.org/wiki/Nftables/Rules/Log) — logs matching packets.
+- [Nftables/Rules/Log](https://wiki.gentoo.org/wiki/Nftables/Rules/Log) — logs the currently matched packet.
 - [Nftables/Ruleset](https://wiki.gentoo.org/wiki/Nftables/Ruleset) — collection of tables, chains, rules, and other objects configured in the [Netfilter](https://wiki.gentoo.org/wiki/Netfilter) **nf\_tables** subsystem.
 - [nft](https://wiki.gentoo.org/wiki/Nft) — configures and inspects the Linux kernel's nftables packet handling framework

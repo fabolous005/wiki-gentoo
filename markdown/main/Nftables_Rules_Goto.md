@@ -4,8 +4,8 @@ title: nftables/rules/goto
 url: https://wiki.gentoo.org/wiki/Nftables/Rules/Goto
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-11-05"
-fingerprint: fdb0991afd49582f
+date: "2026-11-06"
+fingerprint: fdb09d1afd49482f
 license: CC BY-SA 4.0
 ---
 
@@ -92,8 +92,8 @@ table inet my_inet_filter {
 ## Tips
 
 - Use goto to delegate packet processing without returning to the remaining rules in the current chain.
-- Use [jump](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Jump&action=edit&redlink=1) when processing should return to the rule following the chain invocation.
-- Use [return](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Return&action=edit&redlink=1) to explicitly end evaluation of the current chain.
+- Use [jump](https://wiki.gentoo.org/wiki/Nftables/Rules/Jump) when processing should return to the rule following the chain invocation.
+- Use [return](https://wiki.gentoo.org/wiki/Nftables/Rules/Return) to explicitly end evaluation of the current chain.
 - The destination must be a regular chain in the same table.
 
 ## Kernel configuration
@@ -104,10 +104,10 @@ The following Linux Kconfig option provides nftables verdict support:
 
 ## See also
 
-- [Nftables/Rules/Jump](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Jump&action=edit&redlink=1)
-- [Nftables/Rules/Return](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Return&action=edit&redlink=1)
+- [Nftables/Rules/Jump](https://wiki.gentoo.org/wiki/Nftables/Rules/Jump) — transfers packet processing to another regular chain
+- [Nftables/Rules/Return](https://wiki.gentoo.org/wiki/Nftables/Rules/Return) — terminates evaluation of the current chain and returns packet processing to the calling chain, if one exists.
 - [Nftables/Rules/Drop](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Drop&action=edit&redlink=1)
 - [Nftables/Rules/Accept](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Accept&action=edit&redlink=1)
-- [Nftables/Rules/Continue](https://wiki.gentoo.org/index.php?title=Nftables/Rules/Continue&action=edit&redlink=1)
+- [Nftables/Rules/Continue](https://wiki.gentoo.org/wiki/Nftables/Rules/Continue) — continues packet processing with the next rule in the current chain.
 - [Nftables/Ruleset/Chain](https://wiki.gentoo.org/wiki/Nftables/Ruleset/Chain) — contains a group of rules used to process network traffic.
 - [Nftables/Rules](https://wiki.gentoo.org/wiki/Nftables/Rules) — match packet properties and execute statements.

@@ -4,7 +4,7 @@ title: OpenRC
 url: https://wiki.gentoo.org/wiki/OpenRC
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-11-05"
+date: "2026-11-07"
 fingerprint: b718ab5907028ac4
 license: CC BY-SA 4.0
 ---
@@ -87,16 +87,20 @@ If the USE flags are modified, the package may be rebuilt to apply changes. For 
 
 ### Files
 
-- /etc/rc.conf - Global OpenRC configuration file. **Includes extensive comments documenting OpenRC configuration.**
-- [${XDG\_CONFIG\_HOME}](https://wiki.gentoo.org/wiki/XDG/Base_Directories)/rc/rc.conf - Configuration file for user services. Overrides settings in /etc/rc.conf if present.
-- /etc/init.d - Directory of service scripts for system services.
-- /etc/conf.d - Directory of configuration files for service scripts in /etc/init.d
-- /etc/user/init.d - Directory of service scripts for distribution-provided user services.
-- /etc/user/conf.d - Directory of configuration files for service scripts in /etc/user/init.d
-- ${XDG\_CONFIG\_HOME}/rc/init.d - Directory of user-written service scripts for user services.
-- ${XDG\_CONFIG\_HOME}/rc/conf.d - Directory of configuration files for user service scripts Override settings in /etc/user/conf.d if present.
+Configuration ordering hierarchy is:
 
-If `XDG_CONFIG_HOME` is unset, OpenRC uses \~/.config as a default value.
+- /etc/rc.conf — System-wide OpenRC configuration. **Includes extensive comments documenting OpenRC configuration.**
+- /etc/user/rc.conf — System-wide configuration for user services.
+- [${XDG\_CONFIG\_HOME}](https://wiki.gentoo.org/wiki/XDG/Base_Directories)/rc/rc.conf — Per-user configuration for user services. Overrides settings in /etc/rc.conf if present. Defaults to \~/.config/rc/rc.conf.
+
+Other files are:
+
+- /etc/init.d - Directory of service scripts for system services.
+- /etc/conf.d - Directory of configuration files for service scripts in /etc/init.d.
+- /etc/user/init.d - Directory of service scripts for user services. These ones are available to all users, so usually distribution-provided scripts are installed here.
+- /etc/user/conf.d - Directory of configuration files for service scripts in /etc/user/init.d.
+- ${XDG\_CONFIG\_HOME}/rc/init.d - Directory of service scripts for user services. These are specific to one single user, so usually user-written ones are placed here.
+- ${XDG\_CONFIG\_HOME}/rc/conf.d - Directory of configuration files for user service scripts. Scripts in ${XDG\_CONFIG\_HOME}/rc/init.d only use files in this directory. Additionally, configuration files in this directory can be used to override settings in /etc/user/conf.d. These overrides are per-user.
 
 ### Logging
 
@@ -311,25 +315,25 @@ This may be fixed by issuing the following command:
 `root #``rc-update --update`
 ### User services
 
-Starting with version 0.60, OpenRC has support for user services, which are modeled after similar functionality in systemd. User services are services associated with a user account that generally run only while the corresponding user is logged in, as processes whose effective user is equal to the logged in user. If multiple users are logged in at the same time, all their configured user services run at the same time.
+Starting with version 0.60, OpenRC has support for user services, which are modeled after similar functionality in systemd. User services are services associated with a user account that generally run only while the corresponding user is logged in, as processes whose effective user is equal to that user. If multiple users are logged in at the same time, all their configured user services run simultaneously.
 
-The system services, on the other hand, are services associated with "the system", run during the machine's entire uptime —that is, are started during the boot sequence and stopped only during the shutdown sequence—, as processes whose effective user is either equal to root or a special "system user" (like daemon).
+The system services, on the other hand, are services associated with "the system", run during the machine's entire uptime —that is, are started during the boot sequence and stopped only during the shutdown sequence—, as processes whose effective user is either equal to root or to a special "system user" (like daemon).
 
-OpenRC user services use service scripts with the same structure and syntax as that of system services. Like system services, user services are started only if their scripts are added to a runlevel. A different set of runlevels are associated with system services and with each login user account. The wording *user runlevel* will be used to refer to a runlevel from the set associated with a specific user account.
+OpenRC user services use service scripts with the same structure and syntax as that of system services. Like system services, except if they are needed dependencies of other services, user services are started automatically only if their scripts are added to a runlevel. A different set of runlevels are associated with system services and with each login user account. The wording *user runlevel* will be used to refer to a runlevel from the set associated with a specific user account.
 
-A service with a script named service can be added to a user runlevel runlevel with:
+A service with a script named service can be added to a user runlevel runlevel of the current user's account with:
 
 `user $````
 rc-update --user add service runlevel
 ```
-Similarly, a service with a script named service can be removed from a user runlevel runlevel with:
+Similarly, a service with a script named service can be removed from a user runlevel runlevel of the current user's account with:
 
 `user $````
 rc-update --user del service runlevel
 ```
 Script service must be present in one the directories [searched for user services](https://wiki.gentoo.org#Files). If no runlevel is specified in the command, the service is added to the current runlevel.
 
-All OpenRC commands (rc-update, rc-service, rc-status, etc.) have a `--user` option (short form `-U`) to act on OpenRC user services or runlevels instead of system ones. So, for example, services added to user runlevels can be shown with:
+All OpenRC commands (rc-update, rc-service, rc-status, etc.) have a `--user` option (short form `-U`) to act on OpenRC user services or runlevels instead of system ones. So, for example, services added to user runlevels of the current user's account can be shown with:
 
 `user $``rc-update --user show -v````
                  dbus |      default         
@@ -338,18 +342,22 @@ All OpenRC commands (rc-update, rc-service, rc-status, etc.) have a `--user` opt
             ssh-agent |                      
           wireplumber |      default         
 ```
-and the state of a user service can be shown with:
+and the state of a user service of the current user can be shown with:
 
 `user $``rc-service --user dbus status`
 \* status: started
 
 OpenRC user services require environment variable [XDG\_RUNTIME\_DIR](https://wiki.gentoo.org/wiki/XDG/Base_Directories) to be set during the login process, since OpenRC stores user services state in directory ${XDG\_RUNTIME\_DIR}/openrc. Thus, a mechanism for setting it is required. That could be [elogind](https://wiki.gentoo.org/wiki/Elogind), [sys-auth/pam\_xdg](https://packages.gentoo.org/packages/sys-auth/pam_xdg), or any other method of creating the directory and setting the environment variable, e.g. as described [here](https://wiki.gentoo.org/wiki/Configuring_a_system_without_elogind#Environment_variables).
 
-Since the [stabilization of user services](https://www.gentoo.org/support/news-items/2025-09-04-openrc-user-services.html), services added to user runlevels are started automatically at user login, and stopped when the user's last session is terminated. This features uses [Pluggable Authentication Modules (PAM)](https://wiki.gentoo.org/wiki/PAM) functionality. No user action is required from the user other than adding wanted services to user runlevels.
+Since the [stabilization of user services](https://www.gentoo.org/support/news-items/2025-09-04-openrc-user-services.html), services added to user runlevels are started automatically at user login, and stopped automatically when the user's last session terminates. This features uses [Pluggable Authentication Modules (PAM)](https://wiki.gentoo.org/wiki/PAM) functionality. No user action is required other than adding wanted services to user runlevels.
 
-For the implementation of user services, OpenRC provides a PAM module, pam\_openrc.so, the openrc-run program, and a system service named `user`. Different instances of this service are started for each logged in user, each of which spawns an openrc-run.
+For the implementation of user services, OpenRC provides a PAM module, pam\_openrc.so, the openrc-run program, and a system service named `user`. Different instances of this service are started for each logged in user, each of which spawns an openrc-run process.
 
-openrc-user opens another PAM session for the user, which will last as long as any given session using the pam\_openrc.so module is active. It loads the PAM stack specified by its configuration file, /etc/pam.d/openrc-user, which is used for that new session, then enters the user boot runlevel, and finally the configured user default runlevel —which is default unless the user changed it—. Service scripts are run using the shell configured for the user's account in /etc/passwd, with option `-c`. openrc-user populates directory ${XDG\_CONFIG\_HOME}/rc/runlevels should it not exist.
+openrc-user opens another PAM session for the user, which will last as long as any given session using the pam\_openrc.so module is active. It loads the PAM stack specified by its configuration file, /etc/pam.d/openrc-user, which is used for that new session, then enters the user boot runlevel, and finally the configured user default runlevel —which is default unless the user changed it—.
+
+When the user logs out, and that login session was the user's last one, pam\_openrc.so stops the user's `user` service instance, which kills the corresponding openrc-user process. When openrc-user is killed, it enters the user shutdown runlevel, and then exits.
+
+User service scripts are run using the shell configured for the user's account in /etc/passwd, with option `-c`. openrc-user populates directory ${XDG\_CONFIG\_HOME}/rc/runlevels should it not exist.
 
 Automatic start of OpenRC user services on login can be disabled globally through /etc/rc.conf:
 
@@ -419,7 +427,7 @@ Both can also be used to manage volatile entries in /sys or /proc.
 
 ### User services
 
-By providing suitable service scripts, [user services](https://wiki.gentoo.org#User_services) can be used for the support of packages that provide service user unit files, i.e service unit files installed in /usr/lib/systemd/user for systemd when running as a per-user instance (i.e. non PID 1 process), on OpenRC systems.
+By providing suitable service scripts, [user services](https://wiki.gentoo.org#User_services) can be used for the support of packages that provide service user unit files on OpenRC systems. That is, service unit files installed in /usr/lib/systemd/user, which are used by systemd when running as a per-user instance (i.e. non PID 1 process).
 
 ## Troubleshooting
 
@@ -475,7 +483,7 @@ Dynamic Runlevel: manual
 
 If the output looks like the above, user runlevels are empty.
 
-Check that the pam\_openrc.so PAM module loading is enabled:
+Check that loading of the pam\_openrc.so PAM module is enabled:
 
 `user $``grep pam_openrc /etc/pam.d/system-login`
 -session	optional	pam\_openrc.so

@@ -1591,6 +1591,7 @@ https://wiki.gentoo.org/wiki/Libre_Computer_Renegade
 https://wiki.gentoo.org/wiki/Libre_Computer_Renegade/Installing_Gentoo
 https://wiki.gentoo.org/wiki/Libvirt
 https://wiki.gentoo.org/wiki/Libvirt/Files
+https://wiki.gentoo.org/wiki/Libvirt/Networking
 https://wiki.gentoo.org/wiki/Libvirt/QEMU_networking
 https://wiki.gentoo.org/wiki/Libvirt/domain
 https://wiki.gentoo.org/wiki/Libvirt/libvirtd
@@ -1828,6 +1829,7 @@ https://wiki.gentoo.org/wiki/Nftables
 https://wiki.gentoo.org/wiki/Nftables/Configuration
 https://wiki.gentoo.org/wiki/Nftables/Examples
 https://wiki.gentoo.org/wiki/Nftables/Rules
+https://wiki.gentoo.org/wiki/Nftables/Rules/Continue
 https://wiki.gentoo.org/wiki/Nftables/Rules/Dnat
 https://wiki.gentoo.org/wiki/Nftables/Rules/Goto
 https://wiki.gentoo.org/wiki/Nftables/Rules/Iif
@@ -1836,10 +1838,12 @@ https://wiki.gentoo.org/wiki/Nftables/Rules/Iiftype
 https://wiki.gentoo.org/wiki/Nftables/Rules/Include
 https://wiki.gentoo.org/wiki/Nftables/Rules/Ip6_saddr
 https://wiki.gentoo.org/wiki/Nftables/Rules/Ip_saddr
+https://wiki.gentoo.org/wiki/Nftables/Rules/Jump
 https://wiki.gentoo.org/wiki/Nftables/Rules/Limit
 https://wiki.gentoo.org/wiki/Nftables/Rules/Log
 https://wiki.gentoo.org/wiki/Nftables/Rules/Meter
 https://wiki.gentoo.org/wiki/Nftables/Rules/Redirect
+https://wiki.gentoo.org/wiki/Nftables/Rules/Return
 https://wiki.gentoo.org/wiki/Nftables/Rules/Snat
 https://wiki.gentoo.org/wiki/Nftables/Rules/masquerade
 https://wiki.gentoo.org/wiki/Nftables/Ruleset
@@ -1848,6 +1852,7 @@ https://wiki.gentoo.org/wiki/Nftables/Ruleset/Chain
 https://wiki.gentoo.org/wiki/Nftables/Ruleset/Flush
 https://wiki.gentoo.org/wiki/Nftables/Ruleset/List
 https://wiki.gentoo.org/wiki/Nftables/Ruleset/Rules
+https://wiki.gentoo.org/wiki/Nftables/Semantic
 https://wiki.gentoo.org/wiki/Nginx
 https://wiki.gentoo.org/wiki/Nginx/Module_packaging_guide
 https://wiki.gentoo.org/wiki/Niri

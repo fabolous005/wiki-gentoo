@@ -4,8 +4,8 @@ title: Web eID
 url: https://wiki.gentoo.org/wiki/Web_eID
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-18"
-fingerprint: d5a1b6584ee2f9f4
+date: "2026-11-07"
+fingerprint: c5b1969c4a4ad0b4
 license: CC BY-SA 4.0
 ---
 
@@ -50,11 +50,26 @@ To install the Web eID package, run the following command:
 
 ##### Portage package
 
-As of 2026-10-18, [dev-libs/libdigidocpp](https://github.com/open-eid/gentoo/tree/master/dev-libs/libdigidocpp) requires the following patch on a musl-based system:
+As of 2026-11-07, [dev-libs/libdigidocpp](https://github.com/open-eid/gentoo/tree/master/dev-libs/libdigidocpp) requires the following patch on a musl-based system:
 
-**`/etc/portage/patches/dev-libs/libdigidocpp-4.3.0/musl.patch`**
+**`/etc/portage/patches/dev-libs/libdigidocpp-4.5.1/musl.patch`**
 
 ```
+--- a/src/util/File.cpp
++++ b/src/util/File.cpp
+@@ -285,11 +285,7 @@
+         return decodeName(fs::path(var) / ".digidocpp");
+     return {};
+ #else
+-    string buf(sysconf(_SC_GETPW_R_SIZE_MAX), 0);
+-    passwd pwbuf {};
+-    passwd *pw {};
+-    if(getpwuid_r(geteuid(), &pwbuf, buf.data(), buf.size(), &pw) != 0 || !pw)
+-        THROW("Failed to get home directory");
++    struct passwd *pw = getpwuid(getuid());
+     return path(pw->pw_dir, ".digidocpp");
+ #endif
+ }
 --- a/src/util/memory.h
 +++ b/src/util/memory.h
 @@ -76,7 +76,7 @@
@@ -64,6 +79,22 @@ As of 2026-10-18, [dev-libs/libdigidocpp](https://github.com/open-eid/gentoo/tre
 +constexpr auto make_unique_ptr(std::nullptr_t) noexcept
  {
      return unique_free_d<D>(nullptr);
+ }
+```
+And [app-crypt/qdigidoc4](https://github.com/open-eid/gentoo/tree/master/app-crypt/qdigidoc4) requires the following patch:
+
+**`/etc/portage/patches/app-crypt/qdigidoc4-4.11.1/musl.patch`**
+
+```
+--- a/client/libcdoc/cdoc/utils/memory.h
++++ b/client/libcdoc/cdoc/utils/memory.h
+@@ -282,7 +282,7 @@
+ template<auto D>
+ [[nodiscard]]
+-constexpr auto make_unique_ptr(nullptr_t) noexcept
++constexpr auto make_unique_ptr(std::nullptr_t) noexcept
+ {
+     return unique_ptr_t<D>(nullptr);
  }
 ```
 To install DigiDoc4, run the following command:

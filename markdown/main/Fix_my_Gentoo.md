@@ -4,7 +4,7 @@ title: Fix my Gentoo
 url: https://wiki.gentoo.org/wiki/Fix_my_Gentoo
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2024-09-23"
+date: "2026-11-06"
 fingerprint: "82a53c7f01c279ce"
 license: CC BY-SA 4.0
 ---
@@ -65,13 +65,13 @@ It is sufficient to be able to chroot into it and run emerge. This rescue instal
 
 - Mount /dev and friends in /mnt/gentoo/home/rescue just as if doing a new install but do **not** chroot yet.
 
-- Bind mount the main ebuild repository to the rescue system: `root #``mount -o bind /mnt/gentoo/var/db/repos/gentoo /mnt/gentoo/home/rescue/var/db/repos/gentoo`
+- Bind mount the main ebuild repository to the rescue system: `root #``mkdir -p /mnt/gentoo/home/rescue/var/db/repos/gentoo``root #``mount -o bind /mnt/gentoo/var/db/repos/gentoo /mnt/gentoo/home/rescue/var/db/repos/gentoo`
 
 - Bind mount the distfiles directory: `root #``mount -o bind /mnt/gentoo/var/cache/distfiles /mnt/gentoo/home/rescue/var/cache/distfiles`
 
 - Bind mount the binary package directory: `root #``mount -o bind /mnt/gentoo/var/cache/binpkgs /mnt/gentoo/home/rescue/var/cache/binpkgs`
 
-- Copy over /mnt/gentoo/etc/portage to /mnt/home/rescue/etc/portage: `root #``cp -r /mnt/gentoo/etc/portage /mnt/gentoo/home/rescue/etc/portage`
+- Copy over /mnt/gentoo/etc/portage to /mnt/home/rescue/etc/portage: `root #``cp -rT /mnt/gentoo/etc/portage /mnt/gentoo/home/rescue/etc/portage`
 
 Now the rescue install has all the settings from the broken installation.
 
