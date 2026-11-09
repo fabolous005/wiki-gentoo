@@ -4,7 +4,7 @@ title: rxvt-unicode
 url: https://wiki.gentoo.org/wiki/Rxvt-unicode
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-11-07"
+date: "2026-11-08"
 fingerprint: "8ec2d2db4a9773b4"
 license: CC BY-SA 4.0
 ---
@@ -20,7 +20,7 @@ license: CC BY-SA 4.0
 
 **rxvt-unicode**, also known simply as urxvt, is a fast and lightweight [terminal emulator](https://wiki.gentoo.org/wiki/Terminal_emulator) with [Xft](https://en.wikipedia.org/wiki/Xft) and [Unicode](https://en.wikipedia.org/wiki/Unicode) support.
 
-Many Gentoo users enjoy using urxvt inside the [i3](https://wiki.gentoo.org/wiki/I3) and [Sway](https://wiki.gentoo.org/wiki/Sway) window managers.
+Many Gentoo users enjoy using urxvt with the [i3](https://wiki.gentoo.org/wiki/I3) and [Sway](https://wiki.gentoo.org/wiki/Sway) window managers.
 
 ## Installation
 

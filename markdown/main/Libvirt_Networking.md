@@ -4,8 +4,8 @@ title: Libvirt/Networking
 url: https://wiki.gentoo.org/wiki/Libvirt/Networking
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-11-07"
-fingerprint: b7294a3dc83b30c0
+date: "2026-11-08"
+fingerprint: f7294a3dca3b30c0
 license: CC BY-SA 4.0
 ---
 
@@ -75,10 +75,25 @@ The net0 identifier associates the guest NIC with the network backend.
 Use -nic none to disable the default network device configuration:
 
 `root #``qemu-system-x86_64 disk.img -nic none`
+
+
 ## Legacy networking options
 
 The older -net option provides legacy NIC and network backend configuration. New configurations should use -nic, -device, and -netdev.
 
+### Firewall Backends
+
+Libvirt supports multiple firewall backends for managing firewall rules associated with virtual networks.
+
+The backend is configured through /etc/libvirt/network.conf.
+
+**`/etc/libvirt/network.conf`**
+
+**Firewall backend**
+
+```
+firewall_backend = "nftables"
+```
 ## See also
 
 - [QEMU](https://wiki.gentoo.org/wiki/QEMU) — a generic, open-source hardware emulator and virtualization suite.

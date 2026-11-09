@@ -4,8 +4,8 @@ title: Docker
 url: https://wiki.gentoo.org/wiki/Docker
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-08-20"
-fingerprint: "7b07fb5701a73984"
+date: "2026-11-08"
+fingerprint: "3b07db5f05a73984"
 license: CC BY-SA 4.0
 ---
 
@@ -351,7 +351,7 @@ systemctl start docker
 ```
 ### Networking
 
-Port forwarding must be enabled for docker container networking to work.
+Port forwarding must be enabled for Docker container networking to work.
 
 This can be temporarily enabled using [procfs](https://wiki.gentoo.org/wiki/Procfs):
 
@@ -360,11 +360,30 @@ A more permanent change can be made with:
 
 **`/etc/sysctl.d/local.conf`**
 
-**Enable ip forwarding persistently**
+**Enable IP forwarding persistently**
 
 ```
 net.ipv4.ip_forward=1
 ```
+#### Firewall Behavior
+
+By default (since [Docker](https://packages.gentoo.org/packages/Docker) v28.0+), Docker may set the default forwarding policy to DROP when enabling IP forwarding. This can interfere with host routing and forwarding configurations.
+
+The ip-forward-no-drop option prevents Docker from changing the default forwarding policy when enabling IP forwarding.
+
+**`/etc/docker/daemon.json`**
+
+**Preserve the host forwarding policy**
+
+```
+{
+  "ip-forward-no-drop": true
+}
+```
+Useful when the host manages its own firewall and forwarding rules, rather than relying on Docker to establish the default forwarding policy.
+
+See also [Nftables](https://wiki.gentoo.org/wiki/Nftables#Configuration) for host firewall configuration.
+
 ## Usage
 
 ### Testing

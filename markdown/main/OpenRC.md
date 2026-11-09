@@ -4,7 +4,7 @@ title: OpenRC
 url: https://wiki.gentoo.org/wiki/OpenRC
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-11-07"
+date: "2026-11-08"
 fingerprint: b718ab5907028ac4
 license: CC BY-SA 4.0
 ---

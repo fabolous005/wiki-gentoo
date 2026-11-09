@@ -4,8 +4,8 @@ title: Blender
 url: https://wiki.gentoo.org/wiki/Blender
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-02"
-fingerprint: ee83595c4db6b8cc
+date: "2026-11-08"
+fingerprint: eec3495ccda6b8cc
 license: CC BY-SA 4.0
 ---
 
@@ -25,7 +25,7 @@ license: CC BY-SA 4.0
 
 ### USE flags
 
-Blender has a lot of optional features that can be enabled for specific hardware or workflows. See [Configuration](https://wiki.gentoo.org/wiki/Blender#Configuration) for more information.
+Blender has a lot of optional features that can be enabled for specific hardware or workflows. See [Configuration](https://wiki.gentoo.org#Configuration) for more information.
 
 
 ### USE flags for
@@ -47,7 +47,6 @@ Blender has a lot of optional features that can be enabled for specific hardware
 | [+oidn](https://packages.gentoo.org/useflags/+oidn) | Enable OpenImageDenoiser Support | 
 | [+openexr](https://packages.gentoo.org/useflags/+openexr) | Support for the OpenEXR graphics file format | 
 | [+opengl](https://packages.gentoo.org/useflags/+opengl) | Add support for OpenGL (3D graphics) | 
-| [+openmp](https://packages.gentoo.org/useflags/+openmp) | Build support for the OpenMP (support parallel computing), requires >=sys-devel/gcc-4.2 built with USE="openmp" | 
 | [+openpgl](https://packages.gentoo.org/useflags/+openpgl) | Enable path guiding support in Cycles | 
 | [+opensubdiv](https://packages.gentoo.org/useflags/+opensubdiv) | Add rendering support form OpenSubdiv from Dreamworks Animation through media-libs/opensubdiv. | 
 | [+openvdb](https://packages.gentoo.org/useflags/+openvdb) | Enable openvdb for volumetric processing, like the voxel remesher. Also enables volumetric GPU preview rendering for Nvidia cards. | 
@@ -91,6 +90,11 @@ Blender has a lot of optional features that can be enabled for specific hardware
 ### Emerge
 
 `root #``emerge --ask media-gfx/blender`
+Alternatively a precompiled binary exists here:
+
+`root #``emerge --ask media-gfx/blender-bin`
+This package only accepts the **cuda**, **hip**, and **oneapi** USE flags for Nvidia, AMD, and Intel GPUs respectively. When installed with the **cuda** USE flag, both Cycles and OptiX rendering support will be included automatically. This package is currently not stable and requires the \~amd64 keyword to be set.
+
 ## Configuration
 
 Since Blender supports so many different hardware configurations, platforms, and use cases there are a lot of optional `USE` flags that can be enabled.

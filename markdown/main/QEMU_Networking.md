@@ -4,12 +4,14 @@ title: QEMU/Networking
 url: https://wiki.gentoo.org/wiki/QEMU/Networking
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-08-29"
+date: "2026-11-08"
 fingerprint: ee01882d8d39cdc2
 license: CC BY-SA 4.0
 ---
 
 # QEMU/Networking
+
+[QEMU](https://wiki.gentoo.org/wiki/QEMU)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -154,7 +156,7 @@ When the VM boots, the script will add the newly created device to the bridge. W
 
 A more advanced networking concept is outlined below, which enables guest access to an external network and also works with both wired and wireless adapters on the host.  If desired, a DHCP server can also be set up on the host to allow for dynamic guest IP configurations.  There are many different tutorials available online to further understand these concepts.[\[2\]](https://blog.san-ss.com.ar/2016/04/setup-nat-network-for-qemu-macosx)[\[3\]](https://shanetomlinson.com/2009/bridging-a-wireless-card-in-kvmqemu/)[\[4\]](https://forums.gentoo.org/viewtopic-t-987790-start-0.html)[\[5\]](https://superuser.com/questions/694929/wireless-bridge-on-kvm-virtual-machine)[\[6\]](http://www.dedoimedo.com/computers/kvm-bridged.html)
 
-![Qemu network diag.png](https://wiki.gentoo.org/images/b/ba/Qemu_network_diag.png)
+![](https://wiki.gentoo.org/images/b/ba/Qemu_network_diag.png)
 
 #### Required packages
 
