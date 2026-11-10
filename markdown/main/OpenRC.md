@@ -4,7 +4,7 @@ title: OpenRC
 url: https://wiki.gentoo.org/wiki/OpenRC
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-11-08"
+date: "2026-11-09"
 fingerprint: b718ab5907028ac4
 license: CC BY-SA 4.0
 ---
@@ -349,13 +349,13 @@ and the state of a user service of the current user can be shown with:
 
 OpenRC user services require environment variable [XDG\_RUNTIME\_DIR](https://wiki.gentoo.org/wiki/XDG/Base_Directories) to be set during the login process, since OpenRC stores user services state in directory ${XDG\_RUNTIME\_DIR}/openrc. Thus, a mechanism for setting it is required. That could be [elogind](https://wiki.gentoo.org/wiki/Elogind), [sys-auth/pam\_xdg](https://packages.gentoo.org/packages/sys-auth/pam_xdg), or any other method of creating the directory and setting the environment variable, e.g. as described [here](https://wiki.gentoo.org/wiki/Configuring_a_system_without_elogind#Environment_variables).
 
-Since the [stabilization of user services](https://www.gentoo.org/support/news-items/2025-09-04-openrc-user-services.html), services added to user runlevels are started automatically at user login, and stopped automatically when the user's last session terminates. This features uses [Pluggable Authentication Modules (PAM)](https://wiki.gentoo.org/wiki/PAM) functionality. No user action is required other than adding wanted services to user runlevels.
+Since the [stabilization of user services](https://www.gentoo.org/support/news-items/2025-09-04-openrc-user-services.html), services added to user runlevels are started automatically when the user's first login session starts, and stopped automatically when the user's last session terminates. This features uses [Pluggable Authentication Modules (PAM)](https://wiki.gentoo.org/wiki/PAM) functionality. No user action is required other than adding wanted services to user runlevels.
 
 For the implementation of user services, OpenRC provides a PAM module, pam\_openrc.so, the openrc-run program, and a system service named `user`. Different instances of this service are started for each logged in user, each of which spawns an openrc-run process.
 
 openrc-user opens another PAM session for the user, which will last as long as any given session using the pam\_openrc.so module is active. It loads the PAM stack specified by its configuration file, /etc/pam.d/openrc-user, which is used for that new session, then enters the user boot runlevel, and finally the configured user default runlevel —which is default unless the user changed it—.
 
-When the user logs out, and that login session was the user's last one, pam\_openrc.so stops the user's `user` service instance, which kills the corresponding openrc-user process. When openrc-user is killed, it enters the user shutdown runlevel, and then exits.
+When the user logs out, and that login session was the user's last one, pam\_openrc.so stops the user's `user` service instance, which kills the corresponding openrc-user process. When openrc-user receives a `SIGTERM` signal, it enters the user shutdown runlevel, and then exits.
 
 User service scripts are run using the shell configured for the user's account in /etc/passwd, with option `-c`. openrc-user populates directory ${XDG\_CONFIG\_HOME}/rc/runlevels should it not exist.
 

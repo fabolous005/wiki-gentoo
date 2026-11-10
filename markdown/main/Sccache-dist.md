@@ -4,8 +4,8 @@ title: sccache-dist
 url: https://wiki.gentoo.org/wiki/Sccache-dist
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-31"
-fingerprint: e629aa5a9121b911
+date: "2026-11-09"
+fingerprint: e660aa5b9021b813
 license: CC BY-SA 4.0
 ---
 
@@ -165,6 +165,41 @@ install -o root -g root -d /usr/local/libexec/sccache
 `root #````
 for __SCCACHE_BIN_LINK in ar c++ c99 cc clang clang++ cpp g++ gcc i686-pc-linux-gnu-clang i686-pc-linux-gnu-clang++ x86_64-pc-linux-gnu-c++ x86_64-pc-linux-gnu-cc x86_64-pc-linux-gnu-clang x86_64-pc-linux-gnu-clang++ x86_64-pc-linux-gnu-g++ x86_64-pc-linux-gnu-gcc ; do ln -v /usr/bin/sccache "/usr/local/libexec/sccache/$__SCCACHE_BIN_LINK" ; done
 ```
+You can automate this step and install the hardlinks whenever you install or update sccache, by adding following to /etc/portage/bashrc file:
+
+**`/etc/portage/bashrc`**
+
+```
+function post_pkg_postinst() {
+  if [[ "${CATEGORY}/${PN}" = "dev-util/sccache" ]]; then
+    __SCCACHE_BIN_LINK_DIR=/usr/local/libexec/sccache
+    echo "$0: Installing sccache hard links to $__SCCACHE_BIN_LINK_DIR"
+    mkdir -p "$__SCCACHE_BIN_LINK_DIR"
+    __SCCACHE_BIN="$(which sccache)"
+    for __SCCACHE_BIN_LINK in \
+      ar \
+      c++ \
+      c99 \
+      cc \
+      clang \
+      clang++ \
+      cpp \
+      g++ \
+      gcc \
+      i686-pc-linux-gnu-clang \
+      i686-pc-linux-gnu-clang++ \
+      x86_64-pc-linux-gnu-c++ \
+      x86_64-pc-linux-gnu-cc \
+      x86_64-pc-linux-gnu-clang \
+      x86_64-pc-linux-gnu-clang++ \
+      x86_64-pc-linux-gnu-g++ \
+      x86_64-pc-linux-gnu-gcc
+    do
+      ln -fv "$__SCCACHE_BIN" "$__SCCACHE_BIN_LINK_DIR/$__SCCACHE_BIN_LINK"
+    done
+  fi
+}
+```
 Portage does not have official support for sccache and some sandboxing features need to be disabled to be able to distribute. Add following values to make.conf:
 
 **`/etc/portage/make.conf`**
@@ -261,4 +296,18 @@ Disable sccache for the package in /etc/portage/package.env:
 
 ```
 app-arch/xz-utils disable-sccache
+```
+#### Package fails to build due to file permission errors
+
+Some ebuilds may use compilation tools in stages run as root user. These may fail due to sccache-dist server being run as portage user.
+
+You can skip using sccache in these stages by adding to /etc/portage/bashrc file:
+
+**`/etc/portage/bashrc`**
+
+```
+if [[ ${EUID} -eq 0 ]]; then
+   unset RUSTC_WRAPPER
+   PATH=${PATH//\/usr\/local\/libexec\/sccache:/}
+fi
 ```
