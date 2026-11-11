@@ -5,6 +5,7 @@ url: https://wiki.gentoo.org/wiki/Dwm
 hostname: gentoo.org
 sitename: wiki.gentoo.org
 date: "2026-09-15"
+categories: ['6.3.1 Patches in /etc/portage/patches/category/application']
 fingerprint: "8606aa3ba5870bc4"
 license: CC BY-SA 4.0
 ---
@@ -279,7 +280,7 @@ static Key keys[] = {
 ```
 ## Customization
 
-[dwm is customized through editing its source code](https://wiki.gentoo.org/wiki/Dwm#Main_dwm_configuration_file_.28dwm.h_file.29)
+[dwm is customized through editing its source code](https://wiki.gentoo.org#Main_dwm_configuration_file_.28dwm.h_file.29)
 
 (Put user customization tricks & tips here.)
 

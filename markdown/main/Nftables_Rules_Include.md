@@ -4,8 +4,8 @@ title: Nftables/Rules/Include
 url: https://wiki.gentoo.org/wiki/Nftables/Rules/Include
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-10-28"
-fingerprint: "271e226e666d6d6d"
+date: "2026-11-10"
+fingerprint: "271e226e663f6d6d"
 license: CC BY-SA 4.0
 ---
 
@@ -27,9 +27,11 @@ Place `include` wherever **common\_block** syntax is valid.
 
 The `include` statement processes the specified file in place.
 
-Relative paths are resolved against the process working directory ($CWD), not the including file's directory.
+Relative paths are resolved against the process working directory ($PWD), not the directory path of its including file.
 
 Wildcard (glob) patterns (`*`, `?`, and `[]`) match multiple files in lexical order.
+
+Option nft -I /etc/nftables overrides the $PWD when using a relative path in include statement.
 
 ### Syntax
 

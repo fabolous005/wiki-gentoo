@@ -4,12 +4,14 @@ title: YubiKey/PAM
 url: https://wiki.gentoo.org/wiki/YubiKey/PAM
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2025-11-27"
+date: "2026-11-10"
 fingerprint: b801481808a6bdcd
 license: CC BY-SA 4.0
 ---
 
 # YubiKey/PAM
+
+[YubiKey](https://wiki.gentoo.org/wiki/YubiKey)
 
 [Jump to:navigation](https://wiki.gentoo.org#mw-head)
 
@@ -45,6 +47,13 @@ Support for raw USB HID devices is required in the kernel for the YubiKey to fun
 ### USE flags
 
 
+### USE flags for
+            [sys-auth/pam\_u2f](https://packages.gentoo.org/packages/sys-auth/pam_u2f)
+            
+            PAM module for FIDO2 and U2F keys
+
+| [test](https://packages.gentoo.org/useflags/test) | Enable dependencies and/or preparations necessary to run tests (usually controlled by FEATURES=test but can be toggled independently) | 
+
 ### Emerge
 
 PAM, is modular by design, and adding modules is straightforward. [sys-auth/pam\_u2f](https://packages.gentoo.org/packages/sys-auth/pam_u2f)<sup>[\[1\]](https://wiki.gentoo.org#cite_note-1)</sup> is required to use a YubiKey with PAM.  This package provides the PAM module as well as tools to assist in the configuration of this module.
@@ -70,7 +79,7 @@ The user needs to log out and log back in for the group membership to take effec
 
 ### Mapping user-tokens
 
-In order to authenticate with PAM using pam\_u2f, a key token must be mapped to a user - unless the **nouserok** `module argument` is specified. By default, these mappings are read from \~/.config/Yubico/u2f\_keys.
+In order to authenticate with PAM using pam\_u2f, a key token must be mapped to a user - unless the **nouserok** `module argument` is specified. By default, these mappings are read from \~/.config/Yubico/u2f\_keys (per-user file method). A central mapping file such as /etc/u2f\_mappings can be configured using the **authfile** `module argument` (central file method).
 
 #### Creating user-token mapping (per-user file)
 
@@ -95,10 +104,10 @@ Touch the YubiKey when it starts blinking.
 
 #### Creating user-token mapping (central file)
 
-To create a central mapping file, insert the YubiKey and run (replacing `user` with the appropriate username):
+To create a central mapping file, insert the YubiKey and run (replacing `<user>` with the appropriate username):
 
 `root #````
-pamu2fcfg -uuser >> /etc/u2f_mappings
+pamu2fcfg -u "<user>" >> /etc/u2f_mappings
 ```
 Touch the YubiKey when it starts blinking.
 
@@ -110,6 +119,12 @@ A little more care is needed when mapping an additional key to a user if a centr
 
 **Format of the YubiKey mapping file**
 
+```
+# <user name>:<keyHandle1>,<public_key1>:<keyHandle2>,<public_key2>:...
+paul:aaaa...,bbbb...:cccc...,dddd...
+simon:eeee...,ffff...:gggg...,hhhh...
+kurt:iiii...,jjjj...
+```
 Manually copy/pasting the output of the following command onto the end of the relevant user's line in the mapping file is recommended in order to maintain its integrity:
 
 `root #````
@@ -133,6 +148,7 @@ While configuring [PAM](https://wiki.gentoo.org/wiki/PAM) service files in /etc/
 | `nouserok` | module argument | Specific to the pam\_u2f.so module, allowing for successful authentication in the event that the user is missing an authorization mapping or it is invalid. Without this, any users missing a mapping will fail authentication. | 
 | `cue` | module argument | Specific to the pam\_u2f.so module, prompts *Please touch the device.* when attempting authentication. If not set, the YubiKey will flash as a prompt, but there may be no on-screen indication. | 
 | `authfile=/etc/u2f_mappings` | module argument | Specific to the pam\_u2f.so module, sets the path for a central mapping file. If this is not set, \~/.config/Yubico/u2f\_keys is used by default. | 
+| `origin=pam://<hostname>` | module argument | Specific to the pam\_u2f.so module, sets the origin value to use during authentication. If this is not set, the value set in /etc/hostname is used by default. | 
 
 #### Testing PAM with a YubiKey
 
@@ -140,6 +156,9 @@ In order to test that everything works, temporarily configure PAM to use a YubiK
 
 **`/etc/pam.d/system-auth`**
 
+```
+auth        sufficient                  pam_u2f.so      cue
+```
 Attempting to log in as a user with a YubiKey mapped should now prompt for it. Providing a correct YubiKey should result in a successful login.
 
 #### Requiring a YubiKey
@@ -148,12 +167,21 @@ To require a YubiKey to authenticate with PAM, replace `sufficient` with `requir
 
 **`/etc/pam.d/system-auth`**
 
+```
+auth        required                    pam_u2f.so      cue
+```
 #### Requiring a password and a YubiKey
 
 To require both a password and a YubiKey to authenticate with PAM, modify the file to include the following:
 
 **`/etc/pam.d/system-auth`**
 
+```
+auth            requisite       pam_faillock.so preauth
+auth            [success=1 new_authtok_reqd=1 ignore=ignore default=bad]      pam_unix.so nullok  try_first_pass
+auth            [default=die]   pam_faillock.so authfail
+auth            required        pam_u2f.so      nouserok cue
+```
 `success=1` means PAM will skip over one module if the current one succeeds. In this case it will jump to the pam\_u2f module if the correct password is given.
 
 `nouserok` is included here so that users without a mapping configured are able to authenticate as well. Leave this out to require all users to provide both a password and a YubiKey.
@@ -164,6 +192,12 @@ To require either a password or a YubiKey to authenticate with PAM (but preferri
 
 **`/etc/pam.d/system-auth`**
 
+```
+auth            requisite       pam_faillock.so preauth
+auth            sufficient      pam_u2f.so      cue
+auth            [success=1 new_authtok_reqd=1 ignore=ignore default=bad]      pam_unix.so nullok  try_first_pass
+auth            [default=die]   pam_faillock.so authfail
+```
 `nouserok` is not included here because it would result in successful authentication without prompting for a password from users without a mapping configured.
 
 #### Requiring a YubiKey for Sudo authentication
@@ -174,6 +208,10 @@ If for some reason, it's desirable to only require YubiKey authentication for su
 
 **Require YubiKey auth in addition to**system-auth****
 
+```
+auth    required                pam_u2f.so      cue
+auth    substack                system-auth
+```
 ## Troubleshooting
 
 If no user is able to authenticate after completing the above, then a broken PAM configuration is the likely culprit. Even if no active root login is available, the system can still be fixed and authentication mechanisms restored by either live booting or booting into single-user mode.
