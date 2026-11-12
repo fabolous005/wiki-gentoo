@@ -4,7 +4,7 @@ title: KDE
 url: https://wiki.gentoo.org/wiki/KDE
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-11-08"
+date: "2026-11-11"
 categories: ['kde-apps', 'kde-misc']
 fingerprint: ab13aa4909a3b18c
 license: CC BY-SA 4.0
@@ -70,7 +70,7 @@ Make sure to have configured applicable `VIDEO_CARDS` USE expand settings and ke
 | KDE | Gentoo | Ebuild repository | Status | 
 |---|---|---|---|
 | KDE Plasma 6.7.6 | kde-plasma/plasma-meta-6.7.6 | gentoo | Stable for **amd64** and **arm64**; testing for **ppc64**, **riscv** and **x86** | 
-| KDE Plasma 6.8.2 | kde-plasma/plasma-meta-6.8.2 | gentoo | Testing for **amd64** and **arm64** | 
+| KDE Plasma 6.8.3 | kde-plasma/plasma-meta-6.8.3 | gentoo | Testing for **amd64** and **arm64** | 
 | KDE Plasma 6.7 stable branch | kde-plasma/plasma-meta-6.7.49.9999 | [KDE](https://wiki.gentoo.org/wiki/KDE/Ebuild_repository) | Live version | 
 | KDE Plasma 6.8 stable branch | kde-plasma/plasma-meta-6.8.49.9999 | [KDE](https://wiki.gentoo.org/wiki/KDE/Ebuild_repository) | Live version | 
 | KDE Plasma 6 master branch | kde-plasma/plasma-meta-9999 | [KDE](https://wiki.gentoo.org/wiki/KDE/Ebuild_repository) | Live version | 
@@ -108,7 +108,6 @@ The [kde-plasma/plasma-meta](https://packages.gentoo.org/packages/kde-plasma/pla
 | [flatpak](https://packages.gentoo.org/useflags/flatpak) | Pull in kde-plasma/flatpak-kcm for flatpak permissions administration | 
 | [grub](https://packages.gentoo.org/useflags/grub) | Pull in Breeze theme for sys-boot/grub | 
 | [gtk](https://packages.gentoo.org/useflags/gtk) | Enable Breeze widget style and system settings module for GTK+ | 
-| [ocr](https://packages.gentoo.org/useflags/ocr) | Enable Optical Character Recognition support via app-text/tesseract | 
 | [oxygen-theme](https://packages.gentoo.org/useflags/oxygen-theme) | Pull in Oxygen icons, sound theme and visual style for KDE Plasma | 
 | [plymouth](https://packages.gentoo.org/useflags/plymouth) | Pull in Breeze theme for sys-boot/plymouth | 
 | [pulseaudio](https://packages.gentoo.org/useflags/pulseaudio) | Install Plasma applet for PulseAudio volume management | 
@@ -248,8 +247,8 @@ KDE Gear consists of various applications and supporting libraries based on Qt/K
 
 | KDE | Gentoo | Ebuild repository | Status | 
 |---|---|---|---|
-| KDE Gear 26.04.3 | kde-apps/kde-apps-meta-26.04.3 | gentoo | Stable for **amd64** and **arm64** | 
-| KDE Gear 26.08.3 | kde-apps/kde-apps-meta-26.08.3 | gentoo | Testing for **amd64** and **arm64** | 
+| KDE PIM 26.04.3 | kde-apps/kdepim-meta-26.04.3 | gentoo | Stable for **amd64** and **arm64** | 
+| KDE Gear 26.08.3 | kde-apps/kde-apps-meta-26.08.3 | gentoo | Stable for **amd64** and **arm64** | 
 | KDE Gear master branch | kde-apps/kde-apps-meta-9999 | [KDE](https://wiki.gentoo.org/wiki/KDE/Ebuild_repository) | Live version | 
 
 KDE Gear is divided in the following meta packages:

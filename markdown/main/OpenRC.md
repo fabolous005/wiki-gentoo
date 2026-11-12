@@ -4,7 +4,7 @@ title: OpenRC
 url: https://wiki.gentoo.org/wiki/OpenRC
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-11-09"
+date: "2026-11-11"
 fingerprint: b718ab5907028ac4
 license: CC BY-SA 4.0
 ---
@@ -351,7 +351,7 @@ OpenRC user services require environment variable [XDG\_RUNTIME\_DIR](https://wi
 
 Since the [stabilization of user services](https://www.gentoo.org/support/news-items/2025-09-04-openrc-user-services.html), services added to user runlevels are started automatically when the user's first login session starts, and stopped automatically when the user's last session terminates. This features uses [Pluggable Authentication Modules (PAM)](https://wiki.gentoo.org/wiki/PAM) functionality. No user action is required other than adding wanted services to user runlevels.
 
-For the implementation of user services, OpenRC provides a PAM module, pam\_openrc.so, the openrc-run program, and a system service named `user`. Different instances of this service are started for each logged in user, each of which spawns an openrc-run process.
+For the implementation of user services, OpenRC provides a PAM module, pam\_openrc.so, the openrc-user program, and a system service named `user`. Different instances of this service are started for each logged in user, each of which spawns an openrc-user process.
 
 openrc-user opens another PAM session for the user, which will last as long as any given session using the pam\_openrc.so module is active. It loads the PAM stack specified by its configuration file, /etc/pam.d/openrc-user, which is used for that new session, then enters the user boot runlevel, and finally the configured user default runlevel —which is default unless the user changed it—.
 

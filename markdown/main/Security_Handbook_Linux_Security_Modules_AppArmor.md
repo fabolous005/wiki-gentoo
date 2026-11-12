@@ -4,8 +4,8 @@ title: Security Handbook/Linux Security Modules/AppArmor
 url: https://wiki.gentoo.org/wiki/Security_Handbook/Linux_Security_Modules/AppArmor
 hostname: gentoo.org
 sitename: wiki.gentoo.org
-date: "2026-08-17"
-fingerprint: "4093a8760735a746"
+date: "2026-11-11"
+fingerprint: "4893a8760735a746"
 license: CC BY-SA 4.0
 ---
 
@@ -23,6 +23,20 @@ license: CC BY-SA 4.0
 
 Activate the following kernel options:
 
+```
+General setup --->
+    -*- Auditing support
+Security options  --->
+    -*- Enable the securityfs filesystem
+    -*- Socket and Networking Security Hooks
+    [*] Enable different security models
+    [*] AppArmor support
+          [*]   Enable introspection of sha1 hashes for loaded profiles
+          [*]      Enable policy hash introspection by default
+    [ ] Build AppArmor with debug code
+          First legacy 'major LSM' to be initialized (AppArmor)  --->
+          "yama,apparmor" Ordered List of enabled LSMs
+```
 Below the "First legacy 'major LSM' to be initialized (AppArmor)  --->" 
 
 Is an "Ordered List of enabled LSMs" (CONFIG\_LSM=) containing a list of strings that needs to be modified to include AppArmor 
@@ -64,6 +78,10 @@ If AppArmor was not selected as the default security module, and the boot parame
 
 #### GRUB
 
+[checking over the content](https://wiki.gentoo.org/index.php?title=Security_Handbook/Linux_Security_Modules/AppArmor&action=edit)(
+
+[how to get started](https://wiki.gentoo.org/wiki/Gentoo_Wiki:Contributor%27s_guide)).
+
 **`/boot/grub/grub.conf`**
 
 **Example GRUB config for AppArmor with simple kernel**
@@ -94,7 +112,7 @@ securityfs is the filesystem used by Linux kernel security modules. The init scr
 **securityfs entry for fstab**
 
 ```
-     /sys/kernel/security securityfs defaults            0      0
+none     /sys/kernel/security securityfs defaults            0      0
 ```
 ### Services
 
